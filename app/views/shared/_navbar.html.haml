@@ -1,6 +1,7 @@
-.navbar.navbar-default.navbar-fixed-top
+.navbar.navbar-default.navbar-fixed-top{ role: 'navigation' }
   .container
     = link_to 'Mechanio', root_path, class: 'navbar-brand'
     .navbar-right
       = link_to 'Sign up', '#', class: 'btn btn-default navbar-btn'
-      = link_to 'Login', '#', class: 'btn btn-default navbar-btn'
+      = link_to 'Login', '#', class: 'btn btn-default navbar-btn'      %ul.nav.navbar-nav
+        %li= link_to 'How it works', '#', class: 'navbar-link'
