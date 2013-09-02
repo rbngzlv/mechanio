@@ -1,8 +1,9 @@
 require 'spec_helper'
 
 describe 'Homepage' do
+
   it 'shows homepage' do
-    visit '/'
+    visit root_path
 
     page.should have_link 'Sign up'
     page.should have_link 'Login'

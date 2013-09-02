@@ -2,6 +2,10 @@
   .container
     = link_to 'Mechanio', root_path, class: 'navbar-brand'
     .navbar-right
-      = link_to 'Sign up', '#', class: 'btn btn-default navbar-btn'
-      = link_to 'Login', '#', class: 'btn btn-default navbar-btn'      %ul.nav.navbar-nav
+      %ul.nav.navbar-nav
         %li= link_to 'How it works', '#', class: 'navbar-link'
+      - if user_signed_in?
+        = link_to 'Logout', destroy_user_session_path, method: :delete, class: 'btn btn-default navbar-btn'
+      - else
+        = link_to 'Sign up', new_user_registration_path, class: 'btn btn-default navbar-btn'
+        = link_to 'Login', new_user_session_path, class: 'btn btn-default navbar-btn'

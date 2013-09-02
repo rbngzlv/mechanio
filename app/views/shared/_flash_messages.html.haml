@@ -1,0 +1,4 @@
+- flash.each do |type, message|
+  - css_class = { success: "alert-success", error: "alert-danger", alert: "alert-danger", notice: "alert-info" }[type] || type.to_s
+  %div{ class: "alert #{css_class}" }
+    = message

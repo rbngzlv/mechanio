@@ -1,0 +1,17 @@
+%h2 Login
+.row
+  .col-md-4
+    = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+      = f.input :email, autofocus: true, label: false, placeholder: "Email"
+      = f.input :password, label: false, placeholder: "Password"
+      = f.input :remember_me, as: :boolean, label: false, inline_label: true if devise_mapping.rememberable?
+      = f.button :submit, "Login"
+
+    %br
+    %ul.list-unstyled
+      %li
+        Forgot your password?
+        = link_to "Reset it here", new_password_path(resource_name)
+      %li
+        It's free to join!
+        = link_to "Sign up", new_registration_path(resource_name)
