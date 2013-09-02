@@ -25,6 +25,10 @@ group :test do
   gem 'capybara'
 end
 
+group :development, :test do
+  gem 'awesome_print'
+end
+
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 

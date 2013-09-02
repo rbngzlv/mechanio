@@ -1,5 +1,5 @@
 Mechanio::Application.routes.draw do
-  devise_for :admins
+  devise_for :admin
   devise_for :mechanics
   devise_for :users
   # The priority is based upon order of creation: first created -> highest priority.
@@ -10,6 +10,10 @@ Mechanio::Application.routes.draw do
 
   namespace :users do
     get 'dashboard', to: 'dashboard#index'
+  end
+
+  namespace :admin do
+    get '/', to: 'dashboard#index', as: :dashboard
   end
 
   # Example of regular route:
