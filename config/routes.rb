@@ -16,6 +16,7 @@ Mechanio::Application.routes.draw do
     get '/', to: 'dashboard#index', as: :dashboard
 
     resources :users
+    resources :mechanics, except: [:show]
   end
 
   # Example of regular route:

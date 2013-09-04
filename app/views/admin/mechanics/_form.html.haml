@@ -1,0 +1,16 @@
+= simple_form_for [:admin, @mechanic], html: { class: 'form-horizontal' } do |f|
+  = f.error_notification
+  = f.input :first_name
+  = f.input :last_name
+  = f.input :dob, label: 'Date of birth', start_year: Date.today.year - 60, end_year: Date.today.year - 18
+  = f.input :email, label: 'Personal email'
+  = f.input :description, label: 'Personal description'
+  = f.input :street_address
+  = f.input :suburb
+  = f.association :state, prompt: '-- Please select --'
+  = f.input :postcode
+  = f.input :driver_license, label: "Driver's license number"
+  = f.association :license_state, label: 'Registered state', prompt: '-- Please select --'
+  = f.input :license_expiry, label: 'Expiry date', start_year: Date.today.year, end_year: Date.today.year + 20
+  = f.submit 'Save', class: 'btn btn-primary'
+  = link_to "Delete", admin_mechanic_path(@mechanic), method: :delete, class: 'btn btn-danger pull-right', data: { confirm: 'Are you sure to delete the mechanic?' }

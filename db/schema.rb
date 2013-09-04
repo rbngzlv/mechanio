@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130903091127) do
+ActiveRecord::Schema.define(version: 20130903183810) do
 
   create_table "admins", force: true do |t|
     t.string   "email"
@@ -48,6 +48,15 @@ ActiveRecord::Schema.define(version: 20130903091127) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
+    t.date     "dob"
+    t.text     "description"
+    t.text     "street_address"
+    t.string   "suburb"
+    t.integer  "state_id"
+    t.string   "postcode"
+    t.string   "driver_license"
+    t.integer  "license_state_id"
+    t.date     "license_expiry"
   end
 
   add_index "mechanics", ["email"], name: "index_mechanics_on_email", unique: true, using: :btree
