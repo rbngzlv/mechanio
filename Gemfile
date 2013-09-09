@@ -26,13 +26,15 @@ end
 
 group :test do
   gem 'factory_girl_rails'
-  gem 'rspec-rails'
   gem 'shoulda-matchers'
   gem 'capybara'
 end
 
 group :development, :test do
+  gem 'rspec-rails'
   gem 'awesome_print'
+  gem 'pry'
+  gem 'pry-debugger'
 end
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
