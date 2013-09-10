@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130903183810) do
+ActiveRecord::Schema.define(version: 20130910154003) do
 
   create_table "admins", force: true do |t|
     t.string   "email"
@@ -31,6 +31,18 @@ ActiveRecord::Schema.define(version: 20130903183810) do
 
   add_index "admins", ["email"], name: "index_admins_on_email", unique: true, using: :btree
   add_index "admins", ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true, using: :btree
+
+  create_table "body_types", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "brands", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "mechanics", force: true do |t|
     t.string   "first_name"
@@ -62,6 +74,26 @@ ActiveRecord::Schema.define(version: 20130903183810) do
   add_index "mechanics", ["email"], name: "index_mechanics_on_email", unique: true, using: :btree
   add_index "mechanics", ["reset_password_token"], name: "index_mechanics_on_reset_password_token", unique: true, using: :btree
 
+  create_table "model_variations", force: true do |t|
+    t.string   "title"
+    t.string   "identifier"
+    t.integer  "model_id"
+    t.integer  "body_type_id"
+    t.integer  "from_year"
+    t.integer  "to_year"
+    t.string   "transmission"
+    t.string   "fuel"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "models", force: true do |t|
+    t.string   "name"
+    t.integer  "brand_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "states", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
@@ -91,5 +123,13 @@ ActiveRecord::Schema.define(version: 20130903183810) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+
+  create_table "vehicles", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "model_variation_id"
+    t.integer  "year"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end
