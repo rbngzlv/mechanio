@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+source 'http://rubygems.org'
 
 ruby '2.0.0'
 
@@ -12,11 +12,29 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 gem 'bootstrap-sass-rails'
 gem 'uglifier', '>= 1.3.0'
+gem 'simple_form', '~> 3.0.0.rc'
+gem 'kaminari'
+
+gem 'unicorn'
+
+group :development do
+  gem 'capistrano'
+  gem 'capistrano-ext'
+  gem 'rvm-capistrano'
+  gem 'quiet_assets'
+end
 
 group :test do
   gem 'factory_girl_rails'
-  gem 'rspec-rails'
+  gem 'shoulda-matchers'
   gem 'capybara'
+end
+
+group :development, :test do
+  gem 'rspec-rails'
+  gem 'awesome_print'
+  gem 'pry'
+  gem 'pry-debugger'
 end
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes

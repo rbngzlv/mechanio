@@ -1,0 +1,8 @@
+!!!
+%html
+  = render 'layouts/head'
+  %body
+    = render 'admin/shared/navbar'
+    .container
+      = render 'shared/flash_messages'
+      = yield

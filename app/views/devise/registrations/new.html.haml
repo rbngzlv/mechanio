@@ -1,0 +1,17 @@
+%h2 Sign up
+.row
+  .col-md-4
+    = simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+      = f.error_notification
+      = f.input :first_name, label: false, placeholder: 'First name', input_html: { autocomplete: 'off' }
+      = f.input :last_name, label: false, placeholder: 'Last name', input_html: { autocomplete: 'off' }
+      = f.input :email, autofocus: true, label: false, placeholder: 'Email', input_html: { autocomplete: 'off' }
+      = f.input :password, label: false, placeholder: 'Password', input_html: { autocomplete: 'off' }
+      = f.button :submit, "Sign up"
+
+    %br
+    %ul.list-unstyled
+      %li
+        Already have an account?
+        = link_to "Login", new_session_path(resource_name)
+
