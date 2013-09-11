@@ -8,7 +8,15 @@ class Mechanic < ActiveRecord::Base
   belongs_to :state
   belongs_to :license_state, class_name: 'State'
 
+  after_create :registration_email
+
   def full_name
     "#{first_name} #{last_name}"
+  end
+
+  protected
+
+  def registration_email
+    MechanicMailer::registration_note(self).deliver
   end
 end

@@ -22,6 +22,7 @@ describe 'Admin mechanics management' do
   end
 
   it 'adds a new mechanic' do
+    mail_deliveries.clear
     visit admin_mechanics_path
     click_link 'Add mechanic'
 
@@ -46,6 +47,10 @@ describe 'Admin mechanics management' do
     end.to change { Mechanic.count }.by 1
 
     page.should have_css '.alert', text: 'Mechanic succesfully created.'
+    mail_deliveries.last.tap do |letter|
+      letter.body.should include('mechanic@host.com')
+      letter.subject.should include('Thnx for ur registration')
+    end
   end
 
   it 'edits existing mechanic' do

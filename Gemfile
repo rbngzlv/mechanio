@@ -22,12 +22,15 @@ group :development do
   gem 'capistrano-ext'
   gem 'rvm-capistrano'
   gem 'quiet_assets'
+
+  gem 'letter_opener'
 end
 
 group :test do
   gem 'factory_girl_rails'
   gem 'shoulda-matchers'
   gem 'capybara'
+  gem 'selenium-webdriver'
 end
 
 group :development, :test do
