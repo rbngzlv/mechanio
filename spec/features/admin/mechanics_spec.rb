@@ -47,10 +47,8 @@ describe 'Admin mechanics management' do
     end.to change { Mechanic.count }.by 1
 
     page.should have_css '.alert', text: 'Mechanic succesfully created.'
-    mail_deliveries.last.tap do |letter|
-      letter.body.should include('mechanic@host.com')
-      letter.subject.should include('Thnx for ur registration')
-    end
+    last_delivery.body.should include('mechanic@host.com')
+    last_delivery.subject.should include('Thnx for ur registration')
   end
 
   it 'edits existing mechanic' do

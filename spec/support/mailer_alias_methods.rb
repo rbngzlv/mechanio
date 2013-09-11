@@ -2,8 +2,8 @@ module MailerAliasMethods
   def mail_deliveries
     ActionMailer::Base.deliveries
   end
-end
 
-RSpec.configure do |c|
-  c.include MailerAliasMethods
+  def last_delivery
+    mail_deliveries.last
+  end
 end
