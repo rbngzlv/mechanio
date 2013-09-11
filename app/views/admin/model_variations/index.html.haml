@@ -6,7 +6,7 @@
       No vehicles yet
 - else
   = simple_form_for [:admin, @model_variation], url: admin_model_variations_path, method: :get, html: { class: 'form-inline' } do |f|
-    = f.association :brand, label: false, include_blank: '-- Make --', wrapper_html: { style: 'width: 15%' }, input_html: { class: 'input-sm' }
+    = f.association :make, label: false, include_blank: '-- Make --', wrapper_html: { style: 'width: 15%' }, input_html: { class: 'input-sm' }
     = f.association :model, label: false, include_blank: '-- Model --', wrapper_html: { style: 'width: 15%' }, input_html: { class: 'input-sm' }
     = f.association :body_type, label: false, include_blank: '-- Body --', wrapper_html: { style: 'width: 10%' }, input_html: { class: 'input-sm' }
     .vertical-divider-sm
@@ -32,7 +32,7 @@
     %tbody
       - @model_variations.each do |m|
         %tr
-          %td= m.brand.name
+          %td= m.make.name
           %td= m.title
           %td= "#{m.from_year} - #{m.to_year}"
           %td= m.body_type.name

@@ -1,8 +1,8 @@
 class Model < ActiveRecord::Base
 
-  belongs_to :brand
+  belongs_to :make
 
   has_many :model_variations
 
-  validates :name, :brand, presence: true
+  validates :name, :make, presence: true
 end

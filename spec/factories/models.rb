@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :model do
-    brand
+    make
     name 'Golf'
   end
 end

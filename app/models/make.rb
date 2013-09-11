@@ -1,4 +1,4 @@
-class Brand < ActiveRecord::Base
+class Make < ActiveRecord::Base
 
   validates :name, presence: true
 end

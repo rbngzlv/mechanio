@@ -21,7 +21,7 @@ describe 'Model catalog' do
     visit admin_model_variations_path
     page.should have_css 'tbody tr', count: 2
 
-    select Brand.first.name, from: 'model_variation_brand_id'
+    select Make.first.name, from: 'model_variation_make_id'
     click_button 'Search'
 
     page.should have_css 'tbody tr', count: 1

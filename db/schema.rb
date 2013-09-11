@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130911125456) do
+ActiveRecord::Schema.define(version: 20130911190812) do
 
   create_table "admins", force: true do |t|
     t.string   "email"
@@ -38,7 +38,7 @@ ActiveRecord::Schema.define(version: 20130911125456) do
     t.datetime "updated_at"
   end
 
-  create_table "brands", force: true do |t|
+  create_table "makes", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -85,12 +85,12 @@ ActiveRecord::Schema.define(version: 20130911125456) do
     t.string   "fuel"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "brand_id"
+    t.integer  "make_id"
   end
 
   create_table "models", force: true do |t|
     t.string   "name"
-    t.integer  "brand_id"
+    t.integer  "make_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
