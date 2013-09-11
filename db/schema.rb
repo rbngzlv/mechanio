@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130910154003) do
+ActiveRecord::Schema.define(version: 20130911125456) do
 
   create_table "admins", force: true do |t|
     t.string   "email"
@@ -85,6 +85,7 @@ ActiveRecord::Schema.define(version: 20130910154003) do
     t.string   "fuel"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "brand_id"
   end
 
   create_table "models", force: true do |t|

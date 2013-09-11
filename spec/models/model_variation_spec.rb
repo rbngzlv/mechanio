@@ -4,11 +4,13 @@ describe ModelVariation do
 
   let(:model_variation) { build :model_variation }
 
+  it { should belong_to :brand }
   it { should belong_to :model }
   it { should belong_to :body_type }
 
   it { should validate_presence_of :title }
   it { should validate_presence_of :identifier }
+  it { should validate_presence_of :brand_id }
   it { should validate_presence_of :model_id }
   it { should validate_presence_of :body_type_id }
   it { should validate_presence_of :from_year }
