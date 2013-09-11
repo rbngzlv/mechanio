@@ -1,0 +1,43 @@
+%h4 Manage vehicles
+
+- if @model_variations.empty?
+  .panel.panel-default
+    .panel-body.text-center
+      No vehicles yet
+- else
+  = simple_form_for [:admin, @model_variation], url: admin_model_variations_path, method: :get, html: { class: 'form-inline' } do |f|
+    = f.association :brand, label: false, include_blank: '-- Make --', wrapper_html: { style: 'width: 15%' }, input_html: { class: 'input-sm' }
+    = f.association :model, label: false, include_blank: '-- Model --', wrapper_html: { style: 'width: 15%' }, input_html: { class: 'input-sm' }
+    = f.association :body_type, label: false, include_blank: '-- Body --', wrapper_html: { style: 'width: 10%' }, input_html: { class: 'input-sm' }
+    .vertical-divider-sm
+    = f.input :fuel, as: :select, collection: ModelVariation::FUEL, label: false, include_blank: '-- Fuel --', wrapper_html: { style: 'width: 10%' }, input_html: { class: 'input-sm' }
+    = f.input :transmission, as: :select, collection: ModelVariation::TRANSMISSION, label: false, include_blank: '-- Transmittion --', wrapper_html: { style: 'width: 10%' }, input_html: { class: 'input-sm' }
+    .vertical-divider-sm
+    = f.input :from_year, as: :select, collection: (1960..Date.today.year), label: false, include_blank: '-- From --', wrapper_html: { style: 'width: 8%' }, input_html: { class: 'input-sm' }
+    = f.input :to_year, as: :select, collection: (1960..Date.today.year), label: false, include_blank: '-- To --', wrapper_html: { style: 'width: 8%' }, input_html: { class: 'input-sm' }
+    = f.submit 'Search', class: 'btn btn-primary pull-right'
+
+  %hr
+
+  %table.table.table-striped
+    %thead
+      %tr
+        %th.col-md-2 Make
+        %th Model
+        %th.col-md-2 Years
+        %th.col-md-2 Body
+        %th.col-md-1 Transmission
+        %th.col-md-1 Fuel
+        %th.col-md-1 Identifier
+    %tbody
+      - @model_variations.each do |m|
+        %tr
+          %td= m.brand.name
+          %td= m.title
+          %td= "#{m.from_year} - #{m.to_year}"
+          %td= m.body_type.name
+          %td= m.transmission
+          %td= m.fuel
+          %td= m.identifier
+
+  = paginate @model_variations

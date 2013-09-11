@@ -6,5 +6,6 @@
       %ul.nav.navbar-nav.navbar-left
         %li= link_to 'Users', admin_users_path
         %li= link_to 'Mechanics', admin_mechanics_path
+        %li= link_to 'Vehicles', admin_model_variations_path
     - else
       = link_to 'Login', new_admin_session_path, class: 'btn btn-default navbar-btn'

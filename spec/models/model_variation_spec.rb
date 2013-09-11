@@ -47,4 +47,18 @@ describe ModelVariation do
     model_variation.to_year = 1995
     model_variation.valid?.should be_true
   end
+
+  it '#search' do
+    variation1 = create :model_variation, from_year: 2005, to_year: 2007, fuel: 'Petrol', transmission: 'Manual'
+    variation2 = create :model_variation, from_year: 2007, to_year: 2010, fuel: 'Diesel', transmission: 'Automatic'
+    brands = Brand.all.to_a
+    models = Model.all.to_a
+    ModelVariation.search(brand_id: brands[0].id).should eq [variation1]
+    ModelVariation.search(model_id: models[1].id).should eq [variation2]
+    ModelVariation.search(from_year: 2006).should eq [variation2]
+    ModelVariation.search(from_year: 2005, to_year: 2011).should eq [variation1, variation2]
+    ModelVariation.search(to_year: 2009).should eq [variation1]
+    ModelVariation.search(transmission: 'Manual').should eq [variation1]
+    ModelVariation.search(fuel: 'Diesel').should eq [variation2]
+  end
 end
