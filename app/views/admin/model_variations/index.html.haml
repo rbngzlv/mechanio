@@ -1,20 +1,20 @@
-%h4 Manage vehicles
+%h4 Search car models
 
 - if @model_variations.empty?
   .panel.panel-default
     .panel-body.text-center
-      No vehicles yet
+      No models found
 - else
-  = simple_form_for [:admin, @model_variation], url: admin_model_variations_path, method: :get, html: { class: 'form-inline' } do |f|
-    = f.association :make, label: false, include_blank: '-- Make --', wrapper_html: { style: 'width: 15%' }, input_html: { class: 'input-sm' }
-    = f.association :model, label: false, include_blank: '-- Model --', wrapper_html: { style: 'width: 15%' }, input_html: { class: 'input-sm' }
-    = f.association :body_type, label: false, include_blank: '-- Body --', wrapper_html: { style: 'width: 10%' }, input_html: { class: 'input-sm' }
+  = simple_form_for [:admin, @model_variation], url: admin_model_variations_path, method: :get, wrapper: :nolabel_sm, html: { class: 'form-inline' } do |f|
+    = f.association :make, include_blank: '-- Make --', wrapper_html: { style: 'width: 15%' }
+    = f.association :model, include_blank: '-- Model --', wrapper_html: { style: 'width: 15%' }
+    = f.association :body_type, include_blank: '-- Body --', wrapper_html: { style: 'width: 10%' }
     .vertical-divider-sm
-    = f.input :fuel, as: :select, collection: ModelVariation::FUEL, label: false, include_blank: '-- Fuel --', wrapper_html: { style: 'width: 10%' }, input_html: { class: 'input-sm' }
-    = f.input :transmission, as: :select, collection: ModelVariation::TRANSMISSION, label: false, include_blank: '-- Transmittion --', wrapper_html: { style: 'width: 10%' }, input_html: { class: 'input-sm' }
+    = f.input :fuel, as: :select, collection: ModelVariation::FUEL, include_blank: '-- Fuel --', wrapper_html: { style: 'width: 10%' }
+    = f.input :transmission, as: :select, collection: ModelVariation::TRANSMISSION, include_blank: '-- Transmittion --', wrapper_html: { style: 'width: 10%' }
     .vertical-divider-sm
-    = f.input :from_year, as: :select, collection: (1960..Date.today.year), label: false, include_blank: '-- From --', wrapper_html: { style: 'width: 8%' }, input_html: { class: 'input-sm' }
-    = f.input :to_year, as: :select, collection: (1960..Date.today.year), label: false, include_blank: '-- To --', wrapper_html: { style: 'width: 8%' }, input_html: { class: 'input-sm' }
+    = f.input :from_year, as: :select, collection: (1960..Date.today.year), include_blank: '-- From --', wrapper_html: { style: 'width: 8%' }
+    = f.input :to_year, as: :select, collection: (1960..Date.today.year), include_blank: '-- To --', wrapper_html: { style: 'width: 8%' }
     = f.submit 'Search', class: 'btn btn-primary pull-right'
 
   %hr

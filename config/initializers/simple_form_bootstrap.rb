@@ -9,6 +9,14 @@ SimpleForm.setup do |config|
     b.use :hint,  wrap_with: { tag: 'p', class: 'help-block' }
   end
 
+  config.wrappers :nolabel_sm, tag: 'div', class: 'form-group', error_class: 'has-error' do |b|
+    b.use :html5
+    b.use :placeholder
+    b.use :input
+    b.use :error, wrap_with: { tag: 'span', class: 'help-block' }
+    b.use :hint,  wrap_with: { tag: 'p', class: 'help-block' }
+  end
+
   config.wrappers :prepend, tag: 'div', class: "form-group", error_class: 'error' do |b|
     b.use :html5
     b.use :placeholder
@@ -61,7 +69,10 @@ inputs.each do |input_type|
 
   new_class = Class.new(superclass) do
     def input_html_classes
-      super.push('form-control')
+      css = super
+      css.push('form-control')
+      css.push('input-sm') if (@builder.options[:wrapper] && @builder.options[:wrapper].to_s.include?('_sm'))
+      css
     end
   end
 

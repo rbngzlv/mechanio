@@ -11,7 +11,7 @@ describe 'Model catalog' do
   it 'shows message when there are no models' do
     visit admin_model_variations_path
 
-    page.should have_content 'No vehicles yet'
+    page.should have_content 'No models found'
   end
 
   it 'searches models' do
