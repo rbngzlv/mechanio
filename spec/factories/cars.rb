@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :vehicle do
+  factory :car do
     user
     model_variation
     year      2012

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Vehicle do
+describe Car do
 
   it { should belong_to :user }
   it { should belong_to :model_variation }

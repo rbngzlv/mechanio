@@ -1,4 +1,4 @@
-class Vehicle < ActiveRecord::Base
+class Car < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :model_variation
