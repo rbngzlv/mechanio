@@ -17,20 +17,8 @@ describe ModelVariation do
   it { should validate_presence_of :to_year }
   it { should validate_presence_of :transmission }
   it { should validate_presence_of :fuel }
-
-  context 'validates transmission' do
-    ModelVariation::TRANSMISSION.each do |t|
-      it { should allow_value(t).for(:transmission) }
-    end
-    it { should_not allow_value('Invalid').for(:transmission) }
-  end
-
-  context 'validates fuel' do
-    ModelVariation::FUEL.each do |f|
-      it { should allow_value(f).for(:fuel) }
-    end
-    it { should_not allow_value('Invalid').for(:fuel) }
-  end
+  it { should ensure_inclusion_of(:transmission).in_array(ModelVariation::TRANSMISSION)}
+  it { should ensure_inclusion_of(:fuel).in_array(ModelVariation::FUEL)}
 
   it 'validates year range' do
     model_variation.from_year = 123
