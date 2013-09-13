@@ -17,6 +17,7 @@ Mechanio::Application.routes.draw do
 
     resources :users
     resources :mechanics, except: [:show]
+    resources :model_variations, only: [:index]
   end
 
   # Example of regular route:

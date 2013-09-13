@@ -4,7 +4,9 @@
     - if admin_signed_in?
       = link_to 'Logout', destroy_admin_session_path, method: :delete, class: 'btn btn-default navbar-btn pull-right'
       %ul.nav.navbar-nav.navbar-left
-        %li= link_to 'Users', admin_users_path
-        %li= link_to 'Mechanics', admin_mechanics_path
+        = active_li 'Dashboard', admin_dashboard_path, 'admin/dashboard'
+        = active_li 'Users', admin_users_path, 'admin/users'
+        = active_li 'Mechanics', admin_mechanics_path, 'admin/mechanics'
+        = active_li 'Car models', admin_model_variations_path, 'admin/model_variations'
     - else
       = link_to 'Login', new_admin_session_path, class: 'btn btn-default navbar-btn'

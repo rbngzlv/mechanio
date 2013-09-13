@@ -95,3 +95,12 @@ body {
   background-color: #292929;
   color: #fff;
 }
+
+.vertical-divider-sm {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 5px;
+  padding-right: 5px;
+  border-left: 1px solid #ddd;
+  height: $input-height-small;
+}

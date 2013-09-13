@@ -34,6 +34,8 @@ describe 'User register' do
 
       page.should have_css 'h4', text: 'Dashboard'
       page.should have_css '.alert', text: 'Welcome! You have signed up successfully.'
+
+      # TODO: test for welcome email here
     end
   end
 end
