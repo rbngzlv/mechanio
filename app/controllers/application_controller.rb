@@ -15,8 +15,9 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(resource)
     case
-      when resource.instance_of?(Admin) then admin_dashboard_path
-      when resource.instance_of?(User)  then users_dashboard_path
+      when resource.instance_of?(Mechanic)  then mechanics_dashboard_path
+      when resource.instance_of?(Admin)     then admin_dashboard_path
+      when resource.instance_of?(User)      then users_dashboard_path
     end
   end
 end
