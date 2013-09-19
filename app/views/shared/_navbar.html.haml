@@ -5,7 +5,10 @@
       = link_to 'How it works', '#', class: 'btn btn-link navbar-btn'
       - if user_signed_in?
         = link_to 'Logout', destroy_user_session_path, method: :delete, class: 'btn btn-primary navbar-btn'
+      - elsif mechanic_signed_in?
+        = link_to 'Logout', destroy_mechanic_session_path, method: :delete, class: 'btn btn-default navbar-btn pull-right'
       - else
         = link_to 'Sign up', new_user_registration_path, class: 'btn btn-primary navbar-btn'
         = link_to 'Login', new_user_session_path, class: 'btn btn-dark navbar-btn'
       %p.help Need Help ? / Call 1800 123 1234
+

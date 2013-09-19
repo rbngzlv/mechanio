@@ -12,4 +12,9 @@ module FeatureMacros
     admin ||= create :admin
     login_as admin, scope: :admin
   end
+
+  def login_mechanic(mechanic = nil)
+    mechanic ||= create :mechanic
+    login_as mechanic, scope: :mechanic
+  end
 end
