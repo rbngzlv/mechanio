@@ -46,3 +46,4 @@ namespace :deploy do
 end
 
 before "deploy:finalize_update", "configure"
+after "deploy:update", "deploy:migrate"
