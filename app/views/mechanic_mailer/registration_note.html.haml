@@ -1,7 +1,14 @@
-%h2 Thnx for ur registration
 %p
-  Ur login is
-  = @mechanic.email
+  Hi #{ @mechanic.full_name },
 %p
-  Ur password is
-  = @mechanic.password
+  Welcome to Mechanio! We're glad to have you on board.
+%p
+  You can log in to your account by heading to #{ link_to root_url, root_url } and use the following details:
+%p
+  Username: #{ @mechanic.email }
+  %br
+  Password: #{ @mechanic.password }
+%p
+  Now as your part of our family, your able to receive car service or repair request from our large network of car owners.
+%p
+  Please click here to start receiving jobs!

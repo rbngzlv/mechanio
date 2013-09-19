@@ -12,6 +12,10 @@ Mechanio::Application.routes.draw do
     get 'dashboard', to: 'dashboard#index'
   end
 
+  namespace :mechanics do
+    get '/', to: 'dashboard#index', as: :dashboard
+  end
+
   namespace :admin do
     get '/', to: 'dashboard#index', as: :dashboard
 
@@ -59,7 +63,7 @@ Mechanio::Application.routes.draw do
   #       get 'recent', on: :collection
   #     end
   #   end
-  
+
   # Example resource route with concerns:
   #   concern :toggleable do
   #     post 'toggle'
