@@ -13,6 +13,8 @@ class ModelVariation < ActiveRecord::Base
   validates :transmission, inclusion: { in: TRANSMISSION }
   validates :fuel, inclusion: { in: FUEL }
 
+  before_save :set_display_title
+
   default_scope { order(:from_year) }
 
   def self.search(params = {})
@@ -22,5 +24,9 @@ class ModelVariation < ActiveRecord::Base
     scope = scope.where('from_year >= ?', from_year) unless from_year.blank?
     scope = scope.where('to_year <= ?', to_year) unless to_year.blank?
     scope
+  end
+
+  def set_display_title
+    self.display_title = "#{title} #{body_type.name} #{transmission} #{fuel} #{from_year}-#{to_year}"
   end
 end

@@ -36,6 +36,12 @@ describe ModelVariation do
     model_variation.valid?.should be_true
   end
 
+  it 'caches display title on save' do
+    model_variation.display_title.should eq nil
+    model_variation.save
+    model_variation.display_title.should eq '3dr Hatchback 1.6turbo 5dr Hatchback Manual Petrol 2010-2012'
+  end
+
   it '#search' do
     variation1 = create :model_variation, from_year: 2005, to_year: 2007, fuel: 'Petrol', transmission: 'Manual'
     variation2 = create :model_variation, from_year: 2007, to_year: 2010, fuel: 'Diesel', transmission: 'Automatic'
