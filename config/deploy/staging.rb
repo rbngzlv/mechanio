@@ -4,7 +4,7 @@ set :repository,    "git@github.com:laudeego/mechanio.git"
 set :rails_env,     "staging"
 
 set :deploy_to,     "/home/rails/staging.#{application}"
-set :branch,        "develop"
+set :branch,        "master"
 
 set :unicorn_conf,  "#{deploy_to}/current/config/unicorn.rb"
 set :unicorn_pid,   "#{deploy_to}/shared/pids/unicorn.pid"
