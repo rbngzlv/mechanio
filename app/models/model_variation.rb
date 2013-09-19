@@ -13,6 +13,8 @@ class ModelVariation < ActiveRecord::Base
   validates :transmission, inclusion: { in: TRANSMISSION }
   validates :fuel, inclusion: { in: FUEL }
 
+  default_scope { order(:from_year) }
+
   def self.search(params = {})
     from_year = params.delete(:from_year)
     to_year = params.delete(:to_year)

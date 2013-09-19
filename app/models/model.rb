@@ -5,4 +5,6 @@ class Model < ActiveRecord::Base
   has_many :model_variations
 
   validates :name, :make, presence: true
+
+  default_scope { order(:name) }
 end
