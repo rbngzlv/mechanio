@@ -20,7 +20,7 @@ class ModelVariation < ActiveRecord::Base
   def self.search(params = {})
     from_year = params.delete(:from_year)
     to_year = params.delete(:to_year)
-    scope = where(params).includes(:make, :body_type)
+    scope = where(params).includes(:make, :model, :body_type).order('makes.name, models.name, model_variations.title')
     scope = scope.where('from_year >= ?', from_year) unless from_year.blank?
     scope = scope.where('to_year <= ?', to_year) unless to_year.blank?
     scope

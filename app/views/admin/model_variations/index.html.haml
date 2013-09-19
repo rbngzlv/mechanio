@@ -1,31 +1,32 @@
 %h4 Search car models
 
+= simple_form_for [:admin, @model_variation], url: admin_model_variations_path, method: :get, wrapper: :nolabel_sm, html: { class: 'form-inline' } do |f|
+  = f.association :make, include_blank: '-- Make --', wrapper_html: { style: 'width: 15%' }
+  = f.association :model, include_blank: '-- Model --', wrapper_html: { style: 'width: 15%' }
+  = f.association :body_type, include_blank: '-- Body --', wrapper_html: { style: 'width: 10%' }
+  .vertical-divider-sm
+  = f.input :fuel, as: :select, collection: ModelVariation::FUEL, include_blank: '-- Fuel --', wrapper_html: { style: 'width: 10%' }
+  = f.input :transmission, as: :select, collection: ModelVariation::TRANSMISSION, include_blank: '-- Transmittion --', wrapper_html: { style: 'width: 10%' }
+  .vertical-divider-sm
+  = f.input :from_year, as: :select, collection: (1960..Date.today.year), include_blank: '-- From --', wrapper_html: { style: 'width: 8%' }
+  = f.input :to_year, as: :select, collection: (1960..Date.today.year), include_blank: '-- To --', wrapper_html: { style: 'width: 8%' }
+  = f.submit 'Search', class: 'btn btn-primary pull-right'
+
+%hr
+
 - if @model_variations.empty?
   .panel.panel-default
     .panel-body.text-center
       No models found
 - else
-  = simple_form_for [:admin, @model_variation], url: admin_model_variations_path, method: :get, wrapper: :nolabel_sm, html: { class: 'form-inline' } do |f|
-    = f.association :make, include_blank: '-- Make --', wrapper_html: { style: 'width: 15%' }
-    = f.association :model, include_blank: '-- Model --', wrapper_html: { style: 'width: 15%' }
-    = f.association :body_type, include_blank: '-- Body --', wrapper_html: { style: 'width: 10%' }
-    .vertical-divider-sm
-    = f.input :fuel, as: :select, collection: ModelVariation::FUEL, include_blank: '-- Fuel --', wrapper_html: { style: 'width: 10%' }
-    = f.input :transmission, as: :select, collection: ModelVariation::TRANSMISSION, include_blank: '-- Transmittion --', wrapper_html: { style: 'width: 10%' }
-    .vertical-divider-sm
-    = f.input :from_year, as: :select, collection: (1960..Date.today.year), include_blank: '-- From --', wrapper_html: { style: 'width: 8%' }
-    = f.input :to_year, as: :select, collection: (1960..Date.today.year), include_blank: '-- To --', wrapper_html: { style: 'width: 8%' }
-    = f.submit 'Search', class: 'btn btn-primary pull-right'
-
-  %hr
-
   %table.table.table-striped
     %thead
       %tr
         %th.col-md-2 Make
         %th Model
-        %th.col-md-2 Years
-        %th.col-md-2 Body
+        %th Version
+        %th.col-md-1 Years
+        %th.col-md-1 Body
         %th.col-md-1 Transmission
         %th.col-md-1 Fuel
         %th.col-md-1 Identifier
@@ -33,6 +34,7 @@
       - @model_variations.each do |m|
         %tr
           %td= m.make.name
+          %td= m.model.name
           %td= m.title
           %td= "#{m.from_year} - #{m.to_year}"
           %td= m.body_type.name
