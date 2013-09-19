@@ -28,7 +28,9 @@ class ServicePlan < ActiveRecord::Base
   end
 
   def set_make_and_model
-    self.make_id = model_variation.make_id if model_variation
-    self.model_id = model_variation.model_id if model_variation
+    if model_variation
+      self.make_id = model_variation.make_id
+      self.model_id = model_variation.model_id
+    end
   end
 end

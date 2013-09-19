@@ -41,10 +41,6 @@ RSpec.configure do |config|
   # instead of true.
   config.use_transactional_fixtures = false
 
-  config.before :suite do
-    DatabaseCleaner.clean_with :deletion
-  end
-
   config.before :each do
     DatabaseCleaner.strategy = example.metadata[:js] ? :deletion : :transaction
     DatabaseCleaner.start

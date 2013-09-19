@@ -17,9 +17,4 @@ module FeatureMacros
     mechanic ||= create :mechanic
     login_as mechanic, scope: :mechanic
   end
-
-  def screenshot
-    @index ||= 1
-    page.save_screenshot("/Users/bob/Desktop/screen-#{@index}.png", full: true)
-  end
 end
