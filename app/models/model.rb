@@ -8,7 +8,7 @@ class Model < ActiveRecord::Base
 
   default_scope { order(:name) }
 
-  def self.to_options(params, selected)
+  def self.to_options(params)
     return [] if params.empty?
     where(params).pluck(:id, :name).map { |i| ({ value: i[0], label: i[1] }) }
   end
