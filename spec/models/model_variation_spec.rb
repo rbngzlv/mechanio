@@ -55,4 +55,9 @@ describe ModelVariation do
     ModelVariation.search(transmission: 'Manual').should eq [variation1]
     ModelVariation.search(fuel: 'Diesel').should eq [variation2]
   end
+
+  it '#to_options' do
+    variation = create :model_variation
+    ModelVariation.to_options(model_id: variation.model_id).should eq [{ value: variation.id, label: variation.title }]
+  end
 end

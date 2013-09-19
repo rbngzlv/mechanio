@@ -7,4 +7,9 @@ class Model < ActiveRecord::Base
   validates :name, :make, presence: true
 
   default_scope { order(:name) }
+
+  def self.to_options(params, selected)
+    return [] if params.empty?
+    where(params).pluck(:id, :name).map { |i| ({ value: i[0], label: i[1] }) }
+  end
 end

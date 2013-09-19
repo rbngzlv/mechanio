@@ -18,6 +18,10 @@ Mechanio::Application.routes.draw do
     resources :users
     resources :mechanics, except: [:show]
     resources :model_variations, only: [:index]
+
+  resource :ajax, controller: 'ajax', only: [] do
+    get 'models'
+    get 'model_variations'
   end
 
   # Example of regular route:

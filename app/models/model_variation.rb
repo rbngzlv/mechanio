@@ -26,6 +26,11 @@ class ModelVariation < ActiveRecord::Base
     scope
   end
 
+  def self.to_options(params, selected)
+    return [] if params.empty?
+    where(params).pluck(:id, :display_title).map { |i| { value: i[0], label: i[1] } }
+  end
+
   def set_display_title
     self.display_title = "#{title} #{body_type.name} #{transmission} #{fuel} #{from_year}-#{to_year}"
   end
