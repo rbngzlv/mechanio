@@ -42,6 +42,10 @@ describe ModelVariation do
     model_variation.display_title.should eq '3dr Hatchback 1.6turbo 5dr Hatchback Manual Petrol 2010-2012'
   end
 
+  it '#full_title' do
+    model_variation.full_title.should eq "#{model_variation.make.name} Golf 3dr Hatchback 1.6turbo"
+  end
+
   it '#search' do
     variation1 = create :model_variation, from_year: 2005, to_year: 2007, fuel: 'Petrol', transmission: 'Manual'
     variation2 = create :model_variation, from_year: 2007, to_year: 2010, fuel: 'Diesel', transmission: 'Automatic'

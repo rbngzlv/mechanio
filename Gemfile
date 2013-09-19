@@ -26,13 +26,16 @@ group :development do
 end
 
 group :test do
+  gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'shoulda-matchers'
   gem 'capybara'
+  gem 'poltergeist'
+  gem 'database_cleaner'
 end
 
 group :development, :test do
-  gem 'rspec-rails'
+  gem 'quiet_assets'
   gem 'awesome_print'
   gem 'pry'
   gem 'pry-debugger'

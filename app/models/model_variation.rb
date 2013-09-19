@@ -31,6 +31,10 @@ class ModelVariation < ActiveRecord::Base
     where(params).pluck(:id, :display_title).map { |i| { value: i[0], label: i[1] } }
   end
 
+  def full_title
+    "#{make.name} #{model.name} #{title}"
+  end
+
   def set_display_title
     self.display_title = "#{title} #{body_type.name} #{transmission} #{fuel} #{from_year}-#{to_year}"
   end

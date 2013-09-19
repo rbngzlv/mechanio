@@ -1,0 +1,13 @@
+%h4 Select car model
+
+= render 'filter_form'
+%hr
+
+- if @variation
+  %table.table.table-striped
+    %thead
+      %tr
+        %th.col-md-3= "Service plans for #{@variation.full_title}"
+        %th.col-md-2= link_to "Add service plan", new_admin_service_plan_path('service_plan[model_variation_id]' => @variation.id), class: 'btn btn-primary btn-sm pull-right'
+    %tbody
+      = render 'table_body'
