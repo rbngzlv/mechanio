@@ -1,0 +1,28 @@
+%h2.hx-default WHERE SHOULD THE MECHANIC GO?
+%hr.hr-dark-gray
+%form{role: "form"}
+  .row
+    .form-group.col-md-9
+      %label Street Address
+      %input.form-control
+  .row
+    .form-group.col-md-3
+      %label Suburb
+      %input.form-control
+    .form-group.col-md-3
+      %label State
+      %input.form-control
+    .form-group.col-md-3
+      %label Postcode
+      %input.form-control
+  %h2.hx-default TELL US WHERE WE CAN SEND YOU THE QUOTE
+  %hr.hr-dark-gray
+  .row
+    .form-group.col-md-9
+      %label Where do we send your quote? (We will never spam)
+      %input.form-control
+    .form-group.col-md-9
+      %label We might have follow-up questions about your quote. Where can we call you with questions?
+      %input.form-control
+
+  = render partial: 'button_group', locals: { prev_button: prev_button }

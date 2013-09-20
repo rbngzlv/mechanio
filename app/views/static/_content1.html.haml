@@ -1,0 +1,15 @@
+%h2.hx-default ADD YOUR VEHICLE
+%hr.hr-dark-gray
+%form{role: "form"}
+  .radio
+    %label
+      %input{type: "radio", name: "optionsRadios", id: "optionsRadios1", value: "option1", checked: true}
+      Car 1
+  .radio
+    %label
+      %input{type: "radio", name: "optionsRadios", id: "optionsRadios2", value: "option2"}
+      Car 2
+
+  %button.btn.btn-primary Add vehicle
+
+  = render partial: 'button_group', locals: { prev_button: prev_button }
