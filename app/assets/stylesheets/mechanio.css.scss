@@ -1,6 +1,4 @@
-$btn-default-bg:              #2fade7;
-$btn-default-color:           #fff;
-$btn-default-border:          darken($btn-default-bg, 5%);
+$btn-default-bg:              #eee;
 $btn-primary-bg:              #2fade7;
 $btn-primary-color:           #fff;
 $btn-info-bg:                 #22c0cb;
@@ -21,6 +19,8 @@ $btn-danger-bg:               #dc5d3a;
 
 body {
   // padding-top: 50px;
+  background-color: #f5f5f5;
+  color: #666;
 }
 .header {
   border-bottom: #e0e0e0 solid 3px;
@@ -103,4 +103,106 @@ body {
   padding-right: 5px;
   border-left: 1px solid #ddd;
   height: $input-height-small;
+}
+
+.panel-body > .progress:last-child {
+  margin-bottom: 0;
+}
+
+.progress.progress-rounded {
+  border-radius: 12px;
+  height: 24px;
+}
+
+.progress-bar.progress-bar-gradinet {
+  background-image: linear-gradient(to bottom, #8BD8FF, #0480be);
+  background-repeat: repeat-x;
+}
+
+.hr-dark-gray {
+  margin: 5px 0 10px;
+  border-top-color: #c8c8c8;
+}
+
+.hx-default {
+  font-size: 1.15em;
+  font-weight: 300;
+  color: #010101;
+}
+
+.panel-default {
+  &.panel-rounded {
+    border: none;
+    box-shadow: 0 0 5px #ddd;
+    border-radius: 7px;
+    margin-bottom: 10px;
+  }
+
+  &.panel-wizard {
+    padding: 20px 5% 40px;
+  }
+}
+
+// wizard
+
+.nav-pills.nav-pills-wizard {
+  margin-bottom: 40px;
+
+  > li > a {
+    overflow: hidden;
+    border-radius: 19px;
+    padding: 0;
+    font-size: 15px;
+    text-align: left;
+    margin-right: 20px;
+
+    > span {
+      padding: 12px 14px;
+      line-height: 2.7em;
+      color: #777;
+      background-color: #ccc;
+      margin-right: 6px;
+    }
+
+    &:hover > span,
+    &:focus > span {
+      color: #333;
+    }
+  }
+
+  > li:last-child > a {
+    margin-right: 0;
+  }
+
+  &.nav > li > a {
+    background-color: #eee;
+    color: #777;
+
+    &:hover,
+    &:focus {
+      background-color: #eee;
+      color: #333;
+    }
+  }
+
+  > li.active > a,
+  > li.active > a:hover,
+  > li.active > a:focus {
+    background-color: #eee;
+    color: #555 !important;
+
+    > span {
+      background-color: #a5d16c;
+      color: #fff;
+    }
+  }
+
+  > li.done > a,
+  > li.done > a:hover,
+  > li.done > a:focus {
+    span {
+      background-color: #e74955;
+      color: #fff;
+    }
+  }
 }
