@@ -1,2 +1,169 @@
 %h1 Mechanic dashboard
-= link_to 'My Profile', mechanics_profile_path
+
+-# add original css, and after that change on bootstrap 3.0
+-# a need to replace by link_to
+-# img need to replace by img_tag
+.container-fluid
+  .row-fluid
+    / Left Navigation Part
+    #sidebar.span3.nav-collapse.collapse
+      %ul.sidebar-menu
+        %li.active
+          %a{href: "mechanic-dashboard.html"}
+            %span.icon-box
+              %i.icon-dashboard
+            Dashboard
+        %li>
+          %a{href: "mechanic-profile.html"}
+            %span.icon-box
+              %i.icon-user
+            My Profile
+        %li>
+          %a{href: "mechanic-jobs.html"}
+            %span.icon-box
+              %i.icon-thumbs-up
+            My Jobs
+        %li>
+          %a{href: "mechanic-payout.html"}
+            %span.icon-box
+              %i.icon-credit-card
+            Payout Information
+        %li>
+          %a{href: "mechanic-settings.html"}
+            %span.icon-box
+              %i.icon-calendar
+            Settings
+
+    / Right Content Part
+    %section.span9#main-content
+      / Profile Part
+      .widget
+        .widget-title
+          %h4
+            %i.icon-user
+            Bob Mechanic
+          %span.tools
+            %a.icon-chevron-down{href: "javascript:;"}
+        .widget-body
+          .row-fluid
+            .MechProfile.span4
+              .profileImg
+                %img(src="http://dazecreations.com/Mechanio1306/images/photo.jpg")
+                .ReviewsRow
+                  .stars
+                    %span.Color &nbsp;
+                    %span.Color &nbsp;
+                    %span.Blank &nbsp;
+                    %span.Blank &nbsp;
+                    %span.Blank &nbsp;
+                  %span.revieText 12 Reviews
+            .span8.greybox.margin0
+              %h3 Hi, I'm your Mechanic Bob Mechanic
+              %p.MB10 Punched Russell Crowe in the face onece. Felt Nice.
+
+      / Upcoming Jobs Part
+      .row-fluid
+        .span12
+          .widget
+            .widget-title
+              %h4
+                %i.icon-user
+                %a(href="mechanic-jobs.html#scheduled-jobs")
+                  Upcoming Jobs
+              %span.tools
+                %a.icon-chevron-down(href="javascript:;")
+            .widget-body
+              .greybox.MB10
+                .span7.BorderDotRight
+                  %p
+                    %b.text-info
+                      Andrew Nandjroo
+                  %p
+                    %i.icon-caret-right
+                    2000 Ford Mustang V6-3 OL
+                  %p
+                    %b Services:
+                    Car is making a noise (inspection)
+                .span5
+                  %p
+                    %i.icon-time
+                    %small
+                      11 : 00 AM,
+                    May 8, 2013 (Friday)
+                  %p
+                    %i.icon-map-marker
+                    123 ABC st, Mountain View, CA, 92012
+                  %a.fright.btn.btn-info(href="scheduled-job-details.html")
+                    View Details
+                .clearfix
+              .greybox.MB10
+                .span7.BorderDotRight
+                  %p
+                    %b.text-info Andrew Nandjroo
+                  %p
+                    %i.icon-caret-right
+                    2000 Ford Mustang V6-3 OL
+                  %p
+                    %b Services:
+                    Car is making a noise (inspection)
+                .span5
+                  %p
+                    %i.icon-time
+                    %small 11 : 00 AM,
+                    May 8, 2013 (Friday)
+                  %p
+                    %i.icon-map-marker
+                    123 ABC st, Mountain View, CA, 92012
+                  %a.fright.btn.btn-info(href="scheduled-job-details.html") View Details
+                .clearfix
+        / Completed Jobs Part
+        .row-fluid
+          .span12
+            .widget
+              .widget-title
+                %h4
+                  %i.icon-user
+                  %a(href="mechanic-jobs.html#past-jobs") Completed Jobs
+                %span.tools
+                  %a.icon-chevron-down(href="javascript:;")
+              .widget-body
+                .greybox.MB10
+                  .span7.BorderDotRight
+                    %p
+                      %b.text-info Andrew Nandjroo
+                    %p
+                      %i.icon-caret-right
+                      2000 Ford Mustang V6-3 OL
+                    %p
+                      %b Services:
+                      Car is making a noise (inspection)
+                  .span5
+                    %p
+                      %i.icon-time
+                      %small 11 : 00 AM,
+                      May 8, 2013 (Friday)
+                    %p
+                      %i.icon-map-marker
+                      123 ABC st, Mountain View, CA, 92012
+                    %a.fright.btn.btn-info(href="mechanic-completed-job.html") View Details
+                  .clearfix
+                .greybox.MB10
+                  .span7.BorderDotRight
+                    %p
+                      %b.text-info Andrew Nandjroo
+                    %p
+                      %i.icon-caret-right
+                      2000 Ford Mustang V6-3 OL
+                    %p
+                      %b Services:
+                      Car is making a noise (inspection)
+                  .span5
+                    %p
+                      %i.icon-time
+                      %small 11 : 00 AM,
+                      May 8, 2013 (Friday)
+                    %p
+                      %i.icon-map-marker
+                      123 ABC st, Mountain View, CA, 92012
+                    %a.fright.btn.btn-info(href="mechanic-completed-job.html") View Details
+                  .clearfix
