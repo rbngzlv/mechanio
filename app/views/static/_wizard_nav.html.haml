@@ -1,0 +1,17 @@
+%ul.nav.nav-pills.nav-justified.nav-pills-wizard
+  %li.disabled{:class => (current == 1 ? "active" : current > 1 ? "done" : "")}
+    = link_to '#' do
+      %span 1
+      CarDetails
+  %li.disabled{:class => (current == 2 ? "active" : current > 2 ? "done" : "")}
+    = link_to '#' do
+      %span 2
+      Diagnose
+  %li.disabled{:class => (current == 3 ? "active" : current > 3 ? "done" : "")}
+    = link_to '#' do
+      %span 3
+      Contact
+  %li.disabled{:class => ("active" if current == 4)}
+    = link_to '#' do
+      %span 4
+      Quote

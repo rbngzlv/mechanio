@@ -1,0 +1,37 @@
+-#/* car_details_21 */
+-#
+-#/* use .panel-wizard for global modificator if needed */
+-#.panel-heading.__custom {
+-#  background: linear-gradient(to bottom, #fff, #eee);
+-#  border: none;
+-#}
+-#
+-#.panel-body.__custom {
+-#  border: none;
+-#}
+-#
+-#/*.panel-heading.__custom*/
+-#h4.__custom {
+-#  margin: 0;
+-#  font-size: 14px;
+-#}
+-#
+-#.panel-body .panel-body.__custom {
+-#  padding: 5px;
+-#
+-#  textarea {
+-#    width: 100%;
+-#    border-color: #ddd;
+-#  }
+-#}
+
+%h1 Юра сказал, что эта страница будет частью страницы "2", по сей причине данный раздел не завершен
+%form{ role: "form" }
+  .panel.panel-default.panel-rounded
+    .panel-heading.__custom
+      %h4.__custom 30,000KM Service
+    .panel-body.__custom
+      %textarea{ placeholder: "Add Notes for Mechanic" }
+  %button.btn.btn-success
+    Add More Services
+  = render partial: 'button_group', locals: { prev_button: prev_button }

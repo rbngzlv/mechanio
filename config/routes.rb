@@ -35,6 +35,8 @@ Mechanio::Application.routes.draw do
     get 'model_variations'
   end
 
+  get '/static/:action', controller: 'static'
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
