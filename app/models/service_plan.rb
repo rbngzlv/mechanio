@@ -5,7 +5,7 @@ class ServicePlan < ActiveRecord::Base
   belongs_to :model
   belongs_to :model_variation
 
-  before_save :set_make_and_model
+  before_save :set_make_and_model, :set_display_title
 
   validates :quote, presence: true, numericality: true
 
@@ -19,8 +19,8 @@ class ServicePlan < ActiveRecord::Base
   default_scope { order(:kms_travelled, :title) }
   scope :default, -> { where(model_variation_id: nil) }
 
-  def display_title
-    title_blank? ? "#{number_with_delimiter(kms_travelled)} kms / #{months} months" : title
+  def set_display_title
+    self.display_title = title_blank? ? "#{number_with_delimiter(kms_travelled)} kms / #{months} months" : title
   end
 
   def title_blank?
