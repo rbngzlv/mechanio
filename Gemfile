@@ -17,6 +17,8 @@ gem 'kaminari'
 
 gem 'unicorn'
 
+gem 'therubyracer', platforms: :ruby
+
 group :development do
   gem 'capistrano'
   gem 'capistrano-ext'
@@ -41,8 +43,6 @@ group :development, :test do
   gem 'pry-debugger'
 end
 
-# See https://github.com/sstephenson/execjs#readme for more supported runtimes
-# gem 'therubyracer', platforms: :ruby
 
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
