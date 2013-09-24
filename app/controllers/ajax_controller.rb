@@ -3,18 +3,14 @@ class AjaxController < ApplicationController
   respond_to :json
 
   def models
-    respond_with Model.to_options(flat_params.permit(:make_id))
+    respond_with Model.to_options(params.permit(:make_id))
   end
 
   def model_variations
-    respond_with ModelVariation.to_options(flat_params.permit(:model_id))
+    respond_with ModelVariation.to_options(params.permit(:model_id, :year))
   end
 
-
-  private
-
-  def flat_params
-    flat = params.values.inject({}) { |m, i| m.merge!(i) if i.is_a?(Hash); m }
-    ActionController::Parameters.new(flat)
+  def service_plans
+    respond_with ServicePlan.to_options(params.permit(:model_variation_id))
   end
 end

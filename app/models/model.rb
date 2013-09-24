@@ -10,6 +10,8 @@ class Model < ActiveRecord::Base
 
   def self.to_options(params)
     return [] if params.empty?
-    where(params).pluck(:id, :name).map { |i| ({ value: i[0], label: i[1] }) }
+    where(params).pluck(:id, :name).map do |m|
+      { id: m[0], name: m[1] }
+    end
   end
 end

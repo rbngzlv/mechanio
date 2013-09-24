@@ -1,0 +1,28 @@
+.container{ 'ng-controller' => 'WizardController', 'ng-init' => 'init()' }
+  .col-md-9.cornsilk
+    .panel.panel-default.panel-wizard.panel-rounded
+      .panel-body
+        %ul.nav.nav-pills.nav-justified.nav-pills-wizard
+          %li{ 'ng-class' => 'stepClass("car-details")' }
+            = link_to '', 'ng-click' => 'gotoStep("car-details")' do
+              %span 1
+              Car Details
+          %li{ 'ng-class' => 'stepClass("diagnose")' }
+            = link_to '', 'ng-click' => 'gotoStep("diagnose")' do
+              %span 2
+              Diagnose
+          %li{ 'ng-class' => 'stepClass("contact")' }
+            = link_to '', 'ng-click' => 'gotoStep("contact")' do
+              %span 3
+              Contact
+          %li{ 'ng-class' => 'stepClass("quote")' }
+            = link_to '', 'ng-click' => 'gotoStep("quote")' do
+              %span 4
+              Quote
+        = simple_form_for [:users, @job], html: { name: 'wizard_form' }, defaults: { required: false } do |f|
+          = render 'users/jobs/steps/car_details', f: f
+          = render 'users/jobs/steps/diagnose', f: f
+          = render 'users/jobs/steps/contact', f: f
+          =# render 'users/jobs/steps/quote', f: f
+  .col-md-3.lightgreen
+    = render 'sidebar'

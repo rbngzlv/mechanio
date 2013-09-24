@@ -1,0 +1,18 @@
+.panel.panel-default.panel-rounded
+  .panel-body
+    %h3.hx-default.panel-title YOU'VE ANSWERED
+    %hr.hr-dark-gray
+    .progress.progress-rounded
+      .progress-bar.progress-bar-gradinet(role="progressbar" style="width: {{ progress }}%;")
+
+.panel.panel-default.panel-rounded{ 'ng-show' => 'stepEnabled("car-details") && stepValid("car-details")' }
+  .panel-body
+    %h3.hx-default.panel-title VEHICLE
+    %hr.hr-dark-gray
+    {{ model_variation.display_title }}
+
+.panel.panel-default.panel-rounded{ 'ng-show' => 'stepEnabled("diagnose") && stepValid("diagnose")' }
+  .panel-body
+    %h3.hx-default.panel-title CAR SERVICING
+    %hr.hr-dark-gray
+    {{ service_plan.display_title }}

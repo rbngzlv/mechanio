@@ -10,6 +10,8 @@ Mechanio::Application.routes.draw do
 
   namespace :users do
     get 'dashboard', to: 'dashboard#index'
+
+    resources :jobs, only: [:new, :create]
   end
 
   namespace :mechanics do
@@ -33,6 +35,7 @@ Mechanio::Application.routes.draw do
   resource :ajax, controller: 'ajax', only: [] do
     get 'models'
     get 'model_variations'
+    get 'service_plans'
   end
 
   get '/static/:action', controller: 'static'

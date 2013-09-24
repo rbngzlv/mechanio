@@ -11,10 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130919071913) do
-
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+ActiveRecord::Schema.define(version: 20130924131003) do
 
   create_table "admins", force: true do |t|
     t.string   "email"
@@ -45,6 +42,28 @@ ActiveRecord::Schema.define(version: 20130919071913) do
     t.integer  "user_id"
     t.integer  "model_variation_id"
     t.integer  "year"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "jobs", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "car_id"
+    t.integer  "service_plan_id"
+    t.decimal  "quote"
+    t.string   "contact_email"
+    t.string   "contact_phone"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "locations", force: true do |t|
+    t.string   "address"
+    t.string   "suburb"
+    t.string   "postcode"
+    t.integer  "state_id"
+    t.integer  "locatable_id"
+    t.string   "locatable_type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -97,8 +116,9 @@ ActiveRecord::Schema.define(version: 20130919071913) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "make_id"
-    t.text     "comment"
     t.string   "display_title"
+    t.text     "comment"
+    t.string   "detailed_title"
   end
 
   create_table "models", force: true do |t|
@@ -122,6 +142,7 @@ ActiveRecord::Schema.define(version: 20130919071913) do
     t.text     "notes"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "display_title"
   end
 
   create_table "states", force: true do |t|

@@ -1,0 +1,18 @@
+#step-car-details{ 'ng-show' => 'stepVisible("car-details")', 'ng-form' => 'car_details_form' }
+  .wizard-body
+    %h2.hx-default ADD YOUR VEHICLE
+    %hr.hr-dark-gray
+    .row
+      .col-md-5
+        = simple_fields_for :car, wrapper: :nolabel do |c|
+          = c.input :year, collection: (1998..Date.today.year), include_blank: '-- Year --', input_html: { 'ng-model' => 'car.year', 'ng-change' => 'loadModelVariations()', 'required' => true }
+          = c.input :make_id, collection: Make.all, include_blank: '-- Make --', input_html: { 'ng-model' => 'car.make_id', 'ng-change' => 'loadModels()', 'required' => true }
+          = c.input :model_id, collection: [], include_blank: '-- Model --', input_html: { 'ng-model' => 'car.model_id', 'ng-options' => 'm.id as m.name for m in models', 'ng-change' => 'loadModelVariations()', 'required' => true }
+          = c.input :model_variation_id, collection: [], include_blank: '-- Version --', input_html: { 'ng-model' => 'model_variation', 'ng-options' => 'v.detailed_title for v in model_variations', 'ng-change' => 'loadServicePlans()', 'required' => true }
+  %hr
+  %button.btn.btn-default{ 'type' => 'button' }
+    %small &#x276E;
+    Back
+  %button.btn.btn-primary.pull-right{ 'type' => 'button', 'ng-click' => 'submitStep("car-details", "diagnose")', 'ng-disabled' => 'stepInvalid("car-details")' }
+    Continue
+    %small &#x276F;
