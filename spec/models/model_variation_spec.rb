@@ -47,10 +47,8 @@ describe ModelVariation do
   it '#search' do
     variation1 = create :model_variation, from_year: 2005, to_year: 2007, fuel: 'Petrol', transmission: 'Manual'
     variation2 = create :model_variation, from_year: 2007, to_year: 2010, fuel: 'Diesel', transmission: 'Automatic'
-    makes = Make.all.to_a
-    models = Model.all.to_a
-    ModelVariation.search(make_id: makes[0].id).should eq [variation1]
-    ModelVariation.search(model_id: models[1].id).should eq [variation2]
+    ModelVariation.search(make_id: variation1.make_id).should eq [variation1]
+    ModelVariation.search(model_id: variation2.model_id).should eq [variation2]
     ModelVariation.search(from_year: 2006).should eq [variation2]
     ModelVariation.search(from_year: 2005, to_year: 2011).should eq [variation1, variation2]
     ModelVariation.search(to_year: 2009).should eq [variation1]
