@@ -1,6 +1,6 @@
 app = angular.module('mechanio')
 
-app.controller 'WizardController', ($scope, $http) ->
+app.controller 'WizardController', ['$scope', '$http', ($scope, $http) ->
   $scope.steps = ['car-details', 'diagnose', 'contact', 'quote']
   $scope.step = $scope.steps[0]
   $scope.enabled_steps = []
@@ -66,3 +66,4 @@ app.controller 'WizardController', ($scope, $http) ->
     $http.get('/ajax/service_plans', params: { model_variation_id: $scope.model_variation.id })
       .success (data) ->
         $scope.service_plans = data
+]
