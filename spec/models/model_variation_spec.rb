@@ -58,6 +58,7 @@ describe ModelVariation do
 
   it '#to_options' do
     variation = create :model_variation
-    ModelVariation.to_options(model_id: variation.model_id).should eq [{ value: variation.id, label: variation.display_title }]
+    result = [{ id: variation.id, display_title: variation.display_title, detailed_title: variation.detailed_title }]
+    ModelVariation.to_options(model_id: variation.model_id).should eq result
   end
 end

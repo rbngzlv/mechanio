@@ -28,7 +28,12 @@ class ModelVariation < ActiveRecord::Base
 
   def self.to_options(params)
     return [] if params.empty?
-    where(params).pluck(:id, :display_title).map { |i| { value: i[0], label: i[1] } }
+    year = params.delete(:year)
+    scope = where(params)
+    scope = scope.where('? BETWEEN from_year AND to_year', year) unless year.blank?
+    scope.select(:id, :display_title, :detailed_title).each.map do |m|
+      { id: m.id, display_title: m.display_title, detailed_title: m.detailed_title }
+    end
   end
 
   def set_titles

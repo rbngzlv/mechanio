@@ -30,6 +30,7 @@ describe ServicePlan do
     it { should validate_numericality_of :months }
 
     it '#display_title' do
+      subject.set_display_title
       subject.display_title.should eq '10,000 kms / 6 months'
     end
   end
@@ -44,6 +45,7 @@ describe ServicePlan do
     it { should_not validate_numericality_of :months }
 
     it '#display_title' do
+      subject.set_display_title
       subject.display_title.should eq 'Custom service'
     end
   end

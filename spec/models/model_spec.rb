@@ -9,6 +9,6 @@ describe Model do
 
   it '#to_options' do
     model = create :model
-    Model.to_options(make_id: model.make_id).should eq [{ value: model.id, label: model.name }]
+    Model.to_options(make_id: model.make_id).should eq [{ id: model.id, name: model.name }]
   end
 end
