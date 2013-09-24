@@ -36,14 +36,12 @@ describe ModelVariation do
     model_variation.valid?.should be_true
   end
 
-  it 'caches display title on save' do
+  it 'caches titles on save' do
     model_variation.display_title.should eq nil
+    model_variation.detailed_title.should eq nil
     model_variation.save
-    model_variation.display_title.should eq '3dr Hatchback 1.6turbo 5dr Hatchback Manual Petrol 2010-2012'
-  end
-
-  it '#full_title' do
-    model_variation.full_title.should eq "#{model_variation.make.name} Golf 3dr Hatchback 1.6turbo"
+    model_variation.display_title.should eq "#{model_variation.make.name} Golf 3dr Hatchback 1.6turbo"
+    model_variation.detailed_title.should eq '3dr Hatchback 1.6turbo 5dr Hatchback Manual Petrol 2010-2012'
   end
 
   it '#search' do

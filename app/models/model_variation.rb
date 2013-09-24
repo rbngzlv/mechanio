@@ -13,7 +13,7 @@ class ModelVariation < ActiveRecord::Base
   validates :transmission, inclusion: { in: TRANSMISSION }
   validates :fuel, inclusion: { in: FUEL }
 
-  before_save :set_display_title
+  before_save :set_titles
 
   default_scope { order(:from_year) }
 
@@ -31,11 +31,8 @@ class ModelVariation < ActiveRecord::Base
     where(params).pluck(:id, :display_title).map { |i| { value: i[0], label: i[1] } }
   end
 
-  def full_title
-    "#{make.name} #{model.name} #{title}"
-  end
-
-  def set_display_title
-    self.display_title = "#{title} #{body_type.name} #{transmission} #{fuel} #{from_year}-#{to_year}"
+  def set_titles
+    self.display_title = "#{make.name} #{model.name} #{title}"
+    self.detailed_title = "#{title} #{body_type.name} #{transmission} #{fuel} #{from_year}-#{to_year}"
   end
 end
