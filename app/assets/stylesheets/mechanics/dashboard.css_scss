@@ -1,0 +1,433 @@
+// Place all the styles related to the mechanics/dashboard controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+@charset "utf-8";
+// @import "twitter/bootstrap";
+@import "http://dazecreations.com/Mechanio1306/assets/bootstrap/css/bootstrap.min.css" screen;
+@import "http://dazecreations.com/Mechanio1306/assets/bootstrap/css/bootstrap-responsive.css" screen;
+@import "style.min.css" screen;
+@import "style_responsive.css" screen;
+@import "http://dazecreations.com/Mechanio1306/assets/uniform/css/uniform.default.css" screen;
+@import "http://dazecreations.com/Mechanio1306/assets/font-awesome/css/font-awesome.css" screen;
+@import "http://dazecreations.com/Mechanio1306/assets/chosen-bootstrap/chosen/chosen.css" screen;
+
+/* CSS Document */
+@font-face {
+    font-family: 'CandaraRegular';
+    src: url('candara.eot');
+    src: url('candara.eot') format('embedded-opentype'),
+         url('candara.woff') format('woff'),
+         url('candara.ttf') format('truetype'),
+         url('candara.svg#CandaraRegular') format('svg');
+}
+
+
+html, body {
+  height: 100%;
+  /* The html and body elements cannot have any padding or margin. */
+}
+
+html body {
+  background-color: #eee;
+}
+
+/* Wrapper for page content to push down footer */
+#wrap {
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  /* Negative indent footer by it's height */
+  margin: 0 auto -93px;
+
+}
+
+@-moz-document url-prefix() {
+  #wrap {
+    margin: 0 auto -73px;
+  }
+}
+
+body {
+  color: #666;
+  font-family: 'Arial';
+  padding: 0px !important;
+  margin: 0px !important;
+  font-size:13px;
+  background:#f5f5f5;
+}
+
+header, section, aside{display:block;}
+
+img{outline:none; border:none;}
+
+.fleft{float:left!important;}
+
+.fright{float:right!important;}
+
+a, a:hover {
+    color: #22878E;
+    text-shadow: none !important;
+  text-decoration:none;
+}
+
+a, a:focus, a:hover, a:active {
+  outline: 0 none;
+  text-decoration:none;
+}
+
+h1, h2, h3, h4, h5, h6, ul, li{ line-height:normal; font-weight:normal; list-style:none;}
+.MR20{margin-right:20px;}
+.MB20{margin-bottom:20px;}
+.MB10{margin-bottom:10px;}
+.MR5{margin-right:5px;}
+.MT5{margin-top:5px;}
+.MR8{margin-right:8px;}
+.padd20{padding:20px;}
+.padd10{padding:10px;}
+.padd5{padding:5px;}
+.PLR5{padding:0px 5px!important;}
+.MALL5{margin:5px!important;}
+.padd0{padding:0px!important;}
+.MLeft10{margin-left:10px!important;}
+.margin0{margin:0px!important;}
+.FS30{font-size:30px!important; text-decoration:none!important;}
+.FS12{font-size:12px!important; text-decoration:none!important;}
+.FS20{font-size:20px!important; text-decoration:none!important;}
+.FS9{font-size:9px!important; text-decoration:none!important;}
+.FS50{font-size:50px!important; text-decoration:none!important;}
+form{margin:0px; padding:0px;}
+.borderNone{border:0px!important;}
+.width300{width:300px;}
+.alignCenter{text-align:center;}
+.AlignRight{text-align:right;}
+.height300{height:300px; width:100%;}
+.height40{height:40px!important;}
+.paddT90{padding-top:90px;}
+.MT150{margin-top:150px!important;}
+.MR400{margin-right:400px;}
+.Left0{left:10px!important;}
+.BorderDotRight{border-right:#cccccc dotted 1px;}
+.BorderDotTop{border-top:#cccccc dotted 1px;}
+.BorderDotBot{border-bottom:#cccccc dotted 1px;}
+.DisplayNone{display:none!important;}
+.Focscolor input, .Focscolor select, .Focscolor textarea{color:#444!important;}
+.space30{height:30px; clear:both;}
+.color-gray{color:#cccccc;}
+.color-black{color:#333;}
+#my-profile .control-label{line-height:30px;}
+/*Header Classes*/
+header{background:url(../images/white-bg.png) top left repeat; width:100%; border-top:#2FADE7 solid 3px;}
+header .fixbar, .watchVideo .fixbar, .fixwidth{max-width:995px; margin:0px auto;}
+.table-striped th i{display:block;}
+i.backIcon{background:url(../images/back-symbol.png) center center no-repeat!important; padding:9px; font-size:17px; color:#ffffff!important; font-style:normal}
+i.backIcon:hover{background:url(../images/back-symbol.png) center center no-repeat!important; color:#cccccc!important; }
+/*Partistion Classes*/
+/*content{width:995px; margin:25px auto;}
+section{float:left; width:700px;}
+aside{float:left; width:275px;}*/
+.container-narrow{margin: 20px auto; max-width: 995px; padding-bottom:70px;}
+span.go-top{position:fixed; right:30px; top:450px; font-size:30px; z-index:0;}
+#upsideDiv div.btn-primary{margin-top:350px;}
+
+h1{color:#010101; font-size:20px; text-transform:uppercase; margin-bottom:10px;}
+.widgetBox{border-radius:6px; margin-bottom:10px; background:#fefefe; box-shadow: 0 0 5px #DDDDDD; padding:0px 5% 12px; float:left; width:90%;}
+aside .progressBar .progress{height:24px; border-radius:12px; margin-bottom:0px;}
+aside .progressBar span{font-size:15px; line-height:25px;}
+aside .widgetBox h2, .h2class{font-size:15px!important; line-height:25px; color:#010101; text-transform:uppercase; border-bottom:#c8c8c8 solid 1px; margin-bottom:10px;}
+aside .widgetBox h2 a{text-transform:lowercase; text-align:right; float:right; font-size:11px;}
+aside .yourcar li {width:100%; float:left; line-height:25px;}
+aside .yourcar li span{width:30%; float:left;}
+ul.ulIcon li{padding-left:10px; background:url(../images/li-arrow.png) 0px 9px no-repeat;}
+
+section .widgetLBox{ background: none repeat scroll 0 0 #FFFFFF; box-shadow: 0 0 5px #DDDDDD; clear: both; margin-bottom: 20px; margin-top: 0; border-radius:6px;}
+
+section .widgetLBox .widget-body {padding: 15px;}
+
+.MechProfile{ padding-right:10px;}
+.MechProfile table tr td, .MechProfile table tr th{text-align:center; padding:7px; line-height:15px;}
+.MechProfile table tr td a{display:block; color:#fff;}
+.MechProfile table tr td a:hover{ color:#000;}
+.MechProfile table tr th small{display:block;}
+.MechProfile .profileImg{background:url(/assets/profile-bg.jpg) top left no-repeat; width:202px; height:162px;}
+.MechProfile .profileImg img{padding:5px;}
+.ReviewsRow{width:100%; float:left; padding-top:5px;}
+.ReviewsRow span.revieText{float:right; font-size:11px; padding-right:8px;}
+.ReviewsRow .stars{float:left; padding-left:10px;}
+.ReviewsRow .stars .Blank{float:left; width:15px; height:15px; background:url(/assets/sprite-png.png) -4px -20px no-repeat; margin:0px 1px; cursor:pointer;}
+.ReviewsRow .stars .Star{float:left; width:15px; height:15px; background:url(/assets/sprite-png.png) -4px -20px no-repeat; margin:0px 1px; cursor:pointer;}
+.ReviewsRow .stars .Color{float:left; width:15px; height:15px; background:url(/assets/sprite-png.png) -20px -20px no-repeat; margin:0px 1px; cursor:pointer;}
+.ReviewsRow .stars .Blank:hover, .ReviewsRow .stars .Star{background:url(/assets/sprite-png.png) -20px -20px no-repeat; }
+.btn-large{font-size:15px!important; padding:10px 35px!important;}
+h3 .btn{font-size:11px!important; padding:2px 10px!important; margin:5px 5px 0px 0px; color:#666666;}
+.AddNotes{margin:0px 0px 0px 0px; height:80px;}
+.form-wizard .control-group .controls{float:left;}
+.fixCombo div select{width:120px; margin-right:8px;}
+.form-wizard .form-actions .btn-success, .form-actions .btn-primary{float:right;}
+.form-wizard .form-actions .button-previous{float:left;}
+
+.widgetContact .controls{float:left; width:200px;}
+.yourNego .widgetLBox{margin-bottom:2px;}
+.paymentIMG{background:url(../images/payment-img.jpg) 470px 20px no-repeat;}
+.accordion-heading a{color:#666666;}
+.table-bordered th{ font-weight:normal!important; color: #666666; background:#f2f2f2; border-left: 1px solid #DDDDDD!important;
+}
+.container-narrow .span10{margin:0px 15px;}
+.ActionIcons i{font-size:15px; margin:0px 2px;}
+.sidebar-menu li.active{background:#2FADE7!important; }
+.sidebar-menu li.active a{color:#ffffff!important;}
+.sidebar-menu li.active span.icon-box{background:#ffffff!important;}
+
+header .fixbar a.btn i{display:none;}
+header .fixbar a.btn-link{float:left;}
+.NeedHelp{line-height:30px;}
+
+.SignupBox ul{border-bottom:#2FADE7 solid 2px!important;}
+.SignupBox li.active a{color:#ffffff!important; background:#2FADE7!important; border-color:#2FADE7!important;}
+.SignupBox li a, .SignupBox li a:hover{padding:5px!important; background:none!important; color:#333333!important; }
+.SignupBox .accordion-group{border:none;}
+.top-nav .top-menu{background:#333333; padding:6px 10px;}
+.top-nav span.username{color:#ffffff;}
+.top-nav .dropdown{line-height:18px;}
+.top-nav ul li a{color:#666666;}
+
+.facebookBTN{background:url(../images/facebook-btn.jpg) top center no-repeat; width:210px; height:34px; display:block;}
+.GmailBTN{background:url(../images/gmail-btn.jpg) top center no-repeat; width:210px; height:34px; display:block;}
+.twitterBTN{background:url(../images/twitter-btn.jpg) top center no-repeat; width:210px; height:34px; display:block;}
+
+.row-fluid .chats [class*="span"]{min-height:20px!important;}
+.GBheight [class*="span"]{min-height:none!important; line-height:30px;}
+.dropdown-menu{z-index:9999!important;}
+#footer .icon-facebook-sign{color:#0567a5;}
+#footer .icon-twitter-sign{color:#29a9e0;}
+#footer .icon-google-plus-sign{color:#d3492c;}
+
+/* Home page Carousel base class */
+.largeTypo{font-size:15px; line-height:25px;}
+.smallTypo{font-size:12px; line-height:18px;}
+  .LocationSearch{background:url(../images/white-bg.png) top left repeat; border-radius:6px; padding:20px;}
+  .LocationSearch input.height40{border-radius:5px!important;}
+  .LocationSearch .btn-primary{padding:6px 0px; border-radius:5px;}
+  h1.homeH1{font-size:31px; color:#1a1a1a!important; font-family:CandaraRegular, verdana!important; line-height:40px}
+    h1.homeH1 span{font-size:43px;}
+  .watchVideo{width:100%; background:#ffffff; padding:0px 0px; position:relative;}
+  .watchVideo h1, .watchVideo a{ text-align:right;}
+  .whiteFullScreen{width:100%; margin:0px auto; background:#ffffff; padding-bottom:20px;}
+  .signupText{font-size:50px; color:#018ec2!important; font-family:CandaraRegular, verdana!important; text-align:center; text-transform:uppercase;}
+  .Signupbox .span5{background:#ffffff; border-radius:6px; margin-top:30px; padding:5px;}
+  .Signupbox .span5 input{background:none!important; border:0px!important; box-shadow:none!important; margin:0px; font-size:20px; font-family:CandaraRegular, verdana!important; color:#1a1a1a!important;  padding:8px; width:63%; height:auto;}
+  .Signupbox .span5 button{border-radius: 6px 6px 6px 6px; float:right; font-size: 20px; padding: 10px 25px; font-family:CandaraRegular, verdana!important; }
+  .Signupbox h2{font-size:20px; text-align:center; font-family:CandaraRegular, verdana; line-height:25px;}
+  ul.suburb-list{padding:20px 0px 0px 0px; margin:0px auto; width:100%;}
+  #myCarouse3 .carousel-inner{width:90%; margin:0px auto;}
+  ul.suburb-list li{line-height:25px; float:left; padding:0px; margin:0px 10px; min-width:100px; border-bottom:#ccc dotted 1px; }
+  #myCarouse2 .message{min-height:95px; line-height:20px;}
+  .upsideDiv{ height: 100%; position: absolute; width: 100%;}
+  .marketing .chats li .name{font-size:15px; line-height:18px;}
+  .marketing .chats li span.body{line-height:25px; font-size:12px;}
+  .marketing .chats li img.avatar{width:100px; height:100px;}
+  .marketing .chats li.in .message{margin-left:120px;}
+   .marketing .chats li.out .message{margin-right:120px;}
+   #myCarouse4 .carousel-inner, #myCarouse5 .carousel-inner, #myCarouse6 .carousel-inner{width:90%; margin:0px auto;}
+.WeeklyTable .carousel-control.right{color:#ddd; right:-15px; font-size:80px;}
+.WeeklyTable .carousel-control.left{color:#ddd; left:-15px; font-size:80px;}
+    /* Special class on .container surrounding .navbar, used for positioning it into place. */
+    .navbar-wrapper {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 10;
+      margin-bottom: -90px; /* Negative margin to pull up carousel. 90px is roughly margins and height of navbar. */
+    }
+  .navbar-wrapper header{background:url(../images/white-bg.png) top left repeat!important; border-bottom:0px!important;}
+
+
+    /* CUSTOMIZE THE CAROUSEL
+    -------------------------------------------------- */
+
+    /* Carousel base class */
+  #myCarousel{height:650px; z-index:-1; margin:0px;}
+
+    #myCarousel .container {
+      position: absolute;
+      z-index:9;
+     width:100%!important;
+    }
+
+    .carousel-control {
+      height: 80px;
+      margin-top: 0;
+      font-size: 120px;
+      text-shadow: 0 1px 1px rgba(0,0,0,.4);
+      background-color: transparent;
+      border: 0;
+      z-index: 10;
+    }
+
+    #myCarousel .item {
+      height: 650px;
+    }
+    #myCarousel img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      min-width: 100%;
+      height: 650px;
+    }
+
+    .carousel-caption {
+      background-color: transparent;
+      position: static;
+      max-width: 850px;
+      padding: 0 20px;
+      margin: 100px auto 0px auto;
+    }
+    .carousel-caption h1,
+    .carousel-caption .lead {
+      margin: 0;
+      line-height: 1.25;
+      color: #fff;
+      text-shadow: 0 1px 1px rgba(0,0,0,.4);
+    }
+    .carousel-caption .btn {
+      margin-top: 10px;
+    }
+
+  #myCarouse2{margin:0px!important;}
+  #myCarouse2 .carousel-control{background:none!Important; color:#cccccc;}
+  #myCarouse2 a.left{margin-top:20px!important; left:30px!important; font-size:50px;}
+  #myCarouse2 a.left1{margin-top:20px!important; left:70px; font-size:50px;}
+  #myCarouse2 .message{margin-left:120px;}
+  #myCarouse2 img{margin-left:50px;}
+    /* MARKETING CONTENT
+    -------------------------------------------------- */
+
+    /* Center align the text within the three columns below the carousel */
+  .marketing{background:url(../images/blue-bg.jpg) top left repeat; padding:10px 0px 50px;}
+  .whiteColor{background:#ffffff; }
+  .marketing .whiteColor i{color:#868686;}
+    .marketing .span4 {
+      text-align: center;
+    }
+    .marketing h2 {
+      font-weight: normal;
+    font-family:CandaraRegular, verdana;
+    font-size:22px;
+    line-height:25px;
+    text-transform:uppercase;
+    color:#2e2e2e;
+    }
+    .marketing .span4 p {
+      margin-left: 10px;
+      margin-right: 10px;
+    text-transform:uppercase;
+    font-family:CandaraRegular, verdana;
+    }
+  .TextLineHome{ padding:20px 0px; color:#0186b2!important; text-align:center;}
+.TextLineHome b{font-family:Verdana, Arial, Helvetica, sans-serif; font-weight:normal; font-size:25px;}
+
+    /* Featurettes
+    ------------------------- */
+
+    .featurette-divider {
+      margin: 80px 0; /* Space out the Bootstrap <hr> more */
+    }
+    .featurette {
+      padding-top: 120px; /* Vertically center images part 1: add padding above and below text. */
+      overflow: hidden; /* Vertically center images part 2: clear their floats. */
+    }
+    .featurette-image {
+      margin-top: -120px; /* Vertically center images part 3: negative margin up the image the same amount of the padding to center it. */
+    }
+
+    /* Give some space on the sides of the floated elements so text doesn't run right into it. */
+    .featurette-image.pull-left {
+      margin-right: 40px;
+    }
+    .featurette-image.pull-right {
+      margin-left: 40px;
+    }
+
+    /* Thin out the marketing headings */
+    .featurette-heading {
+      font-size: 50px;
+      font-weight: 300;
+      line-height: 1;
+      letter-spacing: -1px;
+    }
+
+
+
+    /* RESPONSIVE CSS
+    -------------------------------------------------- */
+
+    @media (max-width: 979px) {
+h1.homeH1{font-size:15px; line-height:20px;}
+    h1.homeH1 span{font-size:20px;}
+.watchVideo a{padding:0px;}
+.watchVideo img{width:100px;}
+ .watchVideo h1, .watchVideo a{ text-align:Center;}
+
+      .container.navbar-wrapper {
+        margin-bottom: 0;
+        width: auto;
+      }
+
+
+
+      .featurette {
+        height: auto;
+        padding: 0;
+      }
+      .featurette-image.pull-left,
+      .featurette-image.pull-right {
+        display: block;
+        float: none;
+        max-width: 40%;
+        margin: 0 auto 20px;
+      }
+    }
+
+
+    @media (max-width: 767px) {
+h1.homeH1, .carousel-caption h1{font-size:15px!important; line-height:20px;}
+    h1.homeH1 span{font-size:20px;}
+.watchVideo a{padding:0px;}
+.watchVideo img{width:100px;}
+ .watchVideo h1, .watchVideo a{ text-align:Center;}
+
+.signupText{font-size:32px; line-height:35px;}
+      .carousel {
+        margin-left: -20px;
+        margin-right: -20px;
+      }
+      .carousel .container {
+
+      }
+
+      .carousel-caption {
+        width: 65%;
+        padding: 0 70px;
+      }
+      .carousel-caption h1 {
+        font-size: 30px;
+      }
+      .carousel-caption .lead,
+      .carousel-caption .btn {
+        font-size: 18px;
+      }
+
+      .marketing .span4 + .span4 {
+        margin-top: 40px;
+      }
+
+      .featurette-heading {
+        font-size: 30px;
+      }
+      .featurette .lead {
+        font-size: 18px;
+        line-height: 1.5;
+      }
+
+    }
