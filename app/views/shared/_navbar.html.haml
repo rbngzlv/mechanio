@@ -5,7 +5,7 @@
       = link_to 'How It Works', '#', class: 'btn btn-link'
       - if user_signed_in?
         = link_to 'Logout', destroy_user_session_path, method: :delete, class: 'btn btn-primary navbar-btn'
-      - elsif mechanic_signed_in?          
+      - elsif mechanic_signed_in?
         %ul.nav.pull-right
           %li.dropdown
             %button.btn-dark.btn-sm.dropdown-toggle{:data => {:toggle => 'dropdown'}}
@@ -35,7 +35,7 @@
               %li.divider 
               %li
                 = link_to destroy_user_session_path do
-                  %i.glyphicon.glyphicon-log-out  
+                  %i.glyphicon.glyphicon-log-out
                   Log out
       - else
         = link_to 'Sign up', new_user_registration_path, class: 'btn btn-primary navbar-btn'

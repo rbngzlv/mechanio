@@ -1,0 +1,77 @@
+header.header {
+  border-bottom: none;
+
+  ul.nav {
+    margin: 3px 0 10px;
+  }
+
+  button {
+    border: none;
+
+    b.caret{
+      border-top-color: #999;
+    }
+
+    &:active b.caret,
+    &:hover b.caret {
+      border-top-color: #fff;
+    }
+  }
+
+  p.text-right {
+    clear: both;
+    font-size: 13px;
+  }
+}
+
+.nav-stacked {
+  
+  li {
+    margin-bottom: 10px;
+    border-radius: 8px;
+    line-height: 30px;
+    background: url('../../assets/side-bar-list-bg.png');
+  
+    a {
+      padding: 5px 10px;
+    }
+  }
+
+  .img-circle {
+    padding: 0 9px;
+    background-color: #00B4D4;
+    text-align: left;
+    margin-right: 12px;
+    display: inline-block;
+
+    > [class *= glyphicon] {
+        color: #eee;
+        font-size: 16px;
+        display: inline-block;
+        text-align: center;
+        line-height: 30px;
+    }
+
+    .active .img-circle {
+      background: #fff;
+    }
+  }
+
+  li:hover a{
+    background-color: rgba(0, 0, 0 ,0);
+  }
+
+  li.active a,
+  li.active:hover a {
+    background: #2FADE7;
+  }
+
+  li a {
+    color: #777;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+}

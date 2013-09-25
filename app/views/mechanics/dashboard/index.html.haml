@@ -1,78 +1,79 @@
 -# add original css, and after that change on bootstrap 3.0
 -# a need to replace by link_to
 -# img need to replace by img_tag
-.container
-  .row
-    / Left Navigation Part
-    .col-md-3.nav-collapse
-      %ul.nav.nav-pills.nav-stacked
-        %li.active
-          = link_to 'mechanic-dashboard.html' do
-            %span.img-circle  
-              %i.glyphicon.glyphicon-dashboard
-            Dashboard
-        %li
-          = link_to 'mechanic-profile.html' do
-            %span.img-circle  
-              %i.glyphicon.glyphicon-user
-            My Profile
-        %li
-          = link_to 'mechanic-jobs.html' do
-            %span.img-circle  
-              %i.glyphicon.glyphicon-thumbs-up
-            My Jobs
-        %li
-          = link_to 'mechanic-payout.html' do
-            %span.img-circle  
-              %i.glyphicon.glyphicon-credit-card
-            Payout Information
-        %li
-          = link_to 'mechanic-settings.html' do
-            %span.img-circle  
-              %i.glyphicon.glyphicon-calendar
-            Settings
+-#.container
+.row
+  / Left Navigation Part
+  .col-md-3.nav-collapse
+    %ul.nav.nav-pills.nav-stacked
+      %li.active
+        = link_to 'mechanic-dashboard.html' do
+          %span.img-circle
+            %i.glyphicon.glyphicon-dashboard
+          Dashboard
+      %li
+        = link_to 'mechanic-profile.html' do
+          %span.img-circle
+            %i.glyphicon.glyphicon-user
+          My Profile
+      %li
+        = link_to 'mechanic-jobs.html' do
+          %span.img-circle
+            %i.glyphicon.glyphicon-thumbs-up
+          My Jobs
+      %li
+        = link_to 'mechanic-payout.html' do
+          %span.img-circle
+            %i.glyphicon.glyphicon-credit-card
+          Payout Information
+      %li
+        = link_to 'mechanic-settings.html' do
+          %span.img-circle
+            %i.glyphicon.glyphicon-calendar
+          Settings
 
-    / Right Content Part
-    %section.col-md-9#main-content
-      / Profile Part
-      .row
-        .col-md-12
-          .panel.panel-default
-            .panel-heading.clearfix
-              %h4.panel-title
-                %i.glyphicon.glyphicon-user
-                Bob Mechanic
-              %span.tools.pull-right
-                %a.glyphicon.glyphicon-chevron-down{href: "javascript:;"}
+  / Right Content Part
+  .col-md-9
+    / Profile Part
+    .row
+      .col-md-12
+        .panel.panel-default
+          .panel-heading.clearfix
+            %h4.panel-title
+              %i.glyphicon.glyphicon-user
+              Bob Mechanic
+            %span.tools.pull-right
+              = link_to '', '#collapseOne', class: 'glyphicon glyphicon-chevron-down accordion-toggle', :data => {:toggle => 'collapse', :parent => '#accordion'}
+          #collapseOne.panel-collapse.collapse.in
             .panel-body.mechanic-panel-body
               .col-md-4
                 .profile-border
-                  %img(src="../../assets/photo.jpg")
-                  .ReviewsRow
-                    .stars
-                      %span.Color &nbsp;
-                      %span.Color &nbsp;
-                      %span.Blank &nbsp;
-                      %span.Blank &nbsp;
-                      %span.Blank &nbsp;                      
-                    %span.revieText 12 Reviews
+                  = image_tag("../../assets/photo.jpg")
+                  .reviews-row.clearfix
+                    .rating.pull-left
+                      %span.empty-star &nbsp;
+                      %span.empty-star &nbsp;
+                      %span.empty-star &nbsp;
+                      %span.full-star &nbsp;
+                      %span.full-star &nbsp;                      
+                    %span.review-text.pull-right 12 Reviews
               .col-md-8.panel.nested-panel
                 %h5 Hi, I'm your Mechanic Bob Mechanic
                 %p Punched Russell Crowe in the face onece. Felt Nice.
 
-      / Upcoming Jobs Part
-      .row
-        .col-md-12
-          .panel.panel-default
-            .panel-heading.clearfix
-              %h4.panel-title
-                %i.glyphicon.glyphicon-user
-                %a(href="mechanic-jobs.html#scheduled-jobs")
-                  Upcoming Jobs
-              %span.tools.pull-right
-                %a.glyphicon.glyphicon-chevron-down(href="javascript:;")
+    / Upcoming Jobs Part
+    .row
+      .col-md-12
+        .panel.panel-default
+          .panel-heading.clearfix
+            %h4.panel-title
+              %i.glyphicon.glyphicon-user
+              = link_to 'Upcoming Jobs' , 'mechanic-jobs.html#scheduled-jobs'
+            %span.tools.pull-right
+              = link_to '', '#collapseTwo', class: 'glyphicon glyphicon-chevron-down accordion-toggle', :data => {:toggle => 'collapse', :parent => '#accordion'}
+          #collapseTwo.panel-collapse.collapse.in
             .panel-body
-              .panel.nested-panel
+              .panel.nested-panel.clearfix
                 .col-md-7.panel-right-border
                   %p
                     %b.text-info
@@ -92,10 +93,8 @@
                   %p
                     %i.glyphicon.glyphicon-map-marker
                     123 ABC st, Mountain View, CA, 92012
-                  %a.pull-right.btn.btn-info(href="scheduled-job-details.html")
-                    View Details
-                .clearfix
-              .panel.nested-panel
+                  = link_to 'View Details', 'scheduled-job-details.html', class: 'pull-right btn btn-info'
+              .panel.nested-panel.clearfix
                 .col-md-7.panel-right-border
                   %p
                     %b.text-info Andrew Nandjroo
@@ -113,20 +112,20 @@
                   %p
                     %i.glyphicon.glyphicon-map-marker
                     123 ABC st, Mountain View, CA, 92012
-                  %a.pull-right.btn.btn-info(href="scheduled-job-details.html") View Details
-                .clearfix
-        / Completed Jobs Part
-      .row
-        .col-md-12
-          .panel.panel-default
-            .panel-heading.clearfix
-              %h4.panel-title
-                %i.glyphicon.glyphicon-user
-                %a(href="mechanic-jobs.html#past-jobs") Completed Jobs
-              %span.tools.pull-right
-                %a.glyphicon.glyphicon-chevron-down(href="javascript:;")
+                  = link_to 'View Details', 'scheduled-job-details.html', class: 'pull-right btn btn-info'
+      / Completed Jobs Part
+    .row
+      .col-md-12
+        .panel.panel-default
+          .panel-heading.clearfix
+            %h4.panel-title
+              %i.glyphicon.glyphicon-user
+              = link_to 'Completed Jobs', 'mechanic-jobs.html#past-jobs'
+            %span.tools.pull-right
+              = link_to '', '#collapseThree', class: 'glyphicon glyphicon-chevron-down accordion-toggle', :data => {:toggle => 'collapse', :parent => '#accordion'}
+          #collapseThree.panel-collapse.collapse.in
             .panel-body
-              .panel.nested-panel
+              .panel.nested-panel.clearfix
                 .col-md-7.panel-right-border
                   %p
                     %b.text-info Andrew Nandjroo
@@ -144,9 +143,8 @@
                   %p
                     %i.glyphicon.glyphicon-map-marker
                     123 ABC st, Mountain View, CA, 92012
-                  %a.pull-right.btn.btn-info(href="mechanic-completed-job.html") View Details
-                .clearfix
-              .panel.nested-panel
+                  = link_to 'View Details', 'mechanic-completed-job.html', class: 'pull-right btn btn-info'
+              .panel.nested-panel.clearfix
                 .col-md-7.panel-right-border
                   %p
                     %b.text-info Andrew Nandjroo
@@ -164,5 +162,7 @@
                   %p
                     %i.glyphicon.glyphicon-map-marker
                     123 ABC st, Mountain View, CA, 92012
-                  %a.pull-right.btn.btn-info(href="mechanic-completed-job.html") View Details
-                .clearfix
+                  = link_to 'View Details', 'mechanic-completed-job.html', class: 'pull-right btn btn-info'
+
+#footer
+

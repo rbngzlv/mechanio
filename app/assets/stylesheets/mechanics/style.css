@@ -19,12 +19,13 @@ header.header{
   }
 
     .header button:active b.caret,
-    .header button:hover b.caret{
+    .header button:hover b.caret {
       border-top-color: #fff;
     }
 
-  .header p {
+  .header p.text-right {
     clear: both;
+    font-size: 13px;
   }
 
 /******SIDEBAR******/
@@ -72,9 +73,63 @@ header.header{
       color: #777;
     }
 
+      .nav-stacked li a:focus {
+        outline: none;
+      }
+
 /*******CONTENT******/
+body > .container {
+  min-height: 100%;
+  padding-bottom: 85px;
+}
+
   .profile-border {
     background: url("../../assets/profile-bg.jpg") no-repeat;
+    height: 162px;
+    width: 202px;
+    padding: 6px;
+    position: relative;
+    left: -15px;
+  }
+
+    .profile-border .reviews-row {
+      padding-top: 10px;
+    }
+
+      .reviews-row .review-text {
+        font-size: 11px;
+      }
+    
+      .reviews-row .rating {
+        direction: rtl;
+        cursor: pointer;
+      }
+
+      .reviews-row .rating span {
+        background: url("../../assets/sprite-png.png") no-repeat;
+        display: inline-block;
+        position: relative;
+        height: 15px;
+        margin: 0 1px;
+        width: 15px;
+      }
+
+        .reviews-row .rating span.empty-star {
+          background-position: -4px -20px;
+        }
+
+        .reviews-row .rating span.full-star,
+        .reviews-row .rating span:hover,
+        .reviews-row .rating span:hover ~ span {
+          background-position: -20px -20px;
+        }
+
+  .panel {
+    border-radius: 9px;
+  }
+
+  .panel-heading {
+    border-radius: 9px 9px 0 0;
   }
 
   .nested-panel {
@@ -85,11 +140,19 @@ header.header{
     }
 
     .mechanic-panel-body {
-      padding-right: 40px;
+      padding-right: 35px;
     }
 
       .mechanic-panel-body > .nested-panel {
         padding-left: 10px;
+      }
+
+      .mechanic-panel-body .col-md-4 {
+        width: 30%;
+      }
+
+      .mechanic-panel-body .col-md-8 {
+        width: 70%;
       }
 
     .panel-right-border {
@@ -98,9 +161,11 @@ header.header{
 
     .panel .panel-title {
       float: left;
+      font-size: 15px;
+      font-weight: bold;
     }
 
-    .panel-heading > .tools { 
+    .panel-heading > .tools {
       position: absolute;
       top: 5px;
       right: 25px;
@@ -108,13 +173,20 @@ header.header{
       border-left: 1px solid #E0DEDE; 
     }
 
-    .panel [class *= "glyphicon-chevron-down"] {
-      color: #979797;
-    }
-
     .panel [class *= "glyphicon"] {
       font-size: 11px;
     }
+
+    .panel [class *= "glyphicon-chevron-down"] {
+      color: #979797;
+      font-size: 14px;
+    }
+
+      .panel [class *= "glyphicon-chevron-down"]:active,
+      .panel [class *= "glyphicon-chevron-down"]:focus {
+        outline: none;
+        text-decoration: none;
+      }
 
     .panel [class *= "glyphicon-play"] {
       font-size: 8px;
@@ -134,4 +206,15 @@ header.header{
           text-decoration: none;
         }
 
+
+/********FOOTER********/
+/*#footer {
+    background: url("../../assets/footer-bg.jpg") repeat-x scroll left top #17130F;
+    color: #FFFFFF;
+    font-size: 15px;
+    padding: 8px 20px 5px;
+    text-align: left;
+    height: 70px;
+}
+*/
     
