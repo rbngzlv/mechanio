@@ -8,24 +8,28 @@
       %ul.nav.nav-pills.nav-stacked
         %li.active
           = link_to 'mechanic-dashboard.html' do
-            %span.img-rounded  
+            %span.img-circle  
               %i.glyphicon.glyphicon-dashboard
             Dashboard
         %li
-          %a{href: "mechanic-profile.html"}
-            %i.glyphicon.glyphicon-user
+          = link_to 'mechanic-profile.html' do
+            %span.img-circle  
+              %i.glyphicon.glyphicon-user
             My Profile
         %li
-          %a{href: "mechanic-jobs.html"}
-            %i.glyphicon.glyphicon-thumbs-up
+          = link_to 'mechanic-jobs.html' do
+            %span.img-circle  
+              %i.glyphicon.glyphicon-thumbs-up
             My Jobs
         %li
-          %a{href: "mechanic-payout.html"}
-            %i.glyphicon.glyphicon-credit-card
+          = link_to 'mechanic-payout.html' do
+            %span.img-circle  
+              %i.glyphicon.glyphicon-credit-card
             Payout Information
         %li
-          %a{href: "mechanic-settings.html"}
-            %i.glyphicon.glyphicon-calendar
+          = link_to 'mechanic-settings.html' do
+            %span.img-circle  
+              %i.glyphicon.glyphicon-calendar
             Settings
 
     / Right Content Part
@@ -43,8 +47,8 @@
             .widget-body
               .well
                 .MechProfile.col-md-4
-                  .profileImg
-                    %img(src="../../assets/images/photo.jpg")
+                  .profile-border
+                    %img(src="../../assets/photo.jpg")
                     .ReviewsRow
                       .stars
                         %span.Color &nbsp;

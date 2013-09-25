@@ -1,33 +1,78 @@
 @charset "utf-8";
 @import url("..bootstrap/css/bootstrap-responsive.css") screen;
 
-.header{
+/*****HEADER****/
+header.header{
   border-bottom: none;
 }
 
-  header ul.nav {
-    margin-bottom: 10px;
+  .header ul.nav {
+    margin: 3px 0 10px;
   }
 
-  header button.btn b.caret{
+  .header button {
+    border: none;
+  }
+
+  .header button b.caret{
     border-top-color: #999;
   }
-    header button.btn:active b.caret,
-    header button.btn:hover b.caret{
+
+    .header button:active b.caret,
+    .header button:hover b.caret{
       border-top-color: #fff;
     }
 
-  header p {
+  .header p {
     clear: both;
   }
 
-
-
+/******SIDEBAR******/
   .nav-stacked li {
     margin-bottom: 10px;
-    background: url('..images/side-bar-list-bg.png');
+    border-radius: 6px;
+    line-height: 30px;
+    background: url('../../assets/side-bar-list-bg.png');
   }
+
+    .nav-stacked li a {
+      padding: 5px 10px;
+    }
+
+    .nav-stacked .img-circle {
+      padding: 1px 9px;
+      background-color: #00B4D4;
+      text-align: left;
+      margin-right: 12px;
+      display: inline-block;
+    }
+ 
+      .nav-stacked .img-circle > [class *= glyphicon] {
+        color: #eee;
+        font-size: 16px;
+        display: inline-block;
+        text-align: center;
+        line-height: 30px;
+      }
+
+      .nav-stacked .active .img-circle {
+        background: #fff;
+      }
+
+    .nav-stacked li:hover a{
+      background-color: rgba(0, 0, 0 ,0);
+    }
     
-    .nav-stacked li.active{
+    .nav-stacked li.active a,
+    .nav-stacked li.active:hover a {
       background: #2FADE7;
     }
+
+    .nav-stacked li a {
+      color: #777;
+    }
+
+/*******CONTENT******/
+  .profile-border {
+    background: url("../../assets/profile-bg.jpg") no-repeat;
+  }
