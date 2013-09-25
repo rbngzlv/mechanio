@@ -37,49 +37,48 @@
       / Profile Part
       .row
         .col-md-12
-          .panel
-            .widget-title
-              %h4
-                %i.icon-user
+          .panel.panel-default
+            .panel-heading.clearfix
+              %h4.panel-title
+                %i.glyphicon.glyphicon-user
                 Bob Mechanic
-              %span.tools
-                %a.icon-chevron-down{href: "javascript:;"}
-            .widget-body
-              .well
-                .MechProfile.col-md-4
-                  .profile-border
-                    %img(src="../../assets/photo.jpg")
-                    .ReviewsRow
-                      .stars
-                        %span.Color &nbsp;
-                        %span.Color &nbsp;
-                        %span.Blank &nbsp;
-                        %span.Blank &nbsp;
-                        %span.Blank &nbsp;
-                      %span.revieText 12 Reviews
-                .col-md-8.greybox.margin0
-                  %h3 Hi, I'm your Mechanic Bob Mechanic
-                  %p.MB10 Punched Russell Crowe in the face onece. Felt Nice.
+              %span.tools.pull-right
+                %a.glyphicon.glyphicon-chevron-down{href: "javascript:;"}
+            .panel-body.mechanic-panel-body
+              .col-md-4
+                .profile-border
+                  %img(src="../../assets/photo.jpg")
+                  .ReviewsRow
+                    .stars
+                      %span.Color &nbsp;
+                      %span.Color &nbsp;
+                      %span.Blank &nbsp;
+                      %span.Blank &nbsp;
+                      %span.Blank &nbsp;                      
+                    %span.revieText 12 Reviews
+              .col-md-8.panel.nested-panel
+                %h5 Hi, I'm your Mechanic Bob Mechanic
+                %p Punched Russell Crowe in the face onece. Felt Nice.
 
       / Upcoming Jobs Part
       .row
         .col-md-12
-          .panel
-            .widget-title
-              %h4
+          .panel.panel-default
+            .panel-heading.clearfix
+              %h4.panel-title
                 %i.glyphicon.glyphicon-user
                 %a(href="mechanic-jobs.html#scheduled-jobs")
                   Upcoming Jobs
-              %span.tools
+              %span.tools.pull-right
                 %a.glyphicon.glyphicon-chevron-down(href="javascript:;")
-            .widget-body
-              .well
-                .col-md-7.BorderDotRight
+            .panel-body
+              .panel.nested-panel
+                .col-md-7.panel-right-border
                   %p
                     %b.text-info
                       Andrew Nandjroo
                   %p
-                    %i.icon-caret-right
+                    %i.glyphicon.glyphicon-play
                     2000 Ford Mustang V6-3 OL
                   %p
                     %b Services:
@@ -93,15 +92,15 @@
                   %p
                     %i.glyphicon.glyphicon-map-marker
                     123 ABC st, Mountain View, CA, 92012
-                  %a.fright.btn.btn-info(href="scheduled-job-details.html")
+                  %a.pull-right.btn.btn-info(href="scheduled-job-details.html")
                     View Details
                 .clearfix
-              .well
-                .col-md-7.BorderDotRight
+              .panel.nested-panel
+                .col-md-7.panel-right-border
                   %p
                     %b.text-info Andrew Nandjroo
                   %p
-                    %i.glyphicon.glyphicon-caret-right
+                    %i.glyphicon.glyphicon-play
                     2000 Ford Mustang V6-3 OL
                   %p
                     %b Services:
@@ -114,25 +113,25 @@
                   %p
                     %i.glyphicon.glyphicon-map-marker
                     123 ABC st, Mountain View, CA, 92012
-                  %a.fright.btn.btn-info(href="scheduled-job-details.html") View Details
+                  %a.pull-right.btn.btn-info(href="scheduled-job-details.html") View Details
                 .clearfix
         / Completed Jobs Part
       .row
         .col-md-12
-          .panel
-            .widget-title
-              %h4
+          .panel.panel-default
+            .panel-heading.clearfix
+              %h4.panel-title
                 %i.glyphicon.glyphicon-user
                 %a(href="mechanic-jobs.html#past-jobs") Completed Jobs
-              %span.tools
+              %span.tools.pull-right
                 %a.glyphicon.glyphicon-chevron-down(href="javascript:;")
-            .widget-body
-              .well
-                .col-md-7.BorderDotRight
+            .panel-body
+              .panel.nested-panel
+                .col-md-7.panel-right-border
                   %p
                     %b.text-info Andrew Nandjroo
                   %p
-                    %i.glyphicon.glyphicon-caret-right
+                    %i.glyphicon.glyphicon-play
                     2000 Ford Mustang V6-3 OL
                   %p
                     %b Services:
@@ -145,14 +144,14 @@
                   %p
                     %i.glyphicon.glyphicon-map-marker
                     123 ABC st, Mountain View, CA, 92012
-                  %a.fright.btn.btn-info(href="mechanic-completed-job.html") View Details
+                  %a.pull-right.btn.btn-info(href="mechanic-completed-job.html") View Details
                 .clearfix
-              .well
-                .col-md-7.BorderDotRight
+              .panel.nested-panel
+                .col-md-7.panel-right-border
                   %p
                     %b.text-info Andrew Nandjroo
                   %p
-                    %i.glyphicon.glyphicon-caret-right
+                    %i.glyphicon.glyphicon-play
                     2000 Ford Mustang V6-3 OL
                   %p
                     %b Services:
@@ -165,5 +164,5 @@
                   %p
                     %i.glyphicon.glyphicon-map-marker
                     123 ABC st, Mountain View, CA, 92012
-                  %a.fright.btn.btn-info(href="mechanic-completed-job.html") View Details
+                  %a.pull-right.btn.btn-info(href="mechanic-completed-job.html") View Details
                 .clearfix

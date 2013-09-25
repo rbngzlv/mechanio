@@ -30,7 +30,7 @@ header.header{
 /******SIDEBAR******/
   .nav-stacked li {
     margin-bottom: 10px;
-    border-radius: 6px;
+    border-radius: 8px;
     line-height: 30px;
     background: url('../../assets/side-bar-list-bg.png');
   }
@@ -40,7 +40,7 @@ header.header{
     }
 
     .nav-stacked .img-circle {
-      padding: 1px 9px;
+      padding: 0 9px;
       background-color: #00B4D4;
       text-align: left;
       margin-right: 12px;
@@ -76,3 +76,62 @@ header.header{
   .profile-border {
     background: url("../../assets/profile-bg.jpg") no-repeat;
   }
+
+  .nested-panel {
+      background: #FBFBFB;
+      border: 1px solid #EAEAEA;
+      padding: 10px 0;
+      font-size: 13px;
+    }
+
+    .mechanic-panel-body {
+      padding-right: 40px;
+    }
+
+      .mechanic-panel-body > .nested-panel {
+        padding-left: 10px;
+      }
+
+    .panel-right-border {
+      border-right: 1px dotted #ccc;
+    }
+
+    .panel .panel-title {
+      float: left;
+    }
+
+    .panel-heading > .tools { 
+      position: absolute;
+      top: 5px;
+      right: 25px;
+      padding: 6px;
+      border-left: 1px solid #E0DEDE; 
+    }
+
+    .panel [class *= "glyphicon-chevron-down"] {
+      color: #979797;
+    }
+
+    .panel [class *= "glyphicon"] {
+      font-size: 11px;
+    }
+
+    .panel [class *= "glyphicon-play"] {
+      font-size: 8px;
+    }
+
+      .panel .panel-title > [class *= glyphicon] {
+        font-size: 14px;
+      }
+
+      .panel .panel-title a {
+        color: #22878E;
+        font-weight: bold;
+        font-size: 15px;
+      }
+
+        .panel a:hover {
+          text-decoration: none;
+        }
+
+    
