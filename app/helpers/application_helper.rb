@@ -19,7 +19,8 @@ module ApplicationHelper
 
   def rating_stars(rating)
     html = ''
-    (5-rating).times { html << '<span class="empty-star">&nbsp</span>' }
-    rating.times { html << '<span class="full-star">&nbsp</span>' }
+    (5-rating).times { html << '<span class="empty-star">&nbsp;</span>'}
+    rating.times { html << '<span class="full-star">&nbsp;</span>'}
+    html.html_safe
   end
 end
