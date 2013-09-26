@@ -84,7 +84,7 @@ header.header{
 
 /*******CONTENT******/
 #wrap > .container {
-  padding-bottom: 17px;
+  padding-bottom: 90px;
 }
   .profile-border {
     background: url("../../assets/profile-bg.jpg") no-repeat;
@@ -192,7 +192,7 @@ header.header{
       position: absolute;
       top: 5px;
       right: 25px;
-      padding: 6px;
+      padding: 6px 6px 3px;
       border-left: 1px solid #E0DEDE; 
     }
 
@@ -213,6 +213,8 @@ header.header{
 
     .panel [class *= "glyphicon-play"] {
       font-size: 8px;
+      position: relative;
+      top: -1px;
     }
 
       .panel .panel-title > [class *= glyphicon] {
@@ -238,6 +240,7 @@ header.header{
   padding: 20px 20px 5px;
   height: 70px;
   position: relative;
+  margin-top: -70px;
 }
 
   .footer .navbar-nav {
