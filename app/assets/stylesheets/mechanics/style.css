@@ -1,5 +1,4 @@
 @charset "utf-8";
-@import url("..bootstrap/css/bootstrap-responsive.css") screen;
 
 html, body {
   height: 100%;
@@ -41,7 +40,7 @@ header.header{
     margin-bottom: 10px;
     border-radius: 8px;
     line-height: 30px;
-    background: url('../../assets/side-bar-list-bg.png');
+    background: url('/assets/side-bar-list-bg.png');
   }
 
     .nav-stacked .img-circle {
@@ -87,7 +86,7 @@ header.header{
   padding-bottom: 90px;
 }
   .profile-border {
-    background: url("../../assets/profile-bg.jpg") no-repeat;
+    background: url("/assets/profile-bg.jpg") no-repeat;
     height: 162px;
     width: 202px;
     padding: 6px;
@@ -109,7 +108,7 @@ header.header{
       }
 
       .reviews-row .rating span {
-        background: url("../../assets/sprite-png.png") no-repeat;
+        background: url("/assets/sprite-png.png") no-repeat;
         display: inline-block;
         position: relative;
         height: 15px;
@@ -134,7 +133,7 @@ header.header{
     .panel-default .panel-heading {
       border-radius: 9px 9px 0 0;
       padding: 9px 15px;
-      background: url("../../assets/widget-title-bg.jpg") repeat-x;
+      background: url("/assets/widget-title-bg.jpg") repeat-x;
     }
 
     .panel-body {
@@ -144,7 +143,7 @@ header.header{
   .nested-panel {
       background: #FBFBFB;
       border: 1px solid #EAEAEA;
-      padding: 7px 0;
+      padding: 7px 0 10px;
       font-size: 13px;
       margin-bottom: 13px;
     }
@@ -234,7 +233,7 @@ header.header{
 
 /********FOOTER********/
 .footer {
-  background: url("../../assets/footer-bg.jpg") repeat-x scroll left top #17130F;
+  background: url("/assets/footer-bg.jpg") repeat-x scroll left top #17130F;
   color: #FFFFFF;
   font-size: 15px;
   padding: 20px 20px 5px;
@@ -272,13 +271,13 @@ header.header{
     }
 
       .social .icon-facebook { 
-        background: url('../../assets/icon-facebook.jpg');
+        background: url('/assets/icon-facebook.jpg');
       }
 
       .social .icon-twitter { 
-        background: url('../../assets/icon-twitter.jpg');
+        background: url('/assets/icon-twitter.jpg');
       }
 
       .social .icon-google-plus { 
-        background: url('../../assets/icon-google-plus.jpg');
+        background: url('/assets/icon-google-plus.jpg');
       }

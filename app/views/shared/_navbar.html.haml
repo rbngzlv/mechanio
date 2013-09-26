@@ -2,7 +2,7 @@
   .container
     = link_to image_tag('mechanio_logo.png'), root_path, class: 'brand'
     .pull-right
-      = link_to 'How It Works', '#', class: 'btn btn-link'
+      = link_to 'How It Works', '#', class: 'btn btn-link pull-left'
       - if user_signed_in?
         = link_to 'Logout', destroy_user_session_path, method: :delete, class: 'btn btn-primary navbar-btn'
       - elsif mechanic_signed_in?

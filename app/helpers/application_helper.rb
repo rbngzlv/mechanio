@@ -16,4 +16,10 @@ module ApplicationHelper
       yield
     end
   end
+
+  def rating_stars(rating)
+    html = ''
+    (5-rating).times { html << '<span class="empty-star">&nbsp</span>' }
+    rating.times { html << '<span class="full-star">&nbsp</span>' }
+  end
 end

@@ -1,33 +1,32 @@
 -# add original css, and after that change on bootstrap 3.0
 -# a need to replace by link_to
 -# img need to replace by img_tag
--#.container
 .row
   / Left Navigation Part
   .col-md-3.nav-collapse
     %ul.nav.nav-pills.nav-stacked
       %li.active
-        = link_to 'mechanic-dashboard.html' do
+        = link_to '#' do
           %span.img-circle
             %i.glyphicon.glyphicon-dashboard
           Dashboard
       %li
-        = link_to 'mechanic-profile.html' do
+        = link_to '#' do
           %span.img-circle
             %i.glyphicon.glyphicon-user
           My Profile
       %li
-        = link_to 'mechanic-jobs.html' do
+        = link_to '#' do
           %span.img-circle
             %i.glyphicon.glyphicon-thumbs-up
           My Jobs
       %li
-        = link_to 'mechanic-payout.html' do
+        = link_to '#' do
           %span.img-circle
             %i.glyphicon.glyphicon-credit-card
           Payout Information
       %li
-        = link_to 'mechanic-settings.html' do
+        = link_to '#' do
           %span.img-circle
             %i.glyphicon.glyphicon-calendar
           Settings
@@ -48,14 +47,10 @@
             .panel-body.mechanic-panel-body
               .col-md-4
                 .profile-border
-                  = image_tag("../../assets/photo.jpg")
+                  = image_tag("/assets/photo.jpg")
                   .reviews-row.clearfix
                     .rating.pull-left
-                      %span.empty-star &nbsp;
-                      %span.empty-star &nbsp;
-                      %span.empty-star &nbsp;
-                      %span.full-star &nbsp;
-                      %span.full-star &nbsp;                      
+                      = rating_stars(3)
                     %span.review-text.pull-right 12 Reviews
               .col-md-8.panel.nested-panel
                 %h5 Hi, I'm your Mechanic Bob Mechanic
@@ -68,7 +63,7 @@
           .panel-heading.clearfix
             %h4.panel-title
               %i.glyphicon.glyphicon-user
-              = link_to 'Upcoming Jobs' , 'mechanic-jobs.html#scheduled-jobs'
+              = link_to 'Upcoming Jobs' , '#'
             %span.tools.pull-right
               = link_to '', '#collapseTwo', class: 'glyphicon glyphicon-chevron-down accordion-toggle', :data => {:toggle => 'collapse', :parent => '#accordion'}
           #collapseTwo.panel-collapse.collapse.in
@@ -93,7 +88,7 @@
                   %p
                     %i.glyphicon.glyphicon-map-marker
                     123 ABC st, Mountain View, CA, 92012
-                  = link_to 'View Details', 'scheduled-job-details.html', class: 'pull-right btn btn-info'
+                  = link_to 'View Details', '#', class: 'pull-right btn btn-info'
               .panel.nested-panel.clearfix
                 .col-md-7.panel-right-border
                   %p
@@ -112,7 +107,7 @@
                   %p
                     %i.glyphicon.glyphicon-map-marker
                     123 ABC st, Mountain View, CA, 92012
-                  = link_to 'View Details', 'scheduled-job-details.html', class: 'pull-right btn btn-info'
+                  = link_to 'View Details', '#', class: 'pull-right btn btn-info'
       / Completed Jobs Part
     .row
       .col-md-12
@@ -143,7 +138,7 @@
                   %p
                     %i.glyphicon.glyphicon-map-marker
                     123 ABC st, Mountain View, CA, 92012
-                  = link_to 'View Details', 'mechanic-completed-job.html', class: 'pull-right btn btn-info'
+                  = link_to 'View Details', '#', class: 'pull-right btn btn-info'
               .panel.nested-panel.clearfix
                 .col-md-7.panel-right-border
                   %p
@@ -162,4 +157,4 @@
                   %p
                     %i.glyphicon.glyphicon-map-marker
                     123 ABC st, Mountain View, CA, 92012
-                  = link_to 'View Details', 'mechanic-completed-job.html', class: 'pull-right btn btn-info'
+                  = link_to 'View Details', '#', class: 'pull-right btn btn-info'
