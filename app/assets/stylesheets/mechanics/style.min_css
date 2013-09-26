@@ -1,4 +1,3 @@
-
 [class^="icon-"], [class*=" icon-"], [class^="icon-"]:hover, [class*=" icon-"]:hover {
 background:none!important
 }
