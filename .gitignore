@@ -17,3 +17,5 @@
 
 config/database.yml
 .idea
+
+/public/system/

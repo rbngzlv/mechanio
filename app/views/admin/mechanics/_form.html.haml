@@ -1,32 +1,44 @@
-= simple_form_for [:admin, @mechanic], html: { class: '' } do |f|
+:javascript
+  $(function () {
+    $('input[type=file]').bootstrapFileInput();
+    $('.file-input-wrapper').addClass('btn-success').addClass('col-md-2');
+  });
+%hr.hr-dark-gray
+= link_to "Delete", admin_mechanic_path(@mechanic), method: :delete, class: 'btn btn-danger col-md-1 col-md-offset-11', data: { confirm: 'Are you sure to delete the mechanic?' }
+= simple_form_for [:admin, @mechanic], html: { class: 'form-horizontal admin_mechanic_form', :multipart => true }, defaults: { input_html: { class: 'form-control' }, label_html: { class: 'col-md-2' }, as: :bootstrap_horizontal_text } do |f|
   = f.error_notification
-  .row
-    .col-md-4
-      = f.input :first_name
-    .col-md-3
-      = f.input :last_name
-    .col-md-3
-      = f.input :dob, label: 'Date of birth', start_year: Date.today.year - 60, end_year: Date.today.year - 18
-  .row
-    .col-md-4
-      = f.input :email, label: 'Personal email'
-    .col-md-6
-      = f.input :description, label: 'Personal description'
-  .row
-    .col-md-4
-      = f.input :street_address, as: :string
-    .col-md-3
-      = f.input :suburb
-    .col-md-2
-      = f.association :state, prompt: '-- Please select --'
-    .col-md-2
-      = f.input :postcode
-  .row
-    .col-md-4
-      = f.input :driver_license, label: "Driver's license number"
-    .col-md-3
-      = f.association :license_state, label: 'Registered state', prompt: '-- Please select --'
-    .col-md-3
-      = f.input :license_expiry, label: 'Expiry date', start_year: Date.today.year, end_year: Date.today.year + 20
-  = f.submit 'Save', class: 'btn btn-primary'
-  = link_to "Delete", admin_mechanic_path(@mechanic), method: :delete, class: 'btn btn-danger pull-right', data: { confirm: 'Are you sure to delete the mechanic?' }
+  = f.input :first_name
+  = f.input :last_name
+  = f.input :dob, label: 'Date of birth', input_html: { class: 'form-control' }, start_year: Date.today.year - 60, end_year: Date.today.year - 18, as: :bootstrap_horizontal_time
+  = f.input :email, label: 'Personal email'
+  = f.input :description, label: 'Personal description', as: :bootstrap_horizontal_textarea
+  = f.input :avatar, label: 'Photo', as: :bootstrap_horizontal_image
+  %legend Persanal Address
+  = render partial: 'shared/location_form', locals: { f: f }
+  %legend Driver License
+  = f.input :driver_license_number, label: "Driver's license"
+  = f.association :license_state, label: 'Registered state', prompt: '-- Please select --', as: :bootstrap_horizontal_association
+  = f.input :license_expiry, label: 'Expiry date', input_html: { class: 'form-control' }, start_year: Date.today.year, end_year: Date.today.year + 20, as: :bootstrap_horizontal_time
+  = f.input :driver_license, label: 'Image', as: :bootstrap_horizontal_image
+  %legend Business Details
+  = f.input :business_website
+  = f.input :business_email
+  = f.input :years_as_a_mechanic
+  = f.input :mobile_number
+  = f.input :other_number
+  %legend ABN
+  = f.input :abn_name
+  = f.input :abn_number
+  = f.input :abn_expiry, label: 'Expiry date', input_html: { class: 'form-control' }, start_year: Date.today.year, end_year: Date.today.year + 20, as: :bootstrap_horizontal_time
+  = f.input :abn, label: 'Image', as: :bootstrap_horizontal_image
+  %legend Business Address
+  = render partial: 'shared/location_form', locals: { f: f, location_type: :business_location }
+  %legend Motor Mechanics License
+  = f.input :mechanic_license_number, label: 'Number'
+  = f.input :mechanic_license_expiry, label: 'Expiry date', input_html: { class: 'form-control' }, start_year: Date.today.year, end_year: Date.today.year + 20, as: :bootstrap_horizontal_time
+  = f.association :mechanic_license_state, label: 'Registered state', prompt: '-- Please select --', as: :bootstrap_horizontal_association
+  = f.input :mechanic_license, label: 'Image', as: :bootstrap_horizontal_image
+  %hr.hr-dark-gray
+  .form-group
+    .col-md-offset-2.col-md-6
+      = f.submit 'Save', class: 'btn btn-primary col-md-2'
