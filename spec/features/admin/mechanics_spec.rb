@@ -1,6 +1,7 @@
 require 'spec_helper'
+require 'fileutils'
 
-describe 'Admin mechanics management' do
+feature 'Admin mechanics management' do
 
   let!(:mechanic) { create :mechanic }
 
@@ -34,12 +35,12 @@ describe 'Admin mechanics management' do
       select 'October', from: 'mechanic_dob_2i'
       select '1',       from: 'mechanic_dob_3i'
       fill_in 'Personal description', with: 'Something about me'
-      fill_in 'Street address', with: 'Seashell avenue, 25'
-      fill_in 'Suburb', with: 'Somewhere'
-      select 'Queensland', from: 'State'
-      fill_in 'Postcode', with: 'AX12345'
+      fill_in 'mechanic_location_attributes_address', with: 'Seashell avenue, 25'
+      fill_in 'mechanic_location_attributes_suburb', with: 'Somewhere'
+      select 'Queensland', from: 'mechanic_location_attributes_state_id'
+      fill_in 'mechanic_location_attributes_postcode', with: 'AX12345'
       fill_in "Driver's license", with: 'MXF123887364'
-      select 'Queensland', from: "Registered state"
+      select 'Queensland', from: "mechanic_license_state_id"
       select '2015',      from: 'mechanic_license_expiry_1i'
       select 'September', from: 'mechanic_license_expiry_2i'
       select '1',         from: 'mechanic_license_expiry_3i'
@@ -71,5 +72,35 @@ describe 'Admin mechanics management' do
     end.to change { Mechanic.count }.by -1
 
     page.should have_css '.alert', text: 'Mechanic succesfully deleted.'
+  end
+
+  describe "image uploading" do
+    before do
+      visit edit_admin_mechanic_path(mechanic)
+    end
+
+    it "should have fields for bussines details" do
+      page.should have_content 'Business Details'
+    end
+
+    context "upload images" do
+      let(:image_path) { "#{Rails.root}/spec/features/fixtures/test_img.jpg" }
+      let(:uploads_dir_path) { "#{Rails.root}/public/system/mechanic/" }
+
+      scenario "and send form with images files" do
+        attach_file('mechanic_avatar', image_path)
+        attach_file('mechanic_driver_license', image_path)
+        attach_file('mechanic_abn', image_path)
+        attach_file('mechanic_mechanic_license', image_path)
+        expect { click_button 'Save' }.to change { all("img").length }.by(4)
+        page.should have_content 'Mechanic succesfully updated.'
+      end
+
+      after do
+        %w( abn avatar driver_license motor_mechanics_license ).each do |v|
+          FileUtils.rm_rf "#{uploads_dir_path}#{v}/#{mechanic.id}/"
+        end
+      end
+    end
   end
 end

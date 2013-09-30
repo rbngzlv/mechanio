@@ -59,14 +59,14 @@ form input.form-control {
   select {
     display: inline-block;
   }
+  select:nth-child(1) {
+    width: 14%;
+  }
   select:nth-child(2) {
-    width: 28%;
+    width: 23%;
   }
   select:nth-child(3) {
-    width: 48%;
-  }
-  select:nth-child(4) {
-    width: 18%;
+    width: 11%;
   }
 }
 
@@ -221,4 +221,30 @@ form input.form-control {
 
 form .radio {
   line-height: 23px;
+}
+
+.admin_mechanic_form .form-group img {
+  display: block;
+}
+
+.file-input-wrapper {
+  display: block;
+  margin-top: 10px;
+}
+
+.file-input-name {
+  line-height: 34px;
+}
+
+.admin_mechanic_form {
+  padding-bottom: 10%;
+
+  legend {
+    font-size: 18px;
+    color: #555;
+  }
+}
+
+.hr-dark-gray + .btn-danger {
+  top: -53px;
 }
