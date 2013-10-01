@@ -1,2 +1,157 @@
-%h1 Mechanic dashboard
-= link_to 'My Profile', mechanics_profile_path
+.row
+  / Left Navigation Part
+  .col-md-3.nav-collapse
+    %ul.nav.nav-pills.nav-stacked
+      %li.active
+        = link_to '#' do
+          %span.img-circle
+            %i.glyphicon.glyphicon-dashboard
+          Dashboard
+      %li
+        = link_to '#' do
+          %span.img-circle
+            %i.glyphicon.glyphicon-user
+          My Profile
+      %li
+        = link_to '#' do
+          %span.img-circle
+            %i.glyphicon.glyphicon-thumbs-up
+          My Jobs
+      %li
+        = link_to '#' do
+          %span.img-circle
+            %i.glyphicon.glyphicon-credit-card
+          Payout Information
+      %li
+        = link_to '#' do
+          %span.img-circle
+            %i.glyphicon.glyphicon-calendar
+          Settings
+
+  / Right Content Part
+  .col-md-9
+    / Profile Part
+    .row
+      .col-md-12
+        .panel.panel-default
+          .panel-heading.clearfix
+            %h4.panel-title
+              %i.glyphicon.glyphicon-user
+              Bob Mechanic
+            %span.tools.pull-right
+              = link_to '', '#js-collapse-one', class: 'glyphicon glyphicon-chevron-down accordion-toggle', :data => {:toggle => 'collapse', :parent => '#accordion'}
+          #js-collapse-one.panel-collapse.collapse.in
+            .panel-body.mechanic-panel-body
+              .col-md-4
+                .profile-border
+                  = image_tag("/assets/photo.jpg")
+                  .reviews-row.clearfix
+                    .rating.pull-left
+                      = rating_stars(2)
+                    %span.review-text.pull-right 12 Reviews
+              .col-md-8.panel.nested-panel
+                %h5 Hi, I'm your Mechanic Bob Mechanic
+                %p Punched Russell Crowe in the face onece. Felt Nice.
+
+    / Upcoming Jobs Part
+    .row
+      .col-md-12
+        .panel.panel-default
+          .panel-heading.clearfix
+            %h4.panel-title
+              %i.glyphicon.glyphicon-user
+              = link_to 'Upcoming Jobs' , '#'
+            %span.tools.pull-right
+              = link_to '', '#js-collapse-two', class: 'glyphicon glyphicon-chevron-down accordion-toggle', :data => {:toggle => 'collapse', :parent => '#accordion'}
+          #js-collapse-two.panel-collapse.collapse.in
+            .panel-body
+              .panel.nested-panel.clearfix
+                .col-md-7.panel-right-border
+                  %p
+                    %b.text-info
+                      Andrew Nandjroo
+                  %p
+                    %i.glyphicon.glyphicon-play
+                    2000 Ford Mustang V6-3 OL
+                  %p
+                    %b Services:
+                    Car is making a noise (inspection)
+                .col-md-5
+                  %p
+                    %i.glyphicon.glyphicon-time
+                    %small
+                      11 : 00 AM,
+                    May 8, 2013 (Friday)
+                  %p
+                    %i.glyphicon.glyphicon-map-marker
+                    123 ABC st, Mountain View, CA, 92012
+                  = link_to 'View Details', '#', class: 'pull-right btn btn-info'
+              .panel.nested-panel.clearfix
+                .col-md-7.panel-right-border
+                  %p
+                    %b.text-info Andrew Nandjroo
+                  %p
+                    %i.glyphicon.glyphicon-play
+                    2000 Ford Mustang V6-3 OL
+                  %p
+                    %b Services:
+                    Car is making a noise (inspection)
+                .col-md-5
+                  %p
+                    %i.glyphicon.glyphicon-time
+                    %small 11 : 00 AM,
+                    May 8, 2013 (Friday)
+                  %p
+                    %i.glyphicon.glyphicon-map-marker
+                    123 ABC st, Mountain View, CA, 92012
+                  = link_to 'View Details', '#', class: 'pull-right btn btn-info'
+      / Completed Jobs Part
+    .row
+      .col-md-12
+        .panel.panel-default
+          .panel-heading.clearfix
+            %h4.panel-title
+              %i.glyphicon.glyphicon-user
+              = link_to 'Completed Jobs', 'mechanic-jobs.html#past-jobs'
+            %span.tools.pull-right
+              = link_to '', '#js-collapse-three', class: 'glyphicon glyphicon-chevron-down accordion-toggle', :data => {:toggle => 'collapse', :parent => '#accordion'}
+          #js-collapse-three.panel-collapse.collapse.in
+            .panel-body
+              .panel.nested-panel.clearfix
+                .col-md-7.panel-right-border
+                  %p
+                    %b.text-info Andrew Nandjroo
+                  %p
+                    %i.glyphicon.glyphicon-play
+                    2000 Ford Mustang V6-3 OL
+                  %p
+                    %b Services:
+                    Car is making a noise (inspection)
+                .col-md-5
+                  %p
+                    %i.glyphicon.glyphicon-time
+                    %small 11 : 00 AM,
+                    May 8, 2013 (Friday)
+                  %p
+                    %i.glyphicon.glyphicon-map-marker
+                    123 ABC st, Mountain View, CA, 92012
+                  = link_to 'View Details', '#', class: 'pull-right btn btn-info'
+              .panel.nested-panel.clearfix
+                .col-md-7.panel-right-border
+                  %p
+                    %b.text-info Andrew Nandjroo
+                  %p
+                    %i.glyphicon.glyphicon-play
+                    2000 Ford Mustang V6-3 OL
+                  %p
+                    %b Services:
+                    Car is making a noise (inspection)
+                .col-md-5
+                  %p
+                    %i.glyphicon.glyphicon-time
+                    %small 11 : 00 AM,
+                    May 8, 2013 (Friday)
+                  %p
+                    %i.glyphicon.glyphicon-map-marker
+                    123 ABC st, Mountain View, CA, 92012
+                  = link_to 'View Details', '#', class: 'pull-right btn btn-info'
