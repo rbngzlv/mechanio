@@ -1,6 +1,3 @@
--# add original css, and after that change on bootstrap 3.0
--# a need to replace by link_to
--# img need to replace by img_tag
 .row
   / Left Navigation Part
   .col-md-3.nav-collapse
@@ -42,8 +39,8 @@
               %i.glyphicon.glyphicon-user
               Bob Mechanic
             %span.tools.pull-right
-              = link_to '', '#collapseOne', class: 'glyphicon glyphicon-chevron-down accordion-toggle', :data => {:toggle => 'collapse', :parent => '#accordion'}
-          #collapseOne.panel-collapse.collapse.in
+              = link_to '', '#js-collapse-one', class: 'glyphicon glyphicon-chevron-down accordion-toggle', :data => {:toggle => 'collapse', :parent => '#accordion'}
+          #js-collapse-one.panel-collapse.collapse.in
             .panel-body.mechanic-panel-body
               .col-md-4
                 .profile-border
@@ -65,8 +62,8 @@
               %i.glyphicon.glyphicon-user
               = link_to 'Upcoming Jobs' , '#'
             %span.tools.pull-right
-              = link_to '', '#collapseTwo', class: 'glyphicon glyphicon-chevron-down accordion-toggle', :data => {:toggle => 'collapse', :parent => '#accordion'}
-          #collapseTwo.panel-collapse.collapse.in
+              = link_to '', '#js-collapse-two', class: 'glyphicon glyphicon-chevron-down accordion-toggle', :data => {:toggle => 'collapse', :parent => '#accordion'}
+          #js-collapse-two.panel-collapse.collapse.in
             .panel-body
               .panel.nested-panel.clearfix
                 .col-md-7.panel-right-border
@@ -117,8 +114,8 @@
               %i.glyphicon.glyphicon-user
               = link_to 'Completed Jobs', 'mechanic-jobs.html#past-jobs'
             %span.tools.pull-right
-              = link_to '', '#collapseThree', class: 'glyphicon glyphicon-chevron-down accordion-toggle', :data => {:toggle => 'collapse', :parent => '#accordion'}
-          #collapseThree.panel-collapse.collapse.in
+              = link_to '', '#js-collapse-three', class: 'glyphicon glyphicon-chevron-down accordion-toggle', :data => {:toggle => 'collapse', :parent => '#accordion'}
+          #js-collapse-three.panel-collapse.collapse.in
             .panel-body
               .panel.nested-panel.clearfix
                 .col-md-7.panel-right-border
