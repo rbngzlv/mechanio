@@ -14,6 +14,7 @@ Mechanio::Application.routes.draw do
 
   namespace :mechanics do
     get '/', to: 'dashboard#index', as: :dashboard
+    resource :profile, only: [:show]
   end
 
   namespace :admin do

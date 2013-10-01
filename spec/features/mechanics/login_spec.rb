@@ -9,14 +9,12 @@ feature 'mechanic signin' do
 
   context 'login' do
 
-    context 'success' do
-      before do
-        fill_in 'mechanic_email', with: mechanic.email
-        fill_in 'mechanic_password', with: mechanic.password
-        click_button 'Login'
-      end
-
-      it { should have_content('Signed in successfully.') }
+    scenario 'success' do
+      fill_in 'mechanic_email', with: mechanic.email
+      fill_in 'mechanic_password', with: mechanic.password
+      click_button 'Login'
+      should have_content('Signed in successfully.')
+      should have_selector('h1', text: 'Mechanic dashboard')
     end
 
     context 'fail' do
