@@ -9,6 +9,6 @@ class Car < ActiveRecord::Base
   validates :year, year: true
 
   def set_display_title
-    self.display_title = model_variation.display_title
+    self.display_title = "#{year} #{model_variation.display_title}"
   end
 end

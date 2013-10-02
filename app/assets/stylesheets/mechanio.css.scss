@@ -221,6 +221,10 @@ form input.form-control {
 
 .wizard-body {
   min-height: 240px;
+
+  .add-vehicle .alert {
+    margin-top: 0;
+  }
 }
 
 form .radio {
