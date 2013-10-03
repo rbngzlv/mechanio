@@ -62,12 +62,12 @@ namespace :import do
       model_variation.identifier = version.hash.abs.to_s
       model_variation.save
 
-      quote = BigDecimal.new(r[' Drummoyne Auto Care Price'].match(/[\d\.]+/)[0])
+      cost = BigDecimal.new(r[' Drummoyne Auto Care Price'].match(/[\d\.]+/)[0])
 
       begin
         service_plan = ServicePlan.where(
           make_id: make.id, model_id: model.id, model_variation_id: model_variation.id,
-          kms_travelled: kms_travelled, months: months, title: title, quote: quote,
+          kms_travelled: kms_travelled, months: months, title: title, cost: cost,
           inclusions: inclusions, instructions: instructions, parts: parts, notes: notes
         ).first_or_create!
       rescue Exception => e

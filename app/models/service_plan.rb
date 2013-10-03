@@ -7,7 +7,7 @@ class ServicePlan < ActiveRecord::Base
 
   before_save :set_make_and_model, :set_display_title
 
-  validates :quote, presence: true, numericality: true
+  validates :cost, presence: true, numericality: true
 
   with_options if: :title_blank? do |service_plan|
     service_plan.validates :kms_travelled, :months, presence: true, numericality: { only_integer: true }

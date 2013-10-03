@@ -35,7 +35,7 @@ describe 'Manage service periods' do
       it 'periodic' do
         fill_in 'Kms travelled', with: '15000'
         fill_in 'Months', with: '8'
-        fill_in 'Quote', with: '250'
+        fill_in 'Cost', with: '250'
         click_on 'Save'
 
         page.should have_css 'h4', text: 'Default service plans'
@@ -45,7 +45,7 @@ describe 'Manage service periods' do
 
       it 'custom' do
         fill_in 'Title', with: 'Minor/Interim'
-        fill_in 'Quote', with: '250'
+        fill_in 'Cost', with: '250'
         click_on 'Save'
 
         page.should have_css 'h4', text: 'Default service plans'
@@ -98,7 +98,7 @@ describe 'Manage service periods' do
       it 'periodic' do
         fill_in 'Kms travelled', with: '15000'
         fill_in 'Months', with: '8'
-        fill_in 'Quote', with: '250'
+        fill_in 'Cost', with: '250'
         click_on 'Save'
 
         page.should have_css 'th', text: "Service plans for #{model_variation.full_title}"
@@ -108,7 +108,7 @@ describe 'Manage service periods' do
 
       it 'custom' do
         fill_in 'Title', with: 'Minor/Interim'
-        fill_in 'Quote', with: '250'
+        fill_in 'Cost', with: '250'
         click_on 'Save'
 
         page.should have_css 'th', text: "Service plans for #{model_variation.full_title}"

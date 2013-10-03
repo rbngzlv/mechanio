@@ -3,7 +3,7 @@ FactoryGirl.define do
     title           ''
     kms_travelled   10000
     months          6
-    quote           350.0
+    cost            350.0
     make
     model
     model_variation

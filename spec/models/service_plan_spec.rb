@@ -10,8 +10,8 @@ describe ServicePlan do
   it { should belong_to :model }
   it { should belong_to :model_variation }
 
-  it { should validate_presence_of :quote }
-  it { should validate_numericality_of :quote }
+  it { should validate_presence_of :cost }
+  it { should validate_numericality_of :cost }
 
   it 'populates make and model from model_variation on save' do
     service_plan = build :service_plan, model_variation: model_variation, make_id: nil, model_id: nil

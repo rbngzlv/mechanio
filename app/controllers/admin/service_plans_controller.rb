@@ -65,7 +65,7 @@ class Admin::ServicePlansController < Admin::ApplicationController
 
   def permitted_params
     params.require(:service_plan).permit(
-      :title, :kms_travelled, :months, :quote, :model_variation_id, :inclusions, :instructions, :parts, :notes
+      :title, :kms_travelled, :months, :cost, :model_variation_id, :inclusions, :instructions, :parts, :notes
     )
   end
 
