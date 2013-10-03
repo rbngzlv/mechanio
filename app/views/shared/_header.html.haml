@@ -35,16 +35,16 @@
                 = link_to '#' do
                   %i.glyphicon.glyphicon-cog
                   Settings
-              %li.divider 
+              %li.divider
               %li
-                = link_to destroy_user_session_path do
+                = link_to destroy_user_session_path, method: :delete do
                   %i.glyphicon.glyphicon-log-out
                   Log out
       - elsif mechanic_signed_in?
         %ul.nav.pull-right
           %li.dropdown
             %button.btn-dark.btn-sm.dropdown-toggle{:data => {:toggle => 'dropdown'}}
-              Mechanic Name
+              = current_mechanic.full_name
               %b.caret
             %ul.dropdown-menu
               %li
@@ -67,9 +67,9 @@
                 = link_to '#' do
                   %i.glyphicon.glyphicon-calendar
                   Settings
-              %li.divider 
-              %li 
-                = link_to destroy_user_session_path do
+              %li.divider
+              %li
+                = link_to destroy_mechanic_session_path, method: :delete do
                   %i.glyphicon.glyphicon-log-out
                   Log out
       - else

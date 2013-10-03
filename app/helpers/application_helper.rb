@@ -23,4 +23,15 @@ module ApplicationHelper
     rating.times { html << '<span class="full-star">&nbsp;</span>'}
     html.html_safe
   end
+
+  def nav_bar_link(title, path, options)
+    css = []
+    css << options[:li_class].to_s if options[:li_class]
+    css << 'active' if current_page?(path) || options[:active]
+    content_tag(:li, :class => css.join(' ')) do
+      i = content_tag(:i, '', class: "glyphicon glyphicon-#{options[:icon]}")
+      span = content_tag(:span, i, class: 'img-circle')
+      link_to(span + title, path)
+    end.html_safe
+  end
 end

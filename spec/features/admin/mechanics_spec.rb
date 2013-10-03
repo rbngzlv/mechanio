@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'fileutils'
 
 feature 'Admin mechanics management' do
 
@@ -57,6 +56,7 @@ feature 'Admin mechanics management' do
     page.should have_css 'td', text: 'John Doe'
 
     click_link 'Details'
+    page.should have_content 'Business Details'
 
     fill_in 'First name', with: 'Alex'
     click_button 'Save'
@@ -74,33 +74,14 @@ feature 'Admin mechanics management' do
     page.should have_css '.alert', text: 'Mechanic succesfully deleted.'
   end
 
-  describe "image uploading" do
-    before do
-      visit edit_admin_mechanic_path(mechanic)
-    end
-
-    it "should have fields for bussines details" do
-      page.should have_content 'Business Details'
-    end
-
-    context "upload images" do
-      let(:image_path) { "#{Rails.root}/spec/features/fixtures/test_img.jpg" }
-      let(:uploads_dir_path) { "#{Rails.root}/public/system/mechanic/" }
-
-      scenario "and send form with images files" do
-        attach_file('mechanic_avatar', image_path)
-        attach_file('mechanic_driver_license', image_path)
-        attach_file('mechanic_abn', image_path)
-        attach_file('mechanic_mechanic_license', image_path)
-        expect { click_button 'Save' }.to change { all("img").length }.by(4)
-        page.should have_content 'Mechanic succesfully updated.'
-      end
-
-      after do
-        %w( abn avatar driver_license motor_mechanics_license ).each do |v|
-          FileUtils.rm_rf "#{uploads_dir_path}#{v}/#{mechanic.id}/"
-        end
-      end
-    end
+  scenario "images uploading" do
+    image_path = "#{Rails.root}/spec/features/fixtures/test_img.jpg"
+    visit edit_admin_mechanic_path(mechanic)
+    attach_file('mechanic_avatar', image_path)
+    attach_file('mechanic_driver_license', image_path)
+    attach_file('mechanic_abn', image_path)
+    attach_file('mechanic_mechanic_license', image_path)
+    expect { click_button 'Save' }.to change { all("img").length }.by(4)
+    page.should have_content 'Mechanic succesfully updated.'
   end
 end

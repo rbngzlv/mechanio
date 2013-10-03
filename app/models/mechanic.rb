@@ -23,4 +23,9 @@ class Mechanic < ActiveRecord::Base
   def full_name
     "#{first_name} #{last_name}"
   end
+
+  def reviews
+    # TODO: It must return count of comments about this mechanic
+    12
+  end
 end

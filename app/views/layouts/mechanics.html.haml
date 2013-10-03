@@ -5,6 +5,8 @@
     .wrap
       = render 'shared/header'
       .container
-        = render 'shared/flash_messages'
-        = yield
+        = render 'shared/mechanics_nav'
+        .col-md-9
+          = render 'shared/flash_messages'
+          = yield
     = render 'shared/footer'
