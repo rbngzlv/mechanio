@@ -15,6 +15,6 @@ describe Car do
     car.display_title.should eq nil
     car.save
     car.display_title.should_not be_empty
-    car.display_title.should eq car.model_variation.display_title
+    car.display_title.should eq "#{car.year} #{car.model_variation.display_title}"
   end
 end
