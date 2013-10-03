@@ -8,7 +8,7 @@ app.controller 'ContactController', ['$scope', '$http', ($scope, $http) ->
   $scope.phone_regex = /^[\+\(\)\d ]+$/
 
   $scope.init = (options = {}) ->
-    $scope[key] = value for key, value in options
+    $scope[key] = value for key, value of options
 
     $scope.job = {
       contact_email: 'email@host.com',

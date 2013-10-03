@@ -11,7 +11,7 @@ app.controller 'CarsController', ['$scope', '$http', ($scope, $http) ->
   $scope.car = {}
   $scope.model_variation = {}
 
-  $scope.init = (options) ->
+  $scope.init = (options = {}) ->
     $scope[key] = value for key, value of options
     $scope.cars_count += 1 for c of $scope.cars
     $scope.adding_vehicle = $scope.cars_count == 0

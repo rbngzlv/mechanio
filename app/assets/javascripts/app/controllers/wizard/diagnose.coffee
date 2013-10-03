@@ -4,7 +4,7 @@ app.controller 'DiagnoseController', ['$scope', '$http', ($scope, $http) ->
   $scope.service_plans = []
   $scope.service_plan = null
 
-  $scope.init = (options) ->
+  $scope.init = (options = {}) ->
     $scope[key] = value for key, value of options
 
     $scope.$watch 'params.car.model_variation_id', (new_value, old_value) ->

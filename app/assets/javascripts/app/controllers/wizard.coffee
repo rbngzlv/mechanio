@@ -9,8 +9,8 @@ app.controller 'WizardController', ['$scope', '$http', ($scope, $http) ->
   $scope.progress = 0
   $scope.params = {}
 
-  $scope.init = (options) ->
-    $scope[key] = value for key, value in options
+  $scope.init = (options = {}) ->
+    $scope[key] = value for key, value of options
 
   $scope.gotoStep = (step) ->
     $scope.step = step if $scope.stepEnabled(step)
