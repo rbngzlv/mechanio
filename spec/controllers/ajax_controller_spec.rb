@@ -12,9 +12,9 @@ describe AjaxController do
     it 'by make_id' do
       model = create :model
 
-      get :models, format: :json, arbitrary_key: { make_id: model.make_id }
+      get :models, format: :json, make_id: model.make_id
       response.should be_success
-      response.body.should eq [{ value: model.id, label: model.name }].to_json
+      response.body.should eq [{ id: model.id, name: model.name }].to_json
     end
   end
 
@@ -28,9 +28,9 @@ describe AjaxController do
     it 'by make_id' do
       variation = create :model_variation
 
-      get :model_variations, format: :json, arbitrary_key: { model_id: variation.model_id }
+      get :model_variations, format: :json, model_id: variation.model_id
       response.should be_success
-      response.body.should eq [{ value: variation.id, label: variation.display_title }].to_json
+      response.body.should eq [{ id: variation.id, display_title: variation.display_title, detailed_title: variation.detailed_title }].to_json
     end
   end
 end
