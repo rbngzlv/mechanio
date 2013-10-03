@@ -5,7 +5,7 @@ class Car < ActiveRecord::Base
 
   before_save :set_display_title
 
-  validates :user_id, :model_variation_id, :year, presence: true
+  validates :user, :model_variation, :year, presence: true
   validates :year, year: true
 
   def set_display_title
