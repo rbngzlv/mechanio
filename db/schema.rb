@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130924190449) do
+ActiveRecord::Schema.define(version: 20131003074235) do
 
   create_table "admins", force: true do |t|
     t.string   "email"
@@ -47,13 +47,35 @@ ActiveRecord::Schema.define(version: 20130924190449) do
     t.string   "display_title"
   end
 
+  create_table "fixed_amounts", force: true do |t|
+    t.integer  "task_id"
+    t.string   "description"
+    t.decimal  "cost",        precision: 8, scale: 2
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "jobs", force: true do |t|
     t.integer  "user_id"
     t.integer  "car_id"
-    t.integer  "service_plan_id"
-    t.decimal  "quote"
+    t.integer  "location_id"
+    t.integer  "mechanic_id"
     t.string   "contact_email"
     t.string   "contact_phone"
+    t.decimal  "cost",              precision: 8, scale: 2
+    t.decimal  "tax",               precision: 8, scale: 2
+    t.decimal  "total",             precision: 8, scale: 2
+    t.text     "serialized_params"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "labours", force: true do |t|
+    t.integer  "task_id"
+    t.text     "description"
+    t.integer  "duration"
+    t.decimal  "hourly_rate", precision: 8, scale: 2
+    t.decimal  "cost",        precision: 8, scale: 2
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -129,11 +151,20 @@ ActiveRecord::Schema.define(version: 20130924190449) do
     t.datetime "updated_at"
   end
 
+  create_table "parts", force: true do |t|
+    t.integer  "task_id"
+    t.string   "name"
+    t.decimal  "cost",       precision: 8, scale: 2
+    t.integer  "quantity"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "service_plans", force: true do |t|
     t.string   "title"
     t.integer  "kms_travelled"
     t.integer  "months"
-    t.decimal  "quote",              precision: 8, scale: 2
+    t.decimal  "cost",               precision: 8, scale: 2
     t.integer  "make_id"
     t.integer  "model_id"
     t.integer  "model_variation_id"
@@ -148,6 +179,33 @@ ActiveRecord::Schema.define(version: 20130924190449) do
 
   create_table "states", force: true do |t|
     t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "symptom_categories", force: true do |t|
+    t.string   "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "symptoms", force: true do |t|
+    t.integer  "symptom_category_id"
+    t.string   "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "symptoms_tasks", id: false, force: true do |t|
+    t.integer "task_id",    null: false
+    t.integer "symptom_id", null: false
+  end
+
+  create_table "tasks", force: true do |t|
+    t.string   "type"
+    t.integer  "job_id"
+    t.integer  "service_plan_id"
+    t.string   "note"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
