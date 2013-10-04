@@ -1,0 +1,51 @@
+.row
+  .col-md-12
+    .panel.panel-default
+      .panel-heading.clearfix
+        %h4.panel-title
+          %i.glyphicon.glyphicon-user
+          Edit Profile
+      .panel-body.mechanic-panel-body
+        :javascript
+          $(function () {
+            $('input[type=file]').bootstrapFileInput();
+            $('.file-input-wrapper').addClass('btn-success').addClass('col-md-3');
+            //$('.date > div').removeClass('col-md-6').addClass('col-md-9');
+          });
+        = simple_form_for current_mechanic, url: mechanics_profile_path, html: { class: 'form-horizontal admin_mechanic_form', :multipart => true }, defaults: { input_html: { class: 'form-control', wrapper_classes: 'col-md-6' }, label_html: { class: 'col-md-3' }, as: :bootstrap_horizontal_text } do |f|
+          = f.error_notification
+          = f.input :first_name
+          = f.input :last_name
+          = f.input :dob, label: 'Date of birth', input_html: { class: 'form-control' }, start_year: Date.today.year - 60, end_year: Date.today.year - 18, input_html: { wrapper_classes: 'col-md-9' }, as: :bootstrap_horizontal_time
+          = f.input :email, label: 'Personal email'
+          = f.input :description, label: 'Personal description', as: :bootstrap_horizontal_textarea
+          = f.input :avatar, label: 'Photo', as: :bootstrap_horizontal_image
+          %legend Personal Address
+          = render partial: 'shared/location_form', locals: { f: f }
+          %legend Driver's License
+          = f.input :driver_license_number, label: "Driver's license"
+          = f.association :license_state, label: 'Registered state', prompt: '-- Please select --', as: :bootstrap_horizontal_association
+          = f.input :license_expiry, label: 'Expiry date', input_html: { class: 'form-control' }, start_year: Date.today.year, end_year: Date.today.year + 20, input_html: { wrapper_classes: 'col-md-9' }, as: :bootstrap_horizontal_time
+          = f.input :driver_license, label: 'Image', as: :bootstrap_horizontal_image
+          %legend Business Details
+          = f.input :business_website
+          = f.input :business_email
+          = f.input :years_as_a_mechanic
+          = f.input :mobile_number
+          %legend ABN
+          = f.input :abn_name, label: 'ABN name'
+          = f.input :abn_number, label: 'ABN number'
+          = f.input :abn_expiry, label: 'Expiry date', input_html: { class: 'form-control' }, start_year: Date.today.year, end_year: Date.today.year + 20, input_html: { wrapper_classes: 'col-md-9' }, as: :bootstrap_horizontal_time
+          = f.input :abn, label: 'Image', as: :bootstrap_horizontal_image
+          %legend Business Address
+          = render partial: 'shared/location_form', locals: { f: f, location_type: :business_location }
+          %legend Motor Mechanic's License
+          = f.input :mechanic_license_number, label: 'Number'
+          = f.input :mechanic_license_expiry, label: 'Expiry date', input_html: { class: 'form-control' }, start_year: Date.today.year, end_year: Date.today.year + 20, input_html: { wrapper_classes: 'col-md-9' }, as: :bootstrap_horizontal_time
+          = f.association :mechanic_license_state, label: 'Registered state', prompt: '-- Please select --', as: :bootstrap_horizontal_association
+          = f.input :mechanic_license, label: 'Image', as: :bootstrap_horizontal_image
+          %hr.hr-dark-gray
+          .form-group
+            .col-md-offset-3.col-md-6
+              = f.submit 'Save', class: 'btn btn-primary col-md-3'
+              %span &nbsp;or #{ link_to 'cancel', mechanics_profile_path }

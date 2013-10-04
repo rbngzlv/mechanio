@@ -14,7 +14,8 @@ feature 'mechanic signin' do
       fill_in 'mechanic_password', with: mechanic.password
       click_button 'Login'
       should have_content('Signed in successfully.')
-      should have_selector('h1', text: 'Mechanic dashboard')
+      should have_selector('h4', text: mechanic.full_name)
+      should have_selector('li.active', text: 'Dashboard')
     end
 
     context 'fail' do
@@ -30,7 +31,7 @@ feature 'mechanic signin' do
 
       visit mechanics_dashboard_path
 
-      click_link 'Logout'
+      click_link 'Log out'
     end
 
     it { should have_content('Signed out successfully.') }
