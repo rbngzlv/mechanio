@@ -1,49 +1,50 @@
 .modal{
   top: 6%;
+  overflow: hidden;
 
-  &:focus {
-    outline: none;
-    text-decoration: none;
-  }
-
-  &.modal {
+  .review-block {
     overflow: hidden;
     padding: 0;
     border-radius: 8px;
     -webkit-box-shadow: 0 0 5px #ddd;
     box-shadow: 0 0 5px #ddd;
     max-height: 542px;
-  }
 
-  .modal-header {
-    padding: 0 15px;
-    border-radius: 8px 8px 0 0;
-    background: url("/assets/widget-title-bg.jpg") repeat-x rgba(0, 0, 0, 0);
-
-    h5 {
-      font-weight: bold;
+    &:focus {
+      outline: none;
+      text-decoration: none;
     }
 
-    .close {
-      border-left: 1px solid #E0DEDE;
-      padding: 6px 2px 3px 7px;
-      position: absolute;
-      right: 10px;
-      top: 8px;
-      font-size: 12px;
+    .modal-header {
+      padding: 0 15px;
+      border-radius: 8px 8px 0 0;
+      background: url("/assets/widget-title-bg.jpg") repeat-x rgba(0, 0, 0, 0);
+      position: relative;
+
+      h5 {
+        font-weight: bold;
+      }
+
+      .close {
+        border-left: 1px solid #E0DEDE;
+        padding: 6px 2px 3px 7px;
+        position: absolute;
+        right: 10px;
+        top: 8px;
+        font-size: 12px;
+      }
     }
-  }
 
-  .modal-body {
-    background: #fff;
-    border-radius: 0 0 8px 8px;
-    overflow-y: scroll;
-    max-height: 500px;
-    padding-top: 5px;
-    padding-left: 0;
-    padding-bottom: 0px;
+    .modal-body {
+      background: #fff;
+      border-radius: 0 0 8px 8px;
+      overflow-y: scroll;
+      max-height: 500px;
+      padding-top: 5px;
+      padding-left: 0;
+      padding-bottom: 0px;
 
-    > .row {
+      > .row {
         padding: 15px;
 
         &:first-child {
@@ -55,91 +56,96 @@
           padding-bottom: 3px;
         }
       }
-  
-    .social [class *= 'icon'] {
-      color: #22878e;
-      font-size: 30px;
-      margin-left: 2px;
-    }
-
-    h5 {
-      padding-bottom: 3px;
-      margin-bottom: 18px;
-    }
-
-    .with-arrow {
-      position: relative;
     
-      &:before {
-        content: '';
-        position: absolute;
-        top: 10%;
-        left: -16px;
-        height: 8px;
-        width: 8px;
-        border: 8px solid rgba(0,0,0,0);
-        border-right-color: #eaeaea;
-      }
-    }
-
-    .nested-panel {
-      padding: 10px;
-
-      .name{
-        color: #fb9800;
+      .social [class *= 'icon'] {
+        color: #22878e;
+        font-size: 30px;
+        margin-left: 2px;
       }
 
-      .datetime {
-        color: #adadad;
+      h5 {
+        padding-bottom: 3px;
+        margin-bottom: 18px;
       }
 
-      .reviews-row{
-        padding: 0;
+      .with-arrow {
+        position: relative;
+
+        &:before {
+          content: '';
+          position: absolute;
+          top: 10%;
+          left: -16px;
+          height: 8px;
+          width: 8px;
+          border: 8px solid rgba(0,0,0,0);
+          border-right-color: #eaeaea;
+        }
       }
 
-      > .nested-panel{
+      .nested-panel {
+        padding: 10px;
+
+        .name {
+          color: #fb9800;
+        }
+
+        .datetime {
+          color: #adadad;
+        }
+
+        .reviews-row {
+          padding: 0;
+        }
+
+        > .nested-panel {
           margin: 5px 0 0;
           font-size: 12px;
 
           + .commentary {
-              font-size: 12px;
-            }
-        }
-    }
-
-    .label {
-      background: #a5d16c;
-      font-weight: bold;
-      font-size: 12px;
-    }
-
-    .chat > li {
-      margin-bottom: 10px;
-
-      a {
-        color: #fb9800;
-
-        &:hover {
-          text-decoration: none;
+            font-size: 12px;
+          }
         }
       }
 
-      .commentary{
-        margin-bottom: 0;
+      .label {
+        background: #a5d16c;
+        font-weight: bold;
+        font-size: 12px;
       }
-      
-      &:nth-child(even){
-        .with-arrow:before {
-          left: 100%;
-          right: -16px;
-          border-right-color: rgba(0,0,0,0);
-          border-left-color: #eaeaea;
+
+      .chat > li {
+        margin-bottom: 10px;
+
+        a {
+          color: #fb9800;
+
+          &:hover {
+            text-decoration: none;
+          }
         }
 
-        a{
-          color: #2fade7;
+        .commentary {
+          margin-bottom: 0;
+        }
+        
+        &:nth-child(even) {
+          .with-arrow:before {
+            left: 100%;
+            right: -16px;
+            border-right-color: rgba(0,0,0,0);
+            border-left-color: #eaeaea;
+          }
+
+          a{
+            color: #2fade7;
+          }
         }
       }
     }
+  }
+
+  .cancel-job {
+    border-radius: 8px;
   }
 }

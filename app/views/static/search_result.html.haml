@@ -1,6 +1,6 @@
-.row
-  /View Mechanic Profile Light Box Start
-  #myModal.modal.fade.col-md-8.col-md-offset-2{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel1", role: "dialog", tabindex: "-1"}
+/View Mechanic Profile Light Box Start
+#myModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel1", role: "dialog", tabindex: "-1"}
+  .review-block.container
     .modal-header.clearfix
       %h5.pull-left
         %i.icon-user
@@ -10,7 +10,7 @@
         %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", type: "button"}
           %i.glyphicon.glyphicon.glyphicon-remove
     .modal-body
-      .row.clearfix
+      .row
         .col-md-4
           .profile-border
             = image_tag("/assets/photo.jpg")
@@ -115,10 +115,11 @@
                   laoreet dolore magna aliquam erat volutpat. dolore magna aliquam erat
                   volutpat. dolore magna aliquam erat volutpat.
     / View Mechanic Profile Light Box End
+.row
   %div
     / ---------------- Left Content Part --------------------------------------------------
     %section.col-md-9
-      %h4
+      %h4.black
         Your Negotiated Quote
       .panel-group#accordion.accordion
         .panel
@@ -159,7 +160,7 @@
               iusto odio dignissim qui blandit praesent luptatum zzril delenit augue
               duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet,
               consectetuer adipiscing elit,
-      %h4 Select An Appointment
+      %h4.black Select An Appointment
       .panel.panel-default.panel-rounded
         .panel-body
           .row.clearfix
