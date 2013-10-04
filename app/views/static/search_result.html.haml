@@ -9,16 +9,15 @@
       %span.tools.pull-right
         %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", type: "button"}
           %i.glyphicon.glyphicon.glyphicon-remove
-    .modal-body
+    .panel-body.modal-body
       .row
-        .col-md-4
-          .profile-border
-            = image_tag("/assets/photo.jpg")
-            .reviews-row.clearfix
-              .rating.pull-left
-                = rating_stars(2)
-              %span.review-text.pull-right 12 Reviews
-        .col-md-8.panel.nested-panel
+        .profile-border
+          = image_tag(asset_url("photo.jpg"))
+          .reviews-row.clearfix
+            .rating.pull-left
+              = rating_stars(2)
+            %span.review-text.pull-right 12 Reviews
+        .panel.nested-panel
           %h5 Hi, I'm your Mechanic Bob Mechanic
           %p Punched Russell Crowe in the face onece. Felt Nice.
           .col-md-12.panel.nested-panel.clearfix
@@ -41,7 +40,7 @@
           %ul.chat
             %li.clearfix
               .col-md-1
-                = image_tag("/assets/avatar1.jpg", :class => 'img-circle')
+                = image_tag(asset_url("avatar1.jpg"), :class => 'img-circle')
               .col-md-11.panel.nested-panel.with-arrow
                 .span
                   = link_to 'Mosaddek', '#'
@@ -66,7 +65,7 @@
                   volutpat. dolore magna aliquam erat volutpat.
             %li.clearfix
               .col-md-1.pull-right
-                = image_tag("/assets/avatar1.jpg", :class => 'img-circle')
+                = image_tag(asset_url("avatar1.jpg"), :class => 'img-circle pull-right')
               .col-md-11.panel.nested-panel.with-arrow
                 .span.text-right
                   = link_to 'Mosaddek', '#'
@@ -91,7 +90,7 @@
                   volutpat. dolore magna aliquam erat volutpat.
             %li.clearfix
               .col-md-1
-                = image_tag("/assets/avatar1.jpg", :class => 'img-circle')
+                = image_tag(asset_url("avatar1.jpg"), :class => 'img-circle')
               .col-md-11.panel.nested-panel.with-arrow
                 .span
                   = link_to 'Mosaddek', '#'
@@ -166,7 +165,7 @@
           .row.clearfix
             .col-md-4
               .profile-border
-                = image_tag("/assets/photo.jpg")
+                = image_tag(asset_url("photo.jpg"))
                 .reviews-row.clearfix
                   .rating.pull-left
                     = rating_stars(2)
@@ -338,7 +337,7 @@
           .row.clearfix
             .col-md-4
               .profile-border
-                = image_tag("/assets/photo.jpg")
+                = image_tag(asset_url("photo.jpg"))
                 .reviews-row.clearfix
                   .rating.pull-left
                     = rating_stars(2)
@@ -510,7 +509,7 @@
           .row.clearfix
             .col-md-4
               .profile-border
-                = image_tag("/assets/photo.jpg")
+                = image_tag(asset_url("photo.jpg"))
                 .reviews-row.clearfix
                   .rating.pull-left
                     = rating_stars(2)

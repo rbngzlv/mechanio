@@ -103,13 +103,42 @@ ul {
 .nested-panel {
   background: #fbfbfb;
   border: 1px solid #eaeaea;
-  padding: 8px 0;
+  padding: 8px;
   font-size: 13px;
   margin-bottom: 13px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 
   [class *= "glyphicon"] {
     font-size: 11px;
   }
+
+  > .nested-panel {
+    margin-bottom: 0;
+  }
+}
+
+.verified-icon {
+  display: inline-block;
+  width: 35px;
+  height: 31px;
+  line-height: 31px;
+  background: asset-url('back-symbol.png');
+  text-align: center;
+  color: #fff;
+  font-style: normal;
+  font-size: 15px;
+
+  &:hover {
+    color: #ccc;
+  }
+}
+
+.verified-block + span {
+  line-height: 31px;
+  padding-right: 5px;
 }
 
 .btn-dark {
@@ -136,7 +165,6 @@ ul {
     color: #000;
   }
 }
-
 
 .black {
   color: #000;
@@ -166,7 +194,6 @@ aside {
 
   h5 {
     margin-top: 0;
-    padding-bottom: 3px;
     font-size: 15px;
   }
 
@@ -265,9 +292,11 @@ section {
 
 .profile-border {
   background: asset-url("profile-bg.jpg") no-repeat;
+  float: left;
   height: 162px;
   width: 202px;
   padding: 6px;
+  margin: 0 10px;
   position: relative;
 
   + .text-center {
@@ -277,11 +306,22 @@ section {
       color: #22878E;
     }
   }
+
+  + div {
+    margin:0 13px 0 250px;
+
+    > div {
+      display: inline-block;
+      width: 100%;
+    }
+  }
+
+  img + .reviews-row {
+    padding-top: 10px;
+  }
 }
 
 .reviews-row {
-  padding-top: 10px;
-
   .review-text {
     font-size: 11px;
   }
@@ -314,7 +354,6 @@ section {
 [id ^= "carousel-example-generic"] .carousel-inner {
   width: 90%;
   margin: 0 auto -15px;
-  font-size: 12px;
   text-align: center;
 
   th {
@@ -403,6 +442,20 @@ section {
   padding: 8px 15px;
 }
 
+.cancel-job {
+  border-radius: 8px;
+}
+
+.social [class *= 'icon'] {
+  color: #22878e;
+  font-size: 30px;
+  margin-left: 2px;
+}
+
+.top-btn{
+  margin-bottom: 10px;
+}
+
 .btn {
   @include box-shadow(0 0 3px rgba(0, 0, 0, 0.2) inset);
   border-radius: 0;
@@ -447,6 +500,7 @@ section {
   text-transform: uppercase;
   color: #010101;
   border-bottom: 1px solid #C8C8C8;
+  padding-bottom: 3px;
 }
 
 .panel-default {
@@ -456,17 +510,21 @@ section {
     border-radius: 8px;
     margin-bottom: 20px;
 
-    .panel-heading {
+    > .panel-heading {
       background: asset-url("widget-title-bg.jpg") repeat-x;
+      border-radius: 8px 8px 0 0;
+      padding: 9px 15px;
     }
   }
 }
 
 .panel-heading {
+  position: relative;
+
   .tools {
     position: absolute;
-    right: 25px;
-    top: 7px;
+    right: 10px;
+    top: 5px;
     padding: 5px 0 5px 6px;
     border-left: 1px solid #E0DEDE;
 
@@ -585,11 +643,23 @@ form .radio {
   font-size: 1.5em;
 }
 
+table.table {
+  font-size: 12px;
+
+  td {
+    border: none;
+
+    > table {
+      margin: -8px 0;
+    }
+  }
+}
+
 form {
   font-size: 13px;
 
-  > table.table {
-    td{
+  table.table {
+    td {
       border: none;
     }
   }
@@ -605,5 +675,43 @@ form {
 
   .btn[data-toggle="modal"] {
     color: #fff;
+  }
+}
+
+.modal{
+  top: 6%;
+  overflow: hidden;
+
+  .review-block {
+    @include box-shadow(0 0 5px #ddd);
+    max-height: 542px;
+    overflow: hidden;
+    border-radius: 8px;
+  }
+
+  .modal-header {
+    padding: 0 15px;
+    border-radius: 8px 8px 0 0;
+    background: asset-url("widget-title-bg.jpg") repeat-x rgba(0, 0, 0, 0);
+    position: relative;
+
+    h5 {
+      font-weight: bold;
+    }
+
+    .close {
+      border-left: 1px solid #E0DEDE;
+      padding: 6px 2px 3px 7px;
+      position: absolute;
+      right: 10px;
+      top: 8px;
+      font-size: 12px;
+    }
+  }
+
+  .panel-body.modal-body {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    max-height: 500px;
   }
 }

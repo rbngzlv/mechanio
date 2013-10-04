@@ -1,0 +1,66 @@
+.row
+  .col-md-3.nav-collapse
+    %ul.nav.nav-pills.nav-stacked
+      %li.active
+        = link_to '#' do
+          %span.img-circle
+            %i.glyphicon.glyphicon-dashboard
+          Dashboard
+      %li
+        = link_to '#' do
+          %span.img-circle
+            %i.glyphicon.glyphicon-user
+          My Profile
+      %li
+        = link_to '#' do
+          %span.img-circle
+            %i.glyphicon.glyphicon-thumbs-up
+          My Jobs
+      %li
+        = link_to '#' do
+          %span.img-circle
+            %i.glyphicon.glyphicon-credit-card
+          Payout Information
+      %li
+        = link_to '#' do
+          %span.img-circle
+            %i.glyphicon.glyphicon-calendar
+          Settings
+  .col-md-9
+    .row
+      .col-md-12
+        = link_to edit_mechanics_profile_path, class: 'btn btn-info pull-right col-md-2 top-btn' do
+          %i.icon-pencil
+          Edit Profile
+    .row
+      .col-md-12
+        .panel.panel-default.panel-rounded
+          .panel-heading.clearfix
+            %h4.panel-title
+              %i.glyphicon.glyphicon-user
+              = current_mechanic.full_name
+          .panel-body.mechanic-panel-body
+            .profile-border
+              = image_tag current_mechanic.avatar? ? current_mechanic.avatar_url(:thumb) : 'photo.jpg', class: 'avatar'
+              .reviews-row.clearfix
+                .rating.pull-left
+                  = rating_stars(2)
+                %span.review-text.pull-right #{ pluralize current_mechanic.reviews, 'Review' }
+            .panel.nested-panel
+              = current_mechanic.description || 'Create some description'
+              .col-md-12.panel.nested-panel.clearfix
+                .social.pull-left
+                  = link_to '#' do
+                    %i.icon-facebook-sign
+                  = link_to '#' do
+                    %i.icon-google-plus-sign
+                .col-md-7.pull-right
+                  .pull-right.verified-block
+                    %i.verified-icon.icon-phone{:data => {:toggle => 'tooltip', :original => {:title => 'Contact Verified'}}}
+                    %i.verified-icon{:data => {:toggle => 'tooltip', :original => {:title => 'Super Mechanic'}}}
+                      S
+                    %i.verified-icon.icon-thumbs-up{:data => {:toggle => 'tooltip', :original => {:title => 'Warranty Covered'}}}
+                    %i.verified-icon.icon-book{:data => {:toggle => 'tooltip', :original => {:title => 'Qualification Verified'}}}
+                  %span.pull-right Verified:
+          = render partial: 'shared/customer_reviews'
+

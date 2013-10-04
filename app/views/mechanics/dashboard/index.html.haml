@@ -1,7 +1,7 @@
 / Profile Part
 .row
   .col-md-12
-    .panel.panel-default
+    .panel.panel-default.panel-rounded
       .panel-heading.clearfix
         %h4.panel-title
           %i.glyphicon.glyphicon-user
@@ -10,21 +10,20 @@
           = link_to '', '#js-collapse-one', class: 'glyphicon glyphicon-chevron-down accordion-toggle', :data => {:toggle => 'collapse', :parent => '#accordion'}
       #js-collapse-one.panel-collapse.collapse.in
         .panel-body.mechanic-panel-body
-          .col-md-4
-            .profile-border
-              = image_tag("/assets/photo.jpg")
-              .reviews-row.clearfix
-                .rating.pull-left
-                  = rating_stars(2)
-                %span.review-text.pull-right 12 Reviews
-          .col-md-8.panel.nested-panel
+          .profile-border
+            = image_tag(asset_url("photo.jpg"))
+            .reviews-row.clearfix
+              .rating.pull-left
+                = rating_stars(2)
+              %span.review-text.pull-right 12 Reviews
+          .panel.nested-panel
             %h5 Hi, I'm your Mechanic Bob Mechanic
             %p Punched Russell Crowe in the face onece. Felt Nice.
 
 / Upcoming Jobs Part
 .row
   .col-md-12
-    .panel.panel-default
+    .panel.panel-default.panel-rounded
       .panel-heading.clearfix
         %h4.panel-title
           %i.glyphicon.glyphicon-user
@@ -76,7 +75,7 @@
   / Completed Jobs Part
 .row
   .col-md-12
-    .panel.panel-default
+    .panel.panel-default.panel-rounded
       .panel-heading.clearfix
         %h4.panel-title
           %i.glyphicon.glyphicon-user
