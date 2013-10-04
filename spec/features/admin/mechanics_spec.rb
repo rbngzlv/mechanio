@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'Admin mechanics management' do
+feature 'Admin mechanics management' do
 
   let!(:mechanic) { create :mechanic }
 
@@ -34,12 +34,12 @@ describe 'Admin mechanics management' do
       select 'October', from: 'mechanic_dob_2i'
       select '1',       from: 'mechanic_dob_3i'
       fill_in 'Personal description', with: 'Something about me'
-      fill_in 'Street address', with: 'Seashell avenue, 25'
-      fill_in 'Suburb', with: 'Somewhere'
-      select 'Queensland', from: 'State'
-      fill_in 'Postcode', with: 'AX12345'
+      fill_in 'mechanic_location_attributes_address', with: 'Seashell avenue, 25'
+      fill_in 'mechanic_location_attributes_suburb', with: 'Somewhere'
+      select 'Queensland', from: 'mechanic_location_attributes_state_id'
+      fill_in 'mechanic_location_attributes_postcode', with: 'AX12345'
       fill_in "Driver's license", with: 'MXF123887364'
-      select 'Queensland', from: "Registered state"
+      select 'Queensland', from: "mechanic_license_state_id"
       select '2015',      from: 'mechanic_license_expiry_1i'
       select 'September', from: 'mechanic_license_expiry_2i'
       select '1',         from: 'mechanic_license_expiry_3i'
@@ -56,6 +56,7 @@ describe 'Admin mechanics management' do
     page.should have_css 'td', text: 'John Doe'
 
     click_link 'Details'
+    page.should have_content 'Business Details'
 
     fill_in 'First name', with: 'Alex'
     click_button 'Save'
@@ -71,5 +72,16 @@ describe 'Admin mechanics management' do
     end.to change { Mechanic.count }.by -1
 
     page.should have_css '.alert', text: 'Mechanic succesfully deleted.'
+  end
+
+  scenario "images uploading" do
+    image_path = "#{Rails.root}/spec/features/fixtures/test_img.jpg"
+    visit edit_admin_mechanic_path(mechanic)
+    attach_file('mechanic_avatar', image_path)
+    attach_file('mechanic_driver_license', image_path)
+    attach_file('mechanic_abn', image_path)
+    attach_file('mechanic_mechanic_license', image_path)
+    expect { click_button 'Save' }.to change { all("img").length }.by(4)
+    page.should have_content 'Mechanic succesfully updated.'
   end
 end

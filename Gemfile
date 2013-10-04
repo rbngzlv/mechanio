@@ -5,6 +5,8 @@ ruby '2.0.0'
 gem 'rails', '4.0.0'
 gem 'pg'
 gem 'devise'
+gem 'carrierwave'
+gem 'mini_magick'
 
 gem 'haml-rails'
 gem 'sass-rails', '~> 4.0.0'
@@ -15,15 +17,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'simple_form', '~> 3.0.0.rc'
 gem 'kaminari'
 
-gem 'unicorn'
-
-gem 'therubyracer', platforms: :ruby
-
 group :development do
-  gem 'capistrano'
-  gem 'capistrano-ext'
-  gem 'rvm-capistrano'
-  gem 'quiet_assets'
   gem 'letter_opener'
 end
 
@@ -39,10 +33,17 @@ end
 group :development, :test do
   gem 'quiet_assets'
   gem 'awesome_print'
-  gem 'pry'
-  gem 'pry-debugger'
 end
 
+group :production do
+  gem 'unicorn'
+end
+
+group :deploy do
+  gem 'capistrano'
+  gem 'capistrano-ext'
+  gem 'rvm-capistrano'
+end
 
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder

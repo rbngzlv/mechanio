@@ -1,0 +1,713 @@
+.row
+  /View Mechanic Profile Light Box Start
+  #myModal.modal.fade.col-md-8.col-md-offset-2{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel1", role: "dialog", tabindex: "-1"}
+    .modal-header.clearfix
+      %h5.pull-left
+        %i.icon-user
+        Mechanic Name
+        %small 26 years experience
+      %span.tools.pull-right
+        %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", type: "button"}
+          %i.glyphicon.glyphicon.glyphicon-remove
+    .modal-body
+      .row.clearfix
+        .col-md-4
+          .profile-border
+            = image_tag("/assets/photo.jpg")
+            .reviews-row.clearfix
+              .rating.pull-left
+                = rating_stars(2)
+              %span.review-text.pull-right 12 Reviews
+        .col-md-8.panel.nested-panel
+          %h5 Hi, I'm your Mechanic Bob Mechanic
+          %p Punched Russell Crowe in the face onece. Felt Nice.
+          .col-md-12.panel.nested-panel.clearfix
+            .social.pull-left
+              = link_to '#' do
+                %i.icon-facebook-sign
+              = link_to '#' do
+                %i.icon-twitter-sign
+              = link_to '#' do
+                %i.icon-linkedin-sign
+              = link_to '#' do
+                %i.icon-google-plus-sign
+            .col-md-5.pull-right
+              %span.label.pull-right
+                %i.glyphicon.glyphicon-earphone
+                Verified
+      .row
+        .col-md-12.clearfix
+          %h5.hx-default Customer Reviews
+          %ul.chat
+            %li.clearfix
+              .col-md-1
+                = image_tag("/assets/avatar1.jpg", :class => 'img-circle')
+              .col-md-11.panel.nested-panel.with-arrow
+                .span
+                  = link_to 'Mosaddek', '#'
+                  %span.datetime at Apr 14, 2013
+                .panel.nested-panel
+                  %span.col-md-3
+                    %i.glyphicon.glyphicon-inbox
+                    Ford Faicon
+                  %span.col-md-2
+                    %i.glyphicon.glyphicon-usd
+                    1020
+                  %span.col-md-4
+                    %i.glyphicon.glyphicon-cog
+                    Replace the engine
+                  .reviews-row.clearfix
+                    .rating.pull-left
+                      = rating_stars(2)
+                %p.commentary
+                  Lorem ipsum dolor sit amet,
+                  consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut
+                  laoreet dolore magna aliquam erat volutpat. dolore magna aliquam erat
+                  volutpat. dolore magna aliquam erat volutpat.
+            %li.clearfix
+              .col-md-1.pull-right
+                = image_tag("/assets/avatar1.jpg", :class => 'img-circle')
+              .col-md-11.panel.nested-panel.with-arrow
+                .span.text-right
+                  = link_to 'Mosaddek', '#'
+                  %span.datetime at Apr 14, 2013
+                .panel.nested-panel
+                  %span.col-md-3
+                    %i.glyphicon.glyphicon-inbox
+                    Ford Faicon
+                  %span.col-md-2
+                    %i.glyphicon.glyphicon-usd
+                    1020
+                  %span.col-md-4
+                    %i.glyphicon.glyphicon-cog
+                    Replace the engine
+                  .reviews-row.clearfix
+                    .rating.pull-left
+                      = rating_stars(2)
+                %p.commentary
+                  Lorem ipsum dolor sit amet,
+                  consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut
+                  laoreet dolore magna aliquam erat volutpat. dolore magna aliquam erat
+                  volutpat. dolore magna aliquam erat volutpat.
+            %li.clearfix
+              .col-md-1
+                = image_tag("/assets/avatar1.jpg", :class => 'img-circle')
+              .col-md-11.panel.nested-panel.with-arrow
+                .span
+                  = link_to 'Mosaddek', '#'
+                  %span.datetime at Apr 14, 2013
+                .panel.nested-panel
+                  %span.col-md-3
+                    %i.glyphicon.glyphicon-inbox
+                    Ford Faicon
+                  %span.col-md-2
+                    %i.glyphicon.glyphicon-usd
+                    1020
+                  %span.col-md-4
+                    %i.glyphicon.glyphicon-cog
+                    Replace the engine
+                  .reviews-row.clearfix
+                    .rating.pull-left
+                      = rating_stars(2)
+                %p.commentary
+                  Lorem ipsum dolor sit amet,
+                  consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut
+                  laoreet dolore magna aliquam erat volutpat. dolore magna aliquam erat
+                  volutpat. dolore magna aliquam erat volutpat.
+    / View Mechanic Profile Light Box End
+  %div
+    / ---------------- Left Content Part --------------------------------------------------
+    %section.col-md-9
+      %h4
+        Your Negotiated Quote
+      .panel-group#accordion.accordion
+        .panel
+          .panel-heading.clearfix
+            %h4.panel-title
+              = link_to 'List of Services', '#collapseOne', class: 'accordion-toggle', :data => {:toggle => 'collapse', :parent => '#accordion'}
+          #collapseOne.panel-collapse.collapse.in
+            .panel-body
+              %span
+                %br
+                %i.glyphicon.glyphicon-chevron-right
+                30,000 Miles Maintenance Service
+                %br
+                %br
+        .panel
+          .panel-heading.clearfix
+            %h4.panel-title
+              = link_to '#collapseTwo', class: 'accordion-toggle', :data => {:toggle => 'collapse', :parent => '#accordion'} do
+                Fair Labor Time
+                %span.pull-right Pending
+          #collapseTwo.panel-collapse.collapse
+            .panel-body
+              Anim pariatur cliche
+              reprehenderit, enim eiusmod high life accusamus terry richardson ad
+              squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch.
+              Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor.
+        .panel
+          .panel-heading.clearfix
+            %h4.panel-title
+              = link_to '#collapseThree', class: 'accordion-toggle', :data => {:toggle => 'collapse', :parent => '#accordion'} do
+                Total
+                %span.pull-right Pending
+          #collapseThree.panel-collapse.collapse
+            .panel-body
+              Duis autem vel eum
+              iriure dolor in hendrerit in vulputate velit esse molestie consequat,
+              vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et
+              iusto odio dignissim qui blandit praesent luptatum zzril delenit augue
+              duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet,
+              consectetuer adipiscing elit,
+      %h4 Select An Appointment
+      .panel.panel-default.panel-rounded
+        .panel-body
+          .row.clearfix
+            .col-md-4
+              .profile-border
+                = image_tag("/assets/photo.jpg")
+                .reviews-row.clearfix
+                  .rating.pull-left
+                    = rating_stars(2)
+                  %span.review-text.pull-right 12 Reviews
+              %h5.text-center
+                = link_to 'Mechanic Name', '#myModal', :data => {:toggle => 'modal'}, :role => 'button'
+                %br
+                5 Year of Experience
+            .col-md-8
+              %h5 Select Arrival Time
+              #carousel-example-generic1.carousel.slide
+                .carousel-inner
+                  .item.active.table-responsive
+                    %table.table.table-striped.table-bordered.table-curved
+                      %thead
+                        %tr.active
+                          %th
+                            Wed
+                            %br
+                            %small 05/01
+                          %th
+                            Thu
+                            %br
+                            %small 05/02
+                          %th
+                            Fri
+                            %br
+                            %small 05/03
+                          %th
+                            Sat
+                            %br
+                            %small 05/04
+                          %th
+                            Sun
+                            %br
+                            %small 05/05
+                          %th
+                            Mon
+                            %br
+                            %small 05/06
+                          %th
+                            Tue
+                            %br
+                            %small 05/07
+                      %tbody
+                        %tr
+                          %td 9 AM
+                          %td 9 AM
+                          %td 9 AM
+                          %td 9 AM
+                          %td 9 AM
+                          %td 9 AM
+                          %td 9 AM
+                        %tr
+                          %td 11 AM
+                          %td 11 AM
+                          %td 11 AM
+                          %td 11 AM
+                          %td 11 AM
+                          %td 11 AM
+                          %td 11 AM
+                        %tr
+                          %td 1 PM
+                          %td 1 PM
+                          %td.info
+                            = link_to '1 PM', '#', :title => 'Arrives between 1-2', :data => {:toggle => 'tooltip'}
+                          %td 1 PM
+                          %td 1 PM
+                          %td 1 PM
+                          %td 1 PM
+                        %tr
+                          %td 3 PM
+                          %td 3 PM
+                          %td 3 PM
+                          %td 3 PM
+                          %td 3 PM
+                          %td 3 PM
+                          %td.info
+                            = link_to '3 PM', '#', :title => 'Arrives between 3-4', :data => {:toggle => 'tooltip'}
+                        %tr
+                          %td 5 PM
+                          %td 5 PM
+                          %td 5 PM
+                          %td.info
+                            = link_to '5 PM', '#', :title => 'Arrives between 5-6', :data => {:toggle => 'tooltip'}
+                          %td 5 PM
+                          %td 5 PM
+                          %td 5 PM
+                  .item
+                    %table.table.table-striped.table-bordered.table-curved
+                      %thead
+                        %tr.active
+                          %th
+                            Wed
+                            %br
+                            %small 05/01
+                          %th
+                            Thu
+                            %br
+                            %small 05/02
+                          %th
+                            Fri
+                            %br
+                            %small 05/03
+                          %th
+                            Sat
+                            %br
+                            %small 05/04
+                          %th
+                            Sun
+                            %br
+                            %small 05/05
+                          %th
+                            Mon
+                            %br
+                            %small 05/06
+                          %th
+                            Tue
+                            %br
+                            %small 05/07
+                      %tbody
+                        %tr
+                          %td 9 AM
+                          %td 9 AM
+                          %td 9 AM
+                          %td 9 AM
+                          %td 9 AM
+                          %td 9 AM
+                          %td 9 AM
+                        %tr
+                          %td 11 AM
+                          %td 11 AM
+                          %td 11 AM
+                          %td 11 AM
+                          %td 11 AM
+                          %td 11 AM
+                          %td 11 AM
+                        %tr
+                          %td 1 PM
+                          %td 1 PM
+                          %td.info
+                            = link_to '1 PM', '#', :title => 'Arrives between 1-2', :data => {:toggle => 'tooltip'}
+                          %td 1 PM
+                          %td 1 PM
+                          %td 1 PM
+                          %td 1 PM
+                        %tr
+                          %td 3 PM
+                          %td 3 PM
+                          %td 3 PM
+                          %td 3 PM
+                          %td 3 PM
+                          %td 3 PM
+                          %td.info
+                            = link_to '3 PM', '#', :title => 'Arrives between 3-4', :data => {:toggle => 'tooltip'}
+                        %tr
+                          %td 5 PM
+                          %td 5 PM
+                          %td 5 PM
+                          %td.info
+                            = link_to '5 PM', '#', :title => 'Arrives between 5-6', :data => {:toggle => 'tooltip'}
+                          %td 5 PM
+                          %td 5 PM
+                          %td 5 PM
+                = link_to '‹', '#carousel-example-generic1', class: 'left carousel-control' , :data => {:slide => 'prev'}
+                = link_to '›', '#carousel-example-generic1', class: 'right carousel-control' , :data => {:slide => 'next'}
+      .panel.panel-default.panel-rounded
+        .panel-body
+          .row.clearfix
+            .col-md-4
+              .profile-border
+                = image_tag("/assets/photo.jpg")
+                .reviews-row.clearfix
+                  .rating.pull-left
+                    = rating_stars(2)
+                  %span.review-text.pull-right 12 Reviews
+              %h5.text-center
+                = link_to 'Mechanic Name', '#myModal', :data => {:toggle => 'modal'}, :role => 'button'
+                %br
+                5 Year of Experience
+            .col-md-8
+              %h5 Select Arrival Time
+              #carousel-example-generic2.carousel.slide
+                .carousel-inner
+                  .item.active.table-responsive
+                    %table.table.table-striped.table-bordered.table-curved
+                      %thead
+                        %tr.active
+                          %th
+                            Wed
+                            %br
+                            %small 05/01
+                          %th
+                            Thu
+                            %br
+                            %small 05/02
+                          %th
+                            Fri
+                            %br
+                            %small 05/03
+                          %th
+                            Sat
+                            %br
+                            %small 05/04
+                          %th
+                            Sun
+                            %br
+                            %small 05/05
+                          %th
+                            Mon
+                            %br
+                            %small 05/06
+                          %th
+                            Tue
+                            %br
+                            %small 05/07
+                      %tbody
+                        %tr
+                          %td 9 AM
+                          %td 9 AM
+                          %td 9 AM
+                          %td 9 AM
+                          %td 9 AM
+                          %td 9 AM
+                          %td 9 AM
+                        %tr
+                          %td 11 AM
+                          %td 11 AM
+                          %td 11 AM
+                          %td 11 AM
+                          %td 11 AM
+                          %td 11 AM
+                          %td 11 AM
+                        %tr
+                          %td 1 PM
+                          %td 1 PM
+                          %td.info
+                            = link_to '1 PM', '#', :title => 'Arrives between 1-2', :data => {:toggle => 'tooltip'}
+                          %td 1 PM
+                          %td 1 PM
+                          %td 1 PM
+                          %td 1 PM
+                        %tr
+                          %td 3 PM
+                          %td 3 PM
+                          %td 3 PM
+                          %td 3 PM
+                          %td 3 PM
+                          %td 3 PM
+                          %td.info
+                            = link_to '3 PM', '#', :title => 'Arrives between 3-4', :data => {:toggle => 'tooltip'}
+                        %tr
+                          %td 5 PM
+                          %td 5 PM
+                          %td 5 PM
+                          %td.info
+                            = link_to '5 PM', '#', :title => 'Arrives between 5-6', :data => {:toggle => 'tooltip'}
+                          %td 5 PM
+                          %td 5 PM
+                          %td 5 PM
+                  .item
+                    %table.table.table-striped.table-bordered.table-curved
+                      %thead
+                        %tr.active
+                          %th
+                            Wed
+                            %br
+                            %small 05/01
+                          %th
+                            Thu
+                            %br
+                            %small 05/02
+                          %th
+                            Fri
+                            %br
+                            %small 05/03
+                          %th
+                            Sat
+                            %br
+                            %small 05/04
+                          %th
+                            Sun
+                            %br
+                            %small 05/05
+                          %th
+                            Mon
+                            %br
+                            %small 05/06
+                          %th
+                            Tue
+                            %br
+                            %small 05/07
+                      %tbody
+                        %tr
+                          %td 9 AM
+                          %td 9 AM
+                          %td 9 AM
+                          %td 9 AM
+                          %td 9 AM
+                          %td 9 AM
+                          %td 9 AM
+                        %tr
+                          %td 11 AM
+                          %td 11 AM
+                          %td 11 AM
+                          %td 11 AM
+                          %td 11 AM
+                          %td 11 AM
+                          %td 11 AM
+                        %tr
+                          %td 1 PM
+                          %td 1 PM
+                          %td.info
+                            = link_to '1 PM', '#', :title => 'Arrives between 1-2', :data => {:toggle => 'tooltip'}
+                          %td 1 PM
+                          %td 1 PM
+                          %td 1 PM
+                          %td 1 PM
+                        %tr
+                          %td 3 PM
+                          %td 3 PM
+                          %td 3 PM
+                          %td 3 PM
+                          %td 3 PM
+                          %td 3 PM
+                          %td.info
+                            = link_to '3 PM', '#', :title => 'Arrives between 3-4', :data => {:toggle => 'tooltip'}
+                        %tr
+                          %td 5 PM
+                          %td 5 PM
+                          %td 5 PM
+                          %td.info
+                            = link_to '5 PM', '#', :title => 'Arrives between 5-6', :data => {:toggle => 'tooltip'}
+                          %td 5 PM
+                          %td 5 PM
+                          %td 5 PM
+                = link_to '‹', '#carousel-example-generic2', class: 'left carousel-control' , :data => {:slide => 'prev'}
+                = link_to '›', '#carousel-example-generic2', class: 'right carousel-control' , :data => {:slide => 'next'}
+      .panel.panel-default.panel-rounded
+        .panel-body
+          .row.clearfix
+            .col-md-4
+              .profile-border
+                = image_tag("/assets/photo.jpg")
+                .reviews-row.clearfix
+                  .rating.pull-left
+                    = rating_stars(2)
+                  %span.review-text.pull-right 12 Reviews
+              %h5.text-center
+                = link_to 'Mechanic Name', '#myModal', :data => {:toggle => 'modal'}, :role => 'button'
+                %br
+                5 Year of Experience
+            .col-md-8
+              %h5 Select Arrival Time
+              #carousel-example-generic3.carousel.slide
+                .carousel-inner
+                  .item.active.table-responsive
+                    %table.table.table-striped.table-bordered.table-curved
+                      %thead
+                        %tr.active
+                          %th
+                            Wed
+                            %br
+                            %small 05/01
+                          %th
+                            Thu
+                            %br
+                            %small 05/02
+                          %th
+                            Fri
+                            %br
+                            %small 05/03
+                          %th
+                            Sat
+                            %br
+                            %small 05/04
+                          %th
+                            Sun
+                            %br
+                            %small 05/05
+                          %th
+                            Mon
+                            %br
+                            %small 05/06
+                          %th
+                            Tue
+                            %br
+                            %small 05/07
+                      %tbody
+                        %tr
+                          %td 9 AM
+                          %td 9 AM
+                          %td 9 AM
+                          %td 9 AM
+                          %td 9 AM
+                          %td 9 AM
+                          %td 9 AM
+                        %tr
+                          %td 11 AM
+                          %td 11 AM
+                          %td 11 AM
+                          %td 11 AM
+                          %td 11 AM
+                          %td 11 AM
+                          %td 11 AM
+                        %tr
+                          %td 1 PM
+                          %td 1 PM
+                          %td.info
+                            = link_to '1 PM', '#', :title => 'Arrives between 1-2', :data => {:toggle => 'tooltip'}
+                          %td 1 PM
+                          %td 1 PM
+                          %td 1 PM
+                          %td 1 PM
+                        %tr
+                          %td 3 PM
+                          %td 3 PM
+                          %td 3 PM
+                          %td 3 PM
+                          %td 3 PM
+                          %td 3 PM
+                          %td.info
+                            = link_to '3 PM', '#', :title => 'Arrives between 3-4', :data => {:toggle => 'tooltip'}
+                        %tr
+                          %td 5 PM
+                          %td 5 PM
+                          %td 5 PM
+                          %td.info
+                            = link_to '5 PM', '#', :title => 'Arrives between 5-6', :data => {:toggle => 'tooltip'}
+                          %td 5 PM
+                          %td 5 PM
+                          %td 5 PM
+                  .item
+                    %table.table.table-striped.table-bordered.table-curved
+                      %thead
+                        %tr.active
+                          %th
+                            Wed
+                            %br
+                            %small 05/01
+                          %th
+                            Thu
+                            %br
+                            %small 05/02
+                          %th
+                            Fri
+                            %br
+                            %small 05/03
+                          %th
+                            Sat
+                            %br
+                            %small 05/04
+                          %th
+                            Sun
+                            %br
+                            %small 05/05
+                          %th
+                            Mon
+                            %br
+                            %small 05/06
+                          %th
+                            Tue
+                            %br
+                            %small 05/07
+                      %tbody
+                        %tr
+                          %td 9 AM
+                          %td 9 AM
+                          %td 9 AM
+                          %td 9 AM
+                          %td 9 AM
+                          %td 9 AM
+                          %td 9 AM
+                        %tr
+                          %td 11 AM
+                          %td 11 AM
+                          %td 11 AM
+                          %td 11 AM
+                          %td 11 AM
+                          %td 11 AM
+                          %td 11 AM
+                        %tr
+                          %td 1 PM
+                          %td 1 PM
+                          %td.info
+                            = link_to '1 PM', '#', :title => 'Arrives between 1-2', :data => {:toggle => 'tooltip'}
+                          %td 1 PM
+                          %td 1 PM
+                          %td 1 PM
+                          %td 1 PM
+                        %tr
+                          %td 3 PM
+                          %td 3 PM
+                          %td 3 PM
+                          %td 3 PM
+                          %td 3 PM
+                          %td 3 PM
+                          %td.info
+                            = link_to '3 PM', '#', :title => 'Arrives between 3-4', :data => {:toggle => 'tooltip'}
+                        %tr
+                          %td 5 PM
+                          %td 5 PM
+                          %td 5 PM
+                          %td.info
+                            = link_to '5 PM', '#', :title => 'Arrives between 5-6', :data => {:toggle => 'tooltip'}
+                          %td 5 PM
+                          %td 5 PM
+                          %td 5 PM
+                = link_to '‹', '#carousel-example-generic3', class: 'left carousel-control' , :data => {:slide => 'prev'}
+                = link_to '›', '#carousel-example-generic3', class: 'right carousel-control' , :data => {:slide => 'next'}
+    / ---------------- Right Sidebar Part --------------------------------------------------
+    %aside.col-md-3
+      .panel.panel-default.panel-rounded
+        .panel-body
+          %h5.hx-default Your Car
+          %ul
+            %li
+              %span Year:
+              2002
+            %li
+              %span Make:
+              Volkswagen
+            %li
+              %span Model:
+              GTI
+            %li
+              %span Engine:
+              V6-2.8L
+      .panel.panel-default.panel-rounded
+        .panel-body
+          %h5.hx-default Your Service
+          %ul
+            %li
+              %i.glyphicon.glyphicon-chevron-right
+              Check Engine Light is on
+            %li
+              %i.glyphicon.glyphicon-chevron-right
+              30,000 KM Log Book Servicing
+      .panel.panel-default.panel-rounded
+        .panel-body
+          %h5.hx-default Your Location
+          %span
+            Lvl 8, 123 George Street Sydney,
+            = succeed "NSW 2000" do
+              %br
