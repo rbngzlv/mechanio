@@ -1,0 +1,106 @@
+.row
+  .col-md-3.nav-collapse
+    %ul.nav.nav-pills.nav-stacked
+      %li.active
+        = link_to '#' do
+          %span.img-circle
+            %i.glyphicon.glyphicon-dashboard
+          Dashboard
+      %li
+        = link_to '#' do
+          %span.img-circle
+            %i.glyphicon.glyphicon-user
+          My Profile
+      %li
+        = link_to '#' do
+          %span.img-circle
+            %i.glyphicon.glyphicon-thumbs-up
+          My Jobs
+      %li
+        = link_to '#' do
+          %span.img-circle
+            %i.glyphicon.glyphicon-credit-card
+          Payout Information
+      %li
+        = link_to '#' do
+          %span.img-circle
+            %i.glyphicon.glyphicon-calendar
+          Settings
+  .col-md-9
+    %section
+      .panel.panel-default.panel-rounded
+        .panel-body
+          .row
+            .col-md-12
+              = link_to '#', class: 'btn btn-info pull-right' do
+                %i.icon-chevron-left
+                Back to My jobs
+          .alert.alert-info
+            %span.black Appointment on:
+            February 7, 2013 (tomorrow) 1:00 PM
+
+          %form{action: ''}
+            %table.table
+              %tr
+                %td
+                  %b Car:
+                %td{:colspan => '2'}
+                  2000 Toyota Corolla L4-1.8L
+              %tr.tr-divider
+                %td.form-line-height
+                  %b VIN:
+                %td{:colspan => '2'}
+                  %input.form-control.pull-left.input-width{type: "text"}
+                  = link_to 'Add VIN', '#', class: 'btn pull-left btn-grey'
+              %tr.tr-divider
+                %td
+                  %b Services:
+                %td{:colspan => '2'}
+                  Car is making a noice (inspection)
+              %tr
+                %td
+                  Billing:
+                %td.text-right
+                  Labor
+                %td.text-right.tr-divider
+                  $60.00
+              %tr.tr-divider.big
+                %td
+                %td.text-right
+                  %b Total Fees:
+                %td.text-right
+                  %b $60.00
+              %tr.tr-divider
+                %td
+                  Creditcard:
+                %td{:colspan => '2'}
+                  visa**********6091 (Exp:07/2014)
+              %tr
+                %td
+                  Location
+                %td{:colspan => '2'}
+                  283 Alfred St North Sydney, 2060
+              %tr
+                %td
+                  Notes
+                %td
+                  Need to take shoes off, Watch out for crazy cat lady
+              %tr.tr-divider
+                %td
+                  Contact
+                %td{:colspan => '2'}
+                  0401 111 111
+            =link_to 'Cancel Job', '#js-modal', class: 'btn btn-info pull-left', :data => {:toggle => 'modal'}, :role => 'button'
+            =link_to 'Edit Job', '#', class: 'btn btn-info pull-left'
+            =link_to 'Reschedule', '#', class: 'btn btn-info pull-left'
+            =link_to 'Save', '#', class: 'btn btn-success pull-right'
+        #js-modal.modal.fade.col-md-6.col-md-offset-3{"aria-hidden" => "true", "aria-labelledby" => "js-my-modal-label", role: "dialog", style: "display: none;", tabindex: "1"}
+          .panel.panel-default.cancel-job
+            .modal-header.clearfix
+              %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", type: "button"} ×
+              %span#js-my-modal-label.pull-left Cancel Job
+            .panel-body
+              Too many cancellations may lead to the suspension of your Mechanio account!
+            .panel-footer.clearfix
+              =link_to 'Back', '#', class: 'btn btn-grey pull-left', :aria => {:hidden => 'true'}, :data => {:dismiss => 'modal'}
+              %button.btn.btn-success.pull-right{"aria-hidden" => "true", "data-dismiss" => "modal", type: "button", value: "Cancel"} Cancel Job

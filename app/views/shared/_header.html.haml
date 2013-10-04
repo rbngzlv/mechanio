@@ -1,5 +1,5 @@
 %header.navbar.header{ role: 'navigation' }
-  .container
+  .container 
     = link_to image_tag('mechanio_logo.png'), root_path, class: 'brand'
     .pull-right
       = link_to 'How It Works', '#', class: 'btn btn-link pull-left'
@@ -7,7 +7,7 @@
         = link_to 'Logout', destroy_user_session_path, method: :delete, class: 'btn btn-primary navbar-btn'
         %ul.nav.pull-right
           %li.dropdown
-            %button.btn-dark.btn-sm.dropdown-toggle{:data => {:toggle => 'dropdown'}}
+            %button.btn.btn-dark.btn-sm.dropdown-toggle{:data => {:toggle => 'dropdown'}}
               User Name
               %b.caret
             %ul.dropdown-menu
@@ -43,8 +43,8 @@
       - elsif mechanic_signed_in?
         %ul.nav.pull-right
           %li.dropdown
-            %button.btn-dark.btn-sm.dropdown-toggle{:data => {:toggle => 'dropdown'}}
-              = current_mechanic.full_name
+            %button.btn.btn-dark.btn-sm.dropdown-toggle{:data => {:toggle => 'dropdown'}}
+              Mechanic Name
               %b.caret
             %ul.dropdown-menu
               %li
