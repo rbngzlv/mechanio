@@ -18,7 +18,7 @@
     .modal-header {
       padding: 0 15px;
       border-radius: 8px 8px 0 0;
-      background: url("/assets/widget-title-bg.jpg") repeat-x rgba(0, 0, 0, 0);
+      background: asset-url("widget-title-bg.jpg") repeat-x rgba(0, 0, 0, 0);
       position: relative;
 
       h5 {
@@ -56,7 +56,7 @@
           padding-bottom: 3px;
         }
       }
-    
+
       .social [class *= 'icon'] {
         color: #22878e;
         font-size: 30px;
@@ -128,7 +128,7 @@
         .commentary {
           margin-bottom: 0;
         }
-        
+
         &:nth-child(even) {
           .with-arrow:before {
             left: 100%;

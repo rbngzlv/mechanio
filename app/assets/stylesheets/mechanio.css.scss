@@ -12,11 +12,11 @@ $btn-danger-bg: #dc5d3a;
 
 @font-face {
   font-family: 'CandaraRegular';
-  src: url(asset-path('fonts/candara.eot'));
-  src: url(asset-path('fonts/candara.eot')) format('embedded-opentype'),
-       url(asset-path('fonts/candara.woff')) format('woff'),
-       url(asset-path('fonts/candara.ttf')) format('truetype'),
-       url(asset-path('fonts/candara.svg#CandaraRegular')) format('svg');
+  src: asset-url('fonts/candara.eot');
+  src: asset-url('fonts/candara.eot') format('embedded-opentype'),
+       asset-url('fonts/candara.woff') format('woff'),
+       asset-url('fonts/candara.ttf') format('truetype'),
+       asset-url('fonts/candara.svg#CandaraRegular') format('svg');
 }
 
 html, body {
@@ -35,7 +35,7 @@ ul {
 }
 
 .header {
-  background: url(image-path('white-bg.png'));
+  background: asset-url('white-bg.png');
 
   .dropdown-menu {
     background: #fcfcfc;
@@ -69,7 +69,7 @@ ul {
 
   button {
     border: none;
-  
+
     .caret {
       border-top-color: #999;
     }
@@ -199,7 +199,7 @@ section {
     margin-bottom: 10px;
     border-radius: 8px;
     line-height: 30px;
-    background: image-url('side-bar-list-bg.png');
+    background: asset-url('side-bar-list-bg.png');
 
     a {
       color: #777;
@@ -250,7 +250,7 @@ section {
     padding: 8px 15px;
     font-size: 13px;
     font-weight: normal;
-  
+
     &:focus,
     &:hover {
       outline: none;
@@ -264,7 +264,7 @@ section {
 }
 
 .profile-border {
-  background: url("/assets/profile-bg.jpg") no-repeat;
+  background: asset-url("profile-bg.jpg") no-repeat;
   height: 162px;
   width: 202px;
   padding: 6px;
@@ -291,7 +291,7 @@ section {
     cursor: pointer;
 
     span {
-      background: url("/assets/sprite-png.png") no-repeat;
+      background: asset-url("sprite-png.png") no-repeat;
       display: inline-block;
       position: relative;
       height: 15px;
@@ -384,7 +384,7 @@ section {
 }
 
 #home-carousel {
-  background: url(image-path('slide-01.jpg')) no-repeat;
+  background: asset-url('slide-01.jpg') no-repeat;
   width: 100%;
   height: 650px;
   position: absolute;
@@ -457,7 +457,7 @@ section {
     margin-bottom: 20px;
 
     .panel-heading {
-      background: url("/assets/widget-title-bg.jpg") repeat-x;
+      background: asset-url("widget-title-bg.jpg") repeat-x;
     }
   }
 
@@ -602,7 +602,7 @@ form .radio {
 }
 
 .footer {
-  background: url("/assets/footer-bg.jpg") repeat-x scroll left top #17130F;
+  background: asset-url("footer-bg.jpg") repeat-x scroll left top #17130F;
   color: #FFFFFF;
   font-size: 15px;
   padding: 20px 20px 5px;
