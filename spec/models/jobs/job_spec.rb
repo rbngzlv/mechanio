@@ -36,9 +36,12 @@ describe Job do
   end
 
   it 'associates car with user when creating car via nested_attributes' do
-    job = build :job_with_service, car: nil
-    job.car_attributes = build(:car, user: nil).attributes
-    job.save!
+    attrs = attributes_for(:job).merge({
+      location_attributes: attributes_for(:location, state_id: create(:state).id),
+      tasks_attributes: [attributes_for(:service, service_plan_id: create(:service_plan).id)],
+      car_attributes: { year: '2000', model_variation_id: create(:model_variation).id }
+    })
+    job = user.jobs.create(attrs)
 
     job.car.user_id.should_not be_nil
     job.car.user_id.should eq job.user_id

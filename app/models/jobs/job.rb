@@ -10,6 +10,8 @@ class Job < ActiveRecord::Base
 
   serialize :serialized_params
 
+  before_validation :assign_car_to_user
+
   validates :user, :car, :location, :tasks, :contact_email, :contact_phone, presence: true
 
   def self.create_temporary(params)
@@ -22,8 +24,7 @@ class Job < ActiveRecord::Base
     end
   end
 
-  def car_attributes=(attrs)
-    super
-    car.user_id = user_id
+  def assign_car_to_user
+    car.user_id = user_id if car && user_id
   end
 end
