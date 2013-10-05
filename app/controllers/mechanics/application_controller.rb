@@ -5,6 +5,6 @@ class Mechanics::ApplicationController < ApplicationController
   before_filter :authenticate_mechanic!
 
   def select_layout
-    'mechanics'
+    'sidebar'
   end
 end

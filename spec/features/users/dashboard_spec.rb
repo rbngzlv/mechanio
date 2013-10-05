@@ -12,10 +12,7 @@ feature 'dashboard page' do
 
   context 'should have dinamyc content' do
     include_examples("describe") do
-      let(:subject) { user }
-    end
-
-    specify 'custom when user is edited', pending: 'task: edit user' do
+      let(:object) { user }
     end
   end
 end

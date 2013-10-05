@@ -7,14 +7,8 @@ feature 'mechanic profile page' do
 
   before { login_mechanic mechanic }
 
-  scenario 'check navigation' do
-    visit mechanics_dashboard_path
-    within('.wrap > .container') { click_link 'My Profile' }
-    current_url.should eql(mechanics_profile_url)
-    click_link 'Edit Profile'
-    current_url.should eql(edit_mechanics_profile_url)
-    click_link 'cancel'
-    current_url.should eql(mechanics_profile_url)
+  include_examples("navigation") do
+    let(:role) { 'mechanics' }
   end
 
   context 'check content' do

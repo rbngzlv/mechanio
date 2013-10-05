@@ -5,6 +5,6 @@ class Users::ApplicationController < ApplicationController
   before_filter :authenticate_user!
 
   def select_layout
-    'users'
+    'sidebar'
   end
 end

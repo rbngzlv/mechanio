@@ -8,8 +8,9 @@ class User < ActiveRecord::Base
   has_many :cars
   has_many :jobs
 
-  validates :first_name, presence: true
-  validates :last_name, presence: true
+  mount_uploader :avatar, ImgUploader
+
+  validates :first_name, :last_name, :email, presence: true
 
   def full_name
     "#{first_name} #{last_name}"

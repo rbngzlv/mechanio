@@ -553,7 +553,7 @@ form .radio {
   line-height: 23px;
 }
 
-.admin_mechanic_form .form-group img {
+.form-group img {
   display: block;
 }
 
@@ -571,13 +571,9 @@ form .radio {
   line-height: 27px !important;
 }
 
-.admin_mechanic_form {
-  padding-bottom: 10%;
-
-  legend {
-    font-size: 18px;
-    color: #555;
-  }
+.form-horizontal legend {
+  font-size: 18px;
+  color: #555;
 }
 
 .hr-dark-gray + .btn-danger {

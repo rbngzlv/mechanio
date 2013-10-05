@@ -1,10 +1,3 @@
-:javascript
-  $(function () {
-    $('input[type=file]').bootstrapFileInput();
-    $('.file-input-wrapper').addClass('btn-success').addClass('col-md-2');
-  });
-%hr.hr-dark-gray
-= link_to "Delete", admin_mechanic_path(@mechanic), method: :delete, class: 'btn btn-danger col-md-1 col-md-offset-11', data: { confirm: 'Are you sure to delete the mechanic?' }
 = simple_form_for [:admin, @mechanic], html: { class: 'form-horizontal admin_mechanic_form', :multipart => true }, defaults: { input_html: { class: 'form-control', wrapper_classes: 'col-md-6' }, label_html: { class: 'col-md-2' }, as: :bootstrap_horizontal_text } do |f|
   = f.error_notification
   = f.input :first_name
