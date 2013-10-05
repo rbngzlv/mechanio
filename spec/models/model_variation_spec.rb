@@ -41,7 +41,7 @@ describe ModelVariation do
     model_variation.detailed_title.should eq nil
     model_variation.save
     model_variation.display_title.should eq "#{model_variation.make.name} Golf 3dr Hatchback 1.6turbo"
-    model_variation.detailed_title.should eq '3dr Hatchback 1.6turbo 5dr Hatchback Manual Petrol 2010-2012'
+    model_variation.detailed_title.should eq '3dr Hatchback 1.6turbo 5dr Hatchback Manual Petrol'
   end
 
   it '#search' do
@@ -59,6 +59,6 @@ describe ModelVariation do
   it '#to_options' do
     variation = create :model_variation
     result = [{ id: variation.id, display_title: variation.display_title, detailed_title: variation.detailed_title }]
-    ModelVariation.to_options(model_id: variation.model_id).should eq result
+    ModelVariation.to_options(model_id: variation.model_id).to_json.should eq result.to_json
   end
 end
