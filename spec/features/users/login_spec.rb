@@ -33,8 +33,8 @@ describe 'User login' do
       click_button 'Login'
 
       page.should have_css '.alert', text: 'Signed in successfully.'
-      page.should have_css 'h4', text: 'Dashboard'
-      page.should have_link 'Logout'
+      page.should have_css 'li.active', text: 'Dashboard'
+      page.should have_link 'Log out'
     end
   end
 
@@ -43,7 +43,7 @@ describe 'User login' do
 
     visit users_dashboard_path
 
-    click_link 'Logout'
+    click_link 'Log out'
 
     page.should have_css '.alert', text: 'Signed out successfully.'
     page.should have_link 'Login'

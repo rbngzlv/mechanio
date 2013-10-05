@@ -1,0 +1,12 @@
+!!!
+%html
+  = render 'layouts/head'
+  %body
+    .wrap
+      = render 'shared/header'
+      .container
+        = render 'shared/users_nav'
+        .col-md-9
+          = render 'shared/flash_messages'
+          = yield
+    = render 'shared/footer'

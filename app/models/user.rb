@@ -14,4 +14,9 @@ class User < ActiveRecord::Base
   def full_name
     "#{first_name} #{last_name}"
   end
+
+  def reviews
+    # TODO: It must return count of comments which this user left
+    15
+  end
 end
