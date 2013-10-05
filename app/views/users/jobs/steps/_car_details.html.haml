@@ -1,7 +1,7 @@
 %div{ 'ng-controller' => 'CarsController', 'ng-init' => "init({ cars: #{@cars} })", 'ng-show' => 'stepVisible("car-details")' }
   .wizard-body
     .select-vehicle{ 'ng-hide' => 'adding_vehicle' }
-      %h2.hx-default SELECT YOUR VEHICLE
+      %h5 SELECT YOUR VEHICLE
       %hr.hr-dark-gray
       .row
         .col-md-10
@@ -10,7 +10,7 @@
             {{c.display_title}}
 
     .add-vehicle{ 'ng-show' => 'adding_vehicle', 'ng-form' => 'car_details_form' }
-      %h2.hx-default ADD YOUR VEHICLE
+      %h5 ADD YOUR VEHICLE
       %hr.hr-dark-gray
       .row
         .col-md-5
@@ -24,7 +24,7 @@
   %hr
   %button.btn.btn-default{ 'type' => 'button', 'ng-hide' => 'adding_vehicle', 'ng-click' => 'adding_vehicle = true' }
     Add a new car
-  %button.btn.btn-default{ 'type' => 'button', 'ng-show' => 'adding_vehicle && cars_count > 0', 'ng-click' => 'adding_vehicle = false' }
+  %button.btn.btn-default{ 'type' => 'button', 'ng-show' => 'adding_vehicle && cars.length > 0', 'ng-click' => 'adding_vehicle = false' }
     %small &#x276E;
     Back
   %button.btn.btn-primary.pull-right{ 'type' => 'button', 'ng-click' => 'submit()', 'ng-disabled' => '!valid()' }

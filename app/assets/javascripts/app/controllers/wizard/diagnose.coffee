@@ -3,14 +3,21 @@ app = angular.module('mechanio')
 app.controller 'DiagnoseController', ['$scope', '$http', ($scope, $http) ->
   $scope.service_plans = []
   $scope.service_plan = null
-  $scope.task_type = null
 
   $scope.$on 'cars_step.car_changed', (e, args...) ->
-    $scope.service_plan = $scope.data.service_plan = null
+    $scope.service_plan = null
+    $scope.data.tasks = []
     $scope.loadServicePlans(args[0]) if args[0]
 
   $scope.submit = ->
-    $scope.data.service_plan = angular.copy($scope.service_plan)
+    tasks = []
+    tasks.push {
+      type: 'Service',
+      service_plan_id: $scope.service_plan.id,
+      title: $scope.service_plan.display_title,
+      note: $scope.note
+    }
+    $scope.data.tasks = tasks
     $scope.submitStep()
 
   $scope.loadServicePlans = (model_variation_id) ->

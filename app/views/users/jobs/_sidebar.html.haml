@@ -1,18 +1,20 @@
 .panel.panel-default.panel-rounded
   .panel-body
-    %h3.hx-default.panel-title YOU'VE ANSWERED
+    %h5.panel-title YOU'VE ANSWERED
     %hr.hr-dark-gray
     .progress.progress-rounded
       .progress-bar.progress-bar-gradinet(role="progressbar" style="width: {{ progress }}%;")
 
 .panel.panel-default.panel-rounded{ 'ng-show' => 'data.car.display_title' }
   .panel-body
-    %h3.hx-default.panel-title VEHICLE
+    %h5.panel-title VEHICLE
     %hr.hr-dark-gray
     {{ data.car.display_title }}
 
-.panel.panel-default.panel-rounded{ 'ng-show' => 'data.service_plan.display_title' }
+.panel.panel-default.panel-rounded{ 'ng-show' => 'data.tasks.length' }
   .panel-body
-    %h3.hx-default.panel-title CAR SERVICING
+    %h5.panel-title CAR SERVICING
     %hr.hr-dark-gray
-    {{ data.service_plan.display_title }}
+    %ul
+      %li{ 'ng-repeat' => 'task in data.tasks' }
+        %p {{ task.title }}

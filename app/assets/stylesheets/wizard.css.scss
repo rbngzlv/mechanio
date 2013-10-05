@@ -1,0 +1,83 @@
+.panel-wizard {
+  padding: 20px 5% 40px;
+
+  .nav-pills.nav-pills-wizard {
+    margin-bottom: 40px;
+
+    > li > a {
+      overflow: hidden;
+      border-radius: 19px;
+      padding: 0;
+      font-size: 15px;
+      text-align: left;
+      margin-right: 20px;
+
+      > span {
+        padding: 12px 14px;
+        line-height: 2.7em;
+        color: #777;
+        background-color: #ccc;
+        margin-right: 6px;
+      }
+
+      &:hover > span,
+      &:focus > span {
+        color: #333;
+      }
+    }
+
+    > li:last-child > a {
+      margin-right: 0;
+    }
+
+    &.nav > li > a {
+      background-color: #eee;
+      color: #777;
+
+      &:hover,
+      &:focus {
+        background-color: #eee;
+        color: #333;
+      }
+    }
+
+    > li.active > a,
+    > li.active > a:hover,
+    > li.active > a:focus {
+      background-color: #eee;
+      color: #555 !important;
+
+      > span {
+        background-color: #a5d16c;
+        color: #fff;
+      }
+    }
+
+    > li.done > a,
+    > li.done > a:hover,
+    > li.done > a:focus {
+      span {
+        background-color: #e74955;
+        color: #fff;
+      }
+    }
+  }
+
+  .wizard-body {
+    min-height: 240px;
+
+    .add-vehicle .alert {
+      margin-top: 0;
+    }
+  }
+
+  .step-diagnose {
+    .job_task_service_plan_id {
+      width: 40%;
+    }
+
+    textarea#job_task_note {
+      height: 90px;
+    }
+  }
+}

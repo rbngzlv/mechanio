@@ -12,10 +12,7 @@ app.controller 'QuoteController', ['$scope', '$http', ($scope, $http) ->
   $scope.saveJob = ->
     params = $scope.data.job
     params.location_attributes = $scope.data.location
-
-    params.tasks_attributes = []
-    if $scope.data.service_plan
-      params.tasks_attributes.push { type: 'Service', service_plan_id: $scope.data.service_plan.id }
+    params.tasks_attributes = $scope.data.tasks
 
     if $scope.data.car.id
       params.car_id = $scope.data.car.id
