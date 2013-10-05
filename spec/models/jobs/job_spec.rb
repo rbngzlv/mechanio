@@ -34,4 +34,13 @@ describe Job do
     job.tasks[0].should be_a Service
     job.tasks[1].should be_a Repair
   end
+
+  it 'associates car with user when creating car via nested_attributes' do
+    job = build :job_with_service, car: nil
+    job.car_attributes = build(:car, user: nil).attributes
+    job.save!
+
+    job.car.user_id.should_not be_nil
+    job.car.user_id.should eq job.user_id
+  end
 end

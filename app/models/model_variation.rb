@@ -31,13 +31,11 @@ class ModelVariation < ActiveRecord::Base
     year = params.delete(:year)
     scope = where(params)
     scope = scope.where('? BETWEEN from_year AND to_year', year) unless year.blank?
-    scope.select(:id, :display_title, :detailed_title).each.map do |m|
-      { id: m.id, display_title: m.display_title, detailed_title: m.detailed_title }
-    end
+    scope.select(:id, :display_title, :detailed_title)
   end
 
   def set_titles
     self.display_title = "#{make.name} #{model.name} #{title}"
-    self.detailed_title = "#{title} #{body_type.name} #{transmission} #{fuel} #{from_year}-#{to_year}"
+    self.detailed_title = "#{title} #{body_type.name} #{transmission} #{fuel}"
   end
 end

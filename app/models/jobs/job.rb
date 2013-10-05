@@ -21,4 +21,9 @@ class Job < ActiveRecord::Base
       false
     end
   end
+
+  def car_attributes=(attrs)
+    super
+    car.user_id = user_id
+  end
 end

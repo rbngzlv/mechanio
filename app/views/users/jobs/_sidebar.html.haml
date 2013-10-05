@@ -5,14 +5,14 @@
     .progress.progress-rounded
       .progress-bar.progress-bar-gradinet(role="progressbar" style="width: {{ progress }}%;")
 
-.panel.panel-default.panel-rounded{ 'ng-show' => 'params.car.display_title' }
+.panel.panel-default.panel-rounded{ 'ng-show' => 'data.car.display_title' }
   .panel-body
     %h3.hx-default.panel-title VEHICLE
     %hr.hr-dark-gray
-    {{ params.car.display_title }}
+    {{ data.car.display_title }}
 
-.panel.panel-default.panel-rounded{ 'ng-show' => 'params.service_plan.display_title' }
+.panel.panel-default.panel-rounded{ 'ng-show' => 'data.service_plan.display_title' }
   .panel-body
     %h3.hx-default.panel-title CAR SERVICING
     %hr.hr-dark-gray
-    {{ params.service_plan.display_title }}
+    {{ data.service_plan.display_title }}

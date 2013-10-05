@@ -6,7 +6,7 @@
       .row
         .col-md-10
           %label.radio{ 'ng-repeat' => 'c in cars' }
-            %input.radio_buttons{ 'id' => 'job_car_id_{{c.id}}', 'name' => 'job[car_id]', 'type' => 'radio', 'value' => '{{c.id}}', 'ng-model' => '$parent.car.id', 'ng-change' => 'setCar()' }
+            %input.radio_buttons{ 'id' => 'job_car_id_{{c.id}}', 'name' => 'job[car_id]', 'type' => 'radio', 'value' => '{{c.id}}', 'ng-model' => 'car.id', 'ng-change' => 'setCar()' }
             {{c.display_title}}
 
     .add-vehicle{ 'ng-show' => 'adding_vehicle', 'ng-form' => 'car_details_form' }
@@ -18,7 +18,7 @@
             = c.input :year, collection: (1998..Date.today.year), include_blank: '-- Year --', input_html: { 'ng-model' => 'car.year', 'ng-change' => 'setYear()', 'required' => true }
             = c.input :make_id, collection: Make.all, include_blank: '-- Make --', input_html: { 'ng-model' => 'car.make_id', 'ng-change' => 'setMake()', 'ng-disabled' => '!car.year', 'required' => true }
             = c.input :model_id, collection: [], include_blank: '-- Model --', input_html: { 'ng-model' => 'car.model_id', 'ng-options' => 'm.id as m.name for m in models', 'ng-change' => 'setModel()', 'ng-disabled' => '!car.make_id', 'required' => true }
-            = c.input :model_variation_id, collection: [], include_blank: '-- Version --', input_html: { 'ng-model' => 'model_variation', 'ng-options' => 'v.detailed_title for v in model_variations', 'ng-change' => 'setModelVariation()', 'ng-disabled' => '!car.model_id || model_variations.length == 0', 'required' => true }
+            = c.input :model_variation_id, collection: [], include_blank: '-- Version --', input_html: { 'ng-model' => 'car.model_variation_id', 'ng-options' => 'v.id as v.detailed_title for v in model_variations', 'ng-change' => 'setModelVariation()', 'ng-disabled' => '!car.model_id || model_variations.length == 0', 'required' => true }
         .col-md-7
           .alert.alert-danger{ 'ng-show' => 'no_results_alert' } Sorry, no models available for your selection
   %hr

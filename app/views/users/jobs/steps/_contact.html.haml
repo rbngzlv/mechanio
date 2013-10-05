@@ -1,26 +1,26 @@
-#step-contact{ 'ng-controller' => 'ContactController', 'ng-init' => 'init()', 'ng-show' => 'stepVisible("contact")', 'ng-form' => 'contact_form' }
+#step-contact{ 'ng-controller' => 'ContactController', 'ng-show' => 'stepVisible("contact")', 'ng-form' => 'contact_form' }
   %h2.hx-default WHERE SHOULD THE MECHANIC GO?
   %hr.hr-dark-gray
   .wizard-body
     = simple_fields_for :location do |l|
       .row
         .form-group.col-md-9{ 'ng-class' => "inputClass(contact_form['location[address]'])" }
-          = l.input :address, label: 'Street address', wrapper: false, input_html: { 'ng-model' => 'job.location.address', 'ng-minlength' => 10, 'required' => true, 'ng-focus' => true }
+          = l.input :address, label: 'Street address', wrapper: false, input_html: { 'ng-model' => 'location.address', 'ng-minlength' => 10, 'required' => true, 'ng-focus' => true }
           %span.help-block{ 'ng-show' => "inputInvalid(contact_form['location[address]'])" }
             street address invalid
       .row
         .form-group.col-md-3{ 'ng-class' => "inputClass(contact_form['location[suburb]'])" }
-          = l.input :suburb, wrapper: false, input_html: { 'ng-model' => 'job.location.suburb', 'ng-minlength' => 5, 'required' => true, 'ng-focus' => true }
+          = l.input :suburb, wrapper: false, input_html: { 'ng-model' => 'location.suburb', 'ng-minlength' => 5, 'required' => true, 'ng-focus' => true }
           %span.help-block{ 'ng-show' => "inputInvalid(contact_form['location[suburb]'])" }
             suburb invalid
 
         .form-group.col-md-3{ 'ng-class' => "inputClass(contact_form['location[postcode]'])" }
-          = l.input :postcode, wrapper: false, input_html: { 'ng-model' => 'job.location.postcode', 'ng-pattern' => 'postcode_regex', 'required' => true, 'ng-focus' => true }
+          = l.input :postcode, wrapper: false, input_html: { 'ng-model' => 'location.postcode', 'ng-pattern' => 'postcode_regex', 'required' => true, 'ng-focus' => true }
           %span.help-block{ 'ng-show' => "inputInvalid(contact_form['location[postcode]'])" }
             postcode invalid
 
         .form-group.col-md-3{ 'ng-class' => "inputClass(contact_form['location[state_id]'])" }
-          = l.input :state_id, as: :select, collection: State.all, include_blank: '-- Please select --', wrapper: false, input_html: { class: 'input-sm', 'ng-model' => 'job.location.state_id', 'required' => true, 'ng-focus' => true }
+          = l.input :state_id, as: :select, collection: State.all, include_blank: '-- Please select --', wrapper: false, input_html: { class: 'input-sm', 'ng-model' => 'location.state_id', 'required' => true, 'ng-focus' => true }
           %span.help-block{ 'ng-show' => "inputInvalid(contact_form['location[state_id]'])" }
             please select
 

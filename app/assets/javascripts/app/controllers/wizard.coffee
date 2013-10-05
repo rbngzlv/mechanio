@@ -7,7 +7,10 @@ app.controller 'WizardController', ['$scope', '$http', ($scope, $http) ->
   $scope.step = $scope.steps[0]
   $scope.enabled_steps = []
   $scope.progress = 0
-  $scope.params = {}
+  $scope.data = {}
+
+  $scope.$on 'bounce', (e, bounce, args...) ->
+    $scope.$broadcast(bounce, args...)
 
   $scope.init = (options = {}) ->
     $scope[key] = value for key, value of options
@@ -17,14 +20,10 @@ app.controller 'WizardController', ['$scope', '$http', ($scope, $http) ->
 
   $scope.submitStep = ->
     $scope.enableStep($scope.step)
-    $scope.progress = 100 / $scope.steps.length * $scope.enabled_steps.length
-
-    next_step = $scope.findNextStep()
-
-    if next_step == 'quote' && !$scope.user_id
-      $scope.authorize()
-    else
-      $scope.step = next_step
+    $scope.updateProgress()
+    if step = $scope.findNextStep()
+      $scope.step = step
+      $scope.$broadcast("#{step}_step.enter")
 
   $scope.findNextStep = ->
     index = $scope.steps.indexOf($scope.step)
@@ -39,9 +38,6 @@ app.controller 'WizardController', ['$scope', '$http', ($scope, $http) ->
   $scope.stepEnabled = (step) ->
     $scope.enabled_steps.indexOf(step) != -1
     
-  $scope.authorize = ->
-    angular.element('#login-modal').modal('show')
-
   $scope.inputInvalid = (input) ->
     input.$dirty && input.$invalid && !input.$focused
 
@@ -51,4 +47,16 @@ app.controller 'WizardController', ['$scope', '$http', ($scope, $http) ->
   $scope.stepClass = (step) ->
     return 'active' if step == $scope.step
     return 'done' if $scope.stepEnabled(step)
+
+  $scope.updateProgress = ->
+    $scope.progress = 100 / ($scope.steps.length - 1) * $scope.enabled_steps.length
+
+  $scope.finalize = ->
+    $scope.enabled_steps = []
+
+  $scope.authorized = ->
+    angular.isNumber($scope.user_id)
+
+  $scope.authorize = ->
+    angular.element('#login-modal').modal('show')
 ]
