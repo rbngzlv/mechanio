@@ -19,4 +19,34 @@ class User < ActiveRecord::Base
     # TODO: It must return count of comments which this user left
     15
   end
+
+  def comments
+    # TODO: It must return collection of all users comments
+    [
+      [
+        'Mosaddek',
+        'at Apr 14, 2013',
+        'Ford Faicon',
+        '1020',
+        'Replace the engine',
+        2,
+        'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
+        nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat
+        volutpat. dolore magna aliquam erat volutpat. dolore magna aliquam erat
+        volutpat.'
+      ],
+      [
+        'Mosaddek',
+        'at Apr 14, 2013',
+        'Ford Faicon',
+        '1020',
+        'Replace the engine',
+        2,
+        'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
+        nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat
+        volutpat. dolore magna aliquam erat volutpat. dolore magna aliquam erat
+        volutpat.'
+      ]
+    ]
+  end
 end

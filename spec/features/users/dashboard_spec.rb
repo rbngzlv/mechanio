@@ -11,13 +11,11 @@ feature 'dashboard page' do
   end
 
   context 'should have dinamyc content' do
-    it 'default when user is new' do
-      should have_selector 'h4', text: user.full_name
-      should have_selector 'span', text: "Reviews Left : #{user.reviews}"
-      should have_content "Create some description"
+    include_examples("describe") do
+      let(:subject) { user }
     end
 
-    it 'custome when user is edited' do
+    specify 'custom when user is edited', pending: 'task: edit user' do
     end
   end
 end
