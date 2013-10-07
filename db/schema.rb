@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20131005123616) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "admins", force: true do |t|
     t.string   "email"
     t.string   "password"
@@ -51,6 +54,8 @@ ActiveRecord::Schema.define(version: 20131005123616) do
     t.integer  "task_id"
     t.string   "description"
     t.decimal  "cost",        precision: 8, scale: 2
+    t.decimal  "tax",         precision: 8, scale: 2
+    t.decimal  "total",       precision: 8, scale: 2
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -76,6 +81,8 @@ ActiveRecord::Schema.define(version: 20131005123616) do
     t.integer  "duration"
     t.decimal  "hourly_rate", precision: 8, scale: 2
     t.decimal  "cost",        precision: 8, scale: 2
+    t.decimal  "tax",         precision: 8, scale: 2
+    t.decimal  "total",       precision: 8, scale: 2
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -166,8 +173,10 @@ ActiveRecord::Schema.define(version: 20131005123616) do
   create_table "parts", force: true do |t|
     t.integer  "task_id"
     t.string   "name"
-    t.decimal  "cost",       precision: 8, scale: 2
     t.integer  "quantity"
+    t.decimal  "cost",       precision: 8, scale: 2
+    t.decimal  "tax",        precision: 8, scale: 2
+    t.decimal  "total",      precision: 8, scale: 2
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -1,3 +1,9 @@
+GIT
+  remote: https://github.com/benjohnstonsf/tlsmail.git
+  revision: a53d44c342d06e00a0168b8005c9c8bbeff974dc
+  specs:
+    tlsmail (0.0.2)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -224,5 +230,6 @@ DEPENDENCIES
   sass-rails (~> 4.0.0)
   shoulda-matchers
   simple_form (~> 3.0.0.rc)
+  tlsmail!
   uglifier (>= 1.3.0)
   unicorn

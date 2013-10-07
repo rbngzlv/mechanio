@@ -66,7 +66,22 @@ Mechanio::Application.configure do
   # config.action_mailer.raise_delivery_errors = false
 
   config.action_mailer.default_url_options = { :host => "staging,mechanio.com" }
-  config.action_mailer.delivery_method = :sendmail
+  config.action_mailer.delivery_method = :smtp
+
+  require 'tlsmail'
+  Net::SMTP.enable_tls(OpenSSL::SSL::VERIFY_NONE)
+
+  ActionMailer::Base.smtp_settings = {
+      address: "smtp.gmail.com",
+      port: "587",
+      domain: "gmail.com",
+      authentication: :plain,
+      enable_starttls_auto: true,
+      user_name: "mechanio.development@gmail.com",
+      password: 'J4B6bXCG'
+  }
+
+
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation can not be found).
