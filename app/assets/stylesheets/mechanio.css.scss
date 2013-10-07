@@ -1,5 +1,6 @@
 $btn-default-bg: #2fade7;
-$btn-default-color: #fff;
+$btn-default-bg: #e8e8e8;
+$btn-default-color: #000;
 $btn-default-border: darken($btn-default-bg, 5%);
 $btn-primary-bg: #2fade7;
 $btn-primary-color: #fff;
@@ -164,8 +165,8 @@ ul {
   }
 }
 
-.btn-grey {
-  background: #e8e8e8;
+.btn-default {
+  border: none;
   color: #000;
 
   &:hover,
