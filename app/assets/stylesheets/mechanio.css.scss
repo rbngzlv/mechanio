@@ -406,15 +406,15 @@ section {
   }
 
   select:nth-child(1) {
-    width: 14%;
+    width: 22%;
   }
 
   select:nth-child(2) {
-    width: 23%;
+    width: 35%;
   }
 
   select:nth-child(3) {
-    width: 11%;
+    width: 18%;
   }
 }
 
@@ -541,19 +541,11 @@ section {
   }
 }
 
-.mechanic-panel-body {
-  padding-left: 0;
-
-  > .nested-panel {
-    padding: 10px;
-  }
-}
-
 form .radio {
   line-height: 23px;
 }
 
-.admin_mechanic_form .form-group img {
+.form-group img {
   display: block;
 }
 
@@ -571,13 +563,9 @@ form .radio {
   line-height: 27px !important;
 }
 
-.admin_mechanic_form {
-  padding-bottom: 10%;
-
-  legend {
-    font-size: 18px;
-    color: #555;
-  }
+.form-horizontal legend {
+  font-size: 18px;
+  color: #555;
 }
 
 .hr-dark-gray + .btn-danger {

@@ -16,6 +16,9 @@ ActiveRecord::Schema.define(version: 20131005123616) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "admins", force: true do |t|
     t.string   "email"
     t.string   "password"
@@ -250,6 +253,10 @@ ActiveRecord::Schema.define(version: 20131005123616) do
     t.string   "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
+    t.date     "dob"
+    t.string   "mobile_number"
+    t.text     "description"
+    t.string   "avatar"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

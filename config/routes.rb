@@ -12,6 +12,7 @@ Mechanio::Application.routes.draw do
     get 'dashboard', to: 'dashboard#index'
 
     resources :jobs, only: [:new, :create]
+    resource :profile, only: [:show, :edit, :update]
   end
 
   namespace :mechanics do

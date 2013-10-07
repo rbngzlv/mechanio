@@ -15,7 +15,7 @@ class Mechanic < ActiveRecord::Base
   mount_uploader :abn, ImgUploader
   mount_uploader :mechanic_license, ImgUploader
 
-  validates :first_name, :last_name, :email, :dob, :location, :driver_license_number, :license_state_id, :license_expiry, presence: true
+  validates :first_name, :last_name, :email, :dob, :location, presence: true
 
   belongs_to :license_state, class_name: 'State'
   belongs_to :mechanic_license_state, class_name: 'State'

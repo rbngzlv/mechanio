@@ -8,9 +8,6 @@ describe Mechanic do
   it { should validate_presence_of :password }
   it { should validate_presence_of :dob }
   it { should validate_presence_of :location }
-  it { should validate_presence_of :driver_license_number }
-  it { should validate_presence_of :license_state_id }
-  it { should validate_presence_of :license_expiry }
 
   it { should have_one :location }
   it { should have_one :business_location }

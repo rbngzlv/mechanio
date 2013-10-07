@@ -1,8 +1,11 @@
 .row
-  = link_to 'Edit Profile', edit_mechanics_profile_path, class: 'btn btn-default pull-right'
+  .col-md-12
+    = link_to edit_mechanics_profile_path, class: 'btn btn-info pull-right col-md-2 top-btn' do
+      %i.icon-pencil
+      Edit Profile
 .row
   .col-md-12
-    .panel.panel-default
+    .panel.panel-default.panel-rounded
       .panel-heading.clearfix
         %h4.panel-title
           %i.glyphicon.glyphicon-user
@@ -10,7 +13,7 @@
         %span.tools.pull-right
           = link_to '', '#js-collapse-one', class: 'glyphicon glyphicon-chevron-down accordion-toggle', :data => {:toggle => 'collapse', :parent => '#accordion'}
       #js-collapse-one.panel-collapse.collapse.in
-        .panel-body.mechanic-panel-body
+        .panel-body
           .col-md-4
             .profile-border
               = image_tag current_mechanic.avatar? ? current_mechanic.avatar_url(:thumb) : 'photo.jpg', class: 'avatar'

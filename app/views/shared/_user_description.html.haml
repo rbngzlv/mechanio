@@ -1,0 +1,23 @@
+.row
+  .col-md-12
+    .panel.panel-default.panel-rounded
+      .panel-heading.clearfix
+        %h4.panel-title
+          %i.glyphicon.glyphicon-user
+          = current_user.full_name
+        %span.tools.pull-right
+          = link_to '', '#js-collapse-one', class: 'glyphicon glyphicon-chevron-down accordion-toggle', :data => {:toggle => 'collapse', :parent => '#accordion'}
+      #js-collapse-one.panel-collapse.collapse.in
+        .panel-body
+          .row
+            .col-md-4
+              .profile-border
+                = image_tag current_user.avatar? ? current_user.avatar_url(:thumb) : 'photo.jpg', class: 'avatar'
+                .reviews-row.clearfix.text-center
+                  %span
+                    Reviews Left :
+                    %strong= current_user.reviews
+            .col-md-8.panel.nested-panel
+              = current_user.description || 'Create some description'
+          .row
+            = render partial: 'shared/comments', locals: { title: 'REVIEWS LEFT', comments: current_user.comments }

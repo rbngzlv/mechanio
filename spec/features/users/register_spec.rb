@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'User register' do
-  
+
   it 'show registration page' do
     visit root_path
     click_link 'Sign up'
@@ -23,7 +23,7 @@ describe 'User register' do
 
       page.should have_css '.help-block', text: "can't be blank"
     end
-    
+
     it 'redirects to dashboard' do
 
       fill_in 'First name', with: 'First'
@@ -32,7 +32,7 @@ describe 'User register' do
       fill_in 'Password', with: 'password'
       click_button 'Sign up'
 
-      page.should have_css 'h4', text: 'Dashboard'
+      page.should have_css 'li.active', text: 'Dashboard'
       page.should have_css '.alert', text: 'Welcome! You have signed up successfully.'
 
       # TODO: test for welcome email here
