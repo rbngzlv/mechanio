@@ -18,6 +18,7 @@ gem 'simple_form', '~> 3.0.0.rc'
 gem 'kaminari'
 gem 'tlsmail', git: 'https://github.com/benjohnstonsf/tlsmail.git'
 gem 'resque'
+gem 'geocoder'
 
 group :development do
   gem 'letter_opener'
@@ -30,6 +31,8 @@ group :test do
   gem 'capybara'
   gem 'poltergeist'
   gem 'database_cleaner'
+  gem 'vcr'
+  gem 'webmock'
 end
 
 group :development, :test do
@@ -46,25 +49,6 @@ group :deploy do
   gem 'capistrano-ext'
   gem 'rvm-capistrano'
   gem 'capistrano-resque'
+  gem 'guard'
+  gem 'guard-rspec'
 end
-
-
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-# gem 'jbuilder', '~> 1.2'
-
-# group :doc do
-#   # bundle exec rake doc:rails generates the API under doc/api.
-#   gem 'sdoc', require: false
-# end
-
-# Use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
-
-# Use unicorn as the app server
-# gem 'unicorn'
-
-# Use Capistrano for deployment
-# gem 'capistrano', group: :development
-
-# Use debugger
-# gem 'debugger', group: [:development, :test]
