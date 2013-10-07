@@ -15,7 +15,7 @@ describe Location do
 
   describe 'geocoding', :vcr do
     it 'should resolve address into coordinates' do
-      location = build :location, address: '200 Broadway Av', suburb:  'West Beach', postcode: '5024'
+      location = build :location, address: '35 Stirling Highway', suburb:  'Crawley', postcode: '6009'
       location.geocode
       location.latitude.should_not be_blank
       location.longitude.should_not be_blank
