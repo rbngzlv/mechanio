@@ -1,26 +1,28 @@
-.col-md-12.clearfix
-  %h5.hx-default= title
-  %ul.chat
-    - comments.each do |comment|
-      %li.clearfix
-        .col-md-1
-          = image_tag(asset_url("avatar1.jpg"), :class => 'img-circle')
-        .col-md-11.panel.nested-panel.with-arrow
-          .span
-            = link_to comment.shift, '#'
-            %span.datetime= comment.shift
-          .panel.nested-panel
-            %span.col-md-3
-              %i.glyphicon.glyphicon-inbox
-              = comment.shift
-            %span.col-md-2
-              %i.glyphicon.glyphicon-usd
-              = comment.shift
-            %span.col-md-4
-              %i.glyphicon.glyphicon-cog
-              = comment.shift
-            .reviews-row.clearfix
-              .rating.pull-left
-                = rating_stars(comment.shift)
-          %p.commentary
-            = comment.shift
+.review-block
+  .panel-body
+    .col-md-12.clearfix
+      %h5.hx-default= title
+      %ul.chat
+        - comments.each do |comment|
+          %li.clearfix
+            .col-md-1.avatar
+              = image_tag(asset_url("avatar1.jpg"), :class => 'img-circle')
+            .col-md-11.panel.nested-panel.with-arrow.commentary-block
+              .span
+                = link_to comment.shift, '#'
+                %span.datetime= comment.shift
+              .panel.nested-panel
+                %span.col-md-3
+                  %i.glyphicon.glyphicon-inbox
+                  = comment.shift
+                %span.col-md-2
+                  %i.glyphicon.glyphicon-usd
+                  = comment.shift
+                %span.col-md-4
+                  %i.glyphicon.glyphicon-cog
+                  = comment.shift
+                .reviews-row.clearfix
+                  .rating.pull-left
+                    = rating_stars(comment.shift)
+              %p.commentary
+                = comment.shift

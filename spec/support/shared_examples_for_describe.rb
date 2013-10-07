@@ -1,4 +1,4 @@
-shared_examples "describe" do
+shared_examples "description block" do
   specify 'comments count' do
     page.should have_selector 'span', text: "Reviews Left : #{object.reviews}"
   end

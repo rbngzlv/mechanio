@@ -1,26 +1,26 @@
 .row
   .col-md-12
-    .panel.panel-default
+    .panel.panel-default.panel-rounded
       .panel-heading.clearfix
         %h4.panel-title
           %i.glyphicon.glyphicon-user
           Edit Profile
-      .panel-body.mechanic-panel-body
-        = simple_form_for current_mechanic, url: mechanics_profile_path, html: { class: 'form-horizontal admin_mechanic_form', multipart: true }, defaults: { label_html: { class: 'col-md-3' } }, wrapper: :bootstrap_horizontal do |f|
+      .panel-body
+        = simple_form_for current_mechanic, url: mechanics_profile_path, html: { class: 'form-horizontal mechanic_form', multipart: true }, defaults: { label_html: { class: 'col-md-3' } }, wrapper: :bootstrap_horizontal do |f|
           = f.error_notification
           = f.input :first_name
           = f.input :last_name
           = f.input :dob, label: 'Date of birth', start_year: Date.today.year - 60, end_year: Date.today.year - 18
           = f.input :email, label: 'Personal email'
           = f.input :description, label: 'Personal description'
-          = f.input :avatar, label: 'Photo'
+          = f.input :avatar, label: 'Photo', as: :image
           %legend Personal Address
           = render partial: 'shared/location_form', locals: { f: f }
           %legend Driver's License
           = f.input :driver_license_number, label: "Driver's license"
           = f.association :license_state, label: 'Registered state', prompt: '-- Please select --'
           = f.input :license_expiry, label: 'Expiry date', start_year: Date.today.year, end_year: Date.today.year + 20
-          = f.input :driver_license, label: 'Image'
+          = f.input :driver_license, label: 'Image', as: :image
           %legend Business Details
           = f.input :business_website
           = f.input :business_email
@@ -30,14 +30,14 @@
           = f.input :abn_name, label: 'ABN name'
           = f.input :abn_number, label: 'ABN number'
           = f.input :abn_expiry, label: 'Expiry date', start_year: Date.today.year, end_year: Date.today.year + 20
-          = f.input :abn, label: 'Image'
+          = f.input :abn, label: 'Image', as: :image
           %legend Business Address
           = render partial: 'shared/location_form', locals: { f: f, location_type: :business_location }
           %legend Motor Mechanic's License
           = f.input :mechanic_license_number, label: 'Number'
           = f.input :mechanic_license_expiry, label: 'Expiry date', start_year: Date.today.year, end_year: Date.today.year + 20
           = f.association :mechanic_license_state, label: 'Registered state', prompt: '-- Please select --'
-          = f.input :mechanic_license, label: 'Image'
+          = f.input :mechanic_license, label: 'Image', as: :image
           %hr.hr-dark-gray
           .form-group
             .col-md-offset-3.col-md-6

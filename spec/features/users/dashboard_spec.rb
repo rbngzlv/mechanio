@@ -11,7 +11,7 @@ feature 'dashboard page' do
   end
 
   context 'should have dinamyc content' do
-    include_examples("describe") do
+    include_examples("description block") do
       let(:object) { user }
     end
   end

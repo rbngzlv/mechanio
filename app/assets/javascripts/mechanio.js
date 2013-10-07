@@ -3,5 +3,5 @@ $(document).ready(function(){
 
   // customize bootstrap file_upload_plugin
   $('input[type=file]').bootstrapFileInput();
-  $('.file-input-wrapper').addClass('btn-success').addClass('col-md-3');
+  $('.file-input-wrapper').addClass('btn-success col-md-3');
 });

@@ -19,7 +19,7 @@ feature 'user profile' do
         visit users_profile_path
       end
 
-      include_examples("describe") do
+      include_examples("description block") do
         let(:object) { user }
       end
     end

@@ -406,15 +406,15 @@ section {
   }
 
   select:nth-child(1) {
-    width: 14%;
+    width: 22%;
   }
 
   select:nth-child(2) {
-    width: 23%;
+    width: 35%;
   }
 
   select:nth-child(3) {
-    width: 11%;
+    width: 18%;
   }
 }
 
@@ -538,14 +538,6 @@ section {
         outline: none;
       }
     }
-  }
-}
-
-.mechanic-panel-body {
-  padding-left: 0;
-
-  > .nested-panel {
-    padding: 10px;
   }
 }
 
