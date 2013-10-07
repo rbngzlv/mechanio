@@ -12,4 +12,13 @@ describe Location do
   it { should validate_presence_of :postcode }
   it { should allow_value('0200').for(:postcode) }
   it { should_not allow_value('0300').for(:postcode).with_message('is not a valid postcode') }
+
+  describe 'geocoding', :vcr do
+    it 'should resolve address into coordinates' do
+      location = build :location, address: '200 Broadway Av', suburb:  'West Beach', postcode: '5024'
+      location.geocode
+      location.latitude.should_not be_blank
+      location.longitude.should_not be_blank
+    end
+  end
 end
