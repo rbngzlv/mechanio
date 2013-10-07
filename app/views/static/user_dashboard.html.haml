@@ -1,0 +1,257 @@
+.row
+  .col-md-3.nav-collapse
+    %ul.nav.nav-pills.nav-stacked
+      %li.active
+        %a
+          %span.img-circle
+            %i.glyphicon.glyphicon-dashboard
+          Dashboard
+      %li
+        %a
+          %span.img-circle
+            %i.icon-truck
+          My Cars
+      %li
+        %a
+          %span.img-circle
+            %i.glyphicon.glyphicon-calendar
+          My Appointments
+      %li
+        %a
+          %span.img-circle
+            %i.glyphicon.glyphicon-list
+          My Estimates
+          %span.badge 2
+      %li
+        %a
+          %span.img-circle
+            %i.glyphicon.glyphicon-user
+          My Profile
+      %li
+        %a
+          %span.img-circle
+            %i.glyphicon.glyphicon-cog
+          Settings
+  .col-md-9
+    .row
+      .col-md-12
+        = link_to edit_mechanics_profile_path, class: 'btn btn-info pull-right col-md-2 top-btn' do
+          %i.icon-pencil
+          Edit Profile
+    .row
+      .col-md-12
+        .panel.panel-default.panel-rounded
+          .panel-heading.clearfix
+            %h4.panel-title
+              %i.glyphicon.glyphicon-user
+              Mechanic Name
+            %span.tools.pull-right
+              = link_to '', '#js-collapse-one', class: 'glyphicon glyphicon-chevron-down accordion-toggle', :data => {:toggle => 'collapse', :parent => '#accordion'}
+          #js-collapse-one.panel-collapse.collapse.in
+            .panel-body.mechanic-panel-body
+              .col-md-4
+                .profile-border
+                  = image_tag(asset_url("photo.jpg"))
+                  .reviews-row
+                    .review-text.text-center
+                      Reviews Left: 
+                      %b
+                        15
+              .col-md-8
+                .panel.nested-panel
+                  %h5 Hi, My name is Andrew Nanjdroo
+                  %p I like cars and curry. I'm actually the prince of 7-11. There are 5000 7-11s in Thailand.
+    .row
+      .col-md-4
+        .panel.panel-default.panel-rounded
+          .panel-heading.clearfix
+            %h4.panel-title Verifications
+            %span.tools
+              = link_to '', '#js-collapse-two', class: 'glyphicon glyphicon-chevron-down accordion-toggle', :data => {:toggle => 'collapse', :parent => '#accordion'}
+          #js-collapse-two.panel-collapse.collapse.in
+            .panel-body
+              .panel.nested-panel
+                .row
+                  .col-md-8.right-border
+                    %b Facebook
+                    %br
+                    %small 299 Friends
+                  .col-md-4.text-right
+                    %i.big.icon-facebook
+              .panel.nested-panel
+                .row
+                  .col-md-8.right-border
+                    %b Email Address
+                    %br
+                    %small Verified
+                  .col-md-4.text-right
+                    %i.big.icon-envelope-alt
+              .panel.nested-panel
+                .row
+                  .col-md-8.right-border
+                    %b Reviews left
+                    %br
+                    %small 2 Reviews
+                  .col-md-4.text-right
+                    %i.big.icon-thumbs-up
+      .col-md-8
+        .panel.panel-default.panel-rounded
+          .panel-heading
+            %h4.panel-title Booked Appointments
+            %span.tools
+              = link_to '', '#js-collapse-three', class: 'glyphicon glyphicon-chevron-down accordion-toggle', :data => {:toggle => 'collapse', :parent => '#accordion'}
+          #js-collapse-three.panel-collapse.collapse.in
+            .panel-body
+              .panel.nested-panel.clearfix
+                .row
+                  .col-md-8
+                    .row
+                      %p.clearfix
+                        .col-md-5
+                          .pull-left
+                            %b Bob Mechanic
+                        .col-md-7
+                          .reviews-row.clearfix
+                            .rating.pull-left
+                              = rating_stars(5)
+                            %span.review-text.pull-left 12 Reviews
+                    .row
+                      %p.clearfix
+                        .col-md-12 11:00AM, May 8, 2013 (Friday)
+                  .col-md-4
+                    %p
+                      .pull-right
+                        %i.icon-phone
+                        123 123 1234
+                  .tr-divider.clearfix
+                .row
+                  %p.clearfix
+                    .col-md-8
+                      .row
+                        .col-md-4 Services:
+                        .col-md-8 10,000 KM Repair
+                        %p.clearfix
+                          .col-md-4 Car:
+                          .col-md-8 2000 ford Mustana V6-3.OL
+                    .col-md-4
+                      = link_to 'View Appoinment', '#', class: 'btn btn-success pull-right'
+              .panel.nested-panel.clearfix
+                .row
+                  .col-md-8
+                    .row
+                      %p.clearfix
+                        .col-md-5
+                          .pull-left
+                            %b Bob Mechanic
+                        .col-md-7
+                          .reviews-row.clearfix
+                            .rating.pull-left
+                              = rating_stars(5)
+                            %span.review-text.pull-left 12 Reviews
+                    .row
+                      %p.clearfix
+                        .col-md-12 11:00AM, May 8, 2013 (Friday)
+                  .col-md-4
+                    %p
+                      .pull-right
+                        %i.icon-phone
+                        123 123 1234
+                  .tr-divider.clearfix
+                .row
+                  %p.clearfix
+                    .col-md-8
+                      .row
+                        .col-md-4 Services:
+                        .col-md-8 10,000 KM Repair
+                        %p.clearfix
+                          .col-md-4 Car:
+                          .col-md-8 2000 ford Mustana V6-3.OL
+                    .col-md-4
+                      = link_to 'View Appoinment', '#', class: 'btn btn-success pull-right'
+    .row
+      .col-md-4
+        .panel.panel-default.panel-rounded
+          .panel-heading
+            %h4.panel-title Reviews Outstanding
+            %span.tools
+              = link_to '', '#js-collapse-four', class: 'glyphicon glyphicon-chevron-down accordion-toggle', :data => {:toggle => 'collapse', :parent => '#accordion'}
+          #js-collapse-four.panel-collapse.collapse.in
+            .panel-body
+              .panel.nested-panel.clearfix
+                .row
+                  .col-md-8.right-border
+                    %b 35000 KM Service
+                    %br
+                    %small May 8, 2013
+                  .col-md-4.text-right
+                    %i.big.lazure.icon-thumbs-up
+              .panel.nested-panel.clearfix
+                .row
+                  .col-md-8.right-border
+                    %b 45000 KM Service
+                    %br
+                    %small June 10, 2013
+                  .col-md-4.text-right
+                    %i.big.lazure.icon-thumbs-up
+              .panel.nested-panel.clearfix
+                .row
+                  .col-md-8.right-border
+                    %b 45000 KM Service
+                    %br
+                    %small June 10, 2013
+                  .col-md-4.text-right
+                    %i.big.lazure.icon-thumbs-up
+              .panel.nested-panel.clearfix
+                .row
+                  .col-md-8.right-border
+                    %b 45000 KM Service
+                    %br
+                    %small June 10, 2013
+                  .col-md-4.text-right
+                    %i.big.lazure.icon-thumbs-up
+      .col-md-8
+        .panel.panel-default.panel-rounded
+          .panel-heading
+            %h4.panel-title My Estimates
+            %span.tools
+              = link_to '', '#js-collapse-five', class: 'glyphicon glyphicon-chevron-down accordion-toggle', :data => {:toggle => 'collapse', :parent => '#accordion'}
+          #js-collapse-five.panel-collapse.collapse.in
+            .panel-body
+              .panel.nested-panel.clearfix
+                .row
+                  .col-md-7
+                    %p
+                      %b.text-info May 6, 2013
+                      %br
+                      %br
+                      %b Car:
+                      2000 ford Mustana V6-3.0L
+                      %br/
+                      %b Services:
+                      Car is making a noise (Inspcction)
+                      %br
+                  .col-md-5.text-center
+                    .alert-success
+                      %small Total Cost
+                      %br
+                      %b.big $283.34
+                    = link_to 'Book Appointments', '#', class: 'btn btn-success'
+              .panel.nested-panel.clearfix
+                .row
+                  .col-md-7
+                    %p
+                      %b.text-info May 6, 2013
+                      %br
+                      %br
+                      %b Car:
+                      2000 ford Mustana V6-3.0L
+                      %br
+                      %b Services:
+                      Car is making a noise (Inspcction)
+                      %br
+                  .col-md-5.text-center
+                    .alert-success
+                      %small Total Cost
+                      %br
+                      %b.big $283.34
+                    = link_to 'Book Appointments', '#', class: 'btn btn-success'

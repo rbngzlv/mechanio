@@ -107,6 +107,10 @@
           border-left-color: #eaeaea;
         }
 
+        .avatar {
+          @extend .pull-right;
+        }
+
         .commentary-block {
           margin-left: 0;
           margin-right: 1%;
