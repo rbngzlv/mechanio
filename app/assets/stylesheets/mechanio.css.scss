@@ -1,10 +1,11 @@
 $btn-default-bg: #2fade7;
-$btn-default-color: #fff;
+$btn-default-bg: #e8e8e8;
+$btn-default-color: #000;
 $btn-default-border: darken($btn-default-bg, 5%);
 $btn-primary-bg: #2fade7;
 $btn-primary-color: #fff;
 $btn-info-bg: #22c0cb;
-$btn-success-bg: #62c462;
+$btn-success-bg: #87bb33;
 $btn-warning-bg: #fb9800;
 $btn-danger-bg: #dc5d3a;
 
@@ -91,6 +92,10 @@ ul {
   border-right: 1px dotted #ccc;
 }
 
+.lazure {
+  color: #22878e !important;
+}
+
 .wrap {
   height: auto !important;
   min-height: 100%;
@@ -117,6 +122,11 @@ ul {
 
   > .nested-panel {
     margin-bottom: 0;
+  }
+
+  .tr-divider {
+    margin: 0 15px;
+    padding-bottom: 8px;
   }
 }
 
@@ -155,8 +165,8 @@ ul {
   }
 }
 
-.btn-grey {
-  background: #e8e8e8;
+.btn-default {
+  border: none;
   color: #000;
 
   &:hover,
@@ -235,6 +245,10 @@ section {
       &:focus {
         outline: none;
       }
+
+      .badge {
+        background: #e74955;
+      }
     }
 
     &:hover a {
@@ -254,7 +268,7 @@ section {
     margin-right: 12px;
     display: inline-block;
 
-    > [class *= glyphicon] {
+    > [class *= icon] {
       color: #eee;
       font-size: 16px;
       display: inline-block;
@@ -323,7 +337,7 @@ section {
 
 .reviews-row {
   .review-text {
-    font-size: 11px;
+    font-size: 12px;
   }
 
   .rating {
@@ -442,6 +456,10 @@ section {
   padding: 8px 15px;
 }
 
+[class *= 'alert'] + .btn {
+  margin-top: 5px;
+}
+
 .cancel-job {
   border-radius: 8px;
 }
@@ -524,8 +542,8 @@ section {
   .tools {
     position: absolute;
     right: 10px;
-    top: 5px;
-    padding: 5px 0 5px 6px;
+    top: 3px;
+    padding: 6px 0 5px 6px;
     border-left: 1px solid #E0DEDE;
 
     a {

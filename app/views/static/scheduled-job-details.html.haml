@@ -51,7 +51,7 @@
                   %b VIN:
                 %td{:colspan => '2'}
                   %input.form-control.pull-left.input-width{type: "text"}
-                  = link_to 'Add VIN', '#', class: 'btn pull-left btn-grey'
+                  = link_to 'Add VIN', '#', class: 'btn pull-left btn-default'
               %tr.tr-divider
                 %td
                   %b Services:
@@ -105,5 +105,5 @@
             .panel-body
               Too many cancellations may lead to the suspension of your Mechanio account!
             .panel-footer.clearfix
-              =link_to 'Back', '#', class: 'btn btn-grey pull-left', :aria => {:hidden => 'true'}, :data => {:dismiss => 'modal'}
+              =link_to 'Back', '#', class: 'btn btn-default pull-left', :aria => {:hidden => 'true'}, :data => {:dismiss => 'modal'}
               %button.btn.btn-success.pull-right{"aria-hidden" => "true", "data-dismiss" => "modal", type: "button", value: "Cancel"} Cancel Job

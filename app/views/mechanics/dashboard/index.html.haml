@@ -27,13 +27,13 @@
       .panel-heading.clearfix
         %h4.panel-title
           %i.glyphicon.glyphicon-user
-          = link_to 'Upcoming Jobs' , '#'
+          = link_to 'Upcoming Jobs' , '#', class: 'lazure'
         %span.tools.pull-right
           = link_to '', '#js-collapse-two', class: 'glyphicon glyphicon-chevron-down accordion-toggle', :data => {:toggle => 'collapse', :parent => '#accordion'}
       #js-collapse-two.panel-collapse.collapse.in
         .panel-body
           .panel.nested-panel.clearfix
-            .col-md-7.panel-right-border
+            .col-md-7.right-border
               %p
                 %b.text-info
                   Andrew Nandjroo
@@ -54,7 +54,7 @@
                 123 ABC st, Mountain View, CA, 92012
               = link_to 'View Details', '#', class: 'pull-right btn btn-info'
           .panel.nested-panel.clearfix
-            .col-md-7.panel-right-border
+            .col-md-7.right-border
               %p
                 %b.text-info Andrew Nandjroo
               %p
@@ -79,13 +79,13 @@
       .panel-heading.clearfix
         %h4.panel-title
           %i.glyphicon.glyphicon-user
-          = link_to 'Completed Jobs', 'mechanic-jobs.html#past-jobs'
+          = link_to 'Completed Jobs', 'mechanic-jobs.html#past-jobs', class: 'lazure'
         %span.tools.pull-right
           = link_to '', '#js-collapse-three', class: 'glyphicon glyphicon-chevron-down accordion-toggle', :data => {:toggle => 'collapse', :parent => '#accordion'}
       #js-collapse-three.panel-collapse.collapse.in
         .panel-body
           .panel.nested-panel.clearfix
-            .col-md-7.panel-right-border
+            .col-md-7.right-border
               %p
                 %b.text-info Andrew Nandjroo
               %p
@@ -104,7 +104,7 @@
                 123 ABC st, Mountain View, CA, 92012
               = link_to 'View Details', '#', class: 'pull-right btn btn-info'
           .panel.nested-panel.clearfix
-            .col-md-7.panel-right-border
+            .col-md-7.right-border
               %p
                 %b.text-info Andrew Nandjroo
               %p
