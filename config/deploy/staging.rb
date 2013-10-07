@@ -12,3 +12,6 @@ set :unicorn_pid,   "#{deploy_to}/shared/pids/unicorn.pid"
 role :app, domain
 role :web, domain
 role :db,  domain, primary: true
+
+role :resque_worker,    domain
+role :resque_scheduler, domain

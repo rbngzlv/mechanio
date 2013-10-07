@@ -54,7 +54,5 @@ after 'deploy:start', 'resque:start'
 after 'deploy:stop', 'resque:stop'
 after 'deploy:restart', 'resque:restart'
 
-role :resque_worker,    domain
-role :resque_scheduler, domain
 
 set :workers, { '*' => 1 }
