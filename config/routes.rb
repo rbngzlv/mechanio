@@ -1,7 +1,13 @@
+require 'resque/server'
+
 Mechanio::Application.routes.draw do
+
   devise_for :admin
   devise_for :mechanics
   devise_for :users
+
+  mount Resque::Server.new, at: '/resque'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

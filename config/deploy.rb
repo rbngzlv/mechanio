@@ -1,6 +1,7 @@
-require "capistrano/ext/multistage"
-require "rvm/capistrano"
-require "bundler/capistrano"
+require 'capistrano/ext/multistage'
+require 'rvm/capistrano'
+require 'bundler/capistrano'
+require 'capistrano-resque'
 
 default_run_options[:pty] = true
 ssh_options[:paranoid]    = false
@@ -45,5 +46,15 @@ namespace :deploy do
   end
 end
 
-before "deploy:finalize_update", "configure"
-after "deploy:update", "deploy:migrate"
+before  'deploy:finalize_update', 'configure'
+after   'deploy:update', 'deploy:migrate'
+
+# resque
+after 'deploy:start', 'resque:start'
+after 'deploy:stop', 'resque:stop'
+after 'deploy:restart', 'resque:restart'
+
+role :resque_worker,    domain
+role :resque_scheduler, domain
+
+set :workers, { '*' => 1 }
