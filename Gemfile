@@ -17,6 +17,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'simple_form', '~> 3.0.0.rc'
 gem 'kaminari'
 gem 'tlsmail', git: 'https://github.com/benjohnstonsf/tlsmail.git'
+gem 'resque'
 
 group :development do
   gem 'letter_opener'
@@ -44,6 +45,7 @@ group :deploy do
   gem 'capistrano'
   gem 'capistrano-ext'
   gem 'rvm-capistrano'
+  gem 'capistrano-resque'
 end
 
 
