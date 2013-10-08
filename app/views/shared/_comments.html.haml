@@ -6,7 +6,7 @@
         - comments.each do |comment|
           %li.clearfix
             .col-md-1.avatar
-              = image_tag(asset_url("avatar1.jpg"), :class => 'img-circle')
+              = image_tag(asset_url("avatar1.jpg"), class: 'img-circle')
             .col-md-11.panel.nested-panel.with-arrow.commentary-block
               .span
                 = link_to comment.shift, '#'

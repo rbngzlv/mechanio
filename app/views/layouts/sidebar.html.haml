@@ -6,7 +6,7 @@
       = render 'shared/header'
       .container
         - if user_signed_in?
-          = render 'shared/users_nav'
+          = render 'shared/client_nav'
         - elsif mechanic_signed_in?
           = render 'shared/mechanics_nav'
         .col-md-9

@@ -7,7 +7,7 @@
         - if user_signed_in?
           %ul.nav.pull-right
             %li.dropdown
-              %button.btn.btn-dark.btn-sm.dropdown-toggle{:data => {:toggle => 'dropdown'}}
+              %button.btn.btn-dark.btn-sm.dropdown-toggle{ data: { toggle: 'dropdown' } }
                 = current_user.first_name
                 %b.caret
               %ul.dropdown-menu
@@ -43,8 +43,8 @@
         - elsif mechanic_signed_in?
           %ul.nav.pull-right
             %li.dropdown
-              %button.btn.btn-dark.btn-sm.dropdown-toggle{:data => {:toggle => 'dropdown'}}
-                Mechanic Name
+              %button.btn.btn-dark.btn-sm.dropdown-toggle{ data: { toggle: 'dropdown' } }
+                = current_mechanic.full_name
                 %b.caret
               %ul.dropdown-menu
                 %li
