@@ -47,6 +47,10 @@ ul {
     }
   }
 
+  .btn + .btn {
+    margin-left: 5px;
+  }
+
   .brand img {
     padding-top: 10px;
   }
@@ -90,10 +94,6 @@ ul {
 
 .right-border {
   border-right: 1px dotted #ccc;
-}
-
-.lazure {
-  color: #22878e !important;
 }
 
 .wrap {
@@ -282,6 +282,22 @@ section {
   }
 }
 
+.nav-tabs {
+  border-bottom: 4px solid #ddd;
+  margin-bottom: 25px;
+
+  li.active > a {
+    border: 1px solid #ddd;
+    background: #ddd;
+    border-radius: 0;
+
+    &:focus {
+      outline: none;
+      background: #ddd;
+    }
+  }
+}
+
 .accordion {
   margin-bottom: 20px;
   font-size: 13px;
@@ -372,7 +388,6 @@ section {
 
   th {
     text-align: center;
-    font-weight: normal;
   }
 }
 
@@ -452,7 +467,6 @@ section {
 
 .alert {
   margin-top: 10px;
-  font-size: 17.5px;
   padding: 8px 15px;
 }
 
@@ -651,12 +665,29 @@ form .radio {
 
 table.table {
   font-size: 12px;
-
-  td {
+  
+  &.without-border tr > td {
     border: none;
+  }
 
-    > table {
-      margin: -8px 0;
+  .info-icons {
+    min-width: 60px;
+
+    a:hover {
+      text-decoration: none;
+    }
+  }
+  
+  thead th {
+    border-bottom-width: 1px;
+    font-weight: normal;
+  }
+
+  table {
+    margin: -8px 0;
+
+    td {
+      padding: 8px 0;
     }
   }
 }
@@ -696,7 +727,7 @@ form {
   }
 
   .modal-header {
-    padding: 0 15px;
+    padding: 10px 15px;
     border-radius: 8px 8px 0 0;
     background: asset-url("widget-title-bg.jpg") repeat-x rgba(0, 0, 0, 0);
     position: relative;

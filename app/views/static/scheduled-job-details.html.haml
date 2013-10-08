@@ -44,18 +44,18 @@
               %tr
                 %td
                   %b Car:
-                %td{:colspan => '2'}
+                %td{colspan: '2'}
                   2000 Toyota Corolla L4-1.8L
               %tr.tr-divider
                 %td.form-line-height
                   %b VIN:
-                %td{:colspan => '2'}
+                %td{colspan: '2'}
                   %input.form-control.pull-left.input-width{type: "text"}
                   = link_to 'Add VIN', '#', class: 'btn pull-left btn-default'
               %tr.tr-divider
                 %td
                   %b Services:
-                %td{:colspan => '2'}
+                %td{colspan: '2'}
                   Car is making a noice (inspection)
               %tr
                 %td
@@ -76,12 +76,12 @@
               %tr.tr-divider
                 %td
                   Creditcard:
-                %td{:colspan => '2'}
+                %td{colspan: '2'}
                   visa**********6091 (Exp:07/2014)
               %tr
                 %td
                   Location
-                %td{:colspan => '2'}
+                %td{colspan: '2'}
                   283 Alfred St North Sydney, 2060
               %tr
                 %td
@@ -91,13 +91,13 @@
               %tr.tr-divider
                 %td
                   Contact
-                %td{:colspan => '2'}
+                %td{colspan: '2'}
                   0401 111 111
             =link_to 'Cancel Job', '#js-modal', class: 'btn btn-info pull-left', :data => {:toggle => 'modal'}, :role => 'button'
             =link_to 'Edit Job', '#', class: 'btn btn-info pull-left'
             =link_to 'Reschedule', '#', class: 'btn btn-info pull-left'
             =link_to 'Save', '#', class: 'btn btn-success pull-right'
-        #js-modal.modal.fade.col-md-6.col-md-offset-3{"aria-hidden" => "true", "aria-labelledby" => "js-my-modal-label", role: "dialog", style: "display: none;", tabindex: "1"}
+        #js-modal.modal.fade.col-md-6.col-md-offset-3{"aria-hidden" => "true", "aria-labelledby" => "js-my-modal-label", role: "dialog", tabindex: "1"}
           .panel.panel-default.cancel-job
             .modal-header.clearfix
               %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", type: "button"} ×
