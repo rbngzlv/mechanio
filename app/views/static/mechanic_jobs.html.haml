@@ -1,31 +1,5 @@
 .row
-  .col-md-3.nav-collapse
-    %ul.nav.nav-pills.nav-stacked
-      %li
-        %a
-          %span.img-circle
-            %i.glyphicon.glyphicon-dashboard
-          Dashboard
-      %li
-        %a
-          %span.img-circle
-            %i.glyphicon.glyphicon-user
-          My Profile
-      %li.active
-        %a
-          %span.img-circle
-            %i.glyphicon.glyphicon-thumbs-up
-          My Jobs
-      %li
-        %a
-          %span.img-circle
-            %i.glyphicon.glyphicon-credit-card
-          Payout Information
-      %li
-        %a
-          %span.img-circle
-            %i.glyphicon.glyphicon-calendar
-          Settings
+  = render 'shared/mechanics_nav'
   .col-md-9
     / Profile Part
     .row
