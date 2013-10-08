@@ -20,7 +20,8 @@ feature 'user profile' do
       end
 
       include_examples("description block") do
-        let(:object) { user }
+        let(:reviews_count) { "Reviews Left: #{user.reviews}" }
+        let(:full_name) { user.full_name }
       end
     end
 

@@ -19,6 +19,7 @@ gem 'kaminari'
 gem 'tlsmail', git: 'https://github.com/benjohnstonsf/tlsmail.git'
 gem 'resque'
 gem 'geocoder'
+gem 'font-awesome-rails'
 
 group :development do
   gem 'letter_opener'

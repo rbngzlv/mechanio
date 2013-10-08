@@ -6,13 +6,14 @@ feature 'dashboard page' do
   subject { page }
 
   before do
-    login_user
+    login_user user
     visit users_dashboard_path
   end
 
-  context 'should have dinamyc content' do
+  context 'should have dynamic content' do
     include_examples("description block") do
-      let(:object) { user }
+      let(:reviews_count) { "Reviews Left: #{user.reviews}" }
+      let(:full_name) { user.full_name }
     end
   end
 end

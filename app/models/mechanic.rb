@@ -28,4 +28,15 @@ class Mechanic < ActiveRecord::Base
     # TODO: It must return count of comments about this mechanic
     12
   end
+
+  def rating
+    # TODO: It must return real rating
+    2
+  end
+
+  include FakeHelper
+  def comments
+    # TODO: It must return collection of all mechanic reviews
+    fake_comments
+  end
 end
