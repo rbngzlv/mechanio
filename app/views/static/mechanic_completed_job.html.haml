@@ -1,0 +1,201 @@
+.row
+  = render 'shared/mechanics_nav'
+  .col-md-9
+    .row
+      .col-md-12
+        .panel.panel-default.panel-rounded
+          .panel-body.clearfix
+            .row
+              .col-md-12
+                = link_to 'View Receipt', '#', class: 'btn btn-info pull-right'
+            .alert.alert-info
+              %h4
+                %span.black Appointment on:
+                February 7, 2013 (tomorrow) 1:00 PM
+            .panel.nested-panel.clearfix
+              .row
+                .col-md-7.right-border
+                  %p
+                    Job Number:
+                    %b 34415
+                  %p
+                    Job received date:
+                    %b February 5, 2013
+                  %p
+                    Client Name: 
+                    %span.text-info Andrew Nandjroo
+                .col-md-5
+                  %p
+                    %i.icon-map-marker
+                    123 ABC st, Mountain View, CA 92012
+                  %p
+                    %i.icon-phone
+                    123-123-1234
+                  %p
+                    %i.icon-truck
+                    2004 Toyota Camry 1.6 L V2
+            %h4.hx-default Service 1
+            %table.table.table-bordered
+              %thead
+                %tr.active
+                  %th Job
+                  %th Labour (Hrs:Mins)
+                  %th Hourly Rate
+                  %th GST
+                  %th Total Time
+                  %th Labor Total
+              %tbody
+                %tr
+                  %td Brake Removal
+                  %td 1 hr : 10 mins
+                  %td $58.50
+                  %td $6.50
+                  %td 1 hr : 30 min
+                  %td $97.50 
+            = link_to 'Add Labour', '#', class: 'btn btn-success pull-right top-btn'
+            %table.table.table-bordered
+              %thead
+                %tr.active
+                  %th Parts
+                  %th Quantity
+                  %th Price
+                  %th GST
+                  %th{colspan: "2"} Parts Total
+              %tbody
+                %tr
+                  %td Brake Pad
+                  %td 1
+                  %td $ 100
+                  %td $ 6.99
+                  %td $ 106.99
+                  %td  
+                %tr
+                  %td Brake Fluid
+                  %td 1
+                  %td $ 100
+                  %td $ 6.99
+                  %td $ 106.99
+                  %td  
+                %tr
+                  %td.text-right{colspan: "4"}
+                    %b.text-right Total Cost:
+                  %td
+                    %b $ 213.98
+                  %td
+            = link_to 'Add Part', '#', class: 'btn btn-success pull-right top-btn'
+            .clearfix
+            %h4.hx-default Service 2
+            %table.table.table-bordered
+              %thead
+                %tr.active
+                  %th Job
+                  %th Labour (Hrs:Mins)
+                  %th Hourly Rate
+                  %th GST
+                  %th Total Time
+                  %th Labor Total
+              %tbody
+                %tr
+                  %td Brake Removal
+                  %td 1 hr : 10 mins
+                  %td $58.50
+                  %td $6.50
+                  %td 1 hr : 30 min
+                  %td $97.50 
+            = link_to 'Add Labour', '#', class: 'btn btn-success pull-right top-btn'
+            %table.table.table-bordered
+              %thead
+                %tr.active
+                  %th Parts
+                  %th Quantity
+                  %th Price
+                  %th GST
+                  %th{colspan: "2"} Parts Total
+              %tbody
+                %tr
+                  %td Brake Pad
+                  %td 1
+                  %td $ 100
+                  %td $ 6.99
+                  %td $ 106.99
+                  %td  
+                %tr
+                  %td Brake Fluid
+                  %td 1
+                  %td $ 100
+                  %td $ 6.99
+                  %td $ 106.99
+                  %td  
+                %tr
+                  %td.text-right{colspan: "4"}
+                    %b.text-right Total Cost:
+                  %td
+                    %b $ 213.98
+                  %td
+            = link_to 'Add Part', '#', class: 'btn btn-success pull-right top-btn'
+            .row
+              .col-md-5.col-md-offset-7
+                %table.table.table-bordered
+                  %tbody
+                    %tr
+                      %th.active Labour + Parts
+                      %td $ 287.75
+                    %tr
+                      %th.active GST
+                      %td $ 23.73
+                    %tr
+                      %th.active Admin Fees
+                      %td  
+                    %tr
+                      %th.active Total
+                      %td $ 311.48 
+            %h4.hx-default 
+              Feedback
+            .panel.nested-panel.feedback.clearfix
+              .row
+                .col-md-9
+                  LEAVE FEEDBACK
+                %small.pull-right.col-md-3 Rollover stars then click to rate
+              .row
+                %small.col-md-9
+                  %b Professionalism
+                  How helpful was he? Did he do anything beyond expectation?
+                .col-md-3
+                  .reviews-row.clearfix
+                    .rating.pull-left
+                      = rating_stars(5)
+              .row
+                %small.col-md-9
+                  %b Service
+                  What  was the quality of work like ?
+                .col-md-3
+                  .reviews-row.clearfix
+                    .rating.pull-left
+                      = rating_stars(5)
+              .row
+                %small.col-md-9
+                  %b Communication
+                  did he aive a clear explanation on everything that he was going to do ?
+                .col-md-3
+                  .reviews-row.clearfix
+                    .rating.pull-left
+                      = rating_stars(5)
+              .row
+                %small.col-md-9
+                  %b Quality
+                  of Parts What was the quality of replacement parts given like ?
+                .col-md-3
+                  .reviews-row.clearfix
+                    .rating.pull-left
+                      = rating_stars(5)
+              .row
+                %small.col-md-9
+                  %b Convenience
+                  how convenient was this whole process for you ?
+                .col-md-3
+                  .reviews-row.clearfix
+                    .rating.pull-left
+                      = rating_stars(5)
+              %textarea.form-control.col-md-12
+                Bob is a great and professional bloke, he does everything to the book. Will call again!
+              %button.btn.btn-success.col-md-2.pull-left{type: "button"} Submit

@@ -130,6 +130,10 @@ ul {
   }
 }
 
+.feedback .row  {
+  margin-bottom: 10px;
+}
+
 i.verified-icon {
   display: inline-block;
   width: 35px;
@@ -468,6 +472,10 @@ section {
 .alert {
   margin-top: 10px;
   padding: 8px 15px;
+
+  h4 {
+    margin-bottom: 0;
+  }
 }
 
 [class *= 'alert'] + .btn {
@@ -497,6 +505,10 @@ section {
     border-radius: 0;
     box-shadow: none;
   }
+}
+
+textarea + .btn {
+  margin-top: 10px;
 }
 
 .vertical-divider-sm {
