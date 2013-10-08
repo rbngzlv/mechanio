@@ -1,5 +1,7 @@
 class Users::JobsController < Users::ApplicationController
 
+  layout 'application'
+
   respond_to :json
 
   skip_before_filter :authenticate_user!, except: [:create_temporary]
