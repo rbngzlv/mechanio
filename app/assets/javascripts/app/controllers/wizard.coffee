@@ -2,6 +2,7 @@ app = angular.module('mechanio')
 
 app.controller 'WizardController', ['$scope', '$http', ($scope, $http) ->
   $scope.user_id = null
+  $scope.job_id = null
 
   $scope.steps = ['car-details', 'diagnose', 'contact', 'quote']
   $scope.step = $scope.steps[0]
@@ -30,7 +31,7 @@ app.controller 'WizardController', ['$scope', '$http', ($scope, $http) ->
     $scope.steps[index + 1]
 
   $scope.enableStep = (step) ->
-    $scope.enabled_steps.push($scope.step) unless $scope.stepEnabled($scope.step)
+    $scope.enabled_steps.push(step) unless $scope.stepEnabled(step)
 
   $scope.stepVisible = (step) ->
     step == $scope.step
@@ -51,6 +52,9 @@ app.controller 'WizardController', ['$scope', '$http', ($scope, $http) ->
   $scope.updateProgress = ->
     $scope.progress = 100 / ($scope.steps.length - 1) * $scope.enabled_steps.length
 
+  $scope.setProgress = (progress) ->
+    $scope.progress = progress
+
   $scope.finalize = ->
     $scope.enabled_steps = []
 
@@ -59,4 +63,27 @@ app.controller 'WizardController', ['$scope', '$http', ($scope, $http) ->
 
   $scope.authorize = ->
     angular.element('#login-modal').modal('show')
+
+  $scope.saveJob = (success = false, error = false) ->
+    params = $scope.data.job
+    params.location_attributes = $scope.data.location
+    params.tasks_attributes = $scope.data.tasks
+
+    if $scope.data.car.id
+      params.car_id = $scope.data.car.id
+    else
+      params.car_attributes = { year: $scope.data.car.year, model_variation_id: $scope.data.car.model_variation_id }
+
+    $http.post('/users/jobs', { job: params })
+      .success (data) ->
+        success(data) if success
+      .error (data) ->
+        error() if error
+
+  $scope.loadJob = (success, error) ->
+    $http.get('/users/jobs/' + $scope.job_id)
+      .success (data) ->
+        success(data) if success
+      .error (data) ->
+        error() if error
 ]

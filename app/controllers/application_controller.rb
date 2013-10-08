@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
     case
       when resource.instance_of?(Mechanic)  then mechanics_dashboard_path
       when resource.instance_of?(Admin)     then admin_dashboard_path
-      when resource.instance_of?(User)      then users_dashboard_path
+      when resource.instance_of?(User)      then session[:tmp_job_id] ? service_path : users_dashboard_path
     end
   end
 end

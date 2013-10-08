@@ -11,10 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131007145500) do
-
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+ActiveRecord::Schema.define(version: 20131008143938) do
 
   create_table "admins", force: true do |t|
     t.string   "email"
@@ -73,6 +70,7 @@ ActiveRecord::Schema.define(version: 20131007145500) do
     t.text     "serialized_params"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "status"
   end
 
   create_table "labours", force: true do |t|
@@ -160,8 +158,8 @@ ActiveRecord::Schema.define(version: 20131007145500) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "make_id"
-    t.text     "comment"
     t.string   "display_title"
+    t.text     "comment"
     t.string   "detailed_title"
   end
 
@@ -231,6 +229,7 @@ ActiveRecord::Schema.define(version: 20131007145500) do
     t.text     "note"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "title"
   end
 
   create_table "users", force: true do |t|

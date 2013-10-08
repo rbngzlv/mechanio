@@ -14,6 +14,7 @@ app.controller 'ContactController', ['$scope', ($scope) ->
     if $scope.authorized()
       $scope.submitStep()
     else
+      $scope.saveJob()
       $scope.authorize()
 
   $scope.valid = ->

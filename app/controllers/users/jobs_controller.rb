@@ -4,7 +4,7 @@ class Users::JobsController < Users::ApplicationController
 
   respond_to :json
 
-  skip_before_filter :authenticate_user!, except: [:create_temporary]
+  skip_before_filter :authenticate_user!, only: [:new, :create]
 
   def new
     @job = Job.new
@@ -14,20 +14,38 @@ class Users::JobsController < Users::ApplicationController
     if user_signed_in?
       @user_id = current_user.id
       @cars = current_user.cars.select([:id, :display_title, :model_variation_id]).to_json
+
+      if session[:tmp_job_id]
+        @job = Job.find(session.delete(:tmp_job_id))
+        @job.status = :pending
+        @job.user_id = current_user.id
+        @job.update_attributes(whitelist(job: @job.serialized_params))
+      end
     end
   end
 
-  def create_temporary
-    respond_with Job.create_temporary(params)
+  def show
+    job = current_user.jobs.includes(:car, :tasks).find(params[:id])
+    respond_with job.to_json(only: [:id, :total], include: {
+      car: { only: [:display_title] },
+      tasks: { only: [:title] }
+    })
   end
 
   def create
-    respond_with current_user.jobs.create!(permitted_params), location: false
+    if user_signed_in?
+      job = current_user.jobs.create!(whitelist(params))
+    else
+      job = Job.create_temporary(whitelist(params))
+      session[:tmp_job_id] = job.id if job
+    end
+    respond_with job, location: false
   end
 
   private
 
-  def permitted_params
+  def whitelist(params)
+    params = ActionController::Parameters.new(params) unless params.is_a?(ActionController::Parameters)
     params.require(:job).permit(
       :car_id, :contact_email, :contact_phone,
       location_attributes:  [:address, :suburb, :postcode, :state_id],

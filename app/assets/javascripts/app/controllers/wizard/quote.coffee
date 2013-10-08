@@ -7,26 +7,29 @@ app.controller 'QuoteController', ['$scope', '$http', ($scope, $http) ->
 
   $scope.$on 'quote_step.enter', ->
     $scope.finalize()
-    $scope.saveJob()
+    $scope.saveJob($scope.onSuccess, $scope.onError)
 
-  $scope.saveJob = ->
-    params = $scope.data.job
-    params.location_attributes = $scope.data.location
-    params.tasks_attributes = $scope.data.tasks
+  $scope.init = ->
+    if $scope.job_id
+      $scope.finalize()
+      $scope.enableStep('quote')
+      $scope.gotoStep('quote')
+      $scope.loadJob($scope.onLoad, $scope.onError)
 
-    if $scope.data.car.id
-      params.car_id = $scope.data.car.id
+  $scope.onLoad = (data) ->
+    $scope.onSuccess(data)
+    $scope.data.tasks = data.tasks
+    $scope.data.car = data.car
+    $scope.setProgress(100)
+
+  $scope.onSuccess = (data) ->
+    if angular.isNumber(data.id)
+      $scope.total = data.total if data.total
     else
-      params.car_attributes = { year: $scope.data.car.year, model_variation_id: $scope.data.car.model_variation_id }
+      $scope.error = true
+    $scope.loading = false
 
-    $http.post('/users/jobs', { job: params })
-      .success (data) ->
-        if angular.isNumber(data.id)
-          $scope.total = data.total if data.total
-        else
-          $scope.error = true
-        $scope.loading = false
-      .error (data) ->
-        $scope.error = true
-        $scope.loading = false
+  $scope.onError = ->
+    $scope.error = true
+    $scope.loading = false
 ]

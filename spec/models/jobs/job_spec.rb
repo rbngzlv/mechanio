@@ -20,11 +20,14 @@ describe Job do
   it { should validate_presence_of :contact_phone }
 
   it '#create_temporary' do
+    job = build :job, user: nil, car: nil
     params = job.attributes
     params[:tasks_attributes] = [build(:service).attributes]
+    params[:car_attributes] = build(:car, user: nil).attributes
 
-    id = Job.create_temporary(params)
-    Job.find(id).serialized_params.should eq params
+    job = Job.create_temporary(params)
+    job.reload.serialized_params.should eq params
+    job.status.should eq 'temporary'
   end
 
   it 'builds task association with correct STI subclass' do

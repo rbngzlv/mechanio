@@ -5,8 +5,11 @@ class Car < ActiveRecord::Base
 
   before_save :set_display_title
 
-  validates :user, :model_variation, :year, presence: true
+  validates :model_variation, :year, presence: true
+  validates :user, presence: true, unless: :skip_user_validation
   validates :year, year: true
+
+  attr_accessor :skip_user_validation
 
   def set_display_title
     self.display_title = "#{year} #{model_variation.display_title}"

@@ -12,16 +12,33 @@ class Job < ActiveRecord::Base
 
   before_validation :assign_car_to_user
 
-  validates :user, :car, :location, :tasks, :contact_email, :contact_phone, presence: true
+  validates :car, :location, :tasks, :contact_email, :contact_phone, presence: true
+  validates :user, presence: true, unless: :skip_user_validation
+
+  attr_accessor :skip_user_validation
+
+  state_machine :status, initial: :pending do
+    state :temporary
+    state :pending
+    state :estimated
+    state :assigned
+    state :completed
+  end
 
   def self.create_temporary(params)
-    if Job.new(params).valid?
-      job = Job.new(serialized_params: params)
-      job.save(validate: false)
-      job.id
-    else
-      false
-    end
+    return false unless build_temporary(params).valid?
+
+    job = build_temporary(serialized_params: params)
+    job.save(validate: false)
+    job
+  end
+
+  def self.build_temporary(params)
+    job = Job.new(params)
+    job.status = :temporary
+    job.skip_user_validation = true
+    job.car.skip_user_validation = true if job.car
+    job
   end
 
   def assign_car_to_user
