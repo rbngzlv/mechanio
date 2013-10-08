@@ -1,0 +1,104 @@
+.row
+  .col-md-3.nav-collapse
+    %ul.nav.nav-pills.nav-stacked
+      %li
+        %a
+          %span.img-circle
+            %i.glyphicon.glyphicon-dashboard
+          Dashboard
+      %li
+        %a
+          %span.img-circle
+            %i.glyphicon.glyphicon-user
+          My Profile
+      %li.active
+        %a
+          %span.img-circle
+            %i.glyphicon.glyphicon-thumbs-up
+          My Jobs
+      %li
+        %a
+          %span.img-circle
+            %i.glyphicon.glyphicon-credit-card
+          Payout Information
+      %li
+        %a
+          %span.img-circle
+            %i.glyphicon.glyphicon-calendar
+          Settings
+  .col-md-9
+    / Profile Part
+    .row
+      .col-md-12
+        / Cancel Light Box End
+        .panel.panel-default.panel-rounded
+          .panel-body
+            %ul.nav.nav-tabs
+              %li.active
+                = link_to 'Upcoming Jobs', '#scheduled-jobs', :data => {:toggle => 'tab'}
+              %li
+                = link_to 'Completed Jobs', '#past-jobs', :data => {:toggle => 'tab'}
+            .tab-content
+              #scheduled-jobs.tab-pane.active
+                = render "/shared/job_panel"
+                = render "/shared/job_panel"
+              #past-jobs.tab-pane
+                %table.table.table-striped.table-bordered
+                  %thead
+                    %tr.active
+                      %th Client Name
+                      %th Car
+                      %th Services
+                      %th Labour Costs
+                      %th Parts Costs
+                      %th Total Costs
+                      %th{colspan: "2"} Option
+                  %tbody
+                    %tr
+                      %td Nandjroo Andrew
+                      %td 2000 Toyota Corolla L4-1.8L
+                      %td Car is making a noice (inspection)
+                      %td $90.00
+                      %td $90.00
+                      %td $180.00
+                      %td.info-icons
+                        = link_to '#' do
+                          %i.icon-time
+                        = link_to '#' do
+                          %i.icon-map-marker
+                        = link_to '#' do
+                          %i.icon-picture
+                      %td
+                        = link_to 'View Details', '#', class: 'btn btn-info'
+                    %tr
+                      %td Nandjroo Andrew
+                      %td 2000 Toyota Corolla L4-1.8L
+                      %td Car is making a noice (inspection)
+                      %td $90.00
+                      %td $90.00
+                      %td $180.00
+                      %td.info-icons
+                        = link_to '#' do
+                          %i.icon-time
+                        = link_to '#' do
+                          %i.icon-map-marker
+                        = link_to '#' do
+                          %i.icon-picture
+                      %td
+                        = link_to 'View Details', '#', class: 'btn btn-info'
+                    %tr
+                      %td Nandjroo Andrew
+                      %td 2000 Toyota Corolla L4-1.8L
+                      %td Car is making a noice (inspection)
+                      %td $90.00
+                      %td $90.00
+                      %td $180.00
+                      %td.info-icons
+                        = link_to '#' do
+                          %i.icon-time.text-info
+                        = link_to '#' do
+                          %i.icon-map-marker.text-info
+                        = link_to '#' do
+                          %i.icon-picture.text-info
+                      %td
+                        = link_to 'View Details', '#', class: 'btn btn-info'
