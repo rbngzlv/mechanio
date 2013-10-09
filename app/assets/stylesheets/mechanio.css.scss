@@ -72,8 +72,14 @@ ul {
     margin-bottom: 5px;
   }
 
-  button {
+  button.btn {
     border: none;
+
+    &:focus,
+    &:hover,
+    &:active {
+      color: #fff;
+    }
 
     .caret {
       border-top-color: #999;
@@ -712,6 +718,10 @@ table.table {
   input {
     width: 40%;
     display: inline-block;
+  }
+
+  + .btn {
+    margin-top: -13px;
   }
 }
 
