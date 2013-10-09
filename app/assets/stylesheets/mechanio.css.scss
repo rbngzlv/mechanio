@@ -72,8 +72,14 @@ ul {
     margin-bottom: 5px;
   }
 
-  button {
+  button.btn {
     border: none;
+
+    &:focus,
+    &:hover,
+    &:active {
+      color: #fff;
+    }
 
     .caret {
       border-top-color: #999;
@@ -170,7 +176,6 @@ i.verified-icon {
 }
 
 .btn-default {
-  border: none;
   color: #000;
 
   &:hover,
@@ -196,7 +201,7 @@ form input.form-control {
 }
 
 a[data-toggle = 'modal'] {
-  color: #22878E;
+  color: #fff;
 
   &:hover {
     text-decoration: none;
@@ -486,10 +491,16 @@ section {
   border-radius: 8px;
 }
 
-.social [class *= 'icon'] {
-  color: #22878e;
-  font-size: 30px;
-  margin-left: 2px;
+.social {
+  [class *= 'icon'] {
+    color: #22878e;
+    font-size: 30px;
+    margin-left: 2px;
+  }
+
+  a:hover {
+    text-decoration: none;
+  }
 }
 
 .top-btn{
@@ -649,10 +660,6 @@ form .radio {
       font-size: 30px;
     }
 
-    a:hover {
-      text-decoration: none;
-    }
-
     .icon-facebook-sign {
       color: #0567a5;
     }
@@ -669,6 +676,10 @@ form .radio {
 
 .tr-divider {
   border-bottom: 1px dotted #ccc !important;
+
+  ~ .btn {
+    margin: 10px 0 0 10px;
+  }
 }
 
 .big {
@@ -701,6 +712,16 @@ table.table {
     td {
       padding: 8px 0;
     }
+  }
+
+  select,
+  input {
+    width: 40%;
+    display: inline-block;
+  }
+
+  + .btn {
+    margin-top: -13px;
   }
 }
 
