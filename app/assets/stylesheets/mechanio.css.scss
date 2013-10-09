@@ -585,6 +585,11 @@ section {
   }
 }
 
+.cars-list li {
+  line-height: 40px;
+  font-size:  15px;
+}
+
 .form-group.date {
   label {
     display: block;
@@ -940,11 +945,11 @@ form {
 
     .close {
       border-left: 1px solid #E0DEDE;
-      padding: 6px 2px 3px 7px;
+      padding: 4px 2px 4px 7px;
       position: absolute;
       right: 10px;
       top: 8px;
-      font-size: 12px;
+      font-size: 18px;
     }
   }
 
