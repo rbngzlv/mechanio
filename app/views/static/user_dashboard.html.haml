@@ -1,37 +1,5 @@
 .row
-  .col-md-3.nav-collapse
-    %ul.nav.nav-pills.nav-stacked
-      %li.active
-        %a
-          %span.img-circle
-            %i.glyphicon.glyphicon-dashboard
-          Dashboard
-      %li
-        %a
-          %span.img-circle
-            %i.icon-truck
-          My Cars
-      %li
-        %a
-          %span.img-circle
-            %i.glyphicon.glyphicon-calendar
-          My Appointments
-      %li
-        %a
-          %span.img-circle
-            %i.glyphicon.glyphicon-list
-          My Estimates
-          %span.badge 2
-      %li
-        %a
-          %span.img-circle
-            %i.glyphicon.glyphicon-user
-          My Profile
-      %li
-        %a
-          %span.img-circle
-            %i.glyphicon.glyphicon-cog
-          Settings
+  =render 'shared/client_nav'
   .col-md-9
     .row
       .col-md-12

@@ -305,11 +305,57 @@ section {
       background: #ddd;
     }
   }
+
+  &.radio-tabs {
+    border: none;
+    
+    label {
+      font-weight: normal;
+    }
+
+    li {
+      display: block;
+      width: 100%;
+
+      &.active > a {
+        border: none;
+        background: none;
+      }
+
+      a {
+        padding: 0;
+        color: #666;
+        border: none;
+
+        &:hover,
+        &:focus,
+        &:active {
+          background: none;
+          border: none;
+          outline: none;
+        }
+      }
+    }
+  }
 }
 
 .accordion {
   margin-bottom: 20px;
   font-size: 13px;
+
+  .nested-panel {
+    padding: 0;
+  }
+
+  .radio input[type = 'radio'] {
+    margin-top: 2px;
+
+    &:active,
+    &:focus {
+      outline: none;
+      border: none;
+    }
+  }
 
   .accordion-toggle {
     display: block;
