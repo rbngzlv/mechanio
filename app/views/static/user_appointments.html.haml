@@ -1,0 +1,457 @@
+.row
+  =render 'shared/client_nav'
+  .col-md-9
+    .row
+      .col-md-12
+        .col-md-12.nested-panel.clearfix
+          %h5.col-md-4 Show Appointments for
+          .col-md-8
+            %select.form-control{"data-placeholder" => "All my cars", tabindex: "1"}
+              %option{selected: "selected", value: "All my cars"} All my cars
+              %option{value: " 2000 Toyota Corolla L4-1.8L"} 2000 Toyota Corolla L4-1.8L
+              %option{value: " 2010 Kia Optima L4-2.4L"} 2010 Kia Optima L4-2.4L
+              %option{value: " 2010 Ford F10 Lightning V8-5.4L"} 2010 Ford F10 Lightning V8-5.4L
+              %option{value: " Manage Cars"} Manage Cars
+        .panel
+          .panel-body
+            %ul.nav.nav-tabs
+              %li.active
+                =link_to 'Current Appointments', '#tab_1_1', data: {toggle: 'tab'}
+              %li
+                =link_to 'Past Appointments', '#tab_1_2', data: {toggle: 'tab'}
+              %li
+                =link_to 'Feedback', '#tab_1_3', data: {toggle: 'tab'}
+            .tab-content
+              #tab_1_1.tab-pane.active
+                .row
+                  .col-md-4
+                    .profile-border
+                      = image_tag(asset_url("photo.jpg"))
+                      .reviews-row.clearfix
+                        .rating.pull-left
+                          = rating_stars(2)
+                        %span.review-text.pull-right 12 Reviews
+                  .col-md-8
+                    .nested-panel.clearfix
+                      .col-md-7.margin0
+                        %h5
+                          Bob Mechanic
+                        .row
+                          %p.col-md-12
+                            %i.icon-time
+                            %small 11 : 00 AM,
+                            May 8, 2013 (Friday)
+                          %p.col-md-12
+                            %i.icon-map-marker
+                            123 ABC st, Mountain View, CA, 92012
+                          %p.col-md-12
+                            %i.icon-phone
+                            Contact Bob: 0411-123-123
+                      .col-md-5
+                        .alert-success.alert.col-md-12.clearfix
+                          .pull-left Total Cost
+                          .pull-right.text-right
+                            %b $283.34
+                        .col-md-12
+                          = link_to 'Add Another Service', '#', class: 'btn btn-success col-md-12 top-btn'
+                        .col-md-12
+                          = link_to 'Reschedule', '#', class: 'btn btn-success col-md-12'
+                %br
+                .row
+                  .col-md-12
+                    .panel.panel-default.panel-rounded
+                      .panel-heading
+                        %h4.panel-title Appointment Details
+                        %span.tools
+                          = link_to '', '#js-collapse-one', class: 'glyphicon glyphicon-chevron-down accordion-toggle', :data => {:toggle => 'collapse', :parent => '#accordion'}
+                      #js-collapse-one.panel-collapse.collapse.in
+                        .panel-body
+                          %table.table.without-border
+                            %tr
+                              %td
+                                Car:
+                              %td
+                                1999 Toyota Camry L2
+                            %tr.tr-divider
+                              %td
+                                Services:
+                              %td
+                                Brake Repair
+                            %tr
+                              %td
+                                Billing
+                              %td
+                                Labour
+                              %td
+                                4.3 Hours
+                              %td
+                                $283.34
+                            %tr
+                              %td
+                              %td
+                              %td
+                                %b Total Fees
+                              %td
+                                %b $283.34
+              #tab_1_2.tab-pane
+                %table.table.table-striped.table-bordered
+                  %thead
+                    %tr.active
+                      %th Status
+                      %th Job
+                      %th Mechanic
+                      %th Vehicle
+                      %th Date
+                      %th Option
+                  %tbody
+                    %tr
+                      %td
+                        .label.label-warning Awaiting Feedback
+                      %td 30,000 KM Servicing
+                      %td Vera Liu
+                      %td 2011 Toyota Corolla L4-1.8L
+                      %td Apr 9-15, 2012
+                      %td
+                        = link_to '#', title: 'Leave Feedback', :data => {:toggle => 'tooltip'} do
+                          .big.icon-share
+                        = link_to '#tab_1_4', title: 'View Job', :data => {:toggle => 'tab'} do
+                          .big.icon-list-alt{{title: 'View Job', data: {toggle: 'tooltip'}}}
+                        = link_to '#', title: 'View Receipt', :data => {:toggle => 'tooltip'} do
+                          .big.icon-picture
+                    %tr
+                      %td
+                        .label.label-success Completed
+                      %td 30,000 KM Servicing
+                      %td Vera Liu
+                      %td 2011 Toyota Corolla L4-1.8L
+                      %td Apr 9-15, 2012
+                      %td
+                        = link_to '#', title: 'Leave Feedback', :data => {:toggle => 'tooltip'} do
+                          .big.icon-share
+                        = link_to '#tab_1_4', title: 'View Job', :data => {:toggle => 'tab'} do
+                          .big.icon-list-alt{{title: 'View Job', data: {toggle: 'tooltip'}}}
+                        = link_to '#', title: 'View Receipt', :data => {:toggle => 'tooltip'} do
+                          .big.icon-picture
+                    %tr
+                      %td
+                        %h2.label.label-warning Awaiting Feedback
+                      %td 30,000 KM Servicing
+                      %td Vera Liu
+                      %td 2011 Toyota Corolla L4-1.8L
+                      %td Apr 9-15, 2012
+                      %td
+                        = link_to '#', title: 'Leave Feedback', :data => {:toggle => 'tooltip'} do
+                          .big.icon-share
+                        = link_to '#tab_1_4', title: 'View Job', :data => {:toggle => 'tab'} do
+                          .big.icon-list-alt{{title: 'View Job', data: {toggle: 'tooltip'}}}
+                        = link_to '#', title: 'View Receipt', :data => {:toggle => 'tooltip'} do
+                          .big.icon-picture
+              #tab_1_3.tab-pane
+                .review-block
+                  .panel-body.row
+                    .col-md-12.clearfix
+                      %h5.hx-default 
+                        Leave Feedback
+                      %ul.chat
+                        %li.clearfix
+                          .col-md-1.avatar
+                            = image_tag(asset_url("avatar1.jpg"), class: 'img-circle')
+                          .col-md-11.panel.nested-panel.with-arrow.commentary-block
+                            .span
+                              %a.name Mosaddek
+                              %span.datetime at Apr 14, 2013
+                            .panel.nested-panel.clearfix
+                              .col-md-3
+                                %i.glyphicon.glyphicon-inbox
+                                Ford Faicon
+                              .col-md-2
+                                %i.glyphicon.glyphicon-usd
+                                1020
+                              .col-md-4
+                                %i.glyphicon.glyphicon-cog
+                                Replace the engine
+                            %br
+                            #js-accordion.accordion.panel-group
+                              .row
+                                .col-md-12
+                                  = link_to 'Leave Feedback', '#js-collapse', class: 'btn btn-success pull-right',  data: {toggle: 'collapse', parent: '#js-accordion'}
+                              #js-collapse.panel-collapse.collapse.feedback
+                                %br
+                                %p
+                                  LEAVE FEEDBACK - How satisfied were you
+                                  %a{href: "#"} Bob Mechanic
+                                  ?
+                                  %small.pull-right Rollover stars then click to rate
+                                .row
+                                  %small.col-md-9
+                                    %b Professionalism
+                                    How helpful was he? Did he do anything beyond expectation?
+                                  .col-md-3
+                                    .reviews-row.clearfix
+                                      .rating.pull-left
+                                        = rating_stars(2)
+                                .row
+                                  %small.col-md-9
+                                    %b Service
+                                    What  was the quality of work like ?
+                                  .col-md-3
+                                    .reviews-row.clearfix
+                                      .rating.pull-left
+                                        = rating_stars(2)
+                                .row
+                                  %small.col-md-9
+                                    %b Communication
+                                    did he aive a clear explanation on everything that he was going to do ?
+                                  .col-md-3
+                                    .reviews-row.clearfix
+                                      .rating.pull-left
+                                        = rating_stars(2)
+                                .row
+                                  %small.col-md-9
+                                    %b Quality of Parts
+                                    What was the quality of replacement parts given like ?
+                                  .col-md-3
+                                    .reviews-row.clearfix
+                                      .rating.pull-left
+                                        = rating_stars(2)
+                                .row
+                                  %small.col-md-9
+                                    %b Convenience
+                                    how convenient was this whole process for you ?
+                                  .col-md-3
+                                    .reviews-row.clearfix
+                                      .rating.pull-left
+                                        = rating_stars(2)
+                                .form-group
+                                  %textarea.form-control.col-md-12{name: "", type: "text"} Tell us more
+                                %p
+                                  %b
+                                    Would you recommend Bob Mechanic to your friends and family ?
+                                .row
+                                  .col-md-12.row
+                                    %label.col-md-2
+                                      %input#optionsRadios1{name: "optionsRadios", type: "radio", value: "option1"}
+                                      Yes
+                                    %label.col-md-3
+                                      %input#optionsRadios2{name: "optionsRadios", type: "radio", value: "option2"}
+                                      Not This Time
+                                .row
+                                  .col-md-12
+                                    = link_to 'Leave Feedback', '#', class: 'btn btn-success pull-right'
+                      %h5.hx-default Customer Reviews
+                      %ul.chat
+                        %li.clearfix
+                          .col-md-1.avatar
+                            = image_tag(asset_url("avatar1.jpg"), class: 'img-circle')
+                          .col-md-11.panel.nested-panel.with-arrow.commentary-block
+                            .span
+                              %a.name Mosaddek
+                              %span.datetime at Apr 14, 2013
+                            .panel.nested-panel
+                              %span.col-md-3
+                                %i.glyphicon.glyphicon-inbox
+                                Ford Faicon
+                              %span.col-md-2
+                                %i.glyphicon.glyphicon-usd
+                                1020
+                              %span.col-md-4
+                                %i.glyphicon.glyphicon-cog
+                                Replace the engine
+                              .reviews-row.clearfix
+                                .rating.pull-left
+                                  =rating_stars(3)
+                            %p.commentary
+                              Lorem ipsum dolor sit amet,
+                              consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut
+                              laoreet dolore magna aliquam erat volutpat. dolore magna aliquam erat
+                              volutpat. dolore magna aliquam erat volutpat.
+                        %li.clearfix
+                          .col-md-1.pull-right.avatar
+                            = image_tag(asset_url("avatar1.jpg"), class: 'img-circle')
+                          .col-md-11.panel.nested-panel.with-arrow.commentary-block
+                            .span.text-right
+                              %a.name Mosaddek
+                              %span.datetime at Apr 14, 2013
+                            .panel.nested-panel
+                              %span.col-md-3
+                                %i.glyphicon.glyphicon-inbox
+                                Ford Faicon
+                              %span.col-md-2
+                                %i.glyphicon.glyphicon-usd
+                                1020
+                              %span.col-md-4
+                                %i.glyphicon.glyphicon-cog
+                                Replace the engine
+                              .reviews-row.clearfix
+                                .rating.pull-left
+                                  =rating_stars(3)
+                            %p.commentary
+                              Lorem ipsum dolor sit amet,
+                              consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut
+                              laoreet dolore magna aliquam erat volutpat. dolore magna aliquam erat
+                              volutpat. dolore magna aliquam erat volutpat.
+                        %li.clearfix
+                          .col-md-1.avatar
+                            = image_tag(asset_url("avatar1.jpg"), class: 'img-circle')
+                          .col-md-11.panel.nested-panel.with-arrow.commentary-block
+                            .span
+                              %a.name Mosaddek
+                              %span.datetime at Apr 14, 2013
+                            .panel.nested-panel
+                              %span.col-md-3
+                                %i.glyphicon.glyphicon-inbox
+                                Ford Faicon
+                              %span.col-md-2
+                                %i.glyphicon.glyphicon-usd
+                                1020
+                              %span.col-md-4
+                                %i.glyphicon.glyphicon-cog
+                                Replace the engine
+                              .reviews-row.clearfix
+                                .rating.pull-left
+                                  =rating_stars(3)
+                            %p.commentary
+                              Lorem ipsum dolor sit amet,
+                              consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut
+                              laoreet dolore magna aliquam erat volutpat. dolore magna aliquam erat
+                              volutpat. dolore magna aliquam erat volutpat.
+              #tab_1_4.tab-pane
+                .panel.nested-panel
+                  .alert.alert-info
+                    %i.icon-time
+                    %small 11 : 00 AM,
+                    May 8, 2013 (Friday)
+                    %i.icon-map-marker
+                    123 ABC st, Mountain View, CA, 92012
+                  %table.table.without-border
+                    %tr
+                      %td
+                        %b Car:
+                      %td
+                        2000 Toyota Corolla L4-1.8L
+                    %tr.tr-divider
+                      %td
+                        %b Services:
+                      %td
+                        Car is making a noice (inspection)
+                      %td
+                        Mechanic Fee
+                      %td.text-right
+                        $90.00
+                    %tr
+                      %td{colspan: '2'}
+                      %td
+                        %table.col-md-12.pull-right
+                          %tr.tr-divider
+                            %td.text-left
+                              Parts Costs
+                      %td
+                        %table.col-md-12.pull-right
+                          %tr.tr-divider
+                            %td.text-right
+                              $90.00
+                    %tr
+                      %td{colspan: '2'}
+                      %td
+                        %b Total Fees
+                      %td.text-right
+                        %b $90.00
+                %br
+                %h4.hx-default
+                  Serviced By
+                  %small.small.pull-right
+                    %span.text-info Date Completed:
+                    12, Feb, 2012 
+                    %span.text-info Time Completed:
+                    15:30
+                .row
+                  .panel-body.mechanic-panel-body
+                    .row.clearfix
+                      .profile-border
+                        = image_tag current_mechanic.avatar? ? current_mechanic.avatar_url(:thumb) : 'photo.jpg', class: 'avatar'
+                        .reviews-row.clearfix
+                          .rating.pull-left
+                            = rating_stars(2)
+                          %span.review-text.pull-right #{ pluralize current_mechanic.reviews, 'Review' }
+                      .panel.nested-panel
+                        %h5 Hi, I'm Your Mechanic Bob Mechanic
+                        Punched Russell Crowe in the face once. Felt Nice.
+                        .col-md-12.panel.nested-panel.clearfix
+                          .social.pull-left
+                            = link_to '#' do
+                              %i.icon-facebook-sign
+                            = link_to '#' do
+                              %i.icon-google-plus-sign
+                          .col-md-7.pull-right
+                            .pull-right.verified-block
+                              %i.verified-icon.icon-phone{:data => {:toggle => 'tooltip', :original => {:title => 'Contact Verified'}}}
+                              %i.verified-icon{:data => {:toggle => 'tooltip', :original => {:title => 'Super Mechanic'}}}
+                                S
+                              %i.verified-icon.icon-thumbs-up{:data => {:toggle => 'tooltip', :original => {:title => 'Warranty Covered'}}}
+                              %i.verified-icon.icon-book{:data => {:toggle => 'tooltip', :original => {:title => 'Qualification Verified'}}}
+                            %span.pull-right Verified:
+                    %br
+                    .nested-panel.panel.feedback
+                      .row.clearfix
+                        .col-md-9
+                          LEAVE FEEDBACK - How satisfied were you
+                          %a{href: "#"} Bob Mechanic
+                          ?
+                        .col-md-3
+                          %small Rollover stars then click to rate
+                      .row
+                        %small.col-md-9
+                          %b Professionalism
+                          How helpful was he? Did he do anything beyond expectation?
+                        .col-md-3
+                          .reviews-row.clearfix
+                            .rating.pull-left
+                              = rating_stars(2)
+                      .row
+                        %small.col-md-9
+                          %b Service
+                          What  was the quality of work like ?
+                        .col-md-3
+                          .reviews-row.clearfix
+                            .rating.pull-left
+                              = rating_stars(2)
+                      .row
+                        %small.col-md-9
+                          %b Communication
+                          did he aive a clear explanation on everything that he was going to do ?
+                        .col-md-3
+                          .reviews-row.clearfix
+                            .rating.pull-left
+                              = rating_stars(2)
+                      .row
+                        %small.col-md-9
+                          %b Quality of Parts
+                          What was the quality of replacement parts given like ?
+                        .col-md-3
+                          .reviews-row.clearfix
+                            .rating.pull-left
+                              = rating_stars(2)
+                      .row
+                        %small.col-md-9
+                          %b Convenience
+                          how convenient was this whole process for you ?
+                        .col-md-3
+                          .reviews-row.clearfix
+                            .rating.pull-left
+                              = rating_stars(2)
+                      .form-group
+                        %textarea.form-control.col-md-12{name: "", type: "text"} Tell us more
+                      %p
+                        %b
+                          Would you recommend Bob Mechanic to your friends and family ?
+                      .row
+                        .col-md-12.row
+                          %label.col-md-2
+                            %input#optionsRadios1{name: "optionsRadios", type: "radio", value: "option1"}
+                            Yes
+                          %label.col-md-3
+                            %input#optionsRadios2{name: "optionsRadios", type: "radio", value: "option2"}
+                            Not This Time
+                      .row
+                        .col-md-12
+                          = link_to 'Save', '#', class: 'btn btn-success pull-right col-md-3'
