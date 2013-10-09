@@ -1,6 +1,6 @@
 class Labour < ActiveRecord::Base
 
-  belongs_to :task
+  has_one :task_item, as: :itemable
 
-  validates :task, :description, :duration, :hourly_rate, presence: true
+  validates :description, :duration, :hourly_rate, presence: true
 end

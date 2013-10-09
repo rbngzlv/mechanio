@@ -1,6 +1,6 @@
 class Part < ActiveRecord::Base
 
-  belongs_to :task
+  has_one :task_item, as: :itemable
 
-  validates :task, :name, :cost, :quantity, presence: true
+  validates :name, :cost, :quantity, presence: true
 end

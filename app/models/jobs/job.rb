@@ -11,6 +11,7 @@ class Job < ActiveRecord::Base
   serialize :serialized_params
 
   before_validation :assign_car_to_user
+  before_save :set_cost
 
   validates :car, :location, :tasks, :contact_email, :contact_phone, presence: true
   validates :user, presence: true, unless: :skip_user_validation
@@ -43,5 +44,10 @@ class Job < ActiveRecord::Base
 
   def assign_car_to_user
     car.user_id = user_id if car && user_id
+  end
+
+  def set_cost
+    costs = tasks.map(&:cost)
+    self.cost = costs.include?(nil) ? nil : costs.sum
   end
 end
