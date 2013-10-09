@@ -6,6 +6,7 @@ class Mechanic < ActiveRecord::Base
           as: :locatable, dependent: :destroy, autosave: true
   has_one :business_location, -> { where location_type: 'business_location' }, class_name: "Location",
           as: :locatable, dependent: :destroy, autosave: true
+  has_many :jobs
 
   accepts_nested_attributes_for :location
   accepts_nested_attributes_for :business_location, reject_if: :all_blank
