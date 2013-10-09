@@ -32,6 +32,8 @@ describe 'Service wizard', js: true do
     end
 
     verify_current_step 'Quote'
+    verify_sidebar 4, 'LOCATION', "Broadway 54, ap. 1 Suburb #{state.name}, 1234"
+
     verify_job_created
   end
 
