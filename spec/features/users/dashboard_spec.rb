@@ -13,7 +13,7 @@ feature 'dashboard page' do
   context 'should have dynamic content' do
     include_examples("description block") do
       let(:reviews_count) { "Reviews Left: #{user.reviews}" }
-      let(:full_name) { user.full_name }
+      let(:profile) { user }
     end
   end
 end

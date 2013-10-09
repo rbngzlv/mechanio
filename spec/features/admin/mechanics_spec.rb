@@ -51,12 +51,16 @@ feature 'Admin mechanics management' do
     last_delivery.subject.should include('Thnx for ur registration')
   end
 
-  it 'edits existing mechanic' do
+  scenario 'edits existing mechanic' do
     visit admin_mechanics_path
     page.should have_css 'td', text: 'John Doe'
 
     click_link 'Details'
     page.should have_content 'Business Details'
+    check 'Phone verified'
+    check 'Super mechanic'
+    check 'Warranty covered'
+    check 'Qualification verified'
 
     fill_in 'First name', with: 'Alex'
     click_button 'Save'

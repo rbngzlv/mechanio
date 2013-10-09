@@ -8,6 +8,11 @@
   = f.input :avatar, label: 'Photo', as: :image, wrapper: :bootstrap, input_html: { wrap_class: 'col-md-4' }
   %legend Personal Address
   = render partial: 'shared/location_form', locals: { f: f }
+  %legend Verified Statuses
+  = f.input :phone_verified
+  = f.input :super_mechanic
+  = f.input :warranty_covered
+  = f.input :qualification_verified
   %legend Driver License
   = f.input :driver_license_number, label: "Driver's license"
   = f.association :license_state, label: 'Registered state', prompt: '-- Please select --'

@@ -4,7 +4,10 @@ shared_examples "description block" do
   end
 
   specify 'default values when user is new' do
-    page.should have_selector 'h4', text: full_name
+    profile.socials.each do |name|
+      page.should have_selector ".icon-#{name}-sign"
+    end
+    page.should have_selector 'h4', text: profile.full_name
     page.should have_content "Add some information about yourself"
   end
 end

@@ -21,11 +21,12 @@ feature 'user profile' do
 
       include_examples("description block") do
         let(:reviews_count) { "Reviews Left: #{user.reviews}" }
-        let(:full_name) { user.full_name }
+        let(:profile) { user }
       end
     end
 
     it 'does show left commetns', pending: 'do it after create comment model'
+    it 'does show verified statuses and socials icons', pending: 'task - user verified statuses'
   end
 
   context 'edit' do
