@@ -1,0 +1,268 @@
+.row
+  =render 'shared/mechanics_nav'
+  .col-md-9
+    .row
+      .col-md-12
+        .panel.panel-default.panel-rounded
+          .panel-heading
+            %h4.panel-title Add New Service
+            %span.tools
+              = link_to '', '#js-collapse-one', class: 'glyphicon glyphicon-chevron-down accordion-toggle', :data => {:toggle => 'collapse', :parent => '#accordion'}
+          #js-collapse-one.panel-collapse.collapse.in
+            .panel-body
+              %p
+                %b What do you need:
+              %ul.nav.nav-tabs.radio-tabs
+                %li.active
+                  %a{"data-toggle" => "tab", href: "#tab_1_1"}
+                    %label
+                      %input{name: "optionsRadios1", type: "radio", value: "option1"}
+                      Car Servicing
+                %li
+                  %a{"data-toggle" => "tab", href: "#tab_1_2"}
+                    %label.radio.line
+                      %input{name: "optionsRadios1", type: "radio", value: "option2"}
+                      Fix Car Problem
+              .tab-content.nested-panel.clearfix
+                / Current Appointments Tab
+                #tab_1_1.tab-pane.active
+                  %h4.hx-default Car Servicing 
+                  Please Select when the last time you serviced your car was - in KM or Date - whichever came first
+                  .form-group
+                    .row
+                      .col-md-3
+                        %select.form-control{data: {placeholder: 'Discount'}, tabindex: "1"}
+                          %option{selected: "selected", value: "Category 1"} 5000 KM - 6 Month
+                          %option{value: "Category 1"} 10000 KM - 1 Year
+                  .form-group
+                    Add notes for mechanic
+                    %textarea.form-control.col-md-12{ type: "text", value: ""}
+                  #js-accordion.accordion.panel-group
+                    .panel
+                      .panel-heading.clearfix
+                        %h4.panel-title
+                          = link_to '#js-collapse-two', class: 'accordion-toggle', data: {toggle: 'collapse', parent: '#js-accordion'} do
+                            Inspection Fee
+                            %span.pull-right Pending
+                      #js-collapse-two.panel-collapse.collapse
+                        .panel-body
+                          %br
+                    .panel
+                      .panel-heading.clearfix
+                        %h4.panel-title
+                          = link_to '#js-collapse-three', class: 'accordion-toggle', data: {toggle: 'collapse', parent: '#js-accordion'} do
+                            Inspection Fee
+                            %span.pull-right Pending
+                      #js-collapse-three.panel-collapse.collapse
+                        .panel-body
+                          %br
+                #tab_1_2.tab-pane
+                  %h4.hx-default Fix car problem
+                  .form-group
+                    Describe the Problem
+                    .row
+                      .col-md-12
+                        %input.form-control{type: "text"}
+                  %p 
+                    or select type of symptom you have
+                    #js-accordion.accordion.panel-group
+                      .panel.nested-panel
+                        .panel-heading.clearfix
+                          %h4.panel-title
+                            = link_to 'Looks Like','#js-collapse-four', class: 'accordion-toggle', data: {toggle: 'collapse', parent: '#js-accordion'}
+                        #js-collapse-four.panel-collapse.collapse
+                          .panel-body
+                            %p What do you feel?
+                            .radio
+                              %label
+                                %input{type: 'radio', name: 'options-radios', value: 'option1'}
+                                Drifts- Gradual movements to one side.
+                            .radio
+                              %label
+                                %input{type: 'radio', name: 'options-radios', value: 'option2'}
+                                Excessive play- Looseness, lack of response in the steering wheel.
+                            .radio
+                              %label
+                                %input{type: 'radio', name: 'options-radios', value: 'option3'}
+                                Pulls- Sharp movement to one side.
+                            .radio
+                              %label
+                                %input{type: 'radio', name: 'options-radios', value: 'option3'}
+                                Pulsation- Fluctuation of the brake pedal when the brakes are applied.
+                            .radio
+                              %label
+                                %input{type: 'radio', name: 'options-radios', value: 'option3'}
+                                Shimmy- Rapid side to side movement of the front wheels.
+                            .radio
+                              %label
+                                %input{type: 'radio', name: 'options-radios', value: 'option3'}
+                                Sway- Gradual movement from side to side.
+                            .radio
+                              %label
+                                %input{type: 'radio', name: 'options-radios', value: 'option3'}
+                                Vibration- Vehicle shakes. Ususally felt in the steering wheel or the seat.
+                      .panel.nested-panel
+                        .panel-heading.clearfix
+                          %h4.panel-title
+                            = link_to 'Sounds Like','#js-collapse-five', class: 'accordion-toggle', data: {toggle: 'collapse', parent: '#js-accordion'}
+                        #js-collapse-five.panel-collapse.collapse
+                          .panel-body
+                            %p What do you feel?
+                            .radio
+                              %label
+                                %input{type: 'radio', name: 'options-radios', value: 'option1'}
+                                Drifts- Gradual movements to one side.
+                            .radio
+                              %label
+                                %input{type: 'radio', name: 'options-radios', value: 'option2'}
+                                Excessive play- Looseness, lack of response in the steering wheel.
+                            .radio
+                              %label
+                                %input{type: 'radio', name: 'options-radios', value: 'option3'}
+                                Pulls- Sharp movement to one side.
+                            .radio
+                              %label
+                                %input{type: 'radio', name: 'options-radios', value: 'option3'}
+                                Pulsation- Fluctuation of the brake pedal when the brakes are applied.
+                            .radio
+                              %label
+                                %input{type: 'radio', name: 'options-radios', value: 'option3'}
+                                Shimmy- Rapid side to side movement of the front wheels.
+                            .radio
+                              %label
+                                %input{type: 'radio', name: 'options-radios', value: 'option3'}
+                                Sway- Gradual movement from side to side.
+                            .radio
+                              %label
+                                %input{type: 'radio', name: 'options-radios', value: 'option3'}
+                                Vibration- Vehicle shakes. Ususally felt in the steering wheel or the seat.
+                      .panel.nested-panel
+                        .panel-heading.clearfix
+                          %h4.panel-title
+                            = link_to 'Smells Like','#js-collapse-six', class: 'accordion-toggle', data: {toggle: 'collapse', parent: '#js-accordion'}
+                        #js-collapse-six.panel-collapse.collapse
+                          .panel-body
+                            %p What do you feel?
+                            .radio
+                              %label
+                                %input{type: 'radio', name: 'options-radios', value: 'option1'}
+                                Drifts- Gradual movements to one side.
+                            .radio
+                              %label
+                                %input{type: 'radio', name: 'options-radios', value: 'option2'}
+                                Excessive play- Looseness, lack of response in the steering wheel.
+                            .radio
+                              %label
+                                %input{type: 'radio', name: 'options-radios', value: 'option3'}
+                                Pulls- Sharp movement to one side.
+                            .radio
+                              %label
+                                %input{type: 'radio', name: 'options-radios', value: 'option3'}
+                                Pulsation- Fluctuation of the brake pedal when the brakes are applied.
+                            .radio
+                              %label
+                                %input{type: 'radio', name: 'options-radios', value: 'option3'}
+                                Shimmy- Rapid side to side movement of the front wheels.
+                            .radio
+                              %label
+                                %input{type: 'radio', name: 'options-radios', value: 'option3'}
+                                Sway- Gradual movement from side to side.
+                            .radio
+                              %label
+                                %input{type: 'radio', name: 'options-radios', value: 'option3'}
+                                Vibration- Vehicle shakes. Ususally felt in the steering wheel or the seat.
+                      .panel.nested-panel
+                        .panel-heading.clearfix
+                          %h4.panel-title
+                            = link_to 'Feels Like','#js-collapse-seven', class: 'accordion-toggle', data: {toggle: 'collapse', parent: '#js-accordion'}
+                        #js-collapse-seven.panel-collapse.collapse
+                          .panel-body
+                            %p What do you feel?
+                            .radio
+                              %label
+                                %input{type: 'radio', name: 'options-radios', value: 'option1'}
+                                Drifts- Gradual movements to one side.
+                            .radio
+                              %label
+                                %input{type: 'radio', name: 'options-radios', value: 'option2'}
+                                Excessive play- Looseness, lack of response in the steering wheel.
+                            .radio
+                              %label
+                                %input{type: 'radio', name: 'options-radios', value: 'option3'}
+                                Pulls- Sharp movement to one side.
+                            .radio
+                              %label
+                                %input{type: 'radio', name: 'options-radios', value: 'option3'}
+                                Pulsation- Fluctuation of the brake pedal when the brakes are applied.
+                            .radio
+                              %label
+                                %input{type: 'radio', name: 'options-radios', value: 'option3'}
+                                Shimmy- Rapid side to side movement of the front wheels.
+                            .radio
+                              %label
+                                %input{type: 'radio', name: 'options-radios', value: 'option3'}
+                                Sway- Gradual movement from side to side.
+                            .radio
+                              %label
+                                %input{type: 'radio', name: 'options-radios', value: 'option3'}
+                                Vibration- Vehicle shakes. Ususally felt in the steering wheel or the seat.
+                      .panel.nested-panel
+                        .panel-heading.clearfix
+                          %h4.panel-title
+                            = link_to 'Not Working','#js-collapse-eight', class: 'accordion-toggle', data: {toggle: 'collapse', parent: '#js-accordion'}
+                        #js-collapse-eight.panel-collapse.collapse
+                          .panel-body
+                            %p What do you feel?
+                            .radio
+                              %label
+                                %input{type: 'radio', name: 'options-radios', value: 'option1'}
+                                Drifts- Gradual movements to one side.
+                            .radio
+                              %label
+                                %input{type: 'radio', name: 'options-radios', value: 'option2'}
+                                Excessive play- Looseness, lack of response in the steering wheel.
+                            .radio
+                              %label
+                                %input{type: 'radio', name: 'options-radios', value: 'option3'}
+                                Pulls- Sharp movement to one side.
+                            .radio
+                              %label
+                                %input{type: 'radio', name: 'options-radios', value: 'option3'}
+                                Pulsation- Fluctuation of the brake pedal when the brakes are applied.
+                            .radio
+                              %label
+                                %input{type: 'radio', name: 'options-radios', value: 'option3'}
+                                Shimmy- Rapid side to side movement of the front wheels.
+                            .radio
+                              %label
+                                %input{type: 'radio', name: 'options-radios', value: 'option3'}
+                                Sway- Gradual movement from side to side.
+                            .radio
+                              %label
+                                %input{type: 'radio', name: 'options-radios', value: 'option3'}
+                                Vibration- Vehicle shakes. Ususally felt in the steering wheel or the seat.
+                    .form-group
+                      Add notes for mechanic
+                      %textarea.col-md-12.form-control{type: "text", value: ""}
+                    #js-accordion.accordion.panel-group
+                      .panel
+                        .panel-heading.clearfix
+                          %h4.panel-title
+                            = link_to '#js-collapse-nine', class: 'accordion-toggle', data: {toggle: 'collapse', parent: '#js-accordion'} do
+                              Inspection Fee
+                              %span.pull-right Pending
+                        #js-collapse-nine.panel-collapse.collapse
+                          .panel-body
+                            %br
+                      .panel
+                        .panel-heading.clearfix
+                          %h4.panel-title
+                            = link_to '#js-collapse-ten', class: 'accordion-toggle', data: {toggle: 'collapse', parent: '#js-accordion'} do
+                              Inspection Fee
+                              %span.pull-right Pending
+                        #js-collapse-ten.panel-collapse.collapse
+                          .panel-body
+                            %br
+                %a.btn.btn-info.pull-right{href: "#"} Add Job
+                %a.btn.btn-default.pull-right{href: "#"} Cancel
+
