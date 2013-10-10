@@ -10,7 +10,6 @@ class Users::JobsController < Users::ApplicationController
     @job = Job.new
     @user_id = false
     @cars = []
-    @states = State.select([:id, :name]).to_json
 
     if user_signed_in?
       @user_id = current_user.id
@@ -42,6 +41,11 @@ class Users::JobsController < Users::ApplicationController
   end
 
   private
+
+  def states_json
+    State.select([:id, :name]).to_json
+  end
+  helper_method :states_json
 
   def whitelist(params)
     params = ActionController::Parameters.new(params) unless params.is_a?(ActionController::Parameters)
