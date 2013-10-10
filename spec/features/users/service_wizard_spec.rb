@@ -87,7 +87,7 @@ describe 'Service wizard', js: true do
 
   def select_service_plan
     select service_plan.display_title, from: 'job_task_service_plan_id'
-    fill_in 'Note for mechanic', with: 'A note goes here'
+    fill_in 'job_task_note', with: 'A note goes here'
     click_on 'Continue'
   end
 
