@@ -93,10 +93,11 @@
                   Contact
                 %td{colspan: '2'}
                   0401 111 111
-            =link_to 'Cancel Job', '#js-modal', class: 'btn btn-info pull-left', :data => {:toggle => 'modal'}, :role => 'button'
-            =link_to 'Edit Job', '#', class: 'btn btn-info pull-left'
-            =link_to 'Reschedule', '#', class: 'btn btn-info pull-left'
-            =link_to 'Save', '#', class: 'btn btn-success pull-right'
+            .clearfix
+              =link_to 'Cancel Job', '#js-modal', class: 'btn btn-info pull-left', :data => {:toggle => 'modal'}, :role => 'button'
+              =link_to 'Edit Job', '#', class: 'btn btn-info pull-left'
+              =link_to 'Reschedule', '#', class: 'btn btn-info pull-left'
+              =link_to 'Save', '#', class: 'btn btn-success pull-right'
         #js-modal.modal.fade.col-md-6.col-md-offset-3{"aria-hidden" => "true", "aria-labelledby" => "js-my-modal-label", role: "dialog", tabindex: "1"}
           .panel.panel-default.cancel-job
             .modal-header.clearfix
