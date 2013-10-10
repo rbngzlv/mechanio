@@ -44,4 +44,9 @@ class Job < ActiveRecord::Base
   def assign_car_to_user
     car.user_id = user_id if car && user_id
   end
+
+  def date
+    # TODO: It must return collection of time and date for event
+    job_date ||= Time.now()
+  end
 end

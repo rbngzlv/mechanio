@@ -12,47 +12,8 @@
           = link_to '', '#js-collapse-two', class: 'glyphicon glyphicon-chevron-down accordion-toggle', :data => {:toggle => 'collapse', :parent => '#accordion'}
       #js-collapse-two.panel-collapse.collapse.in
         .panel-body
-          .panel.nested-panel.clearfix
-            .col-md-7.right-border
-              %p
-                %b.text-info
-                  Andrew Nandjroo
-              %p
-                %i.glyphicon.glyphicon-play
-                2000 Ford Mustang V6-3 OL
-              %p
-                %b Services:
-                Car is making a noise (inspection)
-            .col-md-5
-              %p
-                %i.glyphicon.glyphicon-time
-                %small
-                  11 : 00 AM,
-                May 8, 2013 (Friday)
-              %p
-                %i.glyphicon.glyphicon-map-marker
-                123 ABC st, Mountain View, CA, 92012
-              = link_to 'View Details', '#', class: 'pull-right btn btn-info'
-          .panel.nested-panel.clearfix
-            .col-md-7.right-border
-              %p
-                %b.text-info Andrew Nandjroo
-              %p
-                %i.glyphicon.glyphicon-play
-                2000 Ford Mustang V6-3 OL
-              %p
-                %b Services:
-                Car is making a noise (inspection)
-            .col-md-5
-              %p
-                %i.glyphicon.glyphicon-time
-                %small 11 : 00 AM,
-                May 8, 2013 (Friday)
-              %p
-                %i.glyphicon.glyphicon-map-marker
-                123 ABC st, Mountain View, CA, 92012
-              = link_to 'View Details', '#', class: 'pull-right btn btn-info'
-  / Completed Jobs Part
+          = render @jobs.with_status(:assigned)
+/ Completed Jobs Part
 .row
   .col-md-12
     .panel.panel-default.panel-rounded
@@ -64,41 +25,4 @@
           = link_to '', '#js-collapse-three', class: 'glyphicon glyphicon-chevron-down accordion-toggle', :data => {:toggle => 'collapse', :parent => '#accordion'}
       #js-collapse-three.panel-collapse.collapse.in
         .panel-body
-          .panel.nested-panel.clearfix
-            .col-md-7.right-border
-              %p
-                %b.text-info Andrew Nandjroo
-              %p
-                %i.glyphicon.glyphicon-play
-                2000 Ford Mustang V6-3 OL
-              %p
-                %b Services:
-                Car is making a noise (inspection)
-            .col-md-5
-              %p
-                %i.glyphicon.glyphicon-time
-                %small 11 : 00 AM,
-                May 8, 2013 (Friday)
-              %p
-                %i.glyphicon.glyphicon-map-marker
-                123 ABC st, Mountain View, CA, 92012
-              = link_to 'View Details', '#', class: 'pull-right btn btn-info'
-          .panel.nested-panel.clearfix
-            .col-md-7.right-border
-              %p
-                %b.text-info Andrew Nandjroo
-              %p
-                %i.glyphicon.glyphicon-play
-                2000 Ford Mustang V6-3 OL
-              %p
-                %b Services:
-                Car is making a noise (inspection)
-            .col-md-5
-              %p
-                %i.glyphicon.glyphicon-time
-                %small 11 : 00 AM,
-                May 8, 2013 (Friday)
-              %p
-                %i.glyphicon.glyphicon-map-marker
-                123 ABC st, Mountain View, CA, 92012
-              = link_to 'View Details', '#', class: 'pull-right btn btn-info'
+          = render @jobs.with_status(:completed)
