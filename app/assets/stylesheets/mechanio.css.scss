@@ -136,7 +136,7 @@ ul {
   }
 }
 
-.feedback .row  {
+.feedback .row {
   margin-bottom: 10px;
 }
 
@@ -525,7 +525,7 @@ section {
 }
 
 .alert {
-  margin-top: 10px;
+  margin: 10px 0;
   padding: 8px 15px;
 
   h4 {
@@ -553,8 +553,12 @@ section {
   }
 }
 
-.top-btn{
+.bottom-margin {
   margin-bottom: 10px;
+}
+
+.top-margin {
+  margin-top: 10px;
 }
 
 .btn {
@@ -566,10 +570,6 @@ section {
     border-radius: 0;
     box-shadow: none;
   }
-}
-
-textarea + .btn {
-  margin-top: 10px;
 }
 
 .vertical-divider-sm {
@@ -728,7 +728,7 @@ form .radio {
   border-bottom: 1px dotted #ccc !important;
 
   ~ .btn {
-    margin: 10px 0 0 10px;
+    margin-left: 10px;
   }
 }
 
@@ -736,11 +736,19 @@ form .radio {
   font-size: 1.5em;
 }
 
+.small {
+  font-size: .75em;
+}
+
 table.table {
   font-size: 12px;
 
   &.without-border tr > td {
     border: none;
+  }
+
+  .label {
+    font-size: 100%;
   }
 
   .info-icons {

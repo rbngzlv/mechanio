@@ -11,6 +11,7 @@ describe Mechanic do
 
   it { should have_one :location }
   it { should have_one :business_location }
+  it { should have_many :jobs }
 
   it { should respond_to :avatar }
   it { should respond_to :driver_license }

@@ -49,6 +49,11 @@ class Job < ActiveRecord::Base
     car.user_id = user_id if car && user_id
   end
 
+  def date
+    # TODO: It must return collection of time and date for event
+    job_date ||= Time.now()
+  end
+
   def set_cost
     costs = tasks.map(&:cost)
     self.cost = costs.include?(nil) ? nil : costs.sum

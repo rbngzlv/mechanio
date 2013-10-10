@@ -1,0 +1,131 @@
+.row
+  =render 'shared/client_nav'
+  .col-md-9
+    .row
+      .col-md-12
+        .panel.nested-panel.clearfix
+          %h5.col-md-4 Show Appointments for
+          .col-md-8
+            %select.form-control{"data-placeholder" => "All my cars", tabindex: "1"}
+              %option{selected: "selected", value: "All my cars"} All my cars
+              %option{value: " 2000 Toyota Corolla L4-1.8L"} 2000 Toyota Corolla L4-1.8L
+              %option{value: " 2010 Kia Optima L4-2.4L"} 2010 Kia Optima L4-2.4L
+              %option{value: " 2010 Ford F10 Lightning V8-5.4L"} 2010 Ford F10 Lightning V8-5.4L
+              %option{value: " Manage Cars"} Manage Cars
+        .panel.panel-default.panel-rounded
+          .panel-heading
+            %h4.panel-title
+              %span.text-info Estimate Requested:
+              %small May 6, 2013 (yesterday)
+            %span.tools
+              = link_to '', '#js-collapse-one', class: 'icon-chevron-down accordion-toggle', :data => {:toggle => 'collapse', :parent => '#accordion'}
+              = link_to '', '#js-my-modal', class: 'icon-remove', data: {toggle: 'modal'}, role: 'button'
+          #js-collapse-one.panel-collapse.collapse.in
+            .panel-body
+              %table.table.without-border
+                %tr
+                  %td
+                    %b Car
+                  %td
+                    2000 Toyota Corolla L4-1.8L
+                %tr.tr-divider
+                  %td
+                    %b Services:
+                  %td
+                    Car is making a noice (inspection)
+                  %td
+                    1.0 hour
+                  %td
+                    $75.00
+                %tr
+                  %td{colspan: '2'}
+                    %b Billing
+                  %td
+                    %table.table
+                      %tr.tr-divider
+                        %td
+                          Labour
+                  %td
+                    %table.table
+                      %tr.tr-divider
+                        %td
+                          $75.00
+                %tr
+                  %td{colspan: '2'}
+                  %td
+                    %b Total Fees
+                  %td
+                    %b $75.00
+              = link_to 'Book Appointments', '#', class: 'btn btn-success pull-right'
+        .panel.panel-default.panel-rounded
+          .panel-heading
+            %h4.panel-title
+              %span.text-info Estimate Requested:
+              %small May 6, 2013 (yesterday)
+            %span.tools
+              = link_to '', '#js-collapse-two', class: 'icon-chevron-down accordion-toggle', :data => {:toggle => 'collapse', :parent => '#accordion'}
+              = link_to '', '#js-my-modal', class: 'icon-remove', data: {toggle: 'modal'}, role: 'button'
+          #js-collapse-two.panel-collapse.collapse.in
+            .panel-body
+              %table.table.without-border
+                %tr
+                  %td
+                    %b Car
+                  %td
+                    2000 Toyota Corolla L4-1.8L
+                %tr.tr-divider
+                  %td
+                    %b Services:
+                  %td
+                    Car is making a noice (inspection)
+                  %td
+                    1.0 hour
+                  %td
+                    $75.00
+                %tr
+                  %td{colspan: '2'}
+                    %b Billing
+                  %td
+                    %table.table
+                      %tr.tr-divider
+                        %td
+                          Labour
+                  %td
+                    %table.table
+                      %tr.tr-divider
+                        %td
+                          $75.00
+                %tr
+                  %td{colspan: '2'}
+                  %td
+                    %b Total Fees
+                  %td
+                    %b $75.00
+              = link_to 'Book Appointments', '#', class: 'btn btn-success pull-right'
+#js-my-modal.modal.fade.col-md-6.col-md-offset-3{aria: {hidden: 'true', labelledby: 'my-modal-label'}, role: 'dialog', tabindex: '-1'}
+  .panel.panel-default
+    .modal-header.clearfix
+      %span#my-modal-label Please tell us why you are cancelling
+      %button.close{aria: {hidden: 'true'}, data: {dismiss: 'modal'}, type: 'button'} ×
+    .panel-body
+      .row
+        .col-md-6.col-md-offset-3
+          .radio
+            %label
+              %input#options-radios-1{type: 'radio', name: 'option-radios', value: 'option1'}
+              I plan to get this service in the future
+          .radio
+            %label
+              %input#options-radios-2{type: 'radio', name: 'option-radios', value: 'option2'}
+              I no longer need this service
+          .radio
+            %label
+              %input#options-radios-2{type: 'radio', name: 'option-radios', value: 'option2'}
+              A local shop gave me a lower quote.
+          .radio
+            %label
+              %input#options-radios-2{type: 'radio', name: 'option-radios', value: 'option2'}
+              Other
+          %textarea.form-control{name: ''}
+    .panel-footer.clearfix
+      %button.col-md-6.col-md-offset-3.btn.btn-primary{aria: {hidden: 'true'}, data: {dismiss: 'modal'}} Confirm Delete

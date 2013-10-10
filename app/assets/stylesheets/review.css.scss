@@ -35,7 +35,7 @@
       &:before {
         content: '';
         position: absolute;
-        top: 10%;
+        top: 15px;
         left: -16px;
         height: 8px;
         width: 8px;
@@ -76,7 +76,7 @@
     }
 
     .chat > li {
-      margin-bottom: 10px;
+      margin-bottom: 15px;
 
       .avatar {
         width: 10%;
@@ -87,7 +87,7 @@
         width: 89%;
       }
 
-      a {
+      a.name {
         color: #fb9800;
 
         &:hover {
@@ -116,7 +116,7 @@
           margin-right: 1%;
         }
 
-        a{
+        a.name {
           color: #2fade7;
         }
 
