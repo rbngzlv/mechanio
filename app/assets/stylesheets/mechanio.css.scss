@@ -128,10 +128,6 @@ ul {
 
   > .nested-panel {
     margin-bottom: 0;
-
-    + .btn {
-      margin-top: 10px
-    }
   }
 
   .tr-divider {
@@ -140,7 +136,7 @@ ul {
   }
 }
 
-.feedback .row  {
+.feedback .row {
   margin-bottom: 10px;
 }
 
@@ -557,8 +553,12 @@ section {
   }
 }
 
-.top-btn{
+.bottom-margin {
   margin-bottom: 10px;
+}
+
+.top-margin {
+  margin-top: 10px;
 }
 
 .btn {
@@ -570,10 +570,6 @@ section {
     border-radius: 0;
     box-shadow: none;
   }
-}
-
-textarea + .btn {
-  margin-top: 10px;
 }
 
 .vertical-divider-sm {
@@ -732,7 +728,7 @@ form .radio {
   border-bottom: 1px dotted #ccc !important;
 
   ~ .btn {
-    margin: 10px 0 0 10px;
+    margin-left: 10px;
   }
 }
 
