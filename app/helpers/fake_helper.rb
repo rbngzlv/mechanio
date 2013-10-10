@@ -27,4 +27,11 @@ module FakeHelper
       ]
     ]
   end
+
+  def fake_socials
+    [
+      'facebook',
+      'twitter'
+    ]
+  end
 end

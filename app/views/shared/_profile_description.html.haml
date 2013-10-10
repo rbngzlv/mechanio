@@ -23,16 +23,12 @@
             = profile.description || "Add some information about yourself"
             .col-md-12.panel.nested-panel.clearfix
               .social.pull-left
-                = link_to '#' do
-                  %i.icon-facebook-sign
-                = link_to '#' do
-                  %i.icon-google-plus-sign
+                - profile.socials.each do |name|
+                  = link_to '#' do
+                    %i{ class: "icon-#{name}-sign" }
               .col-md-7.pull-right
                 .pull-right.verified-block
-                  = verify_icon('Contact Verified', 'icon-phone')
-                  = verify_icon('Super Mechanic', nil, 'S')
-                  = verify_icon('Warranty Covered', 'icon-thumbs-up')
-                  = verify_icon('Qualification Verified', 'icon-book')
+                  = render "shared/#{profile.class.name.downcase}_verified_block", mechanic: profile
                 %span.pull-right Verified:
         .row
-          = render partial: 'shared/comments', locals: { title: title, comments: profile.comments } if title
+          = render('shared/comments', title: title, comments: profile.comments) if title

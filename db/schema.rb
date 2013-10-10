@@ -11,7 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131008143938) do
+ActiveRecord::Schema.define(version: 20131008144550) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "admins", force: true do |t|
     t.string   "email"
@@ -112,7 +115,7 @@ ActiveRecord::Schema.define(version: 20131008143938) do
     t.string   "password"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "encrypted_password",        default: "", null: false
+    t.string   "encrypted_password",        default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -141,6 +144,10 @@ ActiveRecord::Schema.define(version: 20131008143938) do
     t.string   "mechanic_license_number"
     t.date     "mechanic_license_expiry"
     t.string   "mechanic_license_state_id"
+    t.boolean  "phone_verified",            default: false
+    t.boolean  "super_mechanic",            default: false
+    t.boolean  "warranty_covered",          default: false
+    t.boolean  "qualification_verified",    default: false
   end
 
   add_index "mechanics", ["email"], name: "index_mechanics_on_email", unique: true, using: :btree
