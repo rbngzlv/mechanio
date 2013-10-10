@@ -8,8 +8,13 @@ app.controller 'WizardController', ['$scope', '$http', ($scope, $http) ->
   $scope.step = $scope.steps[0]
   $scope.enabled_steps = []
   $scope.progress = 0
+
+  $scope.loading = false
+  $scope.loading_text = 'Loading...'
+
   $scope.data = {}
   $scope.data.location = {}
+  $scope.data.job = {}
 
   $scope.$on 'bounce', (e, bounce, args...) ->
     $scope.$broadcast(bounce, args...)

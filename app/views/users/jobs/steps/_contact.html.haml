@@ -1,47 +1,52 @@
 #step-contact{ 'ng-controller' => 'ContactController', 'ng-init' => "states = #{@states}", 'ng-show' => 'stepVisible("contact")', 'ng-form' => 'contact_form' }
-  %h5 WHERE SHOULD THE MECHANIC GO?
-  %hr.hr-dark-gray
-  .wizard-body
-    = simple_fields_for :location do |l|
-      .row
-        .form-group.col-md-9{ 'ng-class' => "inputClass(contact_form['location[address]'])" }
-          = l.input :address, label: 'Street address', wrapper: false, input_html: { 'ng-model' => 'location.address', 'required' => true, 'ng-focus' => true }
-          %span.help-block{ 'ng-show' => "inputInvalid(contact_form['location[address]'])" }
-            street address invalid
-      .row
-        .form-group.col-md-3{ 'ng-class' => "inputClass(contact_form['location[suburb]'])" }
-          = l.input :suburb, wrapper: false, input_html: { 'ng-model' => 'location.suburb', 'required' => true, 'ng-focus' => true }
-          %span.help-block{ 'ng-show' => "inputInvalid(contact_form['location[suburb]'])" }
-            suburb invalid
+  = render 'users/jobs/steps/loading'
 
-        .form-group.col-md-3{ 'ng-class' => "inputClass(contact_form['location[postcode]'])" }
-          = l.input :postcode, wrapper: false, input_html: { 'ng-model' => 'location.postcode', 'ng-pattern' => 'postcode_regex', 'required' => true, 'ng-focus' => true }
-          %span.help-block{ 'ng-show' => "inputInvalid(contact_form['location[postcode]'])" }
-            postcode invalid
+  %div{ 'ng-hide' => 'loading' }
+    = render 'users/jobs/steps/loading_error'
 
-        .form-group.col-md-3{ 'ng-class' => "inputClass(contact_form['location[state_id]'])" }
-          = l.input :state_id, as: :select, include_blank: '-- Please select --', wrapper: false, input_html: { class: 'input-sm', 'ng-options' => 's.id as s.name for s in states', 'ng-model' => 'state', 'required' => true, 'ng-focus' => true }
-          %span.help-block{ 'ng-show' => "inputInvalid(contact_form['location[state_id]'])" }
-            please select
+    %h5 WHERE SHOULD THE MECHANIC GO?
+    %hr.hr-dark-gray
+    .wizard-body
+      = simple_fields_for :location do |l|
+        .row
+          .form-group.col-md-9{ 'ng-class' => "inputClass(contact_form['location[address]'])" }
+            = l.input :address, label: 'Street address', wrapper: false, input_html: { 'ng-model' => 'location.address', 'required' => true, 'ng-focus' => true }
+            %span.help-block{ 'ng-show' => "inputInvalid(contact_form['location[address]'])" }
+              street address invalid
+        .row
+          .form-group.col-md-3{ 'ng-class' => "inputClass(contact_form['location[suburb]'])" }
+            = l.input :suburb, wrapper: false, input_html: { 'ng-model' => 'location.suburb', 'required' => true, 'ng-focus' => true }
+            %span.help-block{ 'ng-show' => "inputInvalid(contact_form['location[suburb]'])" }
+              suburb invalid
 
-      %h5 TELL US WHERE WE CAN SEND YOU THE QUOTE
-      %hr.hr-dark-gray
-      .row
-        .form-group.col-md-9{ 'ng-class' => "inputClass(contact_form['job[contact_email]'])" }
-          = f.input :contact_email, as: :email, label: 'Where do we send your quote? (We will never spam)', placeholder: 'Please enter email', wrapper: false, input_html: { 'ng-model' => 'job.contact_email', 'ng-focus' => true, 'required' => true }
-          %span.help-block{ 'ng-show' => "inputInvalid(contact_form['job[contact_email]'])" }
-            email invalid
+          .form-group.col-md-3{ 'ng-class' => "inputClass(contact_form['location[postcode]'])" }
+            = l.input :postcode, wrapper: false, input_html: { 'ng-model' => 'location.postcode', 'ng-pattern' => 'postcode_regex', 'required' => true, 'ng-focus' => true }
+            %span.help-block{ 'ng-show' => "inputInvalid(contact_form['location[postcode]'])" }
+              postcode invalid
 
-      .row
-        .form-group.col-md-9{ 'ng-class' => "inputClass(contact_form['job[contact_phone]'])" }
-          = f.input :contact_phone, label: 'We might have follow-up questions about your quote. Where can we call you with questions?', placeholder: 'e.g 0410 123 456', wrapper: false, input_html: { 'ng-model' => 'job.contact_phone', 'ng-pattern' => 'phone_regex', 'ng-focus' => true, 'required' => true }
-          %span.help-block{ 'ng-show' => "inputInvalid(contact_form['job[contact_phone]'])" }
-            phone number invalid
+          .form-group.col-md-3{ 'ng-class' => "inputClass(contact_form['location[state_id]'])" }
+            = l.input :state_id, as: :select, include_blank: '-- Please select --', wrapper: false, input_html: { class: 'input-sm', 'ng-options' => 's as s.name for s in states', 'ng-model' => 'state', 'required' => true, 'ng-focus' => true }
+            %span.help-block{ 'ng-show' => "inputInvalid(contact_form['location[state_id]'])" }
+              please select
 
-    %hr
-    %button.btn.btn-default{ 'type' => 'button', 'ng-click' => 'gotoStep("diagnose")' }
-      %small &#x276E;
-      Back
-    %button.btn.btn-primary.pull-right{ 'type' => 'button', 'ng-click' => 'submit()', 'ng-disabled' => '!valid()' }
-      Continue
-      %small &#x276F;
+        %h5 TELL US WHERE WE CAN SEND YOU THE QUOTE
+        %hr.hr-dark-gray
+        .row
+          .form-group.col-md-9{ 'ng-class' => "inputClass(contact_form['job[contact_email]'])" }
+            = f.input :contact_email, as: :email, label: 'Where do we send your quote? (We will never spam)', placeholder: 'Please enter email', wrapper: false, input_html: { 'ng-model' => 'job.contact_email', 'ng-focus' => true, 'required' => true }
+            %span.help-block{ 'ng-show' => "inputInvalid(contact_form['job[contact_email]'])" }
+              email invalid
+
+        .row
+          .form-group.col-md-9{ 'ng-class' => "inputClass(contact_form['job[contact_phone]'])" }
+            = f.input :contact_phone, label: 'We might have follow-up questions about your quote. Where can we call you with questions?', placeholder: 'e.g 0410 123 456', wrapper: false, input_html: { 'ng-model' => 'job.contact_phone', 'ng-pattern' => 'phone_regex', 'ng-focus' => true, 'required' => true }
+            %span.help-block{ 'ng-show' => "inputInvalid(contact_form['job[contact_phone]'])" }
+              phone number invalid
+
+      %hr
+      %button.btn.btn-default{ 'type' => 'button', 'ng-click' => 'gotoStep("diagnose")' }
+        %small &#x276E;
+        Back
+      %button.btn.btn-primary.pull-right{ 'type' => 'button', 'ng-click' => 'submit()', 'ng-disabled' => '!valid()' }
+        Continue
+        %small &#x276F;

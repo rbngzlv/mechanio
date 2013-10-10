@@ -19,4 +19,8 @@ class Location < ActiveRecord::Base
   def get_coordinates
     Resque.enqueue(GeocoderWorker, self.id) unless Rails.env.test?
   end
+
+  def state_name
+    state.name
+  end
 end

@@ -27,7 +27,10 @@ class Job < ActiveRecord::Base
   end
 
   def self.create_temporary(params)
-    return false unless build_temporary(params).valid?
+    job = build_temporary(params)
+    unless job.valid?
+      raise ActiveRecord::RecordInvalid, job
+    end
 
     job = build_temporary(serialized_params: params)
     job.save(validate: false)
