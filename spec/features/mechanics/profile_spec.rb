@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 feature 'mechanic profile page' do
-  let(:mechanic) { create :mechanic }
+  let(:mechanic) { create :mechanic, super_mechanic: true, qualification_verified: true }
 
   subject { page }
 
@@ -12,12 +12,22 @@ feature 'mechanic profile page' do
   end
 
   context 'check content' do
+    before { visit mechanics_profile_path }
+
     scenario 'mechanic details' do
-      visit mechanics_profile_path
       should have_content mechanic.full_name
       find('img.avatar')['src'].should have_content '/assets/photo.jpg'
       should have_content "#{mechanic.reviews} Review"
       should have_content mechanic.description
+    end
+
+    scenario 'check verified statuses work' do
+      should have_css '.verified-icon.icon-phone.disabled'
+      should have_css '.verified-icon:nth-child(2)'
+      should_not have_css '.verified-icon:nth-child(2).disabled'
+      should have_css '.verified-icon.icon-thumbs-up.disabled'
+      should have_css '.verified-icon.icon-book'
+      should_not have_css '.verified-icon.disabled.icon-book'
     end
   end
 

@@ -26,4 +26,9 @@ class User < ActiveRecord::Base
     # TODO: It must return collection of all users comments
     fake_comments
   end
+
+  def socials
+    # TODO: It must return collection of socials connections
+    fake_socials
+  end
 end

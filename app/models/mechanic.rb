@@ -39,4 +39,9 @@ class Mechanic < ActiveRecord::Base
     # TODO: It must return collection of all mechanic reviews
     fake_comments
   end
+
+  def socials
+    # TODO: It must return collection of socials connections
+    fake_socials
+  end
 end

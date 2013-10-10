@@ -154,6 +154,10 @@ i.verified-icon {
   &:hover {
     color: #ccc;
   }
+
+  &.disabled {
+    background: asset-url('back-symbol-false.png');
+  }
 }
 
 .verified-block + span {
@@ -734,7 +738,7 @@ form .radio {
 
 table.table {
   font-size: 12px;
-  
+
   &.without-border tr > td {
     border: none;
   }
@@ -746,7 +750,7 @@ table.table {
       text-decoration: none;
     }
   }
-  
+
   thead th {
     border-bottom-width: 1px;
     font-weight: normal;
