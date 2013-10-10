@@ -26,12 +26,7 @@ class Users::JobsController < Users::ApplicationController
   end
 
   def show
-    job = current_user.jobs.includes(:car, :tasks).find(params[:id])
-    respond_with job.to_json(only: [:id, :cost], include: {
-      car: { only: [:display_title] },
-      tasks: { only: [:title] },
-      location: { only: [:address, :suburb, :postcode], methods: [:state_name] }
-    })
+    respond_with current_user.jobs.find(params[:id])
   end
 
   def create

@@ -53,4 +53,12 @@ class Job < ActiveRecord::Base
     costs = tasks.map(&:cost)
     self.cost = costs.include?(nil) ? nil : costs.sum
   end
+
+  def as_json(options = {})
+    super(only: [:id, :cost], include: {
+      car: { only: [:display_title] },
+      tasks: { only: [:title] },
+      location: { only: [:address, :suburb, :postcode], methods: [:state_name] }
+    })
+  end
 end
