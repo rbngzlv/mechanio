@@ -5,6 +5,7 @@ describe Job do
   let(:user) { create :user}
   let(:car)  { create :car, user: user }
   let(:job)  { build :job, user: user, car: car }
+  let(:job_with_service) { create :job_with_service }
 
   it { should belong_to :user }
   it { should belong_to :car }
@@ -51,7 +52,10 @@ describe Job do
   end
 
   it 'sums tasks costs' do
-    job = create :job_with_service
-    job.cost.should eq 350
+    job_with_service.cost.should eq 350
+  end
+
+  it 'sets title from the first task before save' do
+    job_with_service.title.should eq job_with_service.tasks.first.title
   end
 end

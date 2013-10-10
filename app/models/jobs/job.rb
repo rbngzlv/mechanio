@@ -11,7 +11,7 @@ class Job < ActiveRecord::Base
   serialize :serialized_params
 
   before_validation :assign_car_to_user
-  before_save :set_cost
+  before_save :set_title, :set_cost
 
   validates :car, :location, :tasks, :contact_email, :contact_phone, presence: true
   validates :user, presence: true, unless: :skip_user_validation
@@ -52,6 +52,10 @@ class Job < ActiveRecord::Base
   def date
     # TODO: It must return collection of time and date for event
     job_date ||= Time.now()
+  end
+
+  def set_title
+    self.title = tasks.first.title if tasks.first
   end
 
   def set_cost

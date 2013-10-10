@@ -11,7 +11,7 @@ describe Service do
   it { should validate_presence_of :service_plan }
 
   it 'copies title from service plan on create' do
-    service.title.should eq service_plan.display_title
+    service.title.should eq "Service: #{service_plan.display_title}"
   end
 
   it 'creates fixed_amount task item' do
