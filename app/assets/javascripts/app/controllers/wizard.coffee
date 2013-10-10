@@ -9,6 +9,7 @@ app.controller 'WizardController', ['$scope', '$http', ($scope, $http) ->
   $scope.enabled_steps = []
   $scope.progress = 0
   $scope.data = {}
+  $scope.data.location = {}
 
   $scope.$on 'bounce', (e, bounce, args...) ->
     $scope.$broadcast(bounce, args...)

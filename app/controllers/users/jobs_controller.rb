@@ -10,6 +10,7 @@ class Users::JobsController < Users::ApplicationController
     @job = Job.new
     @user_id = false
     @cars = []
+    @states = State.select([:id, :name]).to_json
 
     if user_signed_in?
       @user_id = current_user.id

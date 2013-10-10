@@ -18,3 +18,12 @@
     %ul
       %li{ 'ng-repeat' => 'task in data.tasks' }
         %p {{ task.title }}
+
+.panel.panel-default.panel-rounded{ 'ng-show' => 'data.location.address' }
+  .panel-body
+    %h5.panel-title LOCATION
+    %hr.hr-dark-gray
+    %ul
+      %li {{ data.location.address }}
+      %li {{ data.location.suburb }}
+      %li {{ data.location.state_name }}, {{ data.location.postcode }}
