@@ -1,14 +1,14 @@
 State.delete_all
 
 states = [
-  'Australian Capital Territory',
-  'New South Wales',
-  'Northern Territory',
-  'Queensland',
-  'South Australia',
-  'Tasmania',
-  'Victoria',
-  'Western Australia'
+  'ACT',
+  'NSW',
+  'NT',
+  'QLD',
+  'SA',
+  'TAS',
+  'VIC',
+  'WA'
 ]
 
 states.each do |s|
