@@ -1,10 +1,10 @@
 .step-diagnose{ 'ng-controller' => 'DiagnoseController', 'ng-show' => 'stepVisible("diagnose")', 'ng-form' => 'diagnose_form' }
   .wizard-body
-    %h5 PLEASE SELECT WHEN THE LAST TIME YOU SERVICED YOUR CAR WAS - IN KM OR DATE - WHICHEVER CAME FIRST
+    %h5 PLEASE PICK A SERVICE INTERVAL YOU'LL LIKE OUR PROFESSIONAL MOBILE MECHANIC TO PERFORM
     %hr.hr-dark-gray
     = f.simple_fields_for :task do |s|
       = s.input :service_plan_id, label: false, include_blank: '-- Please select --', collection: [], input_html: { 'ng-model' => 'service_plan', 'ng-options' => 'v.display_title for v in service_plans', 'ng-disabled' => 'service_plans.length == 0', 'ng-focus' => true, 'required' => true }
-      = s.input :note, label: 'Note for mechanic', as: :text, input_html: { 'ng-model' => 'note' }
+      = s.input :note, label: false, placeholder: 'Write any additional issues or concerns you have with your car', as: :text, input_html: { 'ng-model' => 'note' }
   %hr
   %button.btn.btn-default{ 'type' => 'button', 'ng-click' => 'gotoStep("car-details")' }
     %small &#x276E;
