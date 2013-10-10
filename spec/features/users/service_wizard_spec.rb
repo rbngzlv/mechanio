@@ -33,6 +33,7 @@ describe 'Service wizard', js: true do
 
     verify_current_step 'Quote'
     verify_sidebar 4, 'LOCATION', "Broadway 54, ap. 1 Suburb #{state.name}, 1234"
+    verify_quote
 
     verify_job_created
   end
@@ -88,6 +89,11 @@ describe 'Service wizard', js: true do
     select service_plan.display_title, from: 'job_task_service_plan_id'
     fill_in 'Note for mechanic', with: 'A note goes here'
     click_on 'Continue'
+  end
+
+  def verify_quote
+    page.should have_css 'h4', text: 'Here is your quote'
+    page.should have_css 'h4', text: service_plan.cost
   end
 
   def verify_current_step(step)

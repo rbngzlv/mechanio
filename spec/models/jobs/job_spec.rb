@@ -49,4 +49,9 @@ describe Job do
     job.car.user_id.should_not be_nil
     job.car.user_id.should eq job.user_id
   end
+
+  it 'sums tasks costs' do
+    job = create :job_with_service
+    job.cost.should eq 350
+  end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131008144550) do
+ActiveRecord::Schema.define(version: 20131010123007) do
 
   create_table "admins", force: true do |t|
     t.string   "email"
@@ -48,7 +48,6 @@ ActiveRecord::Schema.define(version: 20131008144550) do
   end
 
   create_table "fixed_amounts", force: true do |t|
-    t.integer  "task_id"
     t.string   "description"
     t.decimal  "cost",        precision: 8, scale: 2
     t.decimal  "tax",         precision: 8, scale: 2
@@ -71,10 +70,10 @@ ActiveRecord::Schema.define(version: 20131008144550) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "status"
+    t.string   "title"
   end
 
   create_table "labours", force: true do |t|
-    t.integer  "task_id"
     t.text     "description"
     t.integer  "duration"
     t.decimal  "hourly_rate", precision: 8, scale: 2
@@ -162,8 +161,8 @@ ActiveRecord::Schema.define(version: 20131008144550) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "make_id"
-    t.text     "comment"
     t.string   "display_title"
+    t.text     "comment"
     t.string   "detailed_title"
   end
 
@@ -175,7 +174,6 @@ ActiveRecord::Schema.define(version: 20131008144550) do
   end
 
   create_table "parts", force: true do |t|
-    t.integer  "task_id"
     t.string   "name"
     t.integer  "quantity"
     t.decimal  "cost",       precision: 8, scale: 2
@@ -226,6 +224,12 @@ ActiveRecord::Schema.define(version: 20131008144550) do
     t.integer "symptom_id", null: false
   end
 
+  create_table "task_items", force: true do |t|
+    t.integer "task_id"
+    t.integer "itemable_id"
+    t.string  "itemable_type"
+  end
+
   create_table "tasks", force: true do |t|
     t.string   "type"
     t.integer  "job_id"
@@ -234,6 +238,9 @@ ActiveRecord::Schema.define(version: 20131008144550) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "title"
+    t.decimal  "cost",            precision: 8, scale: 2
+    t.decimal  "tax",             precision: 8, scale: 2
+    t.decimal  "total",           precision: 8, scale: 2
   end
 
   create_table "users", force: true do |t|

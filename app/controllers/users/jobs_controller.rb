@@ -26,20 +26,18 @@ class Users::JobsController < Users::ApplicationController
   end
 
   def show
-    job = current_user.jobs.includes(:car, :tasks).find(params[:id])
-    respond_with job.to_json(only: [:id, :total], include: {
-      car: { only: [:display_title] },
-      tasks: { only: [:title] }
-    })
+    respond_with current_user.jobs.find(params[:id])
   end
 
   def create
     if user_signed_in?
       job = current_user.jobs.create!(whitelist(params))
     else
-      job = Job.create_temporary(whitelist(params))
-      session[:tmp_job_id] = job.id if job
+      if job = Job.create_temporary(whitelist(params))
+        session[:tmp_job_id] = job.id
+      end
     end
+
     respond_with job, location: false
   end
 

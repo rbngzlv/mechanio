@@ -19,8 +19,16 @@ app.controller 'ContactController', ['$scope', ($scope) ->
     if $scope.authorized()
       $scope.submitStep()
     else
-      $scope.saveJob()
-      $scope.authorize()
+      $scope.loading = true
+      $scope.saveJob($scope.onSave, $scope.onError)
+
+  $scope.onSave = ->
+    $scope.loading = false
+    $scope.authorize()
+
+  $scope.onError = ->
+    $scope.loading = false
+    $scope.error = true
 
   $scope.valid = ->
     $scope['contact_form'].$valid

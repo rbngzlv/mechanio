@@ -11,6 +11,7 @@ class Job < ActiveRecord::Base
   serialize :serialized_params
 
   before_validation :assign_car_to_user
+  before_save :set_cost
 
   validates :car, :location, :tasks, :contact_email, :contact_phone, presence: true
   validates :user, presence: true, unless: :skip_user_validation
@@ -26,7 +27,10 @@ class Job < ActiveRecord::Base
   end
 
   def self.create_temporary(params)
-    return false unless build_temporary(params).valid?
+    job = build_temporary(params)
+    unless job.valid?
+      raise ActiveRecord::RecordInvalid, job
+    end
 
     job = build_temporary(serialized_params: params)
     job.save(validate: false)
@@ -48,5 +52,18 @@ class Job < ActiveRecord::Base
   def date
     # TODO: It must return collection of time and date for event
     job_date ||= Time.now()
+  end
+
+  def set_cost
+    costs = tasks.map(&:cost)
+    self.cost = costs.include?(nil) ? nil : costs.sum
+  end
+
+  def as_json(options = {})
+    super(only: [:id, :cost], include: {
+      car: { only: [:display_title] },
+      tasks: { only: [:title] },
+      location: { only: [:address, :suburb, :postcode], methods: [:state_name] }
+    })
   end
 end
