@@ -1,0 +1,52 @@
+.row
+  =render 'shared/mechanics_nav'
+  .col-md-9
+    .row
+      .col-md-12
+        .panel.panel-default.panel-rounded
+          .panel-heading
+            %h4.panel-title
+              %i.icon-cog
+              Setting
+          .panel-body.clearfix
+            %h4.hx-default Password
+            .form-group.row
+              .col-md-8
+                %input.form-control{placeholder: "Old Password"}
+            .form-group.row
+              .col-md-8
+                %input.form-control{placeholder: "New Password"}
+            .form-group.row
+              .col-md-8
+                %input.form-control{placeholder: "Confirm Password"}
+            %h4.hx-default Notifications
+            .form-group.row
+              .col-md-6.row
+                .col-md-6 Allow mobile notifications
+                %label.col-md-3
+                  %input#optionsRadios1{name: "optionsRadios", type: "radio", value: "option1"}
+                  Yes
+                %label.col-md-3
+                  %input#optionsRadios2{name: "optionsRadios", type: "radio", value: "option2"}
+                  No
+              .col-md-6
+                .col-md-6 Deliver notifications to
+                .col-md-6
+                  %select.form-control
+                    %option{value: ''}
+            .form-group.row
+              .col-md-6.row
+                .col-md-6 Allow email notifications
+                %label.col-md-3
+                  %input#optionsRadios1{name: "optionsRadios", type: "radio", value: "option1"}
+                  Yes
+                %label.col-md-3
+                  %input#optionsRadios2{name: "optionsRadios", type: "radio", value: "option2"}
+                  No
+              .col-md-6
+                .col-md-6 Deliver notifications to
+                .col-md-6
+                  %select.form-control
+                    %option{value: ''}
+            .row.col-md-12
+              %button.btn.btn-success.col-md-2{type: "button"} Save
