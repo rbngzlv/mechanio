@@ -3,7 +3,7 @@
     %h4.panel-title
       %span.text-info Estimate Requested:
       %small
-        = job.date.to_formatted_s(:job_date_client)
+        = job.date.to_s(:date)
   #js-collapse-one.panel-collapse.collapse.in
     .panel-body
       %table.table.without-border

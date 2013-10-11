@@ -13,7 +13,7 @@
   .col-md-5
     %p
       %i.glyphicon.glyphicon-time
-      = job.date.to_formatted_s(:job_date_mechanic)
+      = job.date.to_s(:date_time)
     %p
       %i.glyphicon.glyphicon-map-marker
       = job.location.full_address

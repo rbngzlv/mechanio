@@ -17,13 +17,12 @@ describe User do
   describe '#estimates' do
     it 'should has jobs with status pending and estimated' do
       user.estimates.count.should be_zero
-      another_user = create :user
-      job_pending   = create :job_with_service, user: another_user, status: :pending
-      job_estimated = create :job_with_service, user: another_user, status: :estimated
-      job_assigned  = create :job_with_service, user: another_user, status: :assigned
-      another_user.estimates.should include job_pending
-      another_user.estimates.should include job_estimated
-      another_user.estimates.should_not include job_assigned
+      job_pending   = create :job_with_service, user: user, status: :pending
+      job_estimated = create :job_with_service, user: user, status: :estimated
+      job_assigned  = create :job_with_service, user: user, status: :assigned
+      user.estimates.should include job_pending
+      user.estimates.should include job_estimated
+      user.estimates.should_not include job_assigned
     end
   end
 end
