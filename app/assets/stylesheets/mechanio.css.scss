@@ -27,6 +27,7 @@ html, body {
 body {
   background-color: #f5f5f5;
   color: #666;
+  font-size: 13px;
 }
 
 ul {
@@ -241,6 +242,14 @@ aside {
 section {
   > h4 {
     text-transform: uppercase;
+  }
+}
+
+.blog-article {
+  margin-bottom: 35px;
+
+  &:last-child {
+    margin-bottom: 0;
   }
 }
 
@@ -556,6 +565,18 @@ section {
     text-decoration: none;
   }
 }
+
+.header-social {
+  font-size: 20px;
+  margin-bottom: 5px;
+  position: relative;
+  bottom: 3px;
+
+  a:hover {
+    text-decoration: none;
+  }
+}
+
 
 .bottom-margin {
   margin-bottom: 10px;
