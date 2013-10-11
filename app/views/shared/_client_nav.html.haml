@@ -3,6 +3,6 @@
     = nav_bar_link 'Dashboard', users_dashboard_path, icon: 'dashboard'
     = nav_bar_link 'My Cars', '#', icon: 'thumbs-up'
     = nav_bar_link 'My Appointments', '#', icon: 'calendar'
-    = nav_bar_link 'My Estimates', '#', icon: 'credit-card'
+    = nav_bar_link 'My Estimates', users_estimates_path, icon: 'credit-card', badge: current_user.estimates.count
     = nav_bar_link 'My Profile', users_profile_path, icon: 'user', active: params[:controller].eql?('users/profiles')
     = nav_bar_link 'Settings', '#', icon: 'cog'

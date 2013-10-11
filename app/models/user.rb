@@ -16,6 +16,10 @@ class User < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
 
+  def estimates
+    jobs.with_status(:pending, :estimated)
+  end
+
   def reviews
     # TODO: It must return count of comments which this user left
     15
