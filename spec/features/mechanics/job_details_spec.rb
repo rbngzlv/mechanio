@@ -23,7 +23,6 @@ feature 'dashboard page' do
       should have_link 'Back to My jobs'
       should have_content 'Appointment'
       should have_content job.car.display_title
-      # TODO: something about vin
       job.tasks.each do |task|
         should have_content task.type
         should have_content task.title
@@ -34,5 +33,12 @@ feature 'dashboard page' do
       should have_link 'Edit Job'
       should have_link 'Save'
     end
+  end
+
+  specify 'mechanic have access only for his own jobs' do
+    another_job = create :job_with_service, status: 'assigned', mechanic: create(:mechanic, email: 'qw@qw.qw')
+    expect { visit mechanics_job_path(another_job) }.to raise_error
+    visit mechanics_job_path(job)
+    should have_no_selector 'li.active', text: 'Dashboard'
   end
 end

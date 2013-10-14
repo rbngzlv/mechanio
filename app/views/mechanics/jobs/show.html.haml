@@ -8,7 +8,7 @@
             Back to My jobs
       .alert.alert-info
         %span.black Appointment on:
-        = @job.date.to_formatted_s(:date_time)
+        = @job.date.to_s(:date_time)
       %form{action: ''}
         %table.table
           %tr
@@ -17,31 +17,14 @@
             %td{colspan: '2'}
               = @job.car.display_title
           %tr.tr-divider
-            %td.form-line-height
-              -# TODO: how mechanic have to know VIN?
-              %b VIN:
-            %td{colspan: '2'}
-              %input.form-control.pull-left.input-width{type: "text"}
-              = link_to 'Add VIN', '#', class: 'btn pull-left btn-default'
-          %tr.tr-divider
             - @job.tasks.each do |task|
               %td
                 %b #{ task.type }:
               %td{colspan: '2'}
                 = task.title
-          %tr
-            %td
-              Billing:
-            %td
-              %table.col-md-3.pull-right
-                %tr.tr-divider
-                  %td.text-right
-                    Labor
-            %td.text-right.tr-divider
-              -# TODO: is it needed realisation?
-              $60.00
           %tr.tr-divider.big
             %td
+              Billing:
             %td.text-right
               %b Total Fees:
             %td.text-right
@@ -51,12 +34,6 @@
               Location
             %td{colspan: '2'}
               = @job.location.full_address
-          %tr
-            %td
-              Notes
-            %td
-              -# TODO: each task have note, what do we need to do?
-              = @job.tasks[0].note
           %tr.tr-divider
             %td
               Contact
