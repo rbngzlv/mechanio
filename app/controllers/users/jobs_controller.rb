@@ -16,10 +16,7 @@ class Users::JobsController < Users::ApplicationController
       @cars = current_user.cars.select([:id, :display_title, :model_variation_id]).to_json
 
       if session[:tmp_job_id]
-        @job = Job.find(session.delete(:tmp_job_id))
-        @job.status = :pending
-        @job.user_id = current_user.id
-        @job.update_attributes(whitelist(job: @job.serialized_params))
+        @job = Job.convert_from_temporary(session.delete(:tmp_job_id), current_user)
       end
     end
   end
@@ -30,9 +27,9 @@ class Users::JobsController < Users::ApplicationController
 
   def create
     if user_signed_in?
-      job = current_user.jobs.create!(whitelist(params))
+      job = current_user.jobs.create!(params)
     else
-      if job = Job.create_temporary(whitelist(params))
+      if job = Job.create_temporary(params)
         session[:tmp_job_id] = job.id
       end
     end
@@ -46,14 +43,4 @@ class Users::JobsController < Users::ApplicationController
     State.select([:id, :name]).to_json
   end
   helper_method :states_json
-
-  def whitelist(params)
-    params = ActionController::Parameters.new(params) unless params.is_a?(ActionController::Parameters)
-    params.require(:job).permit(
-      :car_id, :contact_email, :contact_phone,
-      location_attributes:  [:address, :suburb, :postcode, :state_id],
-      car_attributes:       [:year, :model_variation_id],
-      tasks_attributes:     [:type, :service_plan_id, :note]
-    )
-  end
 end

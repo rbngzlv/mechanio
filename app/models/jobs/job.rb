@@ -28,8 +28,12 @@ class Job < ActiveRecord::Base
 
   default_scope { order(created_at: :desc).without_status(:temporary) }
 
+  def self.create!(params)
+    super self.whitelist(params)
+  end
+
   def self.create_temporary(params)
-    job = build_temporary(params)
+    job = build_temporary(self.whitelist(params))
     unless job.valid?
       raise ActiveRecord::RecordInvalid, job
     end
@@ -45,6 +49,24 @@ class Job < ActiveRecord::Base
     job.skip_user_validation = true
     job.car.skip_user_validation = true if job.car
     job
+  end
+
+  def self.convert_from_temporary(id, user)
+    job = unscoped.with_status(:temporary).find(id)
+    job.status = :pending
+    job.user_id = user.id
+    job.update_attributes!(self.whitelist(job.serialized_params))
+    job
+  end
+
+  def self.whitelist(params)
+    params = ActionController::Parameters.new(params) unless params.is_a?(ActionController::Parameters)
+    params.require(:job).permit(
+      :car_id, :contact_email, :contact_phone,
+      location_attributes:  [:address, :suburb, :postcode, :state_id],
+      car_attributes:       [:year, :model_variation_id],
+      tasks_attributes:     [:type, :service_plan_id, :note]
+    )
   end
 
   def assign_car_to_user
