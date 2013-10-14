@@ -12,6 +12,12 @@ FactoryGirl.define do
       end
     end
 
+    trait :with_repair do
+      after :build do |j|
+        j.tasks << build(:repair, :with_part, :with_labour)
+      end
+    end
+
     factory :job_with_service, traits: [:with_service]
   end
 end

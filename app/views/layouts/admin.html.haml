@@ -1,7 +1,7 @@
 !!!
-%html
+%html{ 'ng-app' => 'mechanio' }
   = render 'layouts/head'
-  %body
+  %body.admin
     = render 'admin/shared/navbar'
     .container
       = render 'shared/flash_messages'

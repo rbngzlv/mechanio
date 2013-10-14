@@ -1,0 +1,27 @@
+%table.table.table-bordered
+  %tr
+    %th{ colspan: 3 }= task.title
+  - task.task_items.map(&:itemable).each do |i|
+    = render partial: "admin/jobs/items/#{i.class.name.underscore}", object: i
+  %tr
+    %td.text-right{ colspan: 2 }
+      %strong Total:
+    %td.text-right.col-md-1= number_to_currency(task.cost)
+
+.item-forms.clearfix
+  .btn-group.pull-right{ 'ng-hide' => "adding_fixed_#{task.id} || adding_part_#{task.id} || adding_labour_#{task.id}" }
+    %button.btn.btn-primary.btn-sm.dropdown-toggle{ 'data-toggle' => 'dropdown', type: 'button' }
+      Add item
+      %span.caret
+    %ul.dropdown-menu{ role: 'menu' }
+      %li
+        %a{ href: '', 'ng-click' => "adding_part_#{task.id} = true" } Part
+      %li
+        %a{ href: '', 'ng-click' => "adding_labour_#{task.id} = true" } Labour
+      %li
+        %a{ href: '', 'ng-click' => "adding_fixed_#{task.id} = true" } Fixed amount
+
+  = f.simple_fields_for :tasks, task do |t|
+    = render 'admin/jobs/item_forms/fixed_amount', task: task, t: t
+    = render 'admin/jobs/item_forms/part', task: task, t: t
+    = render 'admin/jobs/item_forms/labour', task: task, t: t

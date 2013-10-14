@@ -9,7 +9,19 @@ FactoryGirl.define do
 
     factory :repair, class: 'Repair' do
       type 'Repair'
-      note 'A note to mechanic'
+      title 'Replace break pads'
+
+      trait :with_part do
+        after :build do |r|
+          r.task_items << build(:task_item, itemable: build(:part))
+        end
+      end
+
+      trait :with_labour do
+        after :build do |r|
+          r.task_items << build(:task_item, itemable: build(:labour))
+        end
+      end
     end
   end
 end

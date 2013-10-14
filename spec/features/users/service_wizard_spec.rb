@@ -111,8 +111,4 @@ describe 'Service wizard', js: true do
     user.reload.jobs.count.should eq 1
     user.jobs.last.status.should eq 'pending'
   end
-
-  def screenshot
-    page.driver.render '/Users/bob/Desktop/screen.png', full: true
-  end
 end

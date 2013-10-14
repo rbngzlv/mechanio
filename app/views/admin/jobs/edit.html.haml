@@ -1,0 +1,27 @@
+%p.pull-right
+  %strong Requested by
+  = link_to @job.user.full_name, [:admin, @job.user]
+  on
+  = @job.created_at.to_s(:short)
+
+%h4
+  = @job.title
+  = job_status(@job.status)
+
+- if @job.mechanic
+  %p
+    Assigned to
+    = link_to @job.mechanic.full_name, [:admin, @job.mechanic]
+
+%hr
+%h4 Job and Labour
+
+= simple_form_for [:admin, @job] do |f|
+  = render partial: 'task', collection: @job.tasks, as: :task, locals: { f: f }
+
+.row
+  .col-md-4.pull-right
+    %table.table.table-bordered
+      %tr.grand-total
+        %th.text-right Job total
+        %td.text-right= number_to_currency(@job.cost)

@@ -26,6 +26,8 @@ class Job < ActiveRecord::Base
     state :completed
   end
 
+  default_scope { order(created_at: :desc).without_status(:temporary) }
+
   def self.create_temporary(params)
     job = build_temporary(params)
     unless job.valid?
@@ -61,6 +63,7 @@ class Job < ActiveRecord::Base
   def set_cost
     costs = tasks.map(&:cost)
     self.cost = costs.include?(nil) ? nil : costs.sum
+    self.cost = nil if self.cost == 0
   end
 
   def as_json(options = {})

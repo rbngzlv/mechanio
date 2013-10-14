@@ -1,0 +1,4 @@
+%tr
+  %td= part.name
+  %td.text-right.col-md-3 #{part.quantity} x #{number_to_currency(part.unit_cost)}
+  %td.text-right= number_to_currency(part.cost)

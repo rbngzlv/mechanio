@@ -40,4 +40,24 @@ feature 'Jobs page' do
       end
     end
   end
+
+  scenario 'edit job items', :js do
+    job = create :job, :with_service, :with_repair
+
+    visit edit_admin_job_path(job)
+
+    page.should have_css '.grand-total td', text: '$525.50'
+
+    within all('.item-forms')[0] do
+      click_on 'Add item'
+      click_on 'Part'
+      fill_in 'Part name', with: 'Brake disc'
+      fill_in 'Quantity', with: '1'
+      fill_in 'Cost', with: '56'
+      click_on 'Add'
+    end
+
+    page.all('form table')[0].all('tr')[2].text.should eq 'Brake disc 1 x $56.00 $56.00'
+    page.should have_css '.grand-total td', text: '$581.50'
+  end
 end

@@ -1,0 +1,10 @@
+%div.form-inline.pull-right{ 'ng-show' => "adding_part_#{task.id}" }
+  = t.simple_fields_for :task_items, TaskItem.new do |i|
+    = i.label 'Part'
+    = i.hidden_field :itemable_type, value: 'Part'
+    = i.simple_fields_for :itemable, Part.new, defaults: { label: false } do |a|
+      = a.input :name, placeholder: 'Part name', input_html: { style: 'width: 296px' }
+      = a.input :quantity, placeholder: 'Quantity', input_html: { style: 'width: 95px' }
+      = a.input :unit_cost, placeholder: 'Cost', as: :string, input_html: { style: 'width: 90px' }
+    = i.submit 'Add', class: 'btn btn-primary btn-sm'
+    %a.btn.btn-danger.btn-sm{ href: '', 'ng-click' => "adding_part_#{task.id} = false" } Cancel

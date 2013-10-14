@@ -1,0 +1,9 @@
+%div.form-inline.pull-right{ 'ng-show' => "adding_labour_#{task.id}" }
+  = t.simple_fields_for :task_items, TaskItem.new do |i|
+    = i.label 'Labour'
+    = i.hidden_field :itemable_type, value: 'Labour'
+    = i.simple_fields_for :itemable, Labour.new, defaults: { label: false } do |a|
+      = a.input :description, placeholder: 'Description', as: :string, input_html: { style: 'width: 350px' }
+      = a.input :duration, placeholder: 'Duration HH:MM', as: :string, input_html: { style: 'width: 135px' }
+    = i.submit 'Add', class: 'btn btn-primary btn-sm'
+    %a.btn.btn-danger.btn-sm{ href: '', 'ng-click' => "adding_labour_#{task.id} = false" } Cancel

@@ -38,4 +38,16 @@ module ApplicationHelper
   def verify_icon(title, icon_type = nil, is_verified = nil, content = nil)
     content_tag(:i, content, class: "verified-icon #{icon_type} #{is_verified ? nil : 'disabled'}", 'data-original-title' => "#{title}").html_safe
   end
+
+  def job_status(status)
+    css = case status
+      when 'pending'    then 'warning'
+      when 'estimated'  then 'info'
+      when 'assigned'   then 'primary'
+      when 'completed'  then 'success'
+      when 'cancelled'  then 'default'
+    end
+
+    content_tag :span, status.humanize, class: "label label-#{css}"
+  end
 end

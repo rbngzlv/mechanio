@@ -1,0 +1,6 @@
+%tr
+  %td= labour.description
+  %td.text-right
+    %i.glyphicon.glyphicon-time
+    #{labour.display_duration} x #{number_to_currency(labour.hourly_rate)}
+  %td.text-right= number_to_currency(labour.cost)
