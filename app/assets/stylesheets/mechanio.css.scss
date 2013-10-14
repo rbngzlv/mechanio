@@ -808,14 +808,12 @@ table.table {
   }
 }
 
+.table-borderless td {
+  border: none !important;
+}
+
 form {
   font-size: 13px;
-
-  table.table {
-    td {
-      border: none;
-    }
-  }
 
   input.input-width {
     width: 206px;
