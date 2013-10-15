@@ -1,0 +1,29 @@
+.panel.panel-default.panel-rounded
+  .panel-heading
+    %h4.panel-title
+      %span.text-info Estimate Requested:
+      %small
+        = job.date.to_s(:date)
+  #js-collapse-one.panel-collapse.collapse.in
+    .panel-body
+      %table.table.without-border
+        %tr
+          %td
+            %b Car
+          %td
+            = job.car.display_title
+        %tr.tr-divider
+          - job.tasks.each do |task|
+            %td
+              %b #{ task.type }:
+            %td{colspan: '2'}
+              = task.title
+            %td #{ number_to_currency task.cost }
+        %tr
+          %td{colspan: '2'}
+            %b Billing
+          %td
+            %b Total Fees
+          %td
+            %b= number_to_currency job.cost
+      = link_to 'Book Appointments', '#', class: 'btn btn-success pull-right' if job.estimated?

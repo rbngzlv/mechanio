@@ -13,7 +13,7 @@
   .col-md-5
     %p
       %i.glyphicon.glyphicon-time
-      = job.date.strftime("%I : %M %p %b %d, %Y (%A)")
+      = job.date.to_s(:date_time)
     %p
       %i.glyphicon.glyphicon-map-marker
       = job.location.full_address
