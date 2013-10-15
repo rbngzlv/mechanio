@@ -15,7 +15,7 @@ FactoryGirl.define do
 
   factory :labour do
     description 'Replace break pads'
-    duration 90
-    hourly_rate 45.0
+    duration_hours 2
+    duration_minutes 30
   end
 end

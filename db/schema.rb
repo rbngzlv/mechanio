@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131010145320) do
+ActiveRecord::Schema.define(version: 20131015094133) do
 
   create_table "admins", force: true do |t|
     t.string   "email"
@@ -75,13 +75,14 @@ ActiveRecord::Schema.define(version: 20131010145320) do
 
   create_table "labours", force: true do |t|
     t.text     "description"
-    t.integer  "duration"
-    t.decimal  "hourly_rate", precision: 8, scale: 2
-    t.decimal  "cost",        precision: 8, scale: 2
-    t.decimal  "tax",         precision: 8, scale: 2
-    t.decimal  "total",       precision: 8, scale: 2
+    t.integer  "duration_hours"
+    t.decimal  "hourly_rate",      precision: 8, scale: 2
+    t.decimal  "cost",             precision: 8, scale: 2
+    t.decimal  "tax",              precision: 8, scale: 2
+    t.decimal  "total",            precision: 8, scale: 2
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "duration_minutes"
   end
 
   create_table "locations", force: true do |t|
