@@ -16,12 +16,14 @@
           - job.tasks.each do |task|
             %td
               %b #{ task.type }:
-            %td{colspan: '2'}
+            %td
               = task.title
+            %td
             %td #{ number_to_currency task.cost }
         %tr
-          %td{colspan: '2'}
+          %td
             %b Billing
+          %td
           %td
             %b Total Fees
           %td

@@ -182,6 +182,20 @@ i.verified-icon {
   }
 }
 
+.social-btn {
+  display: inline-block;
+  width: 210px;
+  height: 34px;
+}
+
+.facebook-btn {
+  background: asset-url('facebook-btn.jpg');
+}
+
+.gmail-btn {
+  background: asset-url('gmail-btn.jpg');
+}
+
 .black {
   color: #000;
 }
@@ -505,6 +519,10 @@ section {
   img + .reviews-row {
     padding-top: 10px;
   }
+}
+
+.contact-us {
+  font-size: 15px;
 }
 
 .reviews-row {

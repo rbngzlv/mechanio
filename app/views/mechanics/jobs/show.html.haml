@@ -14,14 +14,16 @@
           %tr
             %td
               %b Car:
-            %td{colspan: '2'}
+            %td
               = @job.car.display_title
+            %td
           %tr.tr-divider
             - @job.tasks.each do |task|
               %td
                 %b #{ task.type }:
-              %td{colspan: '2'}
+              %td
                 = task.title
+              %td
           %tr.tr-divider.big
             %td
               Billing:
@@ -32,13 +34,15 @@
           %tr
             %td
               Location
-            %td{colspan: '2'}
+            %td
               = @job.location.full_address
+            %td
           %tr.tr-divider
             %td
               Contact
-            %td{colspan: '2'}
+            %td
               = @job.contact_phone
+            %td
         .clearfix
           =link_to 'Cancel Job', '#js-modal', class: 'btn btn-info pull-left', :data => {:toggle => 'modal'}, :role => 'button'
           =link_to 'Edit Job', '#', class: 'btn btn-info pull-left'
