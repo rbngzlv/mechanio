@@ -28,10 +28,11 @@ module ApplicationHelper
     css = []
     css << options[:li_class].to_s if options[:li_class]
     css << 'active' if current_page?(path) || options[:active]
+    badge = options[:badge] ? content_tag(:span, options[:badge], class: 'badge badge-important') : nil
     content_tag(:li, class: css.join(' ')) do
       i = content_tag(:i, '', class: "glyphicon glyphicon-#{options[:icon]}")
       span = content_tag(:span, i, class: 'img-circle')
-      link_to(span + title, path)
+      link_to(span + title + badge, path)
     end.html_safe
   end
 

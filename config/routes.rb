@@ -16,6 +16,7 @@ Mechanio::Application.routes.draw do
 
   namespace :users do
     get 'dashboard', to: 'dashboard#index'
+    get 'estimates', to: 'estimates#index'
 
     resources :jobs, only: [:show, :create]
     resource :profile, only: [:show, :edit, :update]

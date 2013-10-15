@@ -2,6 +2,8 @@
 %html
   = render 'layouts/head'
   %body
-    = render 'shared/header'
-    = render 'shared/flash_messages'
-    = yield
+    .wrap
+      = render 'shared/header'
+      = render 'shared/flash_messages'
+      = yield
+    = render 'shared/footer'
