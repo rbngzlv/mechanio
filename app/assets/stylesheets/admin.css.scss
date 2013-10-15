@@ -1,5 +1,43 @@
 .admin {
   .item-forms {
     margin-bottom: 20px;
+
+    .form-inline {
+      float: right;
+    }
+
+    .fixed-amount-form {
+      .form-group:nth-child(3) .form-control {
+        width: 350px;
+      }
+
+      .form-group:nth-child(4) .form-control {
+        width: 90px;
+      }
+    }
+
+    .labour-form {
+      .form-group:nth-child(3) .form-control {
+        width: 350px;
+      }
+
+      .form-group select {
+        width: 70px;
+      }
+    }
+
+    .part-form {
+      .form-group:nth-child(3) .form-control {
+        width: 350px;
+      }
+
+      .form-group:nth-child(4) .form-control {
+        width: 95px;
+      }
+
+      .form-group:nth-child(5) .form-control {
+        width: 90px;
+      }
+    }
   }
 }
