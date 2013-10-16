@@ -14,14 +14,20 @@
     = link_to @job.mechanic.full_name, [:admin, @job.mechanic]
 
 %hr
-%h4 Job and Labour
 
 = simple_form_for [:admin, @job] do |f|
-  = render partial: 'task', collection: @job.tasks, as: :task, locals: { f: f }
 
-.row
-  .col-md-4.pull-right
-    %table.table.table-bordered
-      %tr.grand-total
-        %th.text-right Job total
-        %td.text-right= number_to_currency(@job.cost)
+  .task-form.pull-right
+    = render partial: 'task_form', locals: { f: f }
+
+  %h4 Job and Labour
+
+  .tasks
+    = render partial: 'task', collection: @job.tasks, as: :task, locals: { f: f }
+
+  .row.totals
+    .col-md-4.pull-right
+      %table.table.table-bordered
+        %tr.grand-total
+          %th Job total
+          %td= @job.cost ? number_to_currency(@job.cost) : 'pending'

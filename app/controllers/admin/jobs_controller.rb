@@ -7,6 +7,7 @@ class Admin::JobsController < Admin::ApplicationController
   end
 
   def edit
+    @service_plans = @job.car.service_plans
   end
 
   def update

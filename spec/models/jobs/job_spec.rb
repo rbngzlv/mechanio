@@ -49,6 +49,11 @@ describe Job do
     job_with_service.title.should eq job_with_service.tasks.first.title
   end
 
+  it 'determines if there is a service task' do
+    job_with_service.has_service?.should be_true
+    job.has_service?.should be_false
+  end
+
   def attrs
     @attrs ||= attributes_for(:job).merge({
       location_attributes: attributes_for(:location, state_id: create(:state).id),

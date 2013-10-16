@@ -11,6 +11,8 @@ class Car < ActiveRecord::Base
 
   attr_accessor :skip_user_validation
 
+  delegate :service_plans, to: :model_variation
+
   def set_display_title
     self.display_title = "#{year} #{model_variation.display_title}"
   end

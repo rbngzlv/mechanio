@@ -1,0 +1,13 @@
+.btn-group.pull-right{ 'ng-hide' => 'adding_service || adding_repair' }
+  %button.btn.btn-primary.btn-sm.dropdown-toggle{ 'data-toggle' => 'dropdown', type: 'button' }
+    Add task
+    %span.caret
+  %ul.dropdown-menu{ role: 'menu' }
+    - unless @job.has_service?
+      %li
+        %a{ href: '', 'ng-click' => "adding_service = true" } Service
+    %li
+      %a{ href: '', 'ng-click' => "adding_repair = true" } Repair
+
+= render 'admin/jobs/task_forms/service', f: f
+= render 'admin/jobs/task_forms/repair', f: f

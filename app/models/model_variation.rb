@@ -6,6 +6,7 @@ class ModelVariation < ActiveRecord::Base
   belongs_to :make
   belongs_to :model
   belongs_to :body_type
+  has_many :service_plans
 
   validates :title, :identifier, :make_id, :model_id, :body_type_id, :from_year, :to_year, :transmission, :fuel, presence: true
   validates :from_year, :to_year, year: true

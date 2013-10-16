@@ -1,42 +1,64 @@
 .admin {
-  .item-forms {
-    margin-bottom: 20px;
-
-    .form-inline {
-      float: right;
-    }
-
-    .fixed-amount-form {
-      .form-group:nth-child(3) .form-control {
-        width: 350px;
+  .edit_job {
+    .totals {
+      th, td {
+        text-align: right;
       }
 
-      .form-group:nth-child(4) .form-control {
-        width: 90px;
+      td {
+        width: 150px;
       }
     }
 
-    .labour-form {
-      .form-group:nth-child(3) .form-control {
-        width: 350px;
-      }
+    .task-form {
+      margin-bottom: 20px;
+    }
 
-      .form-group select {
-        width: 70px;
+    .service-form, .repair-form {
+      .form-group input {
+        width: 300px;
       }
     }
 
-    .part-form {
-      .form-group:nth-child(3) .form-control {
-        width: 350px;
+    .item-forms {
+      margin-bottom: 20px;
+
+      .form-inline {
+        float: right;
       }
 
-      .form-group:nth-child(4) .form-control {
-        width: 95px;
+      .fixed-amount-form {
+        .form-group:nth-child(3) .form-control {
+          width: 350px;
+        }
+
+        .form-group:nth-child(4) .form-control {
+          width: 90px;
+        }
       }
 
-      .form-group:nth-child(5) .form-control {
-        width: 90px;
+      .labour-form {
+        .form-group:nth-child(3) .form-control {
+          width: 350px;
+        }
+
+        .form-group select {
+          width: 70px;
+        }
+      }
+
+      .part-form {
+        .form-group:nth-child(3) .form-control {
+          width: 350px;
+        }
+
+        .form-group:nth-child(4) .form-control {
+          width: 95px;
+        }
+
+        .form-group:nth-child(5) .form-control {
+          width: 90px;
+        }
       }
     }
   }

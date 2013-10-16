@@ -8,6 +8,8 @@ class Task < ActiveRecord::Base
   default_scope { order(:created_at) }
 
   def set_cost
-    self.cost = task_items.map(&:cost).sum
+    costs = task_items.map(&:cost)
+    self.cost = costs.include?(nil) ? nil : costs.sum
+    self.cost = nil if self.cost == 0
   end
 end

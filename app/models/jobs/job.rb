@@ -6,7 +6,8 @@ class Job < ActiveRecord::Base
   belongs_to :location
   has_many :tasks, inverse_of: :job
 
-  accepts_nested_attributes_for :car, :location, :tasks
+  accepts_nested_attributes_for :car, :location
+  accepts_nested_attributes_for :tasks, reject_if: proc { |attrs| attrs.all? { |k, v| k == 'type' || v.blank? } }
 
   serialize :serialized_params
 
@@ -67,6 +68,10 @@ class Job < ActiveRecord::Base
       car_attributes:       [:year, :model_variation_id],
       tasks_attributes:     [:type, :service_plan_id, :note]
     )
+  end
+
+  def has_service?
+    tasks.any? { |t| t.is_a?(Service) }
   end
 
   def assign_car_to_user
