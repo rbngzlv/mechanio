@@ -3,6 +3,8 @@
     %ul
       %h4.hx-default Mechanic Pages
       %li
+        = link_to 'Mechanic Dashboard', '../mechanics/'
+      %li
         = link_to 'Profile', 'profile.html'
       %li
         = link_to 'Edit Mechanic Profile', '../mechanics/profile/edit'
@@ -27,6 +29,8 @@
       %li
         = link_to 'User Estimates', 'user_estimates.html'
       %li
+        = link_to 'User Cars', 'user_cars.html'
+      %li
         User profile as mechanic
       %li
         = link_to 'Edit User Profile', '../users/profile/edit'
@@ -35,11 +39,20 @@
       %h4.hx-default Basic Pages
       %li
         = link_to 'Search result', 'search_result.html'
+      %li
+        Car Details
+        = link_to '(step 1)', 'car_details_1.html'
+        = link_to '(step 2.1)', 'car_details_2.html'
+        = link_to '(step 2.2)', 'car_details_21.html'
+        = link_to '(step 3)', 'car_details_3.html'
       %h4.hx-default Static Pages
+      %li
+        = link_to 'Home Page', 'home_page.html'
       %li
         = link_to 'About us', 'about_us.html'
       %li
         = link_to 'FAQ', 'faq.html'
       %li
         = link_to 'Blog', 'blog.html'
-
+      %li
+        = link_to 'Contact us', 'contact_us.html'

@@ -8,8 +8,8 @@
       = job.car.display_title
     %p
       - job.tasks.each do |task|
-        %b Services:
-        = task.service_plan.display_title
+        %b #{ task.type }:
+        = task.title
   .col-md-5
     %p
       %i.glyphicon.glyphicon-time
