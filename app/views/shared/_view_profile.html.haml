@@ -1,0 +1,14 @@
+.row
+  .col-md-12
+    .panel.panel-default.panel-rounded
+      .panel-heading.clearfix
+        %h4.panel-title
+          %i.glyphicon.glyphicon-user
+          = profile.full_name
+      .panel-body.modal-body
+        .row
+          = render 'shared/profile_description', profile: profile
+        .row
+          .review-block
+            .panel-body
+              = render('shared/comments', title: title, comments: profile.comments) if title

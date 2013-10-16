@@ -3,7 +3,7 @@
     %h4.panel-title
       %span.text-info Estimate Requested:
       %small
-        = job.date.to_s(:date)
+        = job.created_at.to_s(:date)
   #js-collapse-one.panel-collapse.collapse.in
     .panel-body
       %table.table.without-border
@@ -28,4 +28,4 @@
             %b Total Fees
           %td
             %b= number_to_currency job.cost
-      = link_to 'Book Appointments', '#', class: 'btn btn-success pull-right' if job.estimated?
+      = link_to 'Book Appointments', edit_users_job_mechanic_path(job), class: 'btn btn-success pull-right' if job.estimated?

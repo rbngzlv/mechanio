@@ -7,6 +7,8 @@ feature 'navigation in header' do
     within 'header' do
       click_link 'My Estimates'
       current_path.should be_eql users_estimates_path
+      click_link 'My Appointments'
+      current_path.should be_eql users_appointments_path
       click_link 'My Profile'
       current_path.should be_eql users_profile_path
       click_link 'Dashboard'

@@ -2,7 +2,7 @@ require 'spec_helper'
 
 feature 'dashboard page' do
   let(:mechanic) { create :mechanic }
-  let!(:job) { create :job_with_service, mechanic: mechanic, status: 'assigned' }
+  let!(:job) { create :assigned_job, mechanic: mechanic }
 
   subject { page }
 
@@ -22,6 +22,7 @@ feature 'dashboard page' do
     within '.panel' do
       should have_link 'Back to My jobs'
       should have_content 'Appointment'
+      should have_content job.date.to_s(:date)
       should have_content job.car.display_title
       job.tasks.each do |task|
         should have_content task.type

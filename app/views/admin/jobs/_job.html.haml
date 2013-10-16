@@ -4,6 +4,6 @@
   %td= job.created_at.to_s(:db)
   %td= job.user.full_name if job.user
   %td= job.mechanic ? job.mechanic.full_name : 'unassigned'
-  %td= job.date.to_s(:db)
+  %td= job.date.to_s(:db) if job.date
   %td= job.cost || 'pending'
   %td= link_to 'Edit', edit_admin_job_path(job)

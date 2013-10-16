@@ -45,13 +45,13 @@ class Job < ActiveRecord::Base
     job
   end
 
-  def assign_car_to_user
-    car.user_id = user_id if car && user_id
+  def set_status_assigned
+    self.status = 'assigned'
+    save
   end
 
-  def date
-    # TODO: It must return collection of time and date for event
-    job_date ||= Time.now()
+  def assign_car_to_user
+    car.user_id = user_id if car && user_id
   end
 
   def set_title
