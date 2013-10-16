@@ -17,11 +17,10 @@ Mechanio::Application.routes.draw do
   namespace :users do
     get 'dashboard', to: 'dashboard#index'
     get 'estimates', to: 'estimates#index'
-    get 'appointments', to: 'appointments#index'
 
-    resources :jobs, only: [:show, :create] do
-      resource :mechanic, only: [:edit, :update]
-    end
+    resources :jobs, only: [:show, :create]
+    resources :appointments, only: [:index, :edit, :update]
+
     resource :profile, only: [:show, :edit, :update]
   end
   get '/service', to: 'users/jobs#new'

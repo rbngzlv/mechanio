@@ -14,8 +14,8 @@
 
       .row
         %legend Select Arrival Time
-        = simple_form_for @job, url: users_job_mechanic_path, html: { class: 'choose_mechanic_form' }, wrapper: :nolabel do |f|
-          = f.input :date, :minute_step => 30
+        = simple_form_for @job, url: users_appointment_path, html: { class: 'choose_mechanic_form' }, wrapper: :nolabel do |f|
+          = f.input :scheduled_at, :minute_step => 30
           = f.input :mechanic_id, :as => :hidden, :input_html => { :value => mechanic.id }
           = f.submit 'Assigned', class: 'btn btn-info'
     = render 'shared/mechanic_description_popup', mechanic: mechanic

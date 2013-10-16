@@ -22,7 +22,7 @@ feature 'dashboard page' do
     within '.panel' do
       should have_link 'Back to My jobs'
       should have_content 'Appointment'
-      should have_content job.date.to_s(:date)
+      should have_content job.scheduled_at.to_s(:date)
       should have_content job.car.display_title
       job.tasks.each do |task|
         should have_content task.type

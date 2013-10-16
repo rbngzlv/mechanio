@@ -9,11 +9,11 @@
     %p
       - job.tasks.each do |task|
         %b Services:
-        = task.title
+        = task.service_plan.display_title
   .col-md-5
     %p
       %i.glyphicon.glyphicon-time
-      = job.date.to_s(:date_time)
+      = job.scheduled_at.to_s(:date_time)
     %p
       %i.glyphicon.glyphicon-map-marker
       = job.location.full_address

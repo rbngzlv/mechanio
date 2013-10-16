@@ -33,7 +33,7 @@ feature 'Jobs page' do
 
         within 'tr:nth-child(2)' do
           should have_content job2.mechanic.full_name
-          should have_content job2.date.to_s(:db)
+          should have_content job2.scheduled_at.to_s(:db)
           should have_content 'assigned'
           should have_link "Edit"
         end

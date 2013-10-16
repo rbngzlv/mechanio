@@ -17,7 +17,7 @@ FactoryGirl.define do
     trait :with_mechanic do
       mechanic
       status 'assigned'
-      date DateTime.now
+      scheduled_at { DateTime.now }
     end
 
     factory :assigned_job, traits: [:with_service, :with_mechanic]

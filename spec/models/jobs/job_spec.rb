@@ -20,7 +20,7 @@ describe Job do
   it { should validate_presence_of :contact_email }
   it { should validate_presence_of :contact_phone }
 
-  it '#create_temporary' do
+  it '.create_temporary' do
     job = build :job, user: nil, car: nil
     params = job.attributes
     params[:tasks_attributes] = [build(:service).attributes]
@@ -29,6 +29,25 @@ describe Job do
     job = Job.create_temporary(params)
     job.reload.serialized_params.should eq params
     job.status.should eq 'temporary'
+  end
+
+  describe '#assign_mechanic' do
+    let(:mechanic) { create :mechanic }
+
+    it 'return true' do
+      job_with_service.assign_mechanic(mechanic_id: mechanic.id, scheduled_at: DateTime.now).should be_true
+    end
+
+    context 'return false' do
+      it { job_with_service.assign_mechanic(scheduled_at: DateTime.now).should be_false }
+      it { job_with_service.assign_mechanic(mechanic_id: mechanic.id).should be_false }
+    end
+
+    it 'throw exception' do
+      expect do
+        job_with_service.assign_mechanic mechanic_id: 10000, scheduled_at: DateTime.now
+      end.to raise_error
+    end
   end
 
   it 'builds task association with correct STI subclass' do

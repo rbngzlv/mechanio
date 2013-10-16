@@ -45,9 +45,17 @@ class Job < ActiveRecord::Base
     job
   end
 
-  def set_status_assigned
-    self.status = 'assigned'
-    save
+  def self.estimated
+    with_status 'estimated'
+  end
+
+  def assign_mechanic(params)
+    return false unless params[:mechanic_id] && params[:scheduled_at]
+
+    Mechanic.find(params[:mechanic_id])
+    params[:status] = :assigned
+    params[:assigned_at] = DateTime.now
+    update_attributes params
   end
 
   def assign_car_to_user

@@ -24,7 +24,7 @@ feature 'dashboard page' do
       within '.col-md-9 > .row:nth-child(2)' do
         should have_selector '.panel-title', text: 'Upcoming Jobs'
         should have_content "#{job.user.full_name}"
-        should have_content "#{job.date.to_s(:date_time)}"
+        should have_content "#{job.scheduled_at.to_s(:date_time)}"
       end
     end
 
@@ -34,7 +34,7 @@ feature 'dashboard page' do
       within '.col-md-9 > .row:nth-child(3)' do
         should have_selector '.panel-title', text: 'Completed Jobs'
         should have_content "#{job.user.full_name}"
-        should have_content "#{job.date.to_s(:date_time)}"
+        should have_content "#{job.scheduled_at.to_s(:date_time)}"
       end
     end
   end

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature 'choose mechanic page' do
+feature 'appointment page' do
   let(:user) { create :user }
   let!(:job) { create :job_with_service, status: 'estimated', user: user }
 
@@ -13,14 +13,14 @@ feature 'choose mechanic page' do
   specify 'navigation' do
     visit users_estimates_path
     click_link 'Book Appointments'
-    current_path.should be_eql edit_users_job_mechanic_path(job)
+    current_path.should be_eql edit_users_appointment_path(job)
   end
 
   context 'process' do
     let!(:mechanic) { create :mechanic }
 
     scenario 'check content', :js do
-      visit edit_users_job_mechanic_path(job)
+      visit edit_users_appointment_path(job)
       another_mechanic = create :mechanic, email: 'another@email.com'
       should have_content mechanic.full_name
       should have_content another_mechanic.full_name
@@ -29,9 +29,9 @@ feature 'choose mechanic page' do
     end
 
     scenario 'success' do
-      visit edit_users_job_mechanic_path(job)
+      visit edit_users_appointment_path(job)
       day = DateTime.now.tomorrow.day
-      select day, from: 'job_date_3i'
+      select day, from: 'job_scheduled_at_3i'
       click_button 'Assigned'
       should have_selector 'li.active', text: 'My Appointments'
       should have_content 'Mechanic succesfully assigned.'
@@ -39,7 +39,8 @@ feature 'choose mechanic page' do
       # TODO: replace it by real integration test which tested same fields but through visible element. after adding
       job.reload
       job.mechanic.should == mechanic
-      job.date.day.should == day
+      job.scheduled_at.day.should == day
+      job.assigned_at.day.should == day - 1
       job.assigned?.should be_true
     end
 
