@@ -1,0 +1,50 @@
+.col-md-8.contact-us
+  .panel.panel-default.panel-rounded
+    .panel-body.text-center
+      %h5 Join the Mechanio Movement
+      .row
+        .col-md-6
+          = link_to '', '#', class: 'social-btn facebook-btn pull-right'
+        .col-md-6
+          = link_to '', '#', class: 'social-btn gmail-btn pull-left'
+      %br
+      %h3.to-upper.black Contact Us
+      %p
+        Got Questions, Comments or enquiries about Mechanio? 
+        %br
+        We'd love to hear from you! 
+        %br
+        =link_to 'info@mechanio.com ', '#'
+      %br
+      %p
+        %b Press Enquiries
+        %br
+        = link_to 'media@mechanio.com ', '#'
+      %br
+      %p
+        %b Mobile Mechanics Interested in joining our fleet?
+        %br
+        = link_to 'jobs@mechanio.com', '#'
+.col-md-4
+  .panel.panel-default.panel-rounded
+    .panel-body
+      %h4.hx-default 
+        Follow us
+        .pull-right.header-social
+          = link_to '#' do
+            %i.icon-facebook-sign
+          = link_to '#' do
+            %i.icon-twitter-sign
+          = link_to '#' do
+            %i.icon-google-plus-sign
+      .panel.nested-panel
+        Facebook Like Box will come here
+      %form
+        .row
+          .col-md-8.vertical-align
+            %input.form-control{placeholder: 'Email Address'}
+          .col-md-4
+            %button.btn.btn-default Subscribe
+  .panel.panel-default.panel-rounded
+    .panel-body
+      %iframe{width: '100%', scrolling: 'no', height: '200', frameborder: '0', src: 'https://maps.google.co.in/maps?f=q&source=s_q&hl=en&geocode=&q=sydney,+australia&aq=&sll=20.98352,82.752628&sspn=43.463205,86.572266&ie=UTF8&hq=&hnear=Sydney+New+South+Wales,+Australia&ll=-33.867487,151.20699&spn=0.154277,0.338173&t=m&z=12&iwloc=A&output=embed', marginwidth: '0', marginheight: '0'}
