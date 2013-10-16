@@ -1,0 +1,492 @@
+:javascript
+  $(function() {
+    $.mbBgndGallery.buildGallery({
+      containment: '#js-home-gallery',
+      timer:4000,
+      effTimer:5000,
+      grayScale:false,
+      effect: "zoom", 
+      images:[
+       "#{asset_url "1.jpg"}",
+       "#{asset_url "2.jpg"}"
+       ]
+    });
+  });
+#js-home-gallery.home-gallery
+.banner
+  .container
+    .col-md-12.text-center
+      %h1 Mechanics That Comes To You
+      %h5 Book professional mobile mechanics to service or repair your car at your conveniene
+      .col-md-6.col-md-offset-3
+      = link_to 'Car Needs Servicing', '#', class: 'btn btn-primary col-md-3 col-md-offset-3'
+      = link_to 'Fix Your Car Problem', '#', class: 'btn btn-primary col-md-3'
+.home-page-wrapper
+  .mechanio-video.bg-white
+    .container
+      .row
+        .col-md-9
+          %p.to-upper.text-right.black
+            Watch how Mechanio will change the way you service your car forever!
+        .col-md-3
+          = link_to '#' do
+            = image_tag(asset_url('video-img.jpg'))
+  .how-it-works.bg-blue
+    .container
+      %h1.text-center.to-upper.black How It Works
+      %h3.text-center.to-upper
+        Get your car serviced or repaired from your home or office in
+        %b 3
+        easy steps!
+      .col-md-4.text-center
+        .img-circle
+          1
+        %h4.to-upper.black Request a quote
+        %p.to-upper
+          Tell us your car details and what you need done. We give you a
+          quote with the breakdown of your work, time, parts costs and labour
+          fees. No mark-ups and no unwanted surprises!
+      .col-md-4.text-center
+        .img-circle
+          2
+        %h4.to-upper.black Pick your mechanic
+        %p.to-upper
+          Find the mechanic you like best: We screen our mechanics
+          rigourously so we can give you the most experienced and qualified
+          service providers. Our mechanics show reviews and feedback from past
+          clients.
+      .col-md-4.text-center
+        .img-circle
+          3
+        %h4.to-upper.black We come to you
+        %p.to-upper
+          Enjoy the convenience of not having to wait at a garage while
+          your mechanic completes his job. Have your car on the road again –
+          stress free without any hassle.
+  .responsive-view.bg-white
+    .container.text-center
+      = image_tag(asset_url('mac-screen.png'), class: 'img-responsive', alt: 'Responsive Website')
+      %p.to-upper Sign up today and receive $10 off!
+  .sign-up-wrap
+    .container
+      .row.text-center
+        %p.col-md-7
+          The most convenient and transparent way to 
+          %br
+          book for a mobile mechanic has arrived.
+          %br
+          %span.big Join Now
+        .col-md-5.sign-up-block
+          .col-md-10
+            %input.clearfix.col-md-12{placeholder: "youremail@address.com", type: "text"}
+          %button.btn.btn-primary.col-md-2{type: "submit"} SIGN UP
+  .home-page-reviews.bg-white
+    .container.review-block
+      .panel-body
+        %ul.chat
+          %li.clearfix
+            .col-md-1.avatar
+              = image_tag(asset_url("avatar1.jpg"), class: 'img-circle')
+            .col-md-11.panel.nested-panel.with-arrow.commentary-block
+              #js-carousel-1.carousel.slide
+                .carousel-inner
+                  .item.active
+                    = link_to 'Mosaddek', '#'
+                    %span.datetime at Apr 14, 2013
+                    %p.commentary
+                      Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. dolore magna aliquam erat volutpat. dolore magna aliquam erat volutpat.
+                  .item
+                    = link_to 'John', '#'
+                    %span.datetime , BMW, 4th August 2013
+                    %p.commentary
+                      It was our first time using Mechanio, and I was so impressed by the service we received. Our mechanic was helpful and professional and arrived well on time. Thanks!
+                = link_to '‹', '#js-carousel-1', class: 'left carousel-control', data: {slide: 'prev'}
+                = link_to '›', '#js-carousel-1', class: 'right carousel-control', data: {slide: 'next'}
+  .marketing.bg-blue
+    #js-carousel-2.carousel.slide
+      .carousel-inner
+        .item
+          %ul.suburb-list.padd20
+            %li Alexandria
+            %li Arncliffe
+            %li Arndell Park
+            %li Artarmon
+            %li Ashbury
+            %li Ashfield
+            %li Auburn
+            %li Balmain
+            %li Banksia
+            %li Banksmeadow
+            %li Bankstown
+            %li Bardwell Park
+            %li Bardwell Valley
+            %li Bass Hill
+            %li Baulkham Hills
+            %li Beaconsfield
+            %li Beecroft
+            %li Belfield
+            %li Bella Vista
+            %li Bellevue Hill
+            %li Belmore
+            %li Belrose
+            %li Berala
+            %li Beverly Hills
+            %li Bexley
+            %li Bexley North
+            %li Birrong
+            %li Blacktown
+            %li Blakehurst
+            %li Bondi
+            %li Bondi Beach
+            %li Bondi Junction
+            %li Bonnyrigg
+            %li Botany
+            %li Breakfast Point
+            %li Brighton-Le-Sands
+            %li Bronte
+            %li Burwood
+            %li Burwood Heights
+            %li Cabarita
+            %li Cabramatta
+            %li Camellia
+            %li Cammeray
+            %li Campbelltown
+            %li Camperdown
+            %li Campsie
+            %li Canada Bay
+            %li Canley Vale
+            %li Canterbury
+            %li Caringbah
+            %li Carlingford
+            %li Carlton
+            %li Castle Cove
+            %li Castle Hill
+            %li Castlecrag
+            %li Castlereagh
+            %li Casula
+            %li Centennial Park
+            %li Chatswood
+            %li Chatswood West
+            %li Chester Hill
+            %li Chippendale
+            %li Chipping Norton
+            %li Chiswick
+            %li Chullora
+            %li Clemton Park
+            %li Clovelly
+            %li Clyde
+            %li Concord
+            %li Concord West
+            %li Condell Park
+            %li Coogee
+            %li Cremorne
+            %li Cronulla
+            %li Crows Nest
+        .item
+          %ul.suburb-list.padd20
+            %li Croydon
+            %li Croydon Park
+            %li Darlinghurst
+            %li Darlington
+            %li Dee Why
+            %li Denistone
+            %li Double Bay
+            %li Dover Heights
+            %li Drummoyne
+            %li Dulwich Hill
+            %li Dundas
+            %li Dural
+            %li Earlwood
+            %li East Hills
+            %li Eastgardens
+            %li Eastlakes
+            %li Eastwood
+            %li Edgecliff
+            %li Elizabeth Bay
+            %li Enfield
+            %li Enmore
+            %li Epping
+            %li Ermington
+            %li Erskine Park
+            %li Erskineville
+            %li Eveleigh
+            %li Fairfield
+            %li Fairlight
+            %li Five Dock
+            %li Forest Lodge
+            %li Forestville
+            %li Frenchs Forest
+            %li Georges Hall
+            %li Girraween
+            %li Gladesville
+            %li Glebe
+            %li Glendenning
+            %li Glenfield
+            %li Glenhaven
+            %li Glenwood
+            %li Gordon
+            %li Granville
+            %li Green Valley
+            %li Greenacre
+            %li Greenfield Park
+            %li Greenwich
+            %li Greystanes
+            %li Guildford
+            %li Gymea
+            %li Gymea Bay
+            %li Haberfield
+            %li Harris Park
+            %li Haymarket
+            %li Holroyd
+            %li Homebush
+            %li Hoxton Park
+            %li Hunters Hill
+            %li Huntingwood
+            %li Huntleys Cove
+            %li Huntleys Point
+            %li Hurlstone Park
+            %li Hurstville
+            %li Illawong
+            %li Ingleburn
+            %li Jannali
+            %li Kareela
+            %li Kellyville
+            %li Kemps Creek
+            %li Kensington
+            %li Killara
+            %li Killarney Heights
+            %li Kings Langley
+            %li Kings Park
+            %li Kingsford
+            %li Kingsgrove
+        .item
+          %ul.suburb-list.padd20
+            %li Kingswood
+            %li Kirrawee
+            %li Kirribilli
+            %li Kogarah
+            %li Kogarah Bay
+            %li Kurraba Point
+            %li Kyeemagh
+            %li La Perouse
+            %li Lakemba
+            %li Lalor Park
+            %li Lane Cove
+            %li Lansdowne
+            %li Lansvale
+            %li Lavender Bay
+            %li Leichhardt
+            %li Lethbridge Park
+            %li Leumeah
+            %li Lewisham
+            %li Liberty Grove
+            %li Lidcombe
+            %li Lilyfield
+            %li Lindfield
+            %li Linley Point
+            %li Little Bay
+            %li Liverpool
+            %li Loftus
+            %li Long Point
+            %li Longueville
+            %li Luddenham
+            %li Lugarno
+            %li Lurnea
+            %li Macquarie Fields
+            %li Macquarie Park
+            %li Manly
+            %li Maroubra
+            %li Marrickville
+            %li Marsden Park
+            %li Marsfield
+            %li Mascot
+            %li Matraville
+            %li Mays Hill
+            %li McMahons Point
+            %li Meadowbank
+            %li Melrose Park
+            %li Menai
+            %li Merrylands
+            %li Millers Point
+            %li Milperra
+            %li Milsons Point
+            %li Minchinbury
+            %li Minto
+            %li Miranda
+            %li Mona Vale
+            %li Monterey
+            %li Moore Park
+            %li Moorebank
+            %li Mortdale
+            %li Mortlake
+            %li Mosman
+            %li Mount Druitt
+            %li Mount Kuring-Gai
+            %li Mount Lewis
+            %li Mount Pritchard
+            %li Mount Vernon
+            %li Naremburn
+            %li Narrabeen
+            %li Narraweena
+            %li Narwee
+            %li Nelson
+            %li Neutral Bay
+            %li Newington
+            %li Newport
+            %li Newtown
+            %li Normanhurst
+            %li North Rocks
+        .item
+          %ul.suburb-list.padd20
+            %li North Ryde
+            %li North Sydney
+            %li Northbridge
+            %li Northmead
+            %li Northwood
+            %li Oatlands
+            %li Oatley
+            %li Old Guildford
+            %li Old Toongabbie
+            %li Orchard Hills
+            %li Oxley Park
+            %li Oyster Bay
+            %li Paddington
+            %li Padstow
+            %li Pagewood
+            %li Palm Beach
+            %li Panania
+            %li Parklea
+            %li Parramatta
+            %li Peakhurst
+            %li Pemulwuy
+            %li Pendle Hill
+            %li Pennant Hills
+            %li Penrith
+            %li Penshurst
+            %li Petersham
+            %li Phillip Bay
+            %li Picnic Point
+            %li Plumpton
+            %li Point Piper
+            %li Port Botany
+            %li Port Hacking
+            %li Potts Hill
+            %li Potts Point
+            %li Prairiewood
+            %li Prestons
+            %li Prospect
+            %li Punchbowl
+            %li Putney
+            %li Pymble
+            %li Pyrmont
+            %li Quakers Hill
+            %li Queens Park
+            %li Queenscliff
+            %li Ramsgate
+            %li Randwick
+            %li Redfern
+            %li Regents Park
+            %li Revesby
+            %li Rhodes
+            %li Richmond
+            %li Riverstone
+            %li Riverwood
+            %li Rockdale
+            %li Rodd Point
+            %li Rookwood
+            %li Rooty Hill
+            %li Rose Bay
+            %li Rosebery
+            %li Rosehill
+            %li Roselands
+            %li Roseville
+            %li Rossmore
+            %li Rouse Hill
+            %li Rozelle
+            %li Rushcutters Bay
+            %li Russell Lea
+            %li Rydalmere
+            %li Ryde
+            %li Sadleir
+            %li Sandringham
+            %li Sandy Point
+            %li Sans Souci
+            %li Schofields
+            %li Seaforth
+        .item.active
+          %ul.suburb-list.padd20
+            %li Sefton
+            %li Seven Hills
+            %li Shalvey
+            %li Silverwater
+            %li Smithfield
+            %li St Andrews
+            %li St Clair
+            %li St Ives
+            %li St Johns Park
+            %li St Leonards
+            %li St Marys
+            %li St Peters
+            %li Stanhope Gardens
+            %li Stanmore
+            %li Strathfield
+            %li Summer Hill
+            %li Surry Hills
+            %li Sutherland
+            %li Sydney
+            %li Sydenham
+            %li Sylvania
+            %li Tamarama
+            %li Taren Point
+            %li Telopea
+            %li Tempe
+            %li Tennyson Point
+            %li Toongabbie
+            %li Tregear
+            %li Turramurra
+            %li Turrella
+            %li Ultimo
+            %li Varroville
+            %li Vaucluse
+            %li Villawood
+            %li Wahroonga
+            %li Waitara
+            %li Wakeley
+            %li Wareemba
+            %li Warrawee
+            %li Warriewood
+            %li Warwick Farm
+            %li Waterloo
+            %li Watsons Bay
+            %li Wattle Grove
+            %li Waverley
+            %li Waverton
+            %li Wedderburn
+            %li Wentworth Point
+            %li Wentworthville
+            %li Werrington
+            %li West Ryde
+            %li Westleigh
+            %li Westmead
+            %li Wetherill Park
+            %li Whalan
+            %li Wheeler Heights
+            %li Wiley Park
+            %li Willmot
+            %li Willoughby
+            %li Windsor
+            %li Winston Hills
+            %li Wolli Creek
+            %li Wollstonecraft
+            %li Woodcroft
+            %li Woodpark
+            %li Woollahra
+            %li Woolloomooloo
+            %li Woolooware
+            %li Woolwich
+            %li Yagoona
+            %li Yennora
+            %li Yowie Bay
+            %li Zetland
+      = link_to '‹', '#js-carousel-2', class: 'left carousel-control', data: {slide: 'prev'}
+      = link_to '›', '#js-carousel-2', class: 'right carousel-control', data: {slide: 'next'}

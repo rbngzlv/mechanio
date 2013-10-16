@@ -28,35 +28,37 @@
           Settings
   .col-md-9
     %section
+      .row
+        .col-md-12
+          = link_to '#', class: 'btn btn-info pull-right bottom-margin' do
+            %i.icon-chevron-left
+            Back to My jobs
       .panel.panel-default.panel-rounded
         .panel-body
-          .row
-            .col-md-12
-              = link_to '#', class: 'btn btn-info pull-right' do
-                %i.icon-chevron-left
-                Back to My jobs
           .alert.alert-info
             %span.black Appointment on:
             February 7, 2013 (tomorrow) 1:00 PM
-
           %form{action: ''}
             %table.table.table-borderless
               %tr
                 %td
                   %b Car:
-                %td{colspan: '2'}
+                %td
                   2000 Toyota Corolla L4-1.8L
+                %td
               %tr.tr-divider
                 %td.form-line-height
                   %b VIN:
-                %td{colspan: '2'}
+                %td
                   %input.form-control.pull-left.input-width{type: "text"}
                   = link_to 'Add VIN', '#', class: 'btn pull-left btn-default'
+                %td
               %tr.tr-divider
                 %td
                   %b Services:
-                %td{colspan: '2'}
+                %td
                   Car is making a noice (inspection)
+                %td
               %tr
                 %td
                   Billing:
@@ -66,7 +68,10 @@
                       %td.text-right
                         Labor
                 %td.text-right.tr-divider
-                  $60.00
+                  %table.col-md-12.pull-right
+                    %tr.tr-divider
+                      %td.text-right
+                        $60.00
               %tr.tr-divider.big
                 %td
                 %td.text-right
@@ -76,13 +81,15 @@
               %tr.tr-divider
                 %td
                   Creditcard:
-                %td{colspan: '2'}
+                %td
                   visa**********6091 (Exp:07/2014)
+                %td
               %tr
                 %td
                   Location
-                %td{colspan: '2'}
+                %td
                   283 Alfred St North Sydney, 2060
+                %td
               %tr
                 %td
                   Notes
@@ -91,8 +98,9 @@
               %tr.tr-divider
                 %td
                   Contact
-                %td{colspan: '2'}
+                %td
                   0401 111 111
+                %td
             .clearfix
               =link_to 'Cancel Job', '#js-modal', class: 'btn btn-info pull-left', :data => {:toggle => 'modal'}, :role => 'button'
               =link_to 'Edit Job', '#', class: 'btn btn-info pull-left'

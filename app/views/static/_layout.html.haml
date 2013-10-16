@@ -1,24 +1,20 @@
-.container
-  .col-md-9.cornsilk
-    .panel.panel-default.panel-wizard.panel-rounded
-      .panel-body
-        = render partial: 'wizard_nav', locals: { current: current }
-        = render partial: "content#{current}", locals: { prev_button: prev_button }
-  .col-md-3.lightgreen
-    .panel.panel-default.panel-rounded
-      .panel-body
-        %h3.hx-default.panel-title YOU'VE ANSWERED
-        %hr.hr-dark-gray
-        .progress.progress-rounded
-          .progress-bar.progress-bar-gradinet(role="progressbar" aria-valuenow="#{percent}" aria-valuemin="0" aria-valuemax="100" style="width: #{percent}%;")
-            %span.sr-only #{percent}% Complete
-    .panel.panel-default.panel-rounded
-      .panel-body
-        %h3.hx-default.panel-title VEHICLE
-        %hr.hr-dark-gray
-        2010 Cadillac DTS L8 Cyl 4.6L
-    .panel.panel-default.panel-rounded
-      .panel-body
-        %h3.hx-default.panel-title CAR SERVICING
-        %hr.hr-dark-gray
-        30,000km servicing
+.col-md-9
+  .panel.panel-default.panel-wizard.panel-rounded
+    .panel-body
+      = render partial: 'wizard_nav', locals: { current: current }
+      = render partial: "content#{current}", locals: { prev_button: prev_button }
+%aside.col-md-3
+  .panel.panel-default.panel-rounded
+    .panel-body
+      %h5.hx-default YOU'VE ANSWERED
+      .progress.progress-rounded
+        .progress-bar.progress-bar-gradinet(role="progressbar" aria-valuenow="#{percent}" aria-valuemin="0" aria-valuemax="100" style="width: #{percent}%;")
+          %span.sr-only #{percent}% Complete
+  .panel.panel-default.panel-rounded
+    .panel-body
+      %h5.hx-default VEHICLE
+      2010 Cadillac DTS L8 Cyl 4.6L
+  .panel.panel-default.panel-rounded
+    .panel-body
+      %h5.hx-default CAR SERVICING
+      30,000km servicing

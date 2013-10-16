@@ -66,7 +66,7 @@
                           = link_to '', '#js-collapse-one', class: 'glyphicon glyphicon-chevron-down accordion-toggle', :data => {:toggle => 'collapse', :parent => '#accordion'}
                       #js-collapse-one.panel-collapse.collapse.in
                         .panel-body
-                          %table.table.without-border
+                          %table.table.table-borderless
                             %tr
                               %td
                                 Car:
@@ -325,7 +325,7 @@
                     May 8, 2013 (Friday)
                     %i.icon-map-marker
                     123 ABC st, Mountain View, CA, 92012
-                  %table.table.without-border
+                  %table.table.table-borderless
                     %tr
                       %td
                         %b Car:
@@ -341,7 +341,8 @@
                       %td.text-right
                         $90.00
                     %tr
-                      %td{colspan: '2'}
+                      %td
+                      %td
                       %td
                         %table.col-md-12.pull-right
                           %tr.tr-divider
@@ -353,7 +354,8 @@
                             %td.text-right
                               $90.00
                     %tr
-                      %td{colspan: '2'}
+                      %td
+                      %td
                       %td
                         %b Total Fees
                       %td.text-right

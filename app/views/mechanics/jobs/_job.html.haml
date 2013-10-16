@@ -8,8 +8,8 @@
       = job.car.display_title
     %p
       - job.tasks.each do |task|
-        %b Services:
-        = task.service_plan.display_title
+        %b #{ task.type }:
+        = task.title
   .col-md-5
     %p
       %i.glyphicon.glyphicon-time
@@ -17,4 +17,4 @@
     %p
       %i.glyphicon.glyphicon-map-marker
       = job.location.full_address
-    = link_to 'View Details', edit_mechanics_job_path(job), class: 'pull-right btn btn-info'
+    = link_to 'View Details', mechanics_job_path(job), class: 'pull-right btn btn-info'

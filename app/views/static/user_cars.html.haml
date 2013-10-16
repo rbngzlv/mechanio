@@ -1,0 +1,80 @@
+.row
+  =render 'shared/client_nav'
+  .col-md-9
+    .col-md-12
+      .clearfix
+        = link_to 'Add New Car', '#js-my-modal', class: 'btn btn-info pull-right bottom-margin', data: {toggle: 'modal'}, role: 'button'
+      #js-my-modal.modal.col-md-6.col-md-offset-3{aria: {hidden: 'true', labelledby: 'my-modal-label'}, role: 'dialog', tabindex: '-1'}
+        .panel.panel-default
+          .modal-header.clearfix
+            %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", type: "button"} ×
+            %span#my-modal-label Add New Car
+          .panel-body
+            .form-group.clearfix
+              .row
+                .col-md-5
+                  %select.form-control
+                    %option{selected: "selected", value: "Category 1"} Year
+                    %option{value: "Category 2"} 2013
+                    %option{value: "Category 3"} 2012
+                    %option{value: "Category 4"} 2011
+                .col-md-5
+                  %select.form-control
+                    %option{selected: "selected", value: "Category 1"} Make
+                    %option{value: "Category 2"} Category 2
+                    %option{value: "Category 3"} Category 5
+                    %option{value: "Category 4"} Category 4
+            .form-group.clearfix
+              .row
+                .col-md-10
+                  %select.form-control
+                    %option{selected: "selected", value: "Category 1"} Model
+                    %option{value: "Category 2"} Category 2
+                    %option{value: "Category 3"} Category 5
+                    %option{value: "Category 4"} Category 4
+            .form-group.clearfix
+              .row
+                .col-md-5
+                  %select.form-control
+                    %option{selected: "selected", value: "Category 1"} Sub Model
+                    %option{value: "Category 2"} 2013
+                    %option{value: "Category 3"} 2012
+                    %option{value: "Category 4"} 2011
+                .col-md-5
+                  %select.form-control
+                    %option{selected: "selected", value: "Category 1"} Engine
+                    %option{value: "Category 2"} Category 2
+                    %option{value: "Category 3"} Category 5
+                    %option{value: "Category 4"} Category 4
+          .panel-footer.clearfix
+            .form-group
+              %label.control-label.col-md-4
+                Mileage on the odometer
+              .col-md-3
+                %input.form-control{placeholder: "Kilometers"}
+              = link_to 'Add', '#', class: 'btn btn-success pull-right col-md-3'
+      .panel.panel-default.panel-rounded
+        .panel-heading
+          %h4.panel-title
+            %i.icon-truck
+            My Cars
+        .panel-body
+          %ul.row.cars-list
+            %li.col-md-12
+              .row
+                .col-md-9
+                  2000 Toyota Corolla L4-1.8L
+                .col-md-3
+                  = link_to 'Delete', '#', class: 'btn btn-danger col-md-12'
+            %li.col-md-12
+              .row
+                .col-md-9
+                  2000 Toyota Corolla L4-1.8L
+                .col-md-3
+                  = link_to 'Delete', '#', class: 'btn btn-danger col-md-12'
+            %li.col-md-12
+              .row
+                .col-md-9
+                  2000 Toyota Corolla L4-1.8L
+                .col-md-3
+                  = link_to 'Delete', '#', class: 'btn btn-danger col-md-12'
