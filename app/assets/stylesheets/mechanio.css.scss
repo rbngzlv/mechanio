@@ -11,6 +11,12 @@ $btn-danger-bg: #dc5d3a;
 
 @import "twitter/bootstrap";
 
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+  border-radius: $radius;
+  background-clip: padding-box; /* stops bg color from leaking outside the border: */
+}
+
 @font-face {
   font-family: 'CandaraRegular';
   src: asset-url('fonts/candara.eot');
@@ -572,6 +578,7 @@ section {
   font-size: 80px;
   top: 18%;
   color: #ddd;
+  text-shadow: none;
 }
 
 .carousel-control.left {
@@ -587,8 +594,9 @@ section {
   text-decoration: none;
 }
 
-.form-group {
+.vertical-align {
   line-height: 34px;
+  height: 34px;
 }
 
 .info {
@@ -630,20 +638,6 @@ section {
   }
 }
 
-.homepage {
-  font-family: 'CandaraRegular';
-}
-
-#home-carousel {
-  background: asset-url('slide-01.jpg') no-repeat;
-  width: 100%;
-  height: 650px;
-  position: absolute;
-  z-index: -1;
-  line-height: 1px;
-  top: -100px;
-}
-
 .jumbotron {
   background: none;
 }
@@ -654,6 +648,214 @@ section {
 
   h4 {
     margin-bottom: 0;
+  }
+}
+
+.home-gallery {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  overflow: hidden;
+  top: 0;
+
+  > div {
+    position: absolute !important;
+    top: 0;
+    height: 100%;
+  }
+}
+
+.banner, 
+.banner h1, 
+.mechanio-video p,
+.how-it-works h1,
+.how-it-works h3,
+.how-it-works p,
+.responsive-view .img-responsive + p,
+.sign-up-wrap p,
+.sign-up-block .btn {
+  font-family: CandaraRegular;
+}
+
+.banner {
+  height: 100%;
+  margin-top: -85px;
+
+  > .container {
+    padding-top: 10%;
+  }
+
+  h1, h5 {
+    color: #fff;
+  }
+
+  h1 {
+    font-size: 40px;
+    font-weight: bold;
+  
+    + h5 {
+      margin-top: -5px;
+    }
+  }
+
+  .btn {
+    box-shadow: none;
+    font-size: 20px;
+
+    + .btn {
+      margin: 0 0 0 10px;
+    }
+
+    &,
+    &:hover,
+    &:active {
+      @include border-radius(8px);
+    }
+  }
+}
+
+.home-page-wrapper {
+  padding-bottom: 70px;
+}
+
+.mechanio-video {
+  padding: 10px 0 0;
+
+  p {
+    font-size: 30px;
+  }
+}
+
+.how-it-works {
+  padding: 10px 0 40px;
+
+  .img-circle {
+    width: 140px;
+    height: 140px;
+    background: white;
+    display: inline-block;
+    font-size: 60px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 140px;
+    color: #018EC2;
+    cursor: pointer;
+    margin-bottom: 10px;
+  }
+
+  h1 {
+    font-size: 50px;
+  }
+
+  h1 + h3 {
+    color: #0186b2;
+    margin: 40px 0 50px;
+    font-size: 30px;
+  }
+}
+
+.responsive-view {
+  padding: 10px 0 25px;
+
+  .img-responsive {
+    display: inline-block;
+
+    + p {
+      color: #0186b2;
+      font-size: 50px;
+    }
+  }
+}
+
+.sign-up-wrap {
+  background: #ddd;
+  padding: 20px 0 0;
+
+  p {
+    font-size: 20px;
+  }
+}
+
+.sign-up-block {
+  margin-top: 15px;
+  background: #fff;
+  padding: 4px;
+  border-radius: 8px;
+
+  input {
+    border: none;
+    height: 40px;
+    font-size: 18px;
+  }
+
+  .btn {
+    height: 40px;
+    box-shadow: none;
+    border-radius: 8px;
+    font-size: 16px;
+
+    &:hover {
+      border-radius: 8px;
+    }
+  }
+}
+
+.home-page-reviews {
+  position: relative;
+  padding: 25px 0 20px;
+
+  .commentary-block {
+    min-height: 95px;
+  }
+  
+  .carousel-control {
+    font-size: 50px;
+    top: 30px;
+    left: -100px;
+  }
+
+  .carousel-control.left {
+    left: -200px;
+  }
+
+  .carousel-control.right {
+    left: -160px;
+  }
+
+  a {
+    color: #fb9800;
+  }
+}
+
+.marketing {
+  padding: 25px 0 45px;
+
+  .carousel-inner {
+    width: 90%;
+    margin: 0 auto;
+
+    li {
+      float: left;
+      min-width: 100px;
+      margin: 0 10px;
+      line-height: 25px;
+      border-bottom: 1px solid #ccc;
+    }
+  }
+
+  .carousel-control {
+    width: 20px;
+    font-size: 100px;
+    color: #fff;
+    top: 5%;
+  }
+
+  .carousel-control.left {
+    left: 20px;
+  }
+
+  .carousel-control.right {
+    right: 20px;
   }
 }
 
@@ -687,7 +889,6 @@ section {
     text-decoration: none;
   }
 }
-
 
 .bottom-margin {
   margin-bottom: 10px;
@@ -878,10 +1079,6 @@ form .radio {
 
 table.table {
   font-size: 12px;
-
-  &.without-border tr > td {
-    border: none;
-  }
 
   .label {
     font-size: 100%;
