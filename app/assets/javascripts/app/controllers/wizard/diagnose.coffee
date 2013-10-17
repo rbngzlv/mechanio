@@ -21,7 +21,7 @@ app.controller 'DiagnoseController', ['$scope', '$http', ($scope, $http) ->
     $scope.submitStep()
 
   $scope.loadServicePlans = (model_variation_id) ->
-    $http.get('/ajax/service_plans', params: { model_variation_id: model_variation_id })
+    $http.get('/ajax/service_plans.json', params: { model_variation_id: model_variation_id })
       .success (data) -> $scope.service_plans = data
 
   $scope.valid = ->

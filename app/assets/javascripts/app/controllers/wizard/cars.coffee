@@ -17,7 +17,7 @@ app.controller 'CarsController', ['$scope', '$http', ($scope, $http) ->
     $scope.loadModelVariations()
 
   $scope.setMake = ->
-    $http.get('/ajax/models', params: { make_id: $scope.car.make_id })
+    $http.get('/ajax/models.json', params: { make_id: $scope.car.make_id })
       .success (data) ->
         $scope.models = data
         $scope.no_results_alert = (data.length == 0)
@@ -47,7 +47,7 @@ app.controller 'CarsController', ['$scope', '$http', ($scope, $http) ->
 
   $scope.loadModelVariations = ->
     if $scope.car.model_id
-      $http.get('/ajax/model_variations', params: { model_id: $scope.car.model_id, year: $scope.car.year })
+      $http.get('/ajax/model_variations.json', params: { model_id: $scope.car.model_id, year: $scope.car.year })
         .success (data) ->
           $scope.model_variations = data
           $scope.no_results_alert = (data.length == 0)
