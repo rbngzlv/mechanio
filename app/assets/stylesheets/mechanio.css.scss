@@ -42,6 +42,10 @@ ul {
   padding: 0;
 }
 
+a:hover {
+  text-decoration: none;
+}
+
 .header {
   background: #fff;
 
@@ -318,10 +322,6 @@ form input.form-control {
 
 a[data-toggle = 'modal'] {
   color: #fff;
-
-  &:hover {
-    text-decoration: none;
-  }
 }
 
 aside {
@@ -499,13 +499,12 @@ section {
 .profile-border {
   background: asset-url("profile-bg.jpg") no-repeat;
   float: left;
-  height: 162px;
   width: 202px;
-  padding: 6px;
+  padding: 6px 6px 10px 6px;
   margin: 0 10px;
   position: relative;
 
-  + .text-center {
+  .text-center {
     line-height: 20px;
 
     > a {
@@ -833,15 +832,14 @@ section {
   .carousel-control {
     font-size: 50px;
     top: 30px;
-    left: -100px;
   }
 
   .carousel-control.left {
-    left: -200px;
+    left: -160px;
   }
 
   .carousel-control.right {
-    left: -160px;
+    left: -120px;
   }
 
   a {
@@ -895,10 +893,6 @@ section {
     font-size: 30px;
     margin-left: 2px;
   }
-
-  a:hover {
-    text-decoration: none;
-  }
 }
 
 .header-social {
@@ -906,10 +900,6 @@ section {
   margin-bottom: 5px;
   position: relative;
   bottom: 3px;
-
-  a:hover {
-    text-decoration: none;
-  }
 }
 
 .bottom-margin {
@@ -1108,10 +1098,6 @@ table.table {
 
   .info-icons {
     min-width: 60px;
-
-    a:hover {
-      text-decoration: none;
-    }
   }
 
   thead th {

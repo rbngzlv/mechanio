@@ -2,6 +2,11 @@
   top: 6%;
   overflow: hidden;
 
+  &:focus {
+    outline: none;
+    text-decoration: none;
+  }
+
   .review-block {
     overflow: hidden;
     padding: 0;
@@ -119,10 +124,6 @@
 
         a {
           color: #fb9800;
-
-          &:hover {
-            text-decoration: none;
-          }
         }
 
         .commentary {

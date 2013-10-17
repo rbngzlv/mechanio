@@ -24,14 +24,13 @@
             .tab-content
               #tab_1_1.tab-pane.active
                 .row
-                  .col-md-4
-                    .profile-border
-                      = image_tag(asset_url("photo.jpg"))
-                      .reviews-row.clearfix
-                        .rating.pull-left
-                          = rating_stars(2)
-                        %span.review-text.pull-right 12 Reviews
-                  .col-md-8
+                  .profile-border
+                    = image_tag(asset_url("photo.jpg"))
+                    .reviews-row.clearfix
+                      .rating.pull-left
+                        = rating_stars(2)
+                      %span.review-text.pull-right 12 Reviews
+                  %div
                     .nested-panel.clearfix
                       .col-md-7.margin0
                         %h5
@@ -156,9 +155,9 @@
                         Leave Feedback
                       %ul.chat
                         %li.clearfix
-                          .col-md-1.avatar
+                          .avatar
                             = image_tag(asset_url("avatar1.jpg"), class: 'img-circle')
-                          .col-md-11.panel.nested-panel.with-arrow.commentary-block
+                          .panel.nested-panel.with-arrow.commentary-block
                             .span
                               %a.name Mosaddek
                               %span.datetime at Apr 14, 2013
@@ -243,9 +242,9 @@
                       %h5.hx-default Customer Reviews
                       %ul.chat
                         %li.clearfix
-                          .col-md-1.avatar
+                          .avatar
                             = image_tag(asset_url("avatar1.jpg"), class: 'img-circle')
-                          .col-md-11.panel.nested-panel.with-arrow.commentary-block
+                          .panel.nested-panel.with-arrow.commentary-block
                             .span
                               %a.name Mosaddek
                               %span.datetime at Apr 14, 2013
@@ -268,9 +267,9 @@
                               laoreet dolore magna aliquam erat volutpat. dolore magna aliquam erat
                               volutpat. dolore magna aliquam erat volutpat.
                         %li.clearfix
-                          .col-md-1.pull-right.avatar
+                          .pull-right.avatar
                             = image_tag(asset_url("avatar1.jpg"), class: 'img-circle')
-                          .col-md-11.panel.nested-panel.with-arrow.commentary-block
+                          .panel.nested-panel.with-arrow.commentary-block
                             .span.text-right
                               %a.name Mosaddek
                               %span.datetime at Apr 14, 2013
@@ -293,9 +292,9 @@
                               laoreet dolore magna aliquam erat volutpat. dolore magna aliquam erat
                               volutpat. dolore magna aliquam erat volutpat.
                         %li.clearfix
-                          .col-md-1.avatar
+                          .avatar
                             = image_tag(asset_url("avatar1.jpg"), class: 'img-circle')
-                          .col-md-11.panel.nested-panel.with-arrow.commentary-block
+                          .panel.nested-panel.with-arrow.commentary-block
                             .span
                               %a.name Mosaddek
                               %span.datetime at Apr 14, 2013
@@ -376,7 +375,7 @@
                         .reviews-row.clearfix
                           .rating.pull-left
                             = rating_stars(2)
-                          %span.review-text.pull-right #{ pluralize current_mechanic.reviews, 'Review' }
+                          %span.review-text.pull-right #{ pluralize current_mechanic.reviews, 'Review' } 
                       .panel.nested-panel
                         %h5 Hi, I'm Your Mechanic Bob Mechanic
                         Punched Russell Crowe in the face once. Felt Nice.
