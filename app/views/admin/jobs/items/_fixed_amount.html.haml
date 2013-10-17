@@ -11,5 +11,5 @@
       .total
         = i.input :cost, placeholder: 'Cost', as: :string, input_html: { min: 0.1, 'ng-model' => 'item.itemable.cost' }
       .actions
-        %a{ href: '', 'ng-click' => 'deleteItem(item)' }
+        %a.delete-item{ href: '', 'ng-click' => 'deleteItem(item)' }
           %i.glyphicon.glyphicon-remove

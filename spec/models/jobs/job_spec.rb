@@ -21,11 +21,6 @@ describe Job do
   it { should validate_presence_of :contact_phone }
 
   it '#create_temporary' do
-    job = build :job, user: nil, car: nil
-    params = job.attributes
-    params[:tasks_attributes] = [build(:service).attributes]
-    params[:car_attributes] = build(:car, user: nil).attributes
-
     tmp = Job.create_temporary(job: attrs)
     tmp.reload.serialized_params.should eq ({ job: attrs })
     tmp.status.should eq 'temporary'

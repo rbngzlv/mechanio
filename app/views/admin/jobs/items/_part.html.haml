@@ -14,5 +14,5 @@
       .total
         .form-control-static {{item.itemable.cost}}
       .actions
-        %a{ href: '', 'ng-click' => 'deleteItem(item)' }
+        %a.delete-item{ href: '', 'ng-click' => 'deleteItem(item)' }
           %i.glyphicon.glyphicon-remove

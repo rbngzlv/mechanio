@@ -7,13 +7,13 @@ app.controller 'JobsController', ['$scope', '$http', ($scope, $http) ->
 
   $scope.addTask = (type) ->
     $scope.job.tasks.push
-      type: type, task_items: []
+      type: type, task_items: [], editing: true
 
   $scope.deleteTask = (task) ->
     task._destroy = true
 
   $scope.editingTask = (task) ->
-    task.editing || !task.title
+    task.editing
 
   $scope.taskTemplate = (task) ->
     task.type.toLowerCase()

@@ -8,7 +8,8 @@ FactoryGirl.define do
 
     trait :with_service do
       after :build do |j|
-        j.tasks << build(:service)
+        service_plan = create(:service_plan, model_variation: j.car.model_variation)
+        j.tasks << build(:service, service_plan: service_plan)
       end
     end
 

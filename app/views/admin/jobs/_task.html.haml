@@ -31,10 +31,9 @@
     = render partial: "admin/jobs/items/labour", locals: { t: t }
 
   .pull-right.clearfix
-    .totals
-      %dl.dl-horizontal.grand-total
-        %dt Task total
-        %dd {{task.cost}}
+    %dl.dl-horizontal.totals
+      %dt Task total
+      %dd.task-total {{task.cost}}
 
   .add-item.pull-left
     .btn-group.pull-right

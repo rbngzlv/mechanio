@@ -35,8 +35,8 @@
   %hr
   .pull-right.clearfix
     .totals
-      %dl.dl-horizontal.grand-total
+      %dl.dl-horizontal
         %dt Job total
-        %dd= @job.cost ? number_to_currency(@job.cost) : 'pending'
+        %dd.grand-total= @job.cost ? number_to_currency(@job.cost) : 'pending'
 
     = f.submit 'Update job', class: 'btn btn-success pull-right'
