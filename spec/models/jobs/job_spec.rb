@@ -34,16 +34,21 @@ describe Job do
   describe '#assign_mechanic' do
     let(:mechanic) { create :mechanic }
 
-    it 'return true' do
+    it 'return true if success' do
       job_with_service.assign_mechanic(mechanic_id: mechanic.id, scheduled_at: DateTime.now).should be_true
     end
 
-    context 'return false' do
-      it { job_with_service.assign_mechanic(scheduled_at: DateTime.now).should be_false }
-      it { job_with_service.assign_mechanic(mechanic_id: mechanic.id).should be_false }
+    it 'return false if sheduled time doesnot given' do
+      job_with_service.assign_mechanic(mechanic_id: mechanic.id).should be_false
     end
 
-    it 'throw exception' do
+    it 'throw exception if mechanic doesnot given' do
+      expect do
+        job_with_service.assign_mechanic scheduled_at: DateTime.now
+      end.to raise_error
+    end
+
+    it 'throw exception if mechanic doesnot presence' do
       expect do
         job_with_service.assign_mechanic mechanic_id: 10000, scheduled_at: DateTime.now
       end.to raise_error

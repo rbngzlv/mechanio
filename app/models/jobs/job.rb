@@ -15,6 +15,7 @@ class Job < ActiveRecord::Base
 
   validates :car, :location, :tasks, :contact_email, :contact_phone, presence: true
   validates :user, presence: true, unless: :skip_user_validation
+  validates :mechanic, :scheduled_at, presence: true, if: Proc.new { |f| f.status == :assigned }
 
   attr_accessor :skip_user_validation
 
@@ -50,8 +51,6 @@ class Job < ActiveRecord::Base
   end
 
   def assign_mechanic(params)
-    return false unless params[:mechanic_id] && params[:scheduled_at]
-
     Mechanic.find(params[:mechanic_id])
     params[:status] = :assigned
     params[:assigned_at] = DateTime.now
