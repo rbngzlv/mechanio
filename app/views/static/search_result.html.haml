@@ -39,9 +39,9 @@
           %h5.hx-default Customer Reviews
           %ul.chat
             %li.clearfix
-              .col-md-1
+              .avatar
                 = image_tag(asset_url("avatar1.jpg"), class: 'img-circle')
-              .col-md-11.panel.nested-panel.with-arrow
+              .commentary-block.panel.nested-panel.with-arrow
                 .span
                   = link_to 'Mosaddek', '#'
                   %span.datetime at Apr 14, 2013
@@ -64,9 +64,9 @@
                   laoreet dolore magna aliquam erat volutpat. dolore magna aliquam erat
                   volutpat. dolore magna aliquam erat volutpat.
             %li.clearfix
-              .col-md-1.pull-right
+              .avatar.pull-right
                 = image_tag(asset_url("avatar1.jpg"), class: 'img-circle pull-right')
-              .col-md-11.panel.nested-panel.with-arrow
+              .commentary-block.panel.nested-panel.with-arrow
                 .span.text-right
                   = link_to 'Mosaddek', '#'
                   %span.datetime at Apr 14, 2013
@@ -89,9 +89,9 @@
                   laoreet dolore magna aliquam erat volutpat. dolore magna aliquam erat
                   volutpat. dolore magna aliquam erat volutpat.
             %li.clearfix
-              .col-md-1
+              .avatar
                 = image_tag(asset_url("avatar1.jpg"), class: 'img-circle')
-              .col-md-11.panel.nested-panel.with-arrow
+              .commentary-block.panel.nested-panel.with-arrow
                 .span
                   = link_to 'Mosaddek', '#'
                   %span.datetime at Apr 14, 2013
@@ -161,18 +161,17 @@
     .panel.panel-default.panel-rounded
       .panel-body
         .row.clearfix
-          .col-md-4
-            .profile-border
-              = image_tag(asset_url("photo.jpg"))
-              .reviews-row.clearfix
-                .rating.pull-left
-                  = rating_stars(2)
-                %span.review-text.pull-right 12 Reviews
+          .profile-border
+            = image_tag(asset_url("photo.jpg"))
+            .reviews-row.clearfix
+              .rating.pull-left
+                = rating_stars(2)
+              %span.review-text.pull-right 12 Reviews
             %h5.text-center
               = link_to 'Mechanic Name', '#myModal', :data => {:toggle => 'modal'}, :role => 'button'
               %br
               5 Year of Experience
-          .col-md-8
+          %div
             %h5 Select Arrival Time
             #carousel-example-generic1.carousel.slide
               .carousel-inner
@@ -333,18 +332,17 @@
     .panel.panel-default.panel-rounded
       .panel-body
         .row.clearfix
-          .col-md-4
-            .profile-border
-              = image_tag(asset_url("photo.jpg"))
-              .reviews-row.clearfix
-                .rating.pull-left
-                  = rating_stars(2)
-                %span.review-text.pull-right 12 Reviews
+          .profile-border
+            = image_tag(asset_url("photo.jpg"))
+            .reviews-row.clearfix
+              .rating.pull-left
+                = rating_stars(2)
+              %span.review-text.pull-right 12 Reviews
             %h5.text-center
               = link_to 'Mechanic Name', '#myModal', :data => {:toggle => 'modal'}, :role => 'button'
               %br
               5 Year of Experience
-          .col-md-8
+          %div
             %h5 Select Arrival Time
             #carousel-example-generic2.carousel.slide
               .carousel-inner
@@ -505,18 +503,17 @@
     .panel.panel-default.panel-rounded
       .panel-body
         .row.clearfix
-          .col-md-4
-            .profile-border
-              = image_tag(asset_url("photo.jpg"))
-              .reviews-row.clearfix
-                .rating.pull-left
-                  = rating_stars(2)
-                %span.review-text.pull-right 12 Reviews
+          .profile-border
+            = image_tag(asset_url("photo.jpg"))
+            .reviews-row.clearfix
+              .rating.pull-left
+                = rating_stars(2)
+              %span.review-text.pull-right 12 Reviews
             %h5.text-center
               = link_to 'Mechanic Name', '#myModal', :data => {:toggle => 'modal'}, :role => 'button'
               %br
               5 Year of Experience
-          .col-md-8
+          %div
             %h5 Select Arrival Time
             #carousel-example-generic3.carousel.slide
               .carousel-inner

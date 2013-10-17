@@ -17,18 +17,16 @@
               = link_to '', '#js-collapse-one', class: 'glyphicon glyphicon-chevron-down accordion-toggle', :data => {:toggle => 'collapse', :parent => '#accordion'}
           #js-collapse-one.panel-collapse.collapse.in
             .panel-body.mechanic-panel-body
-              .col-md-4
-                .profile-border
-                  = image_tag(asset_url("photo.jpg"))
-                  .reviews-row
-                    .review-text.text-center
-                      Reviews Left: 
-                      %b
-                        15
-              .col-md-8
-                .panel.nested-panel
-                  %h5 Hi, My name is Andrew Nanjdroo
-                  %p I like cars and curry. I'm actually the prince of 7-11. There are 5000 7-11s in Thailand.
+              .profile-border
+                = image_tag(asset_url("photo.jpg"))
+                .reviews-row
+                  .review-text.text-center
+                    Reviews Left: 
+                    %b
+                      15
+              .panel.nested-panel
+                %h5 Hi, My name is Andrew Nanjdroo
+                %p I like cars and curry. I'm actually the prince of 7-11. There are 5000 7-11s in Thailand.
     .row
       .col-md-4
         .panel.panel-default.panel-rounded

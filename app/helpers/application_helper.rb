@@ -24,6 +24,10 @@ module ApplicationHelper
     html.html_safe
   end
 
+  def count_for_badge(collection)
+    (count = collection.count) > 0 ? count : nil
+  end
+
   def nav_bar_link(title, path, options)
     css = []
     css << options[:li_class].to_s if options[:li_class]
