@@ -526,6 +526,48 @@ section {
   }
 }
 
+.rights {
+  .panel-heading {
+    height: 40px;
+    margin-bottom: 15px;
+  }
+
+  .terms-of-use {
+    font-size: 12px;
+  }
+
+  h5 {
+    font-weight: 600;
+  }
+
+  .nav-tabs {
+    margin: -9px 0 25px;
+    border: none;
+
+    li > a {
+      &:hover,
+      &:active {
+        background: #fff;
+        border: 1px solid #fff;
+        outline: none;
+      }
+    }
+
+    li.active > a {
+      border: none;
+      border-top: 2px solid #000;
+      background: #fff;
+      border-radius: 0;
+
+      &:focus {
+        outline: none;
+        background: #fff;
+      }
+    }
+  }
+}
+
+
 .contact-us {
   font-size: 15px;
 }
