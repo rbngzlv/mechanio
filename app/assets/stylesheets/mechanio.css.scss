@@ -430,7 +430,7 @@ section {
 
   &.radio-tabs {
     border: none;
-    
+
     label {
       font-weight: normal;
     }
@@ -616,25 +616,47 @@ section {
   font-size:  15px;
 }
 
-.form-group.date {
-  label {
-    display: block;
+.form-group {
+  &.date {
+    label {
+      display: block;
+    }
+
+    select:nth-child(1) {
+      width: 22%;
+    }
+
+    select:nth-child(2) {
+      width: 35%;
+    }
+
+    select:nth-child(3) {
+      width: 18%;
+    }
   }
 
   select {
     display: inline-block;
-  }
 
-  select:nth-child(1) {
-    width: 22%;
-  }
+    &.datetime:nth-child(1) {
+      width: 18%;
+    }
 
-  select:nth-child(2) {
-    width: 35%;
-  }
+    &.datetime:nth-child(2) {
+      width: 30%;
+    }
 
-  select:nth-child(3) {
-    width: 18%;
+    &.datetime:nth-child(3) {
+      width: 12%;
+    }
+
+    &.datetime:nth-child(4) {
+      width: 12%;
+    }
+
+    &.datetime:nth-child(5) {
+      width: 12%;
+    }
   }
 }
 

@@ -19,6 +19,7 @@ feature 'estimates page' do
       should have_content '2'
     end
     within '.panel:nth-child(1)' do
+      should have_content job.created_at.to_s(:date)
       should have_content job.car.display_title
       job.tasks.each do |task|
         should have_content task.type

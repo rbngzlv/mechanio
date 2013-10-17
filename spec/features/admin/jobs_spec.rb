@@ -13,7 +13,7 @@ feature 'Jobs page' do
 
   context 'should show general info about job' do
     let!(:job1) { create :job_with_service }
-    let!(:job2) { create :job_with_service, tasks: [create(:task, cost: nil)], mechanic: create(:mechanic) }
+    let!(:job2) { create :assigned_job, tasks: [create(:task, cost: nil)] }
 
     before { visit admin_jobs_path }
 
@@ -26,7 +26,6 @@ feature 'Jobs page' do
           should have_content job1.title
           should have_content job1.created_at.to_s(:db)
           should have_content job1.user.full_name
-          should have_content job1.date.to_s(:db)
           should have_content 'unassigned'
           should have_content job1.cost
           should have_link "Edit"
@@ -34,7 +33,8 @@ feature 'Jobs page' do
 
         within 'tr:nth-child(2)' do
           should have_content job2.mechanic.full_name
-          should have_content 'pending'
+          should have_content job2.scheduled_at.to_s(:db)
+          should have_content 'assigned'
           should have_link "Edit"
         end
       end

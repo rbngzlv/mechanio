@@ -1,0 +1,16 @@
+.modal.fade{id: "js-mechanic-#{mechanic.id}", "aria-hidden" => "true", "aria-labelledby" => "myModalLabel1", role: "dialog", tabindex: "-1"}
+  .review-block.container
+    .modal-header.clearfix
+      %h5.pull-left
+        %i.icon-user
+        = mechanic.full_name
+        - if mechanic.years_as_a_mechanic
+          %small #{ pluralize mechanic.years_as_a_mechanic, 'year' } experience
+      %span.tools.pull-right
+        %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", type: "button"}
+          %i.glyphicon.glyphicon.glyphicon-remove
+    .panel-body.modal-body
+      .row
+        = render 'shared/profile_description', profile: mechanic
+      .row
+        = render 'shared/comments', title: "Customer Reviews", comments: mechanic.comments

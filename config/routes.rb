@@ -19,6 +19,8 @@ Mechanio::Application.routes.draw do
     get 'estimates', to: 'estimates#index'
 
     resources :jobs, only: [:show, :create]
+    resources :appointments, only: [:index, :edit, :update]
+
     resource :profile, only: [:show, :edit, :update]
   end
   get '/service', to: 'users/jobs#new'
