@@ -4,5 +4,4 @@ class Repair < Task
 
   validates :title, presence: true
 
-  after_validation :set_cost
 end

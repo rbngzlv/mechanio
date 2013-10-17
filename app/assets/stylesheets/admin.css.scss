@@ -1,64 +1,57 @@
 .admin {
+
   .edit_job {
-    .totals {
-      th, td {
+
+    .item {
+      padding-bottom: 7px;
+      margin-bottom: 7px;
+      border-bottom: 1px solid #eee;
+
+      div, input, select {
+        display: inline-block;
+      }
+      select {
+        width: 70px;
+      }
+      input[name *= "description"], input[name *= "name"] {
+        width: 550px;
+      }
+      input[name *= "quantity"] {
+        width: 70px;
+      }
+      input[name *= "cost"] {
+        text-align: right;
+        width: 70px;
+      }
+
+      .desc {
+        width: 65%;
+      }
+      .subtotal {
+        width: 200px;
+      }
+      .total {
+        width: 120px;
+        text-align: right;
+
+        input {
+          margin-right: -12px;
+        }
+      }
+      .actions {
+        width: 30px;
         text-align: right;
       }
-
-      td {
-        width: 150px;
-      }
     }
 
-    .task-form {
-      margin-bottom: 20px;
+    h5 a {
+      margin-left: 10px;
     }
 
-    .service-form, .repair-form {
-      .form-group input {
-        width: 300px;
-      }
-    }
-
-    .item-forms {
-      margin-bottom: 20px;
-
-      .form-inline {
-        float: right;
-      }
-
-      .fixed-amount-form {
-        .form-group:nth-child(3) .form-control {
-          width: 350px;
-        }
-
-        .form-group:nth-child(4) .form-control {
-          width: 90px;
-        }
-      }
-
-      .labour-form {
-        .form-group:nth-child(3) .form-control {
-          width: 350px;
-        }
-
-        .form-group select {
-          width: 70px;
-        }
-      }
-
-      .part-form {
-        .form-group:nth-child(3) .form-control {
-          width: 350px;
-        }
-
-        .form-group:nth-child(4) .form-control {
-          width: 95px;
-        }
-
-        .form-group:nth-child(5) .form-control {
-          width: 90px;
-        }
+    .totals {
+      dd {
+        width: 90px;
+        text-align: right;
       }
     }
   }

@@ -1,9 +1,0 @@
-%div.form-inline.fixed-amount-form{ 'ng-show' => "adding_fixed_#{task.id}", 'ng-form' => "form_fixed_#{task.id}" }
-  = t.simple_fields_for :task_items, TaskItem.new do |i|
-    = i.hidden_field :itemable_type, value: 'FixedAmount'
-    = i.label 'Fixed amount'
-    = i.simple_fields_for :itemable, FixedAmount.new, defaults: { label: false } do |a|
-      = a.input :description, placeholder: 'Description', input_html: { required: true, 'ng-model' => "task_#{task.id}.fixed.description" }
-      = a.input :cost, placeholder: 'Cost', input_html: { required: true, min: 0.1, 'ng-model' => "task_#{task.id}.fixed.cost" }
-    = i.submit 'Add', class: 'btn btn-primary btn-sm', 'ng-disabled' => "!form_fixed_#{task.id}.$valid"
-    %a.btn.btn-danger.btn-sm{ href: '', 'ng-click' => "adding_fixed_#{task.id} = false" } Cancel

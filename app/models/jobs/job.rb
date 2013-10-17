@@ -7,12 +7,13 @@ class Job < ActiveRecord::Base
   has_many :tasks, inverse_of: :job
 
   accepts_nested_attributes_for :car, :location
-  accepts_nested_attributes_for :tasks, reject_if: proc { |attrs| attrs.all? { |k, v| k == 'type' || v.blank? } }
+  accepts_nested_attributes_for :tasks, allow_destroy: true, reject_if: proc { |attrs| attrs.all? { |k, v| k == 'type' || v.blank? } }
 
   serialize :serialized_params
 
   before_validation :assign_car_to_user
-  before_save :set_title, :set_cost
+  before_save :set_title
+  after_save :set_cost
 
   validates :car, :location, :tasks, :contact_email, :contact_phone, presence: true
   validates :user, presence: true, unless: :skip_user_validation
@@ -84,20 +85,25 @@ class Job < ActiveRecord::Base
   end
 
   def set_title
-    self.title = tasks.first.title if tasks.first
+    self.title ||= tasks.first.title if tasks.first
   end
 
   def set_cost
     costs = tasks.map(&:cost)
-    self.cost = costs.include?(nil) ? nil : costs.sum
-    self.cost = nil if self.cost == 0
+    cost = costs.include?(nil) ? nil : costs.sum
+    cost = nil if cost == 0
+    update_column(:cost, cost)
   end
 
   def as_json(options = {})
     super(only: [:id, :cost], include: {
       car: { only: [:display_title] },
-      tasks: { only: [:title] },
-      location: { only: [:address, :suburb, :postcode], methods: [:state_name] }
+      location: { only: [:address, :suburb, :postcode], methods: [:state_name] },
+      tasks: { only: [:id, :title, :note, :type, :cost, :service_plan_id], include: {
+        task_items: { only: [:id, :itemable_id, :itemable_type], include: {
+          itemable: { only: [:id, :description, :cost, :hourly_rate, :duration_hours, :duration_minutes, :name, :quantity, :unit_cost] }
+        }}
+      }}
     })
   end
 end

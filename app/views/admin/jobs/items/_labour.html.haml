@@ -1,6 +1,20 @@
-%tr
-  %td= labour.description
-  %td.text-right
-    %i.glyphicon.glyphicon-time
-    #{labour.display_duration} x #{number_to_currency(labour.hourly_rate)}
-  %td.text-right= number_to_currency(labour.cost)
+= t.simple_fields_for :task_items, TaskItem.new, child_index: '{{$index}}' do |ti|
+  = ti.hidden_field :id, value: '{{item.id}}'
+  = ti.hidden_field :_destroy, value: '{{item._destroy}}'
+  = ti.hidden_field :itemable_type, value: 'Labour'
+  = ti.simple_fields_for :itemable_attributes, Labour.new, defaults: { label: false, wrapper: false, input_html: { class: 'input-sm', required: true } } do |i|
+    = i.hidden_field :id, value: '{{item.itemable.id}}'
+    .desc
+      = i.input :description, placeholder: 'Description', as: :string, input_html: { value: '{{item.itemable.description}}' }
+    .subtotal
+      = i.input :duration_hours, as: :select, collection: Labour::HOURS, include_blank: 'Hours', input_html: { class: 'input-sm labour-hours', 'ng-model' => 'item.itemable.duration_hours' }
+      %span :
+      = i.input :duration_minutes, as: :select, collection: Labour::MINUTES, include_blank: 'Mins', input_html: { class: 'input-sm labour-minutes', 'ng-model' => 'item.itemable.duration_minutes' }
+      %span x {{item.itemable.hourly_rate}}
+    .pull-right
+      .total
+        .form-control-static {{item.itemable.cost}}
+      .actions
+        %a{ href: '', 'ng-click' => 'deleteItem(item)' }
+          %i.glyphicon.glyphicon-remove
+

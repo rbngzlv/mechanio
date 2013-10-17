@@ -1,8 +1,0 @@
-%div.form-inline.repair-form{ 'ng-show' => "adding_repair", 'ng-form' => "form_repair" }
-  = f.simple_fields_for :tasks, Repair.new, defaults: { label: false } do |t|
-    = t.hidden_field :type, value: 'Repair'
-    = t.label 'Repair'
-    = t.input :title, placeholder: 'Title', input_html: { required: true, 'ng-model' => 'repair.title' }
-    = t.input :note, placeholder: 'Note for mechanic', as: :string, input_html: { 'ng-model' => 'repair.note' }
-    = t.submit 'Add', class: 'btn btn-primary btn-sm', 'ng-disabled' => "!form_repair.$valid"
-    %a.btn.btn-danger.btn-sm{ href: '', 'ng-click' => "adding_repair = false" } Cancel

@@ -14,20 +14,29 @@
     = link_to @job.mechanic.full_name, [:admin, @job.mechanic]
 
 %hr
+= simple_form_for [:admin, @job], html: { 'ng-controller' => 'JobsController', 'ng-init' => "init(#{@job.to_json})" } do |f|
 
-= simple_form_for [:admin, @job] do |f|
-
-  .task-form.pull-right
-    = render partial: 'task_form', locals: { f: f }
+  .btn-group.pull-right
+    %button.btn.btn-primary.btn-sm.dropdown-toggle{ 'data-toggle' => 'dropdown', type: 'button' }
+      Add task
+      %span.caret
+    %ul.dropdown-menu{ role: 'menu' }
+      %li{ 'ng-hide' => 'hasService()' }
+        %a{ href: '', 'ng-click' => 'addTask("Service")' } Service
+      %li
+        %a{ href: '', 'ng-click' => 'addTask("Repair")' } Repair
 
   %h4 Job and Labour
 
-  .tasks
-    = render partial: 'task', collection: @job.tasks, as: :task, locals: { f: f }
+  .tasks.clearfix
+    .task.clearfix{ 'ng-repeat' => 'task in job.tasks', 'ng-hide' => 'task._destroy' }
+      = render partial: 'task', locals: { f: f }
 
-  .row.totals
-    .col-md-4.pull-right
-      %table.table.table-bordered
-        %tr.grand-total
-          %th Job total
-          %td= @job.cost ? number_to_currency(@job.cost) : 'pending'
+  %hr
+  .pull-right.clearfix
+    .totals
+      %dl.dl-horizontal.grand-total
+        %dt Job total
+        %dd= @job.cost ? number_to_currency(@job.cost) : 'pending'
+
+    = f.submit 'Update job', class: 'btn btn-success pull-right'

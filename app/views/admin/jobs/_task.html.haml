@@ -1,27 +1,50 @@
-.task
-  %table.table.table-bordered
-    %tr
-      %th{ colspan: 3 }= task.title
-    - task.task_items.map(&:itemable).each do |i|
-      = render partial: "admin/jobs/items/#{i.class.name.underscore}", object: i
-    %tr
-      %td.text-right{ colspan: 2 }
-        %strong Total:
-      %td.text-right.col-md-1= task.cost ? number_to_currency(task.cost) : 'pending'
-  .item-forms.clearfix
-    .btn-group.pull-right{ 'ng-hide' => "adding_fixed_#{task.id} || adding_part_#{task.id} || adding_labour_#{task.id}" }
+= f.simple_fields_for :tasks, Task.new, child_index: '{{$parent.index}}' do |t|
+
+  %h5{ 'ng-hide' => 'editingTask(task)' }
+    {{task.title}}
+
+    %a{ href: '', 'ng-click' => 'task.editing = true' }
+      %i.glyphicon.glyphicon-pencil
+
+    %a.remove-task{ href: '', 'ng-click' => 'deleteTask(task)' }
+      %i.glyphicon.glyphicon-remove
+
+  .task-form{ 'ng-show' => 'editingTask(task)' }
+    %ng-include{ src: 'taskTemplate(task)' }
+
+  %script{ type: 'text/ng-template', id: 'service' }
+    = render partial: "admin/jobs/tasks/service", locals: { f: f }
+
+  %script{ type: 'text/ng-template', id: 'repair' }
+    = render partial: "admin/jobs/tasks/repair", locals: { f: f }
+
+  .item{ 'ng-repeat' => 'item in task.task_items', 'ng-hide' => 'item._destroy' }
+    %ng-include{ src: 'itemTemplate(item)' }
+
+  %script{ type: 'text/ng-template', id: 'fixed_amount' }
+    = render partial: "admin/jobs/items/fixed_amount", locals: { t: t }
+
+  %script{ type: 'text/ng-template', id: 'part' }
+    = render partial: "admin/jobs/items/part", locals: { t: t }
+
+  %script{ type: 'text/ng-template', id: 'labour' }
+    = render partial: "admin/jobs/items/labour", locals: { t: t }
+
+  .pull-right.clearfix
+    .totals
+      %dl.dl-horizontal.grand-total
+        %dt Task total
+        %dd {{task.cost}}
+
+  .add-item.pull-left
+    .btn-group.pull-right
       %button.btn.btn-primary.btn-sm.dropdown-toggle{ 'data-toggle' => 'dropdown', type: 'button' }
         Add item
         %span.caret
       %ul.dropdown-menu{ role: 'menu' }
         %li
-          %a{ href: '', 'ng-click' => "adding_part_#{task.id} = true" } Part
+          %a{ href: '', 'ng-click' => 'addItem(task, "Part")' } Part
         %li
-          %a{ href: '', 'ng-click' => "adding_labour_#{task.id} = true" } Labour
+          %a{ href: '', 'ng-click' => 'addItem(task, "Labour")' } Labour
         %li
-          %a{ href: '', 'ng-click' => "adding_fixed_#{task.id} = true" } Fixed amount
-
-    = f.simple_fields_for :tasks, task do |t|
-      = render 'admin/jobs/item_forms/fixed_amount', task: task, t: t
-      = render 'admin/jobs/item_forms/part', task: task, t: t
-      = render 'admin/jobs/item_forms/labour', task: task, t: t
+          %a{ href: '', 'ng-click' => 'addItem(task, "FixedAmount")' } Fixed amount

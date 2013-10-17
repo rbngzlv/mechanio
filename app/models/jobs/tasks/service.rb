@@ -4,10 +4,10 @@ class Service < Task
 
   validates :service_plan, presence: true
 
-  after_validation :set_title, :itemize, :set_cost, if: :service_plan
+  after_validation :set_title, :itemize, if: :service_plan
 
   def set_title
-    self.title = "Service: #{service_plan.display_title}"
+    self.title ||= "Service: #{service_plan.display_title}"
   end
 
   def itemize

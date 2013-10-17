@@ -1,8 +1,0 @@
-%div.form-inline.service-form{ 'ng-show' => "adding_service", 'ng-form' => "form_service" }
-  = f.simple_fields_for :tasks, Service.new, defaults: { label: false } do |t|
-    = t.hidden_field :type, value: 'Service'
-    = t.label 'Service'
-    = t.input :service_plan_id, as: :select, collection: @service_plans, label_method: :display_title, include_blank: '-- Service plan --', input_html: { required: true, 'ng-model' => 'service.service_plan', class: 'input-sm', id: 'service-plan' }
-    = t.input :note, placeholder: 'Note for mechanic', as: :string, input_html: { 'ng-model' => 'service.note' }
-    = t.submit 'Add', class: 'btn btn-primary btn-sm', 'ng-disabled' => "!form_service.$valid"
-    %a.btn.btn-danger.btn-sm{ href: '', 'ng-click' => "adding_service = false" } Cancel
