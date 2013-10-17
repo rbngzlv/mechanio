@@ -1,0 +1,21 @@
+.panel.panel-default.panel-rounded
+  .panel-body
+    .row
+      .profile-border
+        = image_tag mechanic.avatar? ? mechanic.avatar_url(:thumb) : 'photo.jpg', class: 'avatar'
+        .reviews-row.clearfix
+          .rating.pull-left
+            = rating_stars(mechanic.rating)
+          %span.review-text.pull-right #{ pluralize mechanic.reviews, 'Review' }
+        %h5.text-center
+          = link_to mechanic.full_name, "#js-mechanic-#{mechanic.id}", :data => {:toggle => 'modal'}, :role => 'button'
+          - if mechanic.years_as_a_mechanic
+            %br #{ mechanic.years_as_a_mechanic } Year of Experience
+
+      .row
+        %legend Select Arrival Time
+        = simple_form_for @job, url: users_appointment_path, html: { class: 'choose_mechanic_form' }, wrapper: :nolabel do |f|
+          = f.input :scheduled_at, :minute_step => 30
+          = f.input :mechanic_id, :as => :hidden, :input_html => { :value => mechanic.id }
+          = f.submit 'Assigned', class: 'btn btn-info'
+    = render 'shared/mechanic_description_popup', mechanic: mechanic

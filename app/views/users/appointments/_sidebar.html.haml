@@ -1,0 +1,26 @@
+.panel.panel-default.panel-rounded
+  .panel-body
+    %h5.hx-default Your Car
+    %ul
+      %li
+        %span Year:
+        = job.car.year
+      %li
+        %span Make:
+        = job.car.model_variation.model.make.name
+      %li
+        %span Model:
+        = job.car.model_variation.model.name
+.panel.panel-default.panel-rounded
+  .panel-body
+    %h5.hx-default Your Service
+    %ul
+      - job.tasks.each do |task|
+        %li
+          %i.glyphicon.glyphicon-chevron-right
+          = task.title
+.panel.panel-default.panel-rounded
+  .panel-body
+    %h5.hx-default Your Location
+    %span
+      = job.location.full_address

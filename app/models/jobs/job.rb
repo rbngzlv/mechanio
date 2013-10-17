@@ -71,17 +71,25 @@ class Job < ActiveRecord::Base
     )
   end
 
+  def self.estimated
+    with_status 'estimated'
+  end
+
   def has_service?
     tasks.any? { |t| t.is_a?(Service) }
   end
 
-  def assign_car_to_user
-    car.user_id = user_id if car && user_id
+  def assign_mechanic(params)
+    return false unless params[:mechanic_id] && params[:scheduled_at]
+
+    Mechanic.find(params[:mechanic_id])
+    params[:status] = :assigned
+    params[:assigned_at] = DateTime.now
+    update_attributes params
   end
 
-  def date
-    # TODO: It must return collection of time and date for event
-    job_date ||= Time.now()
+  def assign_car_to_user
+    car.user_id = user_id if car && user_id
   end
 
   def set_title
