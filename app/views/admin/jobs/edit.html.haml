@@ -14,7 +14,7 @@
     = link_to @job.mechanic.full_name, [:admin, @job.mechanic]
 
 %hr
-= simple_form_for [:admin, @job], html: { 'ng-controller' => 'JobsController', 'ng-init' => "init(#{@job.to_json})" } do |f|
+= simple_form_for [:admin, @job], html: { 'ng-controller' => 'JobsController', 'ng-init' => "init({job: #{@job.to_json}, service_plans: #{@service_plans_json}})" } do |f|
 
   .btn-group.pull-right
     %button.btn.btn-primary.btn-sm.dropdown-toggle{ 'data-toggle' => 'dropdown', type: 'button' }

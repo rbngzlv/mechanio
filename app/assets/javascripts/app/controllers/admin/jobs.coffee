@@ -2,8 +2,8 @@ app = angular.module('mechanio')
 
 app.controller 'JobsController', ['$scope', '$http', ($scope, $http) ->
 
-  $scope.init = (job) ->
-    $scope.job = job
+  $scope.init = (options) ->
+    $scope[key] = value for key, value of options
 
   $scope.addTask = (type) ->
     $scope.job.tasks.push
@@ -21,6 +21,10 @@ app.controller 'JobsController', ['$scope', '$http', ($scope, $http) ->
   $scope.hasService = ->
     (return true if task.type == 'Service') for task in $scope.job.tasks
     false
+
+  $scope.onServicePlanChanged = (task) ->
+    plan = p for p in $scope.service_plans when p.id == parseInt(task.service_plan_id)
+    task.title = "Service: #{plan.display_title}" if plan
 
   $scope.addItem = (task, type) ->
     task.task_items.push
