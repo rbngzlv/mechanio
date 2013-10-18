@@ -9,7 +9,7 @@
     .subtotal
     .pull-right
       .total
-        .form-control-static {{item.itemable.cost}}
+        .form-control-static {{item.itemable.cost | currency}}
       .actions
         %a.delete-item{ href: '', 'ng-click' => 'deleteItem(item)' }
           %i.glyphicon.glyphicon-remove

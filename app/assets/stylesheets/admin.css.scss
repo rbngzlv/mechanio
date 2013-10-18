@@ -1,7 +1,5 @@
 .admin {
-
   .edit_job {
-
     .item {
       padding-bottom: 7px;
       margin-bottom: 7px;
@@ -10,26 +8,24 @@
       div, input, select {
         display: inline-block;
       }
-      select {
-        width: 70px;
-      }
-      input[name *= "description"], input[name *= "name"] {
-        width: 550px;
-      }
-      input[name *= "quantity"] {
-        width: 70px;
-      }
-      input[name *= "cost"] {
-        text-align: right;
+
+      select, .subtotal input, .total input {
         width: 70px;
       }
 
+      input[name *= "cost"] {
+        text-align: right;
+      }
+
       .desc {
-        width: 65%;
+        width: 40%;
+        padding-right: 20px;
       }
+
       .subtotal {
-        width: 200px;
+        width: 220px;
       }
+
       .total {
         width: 120px;
         text-align: right;
@@ -38,6 +34,7 @@
           margin-right: -12px;
         }
       }
+
       .actions {
         width: 30px;
         text-align: right;

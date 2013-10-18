@@ -50,9 +50,9 @@ feature 'Jobs page' do
 
       within_task(1) do
         task_title.should eq 'Replace break pads'
-        task_total.should eq '233.0'
-        within_row(0) { verify_part 'Break pad', '2', '54.0', '108.0' }
-        within_row(1) { verify_labour 'Replace break pads', '2', '30', '125.0' }
+        task_total.should eq '$233.00'
+        within_row(0) { verify_part 'Break pad', '2', '54.0', '$108.00' }
+        within_row(1) { verify_labour 'Replace break pads', '2', '30', '$125.00' }
       end
 
       grand_total.should eq '$233.00'
@@ -70,8 +70,8 @@ feature 'Jobs page' do
 
       within_task(2) do
         task_title.should eq 'Service: 10,000 kms / 6 months'
-        task_total.should eq '350.0'
-        within_row(0) { verify_service_cost '10,000 kms / 6 months', '350.0' }
+        task_total.should eq '$350.00'
+        within_row(0) { verify_service_cost '10,000 kms / 6 months', '$350.00' }
       end
 
       grand_total.should eq '$583.00'
@@ -87,8 +87,8 @@ feature 'Jobs page' do
 
       within_task(1) do
         task_title.should eq 'Service: 10,000 kms / 6 months'
-        task_total.should eq '350.0'
-        within_row(0) { verify_service_cost '10,000 kms / 6 months', '350.0' }
+        task_total.should eq '$350.00'
+        within_row(0) { verify_service_cost '10,000 kms / 6 months', '$350.00' }
       end
 
       grand_total.should eq '$350.00'
@@ -118,9 +118,9 @@ feature 'Jobs page' do
 
       within_task(2) do
         task_title.should eq 'Fix breaks'
-        task_total.should eq '331.0'
-        within_row(0) { verify_part 'Break disc', '1', '56.0', '56.0' }
-        within_row(1) { verify_labour 'Changing break pads', '2', '0', '100.0' }
+        task_total.should eq '$331.00'
+        within_row(0) { verify_part 'Break disc', '1', '56.0', '$56.00' }
+        within_row(1) { verify_labour 'Changing break pads', '2', '0', '$100.00' }
         within_row(2) { verify_fixed 'Some fixed amount', '175.0' }
       end
 
@@ -134,15 +134,15 @@ feature 'Jobs page' do
 
       within_task(1) do
         task_title.should eq 'Service: 10,000 kms / 6 months'
-        task_total.should eq '350.0'
-        within_row(0) { verify_service_cost '10,000 kms / 6 months', '350.0' }
+        task_total.should eq '$350.00'
+        within_row(0) { verify_service_cost '10,000 kms / 6 months', '$350.00' }
       end
 
       within_task(2) do
         task_title.should eq 'Replace break pads'
-        task_total.should eq '233.0'
-        within_row(0) { verify_part 'Break pad', '2', '54.0', '108.0' }
-        within_row(1) { verify_labour 'Replace break pads', '2', '30', '125.0' }
+        task_total.should eq '$233.00'
+        within_row(0) { verify_part 'Break pad', '2', '54.0', '$108.00' }
+        within_row(1) { verify_labour 'Replace break pads', '2', '30', '$125.00' }
       end
 
       grand_total.should eq '$583.00'
@@ -156,9 +156,9 @@ feature 'Jobs page' do
 
       within_task(2) do
         task_title.should eq 'Replace break pads'
-        task_total.should eq '156.0'
-        within_row(0) { verify_part 'Break disc', '1', '56.0', '56.0' }
-        within_row(1) { verify_labour 'Changing break pads', '2', '0', '100.0' }
+        task_total.should eq '$156.00'
+        within_row(0) { verify_part 'Break disc', '1', '56.0', '$56.00' }
+        within_row(1) { verify_labour 'Changing break pads', '2', '0', '$100.00' }
       end
 
       grand_total.should eq '$506.00'

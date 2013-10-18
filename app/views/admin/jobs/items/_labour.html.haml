@@ -10,10 +10,10 @@
       = i.input :duration_hours, as: :select, collection: Labour::HOURS, include_blank: 'Hours', input_html: { class: 'input-sm labour-hours', 'ng-model' => 'item.itemable.duration_hours' }
       %span :
       = i.input :duration_minutes, as: :select, collection: Labour::MINUTES, include_blank: 'Mins', input_html: { class: 'input-sm labour-minutes', 'ng-model' => 'item.itemable.duration_minutes' }
-      %span x {{item.itemable.hourly_rate}}
+      %span x {{item.itemable.hourly_rate | currency}}
     .pull-right
       .total
-        .form-control-static {{item.itemable.cost}}
+        .form-control-static {{item.itemable.cost | currency}}
       .actions
         %a.delete-item{ href: '', 'ng-click' => 'deleteItem(item)' }
           %i.glyphicon.glyphicon-remove
