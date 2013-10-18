@@ -11,5 +11,6 @@ class Task < ActiveRecord::Base
     costs = task_items.map { |ti| ti.marked_for_destruction? ? 0 : ti.set_cost }
     self.cost = costs.include?(nil) ? nil : costs.sum
     self.cost = nil if self.cost == 0
+    self.cost
   end
 end
