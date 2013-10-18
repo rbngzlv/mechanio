@@ -71,7 +71,7 @@ feature 'Jobs page' do
       within_task(2) do
         task_title.should eq 'Service: 10,000 kms / 6 months'
         task_total.should eq '350.0'
-        within_row(0) { verify_fixed '10,000 kms / 6 months', '350.0' }
+        within_row(0) { verify_service_cost '10,000 kms / 6 months', '350.0' }
       end
 
       grand_total.should eq '$583.00'
@@ -88,7 +88,7 @@ feature 'Jobs page' do
       within_task(1) do
         task_title.should eq 'Service: 10,000 kms / 6 months'
         task_total.should eq '350.0'
-        within_row(0) { verify_fixed '10,000 kms / 6 months', '350.0' }
+        within_row(0) { verify_service_cost '10,000 kms / 6 months', '350.0' }
       end
 
       grand_total.should eq '$350.00'
@@ -135,7 +135,7 @@ feature 'Jobs page' do
       within_task(1) do
         task_title.should eq 'Service: 10,000 kms / 6 months'
         task_total.should eq '350.0'
-        within_row(0) { verify_fixed '10,000 kms / 6 months', '350.0' }
+        within_row(0) { verify_service_cost '10,000 kms / 6 months', '350.0' }
       end
 
       within_task(2) do
@@ -147,22 +147,12 @@ feature 'Jobs page' do
 
       grand_total.should eq '$583.00'
 
-      within_task(1) do
-        within_row(0) { fill_in_fixed }
-      end
-
       within_task(2) do
         within_row(0) { fill_in_part }
         within_row(1) { fill_in_labour }
       end
 
       click_on 'Update job'
-
-      within_task(1) do
-        task_title.should eq 'Service: 10,000 kms / 6 months'
-        task_total.should eq '175.0'
-        within_row(0) { verify_fixed 'Some fixed amount', '175.0' }
-      end
 
       within_task(2) do
         task_title.should eq 'Replace break pads'
@@ -171,7 +161,7 @@ feature 'Jobs page' do
         within_row(1) { verify_labour 'Changing break pads', '2', '0', '100.0' }
       end
 
-      grand_total.should eq '$331.00'
+      grand_total.should eq '$506.00'
     end
 
     scenario 'delete tasks/items' do
@@ -194,6 +184,11 @@ feature 'Jobs page' do
 
       grand_total.should eq '$108.00'
     end
+  end
+
+  def verify_service_cost(description, cost)
+    page.should have_css '.desc', text: description
+    page.should have_css '.total', text: cost
   end
 
   def verify_fixed(description, cost)

@@ -14,8 +14,6 @@ class Labour < ActiveRecord::Base
     self.hourly_rate = 50
   end
 
-  after_validation :set_cost
-
   def duration
     duration_hours * 60 + duration_minutes rescue nil
   end

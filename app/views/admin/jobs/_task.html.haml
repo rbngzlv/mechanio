@@ -12,23 +12,16 @@
   .task-form{ 'ng-show' => 'editingTask(task)' }
     %ng-include{ src: 'taskTemplate(task)' }
 
-  %script{ type: 'text/ng-template', id: 'service' }
-    = render partial: "admin/jobs/tasks/service", locals: { f: f }
-
-  %script{ type: 'text/ng-template', id: 'repair' }
-    = render partial: "admin/jobs/tasks/repair", locals: { f: f }
-
   .item{ 'ng-repeat' => 'item in task.task_items', 'ng-hide' => 'item._destroy' }
     %ng-include{ src: 'itemTemplate(item)' }
 
-  %script{ type: 'text/ng-template', id: 'fixed_amount' }
-    = render partial: "admin/jobs/items/fixed_amount", locals: { t: t }
+  - ['service', 'repair'].each do |template|
+    %script{ type: 'text/ng-template', id: template }
+      = render partial: "admin/jobs/tasks/#{template}", locals: { f: f }
 
-  %script{ type: 'text/ng-template', id: 'part' }
-    = render partial: "admin/jobs/items/part", locals: { t: t }
-
-  %script{ type: 'text/ng-template', id: 'labour' }
-    = render partial: "admin/jobs/items/labour", locals: { t: t }
+  - ['fixed_amount', 'service_cost', 'part', 'labour'].each do |template|
+    %script{ type: 'text/ng-template', id: template }
+      = render partial: "admin/jobs/items/#{template}", locals: { t: t }
 
   .pull-right.clearfix
     %dl.dl-horizontal.totals

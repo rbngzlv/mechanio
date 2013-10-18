@@ -5,7 +5,7 @@ class TaskItem < ActiveRecord::Base
 
   accepts_nested_attributes_for :itemable, reject_if: :all_blank
 
-  delegate :cost, to: :itemable, allow_nil: true
+  delegate :cost, :set_cost, to: :itemable, allow_nil: true
 
   def build_itemable(attrs)
     validate_itemable_type

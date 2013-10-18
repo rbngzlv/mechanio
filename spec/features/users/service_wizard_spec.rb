@@ -40,7 +40,7 @@ describe 'Service wizard', js: true do
 
   it 'lists existing user cars', pending: 'need shared db connection for this test to work' do
     car = create :car, user: user, model_variation: variation
-    ap car.model_variation
+
     login_user user
     visit service_path
 

@@ -8,8 +8,9 @@ describe Part do
   it { should validate_presence_of :unit_cost }
   it { should validate_presence_of :quantity }
 
-  it 'calculates cost on save' do
+  it 'calculates cost' do
     part = create :part, unit_cost: 100, quantity: 3
+    part.set_cost
     part.cost.should eq 300
   end
 end

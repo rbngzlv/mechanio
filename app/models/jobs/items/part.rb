@@ -6,8 +6,6 @@ class Part < ActiveRecord::Base
   validates :unit_cost, numericality: { greater_than: 0 }
   validates :quantity, numericality: { greater_than: 0, only_integer: true }
 
-  after_validation :set_cost
-
   def set_cost
     self.cost = unit_cost * quantity if unit_cost
   end

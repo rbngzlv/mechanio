@@ -12,8 +12,7 @@ class Job < ActiveRecord::Base
   serialize :serialized_params
 
   before_validation :assign_car_to_user
-  before_save :set_title
-  after_save :set_cost
+  before_save :set_title, :set_cost
 
   validates :car, :location, :tasks, :contact_email, :contact_phone, presence: true
   validates :user, presence: true, unless: :skip_user_validation
@@ -68,7 +67,7 @@ class Job < ActiveRecord::Base
       :car_id, :contact_email, :contact_phone,
       location_attributes:  [:address, :suburb, :postcode, :state_id],
       car_attributes:       [:year, :model_variation_id],
-      tasks_attributes:     [:type, :service_plan_id, :note]
+      tasks_attributes:     [:type, :service_plan_id, :note, :title]
     )
   end
 
@@ -96,10 +95,9 @@ class Job < ActiveRecord::Base
   end
 
   def set_cost
-    costs = tasks.map(&:cost)
-    cost = costs.include?(nil) ? nil : costs.sum
-    cost = nil if cost == 0
-    update_column(:cost, cost)
+    costs = tasks.map { |t| t.marked_for_destruction? ? 0 : t.set_cost }
+    self.cost = costs.include?(nil) ? nil : costs.sum
+    self.cost = nil if self.cost == 0
   end
 
   def as_json(options = {})

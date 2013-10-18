@@ -69,6 +69,11 @@ describe Job do
     job_with_service.cost.should eq 350
   end
 
+  it 'sums tasks costs when creating from nested_attributes' do
+    job = user.jobs.create!(attrs)
+    job.cost.should eq 475
+  end
+
   it 'sets title from the first task before save' do
     job_with_service.title.should eq job_with_service.tasks.first.title
   end
@@ -79,9 +84,14 @@ describe Job do
   end
 
   def attrs
+    repair_item = attributes_for(:task_item, itemable_type: 'Labour', itemable_attributes: attributes_for(:labour))
+
     @attrs ||= attributes_for(:job).merge({
       location_attributes: attributes_for(:location, state_id: create(:state).id),
-      tasks_attributes: [attributes_for(:service, service_plan_id: create(:service_plan).id)],
+      tasks_attributes: [
+        attributes_for(:service, service_plan_id: create(:service_plan).id),
+        attributes_for(:repair, task_items_attributes: [repair_item])
+      ],
       car_attributes: { year: '2000', model_variation_id: create(:model_variation).id }
     })
   end

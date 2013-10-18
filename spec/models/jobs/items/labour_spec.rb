@@ -21,8 +21,9 @@ describe Labour do
     labour.display_duration.should eq '2:30'
   end
 
-  it 'calculates cost after validation' do
+  it 'calculates cost' do
     labour.should be_valid
+    labour.set_cost
     labour.cost.should eq 125
   end
 end
