@@ -33,6 +33,12 @@ class Job < ActiveRecord::Base
     end
     state :assigned
     state :completed
+
+    after_transition all => :pending, :do => :send_new_job_email
+
+    event :pending do
+      transition all => :pending
+    end
   end
 
   default_scope { order(created_at: :desc).without_status(:temporary) }
@@ -126,5 +132,11 @@ class Job < ActiveRecord::Base
         }}
       }}
     })
+  end
+
+  private
+
+  def send_new_job_email
+    AdminMailer.new_job(self).deliver
   end
 end

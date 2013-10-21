@@ -97,6 +97,17 @@ describe Job do
     job_with_service.title.should eq job_with_service.tasks.first.title
   end
 
+  specify '#pending should call send_new_job_email' do
+    job_with_service.should_receive( :send_new_job_email )
+    job_with_service.pending
+  end
+
+  specify '#send_new_job_email should call mailer' do
+    mailer = double(deliver: true)
+    AdminMailer.should_receive(:new_job).with(job_with_service).and_return(mailer)
+    job_with_service.send(:send_new_job_email)
+  end
+
   it 'determines if there is a service task' do
     job_with_service.has_service?.should be_true
     job.has_service?.should be_false
