@@ -160,16 +160,17 @@
             .tr-divider
             = link_to 'Update', '#js-modal', class: 'btn btn-success pull-right top-margin', data: {toggle: 'modal'}
             = link_to 'Back', '#', class: 'btn btn-default top-margin pull-right'
-#js-modal.modal.fade.col-md-6.col-md-offset-3{aria: {hidden: 'true', labelledby: 'modal-label'}, role: 'dialog'}
-  .panel.panel-default
-    .panel-heading.clearfix
-      %button.close{aria: {hidden: 'true'}, data: {dismiss: 'modal'}, type: "button"} ×
-      %span#modal-label.pull-left Update Job
-    .panel-body
-      .col-md-12
-        You have made changes in pricing. Press save
-        to update prices and send an invoice to the client. Please note that
-        this can only be done once.
-    .panel-footer.clearfix
-      = link_to 'Back', '#', class: 'btn btn-default pull-left', aria: {hidden: 'true'}, data: {dismiss: 'modal'}
-      = link_to 'Save', '#', class: 'btn btn-success pull-right', aria: {hidden: 'true'}, data: {dismiss: 'modal'}
+#js-modal.modal.fade{aria: {hidden: 'true', labelledby: 'modal-label'}, role: 'dialog'}
+  .col-md-6.col-md-offset-3
+    .panel.panel-default
+      .panel-heading.clearfix
+        %button.close{aria: {hidden: 'true'}, data: {dismiss: 'modal'}, type: "button"} ×
+        %span#modal-label.pull-left Update Job
+      .panel-body
+        .col-md-12
+          You have made changes in pricing. Press save
+          to update prices and send an invoice to the client. Please note that
+          this can only be done once.
+      .panel-footer.clearfix
+        = link_to 'Back', '#', class: 'btn btn-default pull-left', aria: {hidden: 'true'}, data: {dismiss: 'modal'}
+        = link_to 'Save', '#', class: 'btn btn-success pull-right', aria: {hidden: 'true'}, data: {dismiss: 'modal'}

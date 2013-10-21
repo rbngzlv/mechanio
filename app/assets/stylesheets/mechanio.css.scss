@@ -46,8 +46,29 @@ a:hover {
   text-decoration: none;
 }
 
+.lazure {
+  color: #22878e !important;
+}
+
 .header {
   background: #fff;
+  border-radius: 0;
+
+  .home-header-link {
+    color: #858585;
+    font-size: 13px;
+
+    &:hover,
+    &:active {
+      color: #000;
+      text-decoration: none;
+    }
+
+    + p {
+      color: #858585;
+      margin-right: 12px;
+    }
+  }
 
   .dropdown-menu {
     background: #fcfcfc;
@@ -113,6 +134,12 @@ a:hover {
   > .container {
     padding-bottom: 90px;
   }
+}
+
+.about-wrap {
+  @extend .wrap;
+  margin-top: -65px;
+  padding-top: 65px;
 }
 
 .nested-panel {
@@ -233,7 +260,7 @@ i.verified-icon {
   padding-top: 10px;
 
   > .container {
-    padding-bottom: 90px;
+    padding-bottom: 70px;
   }
 
   ul {
@@ -496,6 +523,10 @@ section {
   }
 }
 
+.faq-accordion .nested-panel {
+  margin-bottom: 3px;
+}
+
 .profile-border {
   background: asset-url("profile-bg.jpg") no-repeat;
   float: left;
@@ -523,6 +554,10 @@ section {
 
   img + .reviews-row {
     padding-top: 10px;
+
+    + h5 {
+      margin-bottom: -10px;
+    }
   }
 }
 
@@ -637,7 +672,7 @@ section {
 
 .vertical-align {
   line-height: 34px;
-  height: 34px;
+  height: 34px !important;
 }
 
 .info {
@@ -648,6 +683,22 @@ section {
 
     &:hover {
       color: #000;
+    }
+  }
+}
+
+.finder {
+  height: 34px;
+
+  .email-input {
+    float: left;
+    width: 70%;
+    height: 100%;
+
+    + .subscribe-btn {
+      float: left;
+      width: 30%;
+      height: 100%;
     }
   }
 }
@@ -832,7 +883,7 @@ section {
 
 .sign-up-wrap {
   background: #ddd;
-  padding: 20px 0 0;
+  padding: 20px 0 10px;
 
   p {
     font-size: 20px;
@@ -870,18 +921,20 @@ section {
   .commentary-block {
     min-height: 95px;
   }
-  
+
   .carousel-control {
     font-size: 50px;
     top: 30px;
+    width: auto;
   }
 
   .carousel-control.left {
-    left: -160px;
+    left: -90px;
   }
 
   .carousel-control.right {
-    left: -120px;
+    right: 100%;
+    left: -100px;
   }
 
   a {
@@ -1187,8 +1240,7 @@ form {
 }
 
 .modal{
-  top: 6%;
-  overflow: hidden;
+  padding-top: 2%;
 
   .review-block {
     @include box-shadow(0 0 5px #ddd);

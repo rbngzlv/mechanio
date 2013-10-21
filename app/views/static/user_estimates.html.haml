@@ -106,30 +106,31 @@
                   %td
                     %b $75.00
               = link_to 'Book Appointments', '#', class: 'btn btn-success pull-right'
-#js-my-modal.modal.fade.col-md-6.col-md-offset-3{aria: {hidden: 'true', labelledby: 'my-modal-label'}, role: 'dialog', tabindex: '-1'}
-  .panel.panel-default
-    .modal-header.clearfix
-      %span#my-modal-label Please tell us why you are cancelling
-      %button.close{aria: {hidden: 'true'}, data: {dismiss: 'modal'}, type: 'button'} ×
-    .panel-body
-      .row
-        .col-md-6.col-md-offset-3
-          .radio
-            %label
-              %input#options-radios-1{type: 'radio', name: 'option-radios', value: 'option1'}
-              I plan to get this service in the future
-          .radio
-            %label
-              %input#options-radios-2{type: 'radio', name: 'option-radios', value: 'option2'}
-              I no longer need this service
-          .radio
-            %label
-              %input#options-radios-2{type: 'radio', name: 'option-radios', value: 'option2'}
-              A local shop gave me a lower quote.
-          .radio
-            %label
-              %input#options-radios-2{type: 'radio', name: 'option-radios', value: 'option2'}
-              Other
-          %textarea.form-control{name: ''}
-    .panel-footer.clearfix
-      %button.col-md-6.col-md-offset-3.btn.btn-primary{aria: {hidden: 'true'}, data: {dismiss: 'modal'}} Confirm Delete
+#js-my-modal.modal.fade{aria: {hidden: 'true', labelledby: 'my-modal-label'}, role: 'dialog', tabindex: '-1'}
+  .col-md-6.col-md-offset-3
+    .panel.panel-default
+      .modal-header.clearfix
+        %span#my-modal-label Please tell us why you are cancelling
+        %button.close{aria: {hidden: 'true'}, data: {dismiss: 'modal'}, type: 'button'} ×
+      .panel-body
+        .row
+          .col-md-6.col-md-offset-3
+            .radio
+              %label
+                %input#options-radios-1{type: 'radio', name: 'option-radios', value: 'option1'}
+                I plan to get this service in the future
+            .radio
+              %label
+                %input#options-radios-2{type: 'radio', name: 'option-radios', value: 'option2'}
+                I no longer need this service
+            .radio
+              %label
+                %input#options-radios-2{type: 'radio', name: 'option-radios', value: 'option2'}
+                A local shop gave me a lower quote.
+            .radio
+              %label
+                %input#options-radios-2{type: 'radio', name: 'option-radios', value: 'option2'}
+                Other
+            %textarea.form-control{name: ''}
+      .panel-footer.clearfix
+        %button.col-md-6.col-md-offset-3.btn.btn-primary{aria: {hidden: 'true'}, data: {dismiss: 'modal'}} Confirm Delete
