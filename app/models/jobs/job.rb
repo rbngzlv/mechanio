@@ -12,7 +12,7 @@ class Job < ActiveRecord::Base
   serialize :serialized_params
 
   before_validation :assign_car_to_user
-  before_save :set_title, :set_cost
+  before_save :set_title, :set_cost, :set_status
 
   validates :car, :location, :tasks, :contact_email, :contact_phone, presence: true
   validates :user, presence: true, unless: :skip_user_validation
@@ -21,9 +21,16 @@ class Job < ActiveRecord::Base
   attr_accessor :skip_user_validation
 
   state_machine :status, initial: :pending do
-    state :temporary
-    state :pending
-    state :estimated
+    state :temporary do
+      transition to: :pending, on: :convert_from_temporary
+    end
+    state :pending do
+      transition to: :estimated, on: :estimate
+    end
+    state :estimated do
+      transition to: :assigned, on: :assign
+      validates :cost, presence: true, numericality: { greater_than: 0 }
+    end
     state :assigned
     state :completed
   end
@@ -47,7 +54,7 @@ class Job < ActiveRecord::Base
 
   def self.build_temporary(params)
     job = Job.new(params)
-    job.status = :temporary
+    job.status = 'temporary'
     job.skip_user_validation = true
     job.car.skip_user_validation = true if job.car
     job
@@ -55,8 +62,9 @@ class Job < ActiveRecord::Base
 
   def self.convert_from_temporary(id, user)
     job = unscoped.with_status(:temporary).find(id)
-    job.status = :pending
+    job.status = 'pending'
     job.user_id = user.id
+
     job.update_attributes!(self.whitelist(job.serialized_params))
     job
   end
@@ -102,6 +110,10 @@ class Job < ActiveRecord::Base
     costs = tasks.map { |t| t.marked_for_destruction? ? 0 : t.set_cost }
     self.cost = costs.include?(nil) ? nil : costs.sum
     self.cost = nil if self.cost == 0
+  end
+
+  def set_status
+    self.status = 'estimated' if pending? && cost && cost > 0
   end
 
   def as_json(options = {})

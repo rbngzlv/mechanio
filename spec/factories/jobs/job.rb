@@ -19,6 +19,18 @@ FactoryGirl.define do
       end
     end
 
+    trait :estimated do
+      status  :estimated
+      cost    123
+    end
+
+    trait :pending do
+      status :pending
+      after :build do |j|
+        j.tasks << build(:repair)
+      end
+    end
+
     factory :job_with_service, traits: [:with_service]
 
     trait :with_mechanic do

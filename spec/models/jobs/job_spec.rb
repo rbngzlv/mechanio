@@ -31,9 +31,18 @@ describe Job do
     tmp.reload.status.should eq 'temporary'
 
     job = Job.convert_from_temporary(tmp.id, user)
-    job.reload.status.should eq 'pending'
+    job.reload.status.should eq 'estimated'
     job.tasks.count.should eq 2
     job.cost.should eq 475
+  end
+
+  it 'should be pending when some tasks have unknown cost' do
+    a = attrs
+    a[:tasks_attributes][1].delete(:task_items_attributes)
+    job.attributes = attrs
+    job.save!
+    job.status.should eq 'pending'
+    job.cost.should be_nil
   end
 
   describe '#assign_mechanic' do

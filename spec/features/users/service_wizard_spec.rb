@@ -109,6 +109,9 @@ describe 'Service wizard', js: true do
 
   def verify_job_created
     user.reload.jobs.count.should eq 1
-    user.jobs.last.status.should eq 'pending'
+    user.jobs.last.tap do |j|
+      j.status.should eq 'estimated'
+      j.cost.should eq 350
+    end
   end
 end
