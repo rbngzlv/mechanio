@@ -26,6 +26,7 @@ app.controller 'QuoteController', ['$scope', '$http', ($scope, $http) ->
     $scope.setProgress(100)
 
   $scope.onSuccess = (data) ->
+    $scope.job_id = data.id
     $scope.total = data.cost if data.cost
     $scope.loading = false
 

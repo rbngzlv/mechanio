@@ -35,10 +35,13 @@ describe 'Service wizard', js: true do
     verify_sidebar 4, 'LOCATION', "Broadway 54, ap. 1 Suburb #{state.name}, 1234"
     verify_quote
 
+    click_on 'Pick a mechanic'
+    verify_appointment
+
     verify_job_created
   end
 
-  it 'lists existing user cars', pending: 'need shared db connection for this test to work' do
+  it 'lists existing user cars' do
     car = create :car, user: user, model_variation: variation
 
     login_user user
@@ -56,6 +59,12 @@ describe 'Service wizard', js: true do
     fill_in_address
 
     verify_current_step 'Quote'
+    verify_sidebar 4, 'LOCATION', "Broadway 54, ap. 1 Suburb #{state.name}, 1234"
+    verify_quote
+
+    click_on 'Pick a mechanic'
+    verify_appointment
+
     verify_job_created
   end
 
@@ -105,6 +114,10 @@ describe 'Service wizard', js: true do
       page.should have_css 'h5', text: title
       page.should have_css '.panel-body', text: content
     end
+  end
+
+  def verify_appointment
+    page.should have_css 'h4', text: 'SELECT AN APPOINTMENT'
   end
 
   def verify_job_created

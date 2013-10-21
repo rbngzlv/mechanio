@@ -43,8 +43,8 @@ class Job < ActiveRecord::Base
 
   default_scope { order(created_at: :desc).without_status(:temporary) }
 
-  def self.create!(params)
-    super self.whitelist(params)
+  def self.sanitize_and_create(params)
+    create! self.whitelist(params)
   end
 
   def self.create_temporary(params)

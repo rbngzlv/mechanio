@@ -18,15 +18,14 @@
           %p.col-md-8
             We'll give you a call with a fixed quote within two hours, and match you with qualified mobile mechanics
             who can work on your car when you're ready.
-        = link_to '', 'Check my job status'
     %hr
 
     .controls{ 'ng-hide' => 'error' }
       %div{ 'ng-show' => 'total' }
-        %a.btn.btn-primary.pull-right{ href: '' }
+        %a.btn.btn-primary.pull-right{ 'ng-href' => '/users/appointments/{{job_id}}/edit' }
           Pick a mechanic
           %small &#x276F;
 
       %div{ 'ng-hide' => 'total' }
-        = link_to 'Check my job status', '', class: 'btn btn-primary'
+        = link_to 'Check my job status', users_estimates_path, class: 'btn btn-primary'
 

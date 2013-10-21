@@ -27,7 +27,7 @@ class Users::JobsController < Users::ApplicationController
 
   def create
     if user_signed_in?
-      job = current_user.jobs.create!(params)
+      job = current_user.jobs.sanitize_and_create(params)
     else
       if job = Job.create_temporary(params)
         session[:tmp_job_id] = job.id
