@@ -18,6 +18,11 @@ feature 'dashboard page' do
   end
 
   context 'jobs' do
+    specify 'notify about empty job list' do
+      should have_content 'No Upcoming Jobs'
+      should have_content 'No Completed Jobs'
+    end
+
     scenario 'upcoming jobs' do
       job = create :assigned_job, mechanic: mechanic
       visit mechanics_dashboard_path
