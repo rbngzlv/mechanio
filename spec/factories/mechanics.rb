@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :mechanic do
-    first_name              'John'
-    last_name               'Doe'
+    first_name              'Joe'
+    last_name               'Mechanic'
     email                   'email@host.com'
     password                'password'
     dob                     { 25.years.ago }

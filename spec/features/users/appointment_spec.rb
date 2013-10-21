@@ -2,7 +2,7 @@ require 'spec_helper'
 
 feature 'appointment page' do
   let(:user) { create :user }
-  let!(:job) { create :job_with_service, status: 'estimated', user: user }
+  let!(:job) { create :job_with_service, :estimated, user: user }
 
   subject { page }
 

@@ -53,7 +53,7 @@ feature 'Admin mechanics management' do
 
   scenario 'edits existing mechanic' do
     visit admin_mechanics_path
-    page.should have_css 'td', text: 'John Doe'
+    page.should have_css 'td', text: 'Joe Mechanic'
 
     click_link 'Details'
     page.should have_content 'Business Details'
@@ -66,7 +66,7 @@ feature 'Admin mechanics management' do
     click_button 'Save'
 
     visit admin_mechanics_path
-    page.should have_css 'td', text: 'Alex Doe'
+    page.should have_css 'td', text: 'Alex Mechanic'
   end
 
   it 'deletes a mechanic' do

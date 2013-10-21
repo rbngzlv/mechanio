@@ -2,8 +2,8 @@ require 'spec_helper'
 
 feature 'estimates page' do
   let(:user) { create :user }
-  let!(:job) { create :job_with_service, user: user }
-  let!(:estimated_job) { create :job_with_service, user: user, status: 'estimated' }
+  let!(:job) { create :job, :pending, user: user }
+  let!(:estimated_job) { create :job_with_service, :estimated, user: user }
 
   before { login_user user }
 
@@ -18,7 +18,8 @@ feature 'estimates page' do
       should have_content 'My Estimates'
       should have_content '2'
     end
-    within '.panel:nth-child(1)' do
+
+    within '.panel:nth-child(2)' do
       should have_content job.created_at.to_s(:date)
       should have_content job.car.display_title
       job.tasks.each do |task|
@@ -29,6 +30,6 @@ feature 'estimates page' do
       should have_content job.cost
       should have_no_link 'Book Appointments'
     end
-    within('.panel:nth-child(2)') { should have_link 'Book Appointments' }
+    within('.panel:nth-child(1)') { should have_link 'Book Appointments' }
   end
 end

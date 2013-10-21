@@ -1,7 +1,9 @@
 FactoryGirl.define do
+  sequence(:kms) { |n| n * 1000 }
+
   factory :service_plan do
     title           ''
-    kms_travelled   10000
+    kms_travelled   { generate(:kms) }
     months          6
     cost            350.0
     make

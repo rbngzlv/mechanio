@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe ServicePlan do
+  include ActionView::Helpers::NumberHelper
 
   let(:service_plan)        { build :service_plan }
   let(:custom_service_plan) { build :custom_service_plan }
@@ -31,7 +32,7 @@ describe ServicePlan do
 
     it '#display_title' do
       subject.set_display_title
-      subject.display_title.should eq '10,000 kms / 6 months'
+      subject.display_title.should eq "#{number_with_delimiter(subject.kms_travelled)} kms / #{subject.months} months"
     end
   end
 

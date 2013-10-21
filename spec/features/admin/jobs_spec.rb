@@ -13,7 +13,7 @@ feature 'Jobs page' do
 
   context 'should show general info about job' do
     let!(:job1) { create :job_with_service }
-    let!(:job2) { create :job_with_service, tasks: [create(:task, cost: nil)], mechanic: create(:mechanic) }
+    let!(:job2) { create :assigned_job }
 
     before { visit admin_jobs_path }
 
@@ -22,23 +22,25 @@ feature 'Jobs page' do
     scenario 'check content' do
       within 'tbody' do
         within 'tr:nth-child(1)' do
-          should have_content job1.status
-          should have_content job1.title
-          should have_content job1.created_at.to_s(:db)
-          should have_content job1.user.full_name
-          should have_content job1.date.to_s(:db)
-          should have_content 'unassigned'
-          should have_content job1.cost
-          should have_link "Edit"
+          verify_job_row(job2)
         end
 
         within 'tr:nth-child(2)' do
-          should have_content job2.mechanic.full_name
-          should have_content 'pending'
-          should have_link "Edit"
+          verify_job_row(job1)
         end
       end
     end
+  end
+
+  def verify_job_row(job)
+    should have_content job.status
+    should have_content job.title
+    should have_content job.created_at.to_s(:db)
+    should have_content job.user.full_name
+    should have_content job.scheduled_at? ? job.scheduled_at.to_s(:db) : ''
+    should have_content job.mechanic ? job.mechanic.full_name : 'unassigned'
+    should have_content job.cost
+    should have_link "Edit"
   end
 
   context 'edit job', :js do
@@ -69,9 +71,9 @@ feature 'Jobs page' do
       click_on 'Update job'
 
       within_task(2) do
-        task_title.should eq 'Service: 10,000 kms / 6 months'
+        task_title.should eq "Service: #{service_plan.display_title}"
         task_total.should eq '$350.00'
-        within_row(0) { verify_service_cost '10,000 kms / 6 months', '$350.00' }
+        within_row(0) { verify_service_cost service_plan.display_title, '$350.00' }
       end
 
       grand_total.should eq '$583.00'
@@ -82,13 +84,14 @@ feature 'Jobs page' do
 
     scenario 'add repair' do
       job = create :job, :with_service
+      service_plan = job.tasks.first.service_plan
 
       visit edit_admin_job_path(job)
 
       within_task(1) do
-        task_title.should eq 'Service: 10,000 kms / 6 months'
+        task_title.should eq "Service: #{service_plan.display_title}"
         task_total.should eq '$350.00'
-        within_row(0) { verify_service_cost '10,000 kms / 6 months', '$350.00' }
+        within_row(0) { verify_service_cost service_plan.display_title, '$350.00' }
       end
 
       grand_total.should eq '$350.00'
@@ -129,13 +132,14 @@ feature 'Jobs page' do
 
     scenario 'edit items' do
       job = create :job, :with_service, :with_repair
+      service_plan = job.tasks.first.service_plan
 
       visit edit_admin_job_path(job)
 
       within_task(1) do
-        task_title.should eq 'Service: 10,000 kms / 6 months'
+        task_title.should eq "Service: #{service_plan.display_title}"
         task_total.should eq '$350.00'
-        within_row(0) { verify_service_cost '10,000 kms / 6 months', '$350.00' }
+        within_row(0) { verify_service_cost service_plan.display_title, '$350.00' }
       end
 
       within_task(2) do
