@@ -26,6 +26,16 @@ describe Job do
     tmp.status.should eq 'temporary'
   end
 
+  it '#convert_from_temporary' do
+    tmp = Job.create_temporary(job: attrs)
+    tmp.reload.status.should eq 'temporary'
+
+    job = Job.convert_from_temporary(tmp.id, user)
+    job.reload.status.should eq 'pending'
+    job.tasks.count.should eq 2
+    job.cost.should eq 475
+  end
+
   describe '#assign_mechanic' do
     let(:mechanic) { create :mechanic }
 
