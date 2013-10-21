@@ -43,6 +43,11 @@ class Users::JobsController < Users::ApplicationController
 
   private
 
+  def symptoms
+    Symptom.tree
+  end
+  helper_method :symptoms
+
   def states_json
     State.select([:id, :name]).to_json
   end

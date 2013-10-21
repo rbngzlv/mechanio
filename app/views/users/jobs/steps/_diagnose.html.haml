@@ -1,5 +1,26 @@
 .step-diagnose{ 'ng-controller' => 'DiagnoseController', 'ng-show' => 'stepVisible("diagnose")', 'ng-form' => 'diagnose_form' }
   .wizard-body
+    %h5 PLEASE DESCRIBE YOUR PROBLEM
+    %hr.hr-dark-gray
+    = f.simple_fields_for :task, Repair.new do |s|
+      = s.input :title, label: false, placeholder: '', as: :text, input_html: { 'ng-model' => 'title' }
+      - symptoms.each do |k, parent|
+        = parent.inspect
+        %fieldset= parent['description']
+        - parent['symptoms'].each do |child|
+          = s.input :symptoms, as: :boolean, label: child['description']
+
+      =# s.input :symptom_ids, label: false, include_blank: '-- Please select --', collection: [], input_html: { 'ng-model' => 'service_plan', 'ng-options' => 'v.display_title for v in service_plans', 'ng-disabled' => 'service_plans.length == 0', 'ng-focus' => true, 'required' => true }
+  %hr
+  %button.btn.btn-default{ 'type' => 'button', 'ng-click' => 'gotoStep("car-details")' }
+    %small &#x276E;
+    Back
+  %button.btn.btn-primary.pull-right{ 'type' => 'button', 'ng-click' => 'submit()', 'ng-disabled' => '!valid()' }
+    Continue
+    %small &#x276F;
+
+
+  .wizard-body
     %h5 PLEASE PICK A SERVICE INTERVAL YOU'LL LIKE OUR PROFESSIONAL MOBILE MECHANIC TO PERFORM
     %hr.hr-dark-gray
     = f.simple_fields_for :task do |s|
