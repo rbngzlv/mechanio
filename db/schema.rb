@@ -11,10 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131016133737) do
-
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+ActiveRecord::Schema.define(version: 20131018044121) do
 
   create_table "admins", force: true do |t|
     t.string   "email"
@@ -80,13 +77,14 @@ ActiveRecord::Schema.define(version: 20131016133737) do
 
   create_table "labours", force: true do |t|
     t.text     "description"
-    t.integer  "duration"
-    t.decimal  "hourly_rate", precision: 8, scale: 2
-    t.decimal  "cost",        precision: 8, scale: 2
-    t.decimal  "tax",         precision: 8, scale: 2
-    t.decimal  "total",       precision: 8, scale: 2
+    t.integer  "duration_hours"
+    t.decimal  "hourly_rate",      precision: 8, scale: 2
+    t.decimal  "cost",             precision: 8, scale: 2
+    t.decimal  "tax",              precision: 8, scale: 2
+    t.decimal  "total",            precision: 8, scale: 2
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "duration_minutes"
   end
 
   create_table "locations", force: true do |t|
@@ -166,8 +164,8 @@ ActiveRecord::Schema.define(version: 20131016133737) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "make_id"
-    t.text     "comment"
     t.string   "display_title"
+    t.text     "comment"
     t.string   "detailed_title"
   end
 
@@ -186,6 +184,13 @@ ActiveRecord::Schema.define(version: 20131016133737) do
     t.decimal  "total",      precision: 8, scale: 2
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.decimal  "unit_cost",  precision: 8, scale: 2
+  end
+
+  create_table "service_costs", force: true do |t|
+    t.string  "description"
+    t.decimal "cost",            precision: 8, scale: 2
+    t.integer "service_plan_id"
   end
 
   create_table "service_plans", force: true do |t|

@@ -4,20 +4,16 @@ class Service < Task
 
   validates :service_plan, presence: true
 
-  after_validation :set_title, :itemize, :set_cost, if: :service_plan
+  before_validation :set_title, :itemize, if: :service_plan
 
   def set_title
     self.title = "Service: #{service_plan.display_title}"
   end
 
   def itemize
-    return unless new_record?
+    item = ServiceCost.new(service_plan: service_plan)
 
-    item = FixedAmount.new(
-      description: service_plan.display_title,
-      cost: service_plan.cost
-    )
-
-    task_items.build(itemable: item)
+    task_items.where(itemable_type: 'ServiceCost').delete_all
+    task_items.reload.build(itemable: item)
   end
 end

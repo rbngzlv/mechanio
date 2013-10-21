@@ -6,7 +6,8 @@ class Job < ActiveRecord::Base
   belongs_to :location
   has_many :tasks, inverse_of: :job
 
-  accepts_nested_attributes_for :car, :location, :tasks
+  accepts_nested_attributes_for :car, :location
+  accepts_nested_attributes_for :tasks, allow_destroy: true, reject_if: proc { |attrs| attrs.all? { |k, v| k == 'type' || v.blank? } }
 
   serialize :serialized_params
 
@@ -27,8 +28,14 @@ class Job < ActiveRecord::Base
     state :completed
   end
 
+  default_scope { order(created_at: :desc).without_status(:temporary) }
+
+  def self.create!(params)
+    super self.whitelist(params)
+  end
+
   def self.create_temporary(params)
-    job = build_temporary(params)
+    job = build_temporary(self.whitelist(params))
     unless job.valid?
       raise ActiveRecord::RecordInvalid, job
     end
@@ -46,8 +53,34 @@ class Job < ActiveRecord::Base
     job
   end
 
+  def self.convert_from_temporary(id, user)
+    job = unscoped.with_status(:temporary).find(id)
+    job.status = :pending
+    job.user_id = user.id
+    job.update_attributes!(self.whitelist(job.serialized_params))
+    job
+  end
+
+  def self.whitelist(params)
+    params = ActionController::Parameters.new(params) unless params.is_a?(ActionController::Parameters)
+    params.require(:job).permit(
+      :car_id, :contact_email, :contact_phone,
+      location_attributes:  [:address, :suburb, :postcode, :state_id],
+      car_attributes:       [:year, :model_variation_id],
+      tasks_attributes:     [:type, :service_plan_id, :note, :title,
+        task_items_attributes: [:itemable_type,
+          itemable_attributes: [:description, :name, :unit_cost, :quantity, :duration_hours, :duration_minutes, :cost]
+        ]
+      ]
+    )
+  end
+
   def self.estimated
     with_status 'estimated'
+  end
+
+  def has_service?
+    tasks.any? { |t| t.is_a?(Service) }
   end
 
   def assign_mechanic(params)
@@ -62,19 +95,24 @@ class Job < ActiveRecord::Base
   end
 
   def set_title
-    self.title = tasks.first.title if tasks.first
+    self.title ||= tasks.first.title if tasks.first
   end
 
   def set_cost
-    costs = tasks.map(&:cost)
+    costs = tasks.map { |t| t.marked_for_destruction? ? 0 : t.set_cost }
     self.cost = costs.include?(nil) ? nil : costs.sum
+    self.cost = nil if self.cost == 0
   end
 
   def as_json(options = {})
     super(only: [:id, :cost], include: {
       car: { only: [:display_title] },
-      tasks: { only: [:title] },
-      location: { only: [:address, :suburb, :postcode], methods: [:state_name] }
+      location: { only: [:address, :suburb, :postcode], methods: [:state_name] },
+      tasks: { only: [:id, :title, :note, :type, :cost, :service_plan_id], include: {
+        task_items: { only: [:id, :itemable_id, :itemable_type], include: {
+          itemable: { only: [:id, :description, :cost, :hourly_rate, :duration_hours, :duration_minutes, :name, :quantity, :unit_cost] }
+        }}
+      }}
     })
   end
 end

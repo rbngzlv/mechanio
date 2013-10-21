@@ -80,14 +80,14 @@ app.controller 'WizardController', ['$scope', '$http', ($scope, $http) ->
     else
       params.car_attributes = { year: $scope.data.car.year, model_variation_id: $scope.data.car.model_variation_id }
 
-    $http.post('/users/jobs', { job: params })
+    $http.post('/users/jobs.json', { job: params })
       .success (data) ->
         success(data) if success
       .error (data) ->
         error() if error
 
   $scope.loadJob = (success, error) ->
-    $http.get('/users/jobs/' + $scope.job_id)
+    $http.get('/users/jobs/' + $scope.job_id + '.json')
       .success (data) ->
         success(data) if success
       .error (data) ->

@@ -20,15 +20,20 @@ describe Job do
   it { should validate_presence_of :contact_email }
   it { should validate_presence_of :contact_phone }
 
-  it '.create_temporary' do
-    job = build :job, user: nil, car: nil
-    params = job.attributes
-    params[:tasks_attributes] = [build(:service).attributes]
-    params[:car_attributes] = build(:car, user: nil).attributes
+  it '#create_temporary' do
+    tmp = Job.create_temporary(job: attrs)
+    tmp.reload.serialized_params.should eq ({ job: attrs })
+    tmp.status.should eq 'temporary'
+  end
 
-    job = Job.create_temporary(params)
-    job.reload.serialized_params.should eq params
-    job.status.should eq 'temporary'
+  it '#convert_from_temporary' do
+    tmp = Job.create_temporary(job: attrs)
+    tmp.reload.status.should eq 'temporary'
+
+    job = Job.convert_from_temporary(tmp.id, user)
+    job.reload.status.should eq 'pending'
+    job.tasks.count.should eq 2
+    job.cost.should eq 475
   end
 
   describe '#assign_mechanic' do
@@ -64,11 +69,6 @@ describe Job do
   end
 
   it 'associates car with user when creating car via nested_attributes' do
-    attrs = attributes_for(:job).merge({
-      location_attributes: attributes_for(:location, state_id: create(:state).id),
-      tasks_attributes: [attributes_for(:service, service_plan_id: create(:service_plan).id)],
-      car_attributes: { year: '2000', model_variation_id: create(:model_variation).id }
-    })
     job = user.jobs.create(attrs)
 
     job.car.user_id.should_not be_nil
@@ -79,7 +79,30 @@ describe Job do
     job_with_service.cost.should eq 350
   end
 
+  it 'sums tasks costs when creating from nested_attributes' do
+    job = user.jobs.create!(attrs)
+    job.cost.should eq 475
+  end
+
   it 'sets title from the first task before save' do
     job_with_service.title.should eq job_with_service.tasks.first.title
+  end
+
+  it 'determines if there is a service task' do
+    job_with_service.has_service?.should be_true
+    job.has_service?.should be_false
+  end
+
+  def attrs
+    repair_item = attributes_for(:task_item, itemable_type: 'Labour', itemable_attributes: attributes_for(:labour))
+
+    @attrs ||= attributes_for(:job).merge({
+      location_attributes: attributes_for(:location, state_id: create(:state).id),
+      tasks_attributes: [
+        attributes_for(:service, service_plan_id: create(:service_plan).id),
+        attributes_for(:repair, task_items_attributes: [repair_item])
+      ],
+      car_attributes: { year: '2000', model_variation_id: create(:model_variation).id }
+    })
   end
 end

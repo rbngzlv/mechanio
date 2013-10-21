@@ -1,0 +1,55 @@
+.admin {
+  .edit_job {
+    .item {
+      padding-bottom: 7px;
+      margin-bottom: 7px;
+      border-bottom: 1px solid #eee;
+
+      div, input, select {
+        display: inline-block;
+      }
+
+      select, .subtotal input, .total input {
+        width: 70px;
+      }
+
+      input[name *= "cost"] {
+        text-align: right;
+      }
+
+      .desc {
+        width: 40%;
+        padding-right: 20px;
+      }
+
+      .subtotal {
+        width: 220px;
+      }
+
+      .total {
+        width: 120px;
+        text-align: right;
+
+        input {
+          margin-right: -12px;
+        }
+      }
+
+      .actions {
+        width: 30px;
+        text-align: right;
+      }
+    }
+
+    h5 a {
+      margin-left: 10px;
+    }
+
+    .totals {
+      dd {
+        width: 90px;
+        text-align: right;
+      }
+    }
+  }
+}

@@ -40,7 +40,7 @@ describe 'Service wizard', js: true do
 
   it 'lists existing user cars', pending: 'need shared db connection for this test to work' do
     car = create :car, user: user, model_variation: variation
-    ap car.model_variation
+
     login_user user
     visit service_path
 
@@ -110,9 +110,5 @@ describe 'Service wizard', js: true do
   def verify_job_created
     user.reload.jobs.count.should eq 1
     user.jobs.last.status.should eq 'pending'
-  end
-
-  def screenshot
-    page.driver.render '/Users/bob/Desktop/screen.png', full: true
   end
 end
