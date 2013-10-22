@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature 'dashboard page' do
+feature 'job details page' do
   let(:mechanic) { create :mechanic }
   let!(:job) { create :assigned_job, mechanic: mechanic }
 
@@ -14,13 +14,19 @@ feature 'dashboard page' do
     should have_content 'Appointment'
   end
 
+  specify 'mechanic job details page should have "back" link to jobs list' do
+    visit mechanics_job_path(job)
+    click_link 'Back to My jobs'
+    should have_selector('li.active', text: 'My Jobs')
+    current_path.should be_eql mechanics_jobs_path
+  end
+
   specify 'my jobs page should have link to job details', pending: 'my jobs page is not reliased' do
   end
 
-  it 'should' do
+  it 'should show job details' do
     visit mechanics_job_path(job)
     within '.panel' do
-      should have_link 'Back to My jobs'
       should have_content 'Appointment'
       should have_content job.scheduled_at.to_s(:date)
       should have_content job.car.display_title

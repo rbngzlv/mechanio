@@ -12,7 +12,10 @@
           = link_to '', '#js-collapse-two', class: 'glyphicon glyphicon-chevron-down accordion-toggle', :data => {:toggle => 'collapse', :parent => '#accordion'}
       #js-collapse-two.panel-collapse.collapse.in
         .panel-body
-          = render @jobs.with_status(:assigned)
+          - if @jobs.with_status(:assigned).length == 0
+            No Upcoming Jobs
+          - else
+            = render @jobs.with_status(:assigned)
 / Completed Jobs Part
 .row
   .col-md-12
@@ -25,4 +28,7 @@
           = link_to '', '#js-collapse-three', class: 'glyphicon glyphicon-chevron-down accordion-toggle', :data => {:toggle => 'collapse', :parent => '#accordion'}
       #js-collapse-three.panel-collapse.collapse.in
         .panel-body
-          = render @jobs.with_status(:completed)
+          - if @jobs.with_status(:completed).length == 0
+            No Completed Jobs
+          - else
+            = render @jobs.with_status(:completed)

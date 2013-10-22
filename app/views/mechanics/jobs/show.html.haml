@@ -1,11 +1,11 @@
 %section
+  .row
+    .col-md-12
+      = link_to mechanics_jobs_path, class: 'btn btn-info pull-right bottom-margin' do
+        %i.icon-chevron-left
+        Back to My jobs
   .panel.panel-default.panel-rounded
     .panel-body
-      .row
-        .col-md-12
-          = link_to '#', class: 'btn btn-info pull-right' do
-            %i.icon-chevron-left
-            Back to My jobs
       .alert.alert-info
         %span.black Appointment on:
         = @job.scheduled_at.to_s(:date_time)

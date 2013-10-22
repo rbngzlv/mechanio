@@ -1,1 +1,10 @@
-= render partial: 'users/estimates/job', collection: @jobs
+- if @jobs.length == 0
+  .panel.panel-default.panel-rounded
+    .panel-heading.clearfix
+      %h4.panel-title
+        %i.glyphicon.glyphicon-credit-card
+        My Estimates
+    .panel-body
+      %h4 No Estimates
+- else
+  = render partial: 'users/estimates/job', collection: @jobs
