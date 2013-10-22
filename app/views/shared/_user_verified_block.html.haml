@@ -1,2 +1,3 @@
-= verify_icon('Communications Verified', "icon-mobile-phone", true)
-= verify_icon('Payment Method Verified', nil, true, '$')
+= verify_icon 'Email Confirmed', nil, account.confirmed_at, '@'
+= verify_icon 'Communications Verified', 'icon-mobile-phone', true
+= verify_icon 'Payment Method Verified', nil, true, '$'
