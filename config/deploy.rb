@@ -50,9 +50,10 @@ before  'deploy:finalize_update', 'configure'
 after   'deploy:update', 'deploy:migrate'
 
 # resque
-after 'deploy:start', 'resque:start'
-after 'deploy:stop', 'resque:stop'
-after 'deploy:restart', 'resque:restart'
+# Disable resque until we need geolocation, because it exits and leaves its pid file
+# after 'deploy:start', 'resque:start'
+# after 'deploy:stop', 'resque:stop'
+# after 'deploy:restart', 'resque:restart'
 
 
 set :workers, { '*' => 1 }
