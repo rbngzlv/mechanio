@@ -41,7 +41,7 @@ module ApplicationHelper
   end
 
   def verify_icon(title, icon_type = nil, is_verified = nil, content = nil)
-    content_tag(:i, content, class: "verified-icon #{icon_type} #{is_verified ? nil : 'disabled'}", 'data-original-title' => "#{title}").html_safe
+    content_tag(:i, content, class: "verified-icon #{icon_type} #{is_verified ? nil : 'disabled'}", 'data-original-title' => "#{title}", 'data-toggle' => 'tooltip').html_safe
   end
 
   def job_status(status)
