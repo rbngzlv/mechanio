@@ -164,8 +164,8 @@ ActiveRecord::Schema.define(version: 20131018044121) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "make_id"
-    t.string   "display_title"
     t.text     "comment"
+    t.string   "display_title"
     t.string   "detailed_title"
   end
 

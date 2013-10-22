@@ -3,8 +3,8 @@
     .col-md-12
       = link_to image_tag('mechanio_logo.png'), root_path, class: 'brand'
       .pull-right
-        = link_to 'How It Works', '#', class: 'btn btn-link pull-left'
         - if user_signed_in?
+          = link_to 'How It Works', '#', class: 'btn btn-link pull-left'
           %ul.nav.pull-right
             %li.dropdown
               %button.btn.btn-dark.btn-sm.dropdown-toggle{ data: { toggle: 'dropdown' } }
@@ -41,6 +41,7 @@
                     %i.glyphicon.glyphicon-log-out
                     Log out
         - elsif mechanic_signed_in?
+          = link_to 'How It Works', '#', class: 'btn btn-link pull-left'
           %ul.nav.pull-right
             %li.dropdown
               %button.btn.btn-dark.btn-sm.dropdown-toggle{ data: { toggle: 'dropdown' } }
@@ -73,6 +74,7 @@
                     %i.glyphicon.glyphicon-log-out
                     Log out
         - else
-          = link_to 'Sign up', new_user_registration_path, class: 'btn btn-primary navbar-btn pull-left'
-          = link_to 'Login', new_user_session_path, class: 'btn btn-dark navbar-btn pull-left'
+          = link_to 'How It Works', '#', class: 'btn btn-link pull-left to-upper home-header-link'
+          = link_to 'Sign up', new_user_registration_path, class: 'btn btn-link navbar-btn pull-left home-header-link to-upper'
+          = link_to 'Login', new_user_session_path, class: 'btn btn-link navbar-btn pull-left home-header-link to-upper'
         %p.text-right Need Help ? / Call 1800 123 1234

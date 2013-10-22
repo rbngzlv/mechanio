@@ -7,7 +7,7 @@
           = image_tag(asset_url("avatar1.jpg"), class: 'img-circle')
         .panel.nested-panel.with-arrow.commentary-block
           .span
-            = link_to comment.shift, '#'
+            = link_to comment.shift, '#', class: 'name'
             %span.datetime= comment.shift
           .panel.nested-panel
             %span.col-md-3

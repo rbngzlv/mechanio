@@ -106,13 +106,14 @@
               =link_to 'Edit Job', '#', class: 'btn btn-info pull-left'
               =link_to 'Reschedule', '#', class: 'btn btn-info pull-left'
               =link_to 'Save', '#', class: 'btn btn-success pull-right'
-        #js-modal.modal.fade.col-md-6.col-md-offset-3{"aria-hidden" => "true", "aria-labelledby" => "js-my-modal-label", role: "dialog", tabindex: "1"}
-          .panel.panel-default.cancel-job
-            .modal-header.clearfix
-              %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", type: "button"} ×
-              %span#js-my-modal-label.pull-left Cancel Job
-            .panel-body
-              Too many cancellations may lead to the suspension of your Mechanio account!
-            .panel-footer.clearfix
-              =link_to 'Back', '#', class: 'btn btn-default pull-left', :aria => {:hidden => 'true'}, :data => {:dismiss => 'modal'}
-              %button.btn.btn-success.pull-right{"aria-hidden" => "true", "data-dismiss" => "modal", type: "button", value: "Cancel"} Cancel Job
+#js-modal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "js-my-modal-label", role: "dialog", tabindex: "1"}
+  .col-md-6.col-md-offset-3
+    .panel.panel-default.cancel-job
+      .modal-header.clearfix
+        %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", type: "button"} ×
+        %span#js-my-modal-label.pull-left Cancel Job
+      .panel-body
+        Too many cancellations may lead to the suspension of your Mechanio account!
+      .panel-footer.clearfix
+        =link_to 'Back', '#', class: 'btn btn-default pull-left', :aria => {:hidden => 'true'}, :data => {:dismiss => 'modal'}
+        %button.btn.btn-success.pull-right{"aria-hidden" => "true", "data-dismiss" => "modal", type: "button", value: "Cancel"} Cancel Job

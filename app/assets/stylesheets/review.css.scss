@@ -110,6 +110,10 @@
         .commentary-block {
           margin-left: 0;
           margin-right: 90px;
+
+          > .span {
+            text-align: right;
+          }
         }
 
         a.name {
