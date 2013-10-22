@@ -68,6 +68,9 @@ describe 'Service wizard', js: true do
     verify_job_created
   end
 
+def screen
+  page.driver.render('/Users/bob/Desktop/screen.png', full: true)
+end
 
   def add_new_car
     page.should have_css 'h5', text: 'ADD YOUR VEHICLE'
@@ -117,7 +120,7 @@ describe 'Service wizard', js: true do
   end
 
   def verify_appointment
-    page.should have_css 'h4', text: 'SELECT AN APPOINTMENT'
+    page.should have_css 'h4', text: 'SELECT A MECHANIC'
   end
 
   def verify_job_created

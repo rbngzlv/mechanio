@@ -13,7 +13,7 @@ class Location < ActiveRecord::Base
   after_save :get_coordinates, unless: :skip_geocoding
 
   def full_address
-    "#{address}, #{suburb} #{postcode}, Australia"
+    "#{address}, #{suburb} #{state_name}, #{postcode}"
   end
 
   def get_coordinates

@@ -1,0 +1,17 @@
+.panel.panel-default.panel-rounded
+  .panel-body
+    .row
+      .profile-border
+        = render 'shared/mechanic/avatar', mechanic: mechanic
+        %h5.text-center
+          = link_to mechanic.full_name, "#js-mechanic-#{mechanic.id}", data: { toggle: 'modal' }, role: 'button'
+          - if mechanic.years_as_a_mechanic
+            %br #{ mechanic.years_as_a_mechanic } years of experience
+
+      .row
+        %legend Select Arrival Time
+        = simple_form_for @job, url: users_appointment_path, html: { class: 'choose_mechanic_form' }, wrapper: :nolabel do |f|
+          = f.input :scheduled_at, minute_step: 30
+          = f.hidden_field :mechanic_id, value: mechanic.id
+          = f.submit 'Book Appointment', class: 'btn btn-info'
+    = render 'shared/mechanic/description_popup', mechanic: mechanic

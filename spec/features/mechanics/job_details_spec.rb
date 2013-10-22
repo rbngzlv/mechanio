@@ -43,7 +43,7 @@ feature 'job details page' do
   end
 
   specify 'mechanic have access only for his own jobs' do
-    another_job = create :job_with_service, status: 'assigned', mechanic: create(:mechanic, email: 'qw@qw.qw')
+    another_job = create :assigned_job, mechanic: create(:mechanic, email: 'qw@qw.qw')
     expect { visit mechanics_job_path(another_job) }.to raise_error
     visit mechanics_job_path(job)
     should have_no_selector 'li.active', text: 'Dashboard'

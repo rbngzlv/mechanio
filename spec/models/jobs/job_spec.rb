@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Job do
 
-  let(:user) { create :user}
+  let(:user) { create :user }
   let(:car)  { create :car, user: user }
   let(:job)  { build :job, user: user, car: car }
   let(:job_with_service) { create :job_with_service }
@@ -20,7 +20,15 @@ describe Job do
   it { should validate_presence_of :contact_email }
   it { should validate_presence_of :contact_phone }
 
+  it '#sanitize_and_create' do
+    Job.any_instance.should_receive(:notify_estimated)
+    job = user.jobs.sanitize_and_create(job: attrs)
+    verify_estimated_job(job)
+  end
+
   it '#create_temporary' do
+    Job.any_instance.should_not_receive(:notify_pending)
+    Job.any_instance.should_not_receive(:notify_estimated)
     tmp = Job.create_temporary(job: attrs)
     tmp.reload.serialized_params.should eq ({ job: attrs })
     tmp.status.should eq 'temporary'
@@ -30,41 +38,35 @@ describe Job do
     tmp = Job.create_temporary(job: attrs)
     tmp.reload.status.should eq 'temporary'
 
+    Job.any_instance.should_receive(:notify_estimated)
     job = Job.convert_from_temporary(tmp.id, user)
-    job.reload.status.should eq 'estimated'
-    job.tasks.count.should eq 2
-    job.cost.should eq 475
-  end
-
-  it 'should be pending when some tasks have unknown cost' do
-    a = attrs
-    a[:tasks_attributes][1].delete(:task_items_attributes)
-    job.attributes = attrs
-    job.save!
-    job.status.should eq 'pending'
-    job.cost.should be_nil
+    verify_estimated_job(job)
   end
 
   describe '#assign_mechanic' do
     let(:mechanic) { create :mechanic }
 
     it 'return true if success' do
+      Job.any_instance.should_receive(:notify_assigned)
       job_with_service.assign_mechanic(mechanic_id: mechanic.id, scheduled_at: DateTime.now).should be_true
     end
 
     it 'return false if sheduled time doesnot given' do
+      Job.any_instance.should_not_receive(:notify_assigned)
       job_with_service.assign_mechanic(mechanic_id: mechanic.id).should be_false
     end
 
     it 'throw exception if mechanic doesnot given' do
+      Job.any_instance.should_not_receive(:notify_assigned)
       expect do
-        job_with_service.assign_mechanic scheduled_at: DateTime.now
+        job_with_service.assign_mechanic(scheduled_at: DateTime.now)
       end.to raise_error
     end
 
     it 'throw exception if mechanic doesnot presence' do
+      Job.any_instance.should_not_receive(:notify_assigned)
       expect do
-        job_with_service.assign_mechanic mechanic_id: 10000, scheduled_at: DateTime.now
+        job_with_service.assign_mechanic(mechanic_id: 10000, scheduled_at: DateTime.now)
       end.to raise_error
     end
   end
@@ -78,7 +80,7 @@ describe Job do
   end
 
   it 'associates car with user when creating car via nested_attributes' do
-    job = user.jobs.create(attrs)
+    job = user.jobs.sanitize_and_create(job: attrs)
 
     job.car.user_id.should_not be_nil
     job.car.user_id.should eq job.user_id
@@ -89,7 +91,7 @@ describe Job do
   end
 
   it 'sums tasks costs when creating from nested_attributes' do
-    job = user.jobs.create!(attrs)
+    job = user.jobs.sanitize_and_create(job: attrs)
     job.cost.should eq 475
   end
 
@@ -97,20 +99,46 @@ describe Job do
     job_with_service.title.should eq job_with_service.tasks.first.title
   end
 
-  specify '#pending should call send_new_job_email' do
-    job_with_service.should_receive( :send_new_job_email )
-    job_with_service.pending
-  end
-
-  specify '#send_new_job_email should call mailer' do
-    mailer = double(deliver: true)
-    AdminMailer.should_receive(:new_job).with(job_with_service).and_return(mailer)
-    job_with_service.send(:send_new_job_email)
-  end
-
   it 'determines if there is a service task' do
     job_with_service.has_service?.should be_true
     job.has_service?.should be_false
+  end
+
+  context 'updating task' do
+    it 'should be pending when some tasks have unknown cost' do
+      attrs[:tasks_attributes][1].delete(:task_items_attributes)
+
+      job.update_attributes(attrs)
+      job.reload.status.should eq 'pending'
+      job.cost.should be_nil
+    end
+
+    it 'should notify when quote becomes available' do
+      job = create :job, :pending
+      job.reload.status.should eq 'pending'
+
+      attrs[:tasks_attributes][1][:id] = job.tasks.first.id
+      job.should_receive(:notify_estimated)
+      job.update_attributes(attrs)
+      job.reload.status.should eq 'estimated'
+    end
+
+    it 'should notify when quote changes' do
+      job = job_with_service
+      job.status.should eq 'estimated'
+      job.cost.should eq 350
+
+      job.should_receive(:notify_quote_changed)
+      job.update_attributes(attrs)
+      job.status.should eq 'estimated'
+      job.cost.should eq 825
+    end
+  end
+
+  def verify_estimated_job(job)
+    job.reload.status.should eq 'estimated'
+    job.tasks.count.should eq 2
+    job.cost.should eq 475
   end
 
   def attrs

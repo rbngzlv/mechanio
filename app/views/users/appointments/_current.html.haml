@@ -1,0 +1,53 @@
+.row
+  .profile-border
+    = render 'shared/mechanic/avatar', mechanic: job.mechanic
+  %div
+    .nested-panel.clearfix
+      .col-md-7.margin0
+        %h5= job.mechanic.full_name
+        .row
+          %p.col-md-12
+            %i.icon-time
+            = job.scheduled_at.to_s(:date_time)
+          %p.col-md-12
+            %i.icon-map-marker
+            = job.location.full_address
+          %p.col-md-12
+            %i.icon-phone
+            Contact #{job.mechanic.first_name}: #{job.contact_phone}
+      .col-md-5
+        .alert-success.alert.col-md-12.clearfix
+          .pull-left Total Cost
+          .pull-right.text-right
+            %b= number_to_currency job.cost
+        -#
+          .col-md-12
+            = link_to 'Add Another Service', '#', class: 'btn btn-success col-md-12 bottom-margin'
+          .col-md-12
+            = link_to 'Reschedule', '#', class: 'btn btn-success col-md-12'
+%br
+.row
+  .col-md-12
+    .panel.panel-default.panel-rounded
+      .panel-heading
+        %h4.panel-title Appointment Details
+      .panel-body
+        %table.table.table-borderless
+          %tr
+            %td
+              Car:
+            %td
+              = job.car.display_title
+          %tr.tr-divider
+            %td
+              Services:
+            %td
+              = job.tasks.map(&:title).join(', ')
+            %td
+          %tr
+            %td
+              Billing
+            %td
+              %b Total Fees
+            %td.text-right
+              %b= number_to_currency job.cost

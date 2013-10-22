@@ -1,7 +1,7 @@
 .row
   %div
     %section.col-md-9
-      %h4.black Select An Appointment
-      = render partial: 'users/appointments/mechanic', collection: @mechanics
-    %aside.col-md-3
-      = render 'sidebar', job: @job
+      %h4.black Select a Mechanic
+      = render partial: 'users/appointments/book', collection: mechanics, as: :mechanic
+    .col-md-3
+      = render 'sidebar'

@@ -1,26 +1,23 @@
 .panel.panel-default.panel-rounded
   .panel-body
-    %h5.hx-default Your Car
-    %ul
-      %li
-        %span Year:
-        = job.car.year
-      %li
-        %span Make:
-        = job.car.model_variation.model.make.name
-      %li
-        %span Model:
-        = job.car.model_variation.model.name
+    %h5.panel-title VEHICLE
+    %hr.hr-dark-gray
+    = @job.car.display_title
+
 .panel.panel-default.panel-rounded
   .panel-body
-    %h5.hx-default Your Service
+    %h5.panel-title CAR SERVICING
+    %hr.hr-dark-gray
     %ul
-      - job.tasks.each do |task|
+      - @job.tasks.each do |t|
         %li
-          %i.glyphicon.glyphicon-chevron-right
-          = task.title
+          %p= t.title
+
 .panel.panel-default.panel-rounded
   .panel-body
-    %h5.hx-default Your Location
-    %span
-      = job.location.full_address
+    %h5.panel-title LOCATION
+    %hr.hr-dark-gray
+    %ul
+      %li= @job.location.address
+      %li= @job.location.suburb
+      %li #{@job.location.state_name}, #{@job.location.postcode}

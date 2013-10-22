@@ -3,8 +3,8 @@ class Job < ActiveRecord::Base
   belongs_to :user
   belongs_to :car
   belongs_to :mechanic
-  belongs_to :location
-  has_many :tasks, inverse_of: :job
+  belongs_to :location, dependent: :destroy
+  has_many :tasks, inverse_of: :job, dependent: :destroy
 
   accepts_nested_attributes_for :car, :location
   accepts_nested_attributes_for :tasks, allow_destroy: true, reject_if: proc { |attrs| attrs.all? { |k, v| k == 'type' || v.blank? } }
@@ -12,39 +12,44 @@ class Job < ActiveRecord::Base
   serialize :serialized_params
 
   before_validation :assign_car_to_user
-  before_save :set_title, :set_cost, :set_status
+  before_save :set_title, :set_cost, :set_status, :on_quote_change
 
   validates :car, :location, :tasks, :contact_email, :contact_phone, presence: true
   validates :user, presence: true, unless: :skip_user_validation
-  validates :mechanic, :scheduled_at, presence: true, if: Proc.new { |f| f.status == :assigned }
 
   attr_accessor :skip_user_validation
 
   state_machine :status, initial: :pending do
     state :temporary do
-      transition to: :pending, on: :convert_from_temporary
+      transition to: :pending, on: :pending
     end
     state :pending do
       transition to: :estimated, on: :estimate
     end
     state :estimated do
-      transition to: :assigned, on: :assign
+      transition to: :assigned,  on: :assign
       validates :cost, presence: true, numericality: { greater_than: 0 }
     end
-    state :assigned
+    state :assigned do
+      transition to: :complete, on: :complete
+      validates :mechanic, :scheduled_at, presence: true
+    end
     state :completed
 
-    after_transition all => :pending, :do => :send_new_job_email
+    after_transition to: :pending,   do: :notify_pending
+    after_transition from: :pending,   to: :estimated, do: :notify_estimated
+    after_transition from: :estimated, to: :assigned,  do: :notify_assigned
 
-    event :pending do
-      transition all => :pending
-    end
   end
 
   default_scope { order(created_at: :desc).without_status(:temporary) }
 
+  scope :estimated, -> { with_status 'estimated' }
+  scope :assigned,  -> { with_status 'assigned' }
+  scope :completed, -> { with_status 'completed' }
+
   def self.sanitize_and_create(params)
-    create! self.whitelist(params)
+    create(self.whitelist(params))
   end
 
   def self.create_temporary(params)
@@ -60,18 +65,18 @@ class Job < ActiveRecord::Base
 
   def self.build_temporary(params)
     job = Job.new(params)
-    job.status = 'temporary'
     job.skip_user_validation = true
     job.car.skip_user_validation = true if job.car
+    job.status = 'temporary'
     job
   end
 
   def self.convert_from_temporary(id, user)
     job = unscoped.with_status(:temporary).find(id)
-    job.status = 'pending'
     job.user_id = user.id
-
-    job.update_attributes!(self.whitelist(job.serialized_params))
+    job.attributes = self.whitelist(job.serialized_params)
+    job.pending
+    job.save
     job
   end
 
@@ -89,19 +94,18 @@ class Job < ActiveRecord::Base
     )
   end
 
-  def self.estimated
-    with_status 'estimated'
-  end
-
   def has_service?
     tasks.any? { |t| t.is_a?(Service) }
   end
 
   def assign_mechanic(params)
-    Mechanic.find(params[:mechanic_id])
-    params[:status] = :assigned
-    params[:assigned_at] = DateTime.now
-    update_attributes params
+    mechanic = Mechanic.find(params[:mechanic_id])
+
+    self.attributes = params.merge(
+      assigned_at: DateTime.now,
+      mechanic_id: mechanic.id
+    )
+    assign && save
   end
 
   def assign_car_to_user
@@ -119,7 +123,19 @@ class Job < ActiveRecord::Base
   end
 
   def set_status
-    self.status = 'estimated' if pending? && cost && cost > 0
+    estimate if pending? && quote_available?
+  end
+
+  def quote_available?
+    cost && cost > 0
+  end
+
+  def quote_changed?
+    !cost_was.nil? && cost_changed?
+  end
+
+  def on_quote_change
+    notify_quote_changed if estimated? && quote_changed?
   end
 
   def as_json(options = {})
@@ -136,7 +152,23 @@ class Job < ActiveRecord::Base
 
   private
 
-  def send_new_job_email
-    AdminMailer.new_job(self).deliver
+  def notify_pending
+    AdminMailer.job_pending(self).deliver
+    UserMailer.job_pending(self).deliver
+  end
+
+  def notify_estimated
+    AdminMailer.job_estimated(self).deliver
+    UserMailer.job_estimated(self).deliver
+  end
+
+  def notify_assigned
+    AdminMailer.job_assigned(self).deliver
+    UserMailer.job_assigned(self).deliver
+  end
+
+  def notify_quote_changed
+    AdminMailer.job_quote_changed(self).deliver
+    UserMailer.job_quote_changed(self).deliver
   end
 end

@@ -10,7 +10,7 @@ feature 'estimates page' do
   context 'when user is not have estimates' do
     it 'should have message about emty estimates list' do
       visit users_estimates_path
-      should have_content 'No Estimates'
+      should have_content 'You have no estimates'
     end
   end
 

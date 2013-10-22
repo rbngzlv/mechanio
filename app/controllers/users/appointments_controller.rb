@@ -4,21 +4,28 @@ class Users::AppointmentsController < Users::ApplicationController
   layout :select_layout
 
   def index
+    @current_appointments = current_user.jobs.assigned
   end
 
   def edit
-    @mechanics = Mechanic.all
   end
 
   def update
-    if @job.assign_mechanic params[:job].permit(:scheduled_at, :mechanic_id)
-      redirect_to users_appointments_path, notice: 'Mechanic succesfully assigned.'
+    attrs = params.require(:job).permit(:scheduled_at, :mechanic_id)
+    if @job.assign_mechanic(attrs)
+      redirect_to users_appointments_path, notice: 'Appointment booked'
     else
+      flash[:error] = 'Error assigning mechanic'
       render :edit
     end
   end
 
   private
+
+  def mechanics
+    Mechanic.all
+  end
+  helper_method :mechanics
 
   def find_job
     @job = current_user.jobs.estimated.find(params[:id])
