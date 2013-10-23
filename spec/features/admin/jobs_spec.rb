@@ -33,11 +33,11 @@ feature 'Jobs page' do
   end
 
   def verify_job_row(job)
-    should have_content job.status
+    should have_content job.status.capitalize
     should have_content job.title
-    should have_content job.created_at.to_s(:db)
+    should have_content job.created_at.to_s(:date)
     should have_content job.user.full_name
-    should have_content job.scheduled_at? ? job.scheduled_at.to_s(:db) : ''
+    should have_content job.scheduled_at? ? job.scheduled_at.to_s(:date_time) : ''
     should have_content job.mechanic ? job.mechanic.full_name : 'unassigned'
     should have_content job.cost
     should have_link "Edit"
@@ -243,7 +243,7 @@ feature 'Jobs page' do
     end
   end
 
-  def within_row(row, &block) 
+  def within_row(row, &block)
     within all('.item')[row] do
       yield
     end

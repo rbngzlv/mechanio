@@ -2,7 +2,6 @@
   %td= job_status(job.status)
   %td= job.title
   %td= job.created_at.to_s(:date)
-  %td= job.user.full_name if job.user
   %td= job.mechanic ? job.mechanic.full_name : 'unassigned'
   %td= job.scheduled_at.to_s(:date_time) if job.scheduled_at
   %td= job.cost || 'pending'
