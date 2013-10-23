@@ -20,8 +20,10 @@ Mechanio::Application.routes.draw do
 
     resources :jobs, only: [:show, :create]
     resources :appointments, only: [:index, :edit, :update]
+    resources :cars, only: [:index]
 
     resource :profile, only: [:show, :edit, :update]
+    resource :settings, only: [:edit, :update]
   end
   get '/service', to: 'users/jobs#new'
 

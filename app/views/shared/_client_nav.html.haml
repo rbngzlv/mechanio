@@ -1,8 +1,8 @@
 .col-md-3.nav-collapse
   %ul.nav.nav-pills.nav-stacked
     = nav_bar_link 'Dashboard', users_dashboard_path, icon: 'dashboard'
-    = nav_bar_link 'My Cars', '#', icon: 'thumbs-up'
+    = nav_bar_link 'My Cars', users_cars_path, icon: 'briefcase'
     = nav_bar_link 'My Appointments', users_appointments_path, icon: 'calendar'
     = nav_bar_link 'My Estimates', users_estimates_path, icon: 'credit-card', badge: count_for_badge(current_user.estimates)
     = nav_bar_link 'My Profile', users_profile_path, icon: 'user', active: params[:controller].eql?('users/profiles')
-    = nav_bar_link 'Settings', '#', icon: 'cog'
+    = nav_bar_link 'Settings', edit_users_settings_path, icon: 'cog', active: params[:controller].eql?('users/settings')
