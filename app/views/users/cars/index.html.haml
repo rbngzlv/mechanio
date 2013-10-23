@@ -6,4 +6,4 @@
         My Cars
     .panel-body
       %ul.row.cars-list
-        = render @cars
+        = render(@cars) || render('no_cars')
