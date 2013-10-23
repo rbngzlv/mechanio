@@ -421,18 +421,18 @@ section {
   }
 
   .img-circle {
-    padding: 0 9px;
+    width: 35px;
+    height: 35px;
     background-color: #00B4D4;
-    text-align: left;
+    text-align: center;
     margin-right: 12px;
     display: inline-block;
+    line-height: 35px;
 
     > [class *= icon] {
       color: #eee;
       font-size: 16px;
       display: inline-block;
-      text-align: center;
-      line-height: 30px;
     }
   }
 
@@ -601,11 +601,6 @@ section {
       }
     }
   }
-}
-
-
-.contact-us {
-  font-size: 15px;
 }
 
 .reviews-row {
@@ -996,6 +991,19 @@ section {
   margin-bottom: 5px;
   position: relative;
   bottom: 3px;
+
+  a {
+    @extend .lazure;
+  }
+}
+
+.blog a,
+.contact-us a{
+  @extend .lazure;
+}
+
+.contact-us {
+  font-size: 15px;
 }
 
 .bottom-margin {

@@ -1,16 +1,1 @@
-.row
-  .col-md-12
-    .panel.panel-default.panel-rounded
-      .panel-heading
-        %h4.panel-title
-          %i.icon-cog
-          Setting
-      .panel-body.clearfix
-        %h4.hx-default Password
-        = simple_form_for [:user, current_user], url: users_settings_path, html: { method: :patch }, defaults: { label: false, wrapper_html: { class: 'col-md-8' } } do |f|
-          .row
-            = f.input :current_password, placeholder: "Old Password"
-            = f.input :password, placeholder: "New Password"
-            = f.input :password_confirmation, placeholder: "Confirm Password"
-          .row.col-md-12
-            = f.submit 'Save', class: 'btn btn-success col-md-2'
+= render 'shared/settings_form', role: 'user'
