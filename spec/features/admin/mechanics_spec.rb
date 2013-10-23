@@ -48,7 +48,7 @@ feature 'Admin mechanics management' do
 
     page.should have_css '.alert', text: 'Mechanic succesfully created.'
     last_delivery.body.should include('mechanic@host.com')
-    last_delivery.subject.should include('Thnx for ur registration')
+    last_delivery.subject.should include('Welcome to Mechanio')
   end
 
   scenario 'edits existing mechanic' do
