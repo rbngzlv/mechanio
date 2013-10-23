@@ -31,6 +31,7 @@ Mechanio::Application.routes.draw do
     get '/', to: 'dashboard#index', as: :dashboard
     resource :profile, only: [:show, :edit, :update]
     resources :jobs, only: [:index, :show]
+    resource :settings, only: [:edit, :update]
   end
 
   namespace :admin do

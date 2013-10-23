@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-feature 'user settings page' do
+feature 'mechanic settings page' do
   include_examples("settings page") do
-    let(:role) { 'user' }
+    let(:role) { 'mechanic' }
   end
 end
