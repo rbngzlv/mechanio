@@ -22,6 +22,7 @@ class Job < ActiveRecord::Base
   state_machine :status, initial: :pending do
     state :temporary do
       transition to: :pending, on: :pending
+      transition to: :estimated, on: :estimate
     end
     state :pending do
       transition to: :estimated, on: :estimate
@@ -36,8 +37,8 @@ class Job < ActiveRecord::Base
     end
     state :completed
 
-    after_transition to: :pending,   do: :notify_pending
-    after_transition from: :pending,   to: :estimated, do: :notify_estimated
+    after_transition to: :pending, do: :notify_pending
+    after_transition from: [:temporary, :pending], to: :estimated, do: :notify_estimated
     after_transition from: :estimated, to: :assigned,  do: :notify_assigned
 
   end
@@ -67,16 +68,14 @@ class Job < ActiveRecord::Base
     job = Job.new(params)
     job.skip_user_validation = true
     job.car.skip_user_validation = true if job.car
-    job.status = 'temporary'
+    job.status = :temporary
     job
   end
 
   def self.convert_from_temporary(id, user)
     job = unscoped.with_status(:temporary).find(id)
     job.user_id = user.id
-    job.attributes = self.whitelist(job.serialized_params)
-    job.pending
-    job.save
+    job.update(self.whitelist(job.serialized_params))
     job
   end
 
@@ -124,6 +123,10 @@ class Job < ActiveRecord::Base
 
   def set_status
     estimate if pending? && quote_available?
+
+    if temporary? && !new_record?
+      quote_available? ? estimate : pending
+    end
   end
 
   def quote_available?
