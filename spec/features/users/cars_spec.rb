@@ -13,7 +13,7 @@ feature 'my cars page' do
   end
 
   specify 'it should show my cars list' do
-    within('.wrap > .container') { click_link 'My Cars' }
+    within('.nav-stacked') { click_link 'My Cars' }
     current_path.should be_eql users_cars_path
     should have_selector('li.active', text: 'My Cars')
     within '.cars-list' do
