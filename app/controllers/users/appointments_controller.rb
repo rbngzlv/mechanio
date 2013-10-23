@@ -4,7 +4,7 @@ class Users::AppointmentsController < Users::ApplicationController
   layout :select_layout
 
   def index
-    @current_appointments = current_user.jobs.assigned
+    @current_appointments = current_user.jobs.assigned.reorder(:scheduled_at)
   end
 
   def edit
