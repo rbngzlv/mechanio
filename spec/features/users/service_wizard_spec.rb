@@ -9,6 +9,10 @@ describe 'Service wizard', js: true do
   let!(:service_plan) { create :service_plan, make: make, model: model, model_variation: variation }
   let!(:state)        { create :state, name: 'State' }
 
+  before do
+    ActionMailer::Base.deliveries = []
+  end
+
   it 'asks new user to login after Contact step' do
     visit root_path
     click_on 'Car needs servicing'
@@ -34,6 +38,8 @@ describe 'Service wizard', js: true do
     verify_current_step 'Quote'
     verify_sidebar 4, 'LOCATION', "Broadway 54, ap. 1 Suburb #{state.name}, 1234"
     verify_quote
+
+    verify_email_notification
 
     click_on 'Pick a mechanic'
     verify_appointment
@@ -61,6 +67,8 @@ describe 'Service wizard', js: true do
     verify_current_step 'Quote'
     verify_sidebar 4, 'LOCATION', "Broadway 54, ap. 1 Suburb #{state.name}, 1234"
     verify_quote
+
+    verify_email_notification
 
     click_on 'Pick a mechanic'
     verify_appointment
@@ -121,6 +129,18 @@ end
 
   def verify_appointment
     page.should have_css 'h4', text: 'SELECT A MECHANIC'
+  end
+
+  def verify_email_notification
+    mail_deliveries.count.should eq 2
+    mail_deliveries[0].tap do |m|
+      m.to.should eq ['admin@example.com']
+      m.subject.should eq 'Job estimated'
+    end
+    mail_deliveries[1].tap do |m|
+      m.to.should eq [user.email]
+      m.subject.should eq 'Job quote'
+    end
   end
 
   def verify_job_created
