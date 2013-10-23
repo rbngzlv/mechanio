@@ -1,10 +1,11 @@
-Hello, #{@job.user.full_name},
+%p Hello, #{@job.user.full_name},
 
-Your job was assigned to mechanic
+%p Your job was assigned to mechanic
 
-You can review your appointments #{link_to 'here', users_estimates_url}
+%p You can review your appointments #{link_to 'here', users_estimates_url}
 
-
-Thanks for using us,
-
-Mechanio team
+%br
+%p
+  Thanks for using us,
+  %br
+  Mechanio team
