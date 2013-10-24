@@ -48,6 +48,8 @@ class Job < ActiveRecord::Base
   scope :estimated, -> { with_status 'estimated' }
   scope :assigned,  -> { with_status 'assigned' }
   scope :completed, -> { with_status 'completed' }
+  scope :upcoming,  -> { assigned.reorder(scheduled_at: :asc) }
+  scope :past,      -> { completed.reorder(scheduled_at: :desc) }
 
   def self.sanitize_and_create(params)
     create(self.whitelist(params))

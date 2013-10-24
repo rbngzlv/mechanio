@@ -1,5 +1,7 @@
 class Mechanics::JobsController < Mechanics::ApplicationController
   def index
+    @upcoming_jobs = current_mechanic.jobs.upcoming
+    @completed_jobs = current_mechanic.jobs.past
   end
 
   def show

@@ -1,7 +1,7 @@
 class Mechanics::DashboardController < Mechanics::ApplicationController
 
   def index
-    @upcoming_jobs = current_mechanic.jobs.assigned
-    @completed_jobs = current_mechanic.jobs.completed
+    @upcoming_jobs = current_mechanic.jobs.upcoming
+    @completed_jobs = current_mechanic.jobs.past
   end
 end

@@ -1,2 +1,29 @@
-%h1 Mechanics::Jobs#index
-%p Find me in app/views/mechanics/jobs/index.html.haml
+.row
+  .col-md-12
+    .panel.panel-default.panel-rounded
+      .panel-body
+        %ul.nav.nav-tabs
+          %li.active
+            = link_to 'Upcoming Jobs', '#scheduled-jobs', :data => {:toggle => 'tab'}
+          %li
+            = link_to 'Completed Jobs', '#past-jobs', :data => {:toggle => 'tab'}
+        .tab-content
+          #scheduled-jobs.tab-pane.active
+            = render(partial: "/mechanics/jobs/panel/upcoming_job", collection: @upcoming_jobs, as: :job) || render('no_upcoming_jobs')
+          #past-jobs.tab-pane
+            - if @completed_jobs.length > 0
+              %table.table.table-striped.table-bordered
+                %thead
+                  %tr.active
+                    %th Client Name
+                    %th Car
+                    %th Services
+                    %th Labour Costs
+                    -#
+                      %th Parts Costs
+                      %th Total Costs
+                    %th{colspan: "2"} Option
+                %tbody
+                  = render partial: "/mechanics/jobs/panel/completed_job", collection: @completed_jobs, as: :job
+            - else
+              %h5 You have no completed jobs

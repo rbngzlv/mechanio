@@ -1,0 +1,15 @@
+%tr
+  %td= job.user.full_name
+  %td= job.car.display_title
+  %td= job.title
+  %td= job.cost
+  -#
+    %td.info-icons
+      = link_to '#' do
+        %i.icon-time
+      = link_to '#' do
+        %i.icon-map-marker
+      = link_to '#' do
+        %i.icon-picture
+  %td
+    = link_to 'View Details', mechanics_job_path(job), class: 'btn btn-info'
