@@ -11,7 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20131023141250) do
+=======
+ActiveRecord::Schema.define(version: 20131025093219) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+  enable_extension "postgis"
+>>>>>>> mechanics ordering by locations(version 0.1)
 
   create_table "admins", force: true do |t|
     t.string   "email"
@@ -210,6 +218,14 @@ ActiveRecord::Schema.define(version: 20131023141250) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "display_title"
+  end
+
+  create_table "spatial_ref_sys", id: false, force: true do |t|
+    t.integer "srid",                   null: false
+    t.string  "auth_name", limit: 256
+    t.integer "auth_srid"
+    t.string  "srtext",    limit: 2048
+    t.string  "proj4text", limit: 2048
   end
 
   create_table "states", force: true do |t|

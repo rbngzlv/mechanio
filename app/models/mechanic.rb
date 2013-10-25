@@ -21,6 +21,13 @@ class Mechanic < ActiveRecord::Base
   belongs_to :license_state, class_name: 'State'
   belongs_to :mechanic_license_state, class_name: 'State'
 
+  scope :close_to, -> (latitude, longitude) {
+    joins(:location).order(%{  ST_Distance(
+                ST_GeographyFromText(
+                  'SRID=4326;POINT(' || locations.longitude || ' ' || locations.latitude || ')'
+                ), ST_GeographyFromText('SRID=4326;POINT(%f %f)')) } % [longitude, latitude])
+  }
+
   def full_name
     "#{first_name} #{last_name}"
   end
