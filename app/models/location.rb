@@ -13,10 +13,13 @@ class Location < ActiveRecord::Base
   after_save :get_coordinates, unless: :skip_geocoding
 
   scope :close_to, -> (latitude, longitude) {
-    order(%{  ST_Distance(
-                ST_GeographyFromText(
-                  'SRID=4326;POINT(' || locations.longitude || ' ' || locations.latitude || ')'
-                ), ST_GeographyFromText('SRID=4326;POINT(%f %f)')) } % [longitude, latitude])
+    order(%{
+      ST_Distance(
+        ST_GeographyFromText(
+          'SRID=4326;POINT(' || locations.longitude || ' ' || locations.latitude || ')'
+        ), ST_GeographyFromText('SRID=4326;POINT(%f %f)')
+      )
+    } % [longitude, latitude])
   }
 
   def full_address
