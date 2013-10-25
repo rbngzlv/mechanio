@@ -1145,6 +1145,13 @@ CREATE UNIQUE INDEX index_mechanics_on_reset_password_token ON mechanics USING b
 
 
 --
+-- Name: index_on_locations_location; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_on_locations_location ON locations USING gist (st_geographyfromtext((((('SRID=4326;POINT('::text || longitude) || ' '::text) || latitude) || ')'::text)));
+
+
+--
 -- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1274,3 +1281,5 @@ INSERT INTO schema_migrations (version) VALUES ('20131016133737');
 INSERT INTO schema_migrations (version) VALUES ('20131018044121');
 
 INSERT INTO schema_migrations (version) VALUES ('20131025093219');
+
+INSERT INTO schema_migrations (version) VALUES ('20131025144458');

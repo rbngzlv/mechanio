@@ -11,15 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 20131023141250) do
-=======
-ActiveRecord::Schema.define(version: 20131025093219) do
-
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-  enable_extension "postgis"
->>>>>>> mechanics ordering by locations(version 0.1)
+ActiveRecord::Schema.define(version: 20131025144458) do
 
   create_table "admins", force: true do |t|
     t.string   "email"
