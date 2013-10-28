@@ -15,7 +15,7 @@ describe 'Service wizard', js: true do
 
   it 'asks new user to login after Contact step' do
     visit root_path
-    click_on 'Car needs servicing'
+    click_on 'Car Needs Servicing'
 
     verify_current_step 'Car Details'
     add_new_car
