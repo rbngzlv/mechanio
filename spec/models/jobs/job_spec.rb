@@ -86,6 +86,15 @@ describe Job do
     job.car.user_id.should eq job.user_id
   end
 
+  it 'updates car when via nested_attributes' do
+    attrs[:car_attributes] = {
+      id: car.id,
+      last_service_kms: '10000'
+    }
+    expect { user.jobs.sanitize_and_create(job: attrs) }.to_not change{ Car.count }
+    car.reload.last_service_kms.should eq 10000
+  end
+
   it 'sums tasks costs' do
     job_with_service.cost.should eq 350
   end

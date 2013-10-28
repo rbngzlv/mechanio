@@ -6,7 +6,7 @@ class Job < ActiveRecord::Base
   belongs_to :location, dependent: :destroy
   has_many :tasks, inverse_of: :job, dependent: :destroy
 
-  accepts_nested_attributes_for :car, :location
+  accepts_nested_attributes_for :car, :location, update_only: true
   accepts_nested_attributes_for :tasks, allow_destroy: true, reject_if: proc { |attrs| attrs.all? { |k, v| k == 'type' || v.blank? } }
 
   serialize :serialized_params
@@ -86,7 +86,7 @@ class Job < ActiveRecord::Base
     params.require(:job).permit(
       :car_id, :contact_email, :contact_phone,
       location_attributes:  [:address, :suburb, :postcode, :state_id],
-      car_attributes:       [:year, :model_variation_id],
+      car_attributes:       [:id, :year, :model_variation_id, :last_service_kms, :last_service_date],
       tasks_attributes:     [:type, :service_plan_id, :note, :title,
         task_items_attributes: [:itemable_type,
           itemable_attributes: [:description, :name, :unit_cost, :quantity, :duration_hours, :duration_minutes, :cost]
@@ -107,6 +107,11 @@ class Job < ActiveRecord::Base
       mechanic_id: mechanic.id
     )
     assign && save
+  end
+
+  def car_attributes=(attrs)
+    self.car = Car.find(attrs[:id]) if attrs[:id].present?
+    super
   end
 
   def assign_car_to_user

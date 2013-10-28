@@ -1,4 +1,4 @@
-%div{ 'ng-controller' => 'CarsController', 'ng-init' => "init({ cars: #{@cars} })", 'ng-show' => 'stepVisible("car-details")' }
+.step-car-details{ 'ng-controller' => 'CarsController', 'ng-init' => "init({ cars: #{@cars} })", 'ng-show' => 'stepVisible("car-details")' }
   .wizard-body
     .select-vehicle{ 'ng-hide' => 'adding_vehicle' }
       %h5 SELECT YOUR VEHICLE
@@ -21,6 +21,16 @@
             = c.input :model_variation_id, collection: [], include_blank: '-- Version --', input_html: { 'ng-model' => 'car.model_variation_id', 'ng-options' => 'v.id as v.detailed_title for v in model_variations', 'ng-change' => 'setModelVariation()', 'ng-disabled' => '!car.model_id || model_variations.length == 0', 'required' => true }
         .col-md-7
           .alert.alert-danger{ 'ng-show' => 'no_results_alert' } Sorry, no models available for your selection
+    .last-service{ 'ng-show' => 'adding_vehicle || car.id' }
+      %hr
+      .row
+        .col-md-12
+          = simple_fields_for :car, wrapper: :nolabel do |c|
+            %label Please enter when your last service was performed in Kms or Date
+            .form-inline
+              = c.input :last_service_kms, placeholder: 'Kms', input_html: { 'ng-model' => 'car.last_service_kms' }
+              &nbsp;
+              = c.input :last_service_date, placeholder: 'Date', input_html: { data: { 'provide' => 'datepicker', 'date-end-date' => '-0d' }, 'ng-model' => 'car.last_service_date' }
   %hr
   %button.btn.btn-default{ 'type' => 'button', 'ng-hide' => 'adding_vehicle', 'ng-click' => 'adding_vehicle = true' }
     Add a new car

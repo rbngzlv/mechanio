@@ -8,6 +8,7 @@ class Car < ActiveRecord::Base
   validates :model_variation, :year, presence: true
   validates :user, presence: true, unless: :skip_user_validation
   validates :year, year: true
+  validates :last_service_kms, numericality: true, allow_blank: true
 
   attr_accessor :skip_user_validation
 

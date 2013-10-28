@@ -1,6 +1,6 @@
 app = angular.module('mechanio')
 
-app.controller 'QuoteController', ['$scope', '$http', ($scope, $http) ->
+app.controller 'QuoteController', ['$scope', '$http', '$window', ($scope, $http, $window) ->
   $scope.total    = false
   $scope.error    = false
 
@@ -26,8 +26,10 @@ app.controller 'QuoteController', ['$scope', '$http', ($scope, $http) ->
     $scope.setProgress(100)
 
   $scope.onSuccess = (data) ->
+    if data.id && data.cost
+      $window.location.href = "/users/appointments/#{data.id}/edit"
+
     $scope.job_id = data.id
-    $scope.total = data.cost if data.cost
     $scope.loading = false
 
   $scope.onError = ->

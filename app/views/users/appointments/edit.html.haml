@@ -1,7 +1,25 @@
 .row
-  %div
-    %section.col-md-9
-      %h4.black Select a Mechanic
-      = render partial: 'users/appointments/book', collection: mechanics, as: :mechanic
-    .col-md-3
-      = render 'sidebar'
+  %section.col-md-9
+    %h4.black Your Negotiated Quote
+
+    .panel.panel-default.panel-rounded
+      .panel-heading
+        %h4.panel-title List of services
+      .panel-body
+        %table.table.table-borderless.no-margin.tasks
+          - @job.tasks.each do |t|
+            %tr.tr-divider
+              %td
+                = t.title
+              %td.text-right
+                = number_to_currency t.cost
+          %tr
+            %td.text-right
+              %b Total Fees
+            %td.text-right
+              %b= number_to_currency @job.cost
+
+    %h4.black Select a Mechanic
+    = render partial: 'users/appointments/book', collection: mechanics, as: :mechanic
+  .col-md-3
+    = render 'sidebar'

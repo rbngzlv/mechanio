@@ -71,6 +71,12 @@
     }
   }
 
+  .step-car-details {
+    .car_last_service_date input {
+      width: 110px;
+    }
+  }
+
   .step-diagnose {
     .job_task_service_plan_id {
       width: 40%;

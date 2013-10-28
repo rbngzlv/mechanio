@@ -77,8 +77,19 @@ app.controller 'WizardController', ['$scope', '$http', ($scope, $http) ->
 
     if $scope.data.car.id
       params.car_id = $scope.data.car.id
+      if $scope.data.car.last_service_kms || $scope.data.car.last_service_date
+        params.car_attributes = {
+          id:                 $scope.data.car.id,
+          last_service_kms:   $scope.data.car.last_service_kms,
+          last_service_date:  $scope.data.car.last_service_date
+        }
     else
-      params.car_attributes = { year: $scope.data.car.year, model_variation_id: $scope.data.car.model_variation_id }
+      params.car_attributes = {
+        year:               $scope.data.car.year,
+        model_variation_id: $scope.data.car.model_variation_id,
+        last_service_kms:   $scope.data.car.last_service_kms,
+        last_service_date:  $scope.data.car.last_service_date
+      }
 
     $http.post('/users/jobs.json', { job: params })
       .success (data) ->

@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe 'Service wizard', js: true do
+  include ActionView::Helpers::NumberHelper
 
   let(:user)          { create :user }
   let(:make)          { create :make }
@@ -15,7 +16,7 @@ describe 'Service wizard', js: true do
 
   it 'asks new user to login after Contact step' do
     visit root_path
-    click_on 'Car needs servicing'
+    click_on 'Car Needs Servicing'
 
     verify_current_step 'Car Details'
     add_new_car
@@ -35,15 +36,8 @@ describe 'Service wizard', js: true do
       click_on 'Login'
     end
 
-    verify_current_step 'Quote'
-    verify_sidebar 4, 'LOCATION', "Broadway 54, ap. 1 Suburb #{state.name}, 1234"
     verify_quote
-
     verify_email_notification
-
-    click_on 'Pick a mechanic'
-    verify_appointment
-
     verify_job_created
   end
 
@@ -64,15 +58,8 @@ describe 'Service wizard', js: true do
     verify_sidebar 3, 'CAR SERVICING', service_plan.display_title
     fill_in_address
 
-    verify_current_step 'Quote'
-    verify_sidebar 4, 'LOCATION', "Broadway 54, ap. 1 Suburb #{state.name}, 1234"
     verify_quote
-
     verify_email_notification
-
-    click_on 'Pick a mechanic'
-    verify_appointment
-
     verify_job_created
   end
 
@@ -87,6 +74,11 @@ end
     select variation.make.name, from: 'car_make_id'
     select variation.model.name, from: 'car_model_id'
     select variation.detailed_title, from: 'car_model_variation_id'
+
+    fill_in 'Kms', with: '10000'
+    find('#car_last_service_date').click
+    find('.datepicker-days tr:nth-child(1) td.day:nth-child(1)').click
+
     click_on 'Continue'
   end
 
@@ -112,8 +104,9 @@ end
   end
 
   def verify_quote
-    page.should have_css 'h4', text: 'Here is your quote'
-    page.should have_css 'h4', text: service_plan.cost
+    page.should have_css 'h4', text: 'YOUR NEGOTIATED QUOTE'
+    find('table.tasks tr:last-child').text.should eq "Total Fees #{number_to_currency service_plan.cost}"
+    page.should have_css 'h4', text: 'SELECT A MECHANIC'
   end
 
   def verify_current_step(step)
@@ -125,10 +118,6 @@ end
       page.should have_css 'h5', text: title
       page.should have_css '.panel-body', text: content
     end
-  end
-
-  def verify_appointment
-    page.should have_css 'h4', text: 'SELECT A MECHANIC'
   end
 
   def verify_email_notification
