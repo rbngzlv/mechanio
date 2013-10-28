@@ -7,6 +7,6 @@ describe 'Homepage' do
 
     page.should have_link 'Sign up'
     page.should have_link 'Login'
-    page.should have_content 'Service your car conveniently with reliable mechanic'
+    page.should have_content 'Book professional mobile mechanics to service or repair your car at your conveniene'
   end
 end

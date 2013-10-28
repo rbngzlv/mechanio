@@ -21,3 +21,5 @@ config/database.yml
 
 /public/system/
 /public/assets/
+coverage
+

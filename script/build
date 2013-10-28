@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+PATH=$PATH:/usr/local/bin:$HOME/bin
+
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+source .rvmrc
+bundle install --path vendor/bundle
+RAILS_ENV=test bundle exec rake db:schema:load
+CI=true COVERAGE=true bundle exec rspec spec
