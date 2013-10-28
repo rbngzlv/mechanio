@@ -23,7 +23,7 @@ class Users::AppointmentsController < Users::ApplicationController
   private
 
   def mechanics
-    Mechanic.all
+    Mechanic.close_to(@job.location.latitude, @job.location.longitude)
   end
   helper_method :mechanics
 

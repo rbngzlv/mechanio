@@ -38,6 +38,19 @@ feature 'Appointments' do
     job.assigned?.should be_true
   end
 
+  specify 'ordering mechanic by distance' do
+    mechanic2 = create :mechanic, location: create(:location, :with_type, latitude: 40.000000, longitude: -77.000000)
+    mechanic3 = create :mechanic, location: create(:location, :with_type, latitude: 39.100000, longitude: -76.100000)
+    mechanic.location = create(:location, :with_type, latitude: 38.000000, longitude: -75.000000)
+    job_with_location = create(:job_with_service, :estimated, user: user, location: create(:location, :with_type, latitude: 38.500000, longitude: -75.500000))
+    visit edit_users_appointment_path(job_with_location)
+    within 'section' do
+      should have_selector('> .panel:nth-child(2) h5', text: mechanic.full_name)
+      should have_selector('> .panel:nth-child(3) h5', text: mechanic3.full_name)
+      should have_selector('> .panel:nth-child(4) h5', text: mechanic2.full_name)
+    end
+  end
+
   # TODO: realized validations of date which accessible and more than today in task: add calendar
   scenario 'fail', pending: 'we need calendar to have good ux, I dont see sance realised fails test before it' do
   end
