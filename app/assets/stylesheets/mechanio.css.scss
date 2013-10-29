@@ -585,6 +585,9 @@ section {
     border: none;
 
     li > a {
+      font-weight: bold;
+      @extend .lazure;
+
       &:hover,
       &:active {
         background: #fff;
@@ -598,6 +601,7 @@ section {
       border-top: 2px solid #000;
       background: #fff;
       border-radius: 0;
+      color: #000 !important;
 
       &:focus {
         outline: none;
