@@ -23,9 +23,9 @@ describe Location do
   end
 
   describe 'scope close_to' do
-    let!(:location1) { create :location, :with_type, latitude: 40.000000, longitude: -77.000000 }
-    let!(:location2) { create :location, :with_type, latitude: 39.010000, longitude: -75.990000 }
-    let!(:location3) { create :location, :with_type, latitude: 40.010000, longitude: -78.000000 }
+    let!(:location1) { create :location, latitude: 40.000000, longitude: -77.000000 }
+    let!(:location2) { create :location, latitude: 39.010000, longitude: -75.990000 }
+    let!(:location3) { create :location, latitude: 40.010000, longitude: -78.000000 }
 
     it 'should sort locations by distance' do
       Location.close_to(39.000000, -76.000000).should == [location2, location1, location3]

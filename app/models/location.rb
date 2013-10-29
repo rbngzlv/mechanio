@@ -33,4 +33,8 @@ class Location < ActiveRecord::Base
   def state_name
     state.name
   end
+
+  def is_coordinates_valid?
+    longitude && latitude
+  end
 end

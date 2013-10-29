@@ -3,7 +3,7 @@ require 'spec_helper'
 feature 'Appointments' do
   let(:user)        { create :user }
   let!(:mechanic)   { create :mechanic }
-  let!(:job)        { create :job_with_service, :estimated, user: user, location: create(:location, :with_type, latitude: 38.500000, longitude: -75.500000) }
+  let!(:job)        { create :job_with_service, :estimated, user: user, location: create(:location, :with_coordinates) }
   let(:tomorrow)    { DateTime.now.tomorrow.day }
 
   subject { page }

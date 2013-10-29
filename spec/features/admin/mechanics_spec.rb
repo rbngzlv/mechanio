@@ -21,6 +21,20 @@ feature 'Admin mechanics management' do
     page.should have_field 'First name', with: mechanic.first_name
   end
 
+  it 'should show mechanics locations status' do
+    create :mechanic, location: create(:location, :with_type, :with_coordinates)
+    visit admin_mechanics_path
+    within 'tbody' do
+      within 'tr:nth-child(1)' do
+        page.should have_css 'span.label-success', text: 'Valid'
+      end
+      within 'tr:nth-child(2)' do
+        page.should have_css 'span.label-danger', text: 'Invalid'
+        page.should have_content mechanic.full_name
+      end
+    end
+  end
+
   it 'adds a new mechanic' do
     mail_deliveries.clear
     visit admin_mechanics_path

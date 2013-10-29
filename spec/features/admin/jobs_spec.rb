@@ -13,7 +13,7 @@ feature 'Jobs page' do
 
   context 'should show general info about job' do
     let!(:job1) { create :job_with_service }
-    let!(:job2) { create :assigned_job }
+    let!(:job2) { create :assigned_job, location: create(:location, :with_coordinates) }
 
     before { visit admin_jobs_path }
 
@@ -34,6 +34,7 @@ feature 'Jobs page' do
 
   def verify_job_row(job)
     should have_content job.status.capitalize
+    should have_content job.location.is_coordinates_valid? ? 'Valid' : 'Invalid'
     should have_content job.title
     should have_content job.created_at.to_s(:date)
     should have_content job.user.full_name
