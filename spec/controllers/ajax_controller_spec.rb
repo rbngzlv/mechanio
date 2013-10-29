@@ -30,7 +30,12 @@ describe AjaxController do
 
       get :model_variations, format: :json, model_id: variation.model_id
       response.should be_success
-      response.body.should eq [{ id: variation.id, display_title: variation.display_title, detailed_title: variation.detailed_title }].to_json
+      response.body.should eq [{
+        id: variation.id,
+        display_title: variation.display_title,
+        detailed_title: variation.detailed_title,
+        title_with_year: variation.title_with_year
+      }].to_json
     end
   end
 end

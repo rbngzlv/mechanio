@@ -9,11 +9,7 @@ class Admin::ServicePlansController < Admin::ApplicationController
   def index_by_model
     @variation_id = search_params[:model_variation_id]
     @service_plan = ServicePlan.new(search_params)
-
-    if @variation_id
-      @variation = ModelVariation.find(@variation_id)
-      @service_plans = ServicePlan.where(model_variation_id: @variation_id)
-    end
+    @variation = @variation_id ? ModelVariation.find(@variation_id) : ModelVariation.new
   end
 
   def new

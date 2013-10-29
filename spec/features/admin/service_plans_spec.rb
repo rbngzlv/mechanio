@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'Manage service periods', pending: 'Fix make/model js filtering' do
+describe 'Manage service periods' do
 
   let(:service_plan)          { create :service_plan, model_variation: model_variation }
   let(:default_service_plan)  { create :default_service_plan }
@@ -57,7 +57,7 @@ describe 'Manage service periods', pending: 'Fix make/model js filtering' do
     it 'edit service plan' do
       default_service_plan
       visit default_admin_service_plans_path
-      page.should have_css 'td', text: '10,000 kms / 6 months'
+      page.should have_css 'td', text: default_service_plan.display_title
       click_on 'Edit'
 
       fill_in 'Kms travelled', with: '20000'
@@ -101,7 +101,7 @@ describe 'Manage service periods', pending: 'Fix make/model js filtering' do
         fill_in 'Cost', with: '250'
         click_on 'Save'
 
-        page.should have_css 'th', text: "Service plans for #{model_variation.full_title}"
+        page.should have_css 'th', text: "Service plans for #{model_variation.title_with_year}"
         page.should have_css '.alert-info', text: 'Service plan created succesfully.'
         page.should have_css 'td', text: '15,000 kms / 8 months'
       end
@@ -111,7 +111,7 @@ describe 'Manage service periods', pending: 'Fix make/model js filtering' do
         fill_in 'Cost', with: '250'
         click_on 'Save'
 
-        page.should have_css 'th', text: "Service plans for #{model_variation.full_title}"
+        page.should have_css 'th', text: "Service plans for #{model_variation.title_with_year}"
         page.should have_css '.alert-info', text: 'Service plan created succesfully.'
         page.should have_css 'td', text: 'Minor/Interim'
       end
@@ -121,13 +121,13 @@ describe 'Manage service periods', pending: 'Fix make/model js filtering' do
       service_plan
       visit by_model_admin_service_plans_path
       select_model_variation
-      page.should have_css 'td', text: '10,000 kms / 6 months'
+      page.should have_css 'td', text: service_plan.display_title
       click_on 'Edit'
 
       fill_in 'Kms travelled', with: '20000'
       click_on 'Save'
 
-      page.should have_css 'th', text: "Service plans for #{model_variation.full_title}"
+      page.should have_css 'th', text: "Service plans for #{model_variation.title_with_year}"
       page.should have_css '.alert-info', text: 'Service plan updated succesfully.'
       page.should have_css 'td', text: '20,000 kms / 6 months'
     end
@@ -136,7 +136,6 @@ describe 'Manage service periods', pending: 'Fix make/model js filtering' do
       select model_variation.make.name, from: 'service_plan_make_id'
       select model_variation.model.name, from: 'service_plan_model_id'
       select model_variation.display_title, from: 'service_plan_model_variation_id'
-      click_on 'Select'
     end
   end
 end

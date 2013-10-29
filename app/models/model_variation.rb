@@ -32,11 +32,16 @@ class ModelVariation < ActiveRecord::Base
     year = params.delete(:year)
     scope = where(params)
     scope = scope.where('? BETWEEN from_year AND to_year', year) unless year.blank?
-    scope.select(:id, :display_title, :detailed_title)
+    scope.select(:id, :display_title, :detailed_title, :from_year, :to_year)
+      .as_json(only: [:id, :display_title, :detailed_title], methods: [:title_with_year])
   end
 
   def set_titles
     self.display_title = "#{make.name} #{model.name} #{title}"
     self.detailed_title = "#{title} #{body_type.name} #{transmission} #{fuel}"
+  end
+
+  def title_with_year
+    "#{display_title} #{from_year}-#{to_year}"
   end
 end

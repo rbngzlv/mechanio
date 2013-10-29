@@ -1,13 +1,18 @@
 %h4 Select car model
 
-= render 'filter_form'
-%hr
+%div{ 'ng-controller' => 'ServicePlansController', 'ng-init' => "init(#{@variation.to_json})" }
+  = render 'filter_form'
+  %hr
 
-- if @variation
-  %table.table.table-striped
+  %table.table.table-striped{ 'ng-show' => 'model_variation' }
     %thead
       %tr
-        %th.col-md-3= "Service plans for #{@variation.display_title}"
-        %th.col-md-2= link_to "Add service plan", new_admin_service_plan_path('service_plan[model_variation_id]' => @variation.id), class: 'btn btn-primary btn-sm pull-right'
+        %th.col-md-3 Service plans for {{model_variation.title_with_year}}
+        %th.col-md-2= link_to "Add service plan", '/admin/service_plans/new?service_plan[model_variation_id]={{model_variation.id}}', class: 'btn btn-primary btn-sm pull-right'
     %tbody
-      = render 'table_body'
+      %tr{ 'ng-hide' => 'service_plans' }
+        %td.text-center{colspan: 2}
+          %h5 No service plans
+      %tr{ 'ng-repeat' => 's in service_plans' }
+        %td {{s.display_title}}
+        %td.text-right= link_to "Edit", '/admin/service_plans/{{s.id}}/edit'

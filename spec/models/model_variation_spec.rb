@@ -58,7 +58,12 @@ describe ModelVariation do
 
   it '#to_options' do
     variation = create :model_variation
-    result = [{ id: variation.id, display_title: variation.display_title, detailed_title: variation.detailed_title }]
+    result = [{
+      id: variation.id,
+      display_title: variation.display_title,
+      detailed_title: variation.detailed_title,
+      title_with_year: variation.title_with_year
+    }]
     ModelVariation.to_options(model_id: variation.model_id).to_json.should eq result.to_json
   end
 end
