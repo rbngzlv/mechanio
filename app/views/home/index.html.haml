@@ -1,18 +1,26 @@
 :javascript
   $(function() {
-    $.mbBgndGallery.buildGallery({
-      containment: '#js-home-gallery',
-      timer:4000,
-      effTimer:5000,
-      grayScale:false,
-      effect: "zoom",
-      images:[
-       "#{asset_url "1.jpg"}",
-       "#{asset_url "2.jpg"}"
-       ]
+    ($first_slide = $('#js-fix-first-slide')).fadeOut(0);
+    $first_slide.load(function () {
+      $first_slide.fadeIn();
     });
+    var waiting_time = 6000;
+    setTimeout(function () {
+      $.mbBgndGallery.buildGallery({
+        containment: '#js-home-gallery',
+        timer: waiting_time,
+        effTimer:500,
+        grayScale:false,
+        effect: "slideRight",
+        images:[
+          "#{asset_url "2.jpg"}",
+          "#{asset_url "1.jpg"}"
+        ]
+      });
+    }, waiting_time);
   });
 #js-home-gallery.home-gallery
+  = image_tag asset_url("1.jpg"), class: 'fix-first-slide', id: 'js-fix-first-slide'
 .banner
   .container
     .col-md-12.text-center
