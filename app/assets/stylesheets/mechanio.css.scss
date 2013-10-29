@@ -783,8 +783,8 @@ section {
   }
 }
 
-.banner, 
-.banner h1, 
+.banner,
+.banner h1,
 .mechanio-video p,
 .how-it-works h1,
 .how-it-works h3,
@@ -810,7 +810,7 @@ section {
   h1 {
     font-size: 40px;
     font-weight: bold;
-  
+
     + h5 {
       margin-top: -5px;
     }
@@ -1291,4 +1291,16 @@ form {
     overflow-x: hidden;
     max-height: 500px;
   }
+}
+
+.fix-first-slide {
+  position: absolute;
+  min-width: 100%;
+  min-height: 100%;
+  margin-left: 0px;
+  margin-top: 0;
+  opacity: 1;
+  top: 0px;
+  left: 0px;
+  z-index: -1;
 }
