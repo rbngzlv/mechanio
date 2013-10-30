@@ -8,12 +8,16 @@ class Location < ActiveRecord::Base
 
   attr_accessor :skip_geocoding
 
-  geocoded_by :full_address
+  geocoded_by :geocoding_address
 
   after_save :get_coordinates, unless: :skip_geocoding
 
   def full_address
     "#{address}, #{suburb} #{state_name}, #{postcode}"
+  end
+
+  def geocoding_address
+    "#{address}, #{suburb} #{postcode}, Australia"
   end
 
   def get_coordinates
