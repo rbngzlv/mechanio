@@ -10,8 +10,8 @@
 
 = link_to "Delete", admin_user_path(@user), method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure to delete the user?' }
 
+%hr
 - if @user.jobs.length > 0
-  %hr
   %h4 Jobs list
 
   %table.table.table-striped
@@ -26,3 +26,5 @@
         %th Edit
     %tbody
       = render partial: 'admin/users/job', collection: @user.jobs
+- else
+  %h4 This user has no appointments

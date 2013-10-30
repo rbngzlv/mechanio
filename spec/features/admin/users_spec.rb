@@ -54,6 +54,11 @@ feature 'Admin user management' do
       end
       should have_css('h4', text: user.jobs[0].title)
     end
+
+    it 'show notice if user does not have appointments' do
+      visit admin_user_path(user)
+      should have_content 'This user has no appointments'
+    end
   end
 
   it 'deletes a user' do
