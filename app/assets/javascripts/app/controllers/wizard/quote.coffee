@@ -28,9 +28,9 @@ app.controller 'QuoteController', ['$scope', '$http', '$window', ($scope, $http,
   $scope.onSuccess = (data) ->
     if data.id && data.cost
       $window.location.href = "/users/appointments/#{data.id}/edit"
-
-    $scope.job_id = data.id
-    $scope.loading = false
+    else if data.id && !data.cost
+      $scope.job_id = data.id
+      $scope.loading = false
 
   $scope.onError = ->
     $scope.error = true
