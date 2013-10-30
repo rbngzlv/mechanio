@@ -145,7 +145,9 @@ class Job < ActiveRecord::Base
   end
 
   def on_quote_change
-    notify_quote_changed if estimated? && quote_changed?
+    if estimated? || assigned?
+      notify_quote_changed if quote_changed?
+    end
   end
 
   def as_json(options = {})

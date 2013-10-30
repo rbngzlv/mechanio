@@ -31,14 +31,13 @@ FactoryGirl.define do
       end
     end
 
-    factory :job_with_service, traits: [:with_service]
-
-    trait :with_mechanic do
+    trait :assigned do
       mechanic
-      status 'assigned'
+      status :assigned
       scheduled_at { DateTime.now }
     end
 
-    factory :assigned_job, traits: [:with_service, :with_mechanic]
+    factory :job_with_service, traits: [:with_service]
+    factory :assigned_job, traits: [:with_service, :assigned]
   end
 end

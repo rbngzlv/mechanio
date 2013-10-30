@@ -68,6 +68,7 @@ feature 'Jobs page' do
         click_on 'Done'
       end
 
+      reset_mail_deliveries
       click_on 'Update job'
 
       within_task(2) do
@@ -80,6 +81,7 @@ feature 'Jobs page' do
 
       click_on 'Add task'
       page.should have_no_css '.dropdown-menu a', text: 'Service'
+      verify_email_notifications(job)
     end
 
     scenario 'add repair' do
@@ -117,6 +119,7 @@ feature 'Jobs page' do
         within_row(2) { fill_in_fixed }
       end
 
+      reset_mail_deliveries
       click_on 'Update job'
 
       within_task(2) do
@@ -128,10 +131,11 @@ feature 'Jobs page' do
       end
 
       grand_total.should eq '$681.00'
+      verify_email_notifications(job)
     end
 
     scenario 'edit items' do
-      job = create :job, :with_service, :with_repair
+      job = create :job, :with_service, :with_repair, :assigned
       service_plan = job.tasks.first.service_plan
 
       visit edit_admin_job_path(job)
@@ -156,6 +160,7 @@ feature 'Jobs page' do
         within_row(1) { fill_in_labour }
       end
 
+      reset_mail_deliveries
       click_on 'Update job'
 
       within_task(2) do
@@ -166,6 +171,7 @@ feature 'Jobs page' do
       end
 
       grand_total.should eq '$506.00'
+      verify_email_notifications(job)
     end
 
     scenario 'delete tasks/items' do
@@ -181,12 +187,14 @@ feature 'Jobs page' do
         within_row(1) { find('.delete-item').click }
       end
 
+      reset_mail_deliveries
       click_on 'Update job'
 
       page.should have_css '.task', count: 1
       page.should have_css '.item', count: 1
 
       grand_total.should eq '$108.00'
+      verify_email_notifications(job)
     end
   end
 
@@ -259,5 +267,16 @@ feature 'Jobs page' do
 
   def grand_total
     find('dd.grand-total').text
+  end
+
+  def verify_email_notifications(job)
+    mail_deliveries[0].tap do |m|
+      m.to.should eq ['admin@example.com']
+      m.subject.should eq 'Job quote updated'
+    end
+    mail_deliveries[1].tap do |m|
+      m.to.should eq [job.user.email]
+      m.subject.should eq 'Job quote updated'
+    end
   end
 end
