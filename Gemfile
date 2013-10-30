@@ -7,6 +7,7 @@ gem 'pg'
 gem 'devise'
 gem 'carrierwave'
 gem 'mini_magick'
+gem 'exception_notification'
 
 gem 'haml-rails'
 gem 'sass-rails', '~> 4.0.0'

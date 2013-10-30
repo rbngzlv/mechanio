@@ -79,4 +79,11 @@ Mechanio::Application.configure do
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
+
+  config.middleware.use ExceptionNotification::Rack,
+    email: {
+      :email_prefix => "[PRODUCTION ERROR] ",
+      :sender_address => %{"Exception notifier" <notifier@mechanio.com>},
+      :exception_recipients => %w{bartzitz@gmail.com}
+    }
 end
