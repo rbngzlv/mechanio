@@ -175,6 +175,7 @@ class Job < ActiveRecord::Base
   def notify_assigned
     AdminMailer.job_assigned(self).deliver
     UserMailer.job_assigned(self).deliver
+    MechanicMailer.job_assigned(self).deliver
   end
 
   def notify_quote_changed

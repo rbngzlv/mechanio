@@ -10,6 +10,7 @@ feature 'Appointments' do
 
   before do
     login_user user
+    reset_mail_deliveries
   end
 
   specify 'navigation' do
@@ -36,6 +37,20 @@ feature 'Appointments' do
 
     job.reload.mechanic.should eq mechanic
     job.assigned?.should be_true
+
+    mail_deliveries.count.should eq 3
+    mail_deliveries[0].tap do |m|
+      m.to.should eq ['admin@example.com']
+      m.subject.should eq 'Job assigned'
+    end
+    mail_deliveries[1].tap do |m|
+      m.to.should eq [user.email]
+      m.subject.should eq 'Job assigned'
+    end
+    mail_deliveries[2].tap do |m|
+      m.to.should eq [mechanic.email]
+      m.subject.should eq 'You got a new job'
+    end
   end
 
   # TODO: realized validations of date which accessible and more than today in task: add calendar

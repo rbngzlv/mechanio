@@ -11,7 +11,7 @@ describe 'Service wizard', js: true do
   let!(:state)        { create :state, name: 'State' }
 
   before do
-    ActionMailer::Base.deliveries = []
+    reset_mail_deliveries
   end
 
   it 'asks new user to login after Contact step' do
