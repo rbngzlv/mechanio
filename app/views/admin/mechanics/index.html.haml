@@ -20,6 +20,6 @@
         %td= u.full_name
         %td= u.email
         %td= u.created_at.to_s(:short)
-        %td.text-right= link_to "Details", edit_admin_mechanic_path(u)
+        %td.text-right= link_to "Edit", edit_admin_mechanic_path(u)
 
   = paginate @mechanics

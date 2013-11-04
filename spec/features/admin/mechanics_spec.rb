@@ -55,7 +55,7 @@ feature 'Admin mechanics management' do
     visit admin_mechanics_path
     page.should have_css 'td', text: 'Joe Mechanic'
 
-    click_link 'Details'
+    click_link 'Edit'
     page.should have_content 'Business Details'
     check 'Phone verified'
     check 'Super mechanic'
