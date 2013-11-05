@@ -23,6 +23,7 @@ gem 'geocoder'
 gem 'font-awesome-rails'
 gem 'state_machine'
 gem 'paranoia', '~> 2.0'
+gem 'fullcalendar-rails'
 
 group :development do
   gem 'letter_opener'

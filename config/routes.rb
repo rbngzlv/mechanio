@@ -32,6 +32,7 @@ Mechanio::Application.routes.draw do
     resource :profile, only: [:show, :edit, :update]
     resources :jobs, only: [:index, :show]
     resource :settings, only: [:edit, :update]
+    resource :schedule, only: [:show]
   end
 
   namespace :admin do

@@ -14,4 +14,5 @@
 //= require jquery_ujs
 //= require angular.min
 //= require twitter/bootstrap
+//= require fullcalendar
 //= require_tree .

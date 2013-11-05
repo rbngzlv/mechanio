@@ -2,6 +2,6 @@
   %ul.nav.nav-pills.nav-stacked
     = nav_bar_link 'Dashboard', mechanics_dashboard_path, icon: 'dashboard'
     = nav_bar_link 'My Jobs', mechanics_jobs_path, icon: 'thumbs-up', active: params[:controller].eql?('mechanics/jobs')
-    = nav_bar_link 'My Profile', mechanics_profile_path, icon: 'user', active: params[:controller].eql?('mechanics/profiles')
+    = nav_bar_link 'My Profile', mechanics_profile_path, icon: 'user', active: params[:controller].eql?('mechanics/profiles') || params[:controller].eql?('mechanics/schedules')
     = nav_bar_link 'Payout Information', '#', icon: 'credit-card'
     = nav_bar_link 'Settings', edit_mechanics_settings_path, icon: 'cog'
