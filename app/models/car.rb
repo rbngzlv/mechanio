@@ -1,4 +1,5 @@
 class Car < ActiveRecord::Base
+  acts_as_paranoid
 
   belongs_to :user
   belongs_to :model_variation

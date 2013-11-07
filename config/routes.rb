@@ -20,7 +20,7 @@ Mechanio::Application.routes.draw do
 
     resources :jobs, only: [:show, :create]
     resources :appointments, only: [:index, :edit, :update]
-    resources :cars, only: [:index]
+    resources :cars, only: [:index, :destroy]
 
     resource :profile, only: [:show, :edit, :update]
     resource :settings, only: [:edit, :update]

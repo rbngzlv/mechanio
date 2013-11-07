@@ -22,6 +22,7 @@ gem 'resque'
 gem 'geocoder'
 gem 'font-awesome-rails'
 gem 'state_machine'
+gem 'paranoia', '~> 2.0'
 
 group :development do
   gem 'letter_opener'

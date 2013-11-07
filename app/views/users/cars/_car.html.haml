@@ -3,4 +3,4 @@
     .col-md-9
       = car.display_title
     .col-md-3
-      / link to del it
+      = link_to "Delete", users_car_path(car), method: :delete, class: 'btn btn-danger col-md-12'
