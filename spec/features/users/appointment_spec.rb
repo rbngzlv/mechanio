@@ -58,7 +58,6 @@ feature 'Appointments' do
     mechanic3 = create :mechanic, location: create(:location, :with_type, latitude: 39.100000, longitude: -76.100000)
     mechanic.location = create(:location, :with_type, latitude: 38.000000, longitude: -75.000000)
     visit edit_users_appointment_path(job)
-    save_and_open_page
     within 'section' do
       should have_selector('> .panel:nth-child(4) h5', text: mechanic.full_name)
       should have_selector('> .panel:nth-child(5) h5', text: mechanic3.full_name)
