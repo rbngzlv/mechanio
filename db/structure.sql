@@ -3,7 +3,6 @@
 --
 
 SET statement_timeout = 0;
-SET lock_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SET check_function_bodies = false;
@@ -150,44 +149,6 @@ CREATE SEQUENCE cars_id_seq
 --
 
 ALTER SEQUENCE cars_id_seq OWNED BY cars.id;
-
-
---
--- Name: events; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE events (
-    id integer NOT NULL,
-    date_start date,
-    date_end date,
-    recurrence_end date,
-    time_start time without time zone,
-    time_end time without time zone,
-    recurrence character varying(255),
-    title character varying(255),
-    mechanic_id integer,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
-);
-
-
---
--- Name: events_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE events_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: events_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE events_id_seq OWNED BY events.id;
 
 
 --
@@ -459,8 +420,8 @@ CREATE TABLE model_variations (
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     make_id integer,
-    comment text,
     display_title character varying(255),
+    comment text,
     detailed_title character varying(255)
 );
 
@@ -882,13 +843,6 @@ ALTER TABLE ONLY cars ALTER COLUMN id SET DEFAULT nextval('cars_id_seq'::regclas
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY events ALTER COLUMN id SET DEFAULT nextval('events_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
 ALTER TABLE ONLY fixed_amounts ALTER COLUMN id SET DEFAULT nextval('fixed_amounts_id_seq'::regclass);
 
 
@@ -1005,6 +959,14 @@ ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regcl
 
 
 --
+-- Data for Name: spatial_ref_sys; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY spatial_ref_sys (srid, auth_name, auth_srid, srtext, proj4text) FROM stdin;
+\.
+
+
+--
 -- Name: admins_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1034,14 +996,6 @@ ALTER TABLE ONLY makes
 
 ALTER TABLE ONLY cars
     ADD CONSTRAINT cars_pkey PRIMARY KEY (id);
-
-
---
--- Name: events_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY events
-    ADD CONSTRAINT events_pkey PRIMARY KEY (id);
 
 
 --
@@ -1229,6 +1183,27 @@ CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (v
 
 
 --
+-- Name: geometry_columns_delete; Type: RULE; Schema: public; Owner: -
+--
+
+CREATE RULE geometry_columns_delete AS ON DELETE TO geometry_columns DO INSTEAD NOTHING;
+
+
+--
+-- Name: geometry_columns_insert; Type: RULE; Schema: public; Owner: -
+--
+
+CREATE RULE geometry_columns_insert AS ON INSERT TO geometry_columns DO INSTEAD NOTHING;
+
+
+--
+-- Name: geometry_columns_update; Type: RULE; Schema: public; Owner: -
+--
+
+CREATE RULE geometry_columns_update AS ON UPDATE TO geometry_columns DO INSTEAD NOTHING;
+
+
+--
 -- PostgreSQL database dump complete
 --
 
@@ -1343,5 +1318,3 @@ INSERT INTO schema_migrations (version) VALUES ('20131025093219');
 INSERT INTO schema_migrations (version) VALUES ('20131025144458');
 
 INSERT INTO schema_migrations (version) VALUES ('20131031132802');
-
-INSERT INTO schema_migrations (version) VALUES ('20131105150958');

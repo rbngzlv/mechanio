@@ -53,7 +53,9 @@ app.controller 'CarsController', ['$scope', '$http', ($scope, $http) ->
           $scope.no_results_alert = (data.length == 0)
 
   $scope.valid = ->
-    $scope.car.id || $scope.car.model_variation_id
+    valid_car = $scope.car.id || $scope.car.model_variation_id
+    valid_last_service = $scope.car.last_service_kms || $scope.last_service_date
+    valid_car && valid_last_service
 
   $scope.submit = ->
     $scope.data.car = angular.copy($scope.car)

@@ -159,7 +159,7 @@ describe Job do
         attributes_for(:service, service_plan_id: create(:service_plan).id),
         attributes_for(:repair, task_items_attributes: [repair_item])
       ],
-      car_attributes: { year: '2000', model_variation_id: create(:model_variation).id }
+      car_attributes: { year: '2000', model_variation_id: create(:model_variation).id, last_service_kms: '10000' }
     })
   end
 end

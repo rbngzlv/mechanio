@@ -10,6 +10,7 @@ class Car < ActiveRecord::Base
   validates :user, presence: true, unless: :skip_user_validation
   validates :year, year: true
   validates :last_service_kms, numericality: true, allow_blank: true
+  validate :verify_last_service
 
   attr_accessor :skip_user_validation
 
@@ -17,5 +18,9 @@ class Car < ActiveRecord::Base
 
   def set_display_title
     self.display_title = "#{year} #{model_variation.display_title}"
+  end
+
+  def verify_last_service
+    errors[:last_service_kms] << 'Enter either kms or date' if last_service_kms.blank? && last_service_date.blank?
   end
 end
