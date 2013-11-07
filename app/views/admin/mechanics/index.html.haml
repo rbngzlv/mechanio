@@ -12,14 +12,16 @@
       %tr
         %th.col-md-3 Name
         %th Email
+        %th Location Valid
         %th.col-md-2 Signup date
         %th.col-md-1
     %tbody
-    - @mechanics.each do |u|
-      %tr
-        %td= u.full_name
-        %td= u.email
-        %td= u.created_at.to_s(:short)
-        %td.text-right= link_to "Edit", edit_admin_mechanic_path(u)
+      - @mechanics.each do |u|
+        %tr
+          %td= u.full_name
+          %td= u.email
+          %td= location_status(u.location)
+          %td= u.created_at.to_s(:short)
+          %td.text-right= link_to "Edit", edit_admin_mechanic_path(u)
 
   = paginate @mechanics

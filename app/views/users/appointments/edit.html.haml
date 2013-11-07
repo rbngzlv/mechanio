@@ -20,6 +20,6 @@
               %b= number_to_currency @job.cost
 
     %h4.black Select a Mechanic
-    = render partial: 'users/appointments/book', collection: mechanics, as: :mechanic
+    = render(partial: 'users/appointments/book', collection: mechanics, as: :mechanic) || render('wrong_location')
   .col-md-3
     = render 'sidebar'

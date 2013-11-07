@@ -22,9 +22,10 @@ feature 'mechanic profile page' do
     end
 
     scenario 'check verified statuses work' do
+      should have_css '.verified-icon.icon-map-marker.disabled'
       should have_css '.verified-icon.icon-phone.disabled'
-      should have_css '.verified-icon:nth-child(2)'
-      should_not have_css '.verified-icon:nth-child(2).disabled'
+      should have_css '.verified-icon:nth-child(3)'
+      should_not have_css '.verified-icon:nth-child(3).disabled'
       should have_css '.verified-icon.icon-thumbs-up.disabled'
       should have_css '.verified-icon.icon-book'
       should_not have_css '.verified-icon.disabled.icon-book'
