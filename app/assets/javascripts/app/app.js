@@ -1,1 +1,1 @@
-angular.module('mechanio', []);
+angular.module('mechanio', ['$strap.directives']);

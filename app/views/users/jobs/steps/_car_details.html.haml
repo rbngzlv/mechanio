@@ -30,7 +30,7 @@
             .form-inline
               = c.input :last_service_kms, placeholder: 'Kms', input_html: { 'ng-model' => 'car.last_service_kms' }
               &nbsp;
-              = c.input :last_service_date, placeholder: 'Date', input_html: { data: { 'provide' => 'datepicker', 'date-end-date' => '-0d' }, 'ng-model' => 'car.last_service_date' }
+              = c.input :last_service_date, placeholder: 'Date', input_html: { 'data-date-end-date' => '-0d', 'ng-model' => 'car.last_service_date', 'bs-datepicker' => true }
             %span.help-block
               Either kms or date is required
   %hr

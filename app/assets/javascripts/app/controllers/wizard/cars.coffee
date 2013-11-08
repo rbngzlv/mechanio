@@ -54,7 +54,7 @@ app.controller 'CarsController', ['$scope', '$http', ($scope, $http) ->
 
   $scope.valid = ->
     valid_car = $scope.car.id || $scope.car.model_variation_id
-    valid_last_service = $scope.car.last_service_kms || $scope.last_service_date
+    valid_last_service = $scope.car.last_service_kms || $scope.car.last_service_date
     valid_car && valid_last_service
 
   $scope.submit = ->
