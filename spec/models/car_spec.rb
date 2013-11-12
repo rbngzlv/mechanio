@@ -31,4 +31,19 @@ describe Car do
     car.display_title.should_not be_empty
     car.display_title.should eq "#{car.year} #{car.model_variation.display_title}"
   end
+
+  describe '#destroy' do
+    context 'soft delete by adding deleted_at' do
+      it 'successfully for cars with temporary and completed jobs' do
+        create(:job_with_service, status: :temporary).car.destroy.should be_true
+        create(:job_with_service, :completed).car.destroy.should be_true
+      end
+
+      it 'fails if car has status like pending, estimated or assigned' do
+        create(:job_with_service, :pending).car.destroy.should be_false
+        create(:job_with_service, :assigned).car.destroy.should be_false
+        create(:job_with_service, :estimated).car.destroy.should be_false
+      end
+    end
+  end
 end
