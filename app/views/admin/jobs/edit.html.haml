@@ -8,6 +8,9 @@
   = @job.title
   = job_status(@job.status)
 
+%h5
+  = @job.car.display_title
+
 - if @job.mechanic
   %p
     Assigned to
