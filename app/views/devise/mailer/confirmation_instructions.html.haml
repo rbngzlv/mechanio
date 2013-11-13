@@ -1,4 +1,5 @@
-%p
-  Welcome #{@email}!
-%p You can confirm your account email through the link below:
-%p= link_to 'Confirm my account', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token)
+%p Dear #{@resource.full_name},
+%p Welcome to Mechanio - the easiest way to organise your car servicing or repair at your location!
+%p In order to get started with Mechanio, please click on the link below:
+%p= link_to(url = confirmation_url(@resource, :confirmation_token => @resource.confirmation_token), url)
+%p Thank you for choosing Mechanio.<br/> The Mechanio Team

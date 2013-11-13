@@ -84,6 +84,8 @@ end
 
   def select_car(car)
     choose car.display_title
+    fill_in 'Kms', with: '10000'
+
     click_on 'Continue'
   end
 
