@@ -85,9 +85,10 @@
           %br
           %span.big Join Now
         .col-md-5.sign-up-block
-          .col-md-10
-            %input.clearfix.col-md-12{placeholder: "youremail@address.com", type: "text"}
-          %button.btn.btn-primary.col-md-2{type: "submit"} SIGN UP
+          = form_for :user, url: new_user_registration_path, method: :get do |f|
+            .col-md-10
+              = f.text_field :email, placeholder: "youremail@address.com", class: 'clearfix col-md-12'
+            = f.submit 'SIGN UP', class: 'btn btn-primary col-md-2'
   .home-page-reviews.bg-white
     .container.review-block
       .panel-body
