@@ -18,12 +18,12 @@ describe EventsManager do
         events_manager.add_events(params).should be_true
       end
 
-      it 'returb false if repeted' do
+      it 'returb false if repeated' do
         events_manager.add_events(params.dup).should be_true
         events_manager.add_events(params).should be_false
       end
 
-      context 'it should generate errors if repeted' do
+      context 'it should generate errors if repeated' do
         before do
           events_manager.add_events(params.dup)
           events_manager.add_events(params)
@@ -41,7 +41,7 @@ describe EventsManager do
   end
 
   describe '#events_list' do
-    context 'single unrepeted event' do
+    context 'single unrepeated event' do
       before { create :event, mechanic: mechanic }
 
       it 'should return array with single element which is hash' do
@@ -53,7 +53,7 @@ describe EventsManager do
       end
     end
 
-    context 'single repeted event' do
+    context 'single repeated event' do
       before { create :event, :day_off, mechanic: mechanic }
 
       it 'should return array with hashes' do
@@ -64,7 +64,7 @@ describe EventsManager do
       end
     end
 
-    context 'repeted and unrepeated events' do
+    context 'repeated and unrepeated events' do
       before do
         create :event, :day_off, mechanic: mechanic
         create :event, date_start: Date.tomorrow, mechanic: mechanic
