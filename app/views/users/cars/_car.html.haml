@@ -3,4 +3,4 @@
     .col-md-9
       = car.display_title
     .col-md-3
-      = link_to "Delete", users_car_path(car), method: :delete, class: 'btn btn-danger col-md-12'
+      = link_to "Delete", users_car_path(car), method: :delete, class: 'btn btn-danger col-md-12', data: { confirm: "Do you really want to remove (#{car.display_title}) ?" }
