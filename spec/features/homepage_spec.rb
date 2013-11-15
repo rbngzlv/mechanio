@@ -8,7 +8,7 @@ describe 'Homepage' do
   it 'shows homepage' do
     should have_link 'Sign up'
     should have_link 'Login'
-    should have_content 'Book professional mobile mechanics to service or repair your car at your conveniene'
+    should have_content 'Book professional mobile mechanics to service or repair your car at your convenience'
   end
 
   it 'has feature to prefill email for signup page' do

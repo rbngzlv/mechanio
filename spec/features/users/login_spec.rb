@@ -45,7 +45,6 @@ describe 'User login' do
 
     click_link 'Log out'
 
-    page.should have_css '.alert', text: 'Signed out successfully.'
     page.should have_link 'Login'
   end
 end
