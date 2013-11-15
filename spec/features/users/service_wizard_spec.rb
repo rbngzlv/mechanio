@@ -130,7 +130,7 @@ end
     end
     mail_deliveries[1].tap do |m|
       m.to.should eq [user.email]
-      m.subject.should eq 'Job quote'
+      m.subject.should include "We've got a quote for your"
     end
   end
 

@@ -1,11 +1,14 @@
 %p Hello, #{@job.user.full_name},
 
-%p Your job was just estimated
+%p Thanks for requesting a quote for your #{@job.car.display_title}.
 
-%p You can review your jobs #{link_to 'here', users_estimates_url}
+%p For your convenience, we've saved your quote on your online account.
 
-%br
 %p
-  Thanks for using us,
+  Click
+  = link_to 'here', edit_users_appointment_url(@job)
+  to see your quote and book an appointment with our qualified mechanics.
   %br
-  Mechanio team
+  Please do not hesitate to contact us if you have any questions or special requests.
+
+%p Thank you for choosing Mechanio!<br/>The Mechanio Team

@@ -1,11 +1,12 @@
 %p Hello, #{@job.user.full_name},
 
-%p Job quote was changed
+%p One or more of the details of your appointment for #{@job.car.display_title} has been changed.
 
-%p You can review your jobs #{link_to 'here', users_estimates_url}
+%p
+  Click
+  = link_to 'here', users_estimates_url
+  to view the changes
 
-%br
-%p 
-  Thanks for using us,
-  %br
-  Mechanio team
+%p Please do not hesitate to contact us if you have any questions or special requests.
+
+%p Thank you for choosing Mechanio!<br/>The Mechanio Team
