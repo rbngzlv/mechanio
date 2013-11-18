@@ -4,7 +4,9 @@ class Users::CarsController < Users::ApplicationController
   end
 
   def destroy
-    current_user.cars.find(params[:id]).destroy
+    unless (car = current_user.cars.find(params[:id])).destroy
+      flash[:error] = car.errors.full_messages.join('. ')
+    end
     redirect_to users_cars_path
   end
 end
