@@ -25,4 +25,14 @@ describe User do
       user.estimates.should_not include job_assigned
     end
   end
+
+  describe '#cars' do
+    it 'should contain only existing cars(not soft deleted)' do
+      user.save
+      user.cars << (car = create(:car))
+      user.cars << create(:car, :deleted)
+      user.reload.cars.length.should be 1
+      user.cars.first.should be_eql car
+    end
+  end
 end

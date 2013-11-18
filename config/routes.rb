@@ -4,7 +4,7 @@ Mechanio::Application.routes.draw do
 
   devise_for :admin
   devise_for :mechanics
-  devise_for :users
+  devise_for :users, controllers: { registrations: "users/registrations" }
 
   mount Resque::Server.new, at: '/resque'
 

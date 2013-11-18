@@ -34,6 +34,7 @@ feature 'mechanic signin' do
       click_link 'Log out'
     end
 
-    it { should have_content('Signed out successfully.') }
+    it { should have_no_content mechanic.full_name }
+    it { should have_link 'Login' }
   end
 end

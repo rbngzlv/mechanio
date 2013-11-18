@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_many :cars
+  has_many :cars, -> { where deleted_at: nil }
   has_many :jobs
 
   mount_uploader :avatar, ImgUploader

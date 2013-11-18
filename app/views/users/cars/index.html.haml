@@ -1,9 +1,10 @@
-.col-md-12
-  .panel.panel-default.panel-rounded
-    .panel-heading
-      %h4.panel-title
-        %i.icon-truck
-        My Cars
-    .panel-body
-      %ul.row.cars-list
-        = render(@cars) || render('no_cars')
+.row
+  .col-md-12
+    .panel.panel-default.panel-rounded
+      .panel-heading
+        %h4.panel-title
+          %i.icon-truck
+          My Cars
+      .panel-body
+        %ul.row.cars-list
+          = render(@cars) || render('no_cars')

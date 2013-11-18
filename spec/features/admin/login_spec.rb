@@ -35,7 +35,6 @@ describe 'Admin login' do
 
     click_link 'Logout'
 
-    page.should have_css '.alert', text: 'Signed out successfully.'
     page.should have_link 'Login'
   end
 end

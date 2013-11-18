@@ -277,7 +277,7 @@ feature 'Jobs page' do
     end
     mail_deliveries[1].tap do |m|
       m.to.should eq [job.user.email]
-      m.subject.should eq 'Job quote updated'
+      m.subject.should eq "Your appointment for your #{job.car.display_title} has been updated"
     end
   end
 end

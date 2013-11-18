@@ -22,7 +22,6 @@ gem 'resque'
 gem 'geocoder'
 gem 'font-awesome-rails'
 gem 'state_machine'
-gem 'paranoia', '~> 2.0'
 gem 'fullcalendar-rails'
 gem 'ice_cube'
 

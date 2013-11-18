@@ -1,8 +1,8 @@
 class Car < ActiveRecord::Base
-  acts_as_paranoid
-
   belongs_to :user
   belongs_to :model_variation
+
+  has_many :jobs
 
   before_save :set_display_title
 
@@ -22,5 +22,23 @@ class Car < ActiveRecord::Base
 
   def verify_last_service
     errors[:last_service_kms] << 'Enter either kms or date' if last_service_kms.blank? && last_service_date.blank?
+  end
+
+  def destroy
+    if check_jobs
+      self.deleted_at = Time.now
+      save
+    end
+  end
+
+  private
+
+  def check_jobs
+    jobs.each do |job|
+      if [:pending, :estimated, :assigned].include?(job.status.to_sym)
+        errors[:active_jobs] << 'Cannot delete a car that has active jobs.'
+        return false
+      end
+    end
   end
 end

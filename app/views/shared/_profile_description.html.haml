@@ -15,8 +15,7 @@
   .col-md-12.panel.nested-panel.clearfix
     .social.pull-left
       - profile.socials.each do |name|
-        = link_to '#' do
-          %i{ class: "icon-#{name}-sign" }
+        %i{ class: "icon-#{name}-sign" }
     .col-md-7.pull-right
       .pull-right.verified-block
         = render "shared/#{profile.class.name.downcase}_verified_block", account: profile
