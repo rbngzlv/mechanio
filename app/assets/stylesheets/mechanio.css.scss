@@ -76,6 +76,8 @@ a:hover {
 
   .dropdown-menu {
     background: #fcfcfc;
+    right: 0;
+    left: auto;
 
     a {
       font-size: 13px;
@@ -1305,6 +1307,12 @@ form {
   z-index: -1;
 }
 
+@media (max-width: 1200px) {
+  .container {
+    max-width: 1170px;
+  }
+}
+
 @media (max-width: 1024px) {
   .banner > .container {
     padding-top: 20%;
@@ -1385,6 +1393,24 @@ form {
     display: inline-block;
     width: 100%;
     text-align: center;
+  }
+
+  .profile-border {
+    float: none;
+    margin: 0 auto;
+
+    + div {
+      margin: 10px 10px 0;
+    }
+  }
+
+  .nav.nav-tabs {
+    border-bottom: none;
+
+    li {
+      display: block;
+      float: none;
+    }
   }
 }
 
