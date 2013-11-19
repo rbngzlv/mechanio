@@ -1425,6 +1425,30 @@ form {
     }
   }
 
+  .rights .nav.nav-tabs li {
+    float: left;
+  }
+
+  .our-team ul > li .avatar + .member-description {
+    margin: 0;
+    clear: both;
+    border: none;
+
+    &:before {
+      display: none;
+    }
+  }
+
+  .contact-us .social-btn-wrap {
+    width: 100%;
+    text-align: center;
+
+    .social-btn {
+      display: inline-block;
+      float: none !important;
+    }
+  }
+
   .footer {
     height: auto;
     background-repeat: repeat;
@@ -1456,11 +1480,19 @@ form {
     }
   }
 
+  .rights .nav.nav-tabs {
+    margin: -9px -10px 25px;
+  }
+
   .footer {
     margin-top: -94px;
   }
 
   .wrap > .container {
     padding-bottom: 110px;
+  }
+
+  .our-team > .container {
+    padding-bottom: 100px;
   }
 }
