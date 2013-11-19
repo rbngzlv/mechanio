@@ -1141,7 +1141,7 @@ form .radio {
 }
 
 .footer {
-  background: asset-url("footer-bg.jpg") repeat-x scroll left top #17130F;
+  background: asset-url("footer-bg.jpg") repeat scroll left top #17130F;
   color: #FFFFFF;
   font-size: 15px;
   padding: 20px 20px 5px;
@@ -1381,10 +1381,22 @@ form {
 
   .footer {
     padding: 10px 0 5px;
+  }
 
-    .col-xs-12 + .col-xs-12 {
-      margin-top: -15px;
-    }
+  .simple_form.mechanic_form .form-group label + div {
+    margin-top: 5px;
+  }
+
+  .review-block .with-arrow:before {
+    display: none !important;
+  }
+
+  .review-block .commentary-block {
+    margin: 0 !important;
+  }
+
+  .right-border {
+    border: none;
   }
 }
 
@@ -1412,6 +1424,11 @@ form {
       float: none;
     }
   }
+
+  .footer {
+    height: auto;
+    background-repeat: repeat;
+  }
 }
 
 @media (max-width: 480px) {
@@ -1426,5 +1443,24 @@ form {
   .sign-up-block {
     margin: 0;
     width: 100%;
+  }
+
+  .form-group {
+    &.date {
+      select:nth-child(1),
+      select:nth-child(2),
+      select:nth-child(3) {
+        width: 100%;
+        margin-bottom: 2px;
+      }
+    }
+  }
+
+  .footer {
+    margin-top: -94px;
+  }
+
+  .wrap > .container {
+    padding-bottom: 110px;
   }
 }

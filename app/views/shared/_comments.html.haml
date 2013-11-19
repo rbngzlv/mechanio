@@ -3,20 +3,20 @@
   %ul.chat
     - comments.each do |comment|
       %li.clearfix
-        .avatar
+        .avatar.hidden-xs
           = image_tag(asset_url("avatar1.jpg"), class: 'img-circle')
         .panel.nested-panel.with-arrow.commentary-block
           .span
             = link_to comment.shift, '#', class: 'name'
             %span.datetime= comment.shift
           .panel.nested-panel
-            %span.col-md-3
+            %span.col-md-3.col-sm-3
               %i.glyphicon.glyphicon-inbox
               = comment.shift
-            %span.col-md-2
+            %span.col-md-2.col-sm-2
               %i.glyphicon.glyphicon-usd
               = comment.shift
-            %span.col-md-4
+            %span.col-md-4.col-sm-4
               %i.glyphicon.glyphicon-cog
               = comment.shift
             .reviews-row.clearfix
