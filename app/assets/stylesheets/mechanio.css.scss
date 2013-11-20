@@ -1379,6 +1379,44 @@ form {
     }
   }
 
+  .nav.nav-pills-wizard > li {
+    width: 48%;
+    display: inline-block;
+    margin-right: 1%;
+
+    > a {
+      width: 100%;
+    }
+  }
+
+  .profile-border {
+    float: none;
+    margin: 0 auto;
+
+    + div {
+      margin: 10px 10px 0;
+    }
+  }
+
+  .home-page-reviews .commentary-block {
+    .carousel-inner {
+      width: 90%;
+    }
+
+    .carousel-control {
+      width: 20px;
+      top: 0;
+
+      &.right {
+        left: 30px;
+      }
+
+      &.left {
+        left: 0;
+      }
+    }
+  }
+
   .footer {
     padding: 10px 0 5px;
   }
@@ -1407,15 +1445,6 @@ form {
     text-align: center;
   }
 
-  .profile-border {
-    float: none;
-    margin: 0 auto;
-
-    + div {
-      margin: 10px 10px 0;
-    }
-  }
-
   .nav.nav-tabs {
     border-bottom: none;
 
@@ -1423,6 +1452,11 @@ form {
       display: block;
       float: none;
     }
+  }
+
+  .nav.nav-pills-wizard > li {
+    width: 46%;
+    margin-right: 1.5%;
   }
 
   .rights .nav.nav-tabs li {
@@ -1436,6 +1470,32 @@ form {
 
     &:before {
       display: none;
+    }
+  }
+
+  .profile-border + .nested-panel > .nested-panel {
+    .social,
+    .social + div {
+      float: none !important;
+      text-align: center;
+    }
+
+    .social + div > div {
+      float: none !important;
+
+      + span {
+        display: none;
+      }
+    }
+  }
+
+  .panel-wizard .step-diagnose .job_task_service_plan_id {
+    width: 100% !important;
+  }
+
+  .home-page-reviews .commentary-block {
+    .carousel-inner {
+      width: 85%;
     }
   }
 
@@ -1464,6 +1524,11 @@ form {
     }
   }
 
+  .comment-info {
+    width: 100%;
+    padding-left: 0;
+  }
+
   .sign-up-block {
     margin: 0;
     width: 100%;
@@ -1477,6 +1542,17 @@ form {
         width: 100%;
         margin-bottom: 2px;
       }
+    }
+  }
+
+  .nav.nav-pills-wizard > li {
+    width: 100%;
+    margin: 0;
+  }
+
+  .home-page-reviews .commentary-block {
+    .carousel-inner {
+      width: 80%;
     }
   }
 

@@ -10,16 +10,16 @@
             = link_to comment.shift, '#', class: 'name'
             %span.datetime= comment.shift
           .panel.nested-panel
-            %span.col-md-3.col-sm-3
+            %span.col-md-3.col-sm-3.col-xs-6.comment-info
               %i.glyphicon.glyphicon-inbox
               = comment.shift
-            %span.col-md-2.col-sm-2
+            %span.col-md-2.col-sm-2.col-xs-6.comment-info
               %i.glyphicon.glyphicon-usd
               = comment.shift
-            %span.col-md-4.col-sm-4
+            %span.col-md-4.col-sm-4.col-xs-6.comment-info
               %i.glyphicon.glyphicon-cog
               = comment.shift
-            .reviews-row.clearfix
+            .reviews-row.clearfix.comment-info
               .rating.pull-left
                 = rating_stars(comment.shift)
           %p.commentary
