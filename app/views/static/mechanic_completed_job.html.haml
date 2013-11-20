@@ -12,7 +12,7 @@
               February 7, 2013 (tomorrow) 1:00 PM
           .panel.nested-panel.clearfix
             .row
-              .col-md-7.right-border
+              .col-md-7.col-sm-7.right-border
                 %p
                   Job Number:
                   %b 34415
@@ -22,7 +22,7 @@
                 %p
                   Client Name: 
                   %span.text-info Andrew Nandjroo
-              .col-md-5
+              .col-md-5.col-sm-5
                 %p
                   %i.icon-map-marker
                   123 ABC st, Mountain View, CA 92012
@@ -130,9 +130,10 @@
                 %td
                   %b $ 213.98
                 %td
-          = link_to 'Add Part', '#', class: 'btn btn-success pull-right bottom-margin'
+          .clearfix
+            = link_to 'Add Part', '#', class: 'btn btn-success pull-right bottom-margin'
           .row
-            .col-md-5.col-md-offset-7
+            .col-md-5.col-md-offset-7.col-sm-5.col-sm-offset-7.col-xs-12
               %table.table.table-bordered
                 %tbody
                   %tr
@@ -151,46 +152,47 @@
             Feedback
           .panel.nested-panel.feedback.clearfix
             .row
-              .col-md-9
+              .col-md-8.col-sm-8.col-xs-6
                 LEAVE FEEDBACK
-              %small.pull-right.col-md-3 Rollover stars then click to rate
+              %small.pull-right.text-center.col-md-4.col-sm-4.col-xs-6
+                Rollover stars then click to rate
             .row
-              %small.col-md-9
+              %small.col-md-9.col-sm-9
                 %b Professionalism
                 How helpful was he? Did he do anything beyond expectation?
-              .col-md-3
+              .col-md-3.col-sm-3
                 .reviews-row.clearfix
                   .rating.pull-left
                     = rating_stars(5)
             .row
-              %small.col-md-9
+              %small.col-md-9.col-sm-9
                 %b Service
                 What  was the quality of work like ?
-              .col-md-3
+              .col-md-3.col-sm-3
                 .reviews-row.clearfix
                   .rating.pull-left
                     = rating_stars(5)
             .row
-              %small.col-md-9
+              %small.col-md-9.col-sm-9
                 %b Communication
                 did he aive a clear explanation on everything that he was going to do ?
-              .col-md-3
+              .col-md-3.col-sm-3
                 .reviews-row.clearfix
                   .rating.pull-left
                     = rating_stars(5)
             .row
-              %small.col-md-9
+              %small.col-md-9.col-sm-9
                 %b Quality
                 of Parts What was the quality of replacement parts given like ?
-              .col-md-3
+              .col-md-3.col-sm-3
                 .reviews-row.clearfix
                   .rating.pull-left
                     = rating_stars(5)
             .row
-              %small.col-md-9
+              %small.col-md-9.col-sm-9
                 %b Convenience
                 how convenient was this whole process for you ?
-              .col-md-3
+              .col-md-3.col-sm-3
                 .reviews-row.clearfix
                   .rating.pull-left
                     = rating_stars(5)
