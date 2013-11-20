@@ -1421,7 +1421,8 @@ form {
     padding: 10px 0 5px;
   }
 
-  .simple_form.mechanic_form .form-group label + div {
+  .simple_form.mechanic_form .form-group label + div,
+  .simple_form.admin_mechanic_form .form-group label + div {
     margin-top: 5px;
   }
 

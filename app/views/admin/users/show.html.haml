@@ -14,17 +14,18 @@
 - if @user.jobs.length > 0
   %h4 Jobs list
 
-  %table.table.table-striped
-    %thead
-      %tr
-        %th Status
-        %th Job name
-        %th Date requested
-        %th Allocated to
-        %th Job date and time
-        %th Cost
-        %th Edit
-    %tbody
-      = render partial: 'admin/users/job', collection: @user.jobs
+  .table-responsive
+    %table.table.table-striped
+      %thead
+        %tr
+          %th Status
+          %th Job name
+          %th Date requested
+          %th Allocated to
+          %th Job date and time
+          %th Cost
+          %th Edit
+      %tbody
+        = render partial: 'admin/users/job', collection: @user.jobs
 - else
   %h4 This user has no appointments
