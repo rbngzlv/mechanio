@@ -1,0 +1,63 @@
+.row
+  .col-md-9.col-sm-12.col-xs-12
+    %section
+      .panel
+        .panel-heading.panel-heading-border.clearfix
+          %h4.panel-title Mechanic Name
+        .panel-body
+          .row
+            .profile-border
+              = image_tag(asset_url("photo.jpg"))
+              .reviews-row.clearfix
+                .rating.pull-left
+                  = rating_stars(2)
+                %span.review-text.pull-right 12 Reviews
+            %div
+              %h4 Mechanic Name
+              5 Year of Experience
+              %br
+              %ul.text-info
+                %li
+                  %i.icon-ok
+                  May 8, 2013 (Wednesday)
+                %li
+                  %i.icon-ok
+                  9:00 AM - 11:00 AM
+    
+    .panel.panel-default.panel-rounded
+      .panel-heading
+        %h4.panel-title Payment Process
+      .panel-body
+        .alert.alert-info
+          %p.text-center
+            Providing a credit card holds your spot with the mechanic, much like reserving a room at a hotel.
+            %br
+            %b No money will be billed until you confirm your quote and after your job is complete.
+        .col-md-5.col-md-offset-3
+          .col-md-12.text-center
+            = image_tag(asset_url('payment-img.jpg'), class: 'payment-img img-responsive') 
+          %form
+            %input.hidden.add-promo#add-promo{type: 'checkbox'}
+            %label.add-promo-label.lazure{for: 'add-promo'} Add Promo Code
+            .form-group.promo-group
+              %label Enter code (if applicable) then click update:
+              .col-md-8.col-sm-8.col-xs-12
+                %input.form-control.vertical-align{type: "text"}
+              = link_to 'Update', '#', class: 'btn btn-default col-md-4 col-sm-4 col-xs-12'
+            .form-group
+              %label Name on the credit card
+              %input.col-md-12.form-control{type: "text"}
+            .form-group
+              %label Credit Card Number
+              %input.col-md-12.form-control{type: "text"}
+            .form-group
+              %label Expiration Date
+              %input.col-md-12.form-control{type: "text", value: "mm/yy"}
+            .form-group
+              %label CCV
+              %input.col-md-12.form-control{type: "text"}
+            %label
+              I have read and agreed to the
+              = link_to 'terms of use', '#'
+            %div
+              %button.btn.btn-info{type: "button"} Send Me a Quote
