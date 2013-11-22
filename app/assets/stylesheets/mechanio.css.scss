@@ -48,6 +48,10 @@ a:hover {
   text-decoration: none;
 }
 
+.cursor-default {
+  cursor: default;
+}
+
 .lazure {
   color: #22878e !important;
 }
@@ -1351,6 +1355,10 @@ form {
     margin: 10px 12.5% 0 !important;
   }
 
+  .admin .nav {
+    margin-top: 50px;
+  }
+
   .mechanio-video {
     text-align: center;
     padding-bottom: 10px;
@@ -1416,10 +1424,17 @@ form {
 
   .footer {
     padding: 10px 0 5px;
+    height: auto;
+    background-repeat: repeat;
+  }
+
+  .wrap > .container {
+    padding-bottom: 90px;
   }
 
   .simple_form.mechanic_form .form-group label + div,
-  .simple_form.admin_mechanic_form .form-group label + div {
+  .simple_form.admin_mechanic_form .form-group label + div,
+  .simple_form.user_form .form-group label + div {
     margin-top: 5px;
   }
 
@@ -1450,6 +1465,10 @@ form {
       display: block;
       float: none;
     }
+  }
+
+  .hidden-phone {
+    display: none;
   }
 
   .nav.nav-pills-wizard > li {
@@ -1509,11 +1528,6 @@ form {
       display: inline-block;
       float: none !important;
     }
-  }
-
-  .footer {
-    height: auto;
-    background-repeat: repeat;
   }
 }
 

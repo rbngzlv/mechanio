@@ -85,9 +85,9 @@
           %span.big Join Now
         .col-md-5.col-sm-5.col-xs-8.sign-up-block
           = form_for :user, url: new_user_registration_path, method: :get do |f|
-            .col-md-10.col-sm-9.col-xs-9
-              = f.text_field :email, placeholder: "youremail@address.com", class: 'clearfix col-md-12 col-sm-12'
-            = f.submit 'SIGN UP', class: 'btn btn-primary col-md-2 col-sm-3 col-xs-3'
+            .col-md-9.col-sm-9.col-xs-9
+              = f.text_field :email, placeholder: "youremail@address.com", class: 'clearfix col-md-12 col-sm-12 col-xs-12'
+            = f.submit 'SIGN UP', class: 'btn btn-primary col-md-3 col-sm-3 col-xs-3'
   .home-page-reviews.bg-white
     .container.review-block
       .panel-body

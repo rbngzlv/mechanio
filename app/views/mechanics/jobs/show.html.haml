@@ -10,39 +10,40 @@
         %span.black Appointment on:
         = @job.scheduled_at.to_s(:date_time)
       %form{action: ''}
-        %table.table
-          %tr
-            %td
-              %b Car:
-            %td
-              = @job.car.display_title
-            %td
-          %tr.tr-divider
-            - @job.tasks.each do |task|
+        .table-responsive
+          %table.table
+            %tr
               %td
-                %b #{ task.type }:
+                %b Car:
               %td
-                = task.title
+                = @job.car.display_title
               %td
-          %tr.tr-divider.big
-            %td
-              Billing:
-            %td.text-right
-              %b Total Fees:
-            %td.text-right
-              %b= number_to_currency @job.cost
-          %tr
-            %td
-              Location
-            %td
-              = @job.location.full_address
-            %td
-          %tr.tr-divider
-            %td
-              Contact
-            %td
-              = @job.contact_phone
-            %td
+            %tr.tr-divider
+              - @job.tasks.each do |task|
+                %td
+                  %b #{ task.type }:
+                %td
+                  = task.title
+                %td
+            %tr.tr-divider.big
+              %td
+                Billing:
+              %td.text-right
+                %b Total Fees:
+              %td.text-right
+                %b= number_to_currency @job.cost
+            %tr
+              %td
+                Location
+              %td
+                = @job.location.full_address
+              %td
+            %tr.tr-divider
+              %td
+                Contact
+              %td
+                = @job.contact_phone
+              %td
         .clearfix
           =link_to 'Cancel Job', '#js-modal', class: 'btn btn-info pull-left', :data => {:toggle => 'modal'}, :role => 'button'
           =link_to 'Edit Job', '#', class: 'btn btn-info pull-left'

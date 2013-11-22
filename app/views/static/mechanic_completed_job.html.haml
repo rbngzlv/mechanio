@@ -33,121 +33,126 @@
                   %i.icon-truck
                   2004 Toyota Camry 1.6 L V2
           %h4.hx-default Service 1
-          %table.table.table-bordered
-            %thead
-              %tr.active
-                %th Job
-                %th Labour (Hrs:Mins)
-                %th Hourly Rate
-                %th GST
-                %th Total Time
-                %th Labor Total
-            %tbody
-              %tr
-                %td Brake Removal
-                %td 1 hr : 10 mins
-                %td $58.50
-                %td $6.50
-                %td 1 hr : 30 min
-                %td $97.50 
+          .table-responsive.clearfix
+            %table.table.table-bordered
+              %thead
+                %tr.active
+                  %th Job
+                  %th Labour (Hrs:Mins)
+                  %th Hourly Rate
+                  %th GST
+                  %th Total Time
+                  %th Labor Total
+              %tbody
+                %tr
+                  %td Brake Removal
+                  %td 1 hr : 10 mins
+                  %td $58.50
+                  %td $6.50
+                  %td 1 hr : 30 min
+                  %td $97.50 
           = link_to 'Add Labour', '#', class: 'btn btn-success pull-right bottom-margin'
-          %table.table.table-bordered
-            %thead
-              %tr.active
-                %th Parts
-                %th Quantity
-                %th Price
-                %th GST
-                %th{colspan: "2"} Parts Total
-            %tbody
-              %tr
-                %td Brake Pad
-                %td 1
-                %td $ 100
-                %td $ 6.99
-                %td $ 106.99
-                %td  
-              %tr
-                %td Brake Fluid
-                %td 1
-                %td $ 100
-                %td $ 6.99
-                %td $ 106.99
-                %td  
-              %tr
-                %td.text-right{colspan: "4"}
-                  %b.text-right Total Cost:
-                %td
-                  %b $ 213.98
-                %td
+          .table-responsive.clearfix
+            %table.table.table-bordered
+              %thead
+                %tr.active
+                  %th Parts
+                  %th Quantity
+                  %th Price
+                  %th GST
+                  %th{colspan: "2"} Parts Total
+              %tbody
+                %tr
+                  %td Brake Pad
+                  %td 1
+                  %td $ 100
+                  %td $ 6.99
+                  %td $ 106.99
+                  %td  
+                %tr
+                  %td Brake Fluid
+                  %td 1
+                  %td $ 100
+                  %td $ 6.99
+                  %td $ 106.99
+                  %td  
+                %tr
+                  %td.text-right{colspan: "4"}
+                    %b.text-right Total Cost:
+                  %td
+                    %b $ 213.98
+                  %td
           = link_to 'Add Part', '#', class: 'btn btn-success pull-right bottom-margin'
           .clearfix
           %h4.hx-default Service 2
-          %table.table.table-bordered
-            %thead
-              %tr.active
-                %th Job
-                %th Labour (Hrs:Mins)
-                %th Hourly Rate
-                %th GST
-                %th Total Time
-                %th Labor Total
-            %tbody
-              %tr
-                %td Brake Removal
-                %td 1 hr : 10 mins
-                %td $58.50
-                %td $6.50
-                %td 1 hr : 30 min
-                %td $97.50 
+          .table-responsive.clearfix
+            %table.table.table-bordered
+              %thead
+                %tr.active
+                  %th Job
+                  %th Labour (Hrs:Mins)
+                  %th Hourly Rate
+                  %th GST
+                  %th Total Time
+                  %th Labor Total
+              %tbody
+                %tr
+                  %td Brake Removal
+                  %td 1 hr : 10 mins
+                  %td $58.50
+                  %td $6.50
+                  %td 1 hr : 30 min
+                  %td $97.50 
           = link_to 'Add Labour', '#', class: 'btn btn-success pull-right bottom-margin'
-          %table.table.table-bordered
-            %thead
-              %tr.active
-                %th Parts
-                %th Quantity
-                %th Price
-                %th GST
-                %th{colspan: "2"} Parts Total
-            %tbody
-              %tr
-                %td Brake Pad
-                %td 1
-                %td $ 100
-                %td $ 6.99
-                %td $ 106.99
-                %td  
-              %tr
-                %td Brake Fluid
-                %td 1
-                %td $ 100
-                %td $ 6.99
-                %td $ 106.99
-                %td  
-              %tr
-                %td.text-right{colspan: "4"}
-                  %b.text-right Total Cost:
-                %td
-                  %b $ 213.98
-                %td
+          .table-responsive.clearfix
+            %table.table.table-bordered
+              %thead
+                %tr.active
+                  %th Parts
+                  %th Quantity
+                  %th Price
+                  %th GST
+                  %th{colspan: "2"} Parts Total
+              %tbody
+                %tr
+                  %td Brake Pad
+                  %td 1
+                  %td $ 100
+                  %td $ 6.99
+                  %td $ 106.99
+                  %td  
+                %tr
+                  %td Brake Fluid
+                  %td 1
+                  %td $ 100
+                  %td $ 6.99
+                  %td $ 106.99
+                  %td  
+                %tr
+                  %td.text-right{colspan: "4"}
+                    %b.text-right Total Cost:
+                  %td
+                    %b $ 213.98
+                  %td
           .clearfix
             = link_to 'Add Part', '#', class: 'btn btn-success pull-right bottom-margin'
           .row
             .col-md-5.col-md-offset-7.col-sm-5.col-sm-offset-7.col-xs-12
-              %table.table.table-bordered
-                %tbody
-                  %tr
-                    %th.active Labour + Parts
-                    %td $ 287.75
-                  %tr
-                    %th.active GST
-                    %td $ 23.73
-                  %tr
-                    %th.active Admin Fees
-                    %td  
-                  %tr
-                    %th.active Total
-                    %td $ 311.48 
+              .table-responsive
+                %table.table.table-bordered
+                  %tbody
+                    %tr
+                      %th.active Labour + Parts
+                      %td $ 287.75
+                    %tr
+                      %th.active GST
+                      %td $ 23.73
+                    %tr
+                      %th.active Admin Fees
+                      %td  
+                    %tr
+                      %th.active Total
+                      %td $ 311.48 
           %h4.hx-default 
             Feedback
           .panel.nested-panel.feedback.clearfix

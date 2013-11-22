@@ -32,22 +32,23 @@
       .panel-heading
         %h4.panel-title Appointment Details
       .panel-body
-        %table.table.table-borderless
-          %tr
-            %td
-              Car:
-            %td
-              = job.car.display_title
-          %tr.tr-divider
-            %td
-              Services:
-            %td
-              = job.tasks.map(&:title).join(', ')
-            %td
-          %tr
-            %td
-              Billing
-            %td
-              %b Total Fees
-            %td.text-right
-              %b= number_to_currency job.cost
+        .table-responsive
+          %table.table.table-borderless
+            %tr
+              %td
+                Car:
+              %td
+                = job.car.display_title
+            %tr.tr-divider
+              %td
+                Services:
+              %td
+                = job.tasks.map(&:title).join(', ')
+              %td
+            %tr
+              %td
+                Billing
+              %td
+                %b Total Fees
+              %td.text-right
+                %b= number_to_currency job.cost

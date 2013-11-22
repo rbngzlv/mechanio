@@ -6,7 +6,7 @@
           %i.glyphicon.glyphicon-user
           Edit Profile
       .panel-body
-        = simple_form_for current_user, url: users_profile_path, html: { class: 'form-horizontal user_form', multipart: true }, defaults: { label_html: { class: 'col-md-3' } }, wrapper: :bootstrap_horizontal do |f|
+        = simple_form_for current_user, url: users_profile_path, html: { class: 'form-horizontal user_form', multipart: true }, defaults: { label_html: { class: 'col-md-3 col-sm-3' } }, wrapper: :bootstrap_horizontal do |f|
           = f.error_notification
           = f.input :first_name
           = f.input :last_name
