@@ -37,6 +37,11 @@ FactoryGirl.define do
       scheduled_at { DateTime.now }
     end
 
+    trait :confirmed do
+      credit_card
+      status :confirmed
+    end
+
     trait :completed do
       mechanic
       status :completed

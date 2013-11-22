@@ -1,0 +1,75 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://xsnkb8dmqmfrfb4r:160beebf023a1ca963715e93c7081789@api.sandbox.braintreegateway.com/merchants/6vhxxkp32z28zgp5/customers
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" encoding="UTF-8"?>
+        <customer>
+          <first-name>John</first-name>
+          <last-name>User</last-name>
+          <email>email1@host.com</email>
+        </customer>
+    headers:
+      Accept-Encoding:
+      - gzip
+      Accept:
+      - application/xml
+      User-Agent:
+      - Braintree Ruby Gem 2.26.0
+      X-Apiversion:
+      - '3'
+      Content-Type:
+      - application/xml
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Date:
+      - Wed, 20 Nov 2013 14:37:00 GMT
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Authentication:
+      - basic_auth
+      X-User:
+      - wvn64vrrh977kct3
+      Strict-Transport-Security:
+      - max-age=31536000
+      X-Request-Id:
+      - 4697642a9fc8106c3f377a36fb1000c1
+      X-Runtime:
+      - '0.076589'
+      X-Broxyid:
+      - 7b198ae1-b65e-48ea-9a8b-021afb8072c4
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Content-Type:
+      - application/xml; charset=utf-8
+      Etag:
+      - '"5512cacef70b1be27845994c1b94916c"'
+      Vary:
+      - Accept-Encoding
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '291'
+      Connection:
+      - close
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA5WRvW6DMBSF9zwF8u4YTJJGkXE6deicLN1cfAlW8Y9sk0Ke
+        vkASEYmpi6XznXN8dXXZsdNNcgUflDUFytYpSsCUVipzKdD59IH36MhXrGxD
+        tBo8XyUJU5Ln+XZH6W7DyCBGNnhlLUzEg95d6677cTm90f3t4raMvLpjulI+
+        RGyEBv5pa8PICxj9RjzVOYBnZNajW1rthOkTo5oCRd8CIhMHLVTDpzd7r22I
+        6yHJyB2PAVdbA4taJboF+4XvoOIyW3oQESQWMYm9gwLJQUalAXGaZjnOMkzT
+        U7Y55G+HNP1iZC5M/dbJ//Xnwn3+dAdcKWhkmAhZomGmVBGXwsvwGCO8F/1j
+        ByGlhxBg4T3/Gs/8B+SBDJEZAgAA
+    http_version: 
+  recorded_at: Wed, 20 Nov 2013 14:37:00 GMT
+recorded_with: VCR 2.6.0

@@ -5,6 +5,7 @@ class Job < ActiveRecord::Base
   belongs_to :mechanic
   belongs_to :location, dependent: :destroy
   has_many :tasks, inverse_of: :job, dependent: :destroy
+  belongs_to :credit_card
 
   accepts_nested_attributes_for :car, :location, update_only: true
   accepts_nested_attributes_for :tasks, allow_destroy: true, reject_if: proc { |attrs| attrs.all? { |k, v| k == 'type' || v.blank? } }
@@ -32,10 +33,19 @@ class Job < ActiveRecord::Base
       validates :cost, presence: true, numericality: { greater_than: 0 }
     end
     state :assigned do
-      transition to: :complete, on: :complete
+      transition to: :confirmed, on: :confirm
+      transition to: :cancelled, on: :cancel
       validates :mechanic, :scheduled_at, presence: true
     end
-    state :completed
+    state :confirmed do
+      transition to: :completed, on: :complete
+      transition to: :payment_error, on: :payment_error
+      validates :credit_card, presence: true
+    end
+    state :payment_error
+    state :completed do
+      validates :transaction_id, presence: true
+    end
 
     after_transition to: :pending, do: :notify_pending
     after_transition from: [:temporary, :pending], to: :estimated, do: :notify_estimated
@@ -93,6 +103,18 @@ class Job < ActiveRecord::Base
         ]
       ]
     )
+  end
+
+  def pay
+    if braintree_client.pay_for_job(self)
+      self.complete!
+    else
+      self.payment_error!
+    end
+  end
+
+  def braintree_client
+    @client ||= BraintreeClient.new(user)
   end
 
   def has_service?

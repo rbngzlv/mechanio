@@ -152,6 +152,38 @@ ALTER SEQUENCE cars_id_seq OWNED BY cars.id;
 
 
 --
+-- Name: credit_cards; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE credit_cards (
+    id integer NOT NULL,
+    user_id integer,
+    last_4 character varying(4),
+    token character varying(255),
+    braintree_customer_id character varying(255)
+);
+
+
+--
+-- Name: credit_cards_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE credit_cards_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: credit_cards_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE credit_cards_id_seq OWNED BY credit_cards.id;
+
+
+--
 -- Name: fixed_amounts; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -206,7 +238,11 @@ CREATE TABLE jobs (
     status character varying(255),
     title character varying(255),
     scheduled_at timestamp without time zone,
-    assigned_at timestamp without time zone
+    assigned_at timestamp without time zone,
+    credit_card_id integer,
+    transaction_id character varying(255),
+    transaction_status character varying(255),
+    transaction_errors text
 );
 
 
@@ -795,7 +831,8 @@ CREATE TABLE users (
     dob date,
     mobile_number character varying(255),
     description text,
-    avatar character varying(255)
+    avatar character varying(255),
+    braintree_customer_id character varying(255)
 );
 
 
@@ -837,6 +874,13 @@ ALTER TABLE ONLY body_types ALTER COLUMN id SET DEFAULT nextval('body_types_id_s
 --
 
 ALTER TABLE ONLY cars ALTER COLUMN id SET DEFAULT nextval('cars_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY credit_cards ALTER COLUMN id SET DEFAULT nextval('credit_cards_id_seq'::regclass);
 
 
 --
@@ -999,6 +1043,14 @@ ALTER TABLE ONLY cars
 
 
 --
+-- Name: credit_cards_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY credit_cards
+    ADD CONSTRAINT credit_cards_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: fixed_amounts_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1138,6 +1190,13 @@ CREATE UNIQUE INDEX index_admins_on_email ON admins USING btree (email);
 --
 
 CREATE UNIQUE INDEX index_admins_on_reset_password_token ON admins USING btree (reset_password_token);
+
+
+--
+-- Name: index_credit_cards_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_credit_cards_on_user_id ON credit_cards USING btree (user_id);
 
 
 --
@@ -1318,3 +1377,9 @@ INSERT INTO schema_migrations (version) VALUES ('20131025093219');
 INSERT INTO schema_migrations (version) VALUES ('20131025144458');
 
 INSERT INTO schema_migrations (version) VALUES ('20131031132802');
+
+INSERT INTO schema_migrations (version) VALUES ('20131120131338');
+
+INSERT INTO schema_migrations (version) VALUES ('20131120190546');
+
+INSERT INTO schema_migrations (version) VALUES ('20131120192649');
