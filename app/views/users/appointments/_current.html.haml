@@ -21,10 +21,10 @@
           .pull-right.text-right
             %b= number_to_currency job.cost
         -#
-          .col-md-12
-            = link_to 'Add Another Service', '#', class: 'btn btn-success col-md-12 bottom-margin'
-          .col-md-12
-            = link_to 'Reschedule', '#', class: 'btn btn-success col-md-12'
+          .col-md-12.col-sm-6
+            = link_to 'Add Another Service', '#', class: 'btn btn-success col-md-12 col-sm-12 bottom-margin'
+          .col-md-12.col-sm-6
+            = link_to 'Reschedule', '#', class: 'btn btn-success col-md-12 col-sm-12'
 %br
 .row
   .col-md-12
@@ -32,22 +32,23 @@
       .panel-heading
         %h4.panel-title Appointment Details
       .panel-body
-        %table.table.table-borderless
-          %tr
-            %td
-              Car:
-            %td
-              = job.car.display_title
-          %tr.tr-divider
-            %td
-              Services:
-            %td
-              = job.tasks.map(&:title).join(', ')
-            %td
-          %tr
-            %td
-              Billing
-            %td
-              %b Total Fees
-            %td.text-right
-              %b= number_to_currency job.cost
+        .table-responsive
+          %table.table.table-borderless
+            %tr
+              %td
+                Car:
+              %td
+                = job.car.display_title
+            %tr.tr-divider
+              %td
+                Services:
+              %td
+                = job.tasks.map(&:title).join(', ')
+              %td
+            %tr
+              %td
+                Billing
+              %td
+                %b Total Fees
+              %td.text-right
+                %b= number_to_currency job.cost

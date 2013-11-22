@@ -1,5 +1,5 @@
 .panel.nested-panel.clearfix
-  .col-md-7.right-border
+  .col-md-7.col-sm-7.col-xs-12.right-border
     %p
       %b.text-info
         = job.user.full_name
@@ -10,7 +10,7 @@
       - job.tasks.each do |task|
         %b #{ task.type }:
         = task.title
-  .col-md-5
+  .col-md-5.col-sm-5.col-xs-12
     %p
       %i.glyphicon.glyphicon-time
       = job.scheduled_at.to_s(:date_time)
