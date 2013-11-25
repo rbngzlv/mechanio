@@ -1,34 +1,39 @@
 :javascript
   $(function() {
     var $flash = $('.js-flash-notice'),
-       show_flash_notice = function () {
-         $flash.before('<div class="alert alert-success">Event succesfully deleted.</div>');
-       };
+        show_flash_notice = function () {
+          $flash.before('<div class="alert alert-success">Event succesfully deleted.</div>');
+        };
     var $calendar = $('#calendar');
-    var date = new Date();
-    var d = date.getDate();
-    var m = date.getMonth();
-    var y = date.getFullYear();
+    var date = new Date(),
+        d = date.getDate(),
+        m = date.getMonth(),
+        y = date.getFullYear();
 
     $calendar.fullCalendar({
       header: {
         left: 'title',
         center: '',
-        right: 'prev,next,today,month,agendaWeek,agendaDay'
+        right: 'prev,next,today'
       },
       events: #{ events.to_json },
       eventClick: function(event) {
         if(confirm("Are you sure you want to delete this record?")) {
-          $calendar.fullCalendar( 'removeEvents', event.id );
           $.ajax({
             url: event.url,
             type: "POST",
             data: { _method:'DELETE' }
           }).done(function() {
             show_flash_notice();
+            $calendar.fullCalendar( 'removeEvents', event.id );
           });
         }
         return false;
+      },
+      dayClick: function(date, allDay, jsEvent, view) {
+        $('.fc-state-highlight').removeClass('fc-state-highlight');
+        $('#event_date_start').val(date);
+        $(this).addClass('fc-state-highlight');
       }
     });
   });
@@ -46,8 +51,10 @@
           %h1 Calendar
           #calendar
         .row
+          %h5.hx-default my days off
           = simple_form_for :event do |f|
-            = f.input :days_off, as: :check_boxes, collection: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
-            = f.hidden_field :recurrence, value: 'weekly'
-            = f.hidden_field :title, value: 'Day off'
+            %label Make me unavailable on:
+            = f.input :time_slots, collection: [['9 AM', 9], ['11 AM', 11], ['1 PM', 13], ['3 PM', 15], ['5 PM', 17], ['All', 'All']], as: :check_boxes, label: false, item_wrapper_class: 'checkbox-inline'
+            = f.input :recurrence, collection: ['Does not recur', 'Daily', 'Weekly', 'Monthly'], selected: 'Does not recur', wrapper_html: { class: 'col-md-3' }
+            = f.hidden_field :date_start, value: Date.today
             = f.submit 'Set', class: 'btn btn-success'

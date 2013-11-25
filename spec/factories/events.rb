@@ -3,10 +3,12 @@ FactoryGirl.define do
     date_start    Date.current
     mechanic
 
-    trait :day_off do
-      date_start  Date.current - 8.week
-      title       'Day off'
+    trait :weekly do
       recurrence  :weekly
+    end
+
+    trait :monthly do
+      recurrence  :monthly
     end
   end
 end
