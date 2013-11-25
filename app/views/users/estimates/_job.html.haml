@@ -1,31 +1,32 @@
 .panel.panel-default.panel-rounded
   .panel-heading
     %h4.panel-title
-      %span.text-info Estimate Requested:
+      %span.text-info.hidden-phone Estimate Requested:
       %small
         = job.created_at.to_s(:date)
   #js-collapse-one.panel-collapse.collapse.in
     .panel-body
-      %table.table.table-borderless
-        %tr
-          %td
-            %b Car
-          %td
-            = job.car.display_title
-        %tr.tr-divider
-          - job.tasks.each do |task|
+      .table-responsive
+        %table.table.table-borderless
+          %tr
             %td
-              %b= task.type
+              %b Car
             %td
-              = task.title
+              = job.car.display_title
+          %tr.tr-divider
+            - job.tasks.each do |task|
+              %td
+                %b= task.type
+              %td
+                = task.title
+              %td
+              %td.text-right= number_to_currency task.cost
+          %tr
             %td
-            %td.text-right= number_to_currency task.cost
-        %tr
-          %td
-            %b Billing
-          %td
-          %td
-            %b Total Fees
-          %td.text-right
-            %b= number_to_currency job.cost
+              %b Billing
+            %td
+            %td
+              %b Total Fees
+            %td.text-right
+              %b= number_to_currency job.cost
       = link_to 'Book Appointments', edit_users_appointment_path(job), class: 'btn btn-success pull-right' if job.estimated?

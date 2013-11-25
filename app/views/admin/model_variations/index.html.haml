@@ -19,27 +19,28 @@
     .panel-body.text-center
       No models found
 - else
-  %table.table.table-striped
-    %thead
-      %tr
-        %th.col-md-2 Make
-        %th Model
-        %th Version
-        %th.col-md-1 Years
-        %th.col-md-1 Body
-        %th.col-md-1 Transmission
-        %th.col-md-1 Fuel
-        %th.col-md-1 Identifier
-    %tbody
-      - @model_variations.each do |m|
+  .table-responsive
+    %table.table.table-striped
+      %thead
         %tr
-          %td= m.make.name
-          %td= m.model.name
-          %td= m.title
-          %td= "#{m.from_year} - #{m.to_year}"
-          %td= m.body_type.name
-          %td= m.transmission
-          %td= m.fuel
-          %td= m.identifier
+          %th.col-md-2 Make
+          %th Model
+          %th Version
+          %th.col-md-1 Years
+          %th.col-md-1 Body
+          %th.col-md-1 Transmission
+          %th.col-md-1 Fuel
+          %th.col-md-1 Identifier
+      %tbody
+        - @model_variations.each do |m|
+          %tr
+            %td= m.make.name
+            %td= m.model.name
+            %td= m.title
+            %td= "#{m.from_year} - #{m.to_year}"
+            %td= m.body_type.name
+            %td= m.transmission
+            %td= m.fuel
+            %td= m.identifier
 
   = paginate @model_variations

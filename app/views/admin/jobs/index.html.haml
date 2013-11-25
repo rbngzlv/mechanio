@@ -1,17 +1,18 @@
 %h4 Jobs list
 
-%table.table.table-striped
-  %thead
-    %tr
-      %th Status
-      %th Location status
-      %th Job name
-      %th Date requested
-      %th Requested by
-      %th Allocated to
-      %th Job date and time
-      %th Cost
-      %th Edit
-  %tbody
-    = render @jobs
+.table-responsive
+  %table.table.table-striped
+    %thead
+      %tr
+        %th Status
+        %th Location status
+        %th Job name
+        %th Date requested
+        %th Requested by
+        %th Allocated to
+        %th Job date and time
+        %th Cost
+        %th Edit
+    %tbody
+      = render @jobs
 = paginate @jobs

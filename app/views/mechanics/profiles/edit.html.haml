@@ -9,7 +9,7 @@
           %i.glyphicon.glyphicon-user
           Edit Profile
       .panel-body
-        = simple_form_for current_mechanic, url: mechanics_profile_path, html: { class: 'form-horizontal mechanic_form', multipart: true }, defaults: { label_html: { class: 'col-md-3' } }, wrapper: :bootstrap_horizontal do |f|
+        = simple_form_for current_mechanic, url: mechanics_profile_path, html: { class: 'form-horizontal mechanic_form', multipart: true }, defaults: { label_html: { class: 'col-md-4 col-sm-4' } }, wrapper: :bootstrap_horizontal do |f|
           = f.error_notification
           = f.input :first_name
           = f.input :last_name

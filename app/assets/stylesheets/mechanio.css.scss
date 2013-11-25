@@ -9,6 +9,8 @@ $btn-success-bg: #87bb33;
 $btn-warning-bg: #fb9800;
 $btn-danger-bg: #dc5d3a;
 
+$container-desktop: 1140px;
+
 @import "twitter/bootstrap";
 
 @mixin border-radius($radius) {
@@ -46,6 +48,10 @@ a:hover {
   text-decoration: none;
 }
 
+.cursor-default {
+  cursor: default;
+}
+
 .lazure {
   color: #22878e !important;
 }
@@ -76,6 +82,8 @@ a:hover {
 
   .dropdown-menu {
     background: #fcfcfc;
+    right: 0;
+    left: auto;
 
     a {
       font-size: 13px;
@@ -346,6 +354,7 @@ form label {
 
 form input.form-control {
   border-radius: 0px;
+  -webkit-appearance: none;
   @include box-shadow(0 0 5px #ddd inset);
   border: 1px solid #ddd;
   height: 30px;
@@ -970,7 +979,7 @@ section {
   }
 
   .carousel-control.left {
-    left: 20px;
+    left: 10px;
   }
 
   .carousel-control.right {
@@ -1023,6 +1032,7 @@ section {
 }
 
 .btn {
+  -webkit-appearance: none;
   @include box-shadow(0 0 3px rgba(0, 0, 0, 0.2) inset);
   border-radius: 0;
   outline: 0;
@@ -1139,13 +1149,14 @@ form .radio {
 }
 
 .footer {
-  background: asset-url("footer-bg.jpg") repeat-x scroll left top #17130F;
+  background: asset-url("footer-bg.jpg") repeat scroll left top #17130F;
   color: #FFFFFF;
   font-size: 15px;
   padding: 20px 20px 5px;
   height: 70px;
   position: relative;
   margin-top: -70px;
+  border-top: 3px solid #000;
 
   .navbar-nav {
     text-transform: uppercase;
@@ -1303,4 +1314,302 @@ form {
   top: 0px;
   left: 0px;
   z-index: -1;
+}
+
+@media (max-width: 1025px) {
+  .banner > .container {
+    padding-top: 20%;
+  }
+}
+
+@media (max-width: 992px) {
+  .sign-up-block input[type='text'] {
+    padding: 0;
+  }
+
+  .footer {
+    padding-top: 10px;
+    text-align: center;
+
+    .nav {
+      width: 100%;
+
+      li {
+        float: none;
+        display: inline-block;
+      }
+    }
+
+    .footer-social-wrap {
+      text-align: center;
+    }
+
+    .social {
+      float: none !important;
+      display: inline-block;
+      top: 5px;
+    }
+  }
+}
+
+@media (max-width: 769px) {
+  .banner .btn {
+    margin: 10px 12.5% 0 !important;
+  }
+
+  .admin .nav {
+    margin-top: 50px;
+  }
+
+  .mechanio-video {
+    text-align: center;
+    padding-bottom: 10px;
+
+    p {
+      text-align: center;
+    }
+
+    a {
+      display: inline-block
+    }
+  }
+
+  .sign-up-block {
+    margin: 0 16.6667%;
+  }
+
+  .marketing .carousel-inner {
+    width: 80%;
+
+    ~ .carousel-control {
+      top: 30%;
+    }
+  }
+
+  .nav.nav-pills-wizard > li {
+    width: 48%;
+    display: inline-block;
+    margin: 5px 1% 0 0;
+
+    > a {
+      width: 100%;
+    }
+  }
+
+  .profile-border {
+    float: none;
+    margin: 0 auto;
+
+    + div {
+      margin: 10px 10px 0;
+    }
+  }
+
+  .home-page-reviews .commentary-block {
+    .carousel-inner {
+      width: 90%;
+    }
+
+    .carousel-control {
+      width: 20px;
+      top: 0;
+
+      &.right {
+        left: 30px;
+      }
+
+      &.left {
+        left: 0;
+      }
+    }
+  }
+
+  .footer {
+    padding: 10px 0 5px;
+    height: auto;
+    background-repeat: repeat;
+  }
+
+  .wrap > .container {
+    padding-bottom: 90px;
+  }
+
+  .simple_form.mechanic_form .form-group label + div,
+  .simple_form.admin_mechanic_form .form-group label + div,
+  .simple_form.user_form .form-group label + div {
+    margin-top: 5px;
+  }
+
+  .review-block .with-arrow:before {
+    display: none !important;
+  }
+
+  .review-block .commentary-block {
+    margin: 0 !important;
+  }
+
+  .right-border {
+    border: none;
+  }
+}
+
+@media (max-width: 641px) {
+  .brand {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+  }
+
+  .nav.nav-tabs {
+    border-bottom: none;
+
+    li {
+      display: block;
+      float: none;
+
+      &.active > a {
+        border: 1px solid #ddd;
+        background: #ddd;
+        border-radius: 0;
+
+        &:focus {
+          outline: none;
+          background: #ddd;
+        }
+      }
+    }
+  }
+
+  .hidden-phone {
+    display: none;
+  }
+
+  .nav.nav-pills-wizard {
+    margin-left: 5px;
+  }
+
+  .nav.nav-pills-wizard > li {
+    width: 46%;
+    margin-right: 1.5%;
+  }
+
+  .rights .nav.nav-tabs li {
+    float: left;
+  }
+
+  .our-team ul > li .avatar + .member-description {
+    margin: 0;
+    clear: both;
+    border: none;
+
+    &:before {
+      display: none;
+    }
+  }
+
+  .feedback .row {
+    margin-left: -3px;
+  }
+
+  .profile-border + .nested-panel > .nested-panel {
+    .social,
+    .social + div {
+      float: none !important;
+      text-align: center;
+    }
+
+    .social + div > div {
+      float: none !important;
+
+      + span {
+        display: none;
+      }
+    }
+  }
+
+  .panel-wizard .step-diagnose .job_task_service_plan_id {
+    width: 100% !important;
+  }
+
+  .home-page-reviews .commentary-block {
+    .carousel-inner {
+      width: 85%;
+    }
+  }
+
+  .contact-us .social-btn-wrap {
+    width: 100%;
+    text-align: center;
+
+    .social-btn {
+      display: inline-block;
+      float: none !important;
+    }
+  }
+}
+
+@media (max-width: 481px) {
+  .header > .container {
+    padding: 0;
+
+    > div {
+      padding: 0;
+    }
+  }
+
+  .comment-info {
+    width: 100%;
+    padding-left: 0;
+  }
+
+  .sign-up-block {
+    margin: 0;
+    width: 100%;
+  }
+
+  .form-group {
+    &.date {
+      select:nth-child(1),
+      select:nth-child(2),
+      select:nth-child(3) {
+        width: 100%;
+        margin-bottom: 2px;
+      }
+    }
+  }
+
+  .nav.nav-pills-wizard > li {
+    width: 100%;
+    margin: 0;
+  }
+
+  .home-page-reviews .commentary-block {
+    .carousel-inner {
+      width: 80%;
+      margin-left: 20%;
+    }
+  }
+
+  .rights .nav.nav-tabs {
+    margin: -9px -10px 25px;
+  }
+
+  .footer {
+    margin-top: -94px;
+  }
+
+  .wrap > .container {
+    padding-bottom: 110px;
+  }
+
+  .our-team > .container {
+    padding-bottom: 100px;
+  }
+}
+
+@media (max-height: 640px) {
+  .home-gallery,
+  .banner {
+    height: 500px;
+  }
 }

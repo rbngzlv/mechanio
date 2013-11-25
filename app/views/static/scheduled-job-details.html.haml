@@ -39,68 +39,69 @@
             %span.black Appointment on:
             February 7, 2013 (tomorrow) 1:00 PM
           %form{action: ''}
-            %table.table.table-borderless
-              %tr
-                %td
-                  %b Car:
-                %td
-                  2000 Toyota Corolla L4-1.8L
-                %td
-              %tr.tr-divider
-                %td.form-line-height
-                  %b VIN:
-                %td
-                  %input.form-control.pull-left.input-width{type: "text"}
-                  = link_to 'Add VIN', '#', class: 'btn pull-left btn-default'
-                %td
-              %tr.tr-divider
-                %td
-                  %b Services:
-                %td
-                  Car is making a noice (inspection)
-                %td
-              %tr
-                %td
-                  Billing:
-                %td
-                  %table.col-md-3.pull-right
-                    %tr.tr-divider
-                      %td.text-right
-                        Labor
-                %td.text-right.tr-divider
-                  %table.col-md-12.pull-right
-                    %tr.tr-divider
-                      %td.text-right
-                        $60.00
-              %tr.tr-divider.big
-                %td
-                %td.text-right
-                  %b Total Fees:
-                %td.text-right
-                  %b $60.00
-              %tr.tr-divider
-                %td
-                  Creditcard:
-                %td
-                  visa**********6091 (Exp:07/2014)
-                %td
-              %tr
-                %td
-                  Location
-                %td
-                  283 Alfred St North Sydney, 2060
-                %td
-              %tr
-                %td
-                  Notes
-                %td
-                  Need to take shoes off, Watch out for crazy cat lady
-              %tr.tr-divider
-                %td
-                  Contact
-                %td
-                  0401 111 111
-                %td
+            .table-responsive
+              %table.table.table-borderless
+                %tr
+                  %td
+                    %b Car:
+                  %td
+                    2000 Toyota Corolla L4-1.8L
+                  %td
+                %tr.tr-divider
+                  %td.form-line-height
+                    %b VIN:
+                  %td
+                    %input.form-control.pull-left.input-width{type: "text"}
+                    = link_to 'Add VIN', '#', class: 'btn pull-left btn-default'
+                  %td
+                %tr.tr-divider
+                  %td
+                    %b Services:
+                  %td
+                    Car is making a noice (inspection)
+                  %td
+                %tr
+                  %td
+                    Billing:
+                  %td
+                    %table.col-md-3.pull-right
+                      %tr.tr-divider
+                        %td.text-right
+                          Labor
+                  %td.text-right.tr-divider
+                    %table.col-md-12.pull-right
+                      %tr.tr-divider
+                        %td.text-right
+                          $60.00
+                %tr.tr-divider.big
+                  %td
+                  %td.text-right
+                    %b Total Fees:
+                  %td.text-right
+                    %b $60.00
+                %tr.tr-divider
+                  %td
+                    Creditcard:
+                  %td
+                    visa**********6091 (Exp:07/2014)
+                  %td
+                %tr
+                  %td
+                    Location
+                  %td
+                    283 Alfred St North Sydney, 2060
+                  %td
+                %tr
+                  %td
+                    Notes
+                  %td
+                    Need to take shoes off, Watch out for crazy cat lady
+                %tr.tr-divider
+                  %td
+                    Contact
+                  %td
+                    0401 111 111
+                  %td
             .clearfix
               =link_to 'Cancel Job', '#js-modal', class: 'btn btn-info pull-left', :data => {:toggle => 'modal'}, :role => 'button'
               =link_to 'Edit Job', '#', class: 'btn btn-info pull-left'

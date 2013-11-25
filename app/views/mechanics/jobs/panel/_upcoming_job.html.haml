@@ -8,22 +8,23 @@
       = job.scheduled_at.to_s(:date_time)
       %i.icon-map-marker
       = job.location.full_address
-    %table.table.table-borderless
-      %tr
-        %td
-          %b Car:
-        %td
-          = job.car.display_title
-      %tr
-        %td
-        %td
-        %td
-      = render partial: '/mechanics/jobs/panel/upcoming_job_task', collection: job.tasks, as: :task
-      %tr
-        %td
-        %td
-        %td
-          %b Total Fees
-        %td.text-right
-          %b= job.cost
+    .table-responsive
+      %table.table.table-borderless
+        %tr
+          %td
+            %b Car:
+          %td
+            = job.car.display_title
+        %tr
+          %td
+          %td
+          %td
+        = render partial: '/mechanics/jobs/panel/upcoming_job_task', collection: job.tasks, as: :task
+        %tr
+          %td
+          %td
+          %td
+            %b Total Fees
+          %td.text-right
+            %b= job.cost
     = link_to 'View Details', mechanics_job_path(job), class: 'btn btn-success pull-right'

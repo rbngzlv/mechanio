@@ -16,7 +16,7 @@
     .social.pull-left
       - profile.socials.each do |name|
         %i{ class: "icon-#{name}-sign" }
-    .col-md-7.pull-right
+    .col-md-9.pull-right
       .pull-right.verified-block
         = render "shared/#{profile.class.name.downcase}_verified_block", account: profile
       %span.pull-right Verified:
