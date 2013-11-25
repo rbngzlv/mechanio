@@ -26,7 +26,7 @@ feature 'Appointments' do
     should have_css "#js-mechanic-#{mechanic.id}", visible: true
   end
 
-  it 'selects a mechanic' do
+  it 'selects a mechanic', pending: "it'll be removed by selecting mechanic through his schedule" do
     visit edit_users_appointment_path(job)
 
     select tomorrow, from: 'job_scheduled_at_3i'
@@ -50,6 +50,54 @@ feature 'Appointments' do
     mail_deliveries[2].tap do |m|
       m.to.should eq [mechanic.email]
       m.subject.should eq 'You got a new job'
+    end
+  end
+
+  context 'selects a mechanic through schedule' do
+    before { visit edit_users_appointment_path(job) }
+
+    scenario 'choose unavailable slot' do
+      find('.unavailable').click
+      click_button 'Book Appointment'
+      should have_content('You could not check unavailable time slot')
+    end
+
+    scenario 'choose previous perioud' do
+      find('.previous-week').click
+      find('.available').click
+      click_button 'Book Appointment'
+      should have_content('You could not check time slot in the past')
+    end
+
+    scenario 'success' do
+      element = find('.available').sample
+      event_date_start = element['data-date']
+      event_time_start = find('.date-time')[:value]
+      element.click
+      click_button 'Book Appointment'
+
+      should have_css 'li.active', text: 'My Appointments'
+      should have_content 'Appointment booked'
+
+      job.reload.mechanic.should eq mechanic
+      job.assigned?.should be_true
+      event = mechanic.events.last
+      event.date_start.should be_eql event_date_start
+      event.time_start.should be_eql event_time_start
+
+      mail_deliveries.count.should eq 3
+      mail_deliveries[0].tap do |m|
+        m.to.should eq ['admin@example.com']
+        m.subject.should eq 'Job assigned'
+      end
+      mail_deliveries[1].tap do |m|
+        m.to.should eq [user.email]
+        m.subject.should eq 'Job assigned'
+      end
+      mail_deliveries[2].tap do |m|
+        m.to.should eq [mechanic.email]
+        m.subject.should eq 'You got a new job'
+      end
     end
   end
 

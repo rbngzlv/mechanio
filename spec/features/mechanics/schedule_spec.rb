@@ -110,6 +110,17 @@ feature 'Mechanic schedule' do
       should have_no_content event.title
     end
 
+    specify 'job event', :js do
+      event create :event, :job
+
+      visit mechanics_events_path
+
+      expect do
+        find('.fc-event', text: event.title).click
+        sleep 0.1
+      end.to change { has_content?(event.titel) }.from(true).to(false)
+    end
+
     def set_for_today(*time_slots)
       time_slots.each { |time_slot| check time_slot}
       click_button 'Set'
