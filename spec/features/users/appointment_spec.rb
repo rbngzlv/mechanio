@@ -57,12 +57,17 @@ feature 'Appointments' do
     before { visit edit_users_appointment_path(job) }
 
     scenario 'choose unavailable slot' do
+      click_button 'Book Appointment'
+      should have_selector('.alert.alert-danger', text: 'Please, choose time slot(s).')
+    end
+
+    scenario 'choose unavailable slot', :js do
       find('.unavailable').click
       click_button 'Book Appointment'
       should have_content('You could not check unavailable time slot')
     end
 
-    scenario 'choose previous perioud' do
+    scenario 'choose previous perioud', :js do
       find('.previous-week').click
       find('.available').click
       click_button 'Book Appointment'
@@ -70,10 +75,8 @@ feature 'Appointments' do
     end
 
     scenario 'success' do
-      element = find('.available').sample
-      event_date_start = element['data-date']
-      event_time_start = find('.date-time')[:value]
-      element.click
+      find('#job_scheduled_at').set(Date.tomorrow + 9.hour)
+
       click_button 'Book Appointment'
 
       should have_css 'li.active', text: 'My Appointments'
