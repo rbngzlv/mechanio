@@ -86,6 +86,7 @@ describe EventsManager do
   describe '#events_list' do
     def check_event_hash(element, original_event)
       element.delete(:start).nil?.should be_false
+      element.delete(:end).nil?.should be_false
       element.should == { title: original_event.title, url: "/mechanics/events/#{original_event.id}", id: original_event.id }
     end
 
@@ -124,6 +125,20 @@ describe EventsManager do
 
         (element = list.sample).is_a?(Hash).should be_true
         check_event_hash element, repeated_event
+      end
+    end
+
+    context 'check time start/end' do
+      specify 'whole day' do
+        event = create(:event, mechanic: mechanic, date_start: Date.parse('2012-07-04'))
+        events_manager.events_list.last[:start].to_s(:db).should be_eql '2012-07-04 09:00:00'
+        events_manager.events_list.last[:end].to_s(:db).should be_eql '2012-07-04 19:00:00'
+      end
+
+      specify 'part of day' do
+        create(:event, mechanic: mechanic, date_start: Date.parse('2012-06-08'), time_start: Time.parse('11:00 GMT'), time_end: Time.parse('15:00 GMT'))
+        events_manager.events_list.last[:start].to_s(:db).should be_eql '2012-06-08 11:00:00'
+        events_manager.events_list.last[:end].to_s(:db).should be_eql '2012-06-08 15:00:00'
       end
     end
   end

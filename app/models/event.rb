@@ -9,10 +9,6 @@ class Event < ActiveRecord::Base
 
   before_validation :set_title
 
-  def as_json(options = {})
-    { start: date_start, title: title, url: Rails.application.routes.url_helpers.mechanics_event_path(self), id: id }
-  end
-
   def set_title
     self.title = case
       when recurrence then "#{recurrence} from #{(time_start ? time_range_string : "#{date_start.to_s(:short)} for all day event")}"

@@ -69,7 +69,12 @@ class EventsManager < Struct.new(:mechanic)
 
   def hash_for_fullcalendar(event, occurrence = nil)
     occurrence ||= event.date_start
-    { start: occurrence, title: event.title, url: Rails.application.routes.url_helpers.mechanics_event_path(event.id), id: event.id }
+    time_start, time_end = if event.time_start
+      [occurrence + event.time_start.hour.to_i.hour, occurrence + event.time_end.hour.to_i.hour]
+    else
+      [occurrence + 9.hour, occurrence + 19.hour]
+    end
+    { start: time_start, :end => time_end, title: event.title, url: Rails.application.routes.url_helpers.mechanics_event_path(event.id), id: event.id }
   end
 
   def check_uniqueness(event)

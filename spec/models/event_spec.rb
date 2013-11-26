@@ -27,11 +27,6 @@ describe Event do
     events.last.should == desired_event
   end
 
-  specify '#as_json' do
-    event = create(:event, mechanic: create(:mechanic), recurrence: :weekly)
-    event.as_json.should == { start: event.date_start, title: event.title, url: "/mechanics/events/#{event.id}", id: event.id }
-  end
-
   context '.set_title' do
     let(:today)             { Date.today }
     let(:today_short)       { today.to_s(:short) }
