@@ -15,7 +15,7 @@ class Users::AppointmentsController < Users::ApplicationController
     if @job.assign_mechanic(attrs)
       redirect_to users_appointments_path, notice: 'Appointment booked'
     else
-      flash[:error] = 'Error assigning mechanic'
+      flash[:error] = @job.errors[:scheduled_at] == ["can't be blank"] ? 'Choose time slot(s) please.' : 'Error assigning mechanic'
       render :edit
     end
   end

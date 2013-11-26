@@ -34,6 +34,8 @@ class Job < ActiveRecord::Base
     state :assigned do
       transition to: :complete, on: :complete
       validates :mechanic, :scheduled_at, presence: true
+      validate :scheduled_at_cannot_be_in_the_past, if: :scheduled_at
+      validate :mechanic_available?, if: [:mechanic, :scheduled_at]
     end
     state :completed
 
@@ -142,6 +144,18 @@ class Job < ActiveRecord::Base
 
   def quote_changed?
     !cost_was.nil? && cost_changed?
+  end
+
+  # TODO: тест на эту валидацию в тесте модели
+  # TODO: также эту валидацию нужно улучшить.(нужно что бы бралось что то типа время сейчас плюс 4 часа...)
+  def scheduled_at_cannot_be_in_the_past
+    errors.add(:scheduled_at, "can't be in the past") if
+      scheduled_at < DateTime.now
+  end
+
+  # TODO: тест на эту валидацию в тесте модели
+  def mechanic_available?
+    self.errors.add(:scheduled_at, "Mechanic unavailable in #{scheduled_at}") if EventsManager.new(mechanic).unavailable_at? scheduled_at
   end
 
   def on_quote_change

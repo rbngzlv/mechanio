@@ -69,11 +69,7 @@ class EventsManager < Struct.new(:mechanic)
 
   def hash_for_fullcalendar(event, occurrence = nil)
     occurrence ||= event.date_start
-    time_start, time_end = if event.time_start
-      [occurrence + event.time_start.hour.to_i.hour, occurrence + event.time_end.hour.to_i.hour]
-    else
-      [occurrence + 9.hour, occurrence + 19.hour]
-    end
+    time_start, time_end = get_time_start_and_end(event, occurrence)
     { start: time_start, :end => time_end, title: event.title, url: Rails.application.routes.url_helpers.mechanics_event_path(event.id), id: event.id }
   end
 
@@ -93,5 +89,28 @@ class EventsManager < Struct.new(:mechanic)
 
   def time_for_compearing(t)
     t ? t.to_time.change({:year => 2000 , :month => 1 , :day => 1 }) : nil
+  end
+
+  # TODO: тест на этот метод в файле тестов к ивент_манагеру
+  def unavailable_at?(scheduled_at)
+    mechanic.events.map do |event|
+      start_time, end_time = get_time_start_and_end(event)
+      schedule = Schedule.new(start_time, end_time: end_time)
+      if (repeat = event.recurrence)
+        schedule.add_recurrence_rule(Rule.send repeat)
+      end
+      return true if schedule.occurring_at?(scheduled_at)
+    end
+    false
+  end
+
+  # TODO: тест на этот метод
+  def get_time_start_and_end(event, occurrence = nil)
+    occurrence ||= event.date_start
+    if event.time_start
+      [occurrence + event.time_start.hour.to_i.hour, occurrence + event.time_end.hour.to_i.hour]
+    else
+      [occurrence + 9.hour, occurrence + 19.hour]
+    end
   end
 end
