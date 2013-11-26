@@ -463,6 +463,7 @@ section {
     background: #ddd;
     border-radius: 0;
 
+    &:hover,
     &:focus {
       outline: none;
       background: #ddd;
@@ -612,6 +613,7 @@ section {
       border-radius: 0;
       color: #000 !important;
 
+      &:hover,
       &:focus {
         outline: none;
         background: #fff;
@@ -1472,6 +1474,7 @@ form {
         background: #ddd;
         border-radius: 0;
 
+        &:hover,
         &:focus {
           outline: none;
           background: #ddd;

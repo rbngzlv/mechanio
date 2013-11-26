@@ -7,8 +7,8 @@
       = s.input :note, label: false, placeholder: 'Write any additional issues or concerns you have with your car', as: :text, input_html: { 'ng-model' => 'note' }
   %hr
   %button.btn.btn-default{ 'type' => 'button', 'ng-click' => 'gotoStep("car-details")' }
-    %small &#x276E;
+    %small &lt;
     Back
   %button.btn.btn-primary.pull-right{ 'type' => 'button', 'ng-click' => 'submit()', 'ng-disabled' => '!valid()' }
     Continue
-    %small &#x276F;
+    %small &gt;
