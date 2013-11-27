@@ -5,6 +5,7 @@ class Job < ActiveRecord::Base
   belongs_to :mechanic
   belongs_to :location, dependent: :destroy
   has_many :tasks, inverse_of: :job, dependent: :destroy
+  has_one :event, dependent: :destroy
 
   accepts_nested_attributes_for :car, :location, update_only: true
   accepts_nested_attributes_for :tasks, allow_destroy: true, reject_if: proc { |attrs| attrs.all? { |k, v| k == 'type' || v.blank? } }
@@ -108,7 +109,11 @@ class Job < ActiveRecord::Base
       assigned_at: DateTime.now,
       mechanic_id: mechanic.id
     )
-    assign && save
+    assign && build_event_from_scheduled_at && save
+  end
+
+  def build_event_from_scheduled_at
+    self.build_event(date_start: scheduled_at, time_start: scheduled_at, time_end: scheduled_at + 2.hour, mechanic: mechanic).save
   end
 
   def car_attributes=(attrs)

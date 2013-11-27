@@ -167,7 +167,8 @@ CREATE TABLE events (
     title character varying(255),
     mechanic_id integer,
     created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    updated_at timestamp without time zone,
+    job_id integer
 );
 
 
@@ -1345,3 +1346,5 @@ INSERT INTO schema_migrations (version) VALUES ('20131025144458');
 INSERT INTO schema_migrations (version) VALUES ('20131031132802');
 
 INSERT INTO schema_migrations (version) VALUES ('20131105150958');
+
+INSERT INTO schema_migrations (version) VALUES ('20131127134406');

@@ -1,6 +1,9 @@
 require 'spec_helper'
 
 describe Event do
+  it { should belong_to :mechanic }
+  it { should belong_to :job }
+
   it 'does validate by uniqueness for single mechanic' do
     event = build(:event, mechanic: create(:mechanic), recurrence: :weekly)
     unique_event = event.dup

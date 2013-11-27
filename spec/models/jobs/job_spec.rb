@@ -12,6 +12,7 @@ describe Job do
   it { should belong_to :mechanic }
   it { should belong_to :location }
   it { should have_many :tasks }
+  it { should have_one :event }
 
   it { should validate_presence_of :user }
   it { should validate_presence_of :car }
