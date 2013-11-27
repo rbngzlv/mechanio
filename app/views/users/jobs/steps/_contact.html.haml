@@ -40,7 +40,7 @@
 
           .row
             .form-group.col-md-9{ 'ng-class' => "inputClass(contact_form['job[contact_phone]'])" }
-              = f.input :contact_phone, label: 'We might have follow-up questions about your quote. Where can we call you with questions?', placeholder: 'e.g 0410 123 456', wrapper: false, input_html: { 'ng-model' => 'job.contact_phone', 'ng-pattern' => 'phone_regex', 'ng-focus' => true, 'required' => true }
+              = f.input :contact_phone, label: 'We might have follow-up questions about your quote. What is your mobile number we can reach you on?', placeholder: 'e.g 0410 123 456', wrapper: false, input_html: { 'ng-model' => 'job.contact_phone', 'ng-pattern' => 'phone_regex', 'ng-focus' => true, 'required' => true }
               %span.help-block{ 'ng-show' => "inputInvalid(contact_form['job[contact_phone]'])" }
                 phone number invalid
 

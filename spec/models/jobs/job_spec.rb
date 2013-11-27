@@ -20,6 +20,10 @@ describe Job do
   it { should validate_presence_of :contact_email }
   it { should validate_presence_of :contact_phone }
 
+  it { should allow_value('0412345678').for(:contact_phone) }
+  it { should_not allow_value('12345678').for(:contact_phone) }
+  it { should_not allow_value('04123456').for(:contact_phone) }
+
   it '#sanitize_and_create' do
     Job.any_instance.should_receive(:notify_estimated)
     job = user.jobs.sanitize_and_create(job: attrs)

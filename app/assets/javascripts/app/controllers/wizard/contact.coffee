@@ -8,7 +8,7 @@ app.controller 'ContactController', ['$scope', ($scope) ->
   $scope.state
 
   $scope.postcode_regex = /^\d{4}$/
-  $scope.phone_regex = /^[\+\(\)\d ]+$/
+  $scope.phone_regex = /^04\d{8}$/
 
   $scope.submit = ->
     $scope.data.job = angular.copy($scope.job)
