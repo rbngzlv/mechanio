@@ -48,12 +48,23 @@ describe Job do
 
     it 'return true if success' do
       Job.any_instance.should_receive(:notify_assigned)
-      job_with_service.assign_mechanic(mechanic_id: mechanic.id, scheduled_at: DateTime.now).should be_true
+      job_with_service.assign_mechanic(mechanic_id: mechanic.id, scheduled_at: DateTime.tomorrow).should be_true
     end
 
     it 'return false if sheduled time doesnot given' do
       Job.any_instance.should_not_receive(:notify_assigned)
       job_with_service.assign_mechanic(mechanic_id: mechanic.id).should be_false
+    end
+
+    it 'return false if sheduled time in the past' do
+      Job.any_instance.should_not_receive(:notify_assigned)
+      job_with_service.assign_mechanic(mechanic_id: mechanic.id, scheduled_at: Date.yesterday).should be_false
+    end
+
+    it 'return false if mechanic unavailable in choosen time' do
+      Job.any_instance.should_not_receive(:notify_assigned)
+      create :event, mechanic: mechanic, date_start: Date.tomorrow
+      job_with_service.assign_mechanic(mechanic_id: mechanic.id, scheduled_at: DateTime.tomorrow + 11.hour).should be_false
     end
 
     it 'throw exception if mechanic doesnot given' do

@@ -34,7 +34,7 @@ FactoryGirl.define do
     trait :assigned do
       mechanic
       status :assigned
-      scheduled_at { DateTime.now }
+      scheduled_at { DateTime.tomorrow }
     end
 
     trait :completed do

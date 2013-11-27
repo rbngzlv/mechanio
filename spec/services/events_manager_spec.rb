@@ -169,4 +169,36 @@ describe EventsManager do
       events_manager.check_uniqueness(event).should be_false
     end
   end
+
+  describe '#unavailable_at?' do
+    it { events_manager.unavailable_at?(Date.tomorrow + 9.hour).should be_false }
+
+    it do
+      create :event, mechanic: mechanic, date_start: Date.tomorrow
+      events_manager.unavailable_at?(Date.tomorrow + 9.hour).should be_true
+    end
+  end
+
+  describe '#get_time_start_and_end' do
+    let(:today) { Date.today }
+    let(:event) { build :event, date_start: today }
+
+    it 'should create start and end time if their are not exists in event' do
+      events_manager.get_time_start_and_end(event).should be_eql [today + 9.hour, today + 19.hour]
+    end
+
+    it 'should return real start and end time if their are exists and occurrence not given' do
+      event.time_start = today + 11.hour
+      event.time_end = today + 13.hour
+      events_manager.get_time_start_and_end(event).should be_eql [event.time_start, event.time_end]
+    end
+
+    it 'should create start and end time for occurrence date if it is exists' do
+      tomorrow = Date.tomorrow
+      occurrence = tomorrow
+      event.time_start = today + 11.hour
+      event.time_end = today + 13.hour
+      events_manager.get_time_start_and_end(event, occurrence).should be_eql [tomorrow + 11.hour, tomorrow + 13.hour]
+    end
+  end
 end

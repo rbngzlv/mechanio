@@ -56,36 +56,31 @@ feature 'Appointments' do
   context 'selects a mechanic through schedule' do
     before { visit edit_users_appointment_path(job) }
 
+    scenario 'check calendar', :js do
+      find('tbody tr:nth-of-type(5) td.fc-widget-content').click
+      expected_datetime = Date.today + 3.day + 17.hour
+      find('#job_scheduled_at', visible: false)[:value].should include expected_datetime.strftime('%b %d %Y %T')
+    end
+
     scenario 'choose unavailable slot' do
       click_button 'Book Appointment'
       should have_selector('.alert.alert-danger', text: 'Choose time slot(s) please.')
     end
 
-    # здесь можно было бы написать один тест с js-ом, в котором можно было бы также и проверять дату
     scenario 'choose unavailable slot' do
-    # scenario 'choose unavailable slot', :js do
-      # TODO: перед коммитом прогнать тесты, и удалить эти комменты и все ТУДУшки, потом закоммитить, потом вернуть эти строки(и предыдущий стеш) и сделать еще другой, общий стеш(т.к. мне оч хочется кликать)
-      # find('.unavailable').click
       create :event, mechanic: mechanic, date_start: Date.tomorrow
-      find('#job_scheduled_at').set(Date.tomorrow + 9.hour)
+      find('#job_scheduled_at').set(scheduled_at = Date.tomorrow + 9.hour)
       click_button 'Book Appointment'
-      should have_content('You could not check unavailable time slot')
+      should have_content("This mechanic is unavailable in #{scheduled_at}")
     end
 
     scenario 'choose previous perioud' do
-    # scenario 'choose previous perioud', :js do
-      # find('.previous-week').click
-      # find('.available').click
       find('#job_scheduled_at').set(Date.yesterday + 9.hour)
       click_button 'Book Appointment'
       should have_content('You could not check time slot in the past')
     end
 
     scenario 'success' do
-    # scenario 'success', :js do
-      # click нажимает в центр элемента => можно использовать и в двух других тестах, но если так делать, то нужно разобраться с сохранением времени в бд и его отображением
-      # find('tbody tr:nth-of-type(5) td.fc-widget-content').click # {"x"=>527.5, "y"=>527.5} (но время становится 15, а не 17, возможно причина в гмт/его отуствии)
-      # page.driver.click(528, 528)
       create :event, mechanic: mechanic, date_start: Date.tomorrow + 3.day
       find('#job_scheduled_at').set(Date.tomorrow + 9.hour)
 
@@ -133,10 +128,6 @@ feature 'Appointments' do
     job_without_location = create(:job_with_service, :estimated, user: user)
     visit edit_users_appointment_path(job_without_location)
     should have_content 'Wrong location, we could not find your coordinates.'
-  end
-
-  # TODO: realized validations of date which accessible and more than today in task: add calendar
-  scenario 'fail', pending: 'we need calendar to have good ux, I dont see sance realised fails test before it' do
   end
 
   scenario 'cancel', pending: 'we are have not cancel button on the mockup' do

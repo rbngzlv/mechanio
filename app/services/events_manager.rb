@@ -91,7 +91,6 @@ class EventsManager < Struct.new(:mechanic)
     t ? t.to_time.change({:year => 2000 , :month => 1 , :day => 1 }) : nil
   end
 
-  # TODO: тест на этот метод в файле тестов к ивент_манагеру
   def unavailable_at?(scheduled_at)
     mechanic.events.map do |event|
       start_time, end_time = get_time_start_and_end(event)
@@ -104,7 +103,6 @@ class EventsManager < Struct.new(:mechanic)
     false
   end
 
-  # TODO: тест на этот метод
   def get_time_start_and_end(event, occurrence = nil)
     occurrence ||= event.date_start
     if event.time_start
