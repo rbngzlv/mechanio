@@ -32,7 +32,7 @@ feature 'Appointments' do
     scenario 'check calendar', :js do
       find('tbody tr:nth-of-type(5) td.fc-widget-content').click
       expected_datetime = Date.today + 3.day + 17.hour
-      find('#job_scheduled_at', visible: false)[:value].should include expected_datetime.strftime('%b %d %Y %T')
+      find('#job_scheduled_at', visible: false)[:value].should include expected_datetime.strftime('%b %d %Y %T GMT+0000')
     end
 
     scenario 'choose unavailable slot' do

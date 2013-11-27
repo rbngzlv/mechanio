@@ -24,7 +24,7 @@
         return false;
       },
       dayClick: function(date, allDay, jsEvent, view) {
-        $form_#{ id }.val(date);
+        $form_#{ id }.val(date.toString().replace(/GMT\+\d{4}/, 'GMT+0000'));
       }
     });
   });
