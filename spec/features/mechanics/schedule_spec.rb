@@ -111,14 +111,14 @@ feature 'Mechanic schedule' do
     end
 
     specify 'job event', :js do
-      event create :event, :job
+      event = create :event, :job, mechanic: mechanic
 
       visit mechanics_events_path
-
       expect do
         find('.fc-event', text: event.title).click
         sleep 0.1
-      end.to change { has_content?(event.titel) }.from(true).to(false)
+      end.not_to change { has_content?(event.title) }
+      should have_content 'Cannot delete event with job'
     end
 
     def set_for_today(*time_slots)

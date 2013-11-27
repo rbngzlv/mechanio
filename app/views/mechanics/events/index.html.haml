@@ -1,8 +1,10 @@
 :javascript
   $(function() {
     var $flash = $('.js-flash-notice'),
-        show_flash_notice = function () {
-          $flash.before('<div class="alert alert-success">Event succesfully deleted.</div>');
+        show_flash_notice = function(class_name, message) {
+          class_name = class_name ? class_name :"success";
+          message = message ? message : "Event succesfully deleted."
+          $flash.before('<div class="alert alert-' + class_name + '">' + message + '</div>');
         };
     var $calendar = $('#calendar');
     var date = new Date(),
@@ -22,10 +24,16 @@
           $.ajax({
             url: event.url,
             type: "POST",
-            data: { _method:'DELETE' }
-          }).done(function() {
-            show_flash_notice();
-            $calendar.fullCalendar( 'removeEvents', event.id );
+            data: { _method:'DELETE' },
+            statusCode: {
+              200: function() {
+                show_flash_notice();
+                $calendar.fullCalendar( 'removeEvents', event.id );
+              },
+              406: function() {
+                show_flash_notice('danger', 'Cannot delete event with job');
+              }
+            }
           });
         }
         return false;

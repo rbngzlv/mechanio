@@ -10,6 +10,8 @@ class Event < ActiveRecord::Base
 
   before_validation :set_title
 
+  before_destroy :should_not_has_job
+
   def set_title
     self.title = case
       when recurrence then "#{recurrence} from #{(time_start ? time_range_string : "#{date_start.to_s(:short)} for all day event")}"
@@ -20,6 +22,11 @@ class Event < ActiveRecord::Base
 
   def is_event_unique_for_mechanic
     self.errors.add(:date_start, "Is not unique") unless EventsManager.new(self.mechanic).check_uniqueness(self)
+  end
+
+  def should_not_has_job
+    errors.add(:base, "Cannot delete event with job") if self.job
+    errors.blank?
   end
 
   private
