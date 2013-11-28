@@ -1,6 +1,6 @@
 class Event < ActiveRecord::Base
   belongs_to :mechanic
-  belongs_to :job
+  belongs_to :job, inverse_of: :event
 
   validates :date_start, :mechanic, presence: true
   validate :is_event_unique_for_mechanic, if: :mechanic

@@ -42,7 +42,7 @@ class Job < ActiveRecord::Base
 
     after_transition to: :pending, do: :notify_pending
     after_transition from: [:temporary, :pending], to: :estimated, do: :notify_estimated
-    after_transition from: :estimated, to: :assigned,  do: :notify_assigned
+    after_transition from: :estimated, to: :assigned,  do: [:build_event_from_scheduled_at, :notify_assigned]
 
   end
 
@@ -109,7 +109,7 @@ class Job < ActiveRecord::Base
       assigned_at: DateTime.now,
       mechanic_id: mechanic.id
     )
-    assign && build_event_from_scheduled_at && save
+    assign && save
   end
 
   def build_event_from_scheduled_at

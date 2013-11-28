@@ -78,7 +78,7 @@ feature 'Appointments' do
       end
       mail_deliveries[1].tap do |m|
         m.to.should eq [user.email]
-        m.subject.should eq 'Job assigned'
+        m.subject.should eq 'Your booking with Mechanio is confirmed'
       end
       mail_deliveries[2].tap do |m|
         m.to.should eq [mechanic.email]
