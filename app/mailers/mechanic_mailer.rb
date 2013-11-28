@@ -1,7 +1,7 @@
 class MechanicMailer < ActionMailer::Base
   def registration_note(mechanic)
     @mechanic = mechanic
-    mail to: @mechanic.email, subject: 'Welcome to Mechanio'
+    mail to: @mechanic.email, subject: 'Welcome to Mechanio! What you need to know as a Mechanio Mobile Mechanic'
   end
 
   def job_assigned(job)
