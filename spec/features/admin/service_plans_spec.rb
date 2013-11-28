@@ -67,6 +67,13 @@ describe 'Manage service periods' do
       page.should have_css '.alert-info', text: 'Service plan updated succesfully.'
       page.should have_css 'td', text: '20,000 kms / 6 months'
     end
+
+    specify 'delete service plan' do
+      visit edit_admin_service_plan_path(default_service_plan)
+      click_on 'Delete'
+      current_path.should be_eql default_admin_service_plans_path
+      page.should have_css'.alert.alert-info', text: 'Service plan deleted succesfully'
+    end
   end
 
   context 'car model service plans', :js do
@@ -94,7 +101,7 @@ describe 'Manage service periods' do
         select_model_variation
         click_on 'Add service plan'
       end
-        
+
       it 'periodic' do
         fill_in 'Kms travelled', with: '15000'
         fill_in 'Months', with: '8'
@@ -130,6 +137,13 @@ describe 'Manage service periods' do
       page.should have_css 'th', text: "Service plans for #{model_variation.title_with_year}"
       page.should have_css '.alert-info', text: 'Service plan updated succesfully.'
       page.should have_css 'td', text: '20,000 kms / 6 months'
+    end
+
+    specify 'delete service plan' do
+      visit edit_admin_service_plan_path(service_plan)
+      click_on 'Delete'
+      current_path.should be_eql by_model_admin_service_plans_path
+      page.should have_css'.alert.alert-info', text: 'Service plan deleted succesfully'
     end
 
     def select_model_variation
