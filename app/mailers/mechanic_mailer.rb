@@ -6,6 +6,6 @@ class MechanicMailer < ActionMailer::Base
 
   def job_assigned(job)
     @job = job
-    mail to: job.mechanic.email, subject: 'You got a new job'
+    mail to: job.mechanic.email, subject: 'Congratulations, you’ve been scheduled a job.'
   end
 end
