@@ -82,7 +82,7 @@ feature 'Appointments' do
       end
       mail_deliveries[2].tap do |m|
         m.to.should eq [mechanic.email]
-        m.subject.should eq 'You got a new job'
+        m.subject.should eq 'Congratulations, you’ve been scheduled a job.'
       end
     end
   end

@@ -38,8 +38,13 @@ class Admin::ServicePlansController < Admin::ApplicationController
   end
 
   def destroy
+    path = if @service_plan.model_variation_id
+      by_model_admin_service_plans_path
+    else
+      default_admin_service_plans_path
+    end
     @service_plan.destroy
-    redirect_to admin_service_plans_path, notice: 'Service plan deleted succesfully.'
+    redirect_to path, notice: 'Service plan deleted succesfully.'
   end
 
 
