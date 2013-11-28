@@ -22,6 +22,7 @@ gem 'resque'
 gem 'geocoder'
 gem 'font-awesome-rails'
 gem 'state_machine'
+gem 'high_voltage'
 
 group :development do
   gem 'letter_opener'
