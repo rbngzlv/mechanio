@@ -197,6 +197,17 @@ feature 'Jobs page' do
       grand_total.should eq '$108.00'
       verify_email_notifications(job)
     end
+
+    scenario 'destroy job' do
+      job = create :job, :with_service, :with_repair
+
+      visit edit_admin_job_path(job)
+
+      expect do
+        click_link 'Delete Job'
+      end.to change { Job.count }.by -1
+      page.should have_css '.alert.alert-info', text: 'Job succesfully deleted.'
+    end
   end
 
   def verify_service_cost(description, cost)

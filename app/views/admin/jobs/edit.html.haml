@@ -1,3 +1,13 @@
+:javascript
+  $(function() {
+    $('#js-edit-job-submit').click(function() {
+      $(".edit_job input[type='submit']").trigger("click");
+      return false;
+    });
+  });
+%p
+  = link_to 'Save Changes', '#', class: 'btn btn-success', id: 'js-edit-job-submit'
+  = link_to 'Delete Job', admin_job_path(@job), method: :delete, class: 'btn btn-danger', data: {confirm: 'Are you sure?'}
 %p.pull-right
   %strong Requested by
   = link_to @job.user.full_name, [:admin, @job.user]

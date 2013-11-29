@@ -46,7 +46,7 @@ Mechanio::Application.routes.draw do
         get 'by_model', action: 'index_by_model'
       end
     end
-    resources :jobs, only: [:index, :edit, :update]
+    resources :jobs, only: [:index, :edit, :update, :destroy]
   end
 
   resource :ajax, controller: 'ajax', only: [] do
