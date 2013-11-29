@@ -38,7 +38,7 @@ describe 'Static Pages' do
   specify 'Frequently Asked Questions' do
     go_to 'Frequently Asked Questions'
 
-    should have_selector 'h4.hx-default', text: "Frequently Asked Questions"
+    should have_selector 'h3', text: "Frequently Asked Questions"
   end
 
   specify 'Terms Of Use' do
