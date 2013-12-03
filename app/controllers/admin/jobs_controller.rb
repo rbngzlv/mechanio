@@ -1,6 +1,6 @@
 class Admin::JobsController < Admin::ApplicationController
 
-  before_filter :find_job, only: [:edit, :update]
+  before_filter :find_job, only: [:edit, :update, :destroy]
 
   def index
     @jobs = Job.page(params[:page])
@@ -18,6 +18,11 @@ class Admin::JobsController < Admin::ApplicationController
       flash[:error] = 'Error updating job'
     end
     redirect_to action: :edit
+  end
+
+  def destroy
+    @job.destroy
+    redirect_to admin_jobs_path, notice: 'Job succesfully deleted.'
   end
 
 
