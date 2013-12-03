@@ -348,6 +348,10 @@ i.verified-icon {
   color: #000;
 }
 
+.payment-img {
+  margin: 10px auto;
+}
+
 form label {
   font-weight: normal;
 }
@@ -362,6 +366,43 @@ form input.form-control {
 
 a[data-toggle = 'modal'] {
   color: #fff;
+}
+
+.add-promo-label {
+  position: relative;
+
+  + .form-group.promo-group {
+    height: 0;
+    overflow: hidden;
+    margin: 0;
+    @include transition(all .5s ease-in-out);
+  }
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    margin-top: -5px;
+    border: 5px solid rgba(255, 255, 255, 0);
+    border-left-color: #22878e;
+    right: -20px;
+  }
+}
+
+.promo-group > label + div {
+  padding-left: 0px;
+}
+
+.add-promo:checked + label + .form-group {
+  height: 58px;
+  margin-bottom: 10px;
+}
+
+.add-promo:checked + .add-promo-label:after {
+  border-left-color: rgba(255, 255, 255, 0);
+  border-top-color: #22878e;
+  right: -17px;
+  margin-top: -3px;
 }
 
 aside {
@@ -1096,6 +1137,10 @@ section {
   }
 }
 
+.panel-heading-border {
+  border-bottom: 1px solid #eaeaea;
+}
+
 .panel-heading {
   position: relative;
 
@@ -1380,12 +1425,25 @@ form {
     margin: 0 16.6667%;
   }
 
+  .promo-group div + a {
+    margin-top: 5px;
+  }
+
   .marketing .carousel-inner {
     width: 80%;
 
     ~ .carousel-control {
       top: 30%;
     }
+  }
+
+  .promo-group > label + div {
+    padding: 0;
+  }
+
+  .add-promo:checked + label + .form-group {
+    height: 98px;
+    margin-bottom: 10px;
   }
 
   .nav.nav-pills-wizard > li {
@@ -1579,6 +1637,10 @@ form {
         margin-bottom: 2px;
       }
     }
+  }
+
+  .add-promo:checked + label + .form-group {
+    height: 118px;
   }
 
   .nav.nav-pills-wizard > li {
