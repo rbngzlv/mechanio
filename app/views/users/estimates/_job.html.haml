@@ -29,4 +29,4 @@
               %b Total Fees
             %td.text-right
               %b= number_to_currency job.cost
-      = link_to 'Book Appointments', edit_users_appointment_path(job), class: 'btn btn-success pull-right' if job.estimated?
+      = link_to 'Book Appointment', edit_users_appointment_path(job), class: 'btn btn-success pull-right' if job.estimated?
