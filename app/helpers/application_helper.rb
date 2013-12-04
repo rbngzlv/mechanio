@@ -57,7 +57,7 @@ module ApplicationHelper
   end
 
   def location_status(location)
-    status, css = location.is_coordinates_valid? ? ['Valid', 'success'] : ['Invalid', 'danger']
+    status, css = location.geocoded? ? ['Valid', 'success'] : ['Invalid', 'danger']
     content_tag :span, status, class: "label label-#{css}"
   end
 end
