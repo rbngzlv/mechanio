@@ -37,9 +37,9 @@ feature 'estimates page' do
           should have_content task.cost
         end
         should have_content job.cost
-        should have_no_link 'Book Appointments'
+        should have_no_link 'Book Appointment'
       end
-      within('.panel:nth-child(1)') { should have_link 'Book Appointments' }
+      within('.panel:nth-child(1)') { should have_link 'Book Appointment' }
     end
   end
 end

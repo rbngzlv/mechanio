@@ -15,7 +15,7 @@ feature 'Appointments' do
 
   specify 'navigation' do
     visit users_estimates_path
-    click_link 'Book Appointments'
+    click_link 'Book Appointment'
     current_path.should be_eql edit_users_appointment_path(job)
   end
 
