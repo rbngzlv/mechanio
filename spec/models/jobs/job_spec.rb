@@ -144,6 +144,18 @@ describe Job do
     end
   end
 
+  describe '#location_geocoded?' do
+    it 'is false when location is not geocoded' do
+      job.location = build_stubbed(:location)
+      expect(job.location_geocoded?).to be_false
+    end
+
+    it 'is true when location is geocoded' do
+      job.location = build_stubbed(:location, :with_coordinates)
+      expect(job.location_geocoded?).to be_true
+    end
+  end
+
   def verify_estimated_job(job)
     job.reload.status.should eq 'estimated'
     job.tasks.count.should eq 2

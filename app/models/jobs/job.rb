@@ -19,6 +19,8 @@ class Job < ActiveRecord::Base
 
   attr_accessor :skip_user_validation
 
+  delegate :geocoded?, to: :location, prefix: true, allow_nil: true
+
   state_machine :status, initial: :pending do
     state :temporary do
       transition to: :pending, on: :pending

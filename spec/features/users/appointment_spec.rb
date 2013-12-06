@@ -66,10 +66,10 @@ feature 'Appointments' do
     end
   end
 
-  specify 'job with wrong location raise error' do
-    job_without_location = create(:job_with_service, :estimated, user: user)
+  specify 'show error when no mechanics found' do
+    job_without_location = create(:job_with_service, :estimated, user: user, location: create(:location, postcode: '9999'))
     visit edit_users_appointment_path(job_without_location)
-    should have_content 'Wrong location, we could not find your coordinates.'
+    should have_content 'Sorry, we could not find any mechanics near you'
   end
 
   # TODO: realized validations of date which accessible and more than today in task: add calendar

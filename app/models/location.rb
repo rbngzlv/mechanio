@@ -12,6 +12,8 @@ class Location < ActiveRecord::Base
   after_save :get_coordinates, unless: :skip_geocoding
 
   scope :close_to, -> (latitude, longitude) {
+    raise 'Cant sort by distance from invalid location' unless latitude && longitude
+
     order(%{
       ST_Distance(
         ST_GeographyFromText(

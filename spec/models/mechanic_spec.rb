@@ -18,13 +18,19 @@ describe Mechanic do
   it { should respond_to :abn }
   it { should respond_to :mechanic_license }
 
-  describe 'scope close_to' do
-    let!(:mechanic1) { create :mechanic, location: create(:location, latitude: 40.000000, longitude: -77.000000) }
-    let!(:mechanic2) { create :mechanic, location: create(:location, latitude: 39.010000, longitude: -75.990000) }
-    let!(:mechanic3) { create :mechanic, location: create(:location, latitude: 40.010000, longitude: -78.000000) }
+  describe '#by_location' do
+    let!(:mechanic1) { create :mechanic, location: create(:location, latitude: 40.00, longitude: -77.00, postcode: '1234') }
+    let!(:mechanic2) { create :mechanic, location: create(:location, latitude: 39.01, longitude: -75.99, postcode: '2345') }
+    let!(:mechanic3) { create :mechanic, location: create(:location, latitude: 40.01, longitude: -78.00, postcode: '3456') }
+    let(:geocoded_location) { create(:location, latitude: 39.00, longitude: -76.00) }
+    let(:postcode_location) { create(:location, postcode: '2345') }
 
-    it 'should sort mechanics by distance' do
-      Mechanic.close_to(39.000000, -76.000000).should == [mechanic2, mechanic1, mechanic3]
+    it 'sorts mechanics by distance' do
+      Mechanic.by_location(geocoded_location).should == [mechanic2, mechanic1, mechanic3]
+    end
+
+    it 'finds mechanics by postcode' do
+      Mechanic.by_location(postcode_location).should == [mechanic2]
     end
   end
 end

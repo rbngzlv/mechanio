@@ -23,6 +23,15 @@ class Mechanic < ActiveRecord::Base
     joins(:location).merge(Location.close_to(latitude, longitude))
   }
 
+  def self.by_location(location)
+    puts Location.all.inspect
+    if location.geocoded?
+      close_to(location.latitude, location.longitude)
+    else
+      joins(:location).where(locations: { postcode: location.postcode })
+    end
+  end
+
   def full_name
     "#{first_name} #{last_name}"
   end
