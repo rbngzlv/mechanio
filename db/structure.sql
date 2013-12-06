@@ -152,6 +152,77 @@ ALTER SEQUENCE cars_id_seq OWNED BY cars.id;
 
 
 --
+-- Name: credit_cards; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE credit_cards (
+    id integer NOT NULL,
+    user_id integer,
+    last_4 character varying(4),
+    token character varying(255),
+    braintree_customer_id character varying(255)
+);
+
+
+--
+-- Name: credit_cards_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE credit_cards_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: credit_cards_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE credit_cards_id_seq OWNED BY credit_cards.id;
+
+
+--
+-- Name: events; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE events (
+    id integer NOT NULL,
+    date_start date,
+    date_end date,
+    recurrence_end date,
+    time_start time without time zone,
+    time_end time without time zone,
+    recurrence character varying(255),
+    title character varying(255),
+    mechanic_id integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    job_id integer
+);
+
+
+--
+-- Name: events_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE events_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: events_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE events_id_seq OWNED BY events.id;
+
+
+--
 -- Name: fixed_amounts; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -206,7 +277,11 @@ CREATE TABLE jobs (
     status character varying(255),
     title character varying(255),
     scheduled_at timestamp without time zone,
-    assigned_at timestamp without time zone
+    assigned_at timestamp without time zone,
+    credit_card_id integer,
+    transaction_id character varying(255),
+    transaction_status character varying(255),
+    transaction_errors text
 );
 
 
@@ -276,11 +351,8 @@ CREATE TABLE locations (
     suburb character varying(255),
     postcode character varying(255),
     state_id integer,
-    locatable_id integer,
-    locatable_type character varying(255),
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    location_type character varying(255),
     latitude numeric(12,8),
     longitude numeric(12,8)
 );
@@ -380,7 +452,9 @@ CREATE TABLE mechanics (
     phone_verified boolean DEFAULT false,
     super_mechanic boolean DEFAULT false,
     warranty_covered boolean DEFAULT false,
-    qualification_verified boolean DEFAULT false
+    qualification_verified boolean DEFAULT false,
+    location_id integer,
+    business_location_id integer
 );
 
 
@@ -511,6 +585,39 @@ CREATE SEQUENCE parts_id_seq
 --
 
 ALTER SEQUENCE parts_id_seq OWNED BY parts.id;
+
+
+--
+-- Name: regions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE regions (
+    id integer NOT NULL,
+    name character varying(255),
+    postcode integer,
+    ancestry character varying(255),
+    state_id integer,
+    ancestry_depth integer DEFAULT 0
+);
+
+
+--
+-- Name: regions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE regions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: regions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE regions_id_seq OWNED BY regions.id;
 
 
 --
@@ -795,7 +902,8 @@ CREATE TABLE users (
     dob date,
     mobile_number character varying(255),
     description text,
-    avatar character varying(255)
+    avatar character varying(255),
+    braintree_customer_id character varying(255)
 );
 
 
@@ -837,6 +945,20 @@ ALTER TABLE ONLY body_types ALTER COLUMN id SET DEFAULT nextval('body_types_id_s
 --
 
 ALTER TABLE ONLY cars ALTER COLUMN id SET DEFAULT nextval('cars_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY credit_cards ALTER COLUMN id SET DEFAULT nextval('credit_cards_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY events ALTER COLUMN id SET DEFAULT nextval('events_id_seq'::regclass);
 
 
 --
@@ -900,6 +1022,13 @@ ALTER TABLE ONLY models ALTER COLUMN id SET DEFAULT nextval('models_id_seq'::reg
 --
 
 ALTER TABLE ONLY parts ALTER COLUMN id SET DEFAULT nextval('parts_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY regions ALTER COLUMN id SET DEFAULT nextval('regions_id_seq'::regclass);
 
 
 --
@@ -999,6 +1128,22 @@ ALTER TABLE ONLY cars
 
 
 --
+-- Name: credit_cards_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY credit_cards
+    ADD CONSTRAINT credit_cards_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: events_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY events
+    ADD CONSTRAINT events_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: fixed_amounts_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1060,6 +1205,14 @@ ALTER TABLE ONLY models
 
 ALTER TABLE ONLY parts
     ADD CONSTRAINT parts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: regions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY regions
+    ADD CONSTRAINT regions_pkey PRIMARY KEY (id);
 
 
 --
@@ -1141,10 +1294,31 @@ CREATE UNIQUE INDEX index_admins_on_reset_password_token ON admins USING btree (
 
 
 --
+-- Name: index_credit_cards_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_credit_cards_on_user_id ON credit_cards USING btree (user_id);
+
+
+--
+-- Name: index_mechanics_on_business_location_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_mechanics_on_business_location_id ON mechanics USING btree (business_location_id);
+
+
+--
 -- Name: index_mechanics_on_email; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE UNIQUE INDEX index_mechanics_on_email ON mechanics USING btree (email);
+
+
+--
+-- Name: index_mechanics_on_location_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_mechanics_on_location_id ON mechanics USING btree (location_id);
 
 
 --
@@ -1159,6 +1333,20 @@ CREATE UNIQUE INDEX index_mechanics_on_reset_password_token ON mechanics USING b
 --
 
 CREATE INDEX index_on_locations_location ON locations USING gist (st_geographyfromtext((((('SRID=4326;POINT('::text || longitude) || ' '::text) || latitude) || ')'::text)));
+
+
+--
+-- Name: index_regions_on_ancestry; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_regions_on_ancestry ON regions USING btree (ancestry);
+
+
+--
+-- Name: index_regions_on_state_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_regions_on_state_id ON regions USING btree (state_id);
 
 
 --
@@ -1318,3 +1506,17 @@ INSERT INTO schema_migrations (version) VALUES ('20131025093219');
 INSERT INTO schema_migrations (version) VALUES ('20131025144458');
 
 INSERT INTO schema_migrations (version) VALUES ('20131031132802');
+
+INSERT INTO schema_migrations (version) VALUES ('20131105150958');
+
+INSERT INTO schema_migrations (version) VALUES ('20131120131338');
+
+INSERT INTO schema_migrations (version) VALUES ('20131120190546');
+
+INSERT INTO schema_migrations (version) VALUES ('20131120192649');
+
+INSERT INTO schema_migrations (version) VALUES ('20131125150816');
+
+INSERT INTO schema_migrations (version) VALUES ('20131127134406');
+
+INSERT INTO schema_migrations (version) VALUES ('20131204152756');

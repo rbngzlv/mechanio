@@ -54,9 +54,10 @@ feature 'Appointments' do
   end
 
   specify 'ordering mechanic by distance' do
-    mechanic2 = create :mechanic, location: create(:location, :with_type, latitude: 40.000000, longitude: -77.000000)
-    mechanic3 = create :mechanic, location: create(:location, :with_type, latitude: 39.100000, longitude: -76.100000)
-    mechanic.location = create(:location, :with_type, latitude: 38.000000, longitude: -75.000000)
+    mechanic2 = create :mechanic, location: create(:location, latitude: 40.000000, longitude: -77.000000)
+    mechanic3 = create :mechanic, location: create(:location, latitude: 39.100000, longitude: -76.100000)
+    mechanic.location = create(:location, latitude: 38.000000, longitude: -75.000000)
+    mechanic.save
     visit edit_users_appointment_path(job)
     within 'section' do
       should have_selector('> .panel:nth-child(4) h5', text: mechanic.full_name)

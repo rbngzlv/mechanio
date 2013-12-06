@@ -7,7 +7,7 @@
   = f.input :description, label: 'Personal description'
   = f.input :avatar, label: 'Photo', as: :image, wrapper: :bootstrap, input_html: { wrap_class: 'col-md-4 col-sm-5' }
   %legend Personal Address
-  = render partial: 'shared/location_form', locals: { f: f }
+  = render partial: 'shared/location_form', locals: { f: f, location_assoc: :location }
   %legend Verified Statuses
   = f.input :phone_verified
   = f.input :super_mechanic
@@ -30,7 +30,7 @@
   = f.input :abn_expiry, label: 'Expiry date', input_html: { class: 'form-control' }, start_year: Date.today.year, end_year: Date.today.year + 20
   = f.input :abn, label: 'Image', as: :image, wrapper: :bootstrap, input_html: { wrap_class: 'col-md-4 col-sm-5' }
   %legend Business Address
-  = render partial: 'shared/location_form', locals: { f: f, location_type: :business_location }
+  = render partial: 'shared/location_form', locals: { f: f, location_assoc: :business_location }
   %legend Motor Mechanics License
   = f.input :mechanic_license_number, label: 'Number'
   = f.input :mechanic_license_expiry, label: 'Expiry date', input_html: { class: 'form-control' }, start_year: Date.today.year, end_year: Date.today.year + 20

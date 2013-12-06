@@ -1,7 +1,5 @@
-- location_type ||= :location
-- f.object.send("build_#{location_type}").build_state unless f.object.send(location_type)
-= f.simple_fields_for location_type do |address_form|
-  = address_form.input :address
-  = address_form.input :suburb
-  = address_form.input :postcode
-  = address_form.association :state, prompt: '-- Please select --'
+= f.simple_fields_for location_assoc do |l|
+  = l.input :address
+  = l.input :suburb
+  = l.input :postcode
+  = l.association :state, prompt: '-- Please select --'

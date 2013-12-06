@@ -2,10 +2,8 @@ class Mechanic < ActiveRecord::Base
 
   devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable
 
-  has_one :location, -> { where location_type: 'location' },
-          as: :locatable, dependent: :destroy, autosave: true
-  has_one :business_location, -> { where location_type: 'business_location' }, class_name: "Location",
-          as: :locatable, dependent: :destroy, autosave: true
+  belongs_to :location, dependent: :destroy
+  belongs_to :business_location, dependent: :destroy, class_name: "Location"
   has_many :jobs
 
   accepts_nested_attributes_for :location
