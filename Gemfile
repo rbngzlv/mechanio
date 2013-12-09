@@ -24,6 +24,7 @@ gem 'font-awesome-rails'
 gem 'state_machine'
 gem 'fullcalendar-rails'
 gem 'ice_cube'
+gem 'high_voltage'
 
 group :development do
   gem 'letter_opener'

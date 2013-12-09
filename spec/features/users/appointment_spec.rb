@@ -15,7 +15,7 @@ feature 'Appointments' do
 
   specify 'navigation' do
     visit users_estimates_path
-    click_link 'Book Appointments'
+    click_link 'Book Appointment'
     current_path.should be_eql edit_users_appointment_path(job)
   end
 
@@ -88,9 +88,10 @@ feature 'Appointments' do
   end
 
   specify 'ordering mechanic by distance' do
-    mechanic2 = create :mechanic, location: create(:location, :with_type, latitude: 40.000000, longitude: -77.000000)
-    mechanic3 = create :mechanic, location: create(:location, :with_type, latitude: 39.100000, longitude: -76.100000)
-    mechanic.location = create(:location, :with_type, latitude: 38.000000, longitude: -75.000000)
+    mechanic2 = create :mechanic, location: create(:location, latitude: 40.000000, longitude: -77.000000)
+    mechanic3 = create :mechanic, location: create(:location, latitude: 39.100000, longitude: -76.100000)
+    mechanic.location = create(:location, latitude: 38.000000, longitude: -75.000000)
+    mechanic.save
     visit edit_users_appointment_path(job)
     within 'section' do
 
@@ -100,10 +101,10 @@ feature 'Appointments' do
     end
   end
 
-  specify 'job with wrong location raise error' do
-    job_without_location = create(:job_with_service, :estimated, user: user)
+  specify 'show error when no mechanics found' do
+    job_without_location = create(:job_with_service, :estimated, user: user, location: create(:location, postcode: '9999'))
     visit edit_users_appointment_path(job_without_location)
-    should have_content 'Wrong location, we could not find your coordinates.'
+    should have_content 'Sorry, we could not find any mechanics near you'
   end
 
   scenario 'cancel', pending: 'we are have not cancel button on the mockup' do

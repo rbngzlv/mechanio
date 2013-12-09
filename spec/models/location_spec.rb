@@ -22,6 +22,18 @@ describe Location do
     end
   end
 
+  describe '#geocoded?' do
+    it 'is false when location is not geocoded' do
+      location = build_stubbed(:location)
+      expect(location.geocoded?).to be_false
+    end
+
+    it 'is true when location is geocoded' do
+      location = build_stubbed(:location, :with_coordinates)
+      expect(location.geocoded?).to be_true
+    end
+  end
+
   describe 'scope close_to' do
     let!(:location1) { create :location, latitude: 40.000000, longitude: -77.000000 }
     let!(:location2) { create :location, latitude: 39.010000, longitude: -75.990000 }
@@ -29,6 +41,12 @@ describe Location do
 
     it 'should sort locations by distance' do
       Location.close_to(39.000000, -76.000000).should == [location2, location1, location3]
+    end
+
+    it 'raises error when coordinates are invalid' do
+      expect {
+        Location.close_to(nil, nil)
+      }.to raise_error(StandardError, 'Cant sort by distance from invalid location')
     end
   end
 end

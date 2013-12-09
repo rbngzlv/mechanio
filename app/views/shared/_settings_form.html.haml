@@ -4,9 +4,9 @@
       .panel-heading
         %h4.panel-title
           %i.icon-cog
-          Setting
+          Settings
       .panel-body.clearfix
-        %h4.hx-default Password
+        %h4.hx-default Change my password
         = simple_form_for [role, send("current_#{role}")], url: send("#{role}s_settings_path"), html: { method: :patch }, defaults: { label: false, wrapper_html: { class: 'col-md-8' } } do |f|
           .row
             = f.input :current_password, placeholder: "Old Password"

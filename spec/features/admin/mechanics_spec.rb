@@ -22,7 +22,7 @@ feature 'Admin mechanics management' do
   end
 
   it 'should show mechanics locations status' do
-    create :mechanic, location: create(:location, :with_type, :with_coordinates)
+    create :mechanic, location: create(:location, :with_coordinates)
     visit admin_mechanics_path
     within 'tbody' do
       within 'tr:nth-child(1)' do
