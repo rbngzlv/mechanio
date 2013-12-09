@@ -51,13 +51,16 @@ Mechanio::Application.routes.draw do
         get 'by_model', action: 'index_by_model'
       end
     end
+
     resources :jobs, only: [:index, :edit, :update, :destroy]
+    resources :regions, only: [:index]
   end
 
   resource :ajax, controller: 'ajax', only: [] do
     get 'models'
     get 'model_variations'
     get 'service_plans'
+    get 'regions'
   end
 
   get '/static/:action', controller: 'static'

@@ -32,6 +32,8 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 0.3.37)
     addressable (2.3.5)
+    ancestry (2.0.0)
+      activerecord (>= 3.0.0)
     arel (4.0.0)
     atomic (1.1.13)
     awesome_print (1.1.0)
@@ -288,6 +290,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  ancestry
   awesome_print
   bootstrap-sass-rails
   capistrano

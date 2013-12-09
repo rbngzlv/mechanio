@@ -4,7 +4,7 @@ FactoryGirl.define do
     car
     location
     contact_email 'email@host.com'
-    contact_phone '0410 123 456'
+    contact_phone '0410123456'
 
     trait :with_service do
       after :build do |j|

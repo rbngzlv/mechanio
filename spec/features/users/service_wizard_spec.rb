@@ -95,7 +95,7 @@ end
     fill_in 'Postcode', with: '1234'
     select  state.name, from: 'location_state_id'
     fill_in 'job_contact_email', with: 'email@host.com'
-    fill_in 'job_contact_phone', with: '123 456789'
+    fill_in 'job_contact_phone', with: '0412345678'
     click_on 'Continue'
   end
 
