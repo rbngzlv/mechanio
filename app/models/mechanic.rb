@@ -24,7 +24,6 @@ class Mechanic < ActiveRecord::Base
   }
 
   def self.by_location(location)
-    puts Location.all.inspect
     if location.geocoded?
       close_to(location.latitude, location.longitude)
     else
