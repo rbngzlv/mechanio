@@ -37,8 +37,8 @@
   %button.btn.btn-default{ 'type' => 'button', 'ng-hide' => 'adding_vehicle', 'ng-click' => 'adding_vehicle = true' }
     Add a new car
   %button.btn.btn-default{ 'type' => 'button', 'ng-show' => 'adding_vehicle && cars.length > 0', 'ng-click' => 'adding_vehicle = false' }
-    %small &#x276E;
+    %small &lt;
     Back
   %button.btn.btn-primary.pull-right{ 'type' => 'button', 'ng-click' => 'submit()', 'ng-disabled' => '!valid()' }
     Continue
-    %small &#x276F;
+    %small &gt;

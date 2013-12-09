@@ -21,7 +21,7 @@ feature 'mechanic "my jobs" page' do
     should have_content 'You have no completed jobs'
   end
 
-  context 'should general information about' do
+  context 'should contain general information about' do
     it 'all upcoming jobs' do
       job1 = create :assigned_job, mechanic: mechanic, user: create(:user, first_name: 'Eugene'), scheduled_at: DateTime.now, tasks: [create(:repair, :with_part)]
       job2 = create :assigned_job, mechanic: mechanic, user: create(:user, first_name: 'Pavel'), scheduled_at: DateTime.tomorrow
@@ -38,7 +38,7 @@ feature 'mechanic "my jobs" page' do
               job.scheduled_at.to_s(:date_time)
               job.location.full_address
             end
-            within '.panel-body > table' do
+            within '.panel-body > .table-responsive' do
               should have_content job.car.display_title
               job.tasks.each do |task|
                 should have_content task.type

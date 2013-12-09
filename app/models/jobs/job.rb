@@ -5,6 +5,7 @@ class Job < ActiveRecord::Base
   belongs_to :mechanic
   belongs_to :location, dependent: :destroy
   has_many :tasks, inverse_of: :job, dependent: :destroy
+  has_one :event, dependent: :destroy
   belongs_to :credit_card
 
   accepts_nested_attributes_for :car, :location, update_only: true
@@ -16,9 +17,12 @@ class Job < ActiveRecord::Base
   before_save :set_title, :set_cost, :set_status, :on_quote_change
 
   validates :car, :location, :tasks, :contact_email, :contact_phone, presence: true
+  validates :contact_phone, format: { with: /\A04\d{8}\z/ }
   validates :user, presence: true, unless: :skip_user_validation
 
   attr_accessor :skip_user_validation
+
+  delegate :geocoded?, to: :location, prefix: true, allow_nil: true
 
   state_machine :status, initial: :pending do
     state :temporary do
@@ -36,6 +40,8 @@ class Job < ActiveRecord::Base
       transition to: :confirmed, on: :confirm
       transition to: :cancelled, on: :cancel
       validates :mechanic, :scheduled_at, presence: true
+      validate :scheduled_at_cannot_be_in_the_past, if: :scheduled_at
+      validate :mechanic_available?, if: [:mechanic, :scheduled_at]
     end
     state :confirmed do
       transition to: :completed, on: :complete
@@ -49,7 +55,7 @@ class Job < ActiveRecord::Base
 
     after_transition to: :pending, do: :notify_pending
     after_transition from: [:temporary, :pending], to: :estimated, do: :notify_estimated
-    after_transition from: :estimated, to: :assigned,  do: :notify_assigned
+    after_transition from: :estimated, to: :assigned,  do: [:build_event_from_scheduled_at, :notify_assigned]
 
   end
 
@@ -131,6 +137,10 @@ class Job < ActiveRecord::Base
     assign && save
   end
 
+  def build_event_from_scheduled_at
+    self.build_event(date_start: scheduled_at, time_start: scheduled_at, time_end: scheduled_at + 2.hour, mechanic: mechanic).save
+  end
+
   def car_attributes=(attrs)
     self.car = Car.find(attrs[:id]) if attrs[:id].present?
     super
@@ -164,6 +174,15 @@ class Job < ActiveRecord::Base
 
   def quote_changed?
     !cost_was.nil? && cost_changed?
+  end
+
+  def scheduled_at_cannot_be_in_the_past
+    errors.add(:scheduled_at, "You could not check time slot in the past") if
+      scheduled_at < DateTime.now
+  end
+
+  def mechanic_available?
+    self.errors.add(:scheduled_at, "This mechanic is unavailable in #{scheduled_at}") if EventsManager.new(mechanic).unavailable_at? scheduled_at
   end
 
   def on_quote_change

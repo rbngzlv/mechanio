@@ -34,7 +34,7 @@ feature 'Jobs page' do
 
   def verify_job_row(job)
     should have_content job.status.capitalize
-    should have_content job.location.is_coordinates_valid? ? 'Valid' : 'Invalid'
+    should have_content job.location.geocoded? ? 'Valid' : 'Invalid'
     should have_content job.title
     should have_content job.created_at.to_s(:date)
     should have_content job.user.full_name
@@ -196,6 +196,17 @@ feature 'Jobs page' do
 
       grand_total.should eq '$108.00'
       verify_email_notifications(job)
+    end
+
+    scenario 'destroy job' do
+      job = create :job, :with_service, :with_repair
+
+      visit edit_admin_job_path(job)
+
+      expect do
+        click_link 'Delete Job'
+      end.to change { Job.count }.by -1
+      page.should have_css '.alert.alert-info', text: 'Job succesfully deleted.'
     end
   end
 

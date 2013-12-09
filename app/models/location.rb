@@ -1,6 +1,5 @@
 class Location < ActiveRecord::Base
 
-  belongs_to :locatable, polymorphic: true
   belongs_to :state
 
   validates :state, :address, :suburb, :postcode, presence: true
@@ -13,6 +12,8 @@ class Location < ActiveRecord::Base
   after_save :get_coordinates, unless: :skip_geocoding
 
   scope :close_to, -> (latitude, longitude) {
+    raise 'Cant sort by distance from invalid location' unless latitude && longitude
+
     order(%{
       ST_Distance(
         ST_GeographyFromText(
@@ -38,7 +39,7 @@ class Location < ActiveRecord::Base
     state.name
   end
 
-  def is_coordinates_valid?
+  def geocoded?
     longitude && latitude
   end
 end

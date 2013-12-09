@@ -12,7 +12,7 @@ class UserMailer < ActionMailer::Base
 
   def job_assigned(job)
     @job = job
-    mail subject: 'Job assigned', to: job.user.email
+    mail subject: 'Your booking with Mechanio is confirmed', to: job.user.email
   end
 
   def job_quote_changed(job)

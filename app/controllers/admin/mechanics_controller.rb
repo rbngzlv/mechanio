@@ -8,6 +8,7 @@ class Admin::MechanicsController < Admin::ApplicationController
 
   def new
     @mechanic = Mechanic.new
+    build_associations
   end
 
   def create
@@ -23,6 +24,7 @@ class Admin::MechanicsController < Admin::ApplicationController
   end
 
   def edit
+    build_associations
   end
 
   def update
@@ -43,6 +45,11 @@ class Admin::MechanicsController < Admin::ApplicationController
 
   def find_mechanic
     @mechanic = Mechanic.find(params[:id])
+  end
+
+  def build_associations
+    @mechanic.build_location            unless @mechanic.location
+    @mechanic.build_business_location   unless @mechanic.business_location
   end
 
   def permitted_params

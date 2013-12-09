@@ -348,12 +348,17 @@ i.verified-icon {
   color: #000;
 }
 
+.payment-img {
+  margin: 10px auto;
+}
+
 form label {
   font-weight: normal;
 }
 
 form input.form-control {
   border-radius: 0px;
+  -webkit-appearance: none;
   @include box-shadow(0 0 5px #ddd inset);
   border: 1px solid #ddd;
   height: 30px;
@@ -361,6 +366,43 @@ form input.form-control {
 
 a[data-toggle = 'modal'] {
   color: #fff;
+}
+
+.add-promo-label {
+  position: relative;
+
+  + .form-group.promo-group {
+    height: 0;
+    overflow: hidden;
+    margin: 0;
+    @include transition(all .5s ease-in-out);
+  }
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    margin-top: -5px;
+    border: 5px solid rgba(255, 255, 255, 0);
+    border-left-color: #22878e;
+    right: -20px;
+  }
+}
+
+.promo-group > label + div {
+  padding-left: 0px;
+}
+
+.add-promo:checked + label + .form-group {
+  height: 58px;
+  margin-bottom: 10px;
+}
+
+.add-promo:checked + .add-promo-label:after {
+  border-left-color: rgba(255, 255, 255, 0);
+  border-top-color: #22878e;
+  right: -17px;
+  margin-top: -3px;
 }
 
 aside {
@@ -462,6 +504,7 @@ section {
     background: #ddd;
     border-radius: 0;
 
+    &:hover,
     &:focus {
       outline: none;
       background: #ddd;
@@ -611,6 +654,7 @@ section {
       border-radius: 0;
       color: #000 !important;
 
+      &:hover,
       &:focus {
         outline: none;
         background: #fff;
@@ -1031,6 +1075,7 @@ section {
 }
 
 .btn {
+  -webkit-appearance: none;
   @include box-shadow(0 0 3px rgba(0, 0, 0, 0.2) inset);
   border-radius: 0;
   outline: 0;
@@ -1090,6 +1135,10 @@ section {
       padding: 9px 15px;
     }
   }
+}
+
+.panel-heading-border {
+  border-bottom: 1px solid #eaeaea;
 }
 
 .panel-heading {
@@ -1314,7 +1363,7 @@ form {
   z-index: -1;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1025px) {
   .banner > .container {
     padding-top: 20%;
   }
@@ -1350,7 +1399,7 @@ form {
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 769px) {
   .banner .btn {
     margin: 10px 12.5% 0 !important;
   }
@@ -1376,6 +1425,10 @@ form {
     margin: 0 16.6667%;
   }
 
+  .promo-group div + a {
+    margin-top: 5px;
+  }
+
   .marketing .carousel-inner {
     width: 80%;
 
@@ -1384,10 +1437,19 @@ form {
     }
   }
 
+  .promo-group > label + div {
+    padding: 0;
+  }
+
+  .add-promo:checked + label + .form-group {
+    height: 98px;
+    margin-bottom: 10px;
+  }
+
   .nav.nav-pills-wizard > li {
     width: 48%;
     display: inline-block;
-    margin-right: 1%;
+    margin: 5px 1% 0 0;
 
     > a {
       width: 100%;
@@ -1451,7 +1513,7 @@ form {
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 641px) {
   .brand {
     display: inline-block;
     width: 100%;
@@ -1464,11 +1526,27 @@ form {
     li {
       display: block;
       float: none;
+
+      &.active > a {
+        border: 1px solid #ddd;
+        background: #ddd;
+        border-radius: 0;
+
+        &:hover,
+        &:focus {
+          outline: none;
+          background: #ddd;
+        }
+      }
     }
   }
 
   .hidden-phone {
     display: none;
+  }
+
+  .nav.nav-pills-wizard {
+    margin-left: 5px;
   }
 
   .nav.nav-pills-wizard > li {
@@ -1531,7 +1609,7 @@ form {
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 481px) {
   .header > .container {
     padding: 0;
 
@@ -1561,6 +1639,10 @@ form {
     }
   }
 
+  .add-promo:checked + label + .form-group {
+    height: 118px;
+  }
+
   .nav.nav-pills-wizard > li {
     width: 100%;
     margin: 0;
@@ -1569,6 +1651,7 @@ form {
   .home-page-reviews .commentary-block {
     .carousel-inner {
       width: 80%;
+      margin-left: 20%;
     }
   }
 
@@ -1586,5 +1669,12 @@ form {
 
   .our-team > .container {
     padding-bottom: 100px;
+  }
+}
+
+@media (max-height: 640px) {
+  .home-gallery,
+  .banner {
+    height: 500px;
   }
 }

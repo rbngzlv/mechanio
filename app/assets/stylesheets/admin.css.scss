@@ -53,3 +53,25 @@
     }
   }
 }
+
+.tree {
+  max-height: 100% !important;
+
+  ul {
+    margin-left: 30px;
+  }
+
+  li {
+    clear: both;
+  }
+
+  & ul ul ul ul li {
+    float: left;
+    clear: none;
+
+    &::before, &::after {
+      border: none;
+      content: none;
+    }
+  }
+}

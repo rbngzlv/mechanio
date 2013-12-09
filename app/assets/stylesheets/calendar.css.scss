@@ -1,0 +1,19 @@
+.calendar.week-view {
+  .fc-agenda td {
+    cursor: pointer;
+  }
+  .fc-event {
+    border: none;
+    border-radius: 0;
+    cursor: not-allowed;
+  }
+  .fc-event-inner {
+    padding-right: 4px;
+  }
+  .fc-agenda .fc-day-content {
+    padding: 0;
+  }
+  .fc-state-highlight {
+    background: none;
+  }
+}

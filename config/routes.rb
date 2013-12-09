@@ -12,7 +12,9 @@ Mechanio::Application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'home#index'
+  root :to => 'pages#show', :id => 'home'
+
+  get "/pages/*id" => 'pages#show', :as => :page, :format => false
 
   namespace :users do
     get 'dashboard', to: 'dashboard#index'
@@ -29,8 +31,11 @@ Mechanio::Application.routes.draw do
 
   namespace :mechanics do
     get '/', to: 'dashboard#index', as: :dashboard
-    resource :profile, only: [:show, :edit, :update]
+
     resources :jobs, only: [:index, :show]
+    resources :events, only: [:index, :create, :destroy]
+
+    resource :profile, only: [:show, :edit, :update]
     resource :settings, only: [:edit, :update]
   end
 
@@ -46,13 +51,16 @@ Mechanio::Application.routes.draw do
         get 'by_model', action: 'index_by_model'
       end
     end
-    resources :jobs, only: [:index, :edit, :update]
+
+    resources :jobs, only: [:index, :edit, :update, :destroy]
+    resources :regions, only: [:index]
   end
 
   resource :ajax, controller: 'ajax', only: [] do
     get 'models'
     get 'model_variations'
     get 'service_plans'
+    get 'regions'
   end
 
   get '/static/:action', controller: 'static'

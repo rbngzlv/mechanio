@@ -1,5 +1,8 @@
 .row
   .col-md-12
+    = link_to 'Availabilities', mechanics_events_path, class: 'btn btn-info pull-right col-md-2 bottom-margin'
+.row
+  .col-md-12
     .panel.panel-default.panel-rounded
       .panel-heading.clearfix
         %h4.panel-title
@@ -15,7 +18,7 @@
           = f.input :description, label: 'Personal description'
           = f.input :avatar, label: 'Photo', as: :image
           %legend Personal Address
-          = render partial: 'shared/location_form', locals: { f: f }
+          = render partial: 'shared/location_form', locals: { f: f, location_assoc: :location }
           %legend Driver's License
           = f.input :driver_license_number, label: "Driver's license"
           = f.association :license_state, label: 'Registered state', prompt: '-- Please select --'
@@ -32,7 +35,7 @@
           = f.input :abn_expiry, label: 'Expiry date', start_year: Date.today.year, end_year: Date.today.year + 20
           = f.input :abn, label: 'Image', as: :image
           %legend Business Address
-          = render partial: 'shared/location_form', locals: { f: f, location_type: :business_location }
+          = render partial: 'shared/location_form', locals: { f: f, location_assoc: :business_location }
           %legend Motor Mechanic's License
           = f.input :mechanic_license_number, label: 'Number'
           = f.input :mechanic_license_expiry, label: 'Expiry date', start_year: Date.today.year, end_year: Date.today.year + 20
