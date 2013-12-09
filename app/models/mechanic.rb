@@ -5,6 +5,7 @@ class Mechanic < ActiveRecord::Base
   belongs_to :location, dependent: :destroy
   belongs_to :business_location, dependent: :destroy, class_name: "Location"
   has_many :jobs
+  has_many :events
 
   accepts_nested_attributes_for :location
   accepts_nested_attributes_for :business_location, reject_if: :all_blank

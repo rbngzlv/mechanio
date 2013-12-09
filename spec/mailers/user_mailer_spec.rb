@@ -21,11 +21,13 @@ describe UserMailer do
   end
 
   specify '#job_assigned' do
+    job.mechanic = build :mechanic
+    build(:event, :job, job: job)
     mail = UserMailer.job_assigned(job)
     mail.to.should        eq to
     mail.from.should      eq from
-    mail.subject.should   eq 'Job assigned'
-    mail.body.encoded.should match users_estimates_url
+    mail.subject.should   eq 'Your booking with Mechanio is confirmed'
+    mail.body.encoded.should match users_appointments_url
   end
 
   specify '#job_quote_changed' do

@@ -5,6 +5,7 @@ class Job < ActiveRecord::Base
   belongs_to :mechanic
   belongs_to :location, dependent: :destroy
   has_many :tasks, inverse_of: :job, dependent: :destroy
+  has_one :event, dependent: :destroy
 
   accepts_nested_attributes_for :car, :location, update_only: true
   accepts_nested_attributes_for :tasks, allow_destroy: true, reject_if: proc { |attrs| attrs.all? { |k, v| k == 'type' || v.blank? } }
@@ -36,12 +37,14 @@ class Job < ActiveRecord::Base
     state :assigned do
       transition to: :complete, on: :complete
       validates :mechanic, :scheduled_at, presence: true
+      validate :scheduled_at_cannot_be_in_the_past, if: :scheduled_at
+      validate :mechanic_available?, if: [:mechanic, :scheduled_at]
     end
     state :completed
 
     after_transition to: :pending, do: :notify_pending
     after_transition from: [:temporary, :pending], to: :estimated, do: :notify_estimated
-    after_transition from: :estimated, to: :assigned,  do: :notify_assigned
+    after_transition from: :estimated, to: :assigned,  do: [:build_event_from_scheduled_at, :notify_assigned]
 
   end
 
@@ -111,6 +114,10 @@ class Job < ActiveRecord::Base
     assign && save
   end
 
+  def build_event_from_scheduled_at
+    self.build_event(date_start: scheduled_at, time_start: scheduled_at, time_end: scheduled_at + 2.hour, mechanic: mechanic).save
+  end
+
   def car_attributes=(attrs)
     self.car = Car.find(attrs[:id]) if attrs[:id].present?
     super
@@ -144,6 +151,15 @@ class Job < ActiveRecord::Base
 
   def quote_changed?
     !cost_was.nil? && cost_changed?
+  end
+
+  def scheduled_at_cannot_be_in_the_past
+    errors.add(:scheduled_at, "You could not check time slot in the past") if
+      scheduled_at < DateTime.now
+  end
+
+  def mechanic_available?
+    self.errors.add(:scheduled_at, "This mechanic is unavailable in #{scheduled_at}") if EventsManager.new(mechanic).unavailable_at? scheduled_at
   end
 
   def on_quote_change
