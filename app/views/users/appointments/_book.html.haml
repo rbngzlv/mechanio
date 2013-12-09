@@ -1,9 +1,10 @@
 :javascript
   $(function() {
-    var $calendar_#{ id = mechanic.id } = $('.calendar#mechanic_#{ id }'),
-        $form_#{ id } = $calendar_#{ id }.find(' + form #job_scheduled_at');
+    var container = $('.calendar-container#mechanic_#{mechanic.id}'),
+        calendar = container.find('.calendar'),
+        form = container.find('form');
 
-    $calendar_#{ id }.fullCalendar({
+    calendar.fullCalendar({
       header: {
         left: 'title',
         center: '',
@@ -19,12 +20,13 @@
       allDaySlot: false,
       timeFormat: { agenda: '' },
       selectable: true,
-      events: #{ EventsManager.new(mechanic).events_list.to_json },
+      events: #{ EventsManager.new(mechanic).events_list.to_json(only: [:start, :end]) },
       eventClick: function(event) {
         return false;
       },
       dayClick: function(date, allDay, jsEvent, view) {
-        $form_#{ id }.val(date.toString().replace(/GMT\+\d{4}/, 'GMT+0000'));
+        form.find('#job_scheduled_at').val(moment(date).format('YYYY-MM-DDTHH:mm'));
+        form.find('input[type=submit]').attr('disabled', false);
       }
     });
   });
@@ -38,11 +40,11 @@
           - if mechanic.years_as_a_mechanic
             %br #{ mechanic.years_as_a_mechanic } years of experience
 
-      .row
+      .row.calendar-container[mechanic]
         %legend Select Arrival Time
-        .calendar[mechanic]
+        .calendar.week-view
         = simple_form_for @job, url: users_appointment_path, html: { class: 'choose_mechanic_form' }, wrapper: :nolabel do |f|
           = f.hidden_field :scheduled_at, value: nil
           = f.hidden_field :mechanic_id, value: mechanic.id
-          = f.submit 'Book Appointment', class: 'btn btn-info'
+          = f.submit 'Book Appointment', class: 'btn btn-info', disabled: true
     = render 'shared/mechanic/description_popup', mechanic: mechanic

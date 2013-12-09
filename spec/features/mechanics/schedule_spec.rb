@@ -98,8 +98,7 @@ feature 'Mechanic schedule' do
 
       visit mechanics_events_path
 
-      should have_content event.title
-      has_css?('.fc-event', text: event.title).should be_true
+      should have_css('.fc-event', text: event.title)
 
       expect do
         first('.fc-event-title').click

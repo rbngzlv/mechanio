@@ -31,30 +31,34 @@ describe Event do
   end
 
   context '.set_title' do
-    let(:today)             { Date.today }
-    let(:today_short)       { today.to_s(:short) }
-    let(:time_start)        { today + 7.hour }
+    let(:date)              { Date.new(2012, 11, 5) }
+    let(:date_short)        { date.to_s(:short) }
+    let(:time_start)        { date + 7.hour }
     let(:time_end)          { time_start + 2.hour }
     let(:time_range_string) { "#{time_start.to_s(:short)} - #{time_end.strftime('%H:%M')}" }
 
     specify do
-      event = create(:event, recurrence: :weekly)
-      event.title.should be_eql "weekly from #{today_short} for all day event"
+      event = build_stubbed(:event, date_start: date, recurrence: :weekly)
+      event.set_title
+      event.title.should eq "weekly from 5 Nov, all day"
     end
 
     specify do
-      event = create(:event, recurrence: :weekly, time_start: time_start, time_end: time_end)
-      event.title.should be_eql "weekly from #{time_range_string}"
+      event = build_stubbed(:event, date_start: date, recurrence: :weekly, time_start: time_start, time_end: time_end)
+      event.set_title
+      event.title.should eq "weekly from 5 Nov, 07:00 - 09:00"
     end
 
     specify do
-      event = create(:event)
-      event.title.should be_eql "whole day"
+      event = build_stubbed(:event, date_start: date)
+      event.set_title
+      event.title.should eq "all day"
     end
 
     specify do
-      event = create(:event, time_start: time_start, time_end: time_end)
-      event.title.should be_eql "#{time_range_string}"
+      event = build_stubbed(:event, date_start: date, time_start: time_start, time_end: time_end)
+      event.set_title
+      event.title.should eq "07:00 - 09:00"
     end
   end
 end

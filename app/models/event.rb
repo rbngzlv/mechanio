@@ -14,9 +14,8 @@ class Event < ActiveRecord::Base
 
   def set_title
     self.title = case
-      when recurrence then "#{recurrence} from #{(time_start ? time_range_string : "#{date_start.to_s(:short)} for all day event")}"
-      when time_start then time_range_string
-      else "whole day"
+      when recurrence then "#{recurrence} from #{date_start_short}, #{time_range}"
+      else time_range
     end
   end
 
@@ -30,7 +29,12 @@ class Event < ActiveRecord::Base
   end
 
   private
-  def time_range_string
-    "#{time_start.to_s(:short)} - #{time_end.strftime('%H:%M')}"
+
+  def time_range
+    time_start ? "#{time_start.strftime('%H:%M')} - #{time_end.strftime('%H:%M')}" : "all day"
+  end
+
+  def date_start_short
+    date_start.strftime('%-d %b')
   end
 end
