@@ -20,7 +20,9 @@ Mechanio::Application.routes.draw do
     get 'dashboard', to: 'dashboard#index'
     get 'estimates', to: 'estimates#index'
 
-    resources :jobs, only: [:show, :create]
+    resources :jobs, only: [:show, :create] do
+      resource :credit_card, only: [:new, :create]
+    end
     resources :appointments, only: [:index, :edit, :update]
     resources :cars, only: [:index, :destroy]
 

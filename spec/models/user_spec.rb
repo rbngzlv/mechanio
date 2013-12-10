@@ -35,4 +35,31 @@ describe User do
       user.cars.first.should be_eql car
     end
   end
+
+  describe '#add_credit_card', :vcr do
+    let(:successful_card)   { { number: '4111 1111 1111 1111', cvv: '123', expiration_date: '11/08' } }
+    let(:unsuccessful_card) { { number: '4000 1111 1111 1115', cvv: '123', expiration_date: '11/08' } }
+
+    it 'creates braintree customer with a card' do
+      expect {
+        user.add_credit_card(successful_card)
+      }.to change{user.credit_cards.count}.by(1)
+      user.braintree_customer_id.should eq '12506094'
+    end
+
+    it 'add a card to existing braintree customer' do
+      response = braintree_client.create_customer(user.as_json(only: [:first_name, :last_name, :email]))
+      user.braintree_customer_id = response.customer.id
+
+      expect {
+        user.add_credit_card(successful_card)
+      }.to change{user.credit_cards.count}.by(1)
+    end
+
+    it 'returns false on failure' do
+      expect {
+        user.add_credit_card(unsuccessful_card).should be_false
+      }.not_to change{user.credit_cards.count}
+    end
+  end
 end
