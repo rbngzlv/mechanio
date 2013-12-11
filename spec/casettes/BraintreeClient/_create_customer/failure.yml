@@ -1,0 +1,72 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://xsnkb8dmqmfrfb4r:160beebf023a1ca963715e93c7081789@api.sandbox.braintreegateway.com/merchants/6vhxxkp32z28zgp5/customers
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" encoding="UTF-8"?>
+        <customer>
+          <first-name>John</first-name>
+          <last-name>User</last-name>
+          <email>invalid</email>
+        </customer>
+    headers:
+      Accept-Encoding:
+      - gzip
+      Accept:
+      - application/xml
+      User-Agent:
+      - Braintree Ruby Gem 2.26.0
+      X-Apiversion:
+      - '3'
+      Content-Type:
+      - application/xml
+  response:
+    status:
+      code: 422
+      message: Unprocessable Entity
+    headers:
+      Date:
+      - Wed, 20 Nov 2013 14:37:11 GMT
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Authentication:
+      - basic_auth
+      X-User:
+      - wvn64vrrh977kct3
+      Strict-Transport-Security:
+      - max-age=31536000
+      X-Request-Id:
+      - 7316ff1c72ed297ad1d5f728a4fb9d8b
+      X-Runtime:
+      - '0.040234'
+      X-Broxyid:
+      - 97eb0d86-4e02-4244-84e2-518c5526ae2c
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Cache-Control:
+      - no-cache
+      Content-Type:
+      - application/xml; charset=utf-8
+      Vary:
+      - Accept-Encoding
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '257'
+      Connection:
+      - close
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA5VSy47CMAy88xVR7iUgoRWHNJx2D3tePsBQA5HyqOyA6N8v
+        LU1bpHLg5vFM7PEoenf3TtyQ2MZQyvVyJQWGY6xsOJdy//dTbOXOLDTUtkCi
+        SAUh1zEwmoUQumtxWw5ApKbGUgIRNFL11PHKKXqkJ5zXZi6zI24HxArNdv21
+        2mjV1VMSUiJ7uCbs53HjD9FJgx6s02qgXx55ZIYzmu9WJCwLCMKGGzhbiVMk
+        D2mpVRaN1tSLtx7mBNT0zimnayDw/C6NkyVORQCP5jdeglaTRtY4yJ09I2k1
+        4iHT9hLT3/DY3sFZY6ObD2N4hDnzEf4BbyMPfkUCAAA=
+    http_version: 
+  recorded_at: Wed, 20 Nov 2013 14:37:12 GMT
+recorded_with: VCR 2.6.0

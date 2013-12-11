@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
 
   has_many :cars, -> { where deleted_at: nil }
   has_many :jobs
+  has_many :credit_cards
 
   mount_uploader :avatar, ImgUploader
 

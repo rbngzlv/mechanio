@@ -13,9 +13,9 @@ class Users::AppointmentsController < Users::ApplicationController
   def update
     attrs = params.require(:job).permit(:scheduled_at, :mechanic_id)
     if @job.assign_mechanic(attrs)
-      redirect_to users_appointments_path, notice: 'Appointment booked'
+      redirect_to new_users_job_credit_card_path(@job), notice: 'Appointment booked'
     else
-      flash[:error] = @job.errors[:scheduled_at] == ["can't be blank"] ? 'Choose time slot(s) please.' : @job.errors[:scheduled_at].first
+      flash[:error] = @job.errors.full_messages.join(', ')
       render :edit
     end
   end

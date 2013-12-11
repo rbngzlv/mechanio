@@ -1,13 +1,10 @@
 class ImageInput < SimpleForm::Inputs::FileInput
   def input
-    version = :thumb
-    wrap_class = input_html_options.delete(:wrap_class)
-    input_html_options[:class].delete 'form-control'
+    version     = options.delete(:version) || :thumb
+    image_url   = object.send("#{attribute_name}_url", version)
     out = ''
-    if object.send "#{attribute_name}?"
-      out << template.image_tag(object.send(attribute_name).tap {|o| break o.send version if version}.send 'url')
-    end
-    out << @builder.file_field(attribute_name, input_html_options)
-    template.content_tag :div, out.html_safe, class: wrap_class
+    out += template.image_tag(image_url) if image_url
+    out += @builder.file_field(attribute_name, input_html_options)
+    template.content_tag :div, out.html_safe, class: input_html_options.delete(:wrap_class)
   end
 end

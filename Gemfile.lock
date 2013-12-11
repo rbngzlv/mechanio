@@ -41,6 +41,8 @@ GEM
     bootstrap-sass-rails (3.0.0.2)
       railties (>= 3.1.0)
       sass-rails (>= 3.1.0)
+    braintree (2.26.0)
+      builder (>= 2.0.0)
     builder (3.1.4)
     capistrano (2.15.5)
       highline
@@ -293,6 +295,7 @@ DEPENDENCIES
   ancestry
   awesome_print
   bootstrap-sass-rails
+  braintree
   capistrano
   capistrano-ext
   capistrano-resque
