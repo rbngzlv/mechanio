@@ -27,7 +27,7 @@ class Mechanic < ActiveRecord::Base
   }
 
   def self.by_location(location)
-    if location_geocoded?
+    if location.geocoded?
       close_to(location.latitude, location.longitude)
     else
       joins(:location).where(locations: { postcode: location.postcode })
