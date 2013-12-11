@@ -20,12 +20,14 @@ class Mechanic < ActiveRecord::Base
   belongs_to :license_state, class_name: 'State'
   belongs_to :mechanic_license_state, class_name: 'State'
 
+  delegate :geocoded?, to: :location, prefix: true, allow_nil: true
+
   scope :close_to, -> (latitude, longitude) {
     joins(:location).merge(Location.close_to(latitude, longitude))
   }
 
   def self.by_location(location)
-    if location.geocoded?
+    if location_geocoded?
       close_to(location.latitude, location.longitude)
     else
       joins(:location).where(locations: { postcode: location.postcode })
