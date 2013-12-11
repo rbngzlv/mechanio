@@ -111,18 +111,6 @@ class Job < ActiveRecord::Base
     )
   end
 
-  def pay
-    if braintree_client.pay_for_job(self)
-      self.complete!
-    else
-      self.payment_error!
-    end
-  end
-
-  def braintree_client
-    @client ||= BraintreeClient.new(user)
-  end
-
   def has_service?
     tasks.any? { |t| t.is_a?(Service) }
   end

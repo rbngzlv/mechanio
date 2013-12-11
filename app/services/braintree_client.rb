@@ -1,7 +1,5 @@
 require 'braintree'
 
-class BraintreeClientError < StandardError; end
-
 class BraintreeClient
 
   def create_customer(customer_fields)

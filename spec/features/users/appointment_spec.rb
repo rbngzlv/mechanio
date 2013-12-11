@@ -19,71 +19,30 @@ feature 'Appointments' do
     current_path.should be_eql edit_users_appointment_path(job)
   end
 
-  it 'booking - lists mechanics and shows mechanic popup', :js do
-    visit edit_users_appointment_path(job)
 
-    click_link mechanic.full_name
-    should have_css "#js-mechanic-#{mechanic.id}", visible: true
-  end
-
-  context 'selects a mechanic through schedule' do
+  context 'book appointment', :js do
     before { visit edit_users_appointment_path(job) }
 
-    scenario 'check calendar', :js do
-      find('tbody tr:nth-of-type(5) td.fc-widget-content').click
-      expected_datetime = Date.today + 3.day + 17.hour
-      find('#job_scheduled_at', visible: false)[:value].should include expected_datetime.strftime('%b %d %Y %T GMT+0000')
-    end
-
-    scenario 'choose unavailable slot' do
-      click_button 'Book Appointment'
-      should have_selector('.alert.alert-danger', text: 'Choose time slot(s) please.')
-    end
-
-    scenario 'choose unavailable slot' do
-      create :event, mechanic: mechanic, date_start: Date.tomorrow
-      find('#job_scheduled_at').set(scheduled_at = Date.tomorrow + 9.hour)
-      click_button 'Book Appointment'
-      should have_content("This mechanic is unavailable in #{scheduled_at}")
-    end
-
-    scenario 'choose previous perioud' do
-      find('#job_scheduled_at').set(Date.yesterday + 9.hour)
-      click_button 'Book Appointment'
-      should have_content('You could not check time slot in the past')
+    it 'shows mechanic popup' do
+      click_link mechanic.full_name
+      should have_css "#js-mechanic-#{mechanic.id}", visible: true
     end
 
     scenario 'success' do
-      create :event, mechanic: mechanic, date_start: Date.tomorrow + 3.day
-      event_date_start = Date.tomorrow
-      event_time_start = event_date_start + 9.hour
-      find('#job_scheduled_at').set(event_time_start)
+      select_date
       click_button 'Book Appointment'
 
-      should have_css 'li.active', text: 'My Appointments'
       should have_content 'Appointment booked'
+      should have_content 'Payment Process'
 
       job.reload.mechanic.should eq mechanic
       job.assigned?.should be_true
-
-      event = mechanic.events.last
-      event.date_start.should be_eql event_date_start
-      (event.date_start + event.time_start.hour.hour).should be_eql event_time_start
-      (event.date_start + event.time_end.hour.hour).should be_eql event_time_start + 2.hour
-
+      mechanic.events.count.should eq 1
       mail_deliveries.count.should eq 3
-      mail_deliveries[0].tap do |m|
-        m.to.should eq ['admin@example.com']
-        m.subject.should eq 'Job assigned'
-      end
-      mail_deliveries[1].tap do |m|
-        m.to.should eq [user.email]
-        m.subject.should eq 'Your booking with Mechanio is confirmed'
-      end
-      mail_deliveries[2].tap do |m|
-        m.to.should eq [mechanic.email]
-        m.subject.should eq 'Congratulations, you’ve been scheduled a job.'
-      end
+    end
+
+    def select_date
+      find('.fc-agenda-slots tr:nth-of-type(5) td.fc-widget-content').click
     end
   end
 

@@ -9,7 +9,7 @@ class Users::CreditCardsController < Users::ApplicationController
 
   def create
     credit_card_params = params.require(:credit_card).permit(:cardholder_name, :number, :cvv, :expiration_date)
-    if current_user.add_credit_card(credit_card_params)
+    if payment_service.verify_card(current_user, @job, credit_card_params)
       redirect_to users_appointments_path, notice: 'Payment method verified'
     else
       @error = true
@@ -20,7 +20,11 @@ class Users::CreditCardsController < Users::ApplicationController
   private
 
   def find_job
-    @job = Job.assigned.find(params[:job_id])
+    @job = current_user.jobs.assigned.find(params[:job_id])
     @mechanic = @job.mechanic
+  end
+
+  def payment_service
+    PaymentService.new
   end
 end

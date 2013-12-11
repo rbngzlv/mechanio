@@ -160,28 +160,6 @@ describe Job do
     end
   end
 
-  context '#pay' do
-    let(:job) { create :job, :with_service, :confirmed }
-
-    specify 'success' do
-      BraintreeClient.any_instance.stub(create_transaction: double(
-        success?: true,
-        transaction: double(id: '1001', status: 'ok')
-      ))
-      job.pay
-      job.reload.status.should eq 'completed'
-    end
-
-    specify 'failure' do
-      BraintreeClient.any_instance.stub(create_transaction: double(
-        success?: false,
-        transaction: double(id: '1001', status: 'ok')
-      ))
-      job.pay
-      job.reload.status.should eq 'payment_error'
-    end
-  end
-
   describe '#location_geocoded?' do
     it 'is false when location is not geocoded' do
       job.location = build_stubbed(:location)

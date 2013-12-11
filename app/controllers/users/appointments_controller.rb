@@ -15,7 +15,7 @@ class Users::AppointmentsController < Users::ApplicationController
     if @job.assign_mechanic(attrs)
       redirect_to new_users_job_credit_card_path(@job), notice: 'Appointment booked'
     else
-      flash[:error] = @job.errors.full_messages
+      flash[:error] = @job.errors.full_messages.join(', ')
       render :edit
     end
   end
