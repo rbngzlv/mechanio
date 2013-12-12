@@ -19,6 +19,7 @@ RSpec.configure do |config|
   config.include Devise::TestHelpers, type: :controller
   config.include ControllerMacros, type: :controller
   config.include FeatureMacros, type: :feature
+  config.include ScreenshotHelper, type: :feature
   config.include MailerAliasMethods
 
   config.treat_symbols_as_metadata_keys_with_true_values = true
