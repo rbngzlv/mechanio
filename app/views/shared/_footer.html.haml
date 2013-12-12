@@ -23,4 +23,4 @@
           = link_to '#' do
             %i.icon-google-plus-sign
 
-= render 'shared/login_form'
+= render 'shared/login_form' if resource_name == :user && !user_signed_in?
