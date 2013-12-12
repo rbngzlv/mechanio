@@ -1,12 +1,12 @@
 %h2 Sign up
 .row
   .col-md-4
-    = simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+    = simple_form_for(resource, as: resource_name, url: registration_path(resource_name), defaults: { label: false, input_html: { autocomplete: 'off' }}) do |f|
       = f.error_notification
-      = f.input :first_name, label: false, placeholder: 'First name', input_html: { autocomplete: 'off' }
-      = f.input :last_name, label: false, placeholder: 'Last name', input_html: { autocomplete: 'off' }
-      = f.input :email, autofocus: true, label: false, placeholder: 'Email', input_html: { autocomplete: 'off' }
-      = f.input :password, label: false, placeholder: 'Password', input_html: { autocomplete: 'off' }
+      = f.input :first_name, placeholder: 'First name', autofocus: true
+      = f.input :last_name, placeholder: 'Last name'
+      = f.input :email, placeholder: 'Email'
+      = f.input :password, placeholder: 'Password'
       = f.button :submit, "Sign up"
 
     %br
