@@ -1,0 +1,24 @@
+%h4 Manage users
+
+- if @users.empty?
+  .panel.panel-default
+    .panel-body.text-center
+      No users yet
+-else
+  .table-responsive
+    %table.table.table-striped
+      %thead
+        %tr
+          %th.col-md-3 Name
+          %th Email
+          %th.col-md-2 Signup date
+          %th.col-md-1
+      %tbody
+      - @users.each do |u|
+        %tr
+          %td= u.full_name
+          %td= u.email
+          %td= u.created_at.to_s(:short)
+          %td.text-right= link_to "Details", admins_user_path(u)
+
+  = paginate @users

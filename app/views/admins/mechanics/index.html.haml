@@ -1,0 +1,28 @@
+= link_to "Add mechanic", new_admins_mechanic_path, class: 'btn btn-primary navbar-btn pull-right'
+%h4 Manage mechanics
+.clearfix
+
+- if @mechanics.empty?
+  .panel.panel-default
+    .panel-body.text-center
+      No mechanics yet
+-else
+  .table-responsive
+    %table.table.table-striped
+      %thead
+        %tr
+          %th.col-md-3 Name
+          %th Email
+          %th Location Valid
+          %th.col-md-2 Signup date
+          %th.col-md-1
+      %tbody
+        - @mechanics.each do |u|
+          %tr
+            %td= u.full_name
+            %td= u.email
+            %td= location_status(u.location)
+            %td= u.created_at.to_s(:short)
+            %td.text-right= link_to "Edit", edit_admins_mechanic_path(u)
+
+  = paginate @mechanics

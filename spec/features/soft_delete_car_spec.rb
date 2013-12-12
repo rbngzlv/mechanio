@@ -43,10 +43,10 @@ feature 'Soft delete car' do
   context 'Admin pages' do
     scenario 'edit job page' do
       login_admin
-      visit edit_admin_job_path(job)
+      visit edit_admins_job_path(job)
       should have_content car_name
       delete_car
-      visit edit_admin_job_path(job)
+      visit edit_admins_job_path(job)
       should have_content car_name
     end
   end

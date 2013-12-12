@@ -10,7 +10,7 @@ describe AdminMailer do
     mail.to.should        eq to
     mail.from.should      eq from
     mail.subject.should   eq 'New pending job'
-    mail.body.encoded.should match edit_admin_job_url(job.id)
+    mail.body.encoded.should match edit_admins_job_url(job.id)
   end
 
   specify '#job_estimated' do
@@ -18,7 +18,7 @@ describe AdminMailer do
     mail.to.should        eq to
     mail.from.should      eq from
     mail.subject.should   eq 'Job estimated'
-    mail.body.encoded.should match edit_admin_job_url(job.id)
+    mail.body.encoded.should match edit_admins_job_url(job.id)
   end
 
   specify '#job_assigned' do
@@ -26,7 +26,7 @@ describe AdminMailer do
     mail.to.should        eq to
     mail.from.should      eq from
     mail.subject.should   eq 'Job assigned'
-    mail.body.encoded.should match edit_admin_job_url(job.id)
+    mail.body.encoded.should match edit_admins_job_url(job.id)
   end
 
   specify '#job_quote_changed' do
@@ -34,6 +34,6 @@ describe AdminMailer do
     mail.to.should        eq to
     mail.from.should      eq from
     mail.subject.should   eq 'Job quote updated'
-    mail.body.encoded.should match edit_admin_job_url(job.id)
+    mail.body.encoded.should match edit_admins_job_url(job.id)
   end
 end

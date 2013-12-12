@@ -13,9 +13,13 @@ describe 'Static Pages' do
     end
 
     it 'has feature to prefill email for signup page' do
-      fill_in 'youremail@address.com', with: 'prefill_test@example.com'
-      click_button 'SIGN UP'
-      find_field('user_email').value.should eq 'prefill_test@example.com'
+      within '.sign-up-wrap' do
+        fill_in 'user_email', with: 'prefill_test@example.com'
+        click_button 'SIGN UP'
+      end
+      within '.wrap > .container' do
+        find_field('user_email').value.should eq 'prefill_test@example.com'
+      end
     end
 
     it 'has footer with static pages navigation' do

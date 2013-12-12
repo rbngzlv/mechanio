@@ -1,0 +1,8 @@
+%tr
+  %td= job_status(job.status)
+  %td= job.title
+  %td= job.created_at.to_s(:date)
+  %td= job.mechanic ? job.mechanic.full_name : 'unassigned'
+  %td= job.scheduled_at.to_s(:date_time) if job.scheduled_at
+  %td= job.cost || 'pending'
+  %td= link_to 'Edit', edit_admins_job_path(job)

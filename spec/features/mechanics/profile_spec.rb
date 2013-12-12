@@ -38,8 +38,7 @@ feature 'mechanic profile page' do
     scenario "fail" do
       fill_in 'First name', with: ''
       click_button "Save"
-      should have_selector '.has-error', text: 'First name'
-      should have_content "can't be blank"
+      should have_selector '.has-error', text: "can't be blank"
     end
 
     context 'success' do

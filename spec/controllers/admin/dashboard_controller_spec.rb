@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Admin::DashboardController do
+describe Admins::DashboardController do
 
   it 'redirects when not logged in' do
     get :index

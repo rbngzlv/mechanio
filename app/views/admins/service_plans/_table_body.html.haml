@@ -1,0 +1,9 @@
+- if @service_plans.empty?
+  %tr
+    %td.text-center{colspan: 2}
+      %h5 No service plans
+- else
+  - @service_plans.each do |s|
+    %tr
+      %td= s.display_title
+      %td.text-right= link_to "Edit", edit_admins_service_plan_path(s)

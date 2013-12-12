@@ -2,7 +2,7 @@ require 'resque/server'
 
 Mechanio::Application.routes.draw do
 
-  devise_for :admin
+  devise_for :admins
   devise_for :mechanics
   devise_for :users, controllers: { registrations: "users/registrations" }
 
@@ -41,7 +41,7 @@ Mechanio::Application.routes.draw do
     resource :settings, only: [:edit, :update]
   end
 
-  namespace :admin do
+  namespace :admins do
     get '/', to: 'dashboard#index', as: :dashboard
 
     resources :users
@@ -111,8 +111,8 @@ Mechanio::Application.routes.draw do
 
   # Example resource route within a namespace:
   #   namespace :admin do
-  #     # Directs /admin/products/* to Admin::ProductsController
-  #     # (app/controllers/admin/products_controller.rb)
+  #     # Directs /admins/products/* to Admins::ProductsController
+  #     # (app/controllers/admins/products_controller.rb)
   #     resources :products
   #   end
 end

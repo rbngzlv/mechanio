@@ -1,0 +1,42 @@
+= simple_form_for [:admins, @mechanic], html: { class: 'form-horizontal admin_mechanic_form', multipart: true }, defaults: { label_html: { class: 'col-md-2 col-sm-2' } }, wrapper: :bootstrap_horizontal do |f|
+  = f.error_notification
+  = f.input :first_name
+  = f.input :last_name
+  = f.input :dob, label: 'Date of birth', input_html: { class: 'form-control' }, start_year: Date.today.year - 60, end_year: Date.today.year - 18
+  = f.input :email, label: 'Personal email'
+  = f.input :description, label: 'Personal description'
+  = f.input :avatar, label: 'Photo', as: :image, wrapper: :bootstrap, input_html: { wrap_class: 'col-md-4 col-sm-5' }
+  %legend Personal Address
+  = render partial: 'shared/location_form', locals: { f: f, location_assoc: :location }
+  %legend Verified Statuses
+  = f.input :phone_verified
+  = f.input :super_mechanic
+  = f.input :warranty_covered
+  = f.input :qualification_verified
+  %legend Driver License
+  = f.input :driver_license_number, label: "Driver's license"
+  = f.association :license_state, label: 'Registered state', prompt: '-- Please select --'
+  = f.input :license_expiry, label: 'Expiry date', input_html: { class: 'form-control' }, start_year: Date.today.year, end_year: Date.today.year + 20
+  = f.input :driver_license, label: 'Image', as: :image, wrapper: :bootstrap, input_html: { wrap_class: 'col-md-4 col-sm-5' }
+  %legend Business Details
+  = f.input :business_website
+  = f.input :business_email
+  = f.input :years_as_a_mechanic
+  = f.input :mobile_number
+  = f.input :other_number
+  %legend ABN
+  = f.input :abn_name, label: 'ABN name'
+  = f.input :abn_number, label: 'ABN number'
+  = f.input :abn_expiry, label: 'Expiry date', input_html: { class: 'form-control' }, start_year: Date.today.year, end_year: Date.today.year + 20
+  = f.input :abn, label: 'Image', as: :image, wrapper: :bootstrap, input_html: { wrap_class: 'col-md-4 col-sm-5' }
+  %legend Business Address
+  = render partial: 'shared/location_form', locals: { f: f, location_assoc: :business_location }
+  %legend Motor Mechanics License
+  = f.input :mechanic_license_number, label: 'Number'
+  = f.input :mechanic_license_expiry, label: 'Expiry date', input_html: { class: 'form-control' }, start_year: Date.today.year, end_year: Date.today.year + 20
+  = f.association :mechanic_license_state, label: 'Registered state', prompt: '-- Please select --'
+  = f.input :mechanic_license, label: 'Image', as: :image, wrapper: :bootstrap, input_html: { wrap_class: 'col-md-4 col-sm-5' }
+  %hr.hr-dark-gray
+  .form-group
+    .col-md-offset-2.col-md-4
+      = f.submit 'Save', class: 'btn btn-primary col-md-3 col-sm-4'

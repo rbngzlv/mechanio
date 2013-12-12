@@ -1,0 +1,4 @@
+= simple_form_for [:admins, @service_plan], url: by_model_admins_service_plans_path, method: :get, wrapper: :nolabel_sm, html: { class: 'form-inline' } do |f|
+  = f.association :make, include_blank: '-- Make --', input_html: { style: 'width: 15em', 'ng-model' => 'make_id', 'ng-change' => 'loadModels()' }
+  = f.association :model, include_blank: '-- Model --', collection: [], input_html: { style: 'width: 15em', 'ng-model' => 'model_id', 'ng-disabled' => '!make_id', 'ng-options' => 'm.id as m.name for m in models', 'ng-change' => 'loadModelVariations()' }
+  = f.association :model_variation, include_blank: '-- Model variation --', collection: [], input_html: { style: 'width: 25em', 'ng-model' => 'model_variation', 'ng-disabled' => '!model_id', 'ng-options' => 'v as v.title_with_year for v in model_variations', 'ng-change' => 'loadServicePlans()' }
