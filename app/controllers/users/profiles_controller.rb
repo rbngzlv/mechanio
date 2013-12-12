@@ -3,6 +3,7 @@ class Users::ProfilesController < Users::ApplicationController
   end
 
   def edit
+    current_user.build_location unless current_user.location
   end
 
   def update
@@ -17,8 +18,8 @@ class Users::ProfilesController < Users::ApplicationController
 
   def permitted_params
     params.require(:user).permit(
-      :first_name, :last_name, :email, :dob,
-      :description, :mobile_number, :avatar
+      :first_name, :last_name, :email, :dob, :description, :mobile_number, :avatar,
+      { location_attributes: [:address, :suburb, :postcode, :state_id] }
     )
   end
 end

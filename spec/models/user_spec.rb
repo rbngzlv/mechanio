@@ -4,6 +4,11 @@ describe User do
 
   let(:user) { build :user }
 
+  it { should have_many :cars }
+  it { should have_many :jobs }
+  it { should have_many :credit_cards }
+  it { should belong_to :location }
+
   it { should validate_presence_of :first_name }
   it { should validate_presence_of :last_name }
   it { should validate_presence_of :email }

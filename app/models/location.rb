@@ -2,10 +2,10 @@ class Location < ActiveRecord::Base
 
   belongs_to :state
 
-  validates :state, :address, :suburb, :postcode, presence: true
-  validates :postcode, postcode: true
+  validates :state, :address, :suburb, :postcode, presence: true, unless: :skip_validation
+  validates :postcode, postcode: true, unless: :postcode_blank?
 
-  attr_accessor :skip_geocoding
+  attr_accessor :skip_geocoding, :skip_validation
 
   geocoded_by :geocoding_address
 
@@ -41,5 +41,9 @@ class Location < ActiveRecord::Base
 
   def geocoded?
     longitude && latitude
+  end
+
+  def postcode_blank?
+    postcode.blank?
   end
 end

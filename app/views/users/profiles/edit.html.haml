@@ -13,6 +13,7 @@
           = f.input :email
           = f.input :dob, label: 'Date of birth', input_html: { class: 'form-control' }, start_year: Date.today.year - 60, end_year: Date.today.year - 18
           = f.input :mobile_number
+          = render partial: 'shared/location_form', locals: { f: f, location_assoc: :location, defaults: { required: false } }
           = f.input :description, label: 'Personal description'
           = f.input :avatar, label: 'Photo', as: :image, wrapper: :bootstrap, input_html: { wrap_class: 'col-md-6' }
           %hr.hr-dark-gray

@@ -1,4 +1,5 @@
-= f.simple_fields_for location_assoc do |l|
+- defaults ||= defaults || {}
+= f.simple_fields_for(location_assoc, defaults: f.options[:defaults].merge(defaults)) do |l|
   = l.input :address
   = l.input :suburb
   = l.input :postcode

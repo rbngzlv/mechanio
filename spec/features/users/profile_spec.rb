@@ -36,10 +36,14 @@ feature 'user profile' do
       scenario "upload avatar" do
         attach_file('user_avatar', "#{Rails.root}/spec/features/fixtures/test_img.jpg")
         fill_in 'Personal description', with: (description = 'my description')
+        fill_in 'Address', with: 'address 123'
 
         click_button 'Save'
         should have_content 'Your profile succesfully updated.'
         find('img.avatar')['src'].should have_content user.reload.avatar_url :thumb
+
+        click_on 'Edit Profile'
+        should have_field 'Address', with: 'address 123'
 
         within('.wrap > .container') { click_link 'Dashboard' }
         should have_content description

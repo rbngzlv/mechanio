@@ -8,10 +8,18 @@ class User < ActiveRecord::Base
   has_many :cars, -> { where deleted_at: nil }
   has_many :jobs
   has_many :credit_cards
+  belongs_to :location, dependent: :destroy
+
+  accepts_nested_attributes_for :location, reject_if: :all_blank
 
   mount_uploader :avatar, ImgUploader
 
   validates :first_name, :last_name, :email, presence: true
+
+  def location_attributes=(attrs)
+    attrs[:skip_validation] = true
+    super
+  end
 
   def full_name
     "#{first_name} #{last_name}"

@@ -354,7 +354,8 @@ CREATE TABLE locations (
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     latitude numeric(12,8),
-    longitude numeric(12,8)
+    longitude numeric(12,8),
+    city character varying(255)
 );
 
 
@@ -903,7 +904,8 @@ CREATE TABLE users (
     mobile_number character varying(255),
     description text,
     avatar character varying(255),
-    braintree_customer_id character varying(255)
+    braintree_customer_id character varying(255),
+    location_id integer
 );
 
 
@@ -1357,6 +1359,13 @@ CREATE UNIQUE INDEX index_users_on_email ON users USING btree (email);
 
 
 --
+-- Name: index_users_on_location_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_users_on_location_id ON users USING btree (location_id);
+
+
+--
 -- Name: index_users_on_reset_password_token; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1520,3 +1529,7 @@ INSERT INTO schema_migrations (version) VALUES ('20131125150816');
 INSERT INTO schema_migrations (version) VALUES ('20131127134406');
 
 INSERT INTO schema_migrations (version) VALUES ('20131204152756');
+
+INSERT INTO schema_migrations (version) VALUES ('20131212202413');
+
+INSERT INTO schema_migrations (version) VALUES ('20131212202952');
