@@ -91,10 +91,19 @@ class Job < ActiveRecord::Base
   end
 
   def self.convert_from_temporary(id, user)
-    job = unscoped.with_status(:temporary).find(id)
+    job = find_temporary(id)
     job.user_id = user.id
     job.update(self.whitelist(job.serialized_params))
     job
+  end
+
+  def self.find_temporary(id)
+    unscoped.with_status(:temporary).find(id)
+  end
+
+  def self.get_location_from_temporary(id)
+    job = find_temporary(id) rescue nil
+    job.serialized_params[:job][:location_attributes] if job
   end
 
   def self.whitelist(params)

@@ -16,6 +16,16 @@ class User < ActiveRecord::Base
 
   validates :first_name, :last_name, :email, presence: true
 
+  def self.new_with_session(params, session)
+    super.tap do |user|
+      if session[:tmp_job_id]
+        attrs = Job.get_location_from_temporary(session[:tmp_job_id]) || {}
+        attrs = ActionController::Parameters.new(attrs).permit(:address, :suburb, :postcode, :state_id)
+        user.build_location(attrs)
+      end
+    end
+  end
+
   def location_attributes=(attrs)
     attrs[:skip_validation] = true
     super

@@ -14,7 +14,7 @@ describe 'Service wizard', js: true do
     reset_mail_deliveries
   end
 
-  it 'asks new user to login after Contact step' do
+  it 'asks user to login after Contact step' do
     visit root_path
     click_on 'Car Needs Servicing'
 
@@ -38,7 +38,43 @@ describe 'Service wizard', js: true do
 
     verify_quote
     verify_email_notification
-    verify_job_created
+    verify_job_created(user)
+  end
+
+  it 'saves location in profile when a new user signs up' do
+    visit service_path
+
+    verify_current_step 'Car Details'
+    add_new_car
+
+    verify_current_step 'Diagnose'
+    verify_sidebar 2, 'VEHICLE', variation.display_title
+    select_service_plan
+
+    verify_current_step 'Contact'
+    verify_sidebar 3, 'CAR SERVICING', service_plan.display_title
+    fill_in_address
+
+    page.should have_css '#login-modal'
+    within '#login-modal' do
+      click_on 'Sign up'
+    end
+
+    page.should have_css '#register-modal'
+    within('#register-modal') do
+      fill_in 'user_first_name', with: 'First'
+      fill_in 'user_last_name', with: 'Last'
+      fill_in 'user_email', with: 'email@host.com'
+      fill_in 'user_password', with: 'password'
+      click_on 'Sign up'
+    end
+
+    verify_quote
+    # verify_email_notification
+    verify_job_created(User.last)
+
+    visit edit_users_profile_path
+    page.should have_field 'Address', with: 'Broadway 54, ap. 1'
   end
 
   it 'lists existing user cars' do
@@ -60,12 +96,8 @@ describe 'Service wizard', js: true do
 
     verify_quote
     verify_email_notification
-    verify_job_created
+    verify_job_created(user)
   end
-
-def screen
-  page.driver.render('/Users/bob/Desktop/screen.png', full: true)
-end
 
   def add_new_car
     page.should have_css 'h5', text: 'ADD YOUR VEHICLE'
@@ -134,7 +166,7 @@ end
     end
   end
 
-  def verify_job_created
+  def verify_job_created(user)
     user.reload.jobs.count.should eq 1
     user.jobs.last.tap do |j|
       j.status.should eq 'estimated'
