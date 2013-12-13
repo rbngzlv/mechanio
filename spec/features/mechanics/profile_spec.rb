@@ -17,6 +17,7 @@ feature 'mechanic profile page' do
     scenario 'mechanic details' do
       should have_content mechanic.full_name
       find('img.avatar')['src'].should have_content '/assets/photo.jpg'
+
       should have_content "#{mechanic.reviews} Review"
       should have_content mechanic.description
     end
@@ -38,6 +39,8 @@ feature 'mechanic profile page' do
     scenario "fail" do
       fill_in 'First name', with: ''
       click_button "Save"
+
+      should have_content 'Please review the problems below'
       should have_selector '.has-error', text: "can't be blank"
     end
 
@@ -45,6 +48,7 @@ feature 'mechanic profile page' do
       scenario "upload avatar" do
         attach_file('mechanic_avatar', "#{Rails.root}/spec/features/fixtures/test_img.jpg")
         click_button 'Save'
+
         should have_content 'Your profile succesfully updated.'
         find('img.avatar')['src'].should have_content mechanic.reload.avatar_url :thumb
       end
