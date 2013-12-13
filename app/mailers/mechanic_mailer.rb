@@ -1,4 +1,4 @@
-class MechanicMailer < ActionMailer::Base
+class MechanicMailer < AsyncMailer
   def registration_note(mechanic)
     @mechanic = mechanic
     mail to: @mechanic.email, subject: 'Welcome to Mechanio! What you need to know as a Mechanio Mobile Mechanic'

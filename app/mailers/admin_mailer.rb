@@ -1,4 +1,4 @@
-class AdminMailer < ActionMailer::Base
+class AdminMailer < AsyncMailer
 
   def job_pending(job)
     @job = job
