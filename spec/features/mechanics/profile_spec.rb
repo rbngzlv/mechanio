@@ -37,7 +37,7 @@ feature 'mechanic profile page' do
     before { visit edit_mechanics_profile_path }
 
     scenario "fail" do
-      fill_in 'First name', with: ''
+      fill_in 'mechanic_first_name', with: ''
       click_button "Save"
 
       should have_content 'Please review the problems below'
