@@ -39,7 +39,7 @@ FactoryGirl.define do
 
     trait :with_event do
       after :create do |j|
-        ap j.build_event_from_scheduled_at
+        j.build_event_from_scheduled_at
       end
     end
 
