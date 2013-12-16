@@ -43,7 +43,7 @@ feature 'my cars page' do
 
   def should_display_cars(*cars)
     cars.each_with_index do |car, index|
-      should have_selector "li:nth-child(#{ index + 1 })", text: car.display_title
+      should have_selector "li", text: car.display_title
     end
   end
 end
