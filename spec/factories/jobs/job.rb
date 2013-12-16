@@ -37,6 +37,12 @@ FactoryGirl.define do
       scheduled_at { DateTime.tomorrow }
     end
 
+    trait :with_event do
+      after :create do |j|
+        ap j.build_event_from_scheduled_at
+      end
+    end
+
     trait :confirmed do
       credit_card
       status :confirmed

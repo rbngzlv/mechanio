@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe UserMailer do
-  let(:job)  { create :job, :with_service }
+  let(:job)  { create :job, :assigned, :with_service, :with_event }
   let(:to)   { [job.user.email] }
   let(:from) { ['no-reply@mechanio.com'] }
 
@@ -21,7 +21,6 @@ describe UserMailer do
   end
 
   specify '#job_assigned' do
-    job = create :job, :with_service, :assigned
     mail = UserMailer.job_assigned(job.id)
     mail.to.should        eq [job.user.email]
     mail.from.should      eq from
