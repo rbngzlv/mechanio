@@ -10,10 +10,14 @@ class Users::JobsController < Users::ApplicationController
     @job = Job.new
     @user_id = false
     @cars = []
+    @location = @job.build_location
+    @contact = {}
 
     if user_signed_in?
       @user_id = current_user.id
       @cars = current_user.cars.select([:id, :display_title, :model_variation_id]).to_json
+      @location = current_user.location
+      @contact = { contact_email: current_user.email, contact_phone: current_user.mobile_number }
 
       if session[:tmp_job_id]
         @job = Job.convert_from_temporary(session.delete(:tmp_job_id), current_user)

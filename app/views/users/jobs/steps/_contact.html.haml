@@ -1,4 +1,4 @@
-#step-contact{ 'ng-controller' => 'ContactController', 'ng-init' => "states = #{states_json}", 'ng-show' => 'stepVisible("contact")', 'ng-form' => 'contact_form' }
+#step-contact{ 'ng-controller' => 'ContactController', 'ng-init' => "init({states: #{states_json}, location: #{@location.to_json}, contact: #{@contact.to_json}})", 'ng-show' => 'stepVisible("contact")', 'ng-form' => 'contact_form' }
   = render 'users/jobs/steps/loading'
 
   %div{ 'ng-hide' => 'loading' }
