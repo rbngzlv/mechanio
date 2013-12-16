@@ -1,13 +1,13 @@
 require 'spec_helper'
 
 describe MechanicMailer do
-  let(:mechanic) { build :mechanic }
-  let(:job)      { build :job, mechanic: mechanic, id: 123 }
+  let(:mechanic) { create :mechanic }
+  let(:job)      { create :job, :with_service, :assigned, mechanic: mechanic }
   let(:to)       { [mechanic.email] }
   let(:from) { ['no-reply@mechanio.com'] }
 
   specify '#registration_note' do
-    mail = MechanicMailer.registration_note(mechanic)
+    mail = MechanicMailer.registration_note(mechanic.id)
     mail.to.should eq to
     mail.from.should eq from
     mail.subject.should eq 'Welcome to Mechanio! What you need to know as a Mechanio Mobile Mechanic'
@@ -17,8 +17,8 @@ describe MechanicMailer do
   end
 
   specify '#job_assigned' do
-    job.scheduled_at = Date.tomorrow + 9.hour
-    mail = MechanicMailer.job_assigned(job)
+    # job.scheduled_at = Date.tomorrow + 9.hour
+    mail = MechanicMailer.job_assigned(job.id)
     mail.to.should        eq to
     mail.from.should      eq from
     mail.subject.should   eq 'Congratulations, you’ve been scheduled a job.'

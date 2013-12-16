@@ -203,23 +203,23 @@ class Job < ActiveRecord::Base
   private
 
   def notify_pending
-    AdminMailer.job_pending(self).deliver
-    UserMailer.job_pending(self).deliver
+    AdminMailer.job_pending(self.id).deliver
+    UserMailer.job_pending(self.id).deliver
   end
 
   def notify_estimated
-    AdminMailer.job_estimated(self).deliver
-    UserMailer.job_estimated(self).deliver
+    AdminMailer.job_estimated(self.id).deliver
+    UserMailer.job_estimated(self.id).deliver
   end
 
   def notify_assigned
-    AdminMailer.job_assigned(self).deliver
-    UserMailer.job_assigned(self).deliver
-    MechanicMailer.job_assigned(self).deliver
+    AdminMailer.job_assigned(self.id).deliver
+    UserMailer.job_assigned(self.id).deliver
+    MechanicMailer.job_assigned(self.id).deliver
   end
 
   def notify_quote_changed
-    AdminMailer.job_quote_changed(self).deliver
-    UserMailer.job_quote_changed(self).deliver
+    AdminMailer.job_quote_changed(self.id).deliver
+    UserMailer.job_quote_changed(self.id).deliver
   end
 end
