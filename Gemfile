@@ -58,7 +58,7 @@ group :deploy do
   gem 'capistrano'
   gem 'capistrano-ext'
   gem 'rvm-capistrano'
-  gem 'capistrano-resque'
+  gem 'capistrano-resque', github: 'sshingler/capistrano-resque'
   gem 'guard'
   gem 'guard-rspec'
 end

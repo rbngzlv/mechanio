@@ -49,11 +49,12 @@ end
 before  'deploy:finalize_update', 'configure'
 after   'deploy:update', 'deploy:migrate'
 
-# resque
-# Disable resque until we need geolocation, because it exits and leaves its pid file
-# after 'deploy:start', 'resque:start'
-# after 'deploy:stop', 'resque:stop'
-# after 'deploy:restart', 'resque:restart'
+# Stop resque before assets precompilation to avoid out of memory errors
+before 'deploy:finalize_update', 'resque:stop'
 
+after 'deploy:start', 'resque:start'
+after 'deploy:stop', 'resque:stop'
+after 'deploy:restart', 'resque:restart'
 
+set :resque_environment_task, true
 set :workers, { '*' => 1 }
