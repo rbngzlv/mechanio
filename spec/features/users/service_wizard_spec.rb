@@ -21,6 +21,7 @@ describe 'Service wizard', js: true do
       click_on 'Car Needs Servicing'
 
       verify_current_step 'Car Details'
+      enter_last_service_kms
       add_new_car
 
       verify_current_step 'Diagnose'
@@ -41,12 +42,14 @@ describe 'Service wizard', js: true do
       verify_quote
       verify_email_notification
       verify_job_created(user)
+      verify_last_service_kms(user)
     end
 
     it 'saves location in profile when a new user signs up' do
       visit service_path
 
       verify_current_step 'Car Details'
+      enter_last_service_kms
       add_new_car
 
       verify_current_step 'Diagnose'
@@ -74,6 +77,7 @@ describe 'Service wizard', js: true do
       verify_quote
       # verify_email_notification
       verify_job_created(User.last)
+      verify_last_service_kms(User.last)
 
       visit edit_users_profile_path
       page.should have_field 'Address', with: 'Broadway 54, ap. 1'
@@ -89,6 +93,8 @@ describe 'Service wizard', js: true do
 
       verify_current_step 'Car Details'
       select_car(car)
+      enter_last_service_date
+      click_on 'Continue'
 
       verify_current_step 'Diagnose'
       verify_sidebar 2, 'VEHICLE', variation.display_title
@@ -108,6 +114,7 @@ describe 'Service wizard', js: true do
       verify_quote
       verify_email_notification
       verify_job_created(user)
+      verify_last_service_date(user)
     end
   end
 
@@ -118,19 +125,20 @@ describe 'Service wizard', js: true do
     select variation.make.name, from: 'car_make_id'
     select variation.model.name, from: 'car_model_id'
     select variation.detailed_title, from: 'car_model_variation_id'
-
-    fill_in 'Kms', with: '10000'
-    find('#car_last_service_date').click
-    find('.datepicker-days tr:nth-child(1) td.day:nth-child(1)').click
-
     click_on 'Continue'
   end
 
   def select_car(car)
     choose car.display_title
-    fill_in 'Kms', with: '10000'
+  end
 
-    click_on 'Continue'
+  def enter_last_service_kms
+    fill_in 'Kms', with: '15000'
+  end
+
+  def enter_last_service_date
+    select 'February', from: 'car_last_service_month'
+    fill_in 'car_last_service_year', with: '2005'
   end
 
   def fill_in_address
@@ -184,5 +192,13 @@ describe 'Service wizard', js: true do
       j.status.should eq 'estimated'
       j.cost.should eq 350
     end
+  end
+
+  def verify_last_service_kms(user)
+    user.cars.last.last_service_kms.should eq 15000
+  end
+
+  def verify_last_service_date(user)
+    user.cars.last.last_service_date.should eq Date.new(2005, 2, 1)
   end
 end

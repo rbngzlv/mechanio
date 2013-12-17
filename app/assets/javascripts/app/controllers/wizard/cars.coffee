@@ -54,10 +54,21 @@ app.controller 'CarsController', ['$scope', '$http', ($scope, $http) ->
 
   $scope.valid = ->
     valid_car = $scope.car.id || $scope.car.model_variation_id
-    valid_last_service = $scope.car.last_service_kms || $scope.car.last_service_date
-    valid_car && valid_last_service
+    valid_car && $scope.valid_last_service()
+
+  $scope.valid_last_service = ->
+    return true if $scope.car.last_service_kms
+    date = $scope.last_service_date()
+
+    date && date.isValid() && date.isBefore(moment())
+
+  $scope.last_service_date = ->
+    return false unless $scope.last_service_year && $scope.last_service_year.length == 4
+    moment(new Date($scope.last_service_year, $scope.last_service_month - 1, 1))
 
   $scope.submit = ->
+    date = $scope.last_service_date()
     $scope.data.car = angular.copy($scope.car)
+    $scope.data.car.last_service_date = date.format() if date
     $scope.submitStep()
 ]
