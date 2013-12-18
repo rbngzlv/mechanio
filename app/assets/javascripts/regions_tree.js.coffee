@@ -7,11 +7,13 @@ $.fn.extend
     this.find(':checked').parents('li').show()
 
     this.on 'click', ':checkbox', (e) ->
+      $('#regions-progress').hide()
       mechanic_id = $('#mechanic_id').val()
       checked = this.checked
       el = $(this).parent()
       $.post("/admins/mechanics/#{mechanic_id}/update_regions", region_id: el.data('region-id'), toggle: checked)
         .success (html) ->
+          $('#regions-progress').show().delay(1000).fadeOut()
 
       for cb in el.parent().find('li :checkbox')
         cb.checked = checked

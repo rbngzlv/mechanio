@@ -13,7 +13,7 @@
         %tr
           %th.col-md-3 Name
           %th Email
-          %th Location Valid
+          %th Regions assigned
           %th.col-md-2 Signup date
           %th.col-md-1
       %tbody
@@ -21,7 +21,7 @@
           %tr
             %td= u.full_name
             %td= u.email
-            %td= location_status(u.location)
+            %td= u.mechanic_regions.count
             %td= u.created_at.to_s(:short)
             %td.text-right= link_to "Edit", edit_admins_mechanic_path(u)
 
