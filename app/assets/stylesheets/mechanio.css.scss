@@ -373,6 +373,65 @@ form input.form-control {
   height: 30px;
 }
 
+.fc-event-inner {
+  padding: 3px;
+
+  &.day-off {
+    background: #999;
+  }
+
+  &.work {
+    background: #e74955;
+  }
+}
+
+.calendar-hint {
+  margin: 15px 0;
+  text-align: center;
+
+  .day-off,
+  .part-day-off {
+    display: inline-block;
+    position: relative;
+    padding-left: 90px;
+  }
+
+  .day-off:before {
+    content: '';
+    position: absolute;
+    width: 43px;
+    height: 30px;
+    background: #999;
+    left: 30px;
+    top: -5px;
+  }
+
+  .part-day-off {
+    text-align: left;
+
+    &:before {
+      content: '';
+      position: absolute;
+      width: 43px;
+      height: 15px;
+      background: #999;
+      left: 30px;
+      top: -5px;
+    }
+
+    &:after {
+      content: '';
+      position: absolute;
+      width: 43px;
+      height: 15px;
+      background: #fff;
+      border: 1px solid #ccc;
+      left: 30px;
+      top: 10px;
+    }
+  }
+}
+
 a[data-toggle = 'modal'] {
   color: #fff;
 }
@@ -412,6 +471,14 @@ a[data-toggle = 'modal'] {
   border-top-color: #22878e;
   right: -17px;
   margin-top: -3px;
+}
+
+.calendar-checkbox {
+  margin: 0 10px 0 0 !important;
+}
+
+.event_recurrence {
+  width: 25%;
 }
 
 aside {
@@ -1449,6 +1516,10 @@ form {
     margin: 10px 12.5% 0 !important;
   }
 
+  .event_recurrence {
+    width: 40%;
+  }
+
   .admin .nav {
     margin-top: 50px;
   }
@@ -1582,6 +1653,10 @@ form {
 
   .header .mobile-nav {
     margin-top: 12px;
+  }
+
+  .event_recurrence {
+    width: 70%;
   }
 
   .nav.nav-tabs {
