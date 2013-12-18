@@ -28,7 +28,7 @@ class Mechanic < ActiveRecord::Base
     joins(:location).merge(Location.close_to(latitude, longitude))
   }
   scope :by_region, -> (postcode) {
-    joins(:mechanic_regions).where(mechanic_regions: { postcode: postcode })
+    joins(:mechanic_regions).where(mechanic_regions: { postcode: postcode }).uniq
   }
 
   def self.by_location(location)
