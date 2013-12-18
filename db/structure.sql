@@ -1358,6 +1358,13 @@ CREATE INDEX index_mechanic_regions_on_mechanic_id ON mechanic_regions USING btr
 
 
 --
+-- Name: index_mechanic_regions_on_mechanic_id_and_postcode; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_mechanic_regions_on_mechanic_id_and_postcode ON mechanic_regions USING btree (mechanic_id, postcode);
+
+
+--
 -- Name: index_mechanic_regions_on_region_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 

@@ -9,6 +9,6 @@ class CreateMechanicRegions < ActiveRecord::Migration
     end
     add_index :mechanic_regions, :mechanic_id
     add_index :mechanic_regions, :region_id
-    add_index :mechanic_regions, :mechanic_id, :postcode
+    add_index :mechanic_regions, [:mechanic_id, :postcode]
   end
 end
