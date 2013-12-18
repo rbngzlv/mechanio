@@ -35,7 +35,7 @@ describe Mechanic do
   end
 
   specify '#by_region' do
-    mechanic1 = create :mechanic, mechanic_regions: [create(:mechanic_region, postcode: '1234')]
+    mechanic1 = create :mechanic, mechanic_regions: [create(:mechanic_region, postcode: '1234'), create(:mechanic_region, postcode: '1234')]
     mechanic2 = create :mechanic, mechanic_regions: [create(:mechanic_region, postcode: '4567')]
 
     Mechanic.by_region('1234').should eq [mechanic1]
