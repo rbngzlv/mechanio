@@ -410,6 +410,39 @@ ALTER SEQUENCE makes_id_seq OWNED BY makes.id;
 
 
 --
+-- Name: mechanic_regions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE mechanic_regions (
+    id integer NOT NULL,
+    mechanic_id integer,
+    region_id integer,
+    postcode character varying(255),
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: mechanic_regions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE mechanic_regions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: mechanic_regions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE mechanic_regions_id_seq OWNED BY mechanic_regions.id;
+
+
+--
 -- Name: mechanics; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1002,6 +1035,13 @@ ALTER TABLE ONLY makes ALTER COLUMN id SET DEFAULT nextval('makes_id_seq'::regcl
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY mechanic_regions ALTER COLUMN id SET DEFAULT nextval('mechanic_regions_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY mechanics ALTER COLUMN id SET DEFAULT nextval('mechanics_id_seq'::regclass);
 
 
@@ -1178,6 +1218,14 @@ ALTER TABLE ONLY locations
 
 
 --
+-- Name: mechanic_regions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY mechanic_regions
+    ADD CONSTRAINT mechanic_regions_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: mechanics_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1300,6 +1348,20 @@ CREATE UNIQUE INDEX index_admins_on_reset_password_token ON admins USING btree (
 --
 
 CREATE INDEX index_credit_cards_on_user_id ON credit_cards USING btree (user_id);
+
+
+--
+-- Name: index_mechanic_regions_on_mechanic_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_mechanic_regions_on_mechanic_id ON mechanic_regions USING btree (mechanic_id);
+
+
+--
+-- Name: index_mechanic_regions_on_region_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_mechanic_regions_on_region_id ON mechanic_regions USING btree (region_id);
 
 
 --
@@ -1533,3 +1595,7 @@ INSERT INTO schema_migrations (version) VALUES ('20131204152756');
 INSERT INTO schema_migrations (version) VALUES ('20131212202413');
 
 INSERT INTO schema_migrations (version) VALUES ('20131212202952');
+
+INSERT INTO schema_migrations (version) VALUES ('20131217145844');
+
+INSERT INTO schema_migrations (version) VALUES ('20131217190922');

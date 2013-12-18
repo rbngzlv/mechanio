@@ -6,6 +6,8 @@ class Mechanic < ActiveRecord::Base
   belongs_to :business_location, dependent: :destroy, class_name: "Location"
   has_many :jobs
   has_many :events
+  has_many :mechanic_regions
+  has_many :regions, through: :mechanic_regions
 
   accepts_nested_attributes_for :location
   accepts_nested_attributes_for :business_location, reject_if: :all_blank
@@ -25,6 +27,9 @@ class Mechanic < ActiveRecord::Base
   scope :close_to, -> (latitude, longitude) {
     joins(:location).merge(Location.close_to(latitude, longitude))
   }
+  scope :by_region, -> (postcode) {
+    joins(:mechanic_regions).where(mechanic_regions: { postcode: postcode })
+  }
 
   def self.by_location(location)
     if location.geocoded?
@@ -32,6 +37,15 @@ class Mechanic < ActiveRecord::Base
     else
       joins(:location).where(locations: { postcode: location.postcode })
     end
+  end
+
+  def toggle_regions(region_ids, toggle)
+    mechanic_regions.where(region_id: region_ids).delete_all
+    MechanicRegion.bulk_insert(id, region_ids) if toggle
+  end
+
+  def region_ids
+    mechanic_regions.pluck(:region_id)
   end
 
   def full_name

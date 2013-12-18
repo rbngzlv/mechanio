@@ -45,7 +45,11 @@ Mechanio::Application.routes.draw do
     get '/', to: 'dashboard#index', as: :dashboard
 
     resources :users
-    resources :mechanics, except: [:show]
+    resources :mechanics, except: [:show] do
+      get   :regions_subtree
+      get   :edit_regions
+      post  :update_regions
+    end
     resources :model_variations, only: [:index]
     resources :service_plans, except: [:index, :show] do
       collection do
@@ -62,7 +66,6 @@ Mechanio::Application.routes.draw do
     get 'models'
     get 'model_variations'
     get 'service_plans'
-    get 'regions'
   end
 
   get '/static/:action', controller: 'static'

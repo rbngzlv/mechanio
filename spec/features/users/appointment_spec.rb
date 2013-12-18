@@ -2,8 +2,9 @@ require 'spec_helper'
 
 feature 'Appointments' do
   let(:user)        { create :user }
-  let!(:mechanic)   { create :mechanic }
-  let!(:job)        { create :job_with_service, :estimated, user: user, location: create(:location, :with_coordinates) }
+  let!(:mechanic)   { create :mechanic, mechanic_regions: [create(:mechanic_region, postcode: '1234')] }
+  let!(:job)        { create :job_with_service, :estimated, user: user, location: location }
+  let(:location)    { create(:location, :with_coordinates, postcode: '1234') }
   let(:tomorrow)    { DateTime.now.tomorrow.day }
 
   subject { page }
@@ -47,6 +48,8 @@ feature 'Appointments' do
   end
 
   specify 'ordering mechanic by distance' do
+    pending 'Geocoding is not used for now, as we switched to matching mechanics by region'
+
     mechanic2 = create :mechanic, location: create(:location, latitude: 40.000000, longitude: -77.000000)
     mechanic3 = create :mechanic, location: create(:location, latitude: 39.100000, longitude: -76.100000)
     mechanic.location = create(:location, latitude: 38.000000, longitude: -75.000000)

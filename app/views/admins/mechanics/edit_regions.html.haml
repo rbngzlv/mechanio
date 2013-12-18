@@ -1,0 +1,15 @@
+.col-md-12.clearfix
+  .pull-right
+    = link_to "Edit profile", edit_admins_mechanic_path(@mechanic), class: 'btn btn-primary'
+
+  %h4.mechanic-details #{@mechanic.full_name}'s regions
+  %hr.hr-dark-gray
+
+  .tree
+    = form_for @mechanic, url: admins_mechanic_update_regions_path(@mechanic) do |f|
+      = f.hidden_field :id
+      = regions_tree(Region.roots.first, selected: @mechanic.region_ids, collapse_depth: 3)
+      %hr.hr-dark-gray
+      .form-group
+        .col-md-4
+          = f.submit 'Save', class: 'btn btn-primary col-md-3 col-sm-4'

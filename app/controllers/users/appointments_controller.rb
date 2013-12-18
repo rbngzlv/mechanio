@@ -23,7 +23,7 @@ class Users::AppointmentsController < Users::ApplicationController
   private
 
   def mechanics
-    Mechanic.by_location(@job.location)
+    Mechanic.by_region(@job.location_postcode)
   end
   helper_method :mechanics
 
