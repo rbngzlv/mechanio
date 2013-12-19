@@ -35,6 +35,7 @@ end
 
 group :test do
   gem 'rspec-rails'
+  gem 'rspec_api_documentation'
   gem 'factory_girl_rails'
   gem 'shoulda-matchers'
   gem 'capybara'

@@ -68,6 +68,14 @@ Mechanio::Application.routes.draw do
     get 'service_plans'
   end
 
+  namespace :api, defaults: { format: :json } do
+    scope module: :v1, constraints: ApiConstraints.new(version: 1, default: true) do
+      namespace :mechanics do
+        resources :jobs, only: [:index, :show]
+      end
+    end
+  end
+
   get '/static/:action', controller: 'static'
 
   # Example of regular route:

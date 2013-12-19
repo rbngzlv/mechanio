@@ -15,6 +15,7 @@ module Mechanio
   class Application < Rails::Application
 
     config.autoload_paths += Dir[Rails.root.join('app', 'models', '**/')]
+    config.autoload_paths += Dir[Rails.root.join('lib')]
 
     config.active_record.schema_format = :sql
 

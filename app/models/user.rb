@@ -39,6 +39,10 @@ class User < ActiveRecord::Base
     jobs.with_status(:pending, :estimated)
   end
 
+  def avatar_thumb
+    avatar_url(:thumb)
+  end
+
   def reviews
     # TODO: It must return count of comments which this user left
     15

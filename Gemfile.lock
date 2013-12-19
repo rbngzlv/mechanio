@@ -156,6 +156,7 @@ GEM
     minitest (4.7.5)
     mono_logger (1.1.0)
     multi_json (1.7.9)
+    mustache (0.99.5)
     net-scp (1.1.2)
       net-ssh (>= 2.6.5)
     net-sftp (2.1.2)
@@ -232,6 +233,13 @@ GEM
       rspec-core (~> 2.14.0)
       rspec-expectations (~> 2.14.0)
       rspec-mocks (~> 2.14.0)
+    rspec_api_documentation (2.0.0)
+      activesupport (>= 3.0.0)
+      i18n (>= 0.1.0)
+      json (>= 1.4.6)
+      mustache (>= 0.99.4)
+      rspec (>= 2.14.0)
+      webmock (>= 1.7.0)
     rufus-scheduler (2.0.24)
       tzinfo (>= 0.3.22)
     rvm-capistrano (1.5.0)
@@ -332,6 +340,7 @@ DEPENDENCIES
   resque
   resque_mailer
   rspec-rails
+  rspec_api_documentation
   rvm-capistrano
   sass-rails (~> 4.0.0)
   shoulda-matchers
