@@ -72,13 +72,13 @@ Mechanio::Application.configure do
   Net::SMTP.enable_tls(OpenSSL::SSL::VERIFY_NONE)
 
   ActionMailer::Base.smtp_settings = {
-      address: "smtp.gmail.com",
+      address: "smtp.sendgrid.net",
       port: "587",
-      domain: "gmail.com",
+      domain: "staging.mechanio.com",
       authentication: :plain,
       enable_starttls_auto: true,
-      user_name: "mechanio.development@gmail.com",
-      password: 'J4B6bXCG'
+      user_name: "borismechanio",
+      password: 'password123!'
   }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
