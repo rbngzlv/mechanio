@@ -6,6 +6,7 @@ app.controller 'CarsController', ['$scope', '$http', ($scope, $http) ->
   $scope.model_variations = []
   $scope.adding_vehicle = true
   $scope.no_results_alert = false
+  $scope.last_service_year = ''
 
   $scope.car = {}
 
@@ -63,7 +64,7 @@ app.controller 'CarsController', ['$scope', '$http', ($scope, $http) ->
     date && date.isValid() && date.isBefore(moment())
 
   $scope.last_service_date = ->
-    return false unless $scope.last_service_year && $scope.last_service_year.length == 4
+    return false if $scope.last_service_year < 1950
     moment(new Date($scope.last_service_year, $scope.last_service_month - 1, 1))
 
   $scope.submit = ->
