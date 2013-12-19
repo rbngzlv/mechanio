@@ -128,7 +128,9 @@ CREATE TABLE cars (
     display_title character varying(255),
     last_service_kms integer,
     last_service_date date,
-    deleted_at timestamp without time zone
+    deleted_at timestamp without time zone,
+    vin character varying(255),
+    reg_number character varying(255)
 );
 
 
@@ -1606,3 +1608,5 @@ INSERT INTO schema_migrations (version) VALUES ('20131212202952');
 INSERT INTO schema_migrations (version) VALUES ('20131217145844');
 
 INSERT INTO schema_migrations (version) VALUES ('20131217190922');
+
+INSERT INTO schema_migrations (version) VALUES ('20131219160457');
