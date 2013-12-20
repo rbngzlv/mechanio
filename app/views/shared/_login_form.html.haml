@@ -31,6 +31,7 @@
         %h4.modal-title Sign Up
       .modal-body
         %p= link_to 'Sign up through Facebook', '/auth/facebook'
+        %p= link_to "Sign in with Google", user_omniauth_authorize_path(:google_oauth2)
         %p
           Sign up with Mechanio
           = link_to 'regular sign up', '', class: 'js-signup-link'

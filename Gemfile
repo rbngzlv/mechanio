@@ -30,6 +30,7 @@ gem 'ice_cube'
 gem 'high_voltage'
 gem 'omniauth'
 gem 'omniauth-facebook'
+gem 'omniauth-google-oauth2'
 
 group :development do
   gem 'letter_opener'

@@ -3,7 +3,8 @@ class User < ActiveRecord::Base
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable, :validatable,
+         :omniauthable, omniauth_providers: [:google_oauth2]
 
   has_many :cars, -> { where deleted_at: nil }
   has_many :jobs
@@ -37,6 +38,20 @@ class User < ActiveRecord::Base
         remote_avatar_url: hash['image']
       )
       user.save validate: false
+    end
+    user
+  end
+
+  def self.find_for_google_oauth2(access_token, signed_in_resource=nil)
+    data = access_token.info
+    user = User.where(:email => data["email"]).first
+    unless user
+      user = User.create(
+        first_name: data['first_name'],
+        last_name: data['last_name'],
+        email: data["email"],
+        password: Devise.friendly_token[0,20]
+      )
     end
     user
   end
