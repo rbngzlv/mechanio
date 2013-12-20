@@ -30,16 +30,18 @@
         %button{ type: 'button', class: 'close', 'data-dismiss' => 'modal', 'aria-hidden' => true } &times;
         %h4.modal-title Sign Up
       .modal-body
-        %p= link_to 'Sign up through Facebook', '/auth/facebook'
-        %p= link_to "Sign in with Google", user_omniauth_authorize_path(:google_oauth2)
+        %p.text-center= link_to image_tag('facebook-btn.jpg'), '/auth/facebook'
+        %p.text-center= link_to image_tag('gmail-btn.jpg'), user_omniauth_authorize_path(:google_oauth2)
         %p
-          Sign up with Mechanio
-          = link_to 'regular sign up', '', class: 'js-signup-link'
+          Sign up with Mechanio to book reliable mobile mechanics to service your car from your home or office.
+        %p.text-center
+          %span.small We never post without permission (we hate that tool)
+          %br
+          = link_to 'Use regular email sign up', '', class: 'js-signup-link'
       .modal-footer
         %p.pull-right
           It's free to join!
           = link_to 'Log in', '', class: 'js-login-link'
-- #TODO: спросить у бори: "что это за условие?""
 - if devise_mapping.registerable?
   #register-modal.modal.fade
     .modal-dialog
