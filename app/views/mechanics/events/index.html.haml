@@ -56,13 +56,18 @@
           Availabilities
       .panel-body.modal-body
         .row
-          %h1 Calendar
-          #calendar
+          .col-md-12
+            %h1 Calendar
+            #calendar
         .row
-          %h5.hx-default my days off
-          = simple_form_for :event do |f|
-            %label Make me unavailable on:
-            = f.input :time_slots, collection: [['9 AM', 9], ['11 AM', 11], ['1 PM', 13], ['3 PM', 15], ['5 PM', 17], ['All', 'All']], as: :check_boxes, label: false, item_wrapper_class: 'checkbox-inline'
-            = f.input :recurrence, collection: ['Does not recur', 'Daily', 'Weekly', 'Monthly'], selected: 'Does not recur', wrapper_html: { class: 'col-md-3' }
-            = f.hidden_field :date_start, value: Date.today
-            = f.submit 'Set', class: 'btn btn-success'
+          .calendar-hint.clearfix
+            .day-off Day Off
+            .part-day-off Part Day Off
+          .col-md-12
+            %h5.hx-default my days off
+            = simple_form_for :event do |f|
+              %label Make me unavailable on:
+              = f.input :time_slots, collection: [['9 AM', 9], ['11 AM', 11], ['1 PM', 13], ['3 PM', 15], ['5 PM', 17], ['All', 'All']], as: :check_boxes, label: false, item_wrapper_class: 'checkbox-inline calendar-checkbox'
+              = f.input :recurrence, collection: ['Does not recur', 'Daily', 'Weekly', 'Monthly'], selected: 'Does not recur'
+              = f.hidden_field :date_start, value: Date.today
+              = f.submit 'Set', class: 'btn btn-success'

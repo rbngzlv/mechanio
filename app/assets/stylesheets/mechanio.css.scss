@@ -80,6 +80,15 @@ a:hover {
     }
   }
 
+  .mobile-nav {
+    position: absolute;
+    font-size: 30px;
+    top: 50%;
+    margin-top: -16px;
+    display: none;
+    cursor: pointer;
+  }
+
   .dropdown-menu {
     background: #fcfcfc;
     right: 0;
@@ -364,6 +373,65 @@ form input.form-control {
   height: 30px;
 }
 
+.fc-event-inner {
+  padding: 3px;
+
+  &.day-off {
+    background: #999;
+  }
+
+  &.work {
+    background: #e74955;
+  }
+}
+
+.calendar-hint {
+  margin: 15px 0;
+  text-align: center;
+
+  .day-off,
+  .part-day-off {
+    display: inline-block;
+    position: relative;
+    padding-left: 90px;
+  }
+
+  .day-off:before {
+    content: '';
+    position: absolute;
+    width: 43px;
+    height: 30px;
+    background: #999;
+    left: 30px;
+    top: -5px;
+  }
+
+  .part-day-off {
+    text-align: left;
+
+    &:before {
+      content: '';
+      position: absolute;
+      width: 43px;
+      height: 15px;
+      background: #999;
+      left: 30px;
+      top: -5px;
+    }
+
+    &:after {
+      content: '';
+      position: absolute;
+      width: 43px;
+      height: 15px;
+      background: #fff;
+      border: 1px solid #ccc;
+      left: 30px;
+      top: 10px;
+    }
+  }
+}
+
 a[data-toggle = 'modal'] {
   color: #fff;
 }
@@ -403,6 +471,14 @@ a[data-toggle = 'modal'] {
   border-top-color: #22878e;
   right: -17px;
   margin-top: -3px;
+}
+
+.calendar-checkbox {
+  margin: 0 10px 0 0 !important;
+}
+
+.event_recurrence {
+  width: 25%;
 }
 
 aside {
@@ -1335,7 +1411,7 @@ form {
     }
 
     .close {
-      border-left: 1px solid #E0DEDE;
+      border-left: 1px solid #e0dede;
       padding: 4px 2px 4px 7px;
       position: absolute;
       right: 10px;
@@ -1374,6 +1450,10 @@ form {
     padding: 0;
   }
 
+  .wizard-sidebar {
+    float: none !important;
+  }
+
   .footer {
     padding-top: 10px;
     text-align: center;
@@ -1397,11 +1477,47 @@ form {
       top: 5px;
     }
   }
+
+  .aside {
+    display: none;
+    padding-top: 80px;
+    position: relative;
+    left: -215px;
+  }
+
+  .aside-wrapper {
+    height: 100%;
+    z-index: 10;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, .6);
+  }
+
+  .show-aside {
+    display: block;
+    width: 215px;
+    height: 100%;
+    background: #f5f5f5;
+  }
+
+  .header .mobile-nav {
+    display: block;
+  }
+
+  .brand {
+    margin-left: 50px;
+  }
 }
 
 @media (max-width: 769px) {
   .banner .btn {
     margin: 10px 12.5% 0 !important;
+  }
+
+  .event_recurrence {
+    width: 40%;
   }
 
   .admin .nav {
@@ -1419,6 +1535,20 @@ form {
     a {
       display: inline-block
     }
+  }
+
+  .car-name {
+    width: 100%;
+  }
+
+  .del-btn-wrap {
+    float: none !important;
+    width: 200px;
+    display: block;
+  }
+
+  .cars-list li {
+    margin-bottom: 10px;
   }
 
   .sign-up-block {
@@ -1515,9 +1645,15 @@ form {
 
 @media (max-width: 641px) {
   .brand {
-    display: inline-block;
-    width: 100%;
-    text-align: center;
+    display: none;
+  }
+
+  .header .mobile-nav {
+    margin-top: 12px;
+  }
+
+  .event_recurrence {
+    width: 70%;
   }
 
   .nav.nav-tabs {

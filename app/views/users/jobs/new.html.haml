@@ -1,4 +1,6 @@
 .row{ 'ng-controller' => 'WizardController', 'ng-init' => "init({ user_id: #{@user_id}, job_id: '#{@job.id}' })" }
+  .col-md-3.wizard-sidebar.pull-right
+    = render 'sidebar'
   .col-md-9.cornsilk
     .panel.panel-default.panel-wizard.panel-rounded
       .panel-body
@@ -24,5 +26,3 @@
           = render 'users/jobs/steps/diagnose', f: f
           = render 'users/jobs/steps/contact', f: f
         = render 'users/jobs/steps/quote'
-  .col-md-3.wizard-sidebar
-    = render 'sidebar'
