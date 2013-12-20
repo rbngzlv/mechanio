@@ -4,7 +4,27 @@ describe 'User login', :js do
 
   let(:user) { create :user }
 
-  context 'logging in' do
+  subject { page }
+
+  context 'logging through social networks', :pending do
+    before { visit root_path }
+
+    specify 'UI' do
+      click_link 'Login'
+
+      should have_content 'Sign up with Mechanio to book reliable mobile mechanics'
+      should have_link 'Use reqular email sign up'
+      should have_link 'Log in'
+    end
+    specify 'logging through facebook' do
+
+    end
+    specify 'logging through gmail' do
+    end
+    it 'should could be closable'
+  end
+
+  context 'logging in', :pending do
     before do
       visit root_path
       within '.header' do
@@ -12,17 +32,21 @@ describe 'User login', :js do
       end
     end
 
+    it 'navigation' do
+      should have_link "SoCial connections"
+    end
+
     it 'shows an error on invalid login' do
       login_with email: 'unknown@host.com', password: 'password'
 
-      page.should have_css '.alert', text: 'Invalid email or password.'
+      should have_css '.alert', text: 'Invalid email or password.'
     end
 
     it 'loggs user in' do
       login_with email: user.email, password: user.password
 
-      page.should have_css '.alert', text: 'Signed in successfully.'
-      page.should have_css 'li.active', text: 'Dashboard'
+      should have_css '.alert', text: 'Signed in successfully.'
+      should have_css 'li.active', text: 'Dashboard'
     end
   end
 
@@ -32,7 +56,7 @@ describe 'User login', :js do
     click_button user.first_name
     click_link 'Log out'
 
-    page.should have_link 'Login'
+    should have_link 'Login'
   end
 
   def login_with(params)

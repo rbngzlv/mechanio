@@ -15,12 +15,30 @@
             .col-md-4.col-md-offset-4
               = f.button :submit, 'Login', class: 'btn-block btn-success'
       .modal-footer
+        %p
+          = link_to 'Social connections', '', class: 'js-socials-link'
         %p.pull-left
           Forgot your password?
           = link_to 'Reset it here', new_password_path(resource_name)
         %p.pull-right
           It's free to join!
-          = link_to 'Sign up', '', class: 'toggle-modal'
+          = link_to 'Sign up', '', class: 'js-signup-link'
+#social-login-modal.modal.fade
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button{ type: 'button', class: 'close', 'data-dismiss' => 'modal', 'aria-hidden' => true } &times;
+        %h4.modal-title Sign Up
+      .modal-body
+        %p= link_to 'Sign up through Facebook', '/auth/facebook'
+        %p
+          Sign up with Mechanio
+          = link_to 'regular sign up', '', class: 'js-signup-link'
+      .modal-footer
+        %p.pull-right
+          It's free to join!
+          = link_to 'Log in', '', class: 'js-login-link'
+- #TODO: спросить у бори: "что это за условие?""
 - if devise_mapping.registerable?
   #register-modal.modal.fade
     .modal-dialog
@@ -40,14 +58,24 @@
               .col-md-4.col-md-offset-4
                 = f.button :submit, 'Sign up', class: 'btn-block btn-success'
         .modal-footer
+          %p
+            = link_to 'Social connections', '', class: 'js-socials-link'
           %p.pull-left
             Forgot your password?
             = link_to 'Reset it here', new_password_path(resource_name)
           %p.pull-right
             Already have an account?
-            = link_to 'Login', '', class: 'toggle-modal'
-
+            = link_to 'Login', '', class: 'js-login-link'
 :coffee
-  $('.toggle-modal').click (e) ->
+  $('.js-signup-link').click (e) ->
     e.preventDefault()
-    $('#login-modal, #register-modal').modal('toggle')
+    $(e.target).parents('.modal').modal('toggle')
+    $('#register-modal').modal('toggle')
+  $('.js-login-link').click (e) ->
+    e.preventDefault()
+    $(e.target).parents('.modal').modal('toggle')
+    $('#login-modal').modal('toggle')
+  $('.js-socials-link').click (e) ->
+    e.preventDefault()
+    $(e.target).parents('.modal').modal('toggle')
+    $('#social-login-modal').modal('toggle')

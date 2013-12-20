@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   has_many :cars, -> { where deleted_at: nil }
   has_many :jobs
   has_many :credit_cards
+  has_many :authorizations, dependent: :delete_all
   belongs_to :location, dependent: :destroy
 
   accepts_nested_attributes_for :location, reject_if: :all_blank
@@ -24,6 +25,20 @@ class User < ActiveRecord::Base
         user.build_location(attrs)
       end
     end
+  end
+
+  def self.create_from_hash!(hash)
+    user = User.find_by_email(hash['email'])
+    unless user.present?
+      user = new(
+        email: hash['email'],
+        first_name: hash['first_name'],
+        last_name: hash['last_name'],
+        remote_avatar_url: hash['image']
+      )
+      user.save validate: false
+    end
+    user
   end
 
   def location_attributes=(attrs)

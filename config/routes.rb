@@ -4,7 +4,9 @@ Mechanio::Application.routes.draw do
 
   devise_for :admins
   devise_for :mechanics
-  devise_for :users, controllers: { registrations: "users/registrations" }
+  devise_for :users, controllers: { registrations: "users/registrations" } do
+    get '/auth/:provider/callback', to: 'users/authorization#create'
+  end
 
   mount Resque::Server.new, at: '/resque'
 

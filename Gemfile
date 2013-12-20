@@ -28,9 +28,12 @@ gem 'braintree'
 gem 'fullcalendar-rails'
 gem 'ice_cube'
 gem 'high_voltage'
+gem 'omniauth'
+gem 'omniauth-facebook'
 
 group :development do
   gem 'letter_opener'
+  gem 'pry'
 end
 
 group :test do
@@ -49,6 +52,7 @@ end
 group :development, :test do
   gem 'quiet_assets'
   gem 'awesome_print'
+  gem 'dotenv-rails'
 end
 
 group :production do
