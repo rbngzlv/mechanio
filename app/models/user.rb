@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable,
-         :omniauthable, omniauth_providers: [:google_oauth2]
+         :omniauthable, omniauth_providers: [:google_oauth2, :facebook]
 
   has_many :cars, -> { where deleted_at: nil }
   has_many :jobs
@@ -28,21 +28,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  def self.create_from_hash!(hash)
-    user = User.find_by_email(hash['email'])
-    unless user.present?
-      user = new(
-        email: hash['email'],
-        first_name: hash['first_name'],
-        last_name: hash['last_name'],
-        remote_avatar_url: hash['image']
-      )
-      user.save validate: false
-    end
-    user
-  end
-
-  def self.find_for_google_oauth2(access_token, signed_in_resource=nil)
+  def self.create_from_hash!(access_token)
     data = access_token.info
     user = User.where(:email => data["email"]).first
     unless user
