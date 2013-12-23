@@ -6,25 +6,7 @@ describe 'User login', :js do
 
   subject { page }
 
-  context 'logging through social networks', :pending do
-    before { visit root_path }
-
-    specify 'UI' do
-      click_link 'Login'
-
-      should have_content 'Sign up with Mechanio to book reliable mobile mechanics'
-      should have_link 'Use reqular email sign up'
-      should have_link 'Log in'
-    end
-    specify 'logging through facebook' do
-
-    end
-    specify 'logging through gmail' do
-    end
-    it 'should could be closable'
-  end
-
-  context 'logging in', :pending do
+  context 'logging in' do
     before do
       visit root_path
       within '.header' do
@@ -33,7 +15,7 @@ describe 'User login', :js do
     end
 
     it 'navigation' do
-      should have_link "SoCial connections"
+      should have_link "Social connections"
     end
 
     it 'shows an error on invalid login' do
