@@ -51,6 +51,22 @@ describe EventsManager do
     end
   end
 
+  describe '#delete_event' do
+    it 'deletes day off' do
+      event = create :event, mechanic: mechanic
+      expect {
+        events_manager.delete_event(event.id)
+      }.to change { Event.count }.by(-1)
+    end
+
+    it 'does not delete appointment' do
+      event = create :event, :with_job, mechanic: mechanic
+      expect {
+        events_manager.delete_event(event.id)
+      }.to_not change { Event.count }
+    end
+  end
+
   describe '#distribute_time_slots' do
     let(:date_start) { Date.today}
 

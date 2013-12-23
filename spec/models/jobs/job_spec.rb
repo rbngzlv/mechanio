@@ -172,6 +172,13 @@ describe Job do
     end
   end
 
+  specify 'deleting a job also deletes its calendar event' do
+    job = create :job, :assigned, :with_service, :with_event
+    expect {
+      job.destroy!
+    }.to change { Job.count }.by(-1)
+  end
+
   def verify_estimated_job(job)
     job.reload.status.should eq 'estimated'
     job.tasks.count.should eq 2

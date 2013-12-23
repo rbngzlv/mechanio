@@ -24,6 +24,11 @@ class EventsManager < Struct.new(:mechanic)
     errors[:uniqueness].length == 0 ? true : false
   end
 
+  def delete_event(event_id)
+    event = mechanic.events.find(event_id)
+    event.is_appointment? ? false : event.destroy
+  end
+
   def errors
     @errors ||= { uniqueness: [], time_slots: []}
   end

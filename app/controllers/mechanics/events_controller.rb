@@ -12,7 +12,7 @@ class Mechanics::EventsController < Mechanics::ApplicationController
   end
 
   def destroy
-    if current_mechanic.events.find(params[:id]).destroy
+    if events_manager.delete_event(params[:id])
       head :ok
     else
       head 406

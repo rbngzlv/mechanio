@@ -30,6 +30,14 @@ describe Event do
     events.last.should == desired_event
   end
 
+  specify '.is_appointment?' do
+    event1 = build :event, :with_job
+    event2 = build :event
+
+    event1.is_appointment?.should eq true
+    event2.is_appointment?.should eq false
+  end
+
   context '.set_title' do
     let(:date)              { Date.new(2012, 11, 5) }
     let(:date_short)        { date.to_s(:short) }
