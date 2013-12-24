@@ -8,7 +8,8 @@ FactoryGirl.define do
 
     after(:create) do |root|
       parent = create(:symptom, description: 'Looks like', parent: root)
-      child  = create(:symptom, description: 'Sway - Gradual movement from side to side.', parent: parent)
+      create(:symptom, description: 'Sway - Gradual movement from side to side.', parent: parent)
+      create(:symptom, description: 'Drifts - Gradual movements to one side.', parent: parent)
     end
   end
 end

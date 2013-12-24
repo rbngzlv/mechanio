@@ -121,7 +121,7 @@ describe 'Service wizard', js: true do
       verify_last_service_date(user)
     end
 
-    it 'add repair request' do
+    it 'add repair with symptoms' do
       visit service_path
 
       verify_current_step 'Car Details'
@@ -132,10 +132,31 @@ describe 'Service wizard', js: true do
       verify_current_step 'Diagnose'
       verify_sidebar 2, 'VEHICLE', variation.display_title
 
-      click_link 'Add Repair'
-      fill_in 'Describe any issues you have with your car', with: 'I have 3 wheels'
-      click_on 'Looks like'
-      check 'Sway - Gradual movement from side to side.'
+      add_repair_symptoms
+      click_on 'Continue'
+
+      verify_current_step 'Contact'
+      verify_sidebar 3, 'CAR SERVICING', 'Diagnose car problem'
+      click_on 'Continue'
+
+      verify_pending_quote
+      # verify_email_notification
+      verify_job_pending(user)
+      verify_last_service_date(user)
+    end
+
+    it 'add repair with description' do
+      visit service_path
+
+      verify_current_step 'Car Details'
+      select_car(car)
+      enter_last_service_date
+      click_on 'Continue'
+
+      verify_current_step 'Diagnose'
+      verify_sidebar 2, 'VEHICLE', variation.display_title
+
+      add_repair_description
       click_on 'Continue'
 
       verify_current_step 'Contact'
@@ -186,6 +207,18 @@ describe 'Service wizard', js: true do
     select service_plan.display_title, from: 'job_task_service_plan_id'
     fill_in 'job_task_note', with: 'A note goes here'
     click_on 'Continue'
+  end
+
+  def add_repair_symptoms
+    click_link 'Add Repair'
+    click_on 'Looks like'
+    check 'Sway - Gradual movement from side to side.'
+    check 'Drifts - Gradual movements to one side.'
+  end
+
+  def add_repair_description
+    click_link 'Add Repair'
+    fill_in 'Describe any issues you have with your car', with: 'I have 3 wheels'
   end
 
   def verify_quote
