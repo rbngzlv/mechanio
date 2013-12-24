@@ -33,9 +33,8 @@ class Users::JobsController < Users::ApplicationController
     if user_signed_in?
       job = current_user.jobs.sanitize_and_create(params)
     else
-      if job = Job.create_temporary(params)
-        session[:tmp_job_id] = job.id
-      end
+      job = Job.create_temporary(params)
+      session[:tmp_job_id] = job.id
     end
 
     respond_with job, location: false
