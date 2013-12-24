@@ -806,10 +806,10 @@ ALTER SEQUENCE symptom_categories_id_seq OWNED BY symptom_categories.id;
 
 CREATE TABLE symptoms (
     id integer NOT NULL,
-    symptom_category_id integer,
     description character varying(255),
     created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    updated_at timestamp without time zone,
+    ancestry character varying(255)
 );
 
 
@@ -1423,6 +1423,13 @@ CREATE INDEX index_regions_on_state_id ON regions USING btree (state_id);
 
 
 --
+-- Name: index_symptoms_on_ancestry; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_symptoms_on_ancestry ON symptoms USING btree (ancestry);
+
+
+--
 -- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1579,6 +1586,8 @@ INSERT INTO schema_migrations (version) VALUES ('20131016133737');
 
 INSERT INTO schema_migrations (version) VALUES ('20131018044121');
 
+INSERT INTO schema_migrations (version) VALUES ('20131018085126');
+
 INSERT INTO schema_migrations (version) VALUES ('20131023141250');
 
 INSERT INTO schema_migrations (version) VALUES ('20131025093219');
@@ -1610,3 +1619,5 @@ INSERT INTO schema_migrations (version) VALUES ('20131217145844');
 INSERT INTO schema_migrations (version) VALUES ('20131217190922');
 
 INSERT INTO schema_migrations (version) VALUES ('20131219160457');
+
+INSERT INTO schema_migrations (version) VALUES ('20131223164355');

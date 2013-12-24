@@ -1,0 +1,23 @@
+.row
+  .col-md-8
+    = link_to 'Add symptom', new_admins_symptom_path, class: 'btn btn-primary pull-right'
+    %h4 Manage symptoms
+
+- if @tree.empty?
+  .panel.panel-default
+    .panel-body.text-center
+      No symptoms yet
+-else
+  .row
+    .col-md-8
+      .table-responsive
+        %table.table
+          %tbody
+            - @tree.each do |parent, children|
+              %tr
+                %th.col-md-8= parent.description
+                %th.text-right= render 'actions', symptom: parent
+              - children.each do |c|
+                %tr
+                  %td.indent-left= c.first.description
+                  %td.text-right= render 'actions', symptom: c.first

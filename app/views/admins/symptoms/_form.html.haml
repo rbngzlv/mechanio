@@ -1,0 +1,8 @@
+= simple_form_for [:admins, @symptom], html: { class: 'form-horizontal' }, defaults: { label_html: { class: 'col-md-2 col-sm-2' } }, wrapper: :bootstrap_horizontal do |f|
+  = f.error_notification
+  - unless @symptom.persisted? && @symptom.has_children?
+    = f.input :parent_id, collection: parents, label_method: :description, label: 'Parent category'
+  = f.input :description
+  .form-group
+    .col-md-offset-2.col-md-4
+      = f.submit 'Save', class: 'btn btn-primary'
