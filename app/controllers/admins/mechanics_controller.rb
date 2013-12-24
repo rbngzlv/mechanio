@@ -70,6 +70,6 @@ class Admins::MechanicsController < Admins::ApplicationController
   end
 
   def registration_email(mechanic)
-    MechanicMailer::registration_note(mechanic.id).deliver
+    MechanicMailer::registration_note(mechanic.id, mechanic.password).deliver
   end
 end
