@@ -28,12 +28,12 @@
           = simple_fields_for :car, wrapper: :nolabel do |c|
             %label When was your car last serviced?
             .form-inline
-              = c.input :last_service_kms, placeholder: 'Kms', input_html: { 'ng-model' => 'car.last_service_kms' }
+              = c.input :last_service_kms, as: :integer, placeholder: 'Kms', input_html: { 'ng-model' => 'car.last_service_kms' }
               &nbsp;
               OR
               .form-group.date.optional.car_last_service_date
                 = select_month Date.today, { field_name: 'last_service_month', prefix: 'car', prompt: 'Month' }, { class: 'form-control', 'ng-model' => 'last_service_month' }
-                = c.text_field 'last_service_year', class: 'form-control', placeholder: 'Year', maxlength: 4, 'ng-model' => 'last_service_year'
+                = c.number_field 'last_service_year', class: 'form-control', placeholder: 'Year', maxlength: 4, 'ng-model' => 'last_service_year'
 
             %span.help-block
               Enter either the KMs interval, or the date the car was serviced
