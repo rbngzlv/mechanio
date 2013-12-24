@@ -770,37 +770,6 @@ ALTER SEQUENCE states_id_seq OWNED BY states.id;
 
 
 --
--- Name: symptom_categories; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE symptom_categories (
-    id integer NOT NULL,
-    description character varying(255),
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
-);
-
-
---
--- Name: symptom_categories_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE symptom_categories_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: symptom_categories_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE symptom_categories_id_seq OWNED BY symptom_categories.id;
-
-
---
 -- Name: symptoms; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1100,13 +1069,6 @@ ALTER TABLE ONLY states ALTER COLUMN id SET DEFAULT nextval('states_id_seq'::reg
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY symptom_categories ALTER COLUMN id SET DEFAULT nextval('symptom_categories_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
 ALTER TABLE ONLY symptoms ALTER COLUMN id SET DEFAULT nextval('symptoms_id_seq'::regclass);
 
 
@@ -1289,14 +1251,6 @@ ALTER TABLE ONLY service_plans
 
 ALTER TABLE ONLY states
     ADD CONSTRAINT states_pkey PRIMARY KEY (id);
-
-
---
--- Name: symptom_categories_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY symptom_categories
-    ADD CONSTRAINT symptom_categories_pkey PRIMARY KEY (id);
 
 
 --
@@ -1621,3 +1575,5 @@ INSERT INTO schema_migrations (version) VALUES ('20131217190922');
 INSERT INTO schema_migrations (version) VALUES ('20131219160457');
 
 INSERT INTO schema_migrations (version) VALUES ('20131223164355');
+
+INSERT INTO schema_migrations (version) VALUES ('20131224174010');
