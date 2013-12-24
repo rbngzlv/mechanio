@@ -375,13 +375,18 @@ form input.form-control {
 
 .fc-event-inner {
   padding: 3px;
+}
 
+.fc-event {
   &.day-off {
     background: #999;
+    border-color: #666;
   }
 
   &.work {
+    border-color: #c72935;
     background: #e74955;
+    cursor: default;
   }
 }
 
