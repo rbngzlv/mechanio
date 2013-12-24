@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   has_many :cars, -> { where deleted_at: nil }
   has_many :jobs
   has_many :credit_cards
-  has_many :authentications, dependent: :delete_all
+  has_many :authentications, dependent: :destroy
   belongs_to :location, dependent: :destroy
 
   accepts_nested_attributes_for :location, reject_if: :all_blank
@@ -29,12 +29,12 @@ class User < ActiveRecord::Base
   end
 
   def self.find_or_create_from_oauth(hash)
-    unless user = User.where(email: hash['email']).first
+    unless user = User.find_by(email: hash['email'])
       user = User.create(
         first_name: hash['first_name'],
         last_name: hash['last_name'],
         email: hash['email'],
-        remote_avatar_url: hash['image'] ? hash['image'] : hash['picture'],
+        remote_avatar_url: hash['image'],
         password: Devise.friendly_token[0,20]
       )
     end

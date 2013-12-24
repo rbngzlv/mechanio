@@ -1,7 +1,7 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def google_oauth2
-    auth_with 'google'
+    auth_with 'gmail'
   end
 
   def facebook
@@ -16,7 +16,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
     if @auth.user.persisted?
       set_flash_message(:notice, :success, kind: provider.capitalize)
-      sign_in_and_redirect @auth.user, :event => :authentication
+      sign_in_and_redirect @auth.user, event: :authentication
     else
       session["devise.oauth_data"] = auth
       redirect_to new_user_registration_url, alert: 'Error occured'
