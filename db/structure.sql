@@ -85,10 +85,10 @@ ALTER SEQUENCE admins_id_seq OWNED BY admins.id;
 
 
 --
--- Name: authorizations; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: authentications; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE TABLE authorizations (
+CREATE TABLE authentications (
     id integer NOT NULL,
     provider character varying(255),
     uid character varying(255),
@@ -99,10 +99,10 @@ CREATE TABLE authorizations (
 
 
 --
--- Name: authorizations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: authentications_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE authorizations_id_seq
+CREATE SEQUENCE authentications_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -111,10 +111,10 @@ CREATE SEQUENCE authorizations_id_seq
 
 
 --
--- Name: authorizations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: authentications_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE authorizations_id_seq OWNED BY authorizations.id;
+ALTER SEQUENCE authentications_id_seq OWNED BY authentications.id;
 
 
 --
@@ -1008,7 +1008,7 @@ ALTER TABLE ONLY admins ALTER COLUMN id SET DEFAULT nextval('admins_id_seq'::reg
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY authorizations ALTER COLUMN id SET DEFAULT nextval('authorizations_id_seq'::regclass);
+ALTER TABLE ONLY authentications ALTER COLUMN id SET DEFAULT nextval('authentications_id_seq'::regclass);
 
 
 --
@@ -1184,7 +1184,7 @@ ALTER TABLE ONLY admins
 -- Name: authorizations_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY authorizations
+ALTER TABLE ONLY authentications
     ADD CONSTRAINT authorizations_pkey PRIMARY KEY (id);
 
 
@@ -1384,6 +1384,20 @@ CREATE UNIQUE INDEX index_admins_on_email ON admins USING btree (email);
 --
 
 CREATE UNIQUE INDEX index_admins_on_reset_password_token ON admins USING btree (reset_password_token);
+
+
+--
+-- Name: index_authentications_on_uid_and_provider; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_authentications_on_uid_and_provider ON authentications USING btree (uid, provider);
+
+
+--
+-- Name: index_authentications_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_authentications_on_user_id ON authentications USING btree (user_id);
 
 
 --
@@ -1632,3 +1646,7 @@ INSERT INTO schema_migrations (version) VALUES ('20131217190922');
 INSERT INTO schema_migrations (version) VALUES ('20131218161230');
 
 INSERT INTO schema_migrations (version) VALUES ('20131219160457');
+
+INSERT INTO schema_migrations (version) VALUES ('20131223143523');
+
+INSERT INTO schema_migrations (version) VALUES ('20131223143821');

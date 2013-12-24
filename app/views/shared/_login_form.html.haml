@@ -16,13 +16,13 @@
               = f.button :submit, 'Login', class: 'btn-block btn-success'
       .modal-footer
         %p
-          = link_to 'Social connections', '', class: 'js-socials-link'
+          = link_to 'Social connections', '', class: 'js-modal', 'data-toggle' => '#social-login-modal'
         %p.pull-left
           Forgot your password?
           = link_to 'Reset it here', new_password_path(resource_name)
         %p.pull-right
           It's free to join!
-          = link_to 'Sign up', '', class: 'js-signup-link'
+          = link_to 'Sign up', '', class: 'js-modal', 'data-toggle' => '#register-modal'
 #social-login-modal.modal.fade
   .modal-dialog
     .modal-content
@@ -30,18 +30,18 @@
         %button{ type: 'button', class: 'close', 'data-dismiss' => 'modal', 'aria-hidden' => true } &times;
         %h4.modal-title Sign Up
       .modal-body
-        %p.text-center= link_to image_tag('facebook-btn.jpg'), user_omniauth_authorize_path(:facebook)
-        %p.text-center= link_to image_tag('gmail-btn.jpg'), user_omniauth_authorize_path(:google_oauth2)
+        %p.text-center= link_to image_tag('facebook-btn.jpg'), user_omniauth_authorize_path(:facebook), id: 'facebook-link'
+        %p.text-center= link_to image_tag('gmail-btn.jpg'), user_omniauth_authorize_path(:google_oauth2), id: 'gmail-link'
         %p
           Sign up with Mechanio to book reliable mobile mechanics to service your car from your home or office.
         %p.text-center
           %span.small We never post without permission (we hate that tool)
           %br
-          = link_to 'Use regular email sign up', '', class: 'js-signup-link'
+          = link_to 'Use regular email sign up', '', class: 'js-modal', 'data-toggle' => '#register-modal'
       .modal-footer
         %p.pull-right
           It's free to join!
-          = link_to 'Log in', '', class: 'js-login-link'
+          = link_to 'Log in', '', class: 'js-modal', 'data-toggle' => '#login-modal'
 - if devise_mapping.registerable?
   #register-modal.modal.fade
     .modal-dialog
@@ -62,23 +62,16 @@
                 = f.button :submit, 'Sign up', class: 'btn-block btn-success'
         .modal-footer
           %p
-            = link_to 'Social connections', '', class: 'js-socials-link'
+            = link_to 'Social connections', '', class: 'js-modal', 'data-toggle' => '#social-login-modal'
           %p.pull-left
             Forgot your password?
             = link_to 'Reset it here', new_password_path(resource_name)
           %p.pull-right
             Already have an account?
-            = link_to 'Login', '', class: 'js-login-link'
+            = link_to 'Login', '', class: 'js-modal', 'data-toggle' => '#login-modal'
 :coffee
-  $('.js-signup-link').click (e) ->
+  $('.js-modal').click (e) ->
     e.preventDefault()
-    $(e.target).parents('.modal').modal('toggle')
-    $('#register-modal').modal('toggle')
-  $('.js-login-link').click (e) ->
-    e.preventDefault()
-    $(e.target).parents('.modal').modal('toggle')
-    $('#login-modal').modal('toggle')
-  $('.js-socials-link').click (e) ->
-    e.preventDefault()
-    $(e.target).parents('.modal').modal('toggle')
-    $('#social-login-modal').modal('toggle')
+    $el = $(e.target)
+    $el.parents('.modal').modal('toggle')
+    $($el.attr('data-toggle')).modal('toggle')

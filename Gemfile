@@ -31,6 +31,7 @@ gem 'high_voltage'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
+gem 'dotenv-rails'
 
 group :development do
   gem 'letter_opener'
@@ -53,7 +54,6 @@ end
 group :development, :test do
   gem 'quiet_assets'
   gem 'awesome_print'
-  gem 'dotenv-rails'
 end
 
 group :production do
