@@ -1,4 +1,4 @@
-.step-diagnose{ 'ng-controller' => 'DiagnoseController', 'ng-show' => 'stepVisible("diagnose")' }
+.step-diagnose{ 'ng-controller' => 'DiagnoseController', 'ng-show' => 'stepVisible("diagnose")', 'ng-init' => "init({ mode: '#{@mode}' })" }
   .wizard-body{ 'ng-show' => "mode == 'service'", 'ng-form' => 'service_form' }
     %h5 PLEASE PICK A SERVICE INTERVAL YOU'LL LIKE OUR PROFESSIONAL MOBILE MECHANIC TO PERFORM
     %hr.hr-dark-gray

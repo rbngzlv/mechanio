@@ -122,7 +122,8 @@ describe 'Service wizard', js: true do
     end
 
     it 'add repair with symptoms' do
-      visit service_path
+      visit root_path
+      click_on 'Car Needs Repair'
 
       verify_current_step 'Car Details'
       select_car(car)
@@ -132,6 +133,7 @@ describe 'Service wizard', js: true do
       verify_current_step 'Diagnose'
       verify_sidebar 2, 'VEHICLE', variation.display_title
 
+      page.should have_css 'h5', text: 'FIX CAR PROBLEM'
       add_repair_symptoms
       click_on 'Continue'
 
@@ -156,6 +158,7 @@ describe 'Service wizard', js: true do
       verify_current_step 'Diagnose'
       verify_sidebar 2, 'VEHICLE', variation.display_title
 
+      click_link 'Add Repair'
       add_repair_description
       click_on 'Continue'
 
@@ -210,14 +213,12 @@ describe 'Service wizard', js: true do
   end
 
   def add_repair_symptoms
-    click_link 'Add Repair'
     click_on 'Looks like'
     check 'Sway - Gradual movement from side to side.'
     check 'Drifts - Gradual movements to one side.'
   end
 
   def add_repair_description
-    click_link 'Add Repair'
     fill_in 'Describe any issues you have with your car', with: 'I have 3 wheels'
   end
 

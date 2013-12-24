@@ -29,7 +29,8 @@ Mechanio::Application.routes.draw do
     resource :profile, only: [:show, :edit, :update]
     resource :settings, only: [:edit, :update]
   end
-  get '/service', to: 'users/jobs#new'
+  get '/service', to: 'users/jobs#service'
+  get '/repair',  to: 'users/jobs#repair'
 
   namespace :mechanics do
     get '/', to: 'dashboard#index', as: :dashboard
