@@ -11,16 +11,17 @@
           %tr
             %td
               %b Car
-            %td
+            %td{ colspan: 3 }
               = job.car.display_title
-          %tr.tr-divider
-            - job.tasks.each do |task|
+          - job.tasks.each do |task|
+            %tr.tr-divider
               %td
                 %b= task.type
               %td
                 = task.title
               %td
-              %td.text-right= number_to_currency task.cost
+              %td.text-right
+                = cost_or_pending task.cost
           %tr
             %td
               %b Billing
@@ -28,8 +29,6 @@
             %td
               %b Total Fees
             %td.text-right
-              - if job.cost
-                %b= number_to_currency job.cost
-              - else
-                pending
+              = cost_or_pending job.cost
+
       = link_to 'Book Appointment', edit_users_appointment_path(job), class: 'btn btn-success pull-right' if job.estimated?
