@@ -87,6 +87,12 @@ describe Job do
     end
   end
 
+  it '#set_uid' do
+    job.user = create :user, first_name: 'Eugene', last_name: 'Maslenkov'
+    job.tasks << create(:task)
+    expect { job.save }.to change { job.uid }.from(nil).to("EUGMA#{DateTime.now.to_s :job_uid_format}")
+  end
+
   it 'builds task association with correct STI subclass' do
     job.tasks_attributes = [build(:service).attributes, build(:repair).attributes]
     job.save!

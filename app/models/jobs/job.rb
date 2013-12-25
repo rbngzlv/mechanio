@@ -15,6 +15,7 @@ class Job < ActiveRecord::Base
 
   before_validation :assign_car_to_user
   before_save :set_title, :set_cost, :set_status, :on_quote_change
+  before_save :set_uid, if: proc { |model| model.user && !model.uid }
 
   validates :car, :location, :tasks, :contact_email, :contact_phone, presence: true
   validates :contact_phone, format: { with: /\A04\d{8}\z/ }
@@ -149,6 +150,10 @@ class Job < ActiveRecord::Base
 
   def set_title
     self.title ||= tasks.first.title if tasks.first
+  end
+
+  def set_uid
+    self.uid = "#{ user.first_name[0..2].upcase }#{ user.last_name[0..1].upcase }#{ DateTime.now.to_s :job_uid_format }"
   end
 
   def set_cost
