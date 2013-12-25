@@ -16,7 +16,7 @@ class Admins::MechanicsController < Admins::ApplicationController
     @mechanic = Mechanic.new(permitted_params.merge(password: password))
 
     if @mechanic.save
-      registration_email @mechanic
+      registration_email @mechanic, password
       redirect_to edit_admins_mechanic_path(@mechanic), notice: 'Mechanic succesfully created.'
     else
       render :new
@@ -69,7 +69,7 @@ class Admins::MechanicsController < Admins::ApplicationController
     params.require(:mechanic).permit!
   end
 
-  def registration_email(mechanic)
-    MechanicMailer::registration_note(mechanic.id, mechanic.password).deliver
+  def registration_email(mechanic, password)
+    MechanicMailer::registration_note(mechanic.id, password).deliver
   end
 end
