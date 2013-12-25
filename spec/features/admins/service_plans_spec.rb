@@ -146,6 +146,16 @@ describe 'Manage service periods' do
       page.should have_css'.alert.alert-info', text: 'Service plan deleted succesfully'
     end
 
+    specify 'delete service plan from index' do
+      service_plan
+      visit by_model_admins_service_plans_path(service_plan: {
+        make_id: service_plan.make_id, model_id: service_plan.model_id, model_variation_id: service_plan.model_variation_id
+      })
+      click_link "Delete"
+      current_url.should include "/admins/service_plans/by_model?service_plan%255Bmake_id%255D=#{service_plan.make_id}&service_plan%255Bmodel_id%255D=#{service_plan.model_id}&service_plan%255Bmodel_variation_id%255D=#{service_plan.model_variation_id}"
+      page.should have_css '.alert.alert-info', text: 'Service plan deleted succesfully'
+    end
+
     def select_model_variation
       select model_variation.make.name, from: 'service_plan_make_id'
       select model_variation.model.name, from: 'service_plan_model_id'
