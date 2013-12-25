@@ -8,13 +8,27 @@ feature 'mechanic signin' do
   before { visit new_mechanic_session_path }
 
   context 'login' do
-
-    scenario 'success' do
+    def signin_as_mechanic resource
       within '.wrap > .container' do
-        fill_in 'mechanic_email', with: mechanic.email
-        fill_in 'mechanic_password', with: mechanic.password
+        fill_in 'mechanic_email', with: resource.email
+        fill_in 'mechanic_password', with: resource.password
         click_button 'Login'
       end
+    end
+
+    scenario 'first success login' do
+      signin_as_mechanic mechanic
+
+      should have_content('Signed in successfully.')
+      should have_selector('h4', text: 'Settings')
+      should have_selector('li.active', text: 'Settings')
+    end
+
+    scenario 'second success login' do
+      signin_as_mechanic mechanic
+      within('.header') { click_link 'Log out' }
+      visit new_mechanic_session_path
+      signin_as_mechanic mechanic
 
       should have_content('Signed in successfully.')
       should have_selector('h4', text: mechanic.full_name)

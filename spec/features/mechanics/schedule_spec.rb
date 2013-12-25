@@ -117,7 +117,6 @@ feature 'Mechanic schedule' do
         find('.fc-event', text: event.title).click
         sleep 0.1
       end.not_to change { has_content?(event.title) }
-      should have_content 'Cannot delete event with job'
     end
 
     def set_for_today(*time_slots)

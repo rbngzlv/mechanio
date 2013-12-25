@@ -3,6 +3,7 @@
 --
 
 SET statement_timeout = 0;
+SET lock_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SET check_function_bodies = false;
@@ -81,6 +82,39 @@ CREATE SEQUENCE admins_id_seq
 --
 
 ALTER SEQUENCE admins_id_seq OWNED BY admins.id;
+
+
+--
+-- Name: authentications; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE authentications (
+    id integer NOT NULL,
+    provider character varying(255),
+    uid character varying(255),
+    user_id integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: authentications_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE authentications_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: authentications_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE authentications_id_seq OWNED BY authentications.id;
 
 
 --
@@ -943,6 +977,13 @@ ALTER TABLE ONLY admins ALTER COLUMN id SET DEFAULT nextval('admins_id_seq'::reg
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY authentications ALTER COLUMN id SET DEFAULT nextval('authentications_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY body_types ALTER COLUMN id SET DEFAULT nextval('body_types_id_seq'::regclass);
 
 
@@ -1094,14 +1135,6 @@ ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regcl
 
 
 --
--- Data for Name: spatial_ref_sys; Type: TABLE DATA; Schema: public; Owner: -
---
-
-COPY spatial_ref_sys (srid, auth_name, auth_srid, srtext, proj4text) FROM stdin;
-\.
-
-
---
 -- Name: admins_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1110,11 +1143,27 @@ ALTER TABLE ONLY admins
 
 
 --
+-- Name: authorizations_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY authentications
+    ADD CONSTRAINT authorizations_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: body_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY body_types
     ADD CONSTRAINT body_types_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: brands_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY makes
+    ADD CONSTRAINT brands_pkey PRIMARY KEY (id);
 
 
 --
@@ -1171,14 +1220,6 @@ ALTER TABLE ONLY labours
 
 ALTER TABLE ONLY locations
     ADD CONSTRAINT locations_pkey PRIMARY KEY (id);
-
-
---
--- Name: makes_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY makes
-    ADD CONSTRAINT makes_pkey PRIMARY KEY (id);
 
 
 --
@@ -1297,6 +1338,20 @@ CREATE UNIQUE INDEX index_admins_on_email ON admins USING btree (email);
 --
 
 CREATE UNIQUE INDEX index_admins_on_reset_password_token ON admins USING btree (reset_password_token);
+
+
+--
+-- Name: index_authentications_on_uid_and_provider; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_authentications_on_uid_and_provider ON authentications USING btree (uid, provider);
+
+
+--
+-- Name: index_authentications_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_authentications_on_user_id ON authentications USING btree (user_id);
 
 
 --
@@ -1551,7 +1606,13 @@ INSERT INTO schema_migrations (version) VALUES ('20131217145844');
 
 INSERT INTO schema_migrations (version) VALUES ('20131217190922');
 
+INSERT INTO schema_migrations (version) VALUES ('20131218161230');
+
 INSERT INTO schema_migrations (version) VALUES ('20131219160457');
+
+INSERT INTO schema_migrations (version) VALUES ('20131223143523');
+
+INSERT INTO schema_migrations (version) VALUES ('20131223143821');
 
 INSERT INTO schema_migrations (version) VALUES ('20131223164355');
 
