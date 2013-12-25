@@ -34,7 +34,7 @@ feature 'Jobs page' do
 
   def verify_job_row(job)
     should have_content job.status.capitalize
-    should have_content job.location.geocoded? ? 'Valid' : 'Invalid'
+    should have_content "#{job.location.state.name}(#{job.location.postcode})"
     should have_content job.title
     should have_content job.created_at.to_s(:date)
     should have_content job.user.full_name
