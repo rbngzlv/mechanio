@@ -1675,6 +1675,10 @@ form {
     display: none;
   }
 
+  .one-column-table td {
+    display: block;
+  }
+
   .event_recurrence {
     width: 70%;
   }
