@@ -39,7 +39,7 @@ class Admins::ServicePlansController < Admins::ApplicationController
 
   def destroy
     path = if @service_plan.model_variation_id
-      by_model_admins_service_plans_path
+      generate_path_by_model_variation @service_plan
     else
       default_admins_service_plans_path
     end
@@ -52,12 +52,16 @@ class Admins::ServicePlansController < Admins::ApplicationController
 
   def redirect_after_save
     if @service_plan.model_variation
-      by_model_admins_service_plans_path(service_plan: {
-        make_id: @service_plan.make_id, model_id: @service_plan.model_id, model_variation_id: @service_plan.model_variation_id
-      })
+      generate_path_by_model_variation @service_plan
     else
       default_admins_service_plans_path
     end
+  end
+
+  def generate_path_by_model_variation(service_plan)
+      by_model_admins_service_plans_path(service_plan: {
+        make_id: service_plan.make_id, model_id: service_plan.model_id, model_variation_id: service_plan.model_variation_id
+      })
   end
 
   def find_service_plan

@@ -6,4 +6,5 @@
   - @service_plans.each do |s|
     %tr
       %td= s.display_title
-      %td.text-right= link_to "Edit", edit_admins_service_plan_path(s)
+      %td.text-right
+        = link_to "Edit", edit_admins_service_plan_path(s)
