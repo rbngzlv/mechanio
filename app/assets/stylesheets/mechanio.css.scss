@@ -1464,8 +1464,16 @@ form {
     padding: 0;
   }
 
+  .header .mobile-nav {
+    margin-top: 0;
+  }
+
   .wizard-sidebar {
     float: none !important;
+  }
+
+  .services-header-links-wrap {
+    margin-top: 6px;
   }
 
   .footer {
@@ -1549,6 +1557,11 @@ form {
     a {
       display: inline-block
     }
+  }
+
+  .services-header-links-wrap .btn {
+    margin: 5px 0 5px !important;
+    width: 100%;
   }
 
   .car-name {
@@ -1662,12 +1675,13 @@ form {
     display: none;
   }
 
-  .header .mobile-nav {
-    margin-top: 12px;
-  }
-
   .event_recurrence {
     width: 70%;
+  }
+
+  .header .mobile-nav {
+    margin-top: 0;
+    top: 10%;
   }
 
   .nav.nav-tabs {

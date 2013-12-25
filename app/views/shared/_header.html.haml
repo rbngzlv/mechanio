@@ -4,46 +4,54 @@
       - unless controller_name.eql? 'pages'
         .mobile-nav
           %i.glyphicon.glyphicon-th-list
-      = link_to image_tag('mechanio_logo.png'), root_path, class: 'brand'
-      .pull-right
-        - if user_signed_in?
-          = link_to 'How It Works', root_path(anchor: "how-it-works"), class: 'btn btn-link pull-left'
-          %ul.nav.pull-right
-            %li.dropdown
-              %button.btn.btn-dark.btn-sm.dropdown-toggle{ data: { toggle: 'dropdown' } }
-                = current_user.first_name
-                %b.caret
-              %ul.dropdown-menu
-                %li
-                  = link_to users_dashboard_path do
-                    %i.glyphicon.glyphicon-dashboard
-                    Dashboard
-                %li
-                  = link_to users_cars_path do
-                    %i.glyphicon.glyphicon-user
-                    My Cars
-                %li
-                  = link_to users_appointments_path do
-                    %i.glyphicon.glyphicon-thumbs-up
-                    My Appointments
-                %li
-                  = link_to users_estimates_path do
-                    %i.glyphicon.glyphicon-th-list
-                    My Estimates
-                %li
-                  = link_to users_profile_path do
-                    %i.glyphicon.glyphicon-user
-                    My Profile
-                %li
-                  = link_to edit_users_settings_path do
-                    %i.glyphicon.glyphicon-cog
-                    Settings
-                %li.divider
-                %li
-                  = link_to destroy_user_session_path, method: :delete do
-                    %i.glyphicon.glyphicon-log-out
-                    Log out
-        - elsif mechanic_signed_in?
+      - if user_signed_in?
+        .visible-lg.visible-md
+          = link_to image_tag('mechanio_logo.png'), root_path, class: 'brand'
+          .pull-right
+            = link_to 'How It Works', root_path(anchor: "how-it-works"), class: 'btn btn-link pull-left'
+            %ul.nav.pull-right
+              %li.dropdown
+                %button.btn.btn-dark.btn-sm.dropdown-toggle{ data: { toggle: 'dropdown' } }
+                  = current_user.first_name
+                  %b.caret
+                %ul.dropdown-menu
+                  %li
+                    = link_to users_dashboard_path do
+                      %i.glyphicon.glyphicon-dashboard
+                      Dashboard
+                  %li
+                    = link_to users_cars_path do
+                      %i.glyphicon.glyphicon-user
+                      My Cars
+                  %li
+                    = link_to users_appointments_path do
+                      %i.glyphicon.glyphicon-thumbs-up
+                      My Appointments
+                  %li
+                    = link_to users_estimates_path do
+                      %i.glyphicon.glyphicon-th-list
+                      My Estimates
+                  %li
+                    = link_to users_profile_path do
+                      %i.glyphicon.glyphicon-user
+                      My Profile
+                  %li
+                    = link_to edit_users_settings_path do
+                      %i.glyphicon.glyphicon-cog
+                      Settings
+                  %li.divider
+                  %li
+                    = link_to destroy_user_session_path, method: :delete do
+                      %i.glyphicon.glyphicon-log-out
+                      Log out
+          %p.text-right Need Help ? / Call 1800 123 1234
+        .visible-sm.visible-xs
+          .pull-right.services-header-links-wrap
+            = link_to 'Car Needs Servicing', '#', class: 'btn btn-primary col-md-3'
+            = link_to 'Fix Your Car Problem', '#', class: 'btn btn-primary col-md-3'
+      - elsif mechanic_signed_in?
+        = link_to image_tag('mechanio_logo.png'), root_path, class: 'brand'
+        .pull-right
           = link_to 'How It Works', root_path(anchor: "how-it-works"), class: 'btn btn-link pull-left'
           %ul.nav.pull-right
             %li.dropdown
@@ -76,7 +84,10 @@
                   = link_to destroy_mechanic_session_path, method: :delete do
                     %i.glyphicon.glyphicon-log-out
                     Log out
-        - else
+        %p.text-right Need Help ? / Call 1800 123 1234
+      - else
+        = link_to image_tag('mechanio_logo.png'), root_path, class: 'brand'
+        .pull-right
           = link_to 'How It Works', root_path(anchor: "how-it-works"), class: 'btn btn-link pull-left to-upper home-header-link'
           = link_to 'Sign up', '', class: 'btn btn-link navbar-btn pull-left home-header-link to-upper', data: { toggle: 'modal', target: '#register-modal' }
           = link_to 'Login', '', class: 'btn btn-link navbar-btn pull-left home-header-link to-upper', data: { toggle: 'modal', target: '#login-modal' }
