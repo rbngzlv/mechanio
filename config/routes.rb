@@ -32,7 +32,8 @@ Mechanio::Application.routes.draw do
     resource :profile, only: [:show, :edit, :update]
     resource :settings, only: [:edit, :update]
   end
-  get '/service', to: 'users/jobs#new'
+  get '/service', to: 'users/jobs#service'
+  get '/repair',  to: 'users/jobs#repair'
 
   namespace :mechanics do
     get '/', to: 'dashboard#index', as: :dashboard
@@ -62,7 +63,7 @@ Mechanio::Application.routes.draw do
     end
 
     resources :jobs, only: [:index, :edit, :update, :destroy]
-    resources :regions, only: [:index]
+    resources :symptoms
   end
 
   resource :ajax, controller: 'ajax', only: [] do

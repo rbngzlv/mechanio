@@ -4,9 +4,37 @@ class Users::JobsController < Users::ApplicationController
 
   respond_to :json
 
-  skip_before_filter :authenticate_user!, only: [:new, :create]
+  skip_before_filter :authenticate_user!, only: [:service, :repair, :create]
 
-  def new
+  def service
+    @mode = 'service'
+    render_wizard
+  end
+
+  def repair
+    @mode = 'repair'
+    render_wizard
+  end
+
+  def show
+    respond_with current_user.jobs.find(params[:id])
+  end
+
+  def create
+    if user_signed_in?
+      job = current_user.jobs.sanitize_and_create(params)
+    else
+      job = Job.create_temporary(params)
+      session[:tmp_job_id] = job.id
+    end
+
+    respond_with job, location: false
+  end
+
+
+  private
+
+  def render_wizard
     @job = Job.new
     @user_id = false
     @cars = []
@@ -23,25 +51,14 @@ class Users::JobsController < Users::ApplicationController
         @job = Job.convert_from_temporary(session.delete(:tmp_job_id), current_user)
       end
     end
+
+    render 'wizard'
   end
 
-  def show
-    respond_with current_user.jobs.find(params[:id])
+  def symptoms
+    Symptom.tree
   end
-
-  def create
-    if user_signed_in?
-      job = current_user.jobs.sanitize_and_create(params)
-    else
-      if job = Job.create_temporary(params)
-        session[:tmp_job_id] = job.id
-      end
-    end
-
-    respond_with job, location: false
-  end
-
-  private
+  helper_method :symptoms
 
   def states_json
     State.select([:id, :name]).to_json

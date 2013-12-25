@@ -6,21 +6,22 @@
         = job.created_at.to_s(:date)
   #js-collapse-one.panel-collapse.collapse.in
     .panel-body
-      .table-responsive
+      .one-column-table
         %table.table.table-borderless
           %tr
             %td
               %b Car
-            %td
+            %td{ colspan: 3 }
               = job.car.display_title
-          %tr.tr-divider
-            - job.tasks.each do |task|
+          - job.tasks.each do |task|
+            %tr.tr-divider
               %td
                 %b= task.type
               %td
                 = task.title
               %td
-              %td.text-right= number_to_currency task.cost
+              %td.text-right
+                = cost_or_pending task.cost
           %tr
             %td
               %b Billing
@@ -28,5 +29,6 @@
             %td
               %b Total Fees
             %td.text-right
-              %b= number_to_currency job.cost
+              = cost_or_pending job.cost
+
       = link_to 'Book Appointment', edit_users_appointment_path(job), class: 'btn btn-success pull-right' if job.estimated?

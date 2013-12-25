@@ -11,7 +11,7 @@ FactoryGirl.define do
       recurrence  :monthly
     end
 
-    trait :job do
+    trait :with_job do
       date_start  Date.tomorrow
       time_start  Time.new(2000, 01, 01, 9, 0, 0, '+00:00')
       time_end    Time.new(2000, 01, 01, 11, 0, 0, '+00:00')

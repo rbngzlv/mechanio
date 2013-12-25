@@ -1,6 +1,7 @@
 class MechanicMailer < AsyncMailer
-  def registration_note(mechanic_id)
+  def registration_note(mechanic_id, mechanic_password)
     @mechanic = Mechanic.find(mechanic_id)
+    @mechanic.password = mechanic_password
     mail to: @mechanic.email, subject: 'Welcome to Mechanio! What you need to know as a Mechanio Mobile Mechanic'
   end
 

@@ -16,5 +16,6 @@
           %ul.dropdown-menu
             %li= link_to 'Default service plans', default_admins_service_plans_path
             %li= link_to 'Service plans by model', by_model_admins_service_plans_path
+        = active_li 'Symptoms', admins_symptoms_path, 'admins/symptoms'
     - else
       = link_to 'Login', new_admin_session_path, class: 'btn btn-default navbar-btn'

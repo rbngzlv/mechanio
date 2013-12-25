@@ -7,7 +7,7 @@ describe MechanicMailer do
   let(:from) { ['no-reply@mechanio.com'] }
 
   specify '#registration_note' do
-    mail = MechanicMailer.registration_note(mechanic.id)
+    mail = MechanicMailer.registration_note(mechanic.id, mechanic.password)
     mail.to.should eq to
     mail.from.should eq from
     mail.subject.should eq 'Welcome to Mechanio! What you need to know as a Mechanio Mobile Mechanic'

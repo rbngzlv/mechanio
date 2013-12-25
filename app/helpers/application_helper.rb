@@ -60,4 +60,8 @@ module ApplicationHelper
     status, css = location && location.geocoded? ? ['Valid', 'success'] : ['Invalid', 'danger']
     content_tag :span, status, class: "label label-#{css}"
   end
+
+  def cost_or_pending(amount)
+    amount ? content_tag(:b, number_to_currency(amount)) : 'pending'
+  end
 end

@@ -13,6 +13,7 @@ describe 'Service wizard', js: true do
 
   before do
     reset_mail_deliveries
+    create :symptom_tree
   end
 
   context 'logged out' do
@@ -85,10 +86,13 @@ describe 'Service wizard', js: true do
   end
 
   context 'logged in' do
-    it 'lists user cars and prefills contact step with profile settings' do
-      car = create :car, user: user, model_variation: variation
+    let!(:car) { create :car, user: user, model_variation: variation }
 
+    before do
       login_user user
+    end
+
+    it 'lists user cars and prefills contact step with profile settings' do
       visit service_path
 
       verify_current_step 'Car Details'
@@ -114,6 +118,57 @@ describe 'Service wizard', js: true do
       verify_quote
       verify_email_notification
       verify_job_created(user)
+      verify_last_service_date(user)
+    end
+
+    it 'add repair with symptoms' do
+      visit root_path
+      click_on 'Car Needs Repair'
+
+      verify_current_step 'Car Details'
+      select_car(car)
+      enter_last_service_date
+      click_on 'Continue'
+
+      verify_current_step 'Diagnose'
+      verify_sidebar 2, 'VEHICLE', variation.display_title
+
+      page.should have_css 'h5', text: 'FIX CAR PROBLEM'
+      add_repair_symptoms
+      click_on 'Continue'
+
+      verify_current_step 'Contact'
+      verify_sidebar 3, 'CAR SERVICING', 'Diagnose car problem'
+      click_on 'Continue'
+
+      verify_pending_quote
+      # verify_email_notification
+      verify_job_pending(user)
+      verify_last_service_date(user)
+    end
+
+    it 'add repair with description' do
+      visit service_path
+
+      verify_current_step 'Car Details'
+      select_car(car)
+      enter_last_service_date
+      click_on 'Continue'
+
+      verify_current_step 'Diagnose'
+      verify_sidebar 2, 'VEHICLE', variation.display_title
+
+      click_link 'Add Repair'
+      add_repair_description
+      click_on 'Continue'
+
+      verify_current_step 'Contact'
+      verify_sidebar 3, 'CAR SERVICING', 'Diagnose car problem'
+      click_on 'Continue'
+
+      verify_pending_quote
+      # verify_email_notification
+      verify_job_pending(user)
       verify_last_service_date(user)
     end
   end
@@ -157,10 +212,26 @@ describe 'Service wizard', js: true do
     click_on 'Continue'
   end
 
+  def add_repair_symptoms
+    click_on 'Looks like'
+    check 'Sway - Gradual movement from side to side.'
+    check 'Drifts - Gradual movements to one side.'
+  end
+
+  def add_repair_description
+    fill_in 'Describe any issues you have with your car', with: 'I have 3 wheels'
+  end
+
   def verify_quote
     page.should have_css 'h4', text: 'YOUR NEGOTIATED QUOTE'
     find('table.tasks tr:last-child').text.should eq "Total Fees #{number_to_currency service_plan.cost}"
     page.should have_css 'h4', text: 'SELECT A MECHANIC'
+  end
+
+  def verify_pending_quote
+    page.should have_css 'h4', text: 'Thanks for requesting a quote!'
+    page.should have_content "We'll give you a call"
+    page.should have_link 'Check my job status'
   end
 
   def verify_current_step(step)
@@ -191,6 +262,14 @@ describe 'Service wizard', js: true do
     user.jobs.last.tap do |j|
       j.status.should eq 'estimated'
       j.cost.should eq 350
+    end
+  end
+
+  def verify_job_pending(user)
+    user.reload.jobs.count.should eq 1
+    user.jobs.last.tap do |j|
+      j.status.should eq 'pending'
+      j.cost.should eq nil
     end
   end
 

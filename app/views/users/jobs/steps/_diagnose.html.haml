@@ -1,14 +1,37 @@
-.step-diagnose{ 'ng-controller' => 'DiagnoseController', 'ng-show' => 'stepVisible("diagnose")', 'ng-form' => 'diagnose_form' }
-  .wizard-body
+.step-diagnose{ 'ng-controller' => 'DiagnoseController', 'ng-show' => 'stepVisible("diagnose")', 'ng-init' => "init({ mode: '#{@mode}' })" }
+  .wizard-body{ 'ng-show' => "mode == 'service'", 'ng-form' => 'service_form' }
     %h5 PLEASE PICK A SERVICE INTERVAL YOU'LL LIKE OUR PROFESSIONAL MOBILE MECHANIC TO PERFORM
     %hr.hr-dark-gray
     = f.simple_fields_for :task do |s|
       = s.input :service_plan_id, label: false, include_blank: '-- Please select --', collection: [], input_html: { 'ng-model' => 'service_plan', 'ng-options' => 'v.display_title for v in service_plans', 'ng-disabled' => 'service_plans.length == 0', 'ng-focus' => true, 'required' => true }
       = s.input :note, label: false, placeholder: 'Write any additional issues or concerns you have with your car', as: :text, input_html: { 'ng-model' => 'note' }
+    %a.btn.btn-success{ 'href' => '', 'ng-click' => 'mode = "repair"' } Add Repair
+
+  .wizard-body{ 'ng-show' => 'mode == "repair"', 'ng-form' => 'repair_form' }
+    %h5 FIX CAR PROBLEM
+    %hr.hr-dark-gray
+    = f.simple_fields_for :task, Repair.new do |s|
+      = s.input :title, label: false, placeholder: 'Describe any issues you have with your car', as: :text, input_html: { 'ng-model' => 'problem_description' }
+
+      %h6 Or select type of symptom you have
+      #js-accordion.accordion.panel-group
+        - Symptom.tree.each do |parent, children|
+          .panel.nested-panel
+            .panel-heading.clearfix
+              %h4.panel-title
+                = link_to parent.description, "#collapse_#{parent.id}", class: 'accordion-toggle', data: { toggle: 'collapse', parent: '#js-accordion' }
+            .panel-collapse.collapse{ id: "collapse_#{parent.id}" }
+              .panel-body
+                %p What do you feel?
+                = s.collection_check_boxes :symptoms, children.keys, :id, :description, item_wrapper_tag: :label, item_wrapper_class: 'checkbox' do |b|
+                  - b.check_box('ng-model' => "symptoms[#{b.object.id}]") + ' ' + b.object.description
+
+    %a.btn.btn-success{ 'href' => '', 'ng-click' => 'mode = "service"' } {{serviceButtonLabel()}}
+
   %hr
   %button.btn.btn-default{ 'type' => 'button', 'ng-click' => 'gotoStep("car-details")' }
-    %small &lt;
+    %small &#x276E;
     Back
   %button.btn.btn-primary.pull-right{ 'type' => 'button', 'ng-click' => 'submit()', 'ng-disabled' => '!valid()' }
     Continue
-    %small &gt;
+    %small &#x276F;
