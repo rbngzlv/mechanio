@@ -19,6 +19,9 @@
   = job_status(@job.status)
 
 %h5
+  ID: #{ @job.uid }
+
+%h5
   = @job.car.display_title
 
 - if @job.mechanic

@@ -1,5 +1,6 @@
 %tr
   %td= job_status(job.status)
+  %td= job.uid
   %td= location_status(job.location)
   %td= job.title
   %td= job.created_at.to_s(:date)
