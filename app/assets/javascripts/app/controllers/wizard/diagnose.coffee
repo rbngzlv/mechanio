@@ -13,6 +13,9 @@ app.controller 'DiagnoseController', ['$scope', '$http', ($scope, $http) ->
     $scope.data.tasks = []
     $scope.loadServicePlans(args[0]) if args[0]
 
+  $scope.$on 'task_edit', (e, task) ->
+    $scope.mode = if task.type == 'Repair' then 'repair' else 'service'
+
   $scope.init = (options = {}) ->
     $scope[key] = value for key, value of options
 

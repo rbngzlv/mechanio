@@ -32,6 +32,10 @@ app.controller 'WizardController', ['$scope', '$http', ($scope, $http) ->
       $scope.step = step
       $scope.$broadcast("#{step}_step.enter")
 
+  $scope.editTask = (task) ->
+    $scope.$broadcast('task_edit', task)
+    $scope.gotoStep('diagnose')
+
   $scope.findNextStep = ->
     index = $scope.steps.indexOf($scope.step)
     $scope.steps[index + 1]

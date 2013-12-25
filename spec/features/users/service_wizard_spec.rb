@@ -28,6 +28,7 @@ describe 'Service wizard', js: true do
       verify_current_step 'Diagnose'
       verify_sidebar 2, 'VEHICLE', variation.display_title
       select_service_plan
+      click_on 'Continue'
 
       verify_current_step 'Contact'
       verify_sidebar 3, 'CAR SERVICING', service_plan.display_title
@@ -56,6 +57,7 @@ describe 'Service wizard', js: true do
       verify_current_step 'Diagnose'
       verify_sidebar 2, 'VEHICLE', variation.display_title
       select_service_plan
+      click_on 'Continue'
 
       verify_current_step 'Contact'
       verify_sidebar 3, 'CAR SERVICING', service_plan.display_title
@@ -103,6 +105,7 @@ describe 'Service wizard', js: true do
       verify_current_step 'Diagnose'
       verify_sidebar 2, 'VEHICLE', variation.display_title
       select_service_plan
+      click_on 'Continue'
 
       verify_current_step 'Contact'
       verify_sidebar 3, 'CAR SERVICING', service_plan.display_title
@@ -171,6 +174,33 @@ describe 'Service wizard', js: true do
       verify_job_pending(user)
       verify_last_service_date(user)
     end
+
+    it 'allows to edit tasks from sidebar' do
+      visit service_path
+
+      verify_current_step 'Car Details'
+      select_car(car)
+      enter_last_service_date
+      click_on 'Continue'
+
+      verify_current_step 'Diagnose'
+      verify_sidebar 2, 'VEHICLE', variation.display_title
+
+      select_service_plan
+      click_link 'Add Repair'
+      add_repair_description
+      click_on 'Continue'
+
+      verify_current_step 'Contact'
+
+      within_sidebar_block(3) { find('li:nth-child(1) a').click }
+      verify_current_step 'Diagnose'
+      page.should have_css 'h5', "PLEASE PICK A SERVICE INTERVAL YOU'LL LIKE OUR PROFESSIONAL MOBILE MECHANIC TO PERFORM"
+
+      within_sidebar_block(3) { find('li:nth-child(2) a').click }
+      verify_current_step 'Diagnose'
+      page.should have_css 'h5', "FIX CAR PROBLEM"
+    end
   end
 
   def add_new_car
@@ -209,7 +239,6 @@ describe 'Service wizard', js: true do
   def select_service_plan
     select service_plan.display_title, from: 'job_task_service_plan_id'
     fill_in 'job_task_note', with: 'A note goes here'
-    click_on 'Continue'
   end
 
   def add_repair_symptoms
@@ -239,9 +268,15 @@ describe 'Service wizard', js: true do
   end
 
   def verify_sidebar(position, title, content)
-    within ".wizard-sidebar .panel:nth-of-type(#{position})" do
+    within_sidebar_block(position) do
       page.should have_css 'h5', text: title
       page.should have_css '.panel-body', text: content
+    end
+  end
+
+  def within_sidebar_block(position, &block)
+    within ".wizard-sidebar .panel:nth-of-type(#{position})" do
+      yield
     end
   end
 
