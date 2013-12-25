@@ -18,6 +18,7 @@
 
 config/database.yml
 .idea
+.env
 
 /public/system/
 /public/assets/

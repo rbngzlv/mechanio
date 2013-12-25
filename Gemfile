@@ -28,9 +28,14 @@ gem 'braintree'
 gem 'fullcalendar-rails'
 gem 'ice_cube'
 gem 'high_voltage'
+gem 'omniauth'
+gem 'omniauth-facebook'
+gem 'omniauth-google-oauth2'
+gem 'dotenv-rails'
 
 group :development do
   gem 'letter_opener'
+  gem 'pry'
 end
 
 group :test do

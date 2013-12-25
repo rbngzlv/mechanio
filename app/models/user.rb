@@ -3,11 +3,13 @@ class User < ActiveRecord::Base
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable, :validatable,
+         :omniauthable, omniauth_providers: [:google_oauth2, :facebook]
 
   has_many :cars, -> { where deleted_at: nil }
   has_many :jobs
   has_many :credit_cards
+  has_many :authentications, dependent: :destroy
   belongs_to :location, dependent: :destroy
 
   accepts_nested_attributes_for :location, reject_if: :all_blank
@@ -24,6 +26,19 @@ class User < ActiveRecord::Base
         user.build_location(attrs)
       end
     end
+  end
+
+  def self.find_or_create_from_oauth(hash)
+    unless user = User.find_by(email: hash['email'])
+      user = User.create(
+        first_name: hash['first_name'],
+        last_name: hash['last_name'],
+        email: hash['email'],
+        remote_avatar_url: hash['image'],
+        password: Devise.friendly_token[0,20]
+      )
+    end
+    user
   end
 
   def location_attributes=(attrs)

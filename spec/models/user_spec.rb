@@ -7,6 +7,7 @@ describe User do
   it { should have_many :cars }
   it { should have_many :jobs }
   it { should have_many :credit_cards }
+  it { should have_many :authentications }
   it { should belong_to :location }
 
   it { should validate_presence_of :first_name }

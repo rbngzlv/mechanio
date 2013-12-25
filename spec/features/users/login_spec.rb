@@ -4,6 +4,8 @@ describe 'User login', :js do
 
   let(:user) { create :user }
 
+  subject { page }
+
   context 'logging in' do
     before do
       visit root_path
@@ -12,17 +14,19 @@ describe 'User login', :js do
       end
     end
 
+    it { should have_link "Social connections" }
+
     it 'shows an error on invalid login' do
       login_with email: 'unknown@host.com', password: 'password'
 
-      page.should have_css '.alert', text: 'Invalid email or password.'
+      should have_css '.alert', text: 'Invalid email or password.'
     end
 
     it 'loggs user in' do
       login_with email: user.email, password: user.password
 
-      page.should have_css '.alert', text: 'Signed in successfully.'
-      page.should have_css 'li.active', text: 'Dashboard'
+      should have_css '.alert', text: 'Signed in successfully.'
+      should have_css 'li.active', text: 'Dashboard'
     end
   end
 
@@ -32,7 +36,7 @@ describe 'User login', :js do
     click_button user.first_name
     click_link 'Log out'
 
-    page.should have_link 'Login'
+    should have_link 'Login'
   end
 
   def login_with(params)
