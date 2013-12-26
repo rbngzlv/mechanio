@@ -13,7 +13,7 @@ describe Service do
 
   it 'creates ServiceCost task item' do
     service.reload.task_items.count.should eq 1
-    service.title.should eq "Service: #{service_plan.display_title}"
+    service.title.should eq "#{service_plan.display_title} service"
     task_item.cost.should eq service_plan.cost
     task_item.itemable.should be_a ServiceCost
     task_item.itemable.service_plan.should eq service_plan
@@ -24,7 +24,7 @@ describe Service do
     service.save
 
     service.reload.task_items.count.should eq 1
-    service.title.should eq "Service: #{service_plan_2.display_title}"
+    service.title.should eq "#{service_plan_2.display_title} service"
     task_item.itemable.should be_a ServiceCost
     task_item.cost.should eq service_plan_2.cost
     task_item.itemable.service_plan.should eq service_plan_2

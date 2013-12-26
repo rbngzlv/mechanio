@@ -73,7 +73,7 @@ feature 'Jobs page' do
       click_on 'Update job'
 
       within_task(2) do
-        task_title.should eq "Service: #{service_plan.display_title}"
+        task_title.should eq "#{service_plan.display_title} service"
         task_total.should eq '$350.00'
         within_row(0) { verify_service_cost service_plan.display_title, '$350.00' }
       end
@@ -92,7 +92,7 @@ feature 'Jobs page' do
       visit edit_admins_job_path(job)
 
       within_task(1) do
-        task_title.should eq "Service: #{service_plan.display_title}"
+        task_title.should eq "#{service_plan.display_title} service"
         task_total.should eq '$350.00'
         within_row(0) { verify_service_cost service_plan.display_title, '$350.00' }
       end
@@ -142,7 +142,7 @@ feature 'Jobs page' do
       visit edit_admins_job_path(job)
 
       within_task(1) do
-        task_title.should eq "Service: #{service_plan.display_title}"
+        task_title.should eq "#{service_plan.display_title} service"
         task_total.should eq '$350.00'
         within_row(0) { verify_service_cost service_plan.display_title, '$350.00' }
       end

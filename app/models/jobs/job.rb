@@ -124,6 +124,10 @@ class Job < ActiveRecord::Base
     tasks.any? { |t| t.is_a?(Service) }
   end
 
+  def has_repair?
+    tasks.any? { |t| t.is_a?(Repair) }
+  end
+
   def assign_mechanic(params)
     mechanic = Mechanic.find(params[:mechanic_id])
 
@@ -148,7 +152,14 @@ class Job < ActiveRecord::Base
   end
 
   def set_title
-    self.title ||= tasks.first.title if tasks.first
+    service = tasks.find { |t| t.is_a?(Service) }
+    if service
+      title = service.set_title
+      title += " and repair" if has_repair?
+    else
+      title = "Repair"
+    end
+    self.title = title
   end
 
   def set_cost
