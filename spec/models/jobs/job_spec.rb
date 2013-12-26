@@ -87,10 +87,25 @@ describe Job do
     end
   end
 
-  it '#set_uid' do
-    job.user = create :user, first_name: 'Eugene', last_name: 'Maslenkov'
-    job.tasks << create(:task)
-    expect { job.save }.to change { job.uid }.from(nil).to("EUGMA#{DateTime.now.to_s :job_uid_format}")
+  context '#set_uid' do
+    before do
+      job.user = build :user, first_name: 'Eugene', last_name: 'Maslenkov'
+      job.tasks << create(:task)
+    end
+
+    it 'should genrate uid from user and date before save' do
+      expect { job.save }.to change { job.uid }.from(nil).to("EUGMA#{DateTime.now.strftime("%d%m%H%M")}")
+    end
+
+    it 'should generate uid only if uid undefined' do
+      job.uid = 'EUGMA12345678'
+      expect { job.save }.not_to change { job.uid }
+    end
+
+    it 'should generate uid with adding "X" if names are too short' do
+      job.user = build :user, first_name: 'E', last_name: 'M'
+      expect { job.save }.to change { job.uid }.from(nil).to("EXXMX#{DateTime.now.strftime("%d%m%H%M")}")
+    end
   end
 
   it 'builds task association with correct STI subclass' do

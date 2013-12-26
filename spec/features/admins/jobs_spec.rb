@@ -20,6 +20,7 @@ feature 'Jobs page' do
     subject { page }
 
     scenario 'check content' do
+      should have_css 'th:nth-child(1)', text: 'ID'
       within 'tbody' do
         within 'tr:nth-child(1)' do
           verify_job_row(job2)
@@ -33,8 +34,8 @@ feature 'Jobs page' do
   end
 
   def verify_job_row(job)
-    should have_content job.status.capitalize
     should have_content job.uid
+    should have_content job.status.capitalize
     should have_content job.location.geocoded? ? 'Valid' : 'Invalid'
     should have_content job.title
     should have_content job.created_at.to_s(:date)
@@ -46,17 +47,12 @@ feature 'Jobs page' do
   end
 
   context 'edit job', :js do
-    it do
-      job = create :job_with_service
-      visit edit_admins_job_path(job)
-      page.should have_content "ID: #{ job.uid }"
-    end
-
     scenario 'add service' do
       job = create :job, :with_repair
       service_plan = create :service_plan, model_variation: job.car.model_variation
 
       visit edit_admins_job_path(job)
+      page.should have_content "ID: #{job.uid}"
 
       within_task(1) do
         task_title.should eq 'Replace break pads'
