@@ -15,4 +15,7 @@
             %h5 No service plans
         %tr{ 'ng-repeat' => 's in service_plans' }
           %td {{s.display_title}}
-          %td.text-right= link_to "Edit", '/admins/service_plans/{{s.id}}/edit'
+          %td.text-right
+            = link_to "Delete", '/admins/service_plans/{{s.id}}', method: :delete, data: { confirm: "Are you sure?" }
+            &nbsp;
+            = link_to "Edit", '/admins/service_plans/{{s.id}}/edit'

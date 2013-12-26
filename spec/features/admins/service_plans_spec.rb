@@ -74,6 +74,14 @@ describe 'Manage service periods' do
       current_path.should be_eql default_admins_service_plans_path
       page.should have_css'.alert.alert-info', text: 'Service plan deleted succesfully'
     end
+
+    specify 'delete service plan from index' do
+      default_service_plan
+      visit default_admins_service_plans_path
+      click_link "Delete"
+      current_path.should be_eql default_admins_service_plans_path
+      page.should have_css '.alert.alert-info', text: 'Service plan deleted succesfully'
+    end
   end
 
   context 'car model service plans', :js do
@@ -144,6 +152,16 @@ describe 'Manage service periods' do
       click_on 'Delete'
       current_path.should be_eql by_model_admins_service_plans_path
       page.should have_css'.alert.alert-info', text: 'Service plan deleted succesfully'
+    end
+
+    specify 'delete service plan from index' do
+      service_plan
+      visit by_model_admins_service_plans_path(service_plan: {
+        make_id: service_plan.make_id, model_id: service_plan.model_id, model_variation_id: service_plan.model_variation_id
+      })
+      click_link "Delete"
+      current_url.should include "/admins/service_plans/by_model?service_plan%255Bmake_id%255D=#{service_plan.make_id}&service_plan%255Bmodel_id%255D=#{service_plan.model_id}&service_plan%255Bmodel_variation_id%255D=#{service_plan.model_variation_id}"
+      page.should have_css '.alert.alert-info', text: 'Service plan deleted succesfully'
     end
 
     def select_model_variation
