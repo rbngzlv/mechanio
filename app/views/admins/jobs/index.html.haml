@@ -2,13 +2,14 @@
 
 :javascript
   $(function() {
-    $('#filter').change(function() {
-      $(this).closest('form').submit();
+    $('#status').change(function() {
+      this.form.submit();
     });
   });
 
 = form_tag '?', method: :get do
-  = select_tag "filter", options_for_select([["all", nil], "pending", "estimated", "assigned", "completed", "cancelled", "awaiting", "feedback"], @filter)
+  = label_tag "status", "Filter by status"
+  = select_tag "status", options_for_select([["all", nil], "pending", "estimated", "assigned", "completed", "cancelled", "awaiting", "feedback"], @status)
 
 .table-responsive
   %table.table.table-striped
