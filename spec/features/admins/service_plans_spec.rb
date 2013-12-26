@@ -74,6 +74,14 @@ describe 'Manage service periods' do
       current_path.should be_eql default_admins_service_plans_path
       page.should have_css'.alert.alert-info', text: 'Service plan deleted succesfully'
     end
+
+    specify 'delete service plan from index' do
+      default_service_plan
+      visit default_admins_service_plans_path
+      click_link "Delete"
+      current_path.should be_eql default_admins_service_plans_path
+      page.should have_css '.alert.alert-info', text: 'Service plan deleted succesfully'
+    end
   end
 
   context 'car model service plans', :js do

@@ -7,4 +7,6 @@
     %tr
       %td= s.display_title
       %td.text-right
+        = link_to "Delete", admins_service_plan_path(s), method: :delete, data: { confirm: "Are you sure?" }
+        &nbsp;
         = link_to "Edit", edit_admins_service_plan_path(s)
