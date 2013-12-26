@@ -22,6 +22,8 @@ class Job < ActiveRecord::Base
 
   attr_accessor :skip_user_validation
 
+  scope :by_status, ->(status) { where(status: status) }
+
   delegate :geocoded?, :postcode, to: :location, prefix: true, allow_nil: true
 
   state_machine :status, initial: :pending do

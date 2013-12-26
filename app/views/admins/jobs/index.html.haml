@@ -1,5 +1,15 @@
 %h4 Jobs list
 
+:javascript
+  $(function() {
+    $('#filter').change(function() {
+      $(this).closest('form').submit();
+    });
+  });
+
+= form_tag '?', method: :get do
+  = select_tag "filter", options_for_select([["all", nil], "pending", "estimated", "assigned", "completed", "cancelled", "awaiting", "feedback"], @filter)
+
 .table-responsive
   %table.table.table-striped
     %thead

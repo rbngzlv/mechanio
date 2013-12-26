@@ -3,7 +3,8 @@ class Admins::JobsController < Admins::ApplicationController
   before_filter :find_job, only: [:edit, :update, :destroy]
 
   def index
-    @jobs = Job.page(params[:page])
+    @filter = params[:filter]
+    @jobs = @filter.present? ? Job.by_status(@filter).page(params[:page]) : Job.page(params[:page])
   end
 
   def edit

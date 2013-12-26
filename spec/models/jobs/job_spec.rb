@@ -48,6 +48,13 @@ describe Job do
     verify_estimated_job(job)
   end
 
+  specify '#by_status' do
+    job1 = create :job, :with_service, :pending
+    job2 = create :job, :with_service, :completed
+
+    Job.by_status(:pending).should eq [job1]
+  end
+
   describe '#assign_mechanic' do
     let(:mechanic) { create :mechanic }
 
