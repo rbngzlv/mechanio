@@ -12,6 +12,10 @@
       %thead
         %tr
           %th.col-md-3 Name
+          %th Completed Jobs
+          %th Total Earnings
+          %th Average Feedback Score
+          %th Mobile Number
           %th Email
           %th Regions assigned
           %th.col-md-2 Signup date
@@ -20,6 +24,10 @@
         - @mechanics.each do |u|
           %tr
             %td= u.full_name
+            %td= u.jobs.completed.count
+            %td
+            %td= u.rating
+            %td= u.mobile_number
             %td= u.email
             %td= u.mechanic_regions.count
             %td= u.created_at.to_s(:short)
