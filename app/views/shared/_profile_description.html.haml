@@ -4,7 +4,8 @@
     .reviews-row.clearfix
       .rating.pull-left
         = rating_stars(profile.rating)
-      %span.review-text.pull-right #{ pluralize profile.reviews, 'Review' }
+      %span.review-text.pull-right
+        = link_to pluralize(profile.reviews, 'Review'), mechanics_profile_path
   - else
     .reviews-row.clearfix.text-center
       %span

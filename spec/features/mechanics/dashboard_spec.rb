@@ -2,6 +2,7 @@ require 'spec_helper'
 
 feature 'dashboard page' do
   let(:mechanic) { create :mechanic, description: nil }
+  let(:reviews_block_content) { "#{mechanic.reviews} Reviews" }
 
   subject { page }
 
@@ -12,7 +13,7 @@ feature 'dashboard page' do
 
   context 'should have dynamic content' do
     include_examples("description block") do
-      let(:reviews_count) { "#{mechanic.reviews} Reviews" }
+      let(:reviews_count) { reviews_block_content }
       let(:profile) { mechanic }
     end
   end
@@ -42,5 +43,11 @@ feature 'dashboard page' do
         should have_content "#{job.scheduled_at.to_s(:date_time)}"
       end
     end
+  end
+
+  specify 'N review should be link to progile' do
+    visit mechanics_dashboard_path
+    click_link reviews_block_content
+    should have_selector 'li.active', text: 'My Profile'
   end
 end
