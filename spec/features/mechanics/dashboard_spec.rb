@@ -50,4 +50,20 @@ feature 'dashboard page' do
     click_link reviews_block_content
     should have_selector 'li.active', text: 'My Profile'
   end
+
+  context 'edit avatar by clicking on the profile picture' do
+    specify 'form can upload photo' do
+      image_path = "#{Rails.root}/spec/features/fixtures/test_img.jpg"
+      visit mechanics_dashboard_path
+      attach_file('mechanic_avatar', image_path)
+      expect {
+        click_button 'Save'
+      }.to change { mechanic.reload.avatar? }.from(false).to(true)
+    end
+
+    specify 'form should be hidden if js turned on', :js do
+      should have_selector '#mechanic_avatar', visible: false
+      should have_selector 'input[type=submit]', visible: false
+    end
+  end
 end

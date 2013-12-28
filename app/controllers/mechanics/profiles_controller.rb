@@ -13,6 +13,14 @@ class Mechanics::ProfilesController < Mechanics::ApplicationController
     end
   end
 
+  def update_avatar
+    if current_mechanic.update_attributes(params[:mechanic].permit(:avatar))
+      redirect_to :back, notice: 'Your profile succesfully updated.'
+    else
+      redirect_to edit_mechanics_profile_path, alert: "Can't upload file. Try again."
+    end
+  end
+
   private
 
   def permitted_params

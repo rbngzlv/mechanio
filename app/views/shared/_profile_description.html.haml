@@ -1,12 +1,33 @@
 .profile-border
-  = image_tag profile.avatar? ? profile.avatar_url(:thumb) : 'photo.jpg', class: 'avatar'
+
   - if profile.is_a? Mechanic
+    = image_tag profile.avatar? ? profile.avatar_url(:thumb) : 'photo.jpg', class: 'avatar clickable js-update-avatar'
     .reviews-row.clearfix
       .rating.pull-left
         = rating_stars(profile.rating)
       %span.review-text.pull-right
         = link_to pluralize(profile.reviews, 'Review'), mechanics_profile_path
+    :javascript
+      $(function () {
+        hide_uploader_form = function (jquery_object_file_field) {
+          jquery_object_file_field.closest('form').children().hide();
+        };
+
+        $mechanic_avatar_file_field = $('#mechanic_avatar');
+        hide_uploader_form($mechanic_avatar_file_field);
+        $('.js-update-avatar').click(function () {
+          $mechanic_avatar_file_field.trigger('click');
+        });
+        $mechanic_avatar_file_field.change(function () {
+          hide_uploader_form($mechanic_avatar_file_field);
+          this.form.submit();
+        });
+      });
+    = simple_form_for profile, url: update_avatar_mechanics_profile_path do |f|
+      = f.input :avatar
+      = f.submit 'Save', class: 'btn btn-success'
   - else
+    = image_tag profile.avatar? ? profile.avatar_url(:thumb) : 'photo.jpg', class: 'avatar'
     .reviews-row.clearfix.text-center
       %span
         Reviews Left:

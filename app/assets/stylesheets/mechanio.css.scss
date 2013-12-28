@@ -672,6 +672,10 @@ section {
   margin: 0 10px;
   position: relative;
 
+  .clickable {
+    cursor: pointer;
+  }
+
   .text-center {
     line-height: 20px;
 
