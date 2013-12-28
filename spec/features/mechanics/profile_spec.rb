@@ -20,6 +20,9 @@ feature 'mechanic profile page' do
 
       should have_content "#{mechanic.reviews} Review"
       should have_content mechanic.description
+
+      click_link 'Availabilities'
+      should have_selector 'h1', text: 'Calendar'
     end
 
     scenario 'check verified statuses work' do
