@@ -13,34 +13,23 @@
           = f.error_notification
           = f.input :first_name
           = f.input :last_name
-          = f.input :dob, label: 'Date of birth', start_year: Date.today.year - 60, end_year: Date.today.year - 18
+          = f.input :dob, label: 'Date of birth', start_year: Date.today.year - 60, end_year: Date.today.year - 18, order: [:day, :month, :year], wrapper_html: { class: 'dob' }
           = f.input :email, label: 'Personal email'
           = f.input :description, label: 'Personal description'
           = f.input :avatar, label: 'Photo', as: :image
           %legend Personal Address
           = render partial: 'shared/location_form', locals: { f: f, location_assoc: :location }
           %legend Driver's License
-          = f.input :driver_license_number, label: "Driver's license"
+          = f.input :driver_license_number, label: "License no."
           = f.association :license_state, label: 'Registered state', prompt: '-- Please select --'
           = f.input :license_expiry, label: 'Expiry date', start_year: Date.today.year, end_year: Date.today.year + 20
           = f.input :driver_license, label: 'Image', as: :image
           %legend Business Details
           = f.input :business_website
           = f.input :business_email
-          = f.input :years_as_a_mechanic
+          = f.input :years_as_a_mechanic, as: :string
           = f.input :mobile_number
-          %legend ABN
-          = f.input :abn_name, label: 'ABN name'
-          = f.input :abn_number, label: 'ABN number'
-          = f.input :abn_expiry, label: 'Expiry date', start_year: Date.today.year, end_year: Date.today.year + 20
-          = f.input :abn, label: 'Image', as: :image
-          %legend Business Address
           = render partial: 'shared/location_form', locals: { f: f, location_assoc: :business_location }
-          %legend Motor Mechanic's License
-          = f.input :mechanic_license_number, label: 'Number'
-          = f.input :mechanic_license_expiry, label: 'Expiry date', start_year: Date.today.year, end_year: Date.today.year + 20
-          = f.association :mechanic_license_state, label: 'Registered state', prompt: '-- Please select --'
-          = f.input :mechanic_license, label: 'Image', as: :image
           %hr.hr-dark-gray
           .form-group
             .col-md-offset-3.col-md-6

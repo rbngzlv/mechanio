@@ -40,4 +40,22 @@ describe Mechanic do
 
     Mechanic.by_region('1234').should eq [mechanic1]
   end
+
+  describe '.build_association' do
+    let(:mechanic) { Mechanic.new }
+
+    it 'should create location association' do
+      expect { mechanic.build_associations }.to change { mechanic.location }.from(nil)
+    end
+
+    it 'should create business location association' do
+      expect { mechanic.build_associations }.to change { mechanic.business_location }.from(nil)
+    end
+
+    it 'should not change associations if their are exists' do
+      mechanic.build_associations
+      expect { mechanic.build_associations }.not_to change { mechanic.location }
+      expect { mechanic.build_associations }.not_to change { mechanic.business_location }
+    end
+  end
 end
