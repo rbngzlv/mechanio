@@ -254,6 +254,28 @@ i.verified-icon {
   background: asset-url('gmail-btn.jpg');
 }
 
+.btn-change-image {
+  color: #d66;
+  cursor: pointer;
+  position: absolute;
+
+  &:hover {
+    &:after {
+      color: #fff;
+      background-color: #666;
+      padding: 2px;
+    }
+  }
+
+  &.btn-delete-image:hover:after {
+    content: 'Delete?';
+  }
+
+  &.btn-cancel-image-upload:hover:after {
+    content: 'Cancel?';
+  }
+}
+
 .black {
   color: #000;
 }

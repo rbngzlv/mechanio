@@ -35,6 +35,12 @@ class Admins::MechanicsController < Admins::ApplicationController
     end
   end
 
+  def destroy_image
+    @mechanic.send("remove_#{params[:image_type]}!")
+    @mechanic.save
+    head :ok
+  end
+
   def destroy
     @mechanic.destroy
     redirect_to admins_mechanics_path, notice: 'Mechanic succesfully deleted.'

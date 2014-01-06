@@ -1,3 +1,30 @@
+:javascript
+  var path = "#{admins_mechanic_destroy_image_url(@mechanic)}";
+:coffeescript
+  $ ->
+    $('input[type=file]').on 'change', ->
+      $cancel_button = $('<span>').addClass('btn-change-image btn-cancel-image-upload').html('&nbsp;×')
+      $(this).parents('div').find('span.file-input-name').append($cancel_button)
+
+    $(document).on 'click', '.btn-change-image', ->
+      $this = $(this)
+      $that = $(this).parent()
+      if $this.hasClass('btn-delete-image')
+        if confirm "Are you sure you want to delete this image?"
+          $.ajax
+            url:  path
+            type: "POST"
+            data:
+              _method:     'DELETE'
+              image_type:  $that.attr('data-delete')
+            success: (data)->
+              $that.parent().find('img').add($that).remove()
+              $('body > .container').prepend('<div class="alert alert-info">Image succesfully delted.</div>')
+      else if $this.hasClass('btn-cancel-image-upload')
+        if confirm "Are you sure you want to cancel upload this image?"
+          $that.parent().find('input').val('')
+          $that.remove()
+
 = simple_form_for [:admins, @mechanic], html: { class: 'form-horizontal admin_mechanic_form', multipart: true }, defaults: { label_html: { class: 'col-md-2 col-sm-2' } }, wrapper: :bootstrap_horizontal do |f|
   = f.error_notification
   = f.input :first_name
@@ -5,7 +32,7 @@
   = f.input :dob, label: 'Date of birth', input_html: { class: 'form-control' }, start_year: Date.today.year - 60, end_year: Date.today.year - 18
   = f.input :email, label: 'Personal email'
   = f.input :description, label: 'Personal description'
-  = f.input :avatar, label: 'Photo', as: :image, wrapper: :bootstrap, input_html: { wrap_class: 'col-md-4 col-sm-5' }
+  = f.input :avatar, label: 'Photo', as: :image, wrapper: :bootstrap, input_html: { wrap_class: 'col-md-4 col-sm-5' }, show_file_name: true
   %legend Personal Address
   = render partial: 'shared/location_form', locals: { f: f, location_assoc: :location }
   %legend Verified Statuses
@@ -17,7 +44,7 @@
   = f.input :driver_license_number, label: "Driver's license"
   = f.association :license_state, label: 'Registered state', prompt: '-- Please select --'
   = f.input :license_expiry, label: 'Expiry date', input_html: { class: 'form-control' }, start_year: Date.today.year, end_year: Date.today.year + 20
-  = f.input :driver_license, label: 'Image', as: :image, wrapper: :bootstrap, input_html: { wrap_class: 'col-md-4 col-sm-5' }
+  = f.input :driver_license, label: 'Image', as: :image, wrapper: :bootstrap, input_html: { wrap_class: 'col-md-4 col-sm-5' }, show_file_name: true
   %legend Business Details
   = f.input :business_website
   = f.input :business_email
@@ -28,14 +55,14 @@
   = f.input :abn_name, label: 'ABN name'
   = f.input :abn_number, label: 'ABN number'
   = f.input :abn_expiry, label: 'Expiry date', input_html: { class: 'form-control' }, start_year: Date.today.year, end_year: Date.today.year + 20
-  = f.input :abn, label: 'Image', as: :image, wrapper: :bootstrap, input_html: { wrap_class: 'col-md-4 col-sm-5' }
+  = f.input :abn, label: 'Image', as: :image, wrapper: :bootstrap, input_html: { wrap_class: 'col-md-4 col-sm-5' }, show_file_name: true
   %legend Business Address
   = render partial: 'shared/location_form', locals: { f: f, location_assoc: :business_location }
   %legend Motor Mechanics License
   = f.input :mechanic_license_number, label: 'Number'
   = f.input :mechanic_license_expiry, label: 'Expiry date', input_html: { class: 'form-control' }, start_year: Date.today.year, end_year: Date.today.year + 20
   = f.association :mechanic_license_state, label: 'Registered state', prompt: '-- Please select --'
-  = f.input :mechanic_license, label: 'Image', as: :image, wrapper: :bootstrap, input_html: { wrap_class: 'col-md-4 col-sm-5' }
+  = f.input :mechanic_license, label: 'Image', as: :image, wrapper: :bootstrap, input_html: { wrap_class: 'col-md-4 col-sm-5' }, show_file_name: true
   %hr.hr-dark-gray
   .form-group
     .col-md-offset-2.col-md-4

@@ -78,14 +78,42 @@ feature 'Admin mechanics management' do
     page.should have_css '.alert', text: 'Mechanic succesfully deleted.'
   end
 
-  scenario "images uploading" do
-    image_path = "#{Rails.root}/spec/features/fixtures/test_img.jpg"
-    visit edit_admins_mechanic_path(mechanic)
-    attach_file('mechanic_avatar', image_path)
-    attach_file('mechanic_driver_license', image_path)
-    attach_file('mechanic_abn', image_path)
-    attach_file('mechanic_mechanic_license', image_path)
-    expect { click_button 'Save' }.to change { all("img").length }.by(4)
-    page.should have_content 'Mechanic succesfully updated.'
+  context 'edit images' do
+    let(:image_path) { "#{Rails.root}/spec/features/fixtures/test_img.jpg" }
+
+    scenario "uploading" do
+      visit edit_admins_mechanic_path(mechanic)
+      attach_file('mechanic_avatar', image_path)
+      attach_file('mechanic_driver_license', image_path)
+      attach_file('mechanic_abn', image_path)
+      attach_file('mechanic_mechanic_license', image_path)
+      expect { click_button 'Save' }.to change { all('img').length }.by(4)
+      page.should have_content 'Mechanic succesfully updated.'
+      page.should have_selector 'img + div', text: 'test_img.jpg', count: 4
+    end
+
+    scenario "deleting", :js do
+      mechanic.avatar = File.open(image_path)
+      mechanic.save
+      visit edit_admins_mechanic_path(mechanic)
+
+      page.should have_selector '.file-input-name', text: 'test_img.jpg'
+      expect do
+        find('span.btn-change-image.btn-delete-image', text: '×').click
+        sleep 0.1
+      end.to change { within('div.mechanic_avatar') { all('img').length } }.from(1).to(0)
+      page.should have_content 'Image succesfully delted.'
+    end
+
+    scenario "uploading cancel", :js do
+      visit edit_admins_mechanic_path(mechanic)
+      attach_file('mechanic_mechanic_license', image_path)
+
+      page.should have_selector '.file-input-name', text: 'test_img.jpg'
+      expect do
+        find('span.btn-change-image.btn-cancel-image-upload', text: '×').click
+      end.to change { all('.file-input-name').length }.from(1).to(0)
+      expect { click_button 'Save' }.not_to change { all('img').length }
+    end
   end
 end
