@@ -29,7 +29,7 @@
   = f.error_notification
   = f.input :first_name
   = f.input :last_name
-  = f.input :dob, label: 'Date of birth', input_html: { class: 'form-control' }, start_year: Date.today.year - 60, end_year: Date.today.year - 18
+  = f.input :dob, label: 'Date of birth', input_html: { class: 'form-control' }, start_year: Date.today.year - 60, end_year: Date.today.year - 18, order: [:day, :month, :year], wrapper_html: { class: 'dob' }
   = f.input :email, label: 'Personal email'
   = f.input :description, label: 'Personal description'
   = f.input :avatar, label: 'Photo', as: :image, wrapper: :bootstrap, input_html: { wrap_class: 'col-md-4 col-sm-5' }, show_file_name: true
@@ -43,7 +43,7 @@
   %legend Driver License
   = f.input :driver_license_number, label: "Driver's license"
   = f.association :license_state, label: 'Registered state', prompt: '-- Please select --'
-  = f.input :license_expiry, label: 'Expiry date', input_html: { class: 'form-control' }, start_year: Date.today.year, end_year: Date.today.year + 20
+  = f.input :license_expiry, label: 'Expiry date', input_html: { class: 'form-control' }, start_year: Date.today.year, end_year: Date.today.year + 20, order: [:day, :month, :year], wrapper_html: { class: 'dob' }
   = f.input :driver_license, label: 'Image', as: :image, wrapper: :bootstrap, input_html: { wrap_class: 'col-md-4 col-sm-5' }, show_file_name: true
   %legend Business Details
   = f.input :business_website
@@ -54,13 +54,13 @@
   %legend ABN
   = f.input :abn_name, label: 'ABN name'
   = f.input :abn_number, label: 'ABN number'
-  = f.input :abn_expiry, label: 'Expiry date', input_html: { class: 'form-control' }, start_year: Date.today.year, end_year: Date.today.year + 20
+  = f.input :abn_expiry, label: 'Expiry date', input_html: { class: 'form-control' }, start_year: Date.today.year, end_year: Date.today.year + 20, order: [:day, :month, :year], wrapper_html: { class: 'dob' }
   = f.input :abn, label: 'Image', as: :image, wrapper: :bootstrap, input_html: { wrap_class: 'col-md-4 col-sm-5' }, show_file_name: true
   %legend Business Address
   = render partial: 'shared/location_form', locals: { f: f, location_assoc: :business_location }
   %legend Motor Mechanics License
   = f.input :mechanic_license_number, label: 'Number'
-  = f.input :mechanic_license_expiry, label: 'Expiry date', input_html: { class: 'form-control' }, start_year: Date.today.year, end_year: Date.today.year + 20
+  = f.input :mechanic_license_expiry, label: 'Expiry date', input_html: { class: 'form-control' }, start_year: Date.today.year, end_year: Date.today.year + 20, order: [:day, :month, :year], wrapper_html: { class: 'dob' }
   = f.association :mechanic_license_state, label: 'Registered state', prompt: '-- Please select --'
   = f.input :mechanic_license, label: 'Image', as: :image, wrapper: :bootstrap, input_html: { wrap_class: 'col-md-4 col-sm-5' }, show_file_name: true
   %hr.hr-dark-gray
