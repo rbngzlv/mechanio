@@ -3,12 +3,14 @@
 %div{ 'ng-controller' => 'ServicePlansController', 'ng-init' => "init(#{@variation.to_json})" }
   = render 'filter_form'
   %hr
+  .alert.alert-danger{ 'ng-show' => 'no_variations' } No model variations found
   .table-responsive
     %table.table.table-striped{ 'ng-show' => 'model_variation' }
       %thead
         %tr
-          %th.col-md-3 Service plans for {{model_variation.title_with_year}}
-          %th.col-md-2= link_to "Add service plan", '/admins/service_plans/new?service_plan[model_variation_id]={{model_variation.id}}', class: 'btn btn-primary btn-sm pull-right'
+          %th.col-md-3
+            %b Service plans for {{model_variation.title_with_year}}
+          %th.col-md-2= link_to "Add service plan", '/admins/service_plans/new?model_variation_id={{model_variation.id}}', class: 'btn btn-primary btn-sm pull-right'
       %tbody
         %tr{ 'ng-hide' => 'service_plans' }
           %td.text-center{colspan: 2}
@@ -16,6 +18,6 @@
         %tr{ 'ng-repeat' => 's in service_plans' }
           %td {{s.display_title}}
           %td.text-right
-            = link_to "Delete", '/admins/service_plans/{{s.id}}', method: :delete, data: { confirm: "Are you sure?" }
-            &nbsp;
             = link_to "Edit", '/admins/service_plans/{{s.id}}/edit'
+            &nbsp;
+            = link_to "Delete", '/admins/service_plans/{{s.id}}', method: :delete, data: { confirm: "Are you sure?" }
