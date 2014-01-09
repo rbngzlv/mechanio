@@ -5,6 +5,7 @@ describe 'Manage service plans' do
   let(:service_plan)          { create :service_plan, model_variation: model_variation }
   let(:default_service_plan)  { create :default_service_plan }
   let(:model)                 { create :model }
+  let(:another_model)         { create :model, model_variations: [] }
   let(:model_variation)       { create :model_variation, make: model.make, model: model }
   let(:another_variation)     { create :model_variation, make: model.make, model: model }
 
@@ -99,17 +100,18 @@ describe 'Manage service plans' do
     end
 
     context 'no model variations' do
-      before { model_variation }
+      before do
+        model_variation
+        another_model
+      end
 
       it 'shows a message' do
         visit by_model_admins_service_plans_path
-        select_model_variation
-        select model_variation.from_year - 2, from: 'filter_year'
 
+        select_another_model
         page.should have_css '.alert-danger', text: 'No model variations found'
 
-        select model_variation.from_year, from: 'filter_year'
-
+        select_model_variation
         page.should_not have_css '.alert-danger'
       end
     end
@@ -175,6 +177,12 @@ describe 'Manage service plans' do
         page.should have_css '.alert.alert-info', text: 'Service plan deleted succesfully'
         verify_selected_model
       end
+    end
+
+    def select_another_model
+      select model_variation.from_year, from: 'filter_year'
+      select another_model.make.name, from: 'filter_make_id'
+      select another_model.name, from: 'filter_model_id'
     end
 
     def select_model_variation(variation = nil)

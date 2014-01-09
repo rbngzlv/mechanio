@@ -11,6 +11,9 @@ app.controller 'ServicePlansController', ['$scope', '$http', ($scope, $http) ->
   $scope.model_variations = []
   $scope.service_plans = []
 
+  $scope.no_variations = false
+  $scope.no_service_plans = false
+
   $scope.init = (variation) ->
     return unless variation.id
     $scope.year = variation.from_year
@@ -21,23 +24,57 @@ app.controller 'ServicePlansController', ['$scope', '$http', ($scope, $http) ->
     $scope.loadModelVariations()
     $scope.loadServicePlans()
 
-  $scope.loadModels = ->
+  $scope.onYearChange = ->
+    $scope.resetMake()
+
+  $scope.onMakeChange = ->
+    $scope.resetModel()
+    $scope.loadModels()
+
+  $scope.onModelChange = ->
+    $scope.resetModelVariation()
+    $scope.loadModelVariations()
+
+  $scope.onModelVariationChange = ->
+    $scope.resetMessages()
+    $scope.loadServicePlans()
+
+  $scope.resetMake = ->
+    $scope.make_id = ''
+    $scope.models = []
+    $scope.resetModel()
+    $scope.resetMessages()
+
+  $scope.resetModel = ->
+    $scope.model_id = ''
+    $scope.model_variations = []
+    $scope.resetModelVariation()
+    $scope.resetMessages()
+
+  $scope.resetModelVariation = ->
+    $scope.model_variation = ''
+    $scope.service_plans = []
+    $scope.resetMessages()
+
+  $scope.resetMessages = ->
+    $scope.no_service_plans = false
     $scope.no_variations = false
+
+  $scope.loadModels = ->
     $http.get('/ajax/models.json', params: { make_id: $scope.make_id })
       .success (data) -> $scope.models = data
 
   $scope.loadModelVariations = ->
-    $scope.no_variations = false
-    return unless $scope.model_id
     $http.get('/ajax/model_variations.json', params: { year: $scope.year, model_id: $scope.model_id })
       .success (data) ->
         $scope.model_variations = data
         $scope.no_variations = true if data.length == 0
         if $scope.model_variation && $scope.model_variation.id
-          $scope.model_variation = (v for v in data when v.id == $scope.model_variation.id)[0]
+          $scope.model_variation = v for v in data when v.id == $scope.model_variation.id
 
   $scope.loadServicePlans = ->
-    $scope.no_variations = false
     $http.get('/ajax/service_plans.json', params: { model_variation_id: $scope.model_variation.id })
-      .success (data) -> $scope.service_plans = data
+      .success (data) ->
+        $scope.service_plans = data
+        $scope.no_service_plans = true if data.length == 0
 ]
