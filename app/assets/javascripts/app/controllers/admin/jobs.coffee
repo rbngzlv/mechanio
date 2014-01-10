@@ -118,7 +118,7 @@ class TaskFactory
 class Job
   constructor: (attrs, @hourly_rate, @service_plans) ->
     @[key] = value for key, value of attrs when key != 'tasks'
-    @tasks = attrs.tasks.map (t) -> TaskFactory.create(t, @hourly_rate, @service_plans)
+    @tasks = attrs.tasks.map (t) -> TaskFactory.create(t, hourly_rate, service_plans)
 
   hasService: ->
     service = task for task in @tasks when task.isService() && !task.isDeleted()
