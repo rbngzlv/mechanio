@@ -19,6 +19,7 @@ class Job < ActiveRecord::Base
   validates :car, :location, :tasks, :contact_email, :contact_phone, presence: true
   validates :contact_phone, format: { with: /\A04\d{8}\z/ }
   validates :user, presence: true, unless: :skip_user_validation
+  validates :cost, numericality: { greater_than: 0 }, allow_blank: true
 
   attr_accessor :skip_user_validation
 
@@ -34,7 +35,6 @@ class Job < ActiveRecord::Base
     end
     state :estimated do
       transition to: :assigned,  on: :assign
-      validates :cost, presence: true, numericality: { greater_than: 0 }
     end
     state :assigned do
       transition to: :confirmed, on: :confirm
@@ -67,8 +67,8 @@ class Job < ActiveRecord::Base
   scope :upcoming,  -> { assigned.reorder(scheduled_at: :asc) }
   scope :past,      -> { completed.reorder(scheduled_at: :desc) }
 
-  def self.sanitize_and_create(params)
-    create(self.whitelist(params))
+  def self.sanitize_and_create(user, params)
+    create(self.whitelist(params).merge(user: user))
   end
 
   def self.create_temporary(params)

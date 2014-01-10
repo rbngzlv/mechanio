@@ -28,7 +28,7 @@ describe Job do
 
   it '#sanitize_and_create' do
     Job.any_instance.should_receive(:notify_estimated)
-    job = user.jobs.sanitize_and_create(job: attrs)
+    job = Job.sanitize_and_create(user, job: attrs)
     verify_estimated_job(job)
   end
 
@@ -114,7 +114,7 @@ describe Job do
   end
 
   it 'associates car with user when creating car via nested_attributes' do
-    job = user.jobs.sanitize_and_create(job: attrs)
+    job = Job.sanitize_and_create(user, job: attrs)
 
     job.car.user_id.should_not be_nil
     job.car.user_id.should eq job.user_id
@@ -125,7 +125,7 @@ describe Job do
       id: car.id,
       last_service_kms: '10000'
     }
-    expect { user.jobs.sanitize_and_create(job: attrs) }.to_not change{ Car.count }
+    expect { Job.sanitize_and_create(user, job: attrs) }.to_not change{ Car.count }
     car.reload.last_service_kms.should eq 10000
   end
 
@@ -134,7 +134,7 @@ describe Job do
   end
 
   it 'sums tasks costs when creating from nested_attributes' do
-    job = user.jobs.sanitize_and_create(job: attrs)
+    job = Job.sanitize_and_create(user, job: attrs)
     job.cost.should eq 475
   end
 
