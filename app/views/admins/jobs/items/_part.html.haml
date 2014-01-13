@@ -4,6 +4,9 @@
   = ti.hidden_field :itemable_type, value: 'Part'
   = ti.simple_fields_for :itemable, Part.new, defaults: { label: false, wrapper: false, input_html: { class: 'input-sm', required: true } } do |i|
     = i.hidden_field :id, value: '{{item.itemable.id}}'
+    .actions
+      %a.delete-item{ href: '', 'ng-click' => 'item.delete()' }
+        %i.glyphicon.glyphicon-remove
     .desc
       = i.input :name, placeholder: 'Part name', input_html: { 'ng-model' => 'item.itemable.name' }
     .subtotal
@@ -12,7 +15,4 @@
       = i.input :unit_cost, placeholder: 'Cost', as: :string, input_html: { min: 1, 'ng-model' => 'item.itemable.unit_cost' }
     .pull-right
       .total
-        .form-control-static {{item.itemable.cost | currency}}
-      .actions
-        %a.delete-item{ href: '', 'ng-click' => 'deleteItem(item)' }
-          %i.glyphicon.glyphicon-remove
+        .form-control-static {{item.total() | cost_or_pending}}

@@ -3,12 +3,15 @@ class Admins::JobsController < Admins::ApplicationController
   before_filter :find_job, only: [:edit, :update, :destroy]
 
   def index
-    @jobs = Job.page(params[:page])
+    @statuses = Job::STATUSES
+    @status = params[:status]
+    @jobs = @status.present? ? Job.with_status(@status) : Job.all
+    @jobs = @jobs.page(params[:page])
   end
 
   def edit
     @service_plans = @job.car.service_plans
-    @service_plans_json = @service_plans.to_json(only: [:id, :display_title])
+    @service_plans_json = @service_plans.to_json(only: [:id, :cost, :display_title])
   end
 
   def update

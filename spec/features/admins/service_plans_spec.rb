@@ -1,17 +1,19 @@
 require 'spec_helper'
 
-describe 'Manage service periods' do
+describe 'Manage service plans' do
 
   let(:service_plan)          { create :service_plan, model_variation: model_variation }
   let(:default_service_plan)  { create :default_service_plan }
   let(:model)                 { create :model }
+  let(:another_model)         { create :model, model_variations: [] }
   let(:model_variation)       { create :model_variation, make: model.make, model: model }
+  let(:another_variation)     { create :model_variation, make: model.make, model: model }
 
   before do
     login_admin
   end
 
-  context 'default service plans' do
+  context 'default plans' do
 
     it 'shows a message when there are no service plans' do
       visit default_admins_service_plans_path
@@ -74,24 +76,44 @@ describe 'Manage service periods' do
       current_path.should be_eql default_admins_service_plans_path
       page.should have_css'.alert.alert-info', text: 'Service plan deleted succesfully'
     end
+
+    specify 'delete service plan from index' do
+      default_service_plan
+      visit default_admins_service_plans_path
+      click_link 'Delete'
+      current_path.should be_eql default_admins_service_plans_path
+      page.should have_css '.alert.alert-info', text: 'Service plan deleted succesfully'
+    end
   end
 
-  context 'car model service plans', :js do
+  context 'plans by car model', :js do
 
-    it 'shows a message when there are no service plans' do
-      model_variation
-      visit by_model_admins_service_plans_path
-      select_model_variation
+    context 'no service plans' do
+      before { another_variation }
 
-      page.should have_content 'No service plans'
+      it 'shows a message' do
+        visit by_model_admins_service_plans_path
+        select_model_variation(another_variation)
+
+        page.should have_content 'No service plans'
+      end
     end
 
-    it 'shows service plans' do
-      service_plan
-      visit by_model_admins_service_plans_path
-      select_model_variation
+    context 'no model variations' do
+      before do
+        model_variation
+        another_model
+      end
 
-      page.should have_css 'td', text: service_plan.display_title
+      it 'shows a message' do
+        visit by_model_admins_service_plans_path
+
+        select_another_model
+        page.should have_css '.alert-danger', text: 'No model variations found'
+
+        select_model_variation
+        page.should_not have_css '.alert-danger'
+      end
     end
 
     context 'add service plan' do
@@ -108,9 +130,9 @@ describe 'Manage service periods' do
         fill_in 'Cost', with: '250'
         click_on 'Save'
 
-        page.should have_css 'th', text: "Service plans for #{model_variation.title_with_year}"
         page.should have_css '.alert-info', text: 'Service plan created succesfully.'
         page.should have_css 'td', text: '15,000 kms / 8 months'
+        verify_selected_model
       end
 
       it 'custom' do
@@ -118,38 +140,65 @@ describe 'Manage service periods' do
         fill_in 'Cost', with: '250'
         click_on 'Save'
 
-        page.should have_css 'th', text: "Service plans for #{model_variation.title_with_year}"
         page.should have_css '.alert-info', text: 'Service plan created succesfully.'
         page.should have_css 'td', text: 'Minor/Interim'
+        verify_selected_model
       end
     end
 
-    it 'edit service plan' do
-      service_plan
-      visit by_model_admins_service_plans_path
-      select_model_variation
-      page.should have_css 'td', text: service_plan.display_title
-      click_on 'Edit'
+    context 'existing service plan' do
+      before do
+        service_plan
+        visit by_model_admins_service_plans_path
+        select_model_variation
+      end
 
-      fill_in 'Kms travelled', with: '20000'
-      click_on 'Save'
+      it 'edits service plan' do
+        page.should have_css 'td', text: service_plan.display_title
+        click_on 'Edit'
 
+        fill_in 'Kms travelled', with: '20000'
+        click_on 'Save'
+
+        page.should have_css '.alert-info', text: 'Service plan updated succesfully.'
+        page.should have_css 'td', text: '20,000 kms / 6 months'
+        verify_selected_model
+      end
+
+      specify 'delete service plan' do
+        click_on 'Edit'
+        click_on 'Delete'
+        page.should have_css '.alert.alert-info', text: 'Service plan deleted succesfully'
+        verify_selected_model
+      end
+
+      specify 'delete service plan from index' do
+        click_link 'Delete'
+        page.should have_css '.alert.alert-info', text: 'Service plan deleted succesfully'
+        verify_selected_model
+      end
+    end
+
+    def select_another_model
+      select model_variation.from_year, from: 'filter_year'
+      select another_model.make.name, from: 'filter_make_id'
+      select another_model.name, from: 'filter_model_id'
+    end
+
+    def select_model_variation(variation = nil)
+      variation ||= model_variation
+      select variation.from_year, from: 'filter_year'
+      select variation.make.name, from: 'filter_make_id'
+      select variation.model.name, from: 'filter_model_id'
+      select variation.detailed_title, from: 'filter_model_variation_id'
+    end
+
+    def verify_selected_model
       page.should have_css 'th', text: "Service plans for #{model_variation.title_with_year}"
-      page.should have_css '.alert-info', text: 'Service plan updated succesfully.'
-      page.should have_css 'td', text: '20,000 kms / 6 months'
-    end
-
-    specify 'delete service plan' do
-      visit edit_admins_service_plan_path(service_plan)
-      click_on 'Delete'
-      current_path.should be_eql by_model_admins_service_plans_path
-      page.should have_css'.alert.alert-info', text: 'Service plan deleted succesfully'
-    end
-
-    def select_model_variation
-      select model_variation.make.name, from: 'service_plan_make_id'
-      select model_variation.model.name, from: 'service_plan_model_id'
-      select model_variation.display_title, from: 'service_plan_model_variation_id'
+      page.should have_select 'filter_year', selected: model_variation.from_year.to_s
+      page.should have_select 'filter_make_id', selected: model_variation.make.name
+      page.should have_select 'filter_model_id', selected: model_variation.model.name
+      page.should have_select 'filter_model_variation_id', selected: model_variation.detailed_title
     end
   end
 end

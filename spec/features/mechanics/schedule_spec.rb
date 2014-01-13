@@ -15,7 +15,7 @@ feature 'Mechanic schedule' do
     current_path.should be_eql mechanics_events_path
     should have_selector 'li.active', text: 'My Profile'
     click_link 'Back'
-    current_path.should be_eql edit_mechanics_profile_path
+    current_path.should be_eql mechanics_profile_path
   end
 
   context 'administrate events' do

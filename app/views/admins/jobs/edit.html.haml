@@ -1,13 +1,3 @@
-:javascript
-  $(function() {
-    $('#js-edit-job-submit').click(function() {
-      $(".edit_job input[type='submit']").trigger("click");
-      return false;
-    });
-  });
-%p
-  = link_to 'Save Changes', '#', class: 'btn btn-success', id: 'js-edit-job-submit'
-  = link_to 'Delete Job', admins_job_path(@job), method: :delete, class: 'btn btn-danger', data: {confirm: 'Are you sure?'}
 %p.pull-right
   %strong Requested by
   = link_to @job.user.full_name, [:admins, @job.user]
@@ -30,29 +20,5 @@
     = link_to @job.mechanic.full_name, [:admins, @job.mechanic]
 
 %hr
-= simple_form_for [:admins, @job], html: { 'ng-controller' => 'JobsController', 'ng-init' => "init({job: #{@job.to_json}, service_plans: #{@service_plans_json}})" } do |f|
 
-  .btn-group.pull-right
-    %button.btn.btn-primary.btn-sm.dropdown-toggle{ 'data-toggle' => 'dropdown', type: 'button' }
-      Add task
-      %span.caret
-    %ul.dropdown-menu{ role: 'menu' }
-      %li{ 'ng-hide' => 'hasService()' }
-        %a{ href: '', 'ng-click' => 'addTask("Service")' } Service
-      %li
-        %a{ href: '', 'ng-click' => 'addTask("Repair")' } Repair
-
-  %h4 Job and Labour
-
-  .tasks.clearfix
-    .task.clearfix{ 'ng-repeat' => 'task in job.tasks', 'ng-hide' => 'task._destroy' }
-      = render partial: 'task', locals: { f: f }
-
-  %hr
-  .pull-right.clearfix
-    .totals
-      %dl.dl-horizontal
-        %dt Job total
-        %dd.grand-total= @job.cost ? number_to_currency(@job.cost) : 'pending'
-
-    = f.submit 'Update job', class: 'btn btn-success pull-right'
+= render 'form'

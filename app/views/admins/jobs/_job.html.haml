@@ -1,11 +1,11 @@
 %tr
   %td= job.uid
   %td= job_status(job.status)
-  %td= location_status(job.location)
   %td= job.title
   %td= job.created_at.to_s(:date)
   %td= job.user.full_name if job.user
   %td= job.mechanic ? job.mechanic.full_name : 'unassigned'
   %td= job.scheduled_at.to_s(:date_time) if job.scheduled_at
-  %td= job.cost || 'pending'
+  %td= suburb_with_postcode(job.location)
+  %td= number_to_currency(job.cost) || 'pending'
   %td= link_to 'Edit', edit_admins_job_path(job)

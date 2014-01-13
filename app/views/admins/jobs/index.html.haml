@@ -1,19 +1,32 @@
-%h4 Jobs list
+.navbar.navbar-default
+  .navbar-brand Jobs
+  = form_tag '?', method: :get, class: 'navbar-form navbar-right' do
+    = label_tag 'status', 'Show'
+    &nbsp;
+    .form-group
+      = select_tag 'status', options_for_select([['all', nil], *@statuses], @status), class: 'form-control input-sm'
 
-.table-responsive
-  %table.table.table-striped
-    %thead
-      %tr
-        %th ID
-        %th Status
-        %th Location status
-        %th Job name
-        %th Date requested
-        %th Requested by
-        %th Allocated to
-        %th Job date and time
-        %th Cost
-        %th Edit
-    %tbody
-      = render @jobs
-= paginate @jobs
+- if @jobs.count > 0
+  .table-responsive
+    %table.table.table-striped
+      %thead
+        %tr
+          %th ID
+          %th Status
+          %th Job
+          %th Date requested
+          %th Requested by
+          %th Allocated to
+          %th Appointment date
+          %th Location
+          %th Cost
+          %th
+      %tbody
+        = render @jobs
+  = paginate @jobs
+- else
+  %p.text-center No jobs found
+
+:coffee
+  $('#status').change ->
+    this.form.submit()

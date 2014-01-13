@@ -10,6 +10,7 @@ describe ServicePlan do
   it { should belong_to :make }
   it { should belong_to :model }
   it { should belong_to :model_variation }
+  it { should have_many :tasks }
 
   it { should validate_presence_of :cost }
   it { should validate_numericality_of :cost }
@@ -48,6 +49,16 @@ describe ServicePlan do
     it '#display_title' do
       subject.set_display_title
       subject.display_title.should eq 'Custom service'
+    end
+  end
+
+  context 'deleting service plan' do
+    specify 'when service plan deleted his id in tasks should became nil' do
+      job = create :job_with_service
+      task = job.tasks.first
+      service_plan_for_deleting = task.service_plan
+
+      expect { service_plan_for_deleting.destroy }.to change { task.reload.service_plan }.to(nil)
     end
   end
 end
