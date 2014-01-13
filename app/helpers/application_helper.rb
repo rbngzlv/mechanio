@@ -56,9 +56,8 @@ module ApplicationHelper
     content_tag :span, status.humanize, class: "label label-#{css}"
   end
 
-  def location_status(location)
-    status, css = location && location.geocoded? ? ['Valid', 'success'] : ['Invalid', 'danger']
-    content_tag :span, status, class: "label label-#{css}"
+  def state_with_postcode(location)
+    "#{location.state.name}, #{location.postcode}"
   end
 
   def cost_or_pending(amount)
