@@ -11,7 +11,7 @@ class Admins::JobsController < Admins::ApplicationController
 
   def edit
     @service_plans = @job.car.service_plans
-    @service_plans_json = @service_plans.to_json(only: [:id, :display_title])
+    @service_plans_json = @service_plans.to_json(only: [:id, :cost, :display_title])
   end
 
   def update

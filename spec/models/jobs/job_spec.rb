@@ -5,7 +5,8 @@ describe Job do
   let(:user) { create :user }
   let(:car)  { create :car, user: user }
   let(:job)  { build :job, user: user, car: car }
-  let(:job_with_service) { create :job_with_service }
+  let(:job_with_service) { create :job, :with_service }
+  let(:job_with_repair)  { create :job, :with_repair }
 
   it { should belong_to :user }
   it { should belong_to :car }
@@ -27,7 +28,7 @@ describe Job do
 
   it '#sanitize_and_create' do
     Job.any_instance.should_receive(:notify_estimated)
-    job = user.jobs.sanitize_and_create(job: attrs)
+    job = Job.sanitize_and_create(user, job: attrs)
     verify_estimated_job(job)
   end
 
@@ -94,6 +95,23 @@ describe Job do
     end
   end
 
+  describe '#set_title' do
+    it 'is a service' do
+      job = build(:job, :with_service)
+      job.set_title.should eq job.tasks.first.title
+    end
+
+    it 'is a repair' do
+      job = build(:job, :with_repair)
+      job.set_title.should eq 'Repair'
+    end
+
+    it 'is a service and repair' do
+      job = build(:job, :with_service, :with_repair)
+      job.set_title.should eq "#{job.tasks.first.title} and repair"
+    end
+  end
+
   it 'builds task association with correct STI subclass' do
     job.tasks_attributes = [build(:service).attributes, build(:repair).attributes]
     job.save!
@@ -103,7 +121,7 @@ describe Job do
   end
 
   it 'associates car with user when creating car via nested_attributes' do
-    job = user.jobs.sanitize_and_create(job: attrs)
+    job = Job.sanitize_and_create(user, job: attrs)
 
     job.car.user_id.should_not be_nil
     job.car.user_id.should eq job.user_id
@@ -114,7 +132,7 @@ describe Job do
       id: car.id,
       last_service_kms: '10000'
     }
-    expect { user.jobs.sanitize_and_create(job: attrs) }.to_not change{ Car.count }
+    expect { Job.sanitize_and_create(user, job: attrs) }.to_not change{ Car.count }
     car.reload.last_service_kms.should eq 10000
   end
 
@@ -123,17 +141,20 @@ describe Job do
   end
 
   it 'sums tasks costs when creating from nested_attributes' do
-    job = user.jobs.sanitize_and_create(job: attrs)
+    job = Job.sanitize_and_create(user, job: attrs)
     job.cost.should eq 475
-  end
-
-  it 'sets title from the first task before save' do
-    job_with_service.title.should eq job_with_service.tasks.first.title
   end
 
   it 'determines if there is a service task' do
     job_with_service.has_service?.should be_true
+    job_with_repair.has_service?.should be_false
     job.has_service?.should be_false
+  end
+
+  it 'determines is there is a repair task' do
+    job_with_service.has_repair?.should be_false
+    job_with_repair.has_repair?.should be_true
+    job.has_repair?.should be_false
   end
 
   context 'updating task' do

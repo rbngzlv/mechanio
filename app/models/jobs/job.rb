@@ -21,6 +21,7 @@ class Job < ActiveRecord::Base
   validates :car, :location, :tasks, :contact_email, :contact_phone, presence: true
   validates :contact_phone, format: { with: /\A04\d{8}\z/ }
   validates :user, presence: true, unless: :skip_user_validation
+  validates :cost, numericality: { greater_than: 0 }, allow_blank: true
 
   attr_accessor :skip_user_validation
 
@@ -36,7 +37,6 @@ class Job < ActiveRecord::Base
     end
     state :estimated do
       transition to: :assigned,  on: :assign
-      validates :cost, presence: true, numericality: { greater_than: 0 }
     end
     state :assigned do
       transition to: :confirmed, on: :confirm
@@ -69,8 +69,8 @@ class Job < ActiveRecord::Base
   scope :upcoming,  -> { assigned.reorder(scheduled_at: :asc) }
   scope :past,      -> { completed.reorder(scheduled_at: :desc) }
 
-  def self.sanitize_and_create(params)
-    create(self.whitelist(params))
+  def self.sanitize_and_create(user, params)
+    create(self.whitelist(params).merge(user: user))
   end
 
   def self.create_temporary(params)
@@ -126,6 +126,10 @@ class Job < ActiveRecord::Base
     tasks.any? { |t| t.is_a?(Service) }
   end
 
+  def has_repair?
+    tasks.any? { |t| t.is_a?(Repair) }
+  end
+
   def assign_mechanic(params)
     mechanic = Mechanic.find(params[:mechanic_id])
 
@@ -150,7 +154,14 @@ class Job < ActiveRecord::Base
   end
 
   def set_title
-    self.title ||= tasks.first.title if tasks.first
+    service = tasks.find { |t| t.is_a?(Service) }
+    if service
+      title = service.set_title
+      title += " and repair" if has_repair?
+    else
+      title = "Repair"
+    end
+    self.title = title
   end
 
   def set_cost

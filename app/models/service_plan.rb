@@ -4,6 +4,7 @@ class ServicePlan < ActiveRecord::Base
   belongs_to :make
   belongs_to :model
   belongs_to :model_variation
+  has_many :tasks, dependent: :nullify
 
   before_save :set_make_and_model, :set_display_title
 

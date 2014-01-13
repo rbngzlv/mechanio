@@ -8,12 +8,11 @@ class Admins::ServicePlansController < Admins::ApplicationController
 
   def index_by_model
     @variation_id = search_params[:model_variation_id]
-    @service_plan = ServicePlan.new(search_params)
     @variation = @variation_id ? ModelVariation.find(@variation_id) : ModelVariation.new
   end
 
   def new
-    @service_plan = ServicePlan.new(model_variation_id: search_params[:model_variation_id])
+    @service_plan = ServicePlan.new(params.permit(:model_variation_id))
   end
 
   def create
@@ -38,13 +37,8 @@ class Admins::ServicePlansController < Admins::ApplicationController
   end
 
   def destroy
-    path = if @service_plan.model_variation_id
-      by_model_admins_service_plans_path
-    else
-      default_admins_service_plans_path
-    end
     @service_plan.destroy
-    redirect_to path, notice: 'Service plan deleted succesfully.'
+    redirect_to redirect_after_save, notice: 'Service plan deleted succesfully.'
   end
 
 
@@ -52,8 +46,11 @@ class Admins::ServicePlansController < Admins::ApplicationController
 
   def redirect_after_save
     if @service_plan.model_variation
-      by_model_admins_service_plans_path(service_plan: {
-        make_id: @service_plan.make_id, model_id: @service_plan.model_id, model_variation_id: @service_plan.model_variation_id
+      by_model_admins_service_plans_path(filter: {
+        year: @service_plan.model_variation.from_year,
+        make_id: @service_plan.make_id,
+        model_id: @service_plan.model_id,
+        model_variation_id: @service_plan.model_variation_id
       })
     else
       default_admins_service_plans_path
@@ -71,8 +68,8 @@ class Admins::ServicePlansController < Admins::ApplicationController
   end
 
   def search_params
-    params.fetch(:service_plan, {})
-      .permit(:make_id, :model_id, :model_variation_id)
+    params.fetch(:filter, {})
+      .permit(:year, :make_id, :model_id, :model_variation_id)
       .reject { |k, v| v.blank? }
   end
   helper_method :search_params

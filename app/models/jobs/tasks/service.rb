@@ -7,13 +7,19 @@ class Service < Task
   before_validation :set_title, :itemize, if: :service_plan
 
   def set_title
-    self.title = "Service: #{service_plan.display_title}"
+    self.title = "#{service_plan.display_title} service"
   end
 
   def itemize
-    item = ServiceCost.new(service_plan: service_plan)
+    if item = find_service_cost
+      item.itemable.update_attributes(service_plan: service_plan)
+    else
+      task_items.build itemable:
+        ServiceCost.new(service_plan: service_plan)
+    end
+  end
 
-    task_items.where(itemable_type: 'ServiceCost').delete_all
-    task_items.reload.build(itemable: item)
+  def find_service_cost
+    task_items.find { |i| i.itemable_type == 'ServiceCost' }
   end
 end
