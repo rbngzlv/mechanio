@@ -56,8 +56,8 @@ module ApplicationHelper
     content_tag :span, status.humanize, class: "label label-#{css}"
   end
 
-  def state_with_postcode(location)
-    "#{location.state.name}, #{location.postcode}"
+  def suburb_with_postcode(location)
+    "#{location.suburb}, #{location.postcode}"
   end
 
   def cost_or_pending(amount)
