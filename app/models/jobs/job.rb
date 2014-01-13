@@ -14,8 +14,8 @@ class Job < ActiveRecord::Base
   serialize :serialized_params
 
   before_validation :assign_car_to_user
+  before_create :set_uid
   before_save :set_title, :set_cost, :set_status, :on_quote_change
-  before_save :set_uid, unless: :uid
 
   validates :car, :location, :tasks, :contact_email, :contact_phone, presence: true
   validates :contact_phone, format: { with: /\A04\d{8}\z/ }
@@ -153,13 +153,7 @@ class Job < ActiveRecord::Base
   end
 
   def set_uid
-    return unless user
-
-    first_name_part = user.first_name[0..2].ljust(3, 'X').upcase
-    last_name_part = user.last_name[0..1].ljust(2, 'X').upcase
-    date_time_part = DateTime.now.strftime("%d%m%H%M")
-
-    self.uid = "#{first_name_part}#{last_name_part}#{date_time_part}"
+    self.uid = rand(36**10).to_s(36).upcase
   end
 
   def set_cost
