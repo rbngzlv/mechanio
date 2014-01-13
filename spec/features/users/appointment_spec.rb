@@ -4,6 +4,7 @@ feature 'Appointments' do
   let(:user)        { create :user }
   let!(:mechanic)   { create :mechanic, mechanic_regions: [create(:mechanic_region, postcode: '1234')] }
   let!(:job)        { create :job_with_service, :estimated, user: user, location: location }
+  let(:appointment) { create :job, :with_service, :estimated, :assigned, user: user }
   let(:location)    { create(:location, :with_coordinates, postcode: '1234') }
   let(:tomorrow)    { DateTime.now.tomorrow.day }
 
@@ -20,6 +21,13 @@ feature 'Appointments' do
     current_path.should be_eql edit_users_appointment_path(job)
   end
 
+  specify 'my appointments' do
+    appointment
+    visit users_appointments_path
+
+    should have_css 'li.active a', text: 'Current Appointments'
+    should have_content "ID: #{appointment.uid}"
+  end
 
   context 'book appointment', :js do
     before { visit edit_users_appointment_path(job) }

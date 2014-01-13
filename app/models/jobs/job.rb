@@ -16,6 +16,7 @@ class Job < ActiveRecord::Base
   serialize :serialized_params
 
   before_validation :assign_car_to_user
+  before_create :set_uid
   before_save :set_title, :set_cost, :set_status, :on_quote_change
 
   validates :car, :location, :tasks, :contact_email, :contact_phone, presence: true
@@ -162,6 +163,10 @@ class Job < ActiveRecord::Base
       title = "Repair"
     end
     self.title = title
+  end
+
+  def set_uid
+    self.uid = rand(36**10).to_s(36).upcase
   end
 
   def set_cost

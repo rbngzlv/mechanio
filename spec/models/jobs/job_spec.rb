@@ -95,21 +95,8 @@ describe Job do
     end
   end
 
-  describe '#set_title' do
-    it 'is a service' do
-      job = build(:job, :with_service)
-      job.set_title.should eq job.tasks.first.title
-    end
-
-    it 'is a repair' do
-      job = build(:job, :with_repair)
-      job.set_title.should eq 'Repair'
-    end
-
-    it 'is a service and repair' do
-      job = build(:job, :with_service, :with_repair)
-      job.set_title.should eq "#{job.tasks.first.title} and repair"
-    end
+  it 'sets uid on job creation' do
+    job_with_service.uid.length.should eq 10
   end
 
   it 'builds task association with correct STI subclass' do
