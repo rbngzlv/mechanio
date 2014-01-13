@@ -1,6 +1,6 @@
 %tr
   %td= job_status(job.status)
-  %td= location_status(job.location)
+  %td= state_with_postcode(job.location)
   %td= job.title
   %td= job.created_at.to_s(:date)
   %td= job.user.full_name if job.user
