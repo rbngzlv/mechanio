@@ -30,6 +30,19 @@ feature 'Jobs page' do
         end
       end
     end
+
+    specify 'filter by status', :js do
+      select "estimated", from: 'status'
+      verify_job_row job1
+      within 'tbody' do
+        should have_no_selector 'td:nth-child(1)', text: job2.status.capitalize
+        should have_no_selector 'td:nth-child(1)', text: 'assigned'.capitalize
+      end
+      find_field('status').value.should eql "estimated"
+      select "all", from: 'status'
+      verify_job_row job1
+      verify_job_row job2
+    end
   end
 
   def verify_job_row(job)
