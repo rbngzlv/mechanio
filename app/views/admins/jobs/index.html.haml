@@ -1,29 +1,31 @@
-%h4 Jobs list
+.navbar.navbar-default
+  .navbar-brand Jobs
+  = form_tag '?', method: :get, class: 'navbar-form navbar-right' do
+    = label_tag 'status', 'Show'
+    &nbsp;
+    .form-group
+      = select_tag 'status', options_for_select([['all', nil], *@statuses], @status), class: 'form-control input-sm'
 
-:javascript
-  $(function() {
-    $('#status').change(function() {
-      this.form.submit();
-    });
-  });
+- if @jobs.count > 0
+  .table-responsive
+    %table.table.table-striped
+      %thead
+        %tr
+          %th Status
+          %th Location status
+          %th Job name
+          %th Date requested
+          %th Requested by
+          %th Allocated to
+          %th Job date and time
+          %th Cost
+          %th Edit
+      %tbody
+        = render @jobs
+  = paginate @jobs
+- else
+  %p.text-center No jobs found
 
-= form_tag '?', method: :get do
-  = label_tag "status", "Filter by status"
-  = select_tag "status", options_for_select([["all", nil], "pending", "estimated", "assigned", "completed", "cancelled", "awaiting", "feedback"], @status)
-
-.table-responsive
-  %table.table.table-striped
-    %thead
-      %tr
-        %th Status
-        %th Location status
-        %th Job name
-        %th Date requested
-        %th Requested by
-        %th Allocated to
-        %th Job date and time
-        %th Cost
-        %th Edit
-    %tbody
-      = render @jobs
-= paginate @jobs
+:coffee
+  $('#status').change ->
+    this.form.submit()

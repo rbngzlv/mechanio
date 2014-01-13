@@ -1,5 +1,7 @@
 class Job < ActiveRecord::Base
 
+  STATUSES = %w(pending estimated assigned confirmed payment_error completed cancelled)
+
   belongs_to :user
   belongs_to :car
   belongs_to :mechanic
