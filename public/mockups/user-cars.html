@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--<![endif]-->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Cars</title>
+<link rel="shortcut icon" href="images/favicon.ico">
+<!--[if lt IE 9]><script src="js/html5shiv.js"></script><script src="js/respond.js"></script><![endif]-->
+<link href="css/style.css" type="text/css" rel="stylesheet" />
+<script src="js/scripts.js"></script>
+<script>jQuery(document).ready(function(){App.init()});</script>
+
+</head>
+
+<body>
+<div id="wrap">
+<!--  ---------------- Header Part -------------------------------------------------- -->
+<header class="navbar navbar-inverse">
+	<div class="navbar-inner">
+    	<div class="fixbar row-fluid">
+        	<a class="brand" href="index.html"><img src="images/logo.png" alt="Mechanio"></a>
+        <div class="fright">
+        	<div class="fright"><a href="#" class="btn btn-link">How IT Works</a><button data-target=".nav-collapse" data-toggle="collapse" class="btn btn-navbar collapsed" type="button">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <div class="top-nav fright MALL5">
+        		<ul class="nav pull-right top-menu">
+          <li class="dropdown"><a href="#" class="dropdown-toggle margin0 padd0" data-toggle="dropdown"><span class="username">Andrew</span><b class="caret"></b></a>
+            <ul class="dropdown-menu">
+          			<li><a  href="user-dashboard.html"><span class="icon-box"><i class="icon-dashboard"></i></span> Dashboard</a></li>
+                <li><a  href="user-cars.html"><span class="icon-box"><i class="icon-truck"></i></span> My Cars</a></li>
+                <li><a  href="user-appointments.html"><span class="icon-box"><i class="icon-calendar"></i></span> My Appointments</a></li>
+                <li><a  href="user-estimates.html"><span class="icon-box"><i class="icon-list"></i></span> My Estimates</a></li>
+                 <li><a  href="user-profile.html"><span class="icon-box"><i class="icon-user"></i></span> My Profile</a></li>
+                 <li><a  href="user-settings.html"><span class="icon-box"><i class="icon-cog"></i></span> Settings</a></li>
+              <li class="divider"></li>
+              <li><a href="./login.html"><i class="icon-key"></i> Log Out</a></li>
+            </ul>
+          </li>
+        </ul>
+		      </div>
+            </div>
+            <div class="space5"></div>
+            <div class="NeedHelp AlignRight">Need Help ? / Call 1800 123 1234</div>
+        </div>
+    	</div>
+    </div>
+</header>
+
+<div class="container-narrow">
+	<!--  ---------------- Left Navigation Part -------------------------------------------------- -->
+	<div id="sidebar" class="nav-collapse collapse">
+			<ul class="sidebar-menu">
+      			<li><a  href="user-dashboard.html"><span class="icon-box"><i class="icon-dashboard"></i></span> Dashboard</a></li>
+                <li class="active"><a  href="user-cars.html"><span class="icon-box"><i class="icon-truck"></i></span> My Cars</a></li>
+                <li><a  href="user-appointments.html"><span class="icon-box"><i class="icon-calendar"></i></span> My Appointments</a></li>
+                <li><a  href="user-estimates.html"><span class="icon-box"><i class="icon-list"></i></span> My Estimates <span class="badge badge-important">2</span></a></li>
+                 <li><a  href="user-profile.html"><span class="icon-box"><i class="icon-user"></i></span> My Profile</a></li>
+                 <li><a  href="user-settings.html"><span class="icon-box"><i class="icon-cog"></i></span> Settings</a></li>
+			 </ul>       
+    	</div>
+    
+    <!--  ---------------- Right Content Part -------------------------------------------------- -->
+    <section id="main-content">
+         <div class="row-fluid">
+            <div class="widget">
+                <div class="widget-title">
+                  <h4><i class="icon-truck"></i></span> My Cars</a></h4></div>
+                <div class="widget-body Focscolor">
+                   <a data-toggle="modal" role="button" href="#myModal2" class="btn btn-info fright">Add New Car</a>
+                   <!--New Car Popup - Lightbox start -->
+                   <div aria-hidden="true" aria-labelledby="myModalLabel2" role="dialog" tabindex="-1" class="modal hide fade" id="myModal2" style="display: none;">
+                    <div class="modal-header">
+                        <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                        <h3 id="myModalLabel1">Add New Car</h3>
+                      </div>
+                    <div class="modal-body SignupBox">
+                        <div class="control-group fixCombo ">
+                         <div class="controls">
+                         <div class="row-fluid">
+                            <select data-placeholder="Year" tabindex="1" class="span5">
+                            <option  value="Category 1"> Year </option>
+                            <option value="Category 2"> 2013 </option>
+                            <option value="Category 3"> 2012 </option>
+                            <option value="Category 4"> 2011 </option>
+                          </select>
+                          <select  data-placeholder="Make" tabindex="1" class="span5">
+                            <option value="Category 1"> Make </option>
+                            <option value="Category 2"> Category 2 </option>
+                            <option value="Category 3"> Category 5 </option>
+                            <option value="Category 4"> Category 4 </option>
+                          </select>
+                          </div>
+                          <div class="row-fluid MB10"><select  data-placeholder="Model" tabindex="1" class="span10">
+                           <option value="Category 1"> Model </option>
+                            <option value="Category 2"> Category 2 </option>
+                            <option value="Category 3"> Category 5 </option>
+                            <option value="Category 4"> Category 4 </option>
+                          </select>
+                          </div>
+                          <div class="row-fluid">
+                          <select  data-placeholder="Sub Model" tabindex="1" class="span5">
+                           <option  value="Category 1"> Sub Model </option>
+                            <option value="Category 2"> Category 2 </option>
+                            <option value="Category 3"> Category 5 </option>
+                            <option value="Category 4"> Category 4 </option>
+                          </select>
+                          <select  data-placeholder="Engine" tabindex="1" class="span5">
+                          <option value="Category 1"> Engine </option>
+                            <option value="Category 2"> Category 2 </option>
+                            <option value="Category 3"> Category 5 </option>
+                            <option value="Category 4"> Category 4 </option>
+                          </select>
+                         </div>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <p class="span6">Mileage on the odometer <input type="text" value="Kilometers" onBlur="if (value== '') {value='Kilometers'}" onFocus="if (value == 'Kilometers') {value=''}" class="span5"></p>
+                        <a href="#" class="span3 btn btn-success fright">Add</a>
+                      </div>
+                </div>
+                     <!--New Car Popup - Lightbox end -->
+                   <span class="space5"></span>
+                   <table class="table table-striped table-bordered" id="sample_1">
+                    <thead>
+                      <tr>
+                        <th><b>Car Model</b></th>
+                        <th><b>Action</b></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr class="odd gradeX">
+                        <td >2000 Toyota Corolla L4-1.8L</td>
+                        <td><a href="#" class="btn btn-danger">Delete</a></td>
+                      </tr>
+                      <tr class="odd gradeX">
+                        <td >2000 Toyota Corolla L4-1.8L</td>
+                        <td><a href="#" class="btn btn-danger">Delete</a></td>
+                      </tr>
+                      <tr class="odd gradeX">
+                        <td >2000 Toyota Corolla L4-1.8L</td>
+                        <td><a href="#" class="btn btn-danger">Delete</a></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+         </div>
+    </section>
+</div>
+
+</div>
+
+<!--  ---------------- Footer Part -------------------------------------------------- -->
+<footer id="footer">
+      <div class="fixbar row-fluid">
+        <span class="span8"><a href="about-us.html">About us</a><a href="faq.html">FAQ</a><a href="terms-of-use.html">Terms of use</a><a href="privacy.html">Privacy Policy</a><a href="blog.html">Blog</a><a href="contact-us.html">Contact Us</a></span>
+        <div class="span3 fright"><span><a href="#"><i class="icon-facebook-sign FS30 MR5"></i></a><a href="#"><i class="icon-twitter-sign FS30 MR5"></i></a><a href="#"><i class="icon-google-plus-sign FS30"></i></a></span><span>Connect with us </span></div>
+        <div class="clearb"></div>
+      </div>
+    </footer>
+
+</body>
+</html>
