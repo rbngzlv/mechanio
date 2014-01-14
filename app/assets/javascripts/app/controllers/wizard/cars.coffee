@@ -1,14 +1,17 @@
 app = angular.module('mechanio')
 
 app.controller 'CarsController', ['$scope', '$http', ($scope, $http) ->
+  $scope.car = {}
+
+  $scope.last_service_month
+  $scope.last_service_year
+
   $scope.cars = []
   $scope.models = []
   $scope.model_variations = []
+
   $scope.adding_vehicle = true
   $scope.no_results_alert = false
-  $scope.last_service_year = ''
-
-  $scope.car = {}
 
   $scope.init = (options = {}) ->
     $scope[key] = value for key, value of options
@@ -64,7 +67,7 @@ app.controller 'CarsController', ['$scope', '$http', ($scope, $http) ->
     date && date.isValid() && date.isBefore(moment())
 
   $scope.last_service_date = ->
-    return false if $scope.last_service_year < 1950
+    return false if $scope.last_service_year < 1980
     moment(new Date($scope.last_service_year, $scope.last_service_month - 1, 1))
 
   $scope.submit = ->
