@@ -2,5 +2,5 @@
 = f.simple_fields_for(location_assoc, defaults: f.options[:defaults].merge(defaults)) do |l|
   = l.input :address
   = l.input :suburb
-  = l.input :postcode
   = l.association :state, prompt: '-- Please select --'
+  = l.input :postcode

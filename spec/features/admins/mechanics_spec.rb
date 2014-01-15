@@ -21,52 +21,80 @@ feature 'Admin mechanics management' do
     page.should have_field 'First name', with: mechanic.first_name
   end
 
-  it 'adds a new mechanic' do
-    mail_deliveries.clear
-    visit admins_mechanics_path
-    click_link 'Add mechanic'
+  context 'adds a new mechanic' do
+    scenario 'success' do
+      mail_deliveries.clear
+      visit admins_mechanics_path
+      click_link 'Add mechanic'
 
-    expect do
-      fill_in 'First name', with: 'First'
-      fill_in 'Last name', with: 'Last'
-      fill_in 'Personal email', with: 'mechanic@host.com'
-      select '1975',    from: 'mechanic_dob_1i'
-      select 'October', from: 'mechanic_dob_2i'
-      select '1',       from: 'mechanic_dob_3i'
-      fill_in 'Personal description', with: 'Something about me'
-      fill_in 'mechanic_location_attributes_address', with: 'Seashell avenue, 25'
-      fill_in 'mechanic_location_attributes_suburb', with: 'Somewhere'
-      select 'Queensland', from: 'mechanic_location_attributes_state_id'
-      fill_in 'mechanic_location_attributes_postcode', with: 'AX12345'
-      fill_in "Driver's license", with: 'MXF123887364'
-      select 'Queensland', from: "mechanic_license_state_id"
-      select '2015',      from: 'mechanic_license_expiry_1i'
-      select 'September', from: 'mechanic_license_expiry_2i'
-      select '1',         from: 'mechanic_license_expiry_3i'
+      expect do
+        fill_in 'First name', with: 'First'
+        fill_in 'Last name', with: 'Last'
+        fill_in 'Email Address', with: 'mechanic@host.com'
+        select '1975',    from: 'mechanic_dob_1i'
+        select 'October', from: 'mechanic_dob_2i'
+        select '1',       from: 'mechanic_dob_3i'
+        fill_in 'Personal description', with: 'Something about me'
+        fill_in 'mechanic_location_attributes_address', with: 'Seashell avenue, 25'
+        fill_in 'mechanic_location_attributes_suburb', with: 'Somewhere'
+        select 'Queensland', from: 'mechanic_location_attributes_state_id'
+        fill_in 'mechanic_location_attributes_postcode', with: 'AX12345'
+        fill_in 'Mobile number', with: '0410123456'
+        fill_in "License number", with: 'MXF123887364'
+        select 'Queensland', from: "mechanic_license_state_id"
+        select '2015',      from: 'mechanic_license_expiry_1i'
+        select 'September', from: 'mechanic_license_expiry_2i'
+        select '1',         from: 'mechanic_license_expiry_3i'
+        click_button 'Save'
+      end.to change { Mechanic.count }.by 1
+
+      page.should have_css '.alert', text: 'Mechanic succesfully created.'
+      last_delivery.body.should include('mechanic@host.com')
+      last_delivery.subject.should include('Welcome to Mechanio')
+    end
+
+    scenario 'fail' do
+      visit admins_mechanics_path
+      click_link 'Add mechanic'
+      current_path.should be_eql new_admins_mechanic_path
+      page.should have_selector "legend", text: "Mechanic Details"
+      within '.mechanic_location_address' do
+        page.should have_selector 'abbr', text: '*'
+      end
+      within '.mechanic_business_location_address' do
+        page.should have_no_selector 'abbr', text: '*'
+      end
       click_button 'Save'
-    end.to change { Mechanic.count }.by 1
-
-    page.should have_css '.alert', text: 'Mechanic succesfully created.'
-    last_delivery.body.should include('mechanic@host.com')
-    last_delivery.subject.should include('Welcome to Mechanio')
+      page.should have_content "Please review the problems below:"
+      page.should have_selector "#mechanic_business_location_attributes_address"
+    end
   end
 
-  scenario 'edits existing mechanic' do
-    visit admins_mechanics_path
-    page.should have_css 'td', text: 'Joe Mechanic'
+  context 'edits existing mechanic' do
+    scenario 'success' do
+      visit admins_mechanics_path
+      page.should have_css 'td', text: 'Joe Mechanic'
 
-    click_link 'Edit'
-    page.should have_content 'Business Details'
-    check 'Phone verified'
-    check 'Super mechanic'
-    check 'Warranty covered'
-    check 'Qualification verified'
+      click_link 'Edit'
+      page.should have_content 'Business Details'
 
-    fill_in 'First name', with: 'Alex'
-    click_button 'Save'
+      fill_in 'First name', with: 'Alex'
+      click_button 'Save'
 
-    visit admins_mechanics_path
-    page.should have_css 'td', text: 'Alex Mechanic'
+      visit admins_mechanics_path
+      page.should have_css 'td', text: 'Alex Mechanic'
+    end
+
+    scenario 'fail' do
+      visit admins_mechanics_path
+      click_link 'Edit'
+      current_path.should be_eql edit_admins_mechanic_path(mechanic)
+      page.should have_no_selector "legend", text: "Mechanic Details"
+      fill_in 'First name', with: ''
+      click_button 'Save'
+      page.should have_content "Please review the problems below:"
+      page.should have_selector "#mechanic_business_location_attributes_address"
+    end
   end
 
   it 'deletes a mechanic' do

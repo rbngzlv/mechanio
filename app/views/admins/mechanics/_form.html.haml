@@ -26,42 +26,38 @@
           $that.remove()
 
 = simple_form_for [:admins, @mechanic], html: { class: 'form-horizontal admin_mechanic_form', multipart: true }, defaults: { label_html: { class: 'col-md-2 col-sm-2' } }, wrapper: :bootstrap_horizontal do |f|
+  - if @mechanic.new_record?
+    %legend Mechanic Details
   = f.error_notification
   = f.input :first_name
   = f.input :last_name
   = f.input :dob, label: 'Date of birth', input_html: { class: 'form-control' }, start_year: Date.today.year - 60, end_year: Date.today.year - 18, order: [:day, :month, :year], wrapper_html: { class: 'dob' }
-  = f.input :email, label: 'Personal email'
+  = f.input :email, label: 'Email Address'
   = f.input :description, label: 'Personal description'
+  = render partial: 'shared/location_form', locals: { f: f, location_assoc: :location, defaults: { required: true } }
+  = f.input :mobile_number
   = f.input :avatar, label: 'Photo', as: :image, wrapper: :bootstrap, input_html: { wrap_class: 'col-md-4 col-sm-5' }, show_file_name: true
-  %legend Personal Address
-  = render partial: 'shared/location_form', locals: { f: f, location_assoc: :location }
-  %legend Verified Statuses
-  = f.input :phone_verified
-  = f.input :super_mechanic
-  = f.input :warranty_covered
-  = f.input :qualification_verified
   %legend Driver License
-  = f.input :driver_license_number, label: "Driver's license"
+  = f.input :driver_license_number, label: "License number"
   = f.association :license_state, label: 'Registered state', prompt: '-- Please select --'
   = f.input :license_expiry, label: 'Expiry date', input_html: { class: 'form-control' }, start_year: Date.today.year, end_year: Date.today.year + 20, order: [:day, :month, :year], wrapper_html: { class: 'dob' }
   = f.input :driver_license, label: 'Image', as: :image, wrapper: :bootstrap, input_html: { wrap_class: 'col-md-4 col-sm-5' }, show_file_name: true
-  %legend Business Details
-  = f.input :business_website
-  = f.input :business_email
-  = f.input :years_as_a_mechanic
-  = f.input :mobile_number
-  = f.input :other_number
-  %legend ABN
-  = f.input :abn_name, label: 'ABN name'
-  = f.input :abn_number, label: 'ABN number'
+  %legend ABN Details
+  = f.input :abn_name, label: 'Registered Business Name'
+  = f.input :abn_number, label: 'ABN Number'
   = f.input :abn_expiry, label: 'Expiry date', input_html: { class: 'form-control' }, start_year: Date.today.year, end_year: Date.today.year + 20, order: [:day, :month, :year], wrapper_html: { class: 'dob' }
   = f.input :abn, label: 'Image', as: :image, wrapper: :bootstrap, input_html: { wrap_class: 'col-md-4 col-sm-5' }, show_file_name: true
-  %legend Business Address
+  %legend Business Details
+  = f.input :business_name, label: 'Business Name'
+  = f.input :business_website, label: 'Business Website '
+  = f.input :business_email, label: 'Business Email'
+  = f.input :years_as_a_mechanic, label: 'Number of years as a mechanic'
+  = f.input :business_mobile_number, label: 'Mobile Number'
   = render partial: 'shared/location_form', locals: { f: f, location_assoc: :business_location }
   %legend Motor Mechanics License
-  = f.input :mechanic_license_number, label: 'Number'
-  = f.input :mechanic_license_expiry, label: 'Expiry date', input_html: { class: 'form-control' }, start_year: Date.today.year, end_year: Date.today.year + 20, order: [:day, :month, :year], wrapper_html: { class: 'dob' }
-  = f.association :mechanic_license_state, label: 'Registered state', prompt: '-- Please select --'
+  = f.input :mechanic_license_number, label: 'Motor Mechanic\'s License Number'
+  = f.input :mechanic_license_expiry, label: 'Expiry Date', input_html: { class: 'form-control' }, start_year: Date.today.year, end_year: Date.today.year + 20, order: [:day, :month, :year], wrapper_html: { class: 'dob' }
+  = f.association :mechanic_license_state, label: 'Registered State', prompt: '-- Please select --'
   = f.input :mechanic_license, label: 'Image', as: :image, wrapper: :bootstrap, input_html: { wrap_class: 'col-md-4 col-sm-5' }, show_file_name: true
   %hr.hr-dark-gray
   .form-group
