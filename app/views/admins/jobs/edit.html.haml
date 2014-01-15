@@ -1,24 +1,24 @@
-%p.pull-right
-  %strong Requested by
-  = link_to @job.user.full_name, [:admins, @job.user]
-  on
-  = @job.created_at.to_s(:short)
+.pull-right
+  %p
+    %strong Requested by
+    = link_to @job.user.full_name, [:admins, @job.user]
+    on
+    = @job.created_at.to_s(:short)
 
 %h4
   = @job.title
   = job_status(@job.status)
 
-%h5
-  ID: #{@job.uid}
+%ul.nav.nav-tabs
+  %li.active= link_to 'General info', '#general_info', 'data-toggle' => 'tab'
+  %li= link_to 'Job and labour', '#job_and_labour', 'data-toggle' => 'tab'
 
-%h5
-  = @job.car.display_title
+= simple_form_for [:admins, @job], html: { 'ng-controller' => 'JobsController', 'ng-init' => "init({job: #{@job.to_json}, hourly_rate: #{Labour::HOURLY_RATE}, service_plans: #{@service_plans_json}})" } do |f|
+  .tab-content
+    #general_info.tab-pane.active= render 'general_info', f: f
+    #job_and_labour.tab-pane= render 'job_and_labour', f: f
 
-- if @job.mechanic
-  %p
-    Assigned to
-    = link_to @job.mechanic.full_name, [:admins, @job.mechanic]
-
-%hr
-
-= render 'form'
+  .clearfix
+  %hr
+  = f.submit 'Save Changes', class: 'btn btn-success pull-right'
+  = link_to 'Delete Job', admins_job_path(@job), method: :delete, class: 'btn btn-danger', data: {confirm: 'Are you sure?'}

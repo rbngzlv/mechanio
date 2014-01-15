@@ -1,0 +1,21 @@
+.panel.panel-default.panel-rounded
+  .panel-heading
+    %h5.panel-title Edit job
+  .panel-body.form-horizontal
+    = simple_fields_for @job, defaults: { label_html: { class: 'col-md-4' }, required: false }, wrapper: :bootstrap_horizontal do |j|
+      .col-md-6
+        = j.input :uid, label: 'ID', disabled: true
+        = j.input :requested_by, disabled: true, input_html: { value: @job.user.full_name }
+        = j.input :requested_on, disabled: true, input_html: { value: @job.created_at.to_s(:date_time_short) }
+        = j.input :allocated_mechanic, disabled: true, input_html: { value: (@job.mechanic.full_name if @job.mechanic) }
+        = j.input :appointment_date, disabled: true, input_html: { value: (@job.scheduled_at.to_s(:date_time_short) if @job.scheduled_at) }
+        = j.input :vehicle, disabled: true, input_html: { value: @job.car.display_title }
+        = j.input :last_service, disabled: true, input_html: { value: last_service(@job.car) }
+      .col-md-6
+        = j.input :contact_email
+        = j.input :contact_phone
+        = j.simple_fields_for :location do |l|
+          = l.input :address
+          = l.input :suburb
+          = l.input :postcode
+          = l.association :state

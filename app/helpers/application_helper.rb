@@ -68,4 +68,8 @@ module ApplicationHelper
   def cost_or_pending(amount)
     amount ? content_tag(:b, number_to_currency(amount)) : 'pending'
   end
+
+  def last_service(car)
+    car.last_service_kms ? "#{car.last_service_kms} Km" : car.last_service_date.to_s(:month_year)
+  end
 end
