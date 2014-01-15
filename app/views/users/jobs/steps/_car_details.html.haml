@@ -9,13 +9,16 @@
             %input.radio_buttons{ 'id' => 'job_car_id_{{c.id}}', 'name' => 'job[car_id]', 'type' => 'radio', 'value' => '{{c.id}}', 'ng-model' => 'car.id', 'ng-change' => 'setCar()' }
             {{c.display_title}}
 
+          %button.btn.btn-default{ 'type' => 'button', 'ng-hide' => 'adding_vehicle', 'ng-click' => 'adding_vehicle = true' }
+            Add a new car
+
     .add-vehicle{ 'ng-show' => 'adding_vehicle', 'ng-form' => 'car_details_form' }
       %h5 ADD YOUR VEHICLE
       %hr.hr-dark-gray
       .row
         .col-md-5
           = simple_fields_for :car, wrapper: :nolabel do |c|
-            = c.input :year, collection: (1998..Date.today.year), include_blank: '-- Year --', input_html: { 'ng-model' => 'car.year', 'ng-change' => 'setYear()', 'required' => true }
+            = c.input :year, collection: Date.today.year.downto(1980), include_blank: '-- Year --', input_html: { 'ng-model' => 'car.year', 'ng-change' => 'setYear()', 'required' => true }
             = c.input :make_id, collection: Make.all, include_blank: '-- Make --', input_html: { 'ng-model' => 'car.make_id', 'ng-change' => 'setMake()', 'ng-disabled' => '!car.year', 'required' => true }
             = c.input :model_id, collection: [], include_blank: '-- Model --', input_html: { 'ng-model' => 'car.model_id', 'ng-options' => 'm.id as m.name for m in models', 'ng-change' => 'setModel()', 'ng-disabled' => '!car.make_id', 'required' => true }
             = c.input :model_variation_id, collection: [], include_blank: '-- Version --', input_html: { 'ng-model' => 'car.model_variation_id', 'ng-options' => 'v.id as v.detailed_title for v in model_variations', 'ng-change' => 'setModelVariation()', 'ng-disabled' => '!car.model_id || model_variations.length == 0', 'required' => true }
@@ -28,21 +31,19 @@
           = simple_fields_for :car, wrapper: :nolabel do |c|
             %label When was your car last serviced?
             .form-inline
-              = c.input :last_service_kms, as: :integer, placeholder: 'Kms', input_html: { 'ng-model' => 'car.last_service_kms' }
+              = c.input :last_service_kms, as: :string, placeholder: 'Kms', input_html: { maxlength: 6, 'ng-pattern' => '/^\d+$/', 'ng-model' => 'car.last_service_kms' }
               &nbsp;
               OR
               .form-group.date.optional.car_last_service_date
                 = select_month Date.today, { field_name: 'last_service_month', prefix: 'car', prompt: 'Month' }, { class: 'form-control', 'ng-model' => 'last_service_month' }
-                = c.number_field 'last_service_year', class: 'form-control', placeholder: 'Year', maxlength: 4, 'ng-model' => 'last_service_year'
+                = c.input 'last_service_year', include_blank: 'Year', collection: Date.today.year.downto(Date.today.year - 4), input_html: { 'ng-model' => 'last_service_year'}, wrapper: false
 
             %span.help-block
               Enter either the KMs interval, or the date the car was serviced
   %hr
-  %button.btn.btn-default{ 'type' => 'button', 'ng-hide' => 'adding_vehicle', 'ng-click' => 'adding_vehicle = true' }
-    Add a new car
   %button.btn.btn-default{ 'type' => 'button', 'ng-show' => 'adding_vehicle && cars.length > 0', 'ng-click' => 'adding_vehicle = false' }
     %small &lt;
-    Back
+    Back to my cars
   %button.btn.btn-primary.pull-right{ 'type' => 'button', 'ng-click' => 'submit()', 'ng-disabled' => '!valid()' }
     Continue
     %small &gt;

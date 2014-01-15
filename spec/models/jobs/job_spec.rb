@@ -28,7 +28,7 @@ describe Job do
 
   it '#sanitize_and_create' do
     Job.any_instance.should_receive(:notify_estimated)
-    job = user.jobs.sanitize_and_create(job: attrs)
+    job = Job.sanitize_and_create(user, job: attrs)
     verify_estimated_job(job)
   end
 
@@ -47,6 +47,13 @@ describe Job do
     Job.any_instance.should_receive(:notify_estimated)
     job = Job.convert_from_temporary(tmp.id, user)
     verify_estimated_job(job)
+  end
+
+  specify '#with_status' do
+    job1 = create :job, :with_service, :pending
+    job2 = create :job, :with_service, :completed
+
+    Job.with_status(:pending).should eq [job1]
   end
 
   describe '#assign_mechanic' do
@@ -88,21 +95,8 @@ describe Job do
     end
   end
 
-  describe '#set_title' do
-    it 'is a service' do
-      job = build(:job, :with_service)
-      job.set_title.should eq job.tasks.first.title
-    end
-
-    it 'is a repair' do
-      job = build(:job, :with_repair)
-      job.set_title.should eq 'Repair'
-    end
-
-    it 'is a service and repair' do
-      job = build(:job, :with_service, :with_repair)
-      job.set_title.should eq "#{job.tasks.first.title} and repair"
-    end
+  it 'sets uid on job creation' do
+    job_with_service.uid.length.should eq 10
   end
 
   it 'builds task association with correct STI subclass' do
@@ -114,7 +108,7 @@ describe Job do
   end
 
   it 'associates car with user when creating car via nested_attributes' do
-    job = user.jobs.sanitize_and_create(job: attrs)
+    job = Job.sanitize_and_create(user, job: attrs)
 
     job.car.user_id.should_not be_nil
     job.car.user_id.should eq job.user_id
@@ -125,7 +119,7 @@ describe Job do
       id: car.id,
       last_service_kms: '10000'
     }
-    expect { user.jobs.sanitize_and_create(job: attrs) }.to_not change{ Car.count }
+    expect { Job.sanitize_and_create(user, job: attrs) }.to_not change{ Car.count }
     car.reload.last_service_kms.should eq 10000
   end
 
@@ -134,7 +128,7 @@ describe Job do
   end
 
   it 'sums tasks costs when creating from nested_attributes' do
-    job = user.jobs.sanitize_and_create(job: attrs)
+    job = Job.sanitize_and_create(user, job: attrs)
     job.cost.should eq 475
   end
 

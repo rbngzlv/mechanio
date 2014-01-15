@@ -1,19 +1,5 @@
-State.delete_all
-
-states = [
-  'ACT',
-  'NSW',
-  'NT',
-  'QLD',
-  'SA',
-  'TAS',
-  'VIC',
-  'WA'
-]
-
-states.each do |s|
-  State.create(name: s)
-end
+states = %w(ACT NSW NT QLD SA TAS VIC WA')
+states.each { |s| State.find_or_create_by(name: s) }
 
 symptoms = {
   'Looks like' => [
@@ -38,12 +24,11 @@ symptoms = {
   'Feels like' => [],
   'Not working' => []
 }
-Symptom.delete_all
-root = Symptom.create(description: 'Root')
+root = Symptom.find_or_create_by(description: 'Root')
 symptoms.each do |parent, children|
-  s = Symptom.create(description: parent, parent: root)
+  s = root.children.find_or_create_by(description: parent)
   children.each do |c|
-    Symptom.create(description: c, parent: s)
+    s.children.find_or_create_by(description: c)
   end
 end
 

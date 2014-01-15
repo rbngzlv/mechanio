@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--<![endif]-->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Profile</title>
+<link rel="shortcut icon" href="images/favicon.ico">
+<!--[if lt IE 9]><script src="js/html5shiv.js"></script><script src="js/respond.js"></script><![endif]-->
+<link href="css/style.css" type="text/css" rel="stylesheet" />
+<link href="assets/bootstrap/css/bootstrap-fileupload.css" rel="stylesheet" />
+<script src="js/scripts.js"></script>
+<script type="text/javascript" src="assets/bootstrap/js/bootstrap-fileupload.js"></script>
+
+<script>jQuery(document).ready(function(){App.init()});</script>
+</head>
+
+<body>
+<div id="wrap">
+<!--  ---------------- Header Part -------------------------------------------------- -->
+<header class="navbar navbar-inverse">
+	<div class="navbar-inner">
+    	<div class="fixbar row-fluid">
+        	<a class="brand" href="index.html"><img src="images/logo.png" alt="Mechanio"></a>
+        	<div class="fright">
+        	<div class="fright"><a href="#" class="btn btn-link">How IT Works</a><button data-target=".nav-collapse" data-toggle="collapse" class="btn btn-navbar collapsed" type="button">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <div class="top-nav fright MALL5">
+        		<ul class="nav pull-right top-menu">
+                  <li class="dropdown"><a href="#" class="dropdown-toggle margin0 padd0" data-toggle="dropdown"><span class="username">Mechanic Name</span><b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                    		<li><a  href="mechanic-dashboard.html"><span class="icon-box"><i class="icon-dashboard"></i></span> Dashboard</a></li>
+                <li><a  href="mechanic-profile.html"><span class="icon-box"><i class="icon-user"></i></span> My Profile</a></li>
+                <li><a  href="mechanic-jobs.html"><span class="icon-box"><i class="icon-thumbs-up"></i></span> My Jobs</a></li>
+                <li><a  href="mechanic-payout.html"><span class="icon-box"><i class="icon-credit-card"></i></span> Payout Information</a></li>
+                <li><a  href="mechanic-settings.html"><span class="icon-box"><i class="icon-calendar"></i></span> Settings</a></li>
+                      <li class="divider"></li>
+                      <li><a href="./login.html"><i class="icon-key"></i> Log Out</a></li>
+                    </ul>
+                  </li>
+                </ul>
+		      </div>
+            </div>
+            <div class="space5"></div>
+            <div class="NeedHelp AlignRight">Need Help ? / Call 1800 123 1234</div>
+        </div>
+    	</div>
+    </div>
+</header>
+
+<div class="container-narrow">
+	<div class="row-fluid">
+    	<!--  ---------------- Left Nevigation Part -------------------------------------------------- -->
+		 <div id="sidebar" class="nav-collapse collapse">
+			<ul class="sidebar-menu">
+            		<li><a  href="mechanic-dashboard.html"><span class="icon-box"><i class="icon-dashboard"></i></span> Dashboard</a></li>
+                <li class="active"><a  href="mechanic-profile.html"><span class="icon-box"><i class="icon-user"></i></span> My Profile</a></li>
+                <li><a  href="mechanic-jobs.html"><span class="icon-box"><i class="icon-thumbs-up"></i></span> My Jobs</a></li>
+                <li><a  href="mechanic-payout.html"><span class="icon-box"><i class="icon-credit-card"></i></span> Payout Information</a></li>
+                <li><a  href="mechanic-settings.html"><span class="icon-box"><i class="icon-calendar"></i></span> Settings</a></li>
+			 </ul>       
+    	</div>
+        
+        <!--  ---------------- Right Content Part -------------------------------------------------- -->
+		<section id="main-content">
+		<!--Edit Profile Tab-->
+		<div class="widget">
+              <div class="widget-title">
+                <h4><i class="icon-user"></i> Edit Profile</h4></div>
+                <a href="mechanic-calendar.html" class="btn btn-info fright MALL5">Availabilities</a>
+              <div class="widget-body">
+                    <div class="tabbable tabbable-custom">
+                      <ul class="nav nav-tabs">
+                        <li class="active"><a data-toggle="tab" href="#my-profile">My Profile</a></li>
+                        <li><a data-toggle="tab" href="#social-media">Social Media Connections</a></li>
+                      </ul>
+                      <div class="tab-content Focscolor">
+                      	<!--My Profile Tab-->
+                        <div id="my-profile" class="tab-pane active">
+                          	<div class="span7">
+                            <h2 class="h2class">1. Personal Details</h2>
+                            	<input type="text" class="span6 MR5" placeholder="First Name" value="">
+                                <input type="text" class="span6" placeholder="Last Name" value="" >
+                                <label class="control-label span2">D.O.B</label>
+                                <select class="span3 MR5" data-placeholder="Day" tabindex="1"><option value="Day">Day</option></select>
+                                <select class="span4 MR5" data-placeholder="Month" tabindex="1"><option value="Month">Month</option></select>
+                                <select class="span3 " data-placeholder="Year" tabindex="1"><option value="Year">Year</option></select>
+                               
+                               <input type="text" class="span12" placeholder="Email" value="">
+                                <textarea class="span12" placeholder="Describe Yourself" value=""  rows="3"></textarea>
+                               
+                                <input type="text" class="span12" placeholder="Street Address" value="">
+                                <input type="text" class="span4 MR5" placeholder="Suburb" value="">
+                                <input type="text" class="span4" placeholder="Postcode" value="" >
+                                <select class="span4 MR5" data-placeholder="DOB" tabindex="1"><option value="DOB">State</option></select>
+                                
+                                 <input type="text" class="span8 fleft" placeholder="Driver's License Number" value=""><button class="btn btn-success span4 fright" type="button">Upload</button>
+                                  <div class="clearb"></div>
+                                  <label class="control-label span2">Expiry</label>
+                                <select class="span3 MR5" data-placeholder="Day" tabindex="1"><option value="Day">Day</option></select>
+                                <select class="span4 MR5" data-placeholder="Month" tabindex="1"><option value="Month">Month</option></select>
+                                <select class="span3 " data-placeholder="Year" tabindex="1"><option value="Year">Year</option></select>
+                                <div class="clearb"></div>
+                                <label class="control-label span4">Registered State</label>
+                                <select class="span8" data-placeholder="Day" tabindex="1"><option value="Day">Day</option></select>
+                                 
+                               <h2 class="h2class"> Business Details</h2>
+                               
+                                <div class="tab-content">
+                                 <input type="text" class="span12" placeholder="Business Name" value="">
+                                 <input type="text" class="span12" placeholder="Business Website" value="">
+                                 <input type="text" class="span12" placeholder="Business Email" value="">
+                                 <input type="text" class="span12" placeholder="Years as a mechanic" value="">
+                        <!--  ---------------- verify mobile setp1 -------------------------------------------------- -->
+                              <div class="tab-pane active" id="verifymobileS1">
+                                    
+                                    <div class="input-prepend span12 margin0"><span class="add-on"><i class="icon-phone"></i></span>
+                                <input type="text" class="span11" placeholder="Verify Mobile Number" value="">
+                              </div>
+                              <div class="space10"></div>
+                              <div class="span12 margin0">
+                                  <div class="span6"><a href="#verifymobileS2" data-toggle="tab" class="btn btn-success span">Verify via SMS</a></div><div class="span6"><a href="#verifymobileS2" data-toggle="tab" class="btn span">Add another number</a></div>
+                              </div>
+                                      
+                              </div>
+                              <!--  ----------------  verify mobile setp2  -------------------------------------------------- -->
+                              <div class="tab-pane" id="verifymobileS2">
+                                    
+                                    <div class="greybox">
+                                   <p><small>We'll send a verification code in the next few minutes to +61 410 099 322. Please enter it in the box below.</small></p>
+                                    <div class="space10"></div>
+                                   <label class="control-label">Verification code  <input type="text" class="input-medium"></label>
+                                   
+                                   <div class="BorderDotTop padd10"><a href="#verifymobileS3" class="btn btn-success offset4" data-toggle="tab">Verify</a><a href="#verifymobileS1" class="btn MLeft10" data-toggle="tab">Cancel</a></div>
+                                   </div>
+                                   
+                              </div>
+                              <!--  ---------------- verify mobile setp3 -------------------------------------------------- -->
+                              <div class="tab-pane" id="verifymobileS3">
+                                    
+                                   <div class="greybox padd0">
+                                   	<div class="row-fluid">
+                                   		<div class="btn-success span4 padd5 text-center"><i class="icon-ok"></i> Verified</div>
+                                        <div class="span6 padd5">+61 410 099 322</div>
+                                        <a href="#" class="span1 fright padd5"><i class="icon-remove"></i></a>
+                                      </div>
+                                   </div>
+                                   <div class="space10"></div>
+                                   <a href="#verifymobileS1" class="btn btn-success fright" data-toggle="tab">Add Phone Number</a>
+                                                                
+                              </div>
+                    		</div>
+                               
+                                <div class="space10"></div>
+                                <input type="text" class="span12" placeholder="Business Address" value="">
+                                <input type="text" class="span4 MR5" placeholder="Suburb" value="">
+                                <input type="text" class="span4" placeholder="Postcode" value="" >
+                                <select class="span4 MR5" data-placeholder="DOB" tabindex="1"><option value="DOB">State</option></select>
+                                
+                                <input type="text" class="span8 fleft" placeholder="ABN" value=""><button class="btn btn-success span4 fright" data-toggle="modal" role="button" href="#myModal3" type="button">Upload</button>
+                                <div class="clearb"></div>
+                                  <label class="control-label span2">Expiry</label>
+                                <select class="span3 MR5" data-placeholder="Day" tabindex="1"><option value="Day">Day</option></select>
+                                <select class="span4 MR5" data-placeholder="Month" tabindex="1"><option value="Month">Month</option></select>
+                                <select class="span3 " data-placeholder="Year" tabindex="1"><option value="Year">Year</option></select>
+                                 <!-- Upload Light Box Start-->
+                              <div aria-hidden="true" aria-labelledby="myModalLabel3" role="dialog" tabindex="-1" class="modal hide fade" id="myModal3" style="display: none;">
+                                 <div class="modal-header"><button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button><h3 id="myModalLabel1">Document Verification</h3></div>
+                                <div class="modal-body ">
+                                    <div class="row-fluid">
+                                        <div class="span10 offset1">
+                                        <p class="largeTypo">Scan and upload your file using the button below, once we confirm it's authenticity, you will recieve verification.</p>
+                                        <button class="btn btn-success span6 offset3" type="button"> Upload existing image</button>
+                                       
+                                </div>
+                                        <div class="clearb"></div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer"><button aria-hidden="true" data-dismiss="modal"  class="btn btn span4 offset2">Cancel</button><button class="btn btn-success span4 offset2">Save</button></div>
+                                </div>
+                              <!-- Upload Light Box End-->
+                                <input type="text" class="span8 fleft" placeholder="Motor Mechanic's License Number" value=""><button class="btn btn-success span4 fright" data-toggle="modal" role="button" href="#myModal3" type="button">Upload</button>
+                                <div class="clearb"></div>
+                                  <label class="control-label span2">Expiry</label>
+                                <select class="span3 MR5" data-placeholder="Day" tabindex="1"><option value="Day">Day</option></select>
+                                <select class="span4 MR5" data-placeholder="Month" tabindex="1"><option value="Month">Month</option></select>
+                                <select class="span3 " data-placeholder="Year" tabindex="1"><option value="Year">Year</option></select>
+                                
+                                <div class="clearb"></div>
+                                <label class="control-label span4">Registered State</label>
+                                <select class="span8" data-placeholder="Day" tabindex="1"><option value="Day">Day</option></select>
+                                
+                            </div>
+                            <div class="span4 fright MR20">
+                            <div class="progressBar greybox">
+                               <div class="progress progress active">
+                              	 <div class="bar" style="width:40%"></div>  
+                               </div> 
+                               <p>Your profile is <b>16 %</b> complete</p>
+                               <p><b><i class="icon-angle-right"></i> Upload Driver's License<br> <i class="icon-angle-right"></i> Upload Mechanic's License</b></p>
+                            </div>
+                            <div class="space20"></div>
+                            <div class="well">
+                            	
+                            	<div class="control-group">
+                                <label class="control-label">Image Upload</label>
+                                <div class="controls">
+                                  <div class="fileupload fileupload-new" data-provides="fileupload">
+                                    <div class="fileupload-new thumbnail" style="width: 200px; height: 150px;"><img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image" alt="" /></div>
+                                    <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
+                                    <div><span class="btn btn-file"><span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span>
+                                      <input type="file" class="default" />
+                                      </span><a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a></div>
+                                  </div>
+                                  </div>
+                              </div>
+                            </div></div>
+                            <div class="span10 margin0 clearb"><button class="btn btn-success span3" type="button">Save</button></div>
+                        </div>
+                         
+                        <!--Social Media Connections Tab-->
+                        <div id="social-media" class="tab-pane">
+                         <h3>Social Media Connections</h3>
+                         <p>Add your social media connection to verify your account</p>
+                         	<div class="greybox span10 padd20 MALL5">
+                            	<div class="span10"><h4><i class="icon-facebook-sign FS20"></i> Facebook</h4>
+                                <p>You have connected <a href="#">Mechanic Surname</a> into your mechanio account</p></div>
+                                <div class="span10 MALL5"><a href="#" class="facebookBTN">&nbsp;</a></div>
+                                <div class="span10 MALL5"><a href="#" class="GmailBTN">&nbsp;</a></div>
+                                <div class="clearb"></div>
+                            </div>                         
+                        </div>
+                      </div>
+                    </div>
+              </div>
+         </div>
+		</section>
+	</div>
+</div>
+
+</div>
+<!--  ---------------- Footer Part -------------------------------------------------- -->
+<footer id="footer">
+      <div class="fixbar row-fluid">
+        <span class="span8"><a href="about-us.html">About us</a><a href="faq.html">FAQ</a><a href="terms-of-use.html">Terms of use</a><a href="privacy.html">Privacy Policy</a><a href="blog.html">Blog</a><a href="contact-us.html">Contact Us</a></span>
+        <div class="span3 fright"><span><a href="#"><i class="icon-facebook-sign FS30 MR5"></i></a><a href="#"><i class="icon-twitter-sign FS30 MR5"></i></a><a href="#"><i class="icon-google-plus-sign FS30"></i></a></span><span>Connect with us </span></div>
+        <div class="clearb"></div>
+      </div>
+    </footer>
+
+</body>
+</html>

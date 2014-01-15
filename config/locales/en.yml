@@ -20,4 +20,15 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  activerecord:
+    attributes:
+      job:
+        status:
+          pending: Pending
+          estimated: Estimated
+          assigned: Assigned
+          confirmed: Confirmed
+          payment_error: Payment error
+          awaiting_feedback: Awaiting feedback
+          completed: Completed
+          cancelled: Cancelled

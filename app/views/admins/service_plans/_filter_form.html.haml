@@ -1,4 +1,5 @@
-= simple_form_for [:admins, @service_plan], url: by_model_admins_service_plans_path, method: :get, wrapper: :nolabel_sm, html: { class: 'form-inline' } do |f|
-  = f.association :make, include_blank: '-- Make --', input_html: { style: 'width: 15em', 'ng-model' => 'make_id', 'ng-change' => 'loadModels()' }
-  = f.association :model, include_blank: '-- Model --', collection: [], input_html: { style: 'width: 15em', 'ng-model' => 'model_id', 'ng-disabled' => '!make_id', 'ng-options' => 'm.id as m.name for m in models', 'ng-change' => 'loadModelVariations()' }
-  = f.association :model_variation, include_blank: '-- Model variation --', collection: [], input_html: { style: 'width: 25em', 'ng-model' => 'model_variation', 'ng-disabled' => '!model_id', 'ng-options' => 'v as v.title_with_year for v in model_variations', 'ng-change' => 'loadServicePlans()' }
+= simple_form_for :filter, url: by_model_admins_service_plans_path, method: :get, wrapper: :nolabel_sm, html: { class: 'form-inline' } do |f|
+  = f.input :year, include_blank: '-- Year --', collection: Date.today.year.downto(1980), input_html: { 'ng-model' => 'year', 'ng-change' => 'onYearChange()' }
+  = f.input :make_id, include_blank: '-- Make --', collection: Make.pluck(:name, :id), input_html: { style: 'width: 15em', 'ng-model' => 'make_id', 'ng-change' => 'onMakeChange()', 'ng-disabled' => '!year' }
+  = f.input :model_id, include_blank: '-- Model --', collection: [], input_html: { style: 'width: 15em', 'ng-model' => 'model_id', 'ng-disabled' => '!make_id', 'ng-options' => 'm.id as m.name for m in models', 'ng-change' => 'onModelChange()' }
+  = f.input :model_variation_id, include_blank: '-- Model variation --', collection: [], input_html: { style: 'width: 25em', 'ng-model' => 'model_variation', 'ng-disabled' => '!model_id || no_variations', 'ng-options' => 'v as v.detailed_title for v in model_variations', 'ng-change' => 'onModelVariationChange()' }

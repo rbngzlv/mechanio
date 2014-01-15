@@ -20,6 +20,7 @@ feature 'Jobs page' do
     subject { page }
 
     scenario 'check content' do
+      should have_css 'th:nth-child(1)', text: 'ID'
       within 'tbody' do
         within 'tr:nth-child(1)' do
           verify_job_row(job2)
@@ -30,11 +31,25 @@ feature 'Jobs page' do
         end
       end
     end
+
+    specify 'filter by status', :js do
+      select "estimated", from: 'status'
+      verify_job_row job1
+      within 'tbody' do
+        should have_no_selector 'td:nth-child(1)', text: job2.status.capitalize
+        should have_no_selector 'td:nth-child(1)', text: 'assigned'.capitalize
+      end
+      find_field('status').value.should eql "estimated"
+      select "all", from: 'status'
+      verify_job_row job1
+      verify_job_row job2
+    end
   end
 
   def verify_job_row(job)
+    should have_content job.uid
     should have_content job.status.capitalize
-    should have_content job.location.geocoded? ? 'Valid' : 'Invalid'
+    should have_content "#{job.location.suburb}, #{job.location.postcode}"
     should have_content job.title
     should have_content job.created_at.to_s(:date)
     should have_content job.user.full_name
@@ -50,27 +65,27 @@ feature 'Jobs page' do
       service_plan = create :service_plan, model_variation: job.car.model_variation
 
       visit edit_admins_job_path(job)
+      page.should have_content "ID: #{job.uid}"
 
       within_task(1) do
         task_title.should eq 'Replace break pads'
         task_total.should eq '$233.00'
         within_row(0) { verify_part 'Break pad', '2', '54.0', '$108.00' }
-        within_row(1) { verify_labour 'Replace break pads', '2', '30', '$125.00' }
+        within_row(1) { verify_labour 'Replace break pads', '02 h', '30 m', '$125.00' }
       end
 
       grand_total.should eq '$233.00'
 
-      click_on 'Add task'
-      click_on 'Service'
+      click_on 'Add service'
 
       within '.service-form' do
-        select service_plan.display_title, from: 'service-plan'
-        fill_in 'Note for mechanic', with: 'A note'
+        select service_plan.display_title, from: find('.job_tasks_service_plan_id select')[:id]
+        fill_in 'Notes', with: 'A note'
         click_on 'Done'
       end
 
       reset_mail_deliveries
-      click_on 'Update job'
+      click_on 'Save Changes'
 
       within_task(2) do
         task_title.should eq "#{service_plan.display_title} service"
@@ -80,8 +95,7 @@ feature 'Jobs page' do
 
       grand_total.should eq '$583.00'
 
-      click_on 'Add task'
-      page.should have_no_css '.dropdown-menu a', text: 'Service'
+      find_link('Add service')[:disabled].should be_true
       verify_email_notifications(job)
     end
 
@@ -99,35 +113,34 @@ feature 'Jobs page' do
 
       grand_total.should eq '$350.00'
 
-      click_on 'Add task'
-      page.should have_no_css '.dropdown-menu a', text: 'Service'
-      click_on 'Repair'
+      find_link('Add service')[:disabled].should be_true
+      click_on 'Add repair'
 
       within '.repair-form' do
-        fill_in 'Title', with: 'Fix breaks'
-        fill_in 'Note for mechanic', with: 'A note'
+        fill_in 'Repair description', with: 'Fix breaks'
+        fill_in 'Notes', with: 'A note'
         click_on 'Done'
       end
 
       within_task(2) do
-        add_item 'Part'
+        click_on 'Add parts'
         within_row(0) { fill_in_part }
 
-        add_item 'Labour'
+        click_on 'Add labour'
         within_row(1) { fill_in_labour }
 
-        add_item 'Fixed amount'
+        click_on 'Add amount'
         within_row(2) { fill_in_fixed }
       end
 
       reset_mail_deliveries
-      click_on 'Update job'
+      click_on 'Save Changes'
 
       within_task(2) do
         task_title.should eq 'Fix breaks'
         task_total.should eq '$331.00'
         within_row(0) { verify_part 'Break disc', '1', '56.0', '$56.00' }
-        within_row(1) { verify_labour 'Changing break pads', '2', '0', '$100.00' }
+        within_row(1) { verify_labour 'Changing break pads', '02 h', '00 m', '$100.00' }
         within_row(2) { verify_fixed 'Some fixed amount', '175.0' }
       end
 
@@ -151,7 +164,7 @@ feature 'Jobs page' do
         task_title.should eq 'Replace break pads'
         task_total.should eq '$233.00'
         within_row(0) { verify_part 'Break pad', '2', '54.0', '$108.00' }
-        within_row(1) { verify_labour 'Replace break pads', '2', '30', '$125.00' }
+        within_row(1) { verify_labour 'Replace break pads', '02 h', '30 m', '$125.00' }
       end
 
       grand_total.should eq '$583.00'
@@ -162,13 +175,14 @@ feature 'Jobs page' do
       end
 
       reset_mail_deliveries
-      click_on 'Update job'
+      click_on 'Save Changes'
 
       within_task(2) do
         task_title.should eq 'Replace break pads'
         task_total.should eq '$156.00'
+
         within_row(0) { verify_part 'Break disc', '1', '56.0', '$56.00' }
-        within_row(1) { verify_labour 'Changing break pads', '2', '0', '$100.00' }
+        within_row(1) { verify_labour 'Changing break pads', '02 h', '00 m', '$100.00' }
       end
 
       grand_total.should eq '$506.00'
@@ -189,7 +203,7 @@ feature 'Jobs page' do
       end
 
       reset_mail_deliveries
-      click_on 'Update job'
+      click_on 'Save Changes'
 
       page.should have_css '.task', count: 1
       page.should have_css '.item', count: 1
@@ -216,7 +230,7 @@ feature 'Jobs page' do
   end
 
   def verify_fixed(description, cost)
-    page.should have_field 'Description', with: description
+    page.should have_field 'Charge description', with: description
     page.should have_field 'Cost', with: cost
   end
 
@@ -229,7 +243,7 @@ feature 'Jobs page' do
   end
 
   def verify_labour(description, hours, minutes, total)
-    page.should have_field 'Description', with: description
+    page.should have_field 'Labour description', with: description
     page.should have_select find('.labour-hours')[:id], selected: hours
     page.should have_select find('.labour-minutes')[:id], selected: minutes
     page.should have_css '.total', text: total
@@ -242,19 +256,14 @@ feature 'Jobs page' do
   end
 
   def fill_in_labour
-    fill_in 'Description', with: 'Changing break pads'
-    select '2', from: find('.labour-hours')[:id]
-    select '0', from: find('.labour-minutes')[:id]
+    fill_in 'Labour description', with: 'Changing break pads'
+    select '02 h', from: find('.labour-hours')[:id]
+    select '00 m', from: find('.labour-minutes')[:id]
   end
 
   def fill_in_fixed
-    fill_in 'Description', with: 'Some fixed amount'
+    fill_in 'Charge description', with: 'Some fixed amount'
     fill_in 'Cost', with: '175'
-  end
-
-  def add_item(item)
-    click_on 'Add item'
-    click_on item
   end
 
   def within_task(task, &block)
@@ -278,7 +287,7 @@ feature 'Jobs page' do
   end
 
   def grand_total
-    find('dd.grand-total').text
+    find('.grand-total dd').text
   end
 
   def verify_email_notifications(job)

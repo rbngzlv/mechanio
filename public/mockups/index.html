@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Mechanio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+<!--[if lt IE 9]><script src="js/html5shiv.js"></script><script src="js/respond.js"></script><![endif]-->
+<link href="css/style.css" type="text/css" rel="stylesheet" />
+<script src="js/scripts.js"></script>
+<script>
+      !function ($) {
+        $(function(){
+          // carousel demo
+          $('#myCarousel').carousel()
+		  $('#myCarouse2').carousel()
+		  $('#myCarouse3').carousel()
+        })
+      }(window.jQuery)
+	  
+	  $(function() {
+                $('.btn-link').bind('click',function(event){
+                    var $anchor = $(this);
+                    
+                    $('html, body').stop().animate({
+                        scrollTop: $($anchor.attr('href')).offset().top
+                    }, 1500,'easeInOutExpo');
+
+                    event.preventDefault();
+                });
+            });
+			
+			(function($){
+        $(window).load(function(){
+            $(".suburb-list").mCustomScrollbar();
+        });
+    })(jQuery);
+	 
+    </script>
+<script src="assets/bootstrap/js/bootstrap-carousel.js"></script>
+
+<script type="text/javascript" src="js/jquery.easing.1.3.js"></script>
+
+ <link href='http://fonts.googleapis.com/css?family=Lekton' rel='stylesheet' type='text/css'>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script type="text/javascript" src="assets/slider/inc/mb.bgndGallery.js"></script>
+
+    <script type="text/javascript">
+
+        $(function(){
+            if (self.location.href == top.location.href){
+                var logo=$("");
+                $("body").prepend(logo);
+                $("#logo").fadeIn();
+            }
+
+            setTimeout(function(){
+                $("#wrapper").CSSAnimate({marginLeft:-450, background:"rgba(255, 192, 0, 0.8)"},200)
+            },3000)
+
+            $("#wrapper").on("mouseenter",function(){
+                $(this).CSSAnimate({marginLeft:0, background:"rgba(232, 232, 232, .9)"},200)
+            }).on("mouseleave",function(){
+                        $(this).CSSAnimate({marginLeft:-450, background:"rgba(255, 192, 0, 0.8)"},200)
+                    })
+
+            $.mbBgndGallery.buildGallery({
+                containment:"body",
+                timer:2000,
+                effTimer:6000,
+                controls:"#controls",
+                grayScale:false,
+                shuffle:true,
+                preserveWidth:false,
+                effect:"zoom",
+//              effect:{enter:{transform:"scale("+(1+ Math.random()*2)+")",opacity:0},exit:{transform:"scale("+(Math.random()*2)+")",opacity:0}},
+
+                // If your server allow directory listing you can use:
+                // (however this doesn't work locally on your computer)
+
+              // folderPath:"images/",
+
+                // else:
+
+                 images:[
+                 "images/1.jpg",
+                 "images/2.jpg"
+                 ],
+
+                onStart:function(){},
+                onPause:function(){},
+                onPlay:function(opt){},
+                onChange:function(opt,idx){},
+                onNext:function(opt){},
+                onPrev:function(opt){}
+            });
+
+            $(".bw").toggle(
+                    function(){
+                        var el=$("body").get(0);
+                        el.opt.grayScale=true;
+                        $(this).addClass("sel");
+                        el.opt.gallery.find("img:first").greyScale();
+                    },
+                    function(){
+                        var el=$("body").get(0);
+                        el.opt.grayScale=false;
+                        $(this).removeClass("sel");
+                        el.opt.gallery.find("img:first").attr("src",el.opt.images[el.opt.imageCounter]);
+                    }
+            )
+        });
+
+    </script>
+
+  </head>
+
+<body>
+
+<!-- <span class="go-top"><a href="#upsideDiv" class="btn-link"><i class="icon-chevron-up"></i></a></span>---------------- Header Part --------------------------------------------------- -->
+
+<div class="upsideDiv" id="upsideDiv">
+<header class="navbar navbar-inverse">
+	<div class="navbar-inner">
+    	<div class="fixbar row-fluid">
+        	<a class="brand" href="index.html"><img src="images/logo.png" alt="Mechanio"></a>
+        <div class="fright">
+        	<div class="fright"><a href="#how-it-works" class="btn btn-link">How IT Works</a> <a data-toggle="modal"  role="button" href="#myModal1" class="btn btn-primary"><i class="icon-user"></i><span>Sign UP</span></a> <a data-toggle="modal" role="button" href="#myModal2" class="btn btn-inverse"><i class="icon-lock"></i><span>Login</span></a></div>
+            <div aria-hidden="true" aria-labelledby="myModalLabel1" role="dialog" tabindex="-1" class="modal hide fade" id="myModal1" style="display: none;">
+              <div class="tabbable tabbable-custom">
+                <div class="tab-content">
+                        <div id="tab_1_1" class="tab-pane active">
+                          	<div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                <h3 id="myModalLabel1">Sign Up</h3>
+              </div>
+                            <div class="modal-body SignupBox">
+                                <div class="alignCenter offset3">
+                                                <a href="#" class="facebookBTN MB10">&nbsp;</a>
+                                                <a href="#" class="GmailBTN MB10">&nbsp;</a></div>
+                                <p class="MB20">Sign up with Mechanio to book reliable mobile mechanics to service your car from your home or offie.<br></p>
+                                <p class="text-center"><small>We never post without permission (we hate that tool)</small><br><a href="#tab_1_2" data-toggle="tab"><span class="text-info">Use regular email sign up</span></a></p>
+                            </div>
+                            <div class="modal-footer">
+                                <p class="AlignRight"><a href="#tab_1_3" data-toggle="tab">Log in</a>  </p>   
+                              </div>
+                        </div>
+                        <div id="tab_1_2" class="tab-pane">
+                        	<div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                <h3 id="myModalLabel1">Sign Up</h3>
+              </div>
+                            <div class="modal-body SignupBox">
+                             	<div class="span8 offset2 Focscolor"> <input type="text" class="span6" onFocus="if (value == 'First Name') {value=''}" onBlur="if (value== '') {value='First Name'}" value="First Name">
+                                      <input type="text" class="span6 fright" onFocus="if (value == 'Last Name') {value=''}" onBlur="if (value== '') {value='Last Name'}" value="Last Name">
+                                      <input type="text" class="span12" onFocus="if (value == 'Email') {value=''}" onBlur="if (value== '') {value='Email'}" value="Email">
+                                        <input type="text" class="span12" onFocus="if (value == 'Password (Minimum 6 Characters)') {value=''}" onBlur="if (value== '') {value='Password (Minimum 6 Characters)'}" value="Password (Minimum 6 Characters)">
+                                        <button class="btn btn-success span4 offset4 MB10" type="button">Sign up</button>
+                                        <div class="text-center span"><a href="#tab_1_1" data-toggle="tab">Signing up with a social network is easier</a></div>
+                                        </div>
+                            </div>
+                            <div class="modal-footer">
+                                <p class="AlignRight"><a href="#tab_1_3" data-toggle="tab">Log in</a>  </p>   
+                              </div>
+                        </div>
+                        <div id="tab_1_3" class="tab-pane">
+                          	<div class="modal-header">
+                    <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                    <h3 id="myModalLabel1">Login</h3>
+                  </div>
+                            <div class="modal-body SignupBox">
+                                <div class="span12">
+                                        <div class="span6 offset3">
+                                            <a href="#" class="facebookBTN MALL5 span12">&nbsp;</a>
+                                            <a href="#" class="GmailBTN MALL5 span12">&nbsp;</a>
+                                        </div>
+                                        <div class="space20 BorderDotBot alignCenter MALL5">or</div>
+                                        <div class="controls Focscolor span8 offset2"> <input type="text" class="span11" onFocus="if (value == 'Email') {value=''}" onBlur="if (value== '') {value='Email'}" value="Email">
+                                         <input type="text" class="span11" onFocus="if (value == 'Password') {value=''}" onBlur="if (value== '') {value='Password'}" value="Password">
+                                         <button class="btn btn-success span6 offset2" type="button">Login</button>
+                                         </div>
+                                    </div>
+                            </div>
+                            <div class="modal-footer">
+                	<p class="fleft">Forgot your password? <a href="#tab_1_4" data-toggle="tab">Reset it here</a></p>
+                    <p class="fright">It's free to join! <a href="#tab_1_1" data-toggle="tab">Sign up</a></p>   
+                  </div>
+                        </div>
+                        <div id="tab_1_4" class="tab-pane">
+                          	<div class="modal-header">
+                                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                                <h3 id="myModalLabel1">Forgot your password?</h3>
+                              </div>
+                            <div class="modal-body SignupBox">
+                                <div class="span12">
+                                        <p class="text-center">Can't remember your password? No Problem. <br><br> Enter your email address to begin resetting your password.</p>
+                                        <div class="space10 BorderDotBot alignCenter MALL5">&nbsp;</div>
+                                        <div class="controls Focscolor span8 offset2">
+                                         <input type="text" class="span11" onFocus="if (value == 'Email') {value=''}" onBlur="if (value== '') {value='Email'}" value="Email">
+                                         <button class="btn btn-success span11 margin0" type="button">E-mail me password reset instructions</button>
+                                         </div>
+                                    </div>
+                            </div>
+                            <div class="modal-footer">
+                                <p class="fright"><a href="#tab_1_3" data-toggle="tab">Log in</a></p>   
+                              </div>
+                        </div>
+                    </div>  
+               </div> 
+            </div>
+            <div aria-hidden="true" aria-labelledby="myModalLabel2" role="dialog" tabindex="-1" class="modal hide fade" id="myModal2" style="display: none;">
+              <div class="tabbable tabbable-custom">
+                <div class="tab-content">
+                        <div id="tab_1_5" class="tab-pane">
+                          	<div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                <h3 id="myModalLabel1">Sign Up</h3>
+              </div>
+                            <div class="modal-body SignupBox">
+                                <div class="alignCenter offset3">
+                                                <a href="#" class="facebookBTN MB10">&nbsp;</a>
+                                                <a href="#" class="GmailBTN MB10">&nbsp;</a></div>
+                                <p class="MB20">Sign up with Mechanio to book reliable mobile mechanics to service your car from your home or offie.<br></p>
+                                <p class="text-center"><small>We never post without permission (we hate that tool)</small><br><a href="#tab_1_6" data-toggle="tab"><span class="text-info">Use regular email sign up</span></a></p>
+                            </div>
+                            <div class="modal-footer">
+                                <p class="AlignRight"><a href="#tab_1_7" data-toggle="tab">Log in</a>  </p>   
+                              </div>
+                        </div>
+                        <div id="tab_1_6" class="tab-pane">
+                        	<div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                <h3 id="myModalLabel1">Sign Up</h3>
+              </div>
+                            <div class="modal-body SignupBox">
+                             	<div class="span8 offset2 Focscolor"> <input type="text" class="span6" onFocus="if (value == 'First Name') {value=''}" onBlur="if (value== '') {value='First Name'}" value="First Name">
+                                      <input type="text" class="span6 fright" onFocus="if (value == 'Last Name') {value=''}" onBlur="if (value== '') {value='Last Name'}" value="Last Name">
+                                      <input type="text" class="span12" onFocus="if (value == 'Email') {value=''}" onBlur="if (value== '') {value='Email'}" value="Email">
+                                        <input type="text" class="span12" onFocus="if (value == 'Password (Minimum 6 Characters)') {value=''}" onBlur="if (value== '') {value='Password (Minimum 6 Characters)'}" value="Password (Minimum 6 Characters)">
+                                        <button class="btn btn-success span4 offset4 MB10" type="button">Sign up</button>
+                                        <div class="text-center span"><a href="#tab_1_5" data-toggle="tab">Signing up with a social network is easier</a></div>
+                                        </div>
+                            </div>
+                            <div class="modal-footer">
+                                <p class="AlignRight"><a href="#tab_1_7" data-toggle="tab">Log in</a>  </p>   
+                              </div>
+                        </div>
+                        <div id="tab_1_7" class="tab-pane active">
+                          	<div class="modal-header">
+                    <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                    <h3 id="myModalLabel1">Login</h3>
+                  </div>
+                            <div class="modal-body SignupBox">
+                                <div class="span12">
+                                        <div class="span6 offset3">
+                                            <a href="#" class="facebookBTN MALL5 span12">&nbsp;</a>
+                                            <a href="#" class="GmailBTN MALL5 span12">&nbsp;</a>
+                                        </div>
+                                        <div class="space20 BorderDotBot alignCenter MALL5">or</div>
+                                        <div class="controls Focscolor span8 offset2"> <input type="text" class="span11" onFocus="if (value == 'Email') {value=''}" onBlur="if (value== '') {value='Email'}" value="Email">
+                                         <input type="text" class="span11" onFocus="if (value == 'Password') {value=''}" onBlur="if (value== '') {value='Password'}" value="Password">
+                                         <button class="btn btn-success span6 offset2" type="button">Login</button>
+                                         </div>
+                                    </div>
+                            </div>
+                            <div class="modal-footer">
+                	<p class="fleft">Forgot your password? <a href="#tab_1_8" data-toggle="tab">Reset it here</a></p>
+                    <p class="fright">It's free to join! <a href="#tab_1_5" data-toggle="tab">Sign up</a></p>   
+                  </div>
+                        </div>
+                        <div id="tab_1_8" class="tab-pane">
+                          	<div class="modal-header">
+                                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                                <h3 id="myModalLabel1">Forgot your password?</h3>
+                              </div>
+                            <div class="modal-body SignupBox">
+                                <div class="span12">
+                                        <p class="text-center">Can't remember your password? No Problem. <br><br> Enter your email address to begin resetting your password.</p>
+                                        <div class="space10 BorderDotBot alignCenter MALL5">&nbsp;</div>
+                                        <div class="controls Focscolor span8 offset2">
+                                         <input type="text" class="span11" onFocus="if (value == 'Email') {value=''}" onBlur="if (value== '') {value='Email'}" value="Email">
+                                         <button class="btn btn-success span11 margin0" type="button">E-mail me password reset instructions</button>
+                                         </div>
+                                    </div>
+                            </div>
+                            <div class="modal-footer">
+                                <p class="fright"><a href="#tab_1_7" data-toggle="tab">Log in</a></p>   
+                              </div>
+                        </div>
+                    </div>  
+               </div> 
+            </div>
+            <div class="space5"></div>
+            <div class="NeedHelp AlignRight">Need Help ? / Call 1800 123 1234</div>
+        </div>
+    	</div>
+    </div>
+</header>
+<div class="bannerText container-narrow">
+<div class="offset2 span9"><h1 class="homeH1">Mechanics that comes to you</h1>
+<h3>Book professional mobile mechanics to service or repair your car at your conveniene</h3>
+<a class="span alignCenter MB5Oth0" href="#">Car needs servicing</a>
+<a class="span alignCenter margin0" href="#">Fix your car problem</a></div></div>
+</div>
+
+<!-- ---------------- carousel Part --------------------------------------------------- -->
+
+ <div id="myCarousel" class="carousel slide">
+  
+</div>
+    
+<!-- ---------------- Watch Video Part --------------------------------------------------- -->
+<div class="watchVideo">
+	<div class="fixbar">
+    	<h1 class="homeH1 span7">Watch how Mechanio will change the way you service your car forever!</h1>
+        <a href="#" class="span2 padd10"><img src="images/video-img.jpg" alt="Play Video"></a>
+        <div class="clearb"></div>
+    </div>
+</div>
+
+ <!-- ---------------- Three Round Box Part --------------------------------------------------- -->
+
+<div class="marketing" id="how-it-works">
+  <div class="container">
+  <h1 class="text-center homeH1 FS50 padd20">How It Works</h1>
+<h2 class="TextLineHome FS30">Get your car serviced or repaired from your home or office in <b>3</b> easy steps!</h2>
+<div class="space30"></div>
+  <!-- Three columns of text below the carousel -->
+  <div class="row">
+    <div class="span4">
+      <div class="circle-wrap"><div class="stats-circle whiteColor"><i>1</i></div></div>
+      <h2>Request a quote</h2>
+      <p>Tell us your car details and what you need done. We give you a quote with the breakdown of your work, time, parts costs and labour fees. No mark-ups and no unwanted surprises!</p>
+    </div><!-- /.span4 -->
+    <div class="span4">
+      <div class="circle-wrap"><div class="stats-circle whiteColor"><i>2</i></div></div>
+      <h2>Pick your mechanic</h2>
+      <p>Find the mechanic you like best: We screen our mechanics rigourously so we can give you the most experienced and qualified service providers. Our mechanics show reviews and feedback from past clients.</p>
+    </div><!-- /.span4 -->
+    <div class="span4">
+      <div class="circle-wrap"><div class="stats-circle whiteColor"><i>3</i></div></div>
+      <h2>We come to you</h2>
+      <p>Enjoy the convenience of not having to wait at a garage while your mechanic completes his job. Have your car on the road again – stress free without any hassle. </p>
+    </div><!-- /.span4 -->
+  </div><!-- /.row -->
+</div>
+</div>
+
+ <!-- ---------------- Mac Screen Part --------------------------------------------------- -->
+    <div class="whiteFullScreen alignCenter">
+    	<div class="space20"></div>
+    	<img src="images/mac-screen.png" alt="Responsive Website">
+        <h2 class="signupText MB20">Sign up today and receive $10 off!</h2>
+    </div>
+<div class="Signupbox">
+ <!-- ---------------- Sign up Part --------------------------------------------------- -->
+    <div class=" fixwidth row-fluid">
+    	<h2 class="span7 padd10">The most convenient and transparent way to <br>book for a mobile mechanic has arrived.<br><span class="FS30">Join Now</span> </h2>
+        <div class="span5"><input type="text" placeholder="youremail@address.com"><button class="btn btn-info" type="submit">SIGN UP</button></div>
+        <div class="clearb"></div>
+    </div>
+</div>
+ <!-- ---------------- Testimonials carousel Part --------------------------------------------------- -->
+    <div class="whiteFullScreen padd0">
+    	<div class="fixwidth padd20">
+        <div id="myCarouse2" class="carousel">
+      	<div class="carousel-inner">
+        <div class="item active">
+         <ul class="chats normal-chat">
+              <li class="in"><img class="avatar" alt="" src="images/avatar1.jpg" />
+                <div class="message">
+                <span class="arrow"></span><a href="#" class="name">John</a><span class="datetime">, BMW, 4th August 2013</span>
+                <span class="body MALL5"> It was our first time using Mechanio, and I was so impressed by the service we received. Our mechanic was helpful and professional and arrived well on time. Thanks! </span></div>
+              </li>
+            </ul>
+          
+        </div>
+        <div class="item">
+          <ul class="chats normal-chat">
+              <li class="in"><img class="avatar" alt="" src="images/avatar1.jpg" />
+                <div class="message">
+                <span class="arrow"></span><a href="#" class="name">Mosaddek</a><span class="datetime"> at Apr 14, 2013</span>
+                <span class="body MALL5"> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. dolore magna aliquam erat volutpat. dolore magna aliquam erat volutpat.</span></div>
+              </li>
+            </ul>
+          
+        </div>
+        <div class="item">
+          <ul class="chats normal-chat">
+              <li class="in"><img class="avatar" alt="" src="images/avatar1.jpg" />
+                <div class="message">
+                <span class="arrow"></span><a href="#" class="name">Mosaddek</a><span class="datetime"> at Apr 14, 2013</span>
+                <span class="body MALL5"> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. dolore magna aliquam erat volutpat. dolore magna aliquam erat volutpat.</span></div>
+              </li>
+            </ul>
+        </div>
+      </div>
+          <a class="left carousel-control" href="#myCarouse2" data-slide="prev">&lsaquo;</a>
+          <a class="left1 carousel-control" href="#myCarouse2" data-slide="next">&rsaquo;</a>
+    </div>
+    		
+    	</div>
+    </div>
+    
+
+ <div id="myCarouse3" class="carousel slide marketing margin0">
+  <div class="carousel-inner">
+    <div class="item active"><ul class="suburb-list padd20">
+    <li>Alexandria</li><li>
+Arncliffe</li><li>
+Arndell Park</li><li>
+Artarmon</li><li>
+Ashbury</li><li>
+Ashfield</li><li>
+Auburn</li><li>
+Balmain</li><li>
+Banksia</li><li>
+Banksmeadow</li><li>
+Bankstown</li><li>
+Bardwell Park</li><li>
+Bardwell Valley</li><li>
+Bass Hill</li><li>
+Baulkham Hills</li><li>
+Beaconsfield</li><li>
+Beecroft</li><li>
+Belfield</li><li>
+Bella Vista</li><li>
+Bellevue Hill</li><li>
+Belmore</li><li>
+Belrose</li><li>
+Berala</li><li>
+Beverly Hills</li><li>
+Bexley</li><li>
+Bexley North</li><li>
+Birrong</li><li>
+Blacktown</li><li>
+Blakehurst</li><li>
+Bondi</li><li>
+Bondi Beach</li><li>
+Bondi Junction</li><li>
+Bonnyrigg</li><li>
+Botany</li><li>
+Breakfast Point</li><li>
+Brighton-Le-Sands</li><li>
+Bronte</li><li>
+Burwood</li><li>
+Burwood Heights</li><li>
+Cabarita</li><li>
+Cabramatta</li><li>
+Camellia</li><li>
+Cammeray</li><li>
+Campbelltown</li><li>
+Camperdown</li><li>
+Campsie</li><li>
+Canada Bay</li><li>
+Canley Vale</li><li>
+Canterbury</li><li>
+Caringbah</li><li>
+Carlingford</li><li>
+Carlton</li><li>
+Castle Cove</li><li>
+Castle Hill</li><li>
+Castlecrag</li><li>
+Castlereagh</li><li>
+Casula</li><li>
+Centennial Park</li><li>
+Chatswood</li><li>
+Chatswood West</li><li>
+Chester Hill</li><li>
+Chippendale</li><li>
+Chipping Norton</li><li>
+Chiswick</li><li>
+Chullora</li><li>
+Clemton Park</li><li>
+Clovelly</li><li>
+Clyde</li><li>
+Concord</li><li>
+Concord West</li><li>
+Condell Park</li><li>
+Coogee</li><li>
+Cremorne</li><li>
+Cronulla</li><li>
+Crows Nest</li>
+    </ul></div>
+    <div class="item"><ul class="suburb-list padd20">
+    <li>Croydon</li> <li>Croydon Park</li> <li>Darlinghurst</li> <li>Darlington</li> <li>Dee Why</li> <li>Denistone</li> <li>Double Bay</li> <li>Dover Heights</li> <li>Drummoyne</li> <li>Dulwich Hill</li> <li>Dundas</li> <li>Dural</li> <li>Earlwood</li> <li>East Hills</li> <li>Eastgardens</li> <li>Eastlakes</li> <li>Eastwood</li> <li>Edgecliff</li> <li>Elizabeth Bay</li> <li>Enfield</li> <li>Enmore</li> <li>Epping</li> <li>Ermington</li> <li>Erskine Park</li> <li>Erskineville</li> <li>Eveleigh</li> <li>Fairfield</li> <li>Fairlight</li> <li>Five Dock</li> <li>Forest Lodge</li> <li>Forestville</li> <li>Frenchs Forest</li> <li>Georges Hall</li> <li>Girraween</li> <li>Gladesville</li> <li>Glebe</li> <li>Glendenning</li> <li>Glenfield</li> <li>Glenhaven</li> <li>Glenwood</li> <li>Gordon</li> <li>Granville</li> <li>Green Valley</li> <li>Greenacre</li> <li>Greenfield Park</li> <li>Greenwich</li> <li>Greystanes</li> <li>Guildford</li> <li>Gymea</li> <li>Gymea Bay</li> <li>Haberfield</li> <li>Harris Park</li> <li>Haymarket</li> <li>Holroyd</li> <li>Homebush</li> <li>Hoxton Park</li> <li>Hunters Hill</li> <li>Huntingwood</li> <li>Huntleys Cove</li> <li>Huntleys Point</li> <li>Hurlstone Park</li> <li>Hurstville</li> <li>Illawong</li> <li>Ingleburn</li> <li>Jannali</li> <li>Kareela</li> <li>Kellyville</li> <li>Kemps Creek</li> <li>Kensington</li> <li>Killara</li> <li>Killarney Heights</li> <li>Kings Langley</li> <li>Kings Park</li> <li>Kingsford</li> <li>Kingsgrove</li>
+    </ul></div>
+    <div class="item"><ul class="suburb-list padd20">
+    <li>Kingswood</li><li>Kirrawee</li><li>Kirribilli</li><li>Kogarah</li><li>Kogarah Bay</li><li>Kurraba Point</li><li>Kyeemagh</li><li>La Perouse</li><li>Lakemba</li><li>Lalor Park</li><li>Lane Cove</li><li>Lansdowne</li><li>Lansvale</li><li>Lavender Bay</li><li>Leichhardt</li><li>Lethbridge Park</li><li>Leumeah</li><li>Lewisham</li><li>Liberty Grove</li><li>Lidcombe</li><li>Lilyfield</li><li>Lindfield</li><li>Linley Point</li><li>Little Bay</li><li>Liverpool</li><li>Loftus</li><li>Long Point</li><li>Longueville</li><li>Luddenham</li><li>Lugarno</li><li>Lurnea</li><li>Macquarie Fields</li><li>Macquarie Park</li><li>Manly</li><li>Maroubra</li><li>Marrickville</li><li>Marsden Park</li><li>Marsfield</li><li>Mascot</li><li>Matraville</li><li>Mays Hill</li><li>McMahons Point</li><li>Meadowbank</li><li>Melrose Park</li><li>Menai</li><li>Merrylands</li><li>Millers Point</li><li>Milperra</li><li>Milsons Point</li><li>Minchinbury</li><li>Minto</li><li>Miranda</li><li>Mona Vale</li><li>Monterey</li><li>Moore Park</li><li>Moorebank</li><li>Mortdale</li><li>Mortlake</li><li>Mosman</li><li>Mount Druitt</li><li>Mount Kuring-Gai</li><li>Mount Lewis</li><li>Mount Pritchard</li><li>Mount Vernon</li><li>Naremburn</li><li>Narrabeen</li><li>Narraweena</li><li>Narwee</li><li>Nelson</li><li>Neutral Bay</li><li>Newington</li><li>Newport</li><li>Newtown</li><li>Normanhurst</li><li>North Rocks</li>
+    </ul></div>
+    <div class="item"><ul class="suburb-list padd20">
+     <li>North Ryde</li><li>North Sydney</li><li>Northbridge</li><li>Northmead</li><li>Northwood</li><li>Oatlands</li><li>Oatley</li><li>Old Guildford</li><li>Old Toongabbie</li><li>Orchard Hills</li><li>Oxley Park</li><li>Oyster Bay</li><li>Paddington</li><li>Padstow</li><li>Pagewood</li><li>Palm Beach</li><li>Panania</li><li>Parklea</li><li>Parramatta</li><li>Peakhurst</li><li>Pemulwuy</li><li>Pendle Hill</li><li>Pennant Hills</li><li>Penrith</li><li>Penshurst</li><li>Petersham</li><li>Phillip Bay</li><li>Picnic Point</li><li>Plumpton</li><li>Point Piper</li><li>Port Botany</li><li>Port Hacking</li><li>Potts Hill</li><li>Potts Point</li><li>Prairiewood</li><li>Prestons</li><li>Prospect</li><li>Punchbowl</li><li>Putney</li><li>Pymble</li><li>Pyrmont</li><li>Quakers Hill</li><li>Queens Park</li><li>Queenscliff</li><li>Ramsgate</li><li>Randwick</li><li>Redfern</li><li>Regents Park</li><li>Revesby</li><li>Rhodes</li><li>Richmond</li><li>Riverstone</li><li>Riverwood</li><li>Rockdale</li><li>Rodd Point</li><li>Rookwood</li><li>Rooty Hill</li><li>Rose Bay</li><li>Rosebery</li><li>Rosehill</li><li>Roselands</li><li>Roseville</li><li>Rossmore</li><li>Rouse Hill</li><li>Rozelle</li><li>Rushcutters Bay</li><li>Russell Lea</li><li>Rydalmere</li><li>Ryde</li><li>Sadleir</li><li>Sandringham</li><li>Sandy Point</li><li>Sans Souci</li><li>Schofields</li><li>Seaforth</li>
+    </ul></div>
+    <div class="item"><ul class="suburb-list padd20">
+     <li>Sefton</li><li>Seven Hills</li><li>Shalvey</li><li>Silverwater</li><li>Smithfield</li><li>St Andrews</li><li>St Clair</li><li>St Ives</li><li>St Johns Park</li><li>St Leonards</li><li>St Marys</li><li>St Peters</li><li>Stanhope Gardens</li><li>Stanmore</li><li>Strathfield</li><li>Summer Hill</li><li>Surry Hills</li><li>Sutherland</li><li>Sydney</li><li>Sydenham</li><li>Sylvania</li><li>Tamarama</li><li>Taren Point</li><li>Telopea</li><li>Tempe</li><li>Tennyson Point</li><li>Toongabbie</li><li>Tregear</li><li>Turramurra</li><li>Turrella</li><li>Ultimo</li><li>Varroville</li><li>Vaucluse</li><li>Villawood</li><li>Wahroonga</li><li>Waitara</li><li>Wakeley</li><li>Wareemba</li><li>Warrawee</li><li>Warriewood</li><li>Warwick Farm</li><li>Waterloo</li><li>Watsons Bay</li><li>Wattle Grove</li><li>Waverley</li><li>Waverton</li><li>Wedderburn</li><li>Wentworth Point</li><li>Wentworthville</li><li>Werrington</li><li>West Ryde</li><li>Westleigh</li><li>Westmead</li><li>Wetherill Park</li><li>Whalan</li><li>Wheeler Heights</li><li>Wiley Park</li><li>Willmot</li><li>Willoughby</li><li>Windsor</li><li>Winston Hills</li><li>Wolli Creek</li><li>Wollstonecraft</li><li>Woodcroft</li><li>Woodpark</li><li>Woollahra</li><li>Woolloomooloo</li><li>Woolooware</li><li>Woolwich</li><li>Yagoona</li><li>Yennora</li><li>Yowie Bay</li><li>Zetland</li>
+    </ul></div>
+      </div>
+    <a class="left carousel-control" href="#myCarouse3" data-slide="prev">&lsaquo;</a>
+          <a class="right carousel-control" href="#myCarouse3" data-slide="next">&rsaquo;</a>
+
+</div>
+
+
+<!-- ---------------- Footer Part --------------------------------------------------- -->
+<footer id="footer">
+      <div class="fixbar row-fluid">
+        <span class="span8"><a href="about-us.html">About us</a><a href="faq.html">FAQ</a><a href="terms-of-use.html">Terms of use</a><a href="privacy.html">Privacy Policy</a><a href="blog.html">Blog</a><a href="contact-us.html">Contact Us</a></span>
+        <div class="span3 fright"><span><a href="#"><i class="icon-facebook-sign FS30 MR5"></i></a><a href="#"><i class="icon-twitter-sign FS30 MR5"></i></a><a href="#"><i class="icon-google-plus-sign FS30"></i></a></span><span>Connect with us </span></div>
+        <div class="clearb"></div>
+      </div>
+    </footer>
+ 
+  </body>
+</html>

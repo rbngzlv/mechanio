@@ -1,5 +1,7 @@
 class Job < ActiveRecord::Base
 
+  STATUSES = %w(pending estimated assigned confirmed payment_error awaiting_feedback completed cancelled)
+
   belongs_to :user
   belongs_to :car
   belongs_to :mechanic
@@ -14,11 +16,13 @@ class Job < ActiveRecord::Base
   serialize :serialized_params
 
   before_validation :assign_car_to_user
+  before_create :set_uid
   before_save :set_title, :set_cost, :set_status, :on_quote_change
 
   validates :car, :location, :tasks, :contact_email, :contact_phone, presence: true
   validates :contact_phone, format: { with: /\A04\d{8}\z/ }
   validates :user, presence: true, unless: :skip_user_validation
+  validates :cost, numericality: { greater_than: 0 }, allow_blank: true
 
   attr_accessor :skip_user_validation
 
@@ -34,7 +38,6 @@ class Job < ActiveRecord::Base
     end
     state :estimated do
       transition to: :assigned,  on: :assign
-      validates :cost, presence: true, numericality: { greater_than: 0 }
     end
     state :assigned do
       transition to: :confirmed, on: :confirm
@@ -49,14 +52,15 @@ class Job < ActiveRecord::Base
       validates :credit_card, presence: true
     end
     state :payment_error
+    state :awaiting_feedback
     state :completed do
       validates :transaction_id, presence: true
     end
+    state :cancelled
 
     after_transition to: :pending, do: :notify_pending
     after_transition from: [:temporary, :pending], to: :estimated, do: :notify_estimated
     after_transition from: :estimated, to: :assigned,  do: [:build_event_from_scheduled_at, :notify_assigned]
-
   end
 
   default_scope { order(created_at: :desc).without_status(:temporary) }
@@ -67,8 +71,8 @@ class Job < ActiveRecord::Base
   scope :upcoming,  -> { assigned.reorder(scheduled_at: :asc) }
   scope :past,      -> { completed.reorder(scheduled_at: :desc) }
 
-  def self.sanitize_and_create(params)
-    create(self.whitelist(params))
+  def self.sanitize_and_create(user, params)
+    create(self.whitelist(params).merge(user: user))
   end
 
   def self.create_temporary(params)
@@ -160,6 +164,10 @@ class Job < ActiveRecord::Base
       title = "Repair"
     end
     self.title = title
+  end
+
+  def set_uid
+    self.uid = rand(36**10).to_s(36).upcase
   end
 
   def set_cost
