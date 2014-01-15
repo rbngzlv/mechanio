@@ -31,7 +31,7 @@
           = simple_fields_for :car, wrapper: :nolabel do |c|
             %label When was your car last serviced?
             .form-inline
-              = c.input :last_service_kms, as: :integer, placeholder: 'Kms', input_html: { 'ng-model' => 'car.last_service_kms' }
+              = c.input :last_service_kms, as: :string, placeholder: 'Kms', input_html: { maxlength: 6, 'ng-pattern' => '/^\d+$/', 'ng-model' => 'car.last_service_kms' }
               &nbsp;
               OR
               .form-group.date.optional.car_last_service_date
