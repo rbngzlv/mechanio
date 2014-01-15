@@ -1,6 +1,6 @@
 class Job < ActiveRecord::Base
 
-  STATUSES = %w(pending estimated assigned confirmed payment_error completed cancelled)
+  STATUSES = %w(pending estimated assigned confirmed payment_error awaiting_feedback completed cancelled)
 
   belongs_to :user
   belongs_to :car
@@ -52,14 +52,15 @@ class Job < ActiveRecord::Base
       validates :credit_card, presence: true
     end
     state :payment_error
+    state :awaiting_feedback
     state :completed do
       validates :transaction_id, presence: true
     end
+    state :cancelled
 
     after_transition to: :pending, do: :notify_pending
     after_transition from: [:temporary, :pending], to: :estimated, do: :notify_estimated
     after_transition from: :estimated, to: :assigned,  do: [:build_event_from_scheduled_at, :notify_assigned]
-
   end
 
   default_scope { order(created_at: :desc).without_status(:temporary) }

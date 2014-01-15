@@ -4,7 +4,7 @@
     = label_tag 'status', 'Show'
     &nbsp;
     .form-group
-      = select_tag 'status', options_for_select([['all', nil], *@statuses], @status), class: 'form-control input-sm'
+      = select_tag 'status', options_for_select([['All', nil], *job_statuses], @status), class: 'form-control input-sm'
 
 - if @jobs.count > 0
   .table-responsive

@@ -56,6 +56,11 @@ module ApplicationHelper
     content_tag :span, status.humanize, class: "label label-#{css}"
   end
 
+  def job_statuses
+    labels = Job::STATUSES.map { |s| I18n.t(s, scope: 'activerecord.attributes.job.status') }
+    labels.zip(Job::STATUSES)
+  end
+
   def suburb_with_postcode(location)
     "#{location.suburb}, #{location.postcode}"
   end
