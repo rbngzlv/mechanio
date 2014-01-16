@@ -26,6 +26,9 @@
     = simple_form_for profile, url: update_avatar_mechanics_profile_path do |f|
       = f.input :avatar
       = f.submit 'Save', class: 'btn btn-success'
+    - if profile.years_as_a_mechanic
+      %br
+      .text-center.experience #{ profile.years_as_a_mechanic } years of experience
   - else
     = image_tag profile.avatar? ? profile.avatar_url(:thumb) : 'photo.jpg', class: 'avatar'
     .reviews-row.clearfix.text-center

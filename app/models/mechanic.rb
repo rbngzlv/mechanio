@@ -52,6 +52,11 @@ class Mechanic < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
 
+  # It always should be emty, but it needed for _profile_description partial
+  def socials
+    []
+  end
+
   def reviews
     # TODO: It must return count of comments about this mechanic
     12
@@ -66,10 +71,5 @@ class Mechanic < ActiveRecord::Base
   def comments
     # TODO: It must return collection of all mechanic reviews
     fake_comments
-  end
-
-  def socials
-    # TODO: It must return collection of socials connections
-    fake_socials
   end
 end
