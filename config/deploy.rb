@@ -21,6 +21,7 @@ task :configure, roles: :app do
   commands = <<-EOF
     cp #{shared_path}/config/database.yml #{release_path}/config/database.yml;
     ln -s #{shared_path}/config/unicorn.rb #{release_path}/config/unicorn.rb;
+    ln -s #{shared_path}/config/.env #{release_path}/.env
   EOF
     # ln -s #{shared_path}/config/environment_variables.rb #{release_path}/config/environment_variables.rb
   run commands
