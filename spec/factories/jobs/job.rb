@@ -15,7 +15,7 @@ FactoryGirl.define do
 
     trait :with_repair do
       after :build do |j|
-        j.tasks << build(:repair, :with_part, :with_labour)
+        j.tasks << build(:repair, :with_part, :with_labour, :with_fixed_amount)
       end
     end
 

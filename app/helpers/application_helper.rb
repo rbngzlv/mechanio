@@ -72,4 +72,16 @@ module ApplicationHelper
   def last_service(car)
     car.last_service_kms ? "#{car.last_service_kms} Km" : car.last_service_date.to_s(:month_year)
   end
+
+  def requested_by(job)
+    job.user.full_name + ' on ' + job.created_at.to_s(:date_time_short)
+  end
+
+  def allocated_to(job)
+    if @job.mechanic && @job.scheduled_at
+      @job.mechanic.full_name + ' on ' + job.scheduled_at.to_s(:date_time_short)
+    else
+      'Unassigned'
+    end
+  end
 end

@@ -1,10 +1,4 @@
-.pull-right
-  %p
-    %strong Requested by
-    = link_to @job.user.full_name, [:admins, @job.user]
-    on
-    = @job.created_at.to_s(:short)
-
+%h4.pull-right ID: #{@job.uid}
 %h4
   = @job.title
   = job_status(@job.status)
@@ -15,8 +9,8 @@
 
 = simple_form_for [:admins, @job], html: { 'ng-controller' => 'JobsController', 'ng-init' => "init({job: #{@job.to_json}, hourly_rate: #{Labour::HOURLY_RATE}, service_plans: #{@service_plans_json}})" } do |f|
   .tab-content
-    #general_info.tab-pane.active= render 'general_info', f: f
-    #job_and_labour.tab-pane= render 'job_and_labour', f: f
+    #general_info.tab-pane.active= render 'admins/jobs/tabs/general_info', f: f
+    #job_and_labour.tab-pane= render 'admins/jobs/tabs/job_and_labour', f: f
 
   .clearfix
   %hr
