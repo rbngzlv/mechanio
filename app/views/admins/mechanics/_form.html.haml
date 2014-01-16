@@ -19,7 +19,7 @@
               image_type:  $that.attr('data-delete')
             success: (data)->
               $that.parent().find('img').add($that).remove()
-              $('body > .container').prepend('<div class="alert alert-info">Image succesfully delted.</div>')
+              $('body > .container').prepend('<div class="alert alert-info">Image successfully deleted.</div>')
       else if $this.hasClass('btn-cancel-image-upload')
         if confirm "Are you sure you want to cancel upload this image?"
           $that.parent().find('input').val('')
@@ -58,7 +58,14 @@
   = f.input :mechanic_license_number, label: 'Motor Mechanic\'s License Number'
   = f.input :mechanic_license_expiry, label: 'Expiry Date', input_html: { class: 'form-control' }, start_year: Date.today.year, end_year: Date.today.year + 20, order: [:day, :month, :year], wrapper_html: { class: 'dob' }
   = f.association :mechanic_license_state, label: 'Registered State', prompt: '-- Please select --'
+  = f.input :repair_work_classes, label: 'Repair work Classes'
+  = f.input :tradesperson_certificates, label: 'Tradesperson Certificates'
   = f.input :mechanic_license, label: 'Image', as: :image, wrapper: :bootstrap, input_html: { wrap_class: 'col-md-4 col-sm-5' }, show_file_name: true
+  %legend Verified Statuses
+  = f.input :phone_verified
+  = f.input :super_mechanic
+  = f.input :warranty_covered
+  = f.input :qualification_verified
   %hr.hr-dark-gray
   .form-group
     .col-md-offset-2.col-md-4

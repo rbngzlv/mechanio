@@ -527,7 +527,9 @@ CREATE TABLE mechanics (
     location_id integer,
     business_location_id integer,
     business_name character varying(255),
-    business_mobile_number character varying(255)
+    business_mobile_number character varying(255),
+    repair_work_classes text,
+    tradesperson_certificates text
 );
 
 
@@ -1624,3 +1626,5 @@ INSERT INTO schema_migrations (version) VALUES ('20131224174010');
 INSERT INTO schema_migrations (version) VALUES ('20131225151228');
 
 INSERT INTO schema_migrations (version) VALUES ('20140108105707');
+
+INSERT INTO schema_migrations (version) VALUES ('20140116101829');

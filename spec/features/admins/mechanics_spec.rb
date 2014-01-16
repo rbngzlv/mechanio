@@ -77,6 +77,11 @@ feature 'Admin mechanics management' do
 
       click_link 'Edit'
       page.should have_content 'Business Details'
+      page.should have_content 'Verified Statuses'
+      check 'Phone verified'
+      check 'Super mechanic'
+      check 'Warranty covered'
+      check 'Qualification verified'
 
       fill_in 'First name', with: 'Alex'
       click_button 'Save'
