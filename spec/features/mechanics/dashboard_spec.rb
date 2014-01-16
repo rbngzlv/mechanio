@@ -12,9 +12,13 @@ feature 'dashboard page' do
   end
 
   context 'should have dynamic content' do
-    include_examples("description block") do
-      let(:reviews_count) { reviews_block_content }
-      let(:profile) { mechanic }
+    specify 'comments count' do
+      page.should have_selector 'span', text: reviews_block_content
+    end
+
+    specify 'default values when user is new' do
+      page.should have_selector 'h4', text: mechanic.full_name
+      page.should have_content "Add some information about yourself"
     end
   end
 
@@ -45,7 +49,7 @@ feature 'dashboard page' do
     end
   end
 
-  specify 'N review should be link to progile' do
+  specify 'N review should be link to profile' do
     visit mechanics_dashboard_path
     click_link reviews_block_content
     should have_selector 'li.active', text: 'My Profile'
@@ -61,7 +65,7 @@ feature 'dashboard page' do
       }.to change { mechanic.reload.avatar? }.from(false).to(true)
     end
 
-    specify 'form should be hidden if js turned on', :js do
+    specify 'form should be hidden' do
       should have_selector '#mechanic_avatar', visible: false
       should have_selector 'input[type=submit]', visible: false
     end

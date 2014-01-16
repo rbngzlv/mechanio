@@ -7,17 +7,9 @@ class Mechanics::ProfilesController < Mechanics::ApplicationController
 
   def update
     if current_mechanic.update_attributes(permitted_params)
-      redirect_to mechanics_profile_path, notice: 'Your profile succesfully updated.'
+      redirect_to :back, notice: 'Your profile successfully updated.'
     else
       render :edit
-    end
-  end
-
-  def update_avatar
-    if current_mechanic.update_attributes(params[:mechanic].permit(:avatar))
-      redirect_to :back, notice: 'Your profile succesfully updated.'
-    else
-      redirect_to edit_mechanics_profile_path, alert: "Can't upload file. Try again."
     end
   end
 

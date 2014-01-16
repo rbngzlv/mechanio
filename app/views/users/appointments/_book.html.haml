@@ -47,4 +47,17 @@
           = f.hidden_field :scheduled_at, value: nil
           = f.hidden_field :mechanic_id, value: mechanic.id
           = f.submit 'Book Appointment', class: 'btn btn-info', disabled: true
-    = render 'shared/mechanic/description_popup', mechanic: mechanic
+    .modal.fade{id: "js-mechanic-#{mechanic.id}", "aria-hidden" => "true", "aria-labelledby" => "myModalLabel1", role: "dialog", tabindex: "-1"}
+      .review-block.container
+        .modal-header.clearfix
+          %h5.pull-left
+            %i.icon-user
+            = mechanic.full_name
+          %span.tools.pull-right
+            %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", type: "button"}
+              %i.glyphicon.glyphicon.glyphicon-remove
+        .panel-body.modal-body
+          .row
+            = render 'shared/mechanic/profile_description', mechanic: mechanic
+          .row
+            = render 'shared/comments', title: "Customer Reviews", comments: mechanic.comments

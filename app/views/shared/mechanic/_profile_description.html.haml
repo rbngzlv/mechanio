@@ -1,0 +1,35 @@
+.profile-border
+
+  = image_tag mechanic.avatar? ? mechanic.avatar_url(:thumb) : 'photo.jpg', class: 'avatar clickable js-update-avatar'
+  .reviews-row.clearfix
+    .rating.pull-left
+      = rating_stars(mechanic.rating)
+    %span.review-text.pull-right
+      = link_to pluralize(mechanic.reviews, 'Review'), mechanics_profile_path
+
+  :javascript
+    $(function () {
+      $mechanic_avatar_file_field = $('#mechanic_avatar');
+      $('.js-update-avatar').click(function () {
+        $mechanic_avatar_file_field.trigger('click');
+      });
+      $mechanic_avatar_file_field.change(function () {
+        this.form.submit();
+      });
+    });
+  .hide
+    = simple_form_for mechanic, url: mechanics_profile_path do |f|
+      = f.input :avatar, input_html: { class: 'js-skip-bootstrap-fileinput' }
+      = f.submit 'Save', class: 'btn btn-success'
+
+  - if mechanic.years_as_a_mechanic
+    %br
+    .text-center.experience #{ mechanic.years_as_a_mechanic } years of experience
+
+.panel.nested-panel
+  = mechanic.description || "Add some information about yourself"
+  .col-md-12.panel.nested-panel.clearfix
+    .col-md-9.pull-right
+      .pull-right.verified-block
+        = render "shared/#{mechanic.class.name.downcase}_verified_block", account: mechanic
+      %span.pull-right Verified:

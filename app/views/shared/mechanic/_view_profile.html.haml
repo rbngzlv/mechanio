@@ -4,11 +4,11 @@
       .panel-heading.clearfix
         %h4.panel-title
           %i.glyphicon.glyphicon-user
-          = profile.full_name
+          = mechanic.full_name
       .panel-body.modal-body
         .row
-          = render 'shared/profile_description', profile: profile
+          = render 'shared/mechanic/profile_description', title: false, mechanic: current_mechanic
         .row
           .review-block
             .panel-body
-              = render('shared/comments', title: title, comments: profile.comments) if title
+              = render('shared/comments', title: title, comments: mechanic.comments) if title

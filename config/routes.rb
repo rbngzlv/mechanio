@@ -41,9 +41,7 @@ Mechanio::Application.routes.draw do
     resources :jobs, only: [:index, :show]
     resources :events, only: [:index, :create, :destroy]
 
-    resource :profile, only: [:show, :edit, :update] do
-      patch :update_avatar
-    end
+    resource :profile, only: [:show, :edit, :update]
     resource :settings, only: [:edit, :update]
   end
 

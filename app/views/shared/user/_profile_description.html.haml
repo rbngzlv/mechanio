@@ -1,0 +1,16 @@
+.profile-border
+  = image_tag user.avatar? ? user.avatar_url(:thumb) : 'photo.jpg', class: 'avatar'
+  .reviews-row.clearfix.text-center
+    %span
+      Reviews Left:
+      %strong= user.reviews
+.panel.nested-panel
+  = user.description || "Add some information about yourself"
+  .col-md-12.panel.nested-panel.clearfix
+    .social.pull-left
+      - user.socials.each do |name|
+        %i{ class: "icon-#{name}-sign" }
+    .col-md-9.pull-right
+      .pull-right.verified-block
+        = render "shared/#{user.class.name.downcase}_verified_block", account: user
+      %span.pull-right Verified:
