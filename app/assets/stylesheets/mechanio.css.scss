@@ -1441,6 +1441,24 @@ form {
   }
 }
 
+#login-modal {
+  p.login-type-separator {
+    width: 95%;
+    border-bottom: 1px dotted lightgrey;
+    margin: -5px auto 5px;
+  }
+}
+
+#register-modal {
+  .simple_form.new_user .user_first_name {
+    padding-left: 0;
+  }
+
+  .simple_form.new_user .user_last_name {
+    padding: 0;
+  }
+}
+
 .fix-first-slide {
   position: absolute;
   min-width: 100%;
