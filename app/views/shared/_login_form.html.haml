@@ -7,7 +7,7 @@
       .modal-body
         %p.text-center= link_to image_tag('facebook-btn.jpg'), user_omniauth_authorize_path(:facebook), class: 'facebook-link'
         %p.text-center= link_to image_tag('gmail-btn.jpg'), user_omniauth_authorize_path(:google_oauth2), class: 'gmail-link'
-        %p.text-center.login-type-seporator or
+        %p.text-center.login-type-separator or
         = simple_form_for(resource, as: resource_name, url: session_path(resource_name), format: :json, defaults: { required: false, label: false }) do |f|
           .row
             .col-md-8.col-md-offset-2
