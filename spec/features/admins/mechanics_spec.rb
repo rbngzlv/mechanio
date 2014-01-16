@@ -48,7 +48,7 @@ feature 'Admin mechanics management' do
         click_button 'Save'
       end.to change { Mechanic.count }.by 1
 
-      page.should have_css '.alert', text: 'Mechanic succesfully created.'
+      page.should have_css '.alert', text: 'Mechanic successfully created.'
       last_delivery.body.should include('mechanic@host.com')
       last_delivery.subject.should include('Welcome to Mechanio')
     end
@@ -56,7 +56,7 @@ feature 'Admin mechanics management' do
     scenario 'fail' do
       visit admins_mechanics_path
       click_link 'Add mechanic'
-      current_path.should be_eql new_admins_mechanic_path
+      page.should have_selector "h4", text: 'Add mechanic'
       page.should have_selector "legend", text: "Mechanic Details"
       within '.mechanic_location_address' do
         page.should have_selector 'abbr', text: '*'
@@ -93,8 +93,7 @@ feature 'Admin mechanics management' do
     scenario 'fail' do
       visit admins_mechanics_path
       click_link 'Edit'
-      current_path.should be_eql edit_admins_mechanic_path(mechanic)
-      page.should have_no_selector "legend", text: "Mechanic Details"
+      page.should have_selector "h4", text: "Mechanic details"
       fill_in 'First name', with: ''
       click_button 'Save'
       page.should have_content "Please review the problems below:"
@@ -108,7 +107,7 @@ feature 'Admin mechanics management' do
       click_link 'Delete'
     end.to change { Mechanic.count }.by -1
 
-    page.should have_css '.alert', text: 'Mechanic succesfully deleted.'
+    page.should have_css '.alert', text: 'Mechanic successfully deleted.'
   end
 
   context 'edit images' do
@@ -121,7 +120,7 @@ feature 'Admin mechanics management' do
       attach_file('mechanic_abn', image_path)
       attach_file('mechanic_mechanic_license', image_path)
       expect { click_button 'Save' }.to change { all('img').length }.by(4)
-      page.should have_content 'Mechanic succesfully updated.'
+      page.should have_content 'Mechanic successfully updated.'
       page.should have_selector 'img + div', text: 'test_img.jpg', count: 4
     end
 
@@ -134,8 +133,8 @@ feature 'Admin mechanics management' do
       expect do
         find('span.btn-change-image.btn-delete-image', text: '×').click
         sleep 0.1
-      end.to change { within('div.mechanic_avatar') { all('img').length } }.from(1).to(0)
-      page.should have_content 'Image succesfully delted.'
+      end.to change { mechanic.reload.avatar? }.from(true).to(false)
+      page.should have_content 'Image successfully deleted.'
     end
 
     scenario "uploading cancel", :js do

@@ -50,10 +50,9 @@ Mechanio::Application.routes.draw do
 
     resources :users
     resources :mechanics, except: [:show] do
-      get    :regions_subtree
-      get    :edit_regions
-      post   :update_regions
-      delete :destroy_image
+      get   :regions_subtree
+      get   :edit_regions
+      post  :update_regions
     end
     resources :model_variations, only: [:index]
     resources :service_plans, except: [:index, :show] do

@@ -17,7 +17,7 @@ class Admins::MechanicsController < Admins::ApplicationController
 
     if @mechanic.save
       registration_email @mechanic, password
-      redirect_to edit_admins_mechanic_path(@mechanic), notice: 'Mechanic succesfully created.'
+      redirect_to edit_admins_mechanic_path(@mechanic), notice: 'Mechanic successfully created.'
     else
       build_associations
       render :new
@@ -30,22 +30,16 @@ class Admins::MechanicsController < Admins::ApplicationController
 
   def update
     if @mechanic.update_attributes(permitted_params)
-      redirect_to edit_admins_mechanic_path(@mechanic), notice: 'Mechanic succesfully updated.'
+      redirect_to edit_admins_mechanic_path(@mechanic), notice: 'Mechanic successfully updated.'
     else
       build_associations
       render :edit
     end
   end
 
-  def destroy_image
-    @mechanic.send("remove_#{params[:image_type]}!")
-    @mechanic.save
-    head :ok
-  end
-
   def destroy
     @mechanic.destroy
-    redirect_to admins_mechanics_path, notice: 'Mechanic succesfully deleted.'
+    redirect_to admins_mechanics_path, notice: 'Mechanic successfully deleted.'
   end
 
   def edit_regions

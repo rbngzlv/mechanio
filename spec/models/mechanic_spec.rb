@@ -19,11 +19,11 @@ describe Mechanic do
   it { should respond_to :abn }
   it { should respond_to :mechanic_license }
 
-  it { should allow_value("12345678901").for(:abn_number) }
-  it { should_not allow_value("123456789012").for(:abn_number) }
+  it { should allow_value('12345678901').for(:abn_number) }
+  it { should_not allow_value('123456789012').for(:abn_number) }
   it do
-    should_not allow_value("1234567890").for(:abn_number)
-    subject.errors.messages[:abn_number].should be_eql ["It should contain 11 numbers"]
+    should_not allow_value('1234567890').for(:abn_number)
+    subject.errors.messages[:abn_number].should be_eql ['ABN should be 11-digit number']
   end
 
   describe '#by_location' do
