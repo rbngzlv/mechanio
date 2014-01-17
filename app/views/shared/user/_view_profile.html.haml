@@ -8,7 +8,8 @@
       .panel-body.modal-body
         .row
           = render 'shared/user/profile_description', user: user
-        .row
-          .review-block
-            .panel-body
-              = render('shared/comments', title: 'Reviews Left', comments: user.comments) if show_comments
+        - if show_comments
+          .row
+            .review-block
+              .panel-body
+                = render 'shared/comments', title: 'Reviews Left', comments: user.comments
