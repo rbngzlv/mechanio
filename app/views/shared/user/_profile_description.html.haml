@@ -10,7 +10,7 @@
       = user.description
 
   .col-md-6.pull-right.text-right
-    = render "shared/user_verified_block", account: user
+    = render "shared/user/verified_icons", account: user
 
   .col-md-6.social
     - user.socials.each do |name|
