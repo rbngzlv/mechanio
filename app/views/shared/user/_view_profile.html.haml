@@ -11,4 +11,4 @@
         .row
           .review-block
             .panel-body
-              = render('shared/comments', title: title, comments: user.comments) if title
+              = render('shared/comments', title: 'Reviews Left', comments: user.comments) if show_comments

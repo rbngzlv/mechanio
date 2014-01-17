@@ -7,8 +7,8 @@
           = mechanic.full_name
       .panel-body.modal-body
         .row
-          = render 'shared/mechanic/profile_description', title: false, mechanic: current_mechanic
+          = render 'shared/mechanic/profile_description', mechanic: current_mechanic
         .row
           .review-block
             .panel-body
-              = render('shared/comments', title: title, comments: mechanic.comments) if title
+              = render 'shared/comments', title: 'Customer Reviews', comments: mechanic.comments

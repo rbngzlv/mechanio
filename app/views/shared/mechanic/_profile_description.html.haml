@@ -7,16 +7,11 @@
     %span.review-text.pull-right
       = link_to pluralize(mechanic.reviews, 'Review'), mechanics_profile_path
 
-  :javascript
-    $(function () {
-      $mechanic_avatar_file_field = $('#mechanic_avatar');
-      $('.js-update-avatar').click(function () {
-        $mechanic_avatar_file_field.trigger('click');
-      });
-      $mechanic_avatar_file_field.change(function () {
-        this.form.submit();
-      });
-    });
+  :coffee
+    $('.js-update-avatar').click ->
+      $('#mechanic_avatar').click()
+    $(document).on 'change', '#mechanic_avatar', ->
+      this.form.submit()
   .hide
     = simple_form_for mechanic, url: mechanics_profile_path do |f|
       = f.input :avatar, input_html: { class: 'js-skip-bootstrap-fileinput' }
@@ -31,5 +26,5 @@
   .col-md-12.panel.nested-panel.clearfix
     .col-md-9.pull-right
       .pull-right.verified-block
-        = render "shared/#{mechanic.class.name.downcase}_verified_block", account: mechanic
+        = render "shared/mechanic_verified_block", account: mechanic
       %span.pull-right Verified:
