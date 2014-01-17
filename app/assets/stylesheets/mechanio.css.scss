@@ -862,7 +862,7 @@ section {
     select:nth-child(3) {
       width: 18%;
     }
-    &.dob {
+    &.dob, &.date-format-d-m-y {
       select:nth-child(1) {
         width: 18%;
       }

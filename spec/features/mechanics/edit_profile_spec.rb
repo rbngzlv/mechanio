@@ -40,7 +40,7 @@ feature 'mechanic edit profile page' do
     should have_selector 'select:nth-child(2)#mechanic_dob_2i'
     should have_selector 'select:nth-child(3)#mechanic_dob_1i'
 
-    should have_selector 'label', text: 'License no.'
+    should have_selector 'label', text: 'Driver License Number'
 
     should have_selector 'input[type=text]#mechanic_years_as_a_mechanic'
 

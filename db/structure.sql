@@ -43,7 +43,7 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: admins; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: admins; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE admins (
@@ -84,7 +84,7 @@ ALTER SEQUENCE admins_id_seq OWNED BY admins.id;
 
 
 --
--- Name: authentications; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: authentications; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE authentications (
@@ -117,7 +117,7 @@ ALTER SEQUENCE authentications_id_seq OWNED BY authentications.id;
 
 
 --
--- Name: body_types; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: body_types; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE body_types (
@@ -148,7 +148,7 @@ ALTER SEQUENCE body_types_id_seq OWNED BY body_types.id;
 
 
 --
--- Name: cars; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: cars; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE cars (
@@ -187,7 +187,7 @@ ALTER SEQUENCE cars_id_seq OWNED BY cars.id;
 
 
 --
--- Name: credit_cards; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: credit_cards; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE credit_cards (
@@ -219,7 +219,7 @@ ALTER SEQUENCE credit_cards_id_seq OWNED BY credit_cards.id;
 
 
 --
--- Name: events; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: events; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE events (
@@ -258,7 +258,7 @@ ALTER SEQUENCE events_id_seq OWNED BY events.id;
 
 
 --
--- Name: fixed_amounts; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: fixed_amounts; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE fixed_amounts (
@@ -292,7 +292,7 @@ ALTER SEQUENCE fixed_amounts_id_seq OWNED BY fixed_amounts.id;
 
 
 --
--- Name: jobs; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: jobs; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE jobs (
@@ -341,7 +341,7 @@ ALTER SEQUENCE jobs_id_seq OWNED BY jobs.id;
 
 
 --
--- Name: labours; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: labours; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE labours (
@@ -377,7 +377,7 @@ ALTER SEQUENCE labours_id_seq OWNED BY labours.id;
 
 
 --
--- Name: locations; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: locations; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE locations (
@@ -414,7 +414,7 @@ ALTER SEQUENCE locations_id_seq OWNED BY locations.id;
 
 
 --
--- Name: makes; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: makes; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE makes (
@@ -445,7 +445,7 @@ ALTER SEQUENCE makes_id_seq OWNED BY makes.id;
 
 
 --
--- Name: mechanic_regions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: mechanic_regions; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE mechanic_regions (
@@ -478,7 +478,7 @@ ALTER SEQUENCE mechanic_regions_id_seq OWNED BY mechanic_regions.id;
 
 
 --
--- Name: mechanics; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: mechanics; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE mechanics (
@@ -523,7 +523,11 @@ CREATE TABLE mechanics (
     warranty_covered boolean DEFAULT false,
     qualification_verified boolean DEFAULT false,
     location_id integer,
-    business_location_id integer
+    business_location_id integer,
+    business_name character varying(255),
+    business_mobile_number character varying(255),
+    repair_work_classes text,
+    tradesperson_certificates text
 );
 
 
@@ -547,7 +551,7 @@ ALTER SEQUENCE mechanics_id_seq OWNED BY mechanics.id;
 
 
 --
--- Name: model_variations; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: model_variations; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE model_variations (
@@ -589,7 +593,7 @@ ALTER SEQUENCE model_variations_id_seq OWNED BY model_variations.id;
 
 
 --
--- Name: models; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: models; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE models (
@@ -621,7 +625,7 @@ ALTER SEQUENCE models_id_seq OWNED BY models.id;
 
 
 --
--- Name: parts; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: parts; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE parts (
@@ -657,7 +661,7 @@ ALTER SEQUENCE parts_id_seq OWNED BY parts.id;
 
 
 --
--- Name: regions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: regions; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE regions (
@@ -690,7 +694,7 @@ ALTER SEQUENCE regions_id_seq OWNED BY regions.id;
 
 
 --
--- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE schema_migrations (
@@ -699,7 +703,7 @@ CREATE TABLE schema_migrations (
 
 
 --
--- Name: service_costs; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: service_costs; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE service_costs (
@@ -730,7 +734,7 @@ ALTER SEQUENCE service_costs_id_seq OWNED BY service_costs.id;
 
 
 --
--- Name: service_plans; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: service_plans; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE service_plans (
@@ -772,7 +776,7 @@ ALTER SEQUENCE service_plans_id_seq OWNED BY service_plans.id;
 
 
 --
--- Name: states; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: states; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE states (
@@ -803,7 +807,7 @@ ALTER SEQUENCE states_id_seq OWNED BY states.id;
 
 
 --
--- Name: symptom_hierarchies; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: symptom_hierarchies; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE symptom_hierarchies (
@@ -833,7 +837,7 @@ ALTER SEQUENCE symptom_hierarchies_id_seq OWNED BY symptom_hierarchies.id;
 
 
 --
--- Name: symptoms; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: symptoms; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE symptoms (
@@ -865,7 +869,7 @@ ALTER SEQUENCE symptoms_id_seq OWNED BY symptoms.id;
 
 
 --
--- Name: symptoms_tasks; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: symptoms_tasks; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE symptoms_tasks (
@@ -875,7 +879,7 @@ CREATE TABLE symptoms_tasks (
 
 
 --
--- Name: task_items; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: task_items; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE task_items (
@@ -906,7 +910,7 @@ ALTER SEQUENCE task_items_id_seq OWNED BY task_items.id;
 
 
 --
--- Name: tasks; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: tasks; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE tasks (
@@ -944,7 +948,7 @@ ALTER SEQUENCE tasks_id_seq OWNED BY tasks.id;
 
 
 --
--- Name: users; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: users; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE users (
@@ -1179,7 +1183,7 @@ COPY spatial_ref_sys (srid, auth_name, auth_srid, srtext, proj4text) FROM stdin;
 
 
 --
--- Name: admins_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: admins_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY admins
@@ -1187,7 +1191,7 @@ ALTER TABLE ONLY admins
 
 
 --
--- Name: authorizations_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: authorizations_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY authentications
@@ -1195,7 +1199,7 @@ ALTER TABLE ONLY authentications
 
 
 --
--- Name: body_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: body_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY body_types
@@ -1203,7 +1207,7 @@ ALTER TABLE ONLY body_types
 
 
 --
--- Name: brands_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: brands_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY makes
@@ -1211,7 +1215,7 @@ ALTER TABLE ONLY makes
 
 
 --
--- Name: cars_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: cars_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY cars
@@ -1219,7 +1223,7 @@ ALTER TABLE ONLY cars
 
 
 --
--- Name: credit_cards_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: credit_cards_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY credit_cards
@@ -1227,7 +1231,7 @@ ALTER TABLE ONLY credit_cards
 
 
 --
--- Name: events_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: events_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY events
@@ -1235,7 +1239,7 @@ ALTER TABLE ONLY events
 
 
 --
--- Name: fixed_amounts_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: fixed_amounts_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY fixed_amounts
@@ -1243,7 +1247,7 @@ ALTER TABLE ONLY fixed_amounts
 
 
 --
--- Name: jobs_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: jobs_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY jobs
@@ -1251,7 +1255,7 @@ ALTER TABLE ONLY jobs
 
 
 --
--- Name: labours_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: labours_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY labours
@@ -1259,7 +1263,7 @@ ALTER TABLE ONLY labours
 
 
 --
--- Name: locations_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: locations_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY locations
@@ -1267,7 +1271,7 @@ ALTER TABLE ONLY locations
 
 
 --
--- Name: mechanic_regions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: mechanic_regions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY mechanic_regions
@@ -1275,7 +1279,7 @@ ALTER TABLE ONLY mechanic_regions
 
 
 --
--- Name: mechanics_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: mechanics_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY mechanics
@@ -1283,7 +1287,7 @@ ALTER TABLE ONLY mechanics
 
 
 --
--- Name: model_variations_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: model_variations_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY model_variations
@@ -1291,7 +1295,7 @@ ALTER TABLE ONLY model_variations
 
 
 --
--- Name: models_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: models_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY models
@@ -1299,7 +1303,7 @@ ALTER TABLE ONLY models
 
 
 --
--- Name: parts_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: parts_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY parts
@@ -1307,7 +1311,7 @@ ALTER TABLE ONLY parts
 
 
 --
--- Name: regions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: regions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY regions
@@ -1315,7 +1319,7 @@ ALTER TABLE ONLY regions
 
 
 --
--- Name: service_costs_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: service_costs_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY service_costs
@@ -1323,7 +1327,7 @@ ALTER TABLE ONLY service_costs
 
 
 --
--- Name: service_plans_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: service_plans_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY service_plans
@@ -1331,7 +1335,7 @@ ALTER TABLE ONLY service_plans
 
 
 --
--- Name: states_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: states_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY states
@@ -1339,7 +1343,7 @@ ALTER TABLE ONLY states
 
 
 --
--- Name: symptom_hierarchies_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: symptom_hierarchies_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY symptom_hierarchies
@@ -1347,7 +1351,7 @@ ALTER TABLE ONLY symptom_hierarchies
 
 
 --
--- Name: symptoms_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: symptoms_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY symptoms
@@ -1355,7 +1359,7 @@ ALTER TABLE ONLY symptoms
 
 
 --
--- Name: task_items_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: task_items_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY task_items
@@ -1363,7 +1367,7 @@ ALTER TABLE ONLY task_items
 
 
 --
--- Name: tasks_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: tasks_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY tasks
@@ -1371,7 +1375,7 @@ ALTER TABLE ONLY tasks
 
 
 --
--- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY users
@@ -1379,147 +1383,147 @@ ALTER TABLE ONLY users
 
 
 --
--- Name: index_admins_on_email; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_admins_on_email; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE UNIQUE INDEX index_admins_on_email ON admins USING btree (email);
 
 
 --
--- Name: index_admins_on_reset_password_token; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_admins_on_reset_password_token; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE UNIQUE INDEX index_admins_on_reset_password_token ON admins USING btree (reset_password_token);
 
 
 --
--- Name: index_authentications_on_uid_and_provider; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_authentications_on_uid_and_provider; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_authentications_on_uid_and_provider ON authentications USING btree (uid, provider);
 
 
 --
--- Name: index_authentications_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_authentications_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_authentications_on_user_id ON authentications USING btree (user_id);
 
 
 --
--- Name: index_credit_cards_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_credit_cards_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_credit_cards_on_user_id ON credit_cards USING btree (user_id);
 
 
 --
--- Name: index_mechanic_regions_on_mechanic_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_mechanic_regions_on_mechanic_id; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_mechanic_regions_on_mechanic_id ON mechanic_regions USING btree (mechanic_id);
 
 
 --
--- Name: index_mechanic_regions_on_mechanic_id_and_postcode; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_mechanic_regions_on_mechanic_id_and_postcode; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_mechanic_regions_on_mechanic_id_and_postcode ON mechanic_regions USING btree (mechanic_id, postcode);
 
 
 --
--- Name: index_mechanic_regions_on_region_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_mechanic_regions_on_region_id; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_mechanic_regions_on_region_id ON mechanic_regions USING btree (region_id);
 
 
 --
--- Name: index_mechanics_on_business_location_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_mechanics_on_business_location_id; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_mechanics_on_business_location_id ON mechanics USING btree (business_location_id);
 
 
 --
--- Name: index_mechanics_on_email; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_mechanics_on_email; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE UNIQUE INDEX index_mechanics_on_email ON mechanics USING btree (email);
 
 
 --
--- Name: index_mechanics_on_location_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_mechanics_on_location_id; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_mechanics_on_location_id ON mechanics USING btree (location_id);
 
 
 --
--- Name: index_mechanics_on_reset_password_token; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_mechanics_on_reset_password_token; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE UNIQUE INDEX index_mechanics_on_reset_password_token ON mechanics USING btree (reset_password_token);
 
 
 --
--- Name: index_on_locations_location; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_on_locations_location; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_on_locations_location ON locations USING gist (st_geographyfromtext((((('SRID=4326;POINT('::text || longitude) || ' '::text) || latitude) || ')'::text)));
 
 
 --
--- Name: index_regions_on_ancestry; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_regions_on_ancestry; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_regions_on_ancestry ON regions USING btree (ancestry);
 
 
 --
--- Name: index_regions_on_state_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_regions_on_state_id; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_regions_on_state_id ON regions USING btree (state_id);
 
 
 --
--- Name: index_symptom_hierarchies_on_child_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_symptom_hierarchies_on_child_id; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_symptom_hierarchies_on_child_id ON symptom_hierarchies USING btree (child_id);
 
 
 --
--- Name: index_symptom_hierarchies_on_symptom_id_and_child_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_symptom_hierarchies_on_symptom_id_and_child_id; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE UNIQUE INDEX index_symptom_hierarchies_on_symptom_id_and_child_id ON symptom_hierarchies USING btree (symptom_id, child_id);
 
 
 --
--- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE UNIQUE INDEX index_users_on_email ON users USING btree (email);
 
 
 --
--- Name: index_users_on_location_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_users_on_location_id; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_users_on_location_id ON users USING btree (location_id);
 
 
 --
--- Name: index_users_on_reset_password_token; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_users_on_reset_password_token; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE UNIQUE INDEX index_users_on_reset_password_token ON users USING btree (reset_password_token);
 
 
 --
--- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (version);
@@ -1700,8 +1704,12 @@ INSERT INTO schema_migrations (version) VALUES ('20131224174010');
 
 INSERT INTO schema_migrations (version) VALUES ('20131225151228');
 
+INSERT INTO schema_migrations (version) VALUES ('20140108105707');
+
 INSERT INTO schema_migrations (version) VALUES ('20140114132200');
 
 INSERT INTO schema_migrations (version) VALUES ('20140115140743');
+
+INSERT INTO schema_migrations (version) VALUES ('20140116101829');
 
 INSERT INTO schema_migrations (version) VALUES ('20140117081109');
