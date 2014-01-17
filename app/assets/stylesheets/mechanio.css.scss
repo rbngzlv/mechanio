@@ -871,6 +871,14 @@ section {
     select:nth-child(3) {
       width: 18%;
     }
+    &.dob, &.date-format-d-m-y {
+      select:nth-child(1) {
+        width: 18%;
+      }
+      select:nth-child(3) {
+        width: 22%;
+      }
+    }
   }
 
   select {

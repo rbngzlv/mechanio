@@ -39,6 +39,11 @@ class Mechanic < ActiveRecord::Base
     end
   end
 
+  def build_locations
+    build_location unless location
+    build_business_location unless business_location
+  end
+
   def toggle_regions(region_ids, toggle)
     mechanic_regions.where(region_id: region_ids).delete_all
     MechanicRegion.bulk_insert(id, region_ids) if toggle

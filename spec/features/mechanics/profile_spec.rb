@@ -20,9 +20,16 @@ feature 'mechanic profile page' do
 
       should have_content "#{mechanic.reviews} Review"
       should have_content mechanic.description
+    end
 
+    scenario 'check links to calenar and edit profile page' do
       click_link 'Availabilities'
       should have_selector 'h1', text: 'Calendar'
+
+      click_link 'Back'
+      click_link 'Edit Profile'
+      should have_selector 'h4', text: 'Edit Profile'
+      current_path.should be_eql edit_mechanics_profile_path
     end
 
     scenario 'check verified statuses work' do
