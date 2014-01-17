@@ -22,9 +22,6 @@
     .text-center.experience #{ mechanic.years_as_a_mechanic } years of experience
 
 .panel.nested-panel
+  = render "shared/mechanic_verified_block", account: mechanic
   = mechanic.description || "Add some information about yourself"
-  .col-md-12.panel.nested-panel.clearfix
-    .col-md-9.pull-right
-      .pull-right.verified-block
-        = render "shared/mechanic_verified_block", account: mechanic
-      %span.pull-right Verified:
+  .clearfix
