@@ -6,6 +6,7 @@ app.controller 'DiagnoseController', ['$scope', '$http', ($scope, $http) ->
   $scope.service_plan = {}
   $scope.note = ''
   $scope.symptoms = []
+  $scope.selected_symptoms = {}
   $scope.problem_description = ''
 
   $scope.$on 'cars_step.car_changed', (e, args...) ->
@@ -56,4 +57,14 @@ app.controller 'DiagnoseController', ['$scope', '$http', ($scope, $http) ->
 
   $scope.valid = ->
     $scope['service_form'].$valid || $scope.repairValid()
+
+  $scope.resetSelectedSymptoms = ->
+    $scope.selected_symptoms = {}
+
+  $scope.isParent = (symptom) ->
+    symptom.parent_ids.length == 0
+
+  $scope.childrenOf = (parent) ->
+    (symptom) ->
+      parent.id in symptom.parent_ids
 ]

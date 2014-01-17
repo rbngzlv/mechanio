@@ -346,7 +346,6 @@ ALTER SEQUENCE jobs_id_seq OWNED BY jobs.id;
 
 CREATE TABLE labours (
     id integer NOT NULL,
-    description text,
     duration_hours integer,
     hourly_rate numeric(8,2),
     cost numeric(8,2),
@@ -804,6 +803,36 @@ ALTER SEQUENCE states_id_seq OWNED BY states.id;
 
 
 --
+-- Name: symptom_hierarchies; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE symptom_hierarchies (
+    id integer NOT NULL,
+    symptom_id integer,
+    child_id integer
+);
+
+
+--
+-- Name: symptom_hierarchies_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE symptom_hierarchies_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: symptom_hierarchies_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE symptom_hierarchies_id_seq OWNED BY symptom_hierarchies.id;
+
+
+--
 -- Name: symptoms; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -812,7 +841,7 @@ CREATE TABLE symptoms (
     description character varying(255),
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    ancestry character varying(255)
+    comment text
 );
 
 
@@ -1110,6 +1139,13 @@ ALTER TABLE ONLY states ALTER COLUMN id SET DEFAULT nextval('states_id_seq'::reg
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY symptom_hierarchies ALTER COLUMN id SET DEFAULT nextval('symptom_hierarchies_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY symptoms ALTER COLUMN id SET DEFAULT nextval('symptoms_id_seq'::regclass);
 
 
@@ -1303,6 +1339,14 @@ ALTER TABLE ONLY states
 
 
 --
+-- Name: symptom_hierarchies_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY symptom_hierarchies
+    ADD CONSTRAINT symptom_hierarchies_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: symptoms_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1440,10 +1484,17 @@ CREATE INDEX index_regions_on_state_id ON regions USING btree (state_id);
 
 
 --
--- Name: index_symptoms_on_ancestry; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_symptom_hierarchies_on_child_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_symptoms_on_ancestry ON symptoms USING btree (ancestry);
+CREATE INDEX index_symptom_hierarchies_on_child_id ON symptom_hierarchies USING btree (child_id);
+
+
+--
+-- Name: index_symptom_hierarchies_on_symptom_id_and_child_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_symptom_hierarchies_on_symptom_id_and_child_id ON symptom_hierarchies USING btree (symptom_id, child_id);
 
 
 --
@@ -1648,3 +1699,9 @@ INSERT INTO schema_migrations (version) VALUES ('20131223164355');
 INSERT INTO schema_migrations (version) VALUES ('20131224174010');
 
 INSERT INTO schema_migrations (version) VALUES ('20131225151228');
+
+INSERT INTO schema_migrations (version) VALUES ('20140114132200');
+
+INSERT INTO schema_migrations (version) VALUES ('20140115140743');
+
+INSERT INTO schema_migrations (version) VALUES ('20140117081109');
