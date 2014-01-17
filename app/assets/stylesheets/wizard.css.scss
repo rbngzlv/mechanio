@@ -83,6 +83,9 @@
         width: 100px;
       }
     }
+    .car_last_service_kms input {
+      width: 160px;
+    }
   }
 
   .step-diagnose {
@@ -92,6 +95,30 @@
 
     textarea#job_task_note {
       height: 90px;
+    }
+
+    .symptoms {
+      .panel-body {
+        height: 350px;
+        position: relative;
+      }
+
+      .questions {
+        position: absolute;
+        top: 10px;
+        background: #fbfbfb;
+        padding-left: 1px;
+        height: 350px;
+
+        &.ng-enter {
+          -webkit-transition: 0.1s linear all;
+          transition: 0.1s linear all;
+          left: 100%;
+        }
+        &.ng-enter.ng-enter-active {
+          left: 0;
+        }
+      }
     }
   }
 }

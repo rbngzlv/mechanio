@@ -1,5 +1,32 @@
 .admin {
   .edit_job {
+    .panel-heading a {
+      float: right;
+      padding-left: 10px;
+    }
+
+    .totals-row {
+      padding-top: 10px;
+
+      a {
+        margin-right: 10px;
+      }
+      dl {
+        margin: 0;
+      }
+    }
+
+    .grand-total {
+      font-size: 18px;
+
+      dl {
+        margin: 0;
+      }
+      dd {
+        padding: 0 15px 0 25px;
+      }
+    }
+
     .item {
       padding-bottom: 7px;
       margin-bottom: 7px;
@@ -11,10 +38,6 @@
 
       select, .subtotal input, .total input {
         width: 70px;
-      }
-
-      input[name *= "cost"] {
-        text-align: right;
       }
 
       .desc {
@@ -36,8 +59,7 @@
       }
 
       .actions {
-        width: 30px;
-        text-align: right;
+        width: 20px;
       }
     }
 

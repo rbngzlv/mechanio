@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--<![endif]-->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Settings</title>
+<link rel="shortcut icon" href="images/favicon.ico">
+<!--[if lt IE 9]><script src="js/html5shiv.js"></script><script src="js/respond.js"></script><![endif]-->
+<link href="css/style.css" type="text/css" rel="stylesheet" />
+<script src="js/scripts.js"></script>
+<script>jQuery(document).ready(function(){App.init()});</script>
+</head>
+
+<body>
+<div id="wrap">
+<!--  ---------------- Header Part -------------------------------------------------- -->
+<header class="navbar navbar-inverse">
+	<div class="navbar-inner">
+    	<div class="fixbar row-fluid">
+        	<a class="brand" href="index.html"><img src="images/logo.png" alt="Mechanio"></a>
+        	<div class="fright">
+        	<div class="fright"><a href="#" class="btn btn-link">How IT Works</a><button data-target=".nav-collapse" data-toggle="collapse" class="btn btn-navbar collapsed" type="button">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <div class="top-nav fright MALL5">
+        		<ul class="nav pull-right top-menu">
+                  <li class="dropdown"><a href="#" class="dropdown-toggle margin0 padd0" data-toggle="dropdown"><span class="username">Mechanic Name</span><b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                    		<li><a  href="mechanic-dashboard.html"><span class="icon-box"><i class="icon-dashboard"></i></span> Dashboard</a></li>
+                <li><a  href="mechanic-profile.html"><span class="icon-box"><i class="icon-user"></i></span> My Profile</a></li>
+                <li><a  href="mechanic-jobs.html"><span class="icon-box"><i class="icon-thumbs-up"></i></span> My Jobs</a></li>
+                <li><a  href="mechanic-payout.html"><span class="icon-box"><i class="icon-credit-card"></i></span> Payout Information</a></li>
+                <li><a  href="mechanic-settings.html"><span class="icon-box"><i class="icon-calendar"></i></span> Settings</a></li>
+                      <li class="divider"></li>
+                      <li><a href="./login.html"><i class="icon-key"></i> Log Out</a></li>
+                    </ul>
+                  </li>
+                </ul>
+		      </div>
+            </div>
+            <div class="space5"></div>
+            <div class="NeedHelp AlignRight">Need Help ? / Call 1800 123 1234</div>
+        </div>
+    	</div>
+    </div>
+</header>
+
+<div class="container-narrow">
+	<div class="row-fluid">
+    	<!--  ---------------- Left Navigation Part -------------------------------------------------- -->
+		<div id="sidebar" class="nav-collapse collapse">
+			<ul class="sidebar-menu">
+      			<li><a  href="mechanic-dashboard.html"><span class="icon-box"><i class="icon-dashboard"></i></span> Dashboard</a></li>
+                <li><a  href="mechanic-profile.html"><span class="icon-box"><i class="icon-user"></i></span> My Profile</a></li>
+                <li ><a  href="mechanic-jobs.html"><span class="icon-box"><i class="icon-thumbs-up"></i></span> My Jobs</a></li>
+                <li><a  href="mechanic-payout.html"><span class="icon-box"><i class="icon-credit-card"></i></span> Payout Information</a></li>
+                <li class="active"><a  href="mechanic-settings.html"><span class="icon-box"><i class="icon-calendar"></i></span> Settings</a></li>
+			 </ul>       
+    	</div>
+        <!--  ---------------- Right COntent Part -------------------------------------------------- -->
+	<section id="main-content">
+	 <div class="row-fluid">
+        <div class="widget">
+              <div class="widget-title">
+                <h4><i class="icon-cog"></i>Setting</h4></div>
+              <div class="widget-body">
+              	 <div class="row-fluid MALL5 Focscolor">
+                            <h2 class="h2class">Password</h2>
+                            <input type="text" class="span8" onFocus="if (value == 'Old Password') {value=''}" onBlur="if (value== '') {value='Old Password'}" value="Old Password">
+                            <input type="text" class="span8" onFocus="if (value == 'New Password') {value=''}" onBlur="if (value== '') {value='New Password'}" value="New Password">
+                            <input type="text" class="span8" onFocus="if (value == 'Confirm Password') {value=''}" onBlur="if (value== '') {value='Confirm Password'}" value="Confirm Password">
+                            </div>
+                 <div class="space10"></div>
+                 
+                 <h2 class="h2class">Notifications</h2>
+                 <div class="controls span12 MALL5">
+                    <div class="span6 margin0">
+                        <label class="control-label span6">Allow mobile notifications</label>
+                        <label class="radio span2"><input type="radio" name="optionsRadios2" value="option2" />Yes</label>
+                         <label class="radio span4"><input type="radio" name="optionsRadios2" value="option2" />No</label>
+                    </div>
+                    <div class="span6 margin0"> 
+                        <label class="control-label span6">Deliver notifications to</label>
+                         <select class="span6" data-placeholder="Discount" tabindex="1">
+                            <option  value="Category 1"> </option>
+                         </select>
+                    </div>
+                </div>
+                 <div class="controls span12 MALL5">
+                    <div class="span6 margin0">
+                        <label class="control-label span6">Allow email notifications </label>
+                        <label class="radio span2"><input type="radio" name="optionsRadios2" value="option2" />Yes</label>
+                         <label class="radio span4"><input type="radio" name="optionsRadios2" value="option2" />No</label>
+                    </div>
+                    <div class="span6 margin0"> 
+                        <label class="control-label span6">Deliver notifications to</label>
+                         <select class="span6" data-placeholder="Discount" tabindex="1">
+                            <option  value="Category 1"> </option>
+                         </select>
+                    </div>
+                </div>
+        
+                 <div class="span10 margin0"><button class="btn btn-success span3" type="button">Save</button></div>
+                 <div class="clearb"></div>
+               
+              </div>
+            
+          </div>
+     </div>
+</section>
+</div>
+</div>
+
+</div>
+
+<!--  ---------------- Footer Part -------------------------------------------------- -->
+<footer id="footer">
+      <div class="fixbar row-fluid">
+        <span class="span8"><a href="about-us.html">About us</a><a href="faq.html">FAQ</a><a href="terms-of-use.html">Terms of use</a><a href="privacy.html">Privacy Policy</a><a href="blog.html">Blog</a><a href="contact-us.html">Contact Us</a></span>
+        <div class="span3 fright"><span><a href="#"><i class="icon-facebook-sign FS30 MR5"></i></a><a href="#"><i class="icon-twitter-sign FS30 MR5"></i></a><a href="#"><i class="icon-google-plus-sign FS30"></i></a></span><span>Connect with us </span></div>
+        <div class="clearb"></div>
+      </div>
+    </footer>
+
+</body>
+</html>

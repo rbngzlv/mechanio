@@ -4,7 +4,7 @@
       = t.hidden_field :id, value: '{{task.id}}'
       = t.hidden_field :_destroy, value: '{{task._destroy}}'
       = t.hidden_field :type, value: 'Repair'
-      = t.input :title, placeholder: 'Title', input_html: { 'ng-model' => 'task.title', 'ng-focus' => 'task.editing = true' }
-      = t.input :note, placeholder: 'Note for mechanic', input_html: { 'ng-model' => 'task.note', 'ng-focus' => 'task.editing = true' }
+      = t.input :title, placeholder: 'Repair description', input_html: { 'ng-model' => 'task.title' }
+      = t.input :note, placeholder: 'Notes', input_html: { 'ng-model' => 'task.note' }
   .col-md-2
-    %a.btn.btn-success.btn-sm{ href: '', 'ng-click' => 'task.editing = false' } Done
+    %a.btn.btn-success.btn-sm{ href: '', 'ng-click' => 'task.doneEditing()' } Done

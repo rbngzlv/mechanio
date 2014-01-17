@@ -10,6 +10,7 @@ describe 'Service wizard', js: true do
   let!(:variation)    { create :model_variation, model: model, make: make }
   let!(:service_plan) { create :service_plan, make: make, model: model, model_variation: variation }
   let!(:state)        { create :state, name: 'State' }
+  let(:last_service_year) { Date.today.year - 1 }
 
   before do
     reset_mail_deliveries
@@ -223,7 +224,7 @@ describe 'Service wizard', js: true do
 
   def enter_last_service_date
     select 'February', from: 'car_last_service_month'
-    fill_in 'car_last_service_year', with: '2005'
+    select last_service_year, from: 'car_last_service_year'
   end
 
   def fill_in_address
@@ -313,6 +314,6 @@ describe 'Service wizard', js: true do
   end
 
   def verify_last_service_date(user)
-    user.cars.last.last_service_date.should eq Date.new(2005, 2, 1)
+    user.cars.last.last_service_date.should eq Date.new(last_service_year, 2, 1)
   end
 end

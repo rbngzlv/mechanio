@@ -41,7 +41,7 @@ feature 'Soft delete car' do
   end
 
   context 'Admin pages' do
-    scenario 'edit job page' do
+    scenario 'edit job page', :js do
       login_admin
       visit edit_admins_job_path(job)
       should have_content car_name

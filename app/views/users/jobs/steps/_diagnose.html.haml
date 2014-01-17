@@ -1,4 +1,4 @@
-.step-diagnose{ 'ng-controller' => 'DiagnoseController', 'ng-show' => 'stepVisible("diagnose")', 'ng-init' => "init({ mode: '#{@mode}' })" }
+.step-diagnose{ 'ng-controller' => 'DiagnoseController', 'ng-show' => 'stepVisible("diagnose")', 'ng-init' => "init({ mode: '#{@mode}', symptoms: #{@symptoms} })" }
   .wizard-body{ 'ng-show' => "mode == 'service'", 'ng-form' => 'service_form' }
     %h5 PLEASE PICK A SERVICE INTERVAL YOU'LL LIKE OUR PROFESSIONAL MOBILE MECHANIC TO PERFORM
     %hr.hr-dark-gray
@@ -14,17 +14,25 @@
       = s.input :title, label: false, placeholder: 'Describe any issues you have with your car', as: :text, input_html: { 'ng-model' => 'problem_description' }
 
       %h6 Or select type of symptom you have
-      #js-accordion.accordion.panel-group
-        - Symptom.tree.each do |parent, children|
-          .panel.nested-panel
-            .panel-heading.clearfix
-              %h4.panel-title
-                = link_to parent.description, "#collapse_#{parent.id}", class: 'accordion-toggle', data: { toggle: 'collapse', parent: '#js-accordion' }
-            .panel-collapse.collapse{ id: "collapse_#{parent.id}" }
-              .panel-body
-                %p What do you feel?
-                = s.collection_check_boxes :symptoms, children.keys, :id, :description, item_wrapper_tag: :label, item_wrapper_class: 'checkbox' do |b|
-                  - b.check_box('ng-model' => "symptoms[#{b.object.id}]") + ' ' + b.object.description
+
+      #js-accordion.accordion.panel-group.symptoms
+        .panel.nested-panel{ 'ng-repeat' => 'parent in symptoms | filter:isParent' }
+          .panel-heading.clearfix
+            %h4.panel-title
+              = link_to '{{parent.description}}', '#collapse_{{parent.id}}', class: 'accordion-toggle', data: { toggle: 'collapse', parent: '#js-accordion', 'ng-click' => 'resetSelectedSymptoms()' }
+          .panel-collapse.collapse{ id: 'collapse_{{parent.id}}' }
+            .panel-body
+              .questions.col-md-12
+                %ng-include{ src: '"questions"' }
+              .questions.col-md-12{ 'ng-repeat' => 'parent in selected_symptoms' }
+                %ng-include{ src: '"questions"' }
+
+      %script{ type: 'text/ng-template', id: 'questions' }
+        %p {{parent.comment}}
+        %p{ 'ng-repeat' => 'symptom in symptoms | filter:childrenOf(parent)' }
+          %input{ type: 'radio', 'ng-value' => 'symptom', id: 'symptom_{{symptom.id}}', name: 'symptom_id[]', 'ng-model' => 'selected_symptoms[symptom.id]' }
+          %label{ for: 'symptom_{{symptom.id}}' }
+            {{symptom.description}}
 
     %a.btn.btn-success{ 'href' => '', 'ng-click' => 'mode = "service"' } {{serviceButtonLabel()}}
 

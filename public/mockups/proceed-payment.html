@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--<![endif]-->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Procced Payment</title>
+<link rel="shortcut icon" href="images/favicon.ico">
+<!--[if lt IE 9]><script src="js/html5shiv.js"></script><script src="js/respond.js"></script><![endif]-->
+<link href="css/style.css" type="text/css" rel="stylesheet" />
+<script src="js/scripts.js"></script>
+<script>jQuery(document).ready(function(){App.init()});</script>
+
+</head>
+
+<body>
+<div id="wrap">
+<!--  ---------------- Header Part -------------------------------------------------- -->
+<header class="navbar navbar-inverse">
+	<div class="navbar-inner">
+    	<div class="fixbar row-fluid">
+        	<a class="brand" href="index.html"><img src="images/logo.png" alt="Mechanio"></a>
+        <div class="fright">
+        	<div class="fright"><a href="#" class="btn btn-link">How IT Works</a><button data-target=".nav-collapse" data-toggle="collapse" class="btn btn-navbar collapsed" type="button">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <div class="top-nav fright MALL5">
+        		<ul class="nav pull-right top-menu">
+          <li class="dropdown"><a href="#" class="dropdown-toggle margin0 padd0" data-toggle="dropdown"><span class="username">Andrew</span><b class="caret"></b></a>
+            <ul class="dropdown-menu">
+          			<li><a  href="user-dashboard.html"><span class="icon-box"><i class="icon-dashboard"></i></span> Dashboard</a></li>
+                <li><a  href="user-cars.html"><span class="icon-box"><i class="icon-truck"></i></span> My Cars</a></li>
+                <li><a  href="user-appointments.html"><span class="icon-box"><i class="icon-calendar"></i></span> My Appointments</a></li>
+                <li><a  href="user-estimates.html"><span class="icon-box"><i class="icon-list"></i></span> My Estimates</a></li>
+                 <li><a  href="user-profile.html"><span class="icon-box"><i class="icon-user"></i></span> My Profile</a></li>
+                 <li><a  href="user-settings.html"><span class="icon-box"><i class="icon-cog"></i></span> Settings</a></li>
+              <li class="divider"></li>
+              <li><a href="./login.html"><i class="icon-key"></i> Log Out</a></li>
+            </ul>
+          </li>
+        </ul>
+		      </div>
+            </div>
+            <div class="space5"></div>
+            <div class="NeedHelp AlignRight">Need Help ? / Call 1800 123 1234</div>
+        </div>
+    	</div>
+    </div>
+</header>
+
+<!--  ---------------- Content Part -------------------------------------------------- -->
+<div class="container-narrow">
+	<div class="row-fluid">
+    <section class="span10">
+      <div class="accordion MB20 yourNego" id="accordion1">
+              <div class="accordion-group widgetLBox">
+                <div class="accordion-heading"><a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion1" href="#collapse_1">Mechanic Name</a></div>
+                <div id="collapse_1" class="accordion-body collapse in">
+                  <div class="accordion-inner padd20 row-fluid">
+                  	<div class="MechProfile span4">
+                    	<div class="profileImg">
+                        	<img src="images/photo.jpg">
+                            <div class="ReviewsRow">
+                            	<div class="stars">
+                                	<span class="Color">&nbsp;</span>
+                                    <span class="Color">&nbsp;</span>
+                                    <span class="Blank">&nbsp;</span>
+                                    <span class="Blank">&nbsp;</span>
+                                    <span class="Blank">&nbsp;</span>
+                                </div>
+                                <span class="revieText">12 Reviews</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ArrivalTime span8">
+                    	<h3>Mechanic Name<br><small>5 Year of Experience</small></h3>
+                    	<ul class="margin0 text-info">
+                        	<li><i class="icon-ok"></i> May 8, 2013 (Wednesday)</li>
+                            <li><i class="icon-ok"></i> 9:00 AM - 11:00 AM</li>
+                        </ul>
+                    </div>
+                    <div class="clearb"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-group widgetLBox">
+                <div class="accordion-heading"><a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion1" href="#collapse_2">Inspection fee <span class="fright">Pending</span></a></div>
+                <div id="collapse_2" class="accordion-body collapse">
+                  <div class="accordion-inner">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales at. Nulla tellus elit, varius non commodo eget, mattis vel eros. In sed ornare nulla. </div>
+                </div>
+              </div>
+              <div class="accordion-group widgetLBox">
+                <div class="accordion-heading"><a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion1" href="#collapse_3">Total<span class="fright">Pending</span></a></div>
+                <div id="collapse_3" class="accordion-body collapse">
+                  <div class="accordion-inner">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales at. Nulla tellus elit, varius non commodo eget, mattis vel eros. In sed ornare nulla. </div>
+                </div>
+              </div>
+          </div>
+      <!--  ---------------- Payment Process Part -------------------------------------------------- -->
+	  <div class="widget">
+       <div class="widget-title"> <h4>Payment Process</h4></div>
+       <div class="widget-body">
+       	<div class="alert alert-info"><p class="alignCenter">Providing a credit card holds your spot with the mechanic, much like reserving a room at a hotel. <br><b>No money will be billed until you confirm your quote and after your job is complete.</b></p></div>
+ 		<div class="control-group span5 offset3">
+        	<div class="span12 alignCenter MB20"><img src="images/payment-img.jpg" alt="Payment Method"></div>
+            <div class="tab-content controls span12 margin0">
+            <!--  ---------------- verify mobile setp1 -------------------------------------------------- -->
+                  <div class="tab-pane active" id="promocodeS1">
+                     <div class="controls MB10">
+                      <a class="control-label" href="#promocodeS2" data-toggle="tab">Add Promo Code <i class="icon-caret-right"></i></a>
+                    </div>   
+                  </div>
+                  <!--  ----------------  verify mobile setp2  -------------------------------------------------- -->
+                  <div class="tab-pane" id="promocodeS2">
+                     <div class="controls MB10">
+                      <a class="control-label" href="#">Add Promo Code <i class="icon-caret-right"></i></a>
+                    </div>
+                    <p>Enter code (if applicable) then click update:</p>
+                    <div class="controls">
+                      <input type="text" class="span8" /><a href="#" class="btn span4 fright">Update</a>
+                    </div>
+                  </div>
+             </div>
+           
+            <div class="controls">
+              <label class="control-label">Name on the credit card</label>
+              <input type="text" class="span12" />
+            </div>
+            <div class="controls">
+              <label class="control-label">Credit Card Number</label>
+              <input type="text" class="span12" />
+            </div>
+            <div class="controls">
+              <label class="control-label">Expiration Date</label>
+              <input type="text" class="span12" value="mm/yy" onBlur="if (value== '') {value='mm/yy'}" onFocus="if (value == 'mm/yy') {value=''}" />
+            </div>
+            <div class="controls">
+              <label class="control-label">CCV</label>
+              <input type="text" class="span12" />
+            </div>
+				<label class="control-label">I have read and agreed to the <a href="terms-of-use.html">terms of use</a></label>
+            <button class="btn btn-info" type="button">Send Me a Quote</button>
+        </div>
+        <div class="clearb"></div>
+        </div>
+    </div>
+    </section>
+    <aside>
+		&nbsp;        
+    </aside>
+	</div>
+</div>
+
+</div>
+
+<!--  ---------------- Footer Part -------------------------------------------------- -->
+<footer id="footer">
+      <div class="fixbar row-fluid">
+        <span class="span8"><a href="about-us.html">About us</a><a href="faq.html">FAQ</a><a href="terms-of-use.html">Terms of use</a><a href="privacy.html">Privacy Policy</a><a href="blog.html">Blog</a><a href="contact-us.html">Contact Us</a></span>
+        <div class="span3 fright"><span><a href="#"><i class="icon-facebook-sign FS30 MR5"></i></a><a href="#"><i class="icon-twitter-sign FS30 MR5"></i></a><a href="#"><i class="icon-google-plus-sign FS30"></i></a></span><span>Connect with us </span></div>
+        <div class="clearb"></div>
+      </div>
+    </footer>
+</body>
+</html>

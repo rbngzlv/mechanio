@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--<![endif]-->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Appointments</title>
+<link rel="shortcut icon" href="images/favicon.ico">
+<!--[if lt IE 9]><script src="js/html5shiv.js"></script><script src="js/respond.js"></script><![endif]-->
+<link href="css/style.css" type="text/css" rel="stylesheet" />
+<link href="assets/fancybox/source/jquery.fancybox.css" rel="stylesheet" />
+<script src="js/scripts.js"></script>
+<script src="assets/fancybox/source/jquery.fancybox.pack.js"></script>
+<script>jQuery(document).ready(function(){App.init()});</script>
+
+<body>
+<div id="wrap">
+<!--  ---------------- Header Part -------------------------------------------------- -->
+<header class="navbar navbar-inverse">
+	<div class="navbar-inner">
+    	<div class="fixbar row-fluid">
+        	<a class="brand" href="index.html"><img src="images/logo.png" alt="Mechanio"></a>
+        <div class="fright">
+        	<div class="fright"><a href="#" class="btn btn-link">How IT Works</a><button data-target=".nav-collapse" data-toggle="collapse" class="btn btn-navbar collapsed" type="button">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <div class="top-nav fright MALL5">
+        		<ul class="nav pull-right top-menu">
+          <li class="dropdown"><a href="#" class="dropdown-toggle margin0 padd0" data-toggle="dropdown"><span class="username">Andrew</span><b class="caret"></b></a>
+            <ul class="dropdown-menu">
+          			<li><a  href="user-dashboard.html"><span class="icon-box"><i class="icon-dashboard"></i></span> Dashboard</a></li>
+                <li><a  href="user-cars.html"><span class="icon-box"><i class="icon-truck"></i></span> My Cars</a></li>
+                <li><a  href="user-appointments.html"><span class="icon-box"><i class="icon-calendar"></i></span> My Appointments</a></li>
+                <li><a  href="user-estimates.html"><span class="icon-box"><i class="icon-list"></i></span> My Estimates</a></li>
+                 <li><a  href="user-profile.html"><span class="icon-box"><i class="icon-user"></i></span> My Profile</a></li>
+                 <li><a  href="user-settings.html"><span class="icon-box"><i class="icon-cog"></i></span> Settings</a></li>
+              <li class="divider"></li>
+              <li><a href="./login.html"><i class="icon-key"></i> Log Out</a></li>
+            </ul>
+          </li>
+        </ul>
+		      </div>
+            </div>
+            <div class="space5"></div>
+            <div class="NeedHelp AlignRight">Need Help ? / Call 1800 123 1234</div>
+        </div>
+    	</div>
+    </div>
+</header>
+
+<div class="container-narrow">
+	<div class="row-fluid">
+    	<!--  ---------------- Left Navigation Part -------------------------------------------------- -->
+		  <div id="sidebar" class="nav-collapse collapse">
+			<ul class="sidebar-menu">
+            		<li	><a  href="mechanic-dashboard.html"><span class="icon-box"><i class="icon-dashboard"></i></span> Dashboard</a></li>
+                <li><a  href="mechanic-profile.html"><span class="icon-box"><i class="icon-user"></i></span> My Profile</a></li>
+                <li><a  href="mechanic-jobs.html"><span class="icon-box"><i class="icon-thumbs-up"></i></span> My Jobs</a></li>
+                <li><a  href="mechanic-payout.html"><span class="icon-box"><i class="icon-credit-card"></i></span> Payout Information</a></li>
+                <li><a  href="mechanic-settings.html"><span class="icon-box"><i class="icon-calendar"></i></span> Settings</a></li>
+			 </ul>       
+    	</div>
+        
+        <!--  ---------------- Right Content Part -------------------------------------------------- -->
+		<section id="main-content">
+                <div class="widget">
+                	<div class="widget-title"><h4>Add New Service</h4><span class="tools"><a class="icon-chevron-down" href="javascript:;"></a></span></div>
+                    <div class="widget-body">
+                    	
+                       <div class="tabbable tabbable-custom padd20">
+                       <p><b>What do you need:</b></p>
+                          <ul class="MLeft10 controls">
+                            <li class="active"><a data-toggle="tab" href="#tab_1_1"><label class="radio line"><input name="optionsRadios1" type="radio" value="option1"> Car Servicing</label></a></li>
+                            <li><a data-toggle="tab" href="#tab_1_2"><label class="radio line"><input name="optionsRadios1" type="radio" value="option2"> Fix Car Problem</label></a></li>
+                            <li>&nbsp;</li>
+                          </ul>
+                          <div class="tab-content margin0 padd0">
+                            <!-- Current Appointments Tab-->
+                            <div id="tab_1_1" class="tab-pane greybox active">
+                            	<h2 class="h2class">Car Servicing</h2>
+                               <p> Please Select when the last time you serviced your car was - in KM or Date - whichever came first</p>
+                                <select class="span3" data-placeholder="Discount" tabindex="1">
+                                        <option  value="Category 1">5000 KM - 6 Month</option>
+                                        <option  value="Category 1">10000 KM - 1 Year</option>
+                                     </select>
+                                <p>Add notes for mechanic</p>
+                                <textarea type="text" class="span12" value="" ></textarea>
+                                <div class="space20"></div>
+                                <div class="accordion MB20 yourNego" id="accordion1">
+                                  <div class="accordion-group widgetLBox">
+                                    <div class="accordion-heading"><a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion1" href="#collapse_7">Inspection fee<span class="fright">Pending</span></a></div>
+                                    <div id="collapse_7" class="accordion-body collapse">
+                                      <div class="accordion-inner">&nbsp;</div>
+                                    </div>
+                                  </div>
+                                  <div class="accordion-group widgetLBox">
+                                    <div class="accordion-heading"><a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion1" href="#collapse_8">Total<span class="fright">Pending</span></a></div>
+                                    <div id="collapse_8" class="accordion-body collapse">
+                                      <div class="accordion-inner">&nbsp;</div>
+                                    </div>
+                                  </div>
+                              </div>
+                              <a href="#" class="btn btn-info fright">Add Job</a><a href="#" class="btn fright">Cancel</a>
+                              <div class="clearb"></div>
+                            </div>
+                            <!--  Reschedule Appointment Tabs -->
+                            <div id="tab_1_2" class="tab-pane greybox">
+                            <h2 class="h2class">Fix car problem</h2>
+                               <label>Describe the problem</label>
+                                <input type="text" class="span12" value="" />
+                                <label>or select type of symptom you have</label>
+                                <div id="accordion2" class="accordion MB20 in collapse" style="height: auto;">
+                            <div class="accordion-group">
+                            <div class="accordion-heading"><a href="#collapse_2" data-parent="#accordion2" data-toggle="collapse" class="accordion-toggle collapsed">Looks Lik</a></div>
+                            <div class="accordion-body collapse" id="collapse_2">
+                              <div class="accordion-inner padd20 MB20">
+                                <div class="control-group ">
+                                	<label class="control-label">What do you feel?</label>
+                                    <div class="controls">
+                                      <label class="radio">
+                                      <div class="radio" id="uniform-undefined"><span><input type="radio" value="option1" name="optionsRadios1" style="opacity: 0;"></span></div>
+                                      Drifts- Gradual movements to one side. </label>
+                                      <label class="radio">
+                                      <div class="radio" id="uniform-undefined"><span><input type="radio" =""="" checked="" value="option2" name="optionsRadios1" style="opacity: 0;"></span></div>
+                                       Excessive play- Looseness, lack of response in the steering wheel. </label>
+                                      <label class="radio">
+                                      <div class="radio" id="uniform-undefined"><span><input type="radio" value="option2" name="optionsRadios1" style="opacity: 0;"></span></div>
+                                      Pulls- Sharp movement to one side. </label>
+                                      <label class="radio">
+                                      <div class="radio" id="uniform-undefined"><span><input type="radio" value="option2" name="optionsRadios1" style="opacity: 0;"></span></div>
+                                      Pulsation- Fluctuation of the brake pedal when the brakes are applied. </label>
+                                      <label class="radio">
+                                      <div class="radio" id="uniform-undefined"><span><input type="radio" value="option2" name="optionsRadios1" style="opacity: 0;"></span></div>
+                                      Shimmy- Rapid side to side movement of the front wheels. </label>
+                                      <label class="radio">
+                                      <div class="radio" id="uniform-undefined"><span><input type="radio" value="option2" name="optionsRadios1" style="opacity: 0;"></span></div>
+                                      Sway- Gradual movement from side to side. </label>
+                                      <label class="radio">
+                                      <div class="radio" id="uniform-undefined"><span><input type="radio" value="option2" name="optionsRadios1" style="opacity: 0;"></span></div>
+                                      Vibration- Vehicle shakes. Ususally felt in the steering wheel or the seat. </label>
+                                    </div>
+                                 </div>
+                              </div>
+                            </div>
+                          </div>
+                            <div class="accordion-group">
+                            <div class="accordion-heading"><a href="#collapse_3" data-parent="#accordion2" data-toggle="collapse" class="accordion-toggle collapsed">Sounds Like</a></div>
+                            <div class="accordion-body collapse" id="collapse_3" style="height: 0px;">
+                              <div class="accordion-inner padd20 MB20">
+                                <div class="control-group ">
+                                	<label class="control-label">What do you feel?</label>
+                                    <div class="controls">
+                                      <label class="radio">
+                                      <div class="radio" id="uniform-undefined"><span><input type="radio" value="option1" name="optionsRadios1" style="opacity: 0;"></span></div>
+                                      Drifts- Gradual movements to one side. </label>
+                                      <label class="radio">
+                                      <div class="radio" id="uniform-undefined"><span><input type="radio" =""="" checked="" value="option2" name="optionsRadios1" style="opacity: 0;"></span></div>
+                                       Excessive play- Looseness, lack of response in the steering wheel. </label>
+                                      <label class="radio">
+                                      <div class="radio" id="uniform-undefined"><span><input type="radio" value="option2" name="optionsRadios1" style="opacity: 0;"></span></div>
+                                      Pulls- Sharp movement to one side. </label>
+                                      <label class="radio">
+                                      <div class="radio" id="uniform-undefined"><span><input type="radio" value="option2" name="optionsRadios1" style="opacity: 0;"></span></div>
+                                      Pulsation- Fluctuation of the brake pedal when the brakes are applied. </label>
+                                      <label class="radio">
+                                      <div class="radio" id="uniform-undefined"><span><input type="radio" value="option2" name="optionsRadios1" style="opacity: 0;"></span></div>
+                                      Shimmy- Rapid side to side movement of the front wheels. </label>
+                                      <label class="radio">
+                                      <div class="radio" id="uniform-undefined"><span><input type="radio" value="option2" name="optionsRadios1" style="opacity: 0;"></span></div>
+                                      Sway- Gradual movement from side to side. </label>
+                                      <label class="radio">
+                                      <div class="radio" id="uniform-undefined"><span><input type="radio" value="option2" name="optionsRadios1" style="opacity: 0;"></span></div>
+                                      Vibration- Vehicle shakes. Ususally felt in the steering wheel or the seat. </label>
+                                    </div>
+                                 </div>
+                              </div>
+                            </div>
+                          </div>
+                            <div class="accordion-group">
+                            <div class="accordion-heading"><a href="#collapse_4" data-parent="#accordion2" data-toggle="collapse" class="accordion-toggle collapsed">Smells Like</a></div>
+                            <div class="accordion-body collapse" id="collapse_4">
+                              <div class="accordion-inner padd20 MB20">
+                                <div class="control-group ">
+                                	<label class="control-label">What do you feel?</label>
+                                    <div class="controls">
+                                      <label class="radio">
+                                      <div class="radio" id="uniform-undefined"><span><input type="radio" value="option1" name="optionsRadios1" style="opacity: 0;"></span></div>
+                                      Drifts- Gradual movements to one side. </label>
+                                      <label class="radio">
+                                      <div class="radio" id="uniform-undefined"><span><input type="radio" =""="" checked="" value="option2" name="optionsRadios1" style="opacity: 0;"></span></div>
+                                       Excessive play- Looseness, lack of response in the steering wheel. </label>
+                                      <label class="radio">
+                                      <div class="radio" id="uniform-undefined"><span><input type="radio" value="option2" name="optionsRadios1" style="opacity: 0;"></span></div>
+                                      Pulls- Sharp movement to one side. </label>
+                                      <label class="radio">
+                                      <div class="radio" id="uniform-undefined"><span><input type="radio" value="option2" name="optionsRadios1" style="opacity: 0;"></span></div>
+                                      Pulsation- Fluctuation of the brake pedal when the brakes are applied. </label>
+                                      <label class="radio">
+                                      <div class="radio" id="uniform-undefined"><span><input type="radio" value="option2" name="optionsRadios1" style="opacity: 0;"></span></div>
+                                      Shimmy- Rapid side to side movement of the front wheels. </label>
+                                      <label class="radio">
+                                      <div class="radio" id="uniform-undefined"><span><input type="radio" value="option2" name="optionsRadios1" style="opacity: 0;"></span></div>
+                                      Sway- Gradual movement from side to side. </label>
+                                      <label class="radio">
+                                      <div class="radio" id="uniform-undefined"><span><input type="radio" value="option2" name="optionsRadios1" style="opacity: 0;"></span></div>
+                                      Vibration- Vehicle shakes. Ususally felt in the steering wheel or the seat. </label>
+                                    </div>
+                                 </div>
+                              </div>
+                            </div>
+                          </div>
+                            <div class="accordion-group">
+                            <div class="accordion-heading"><a href="#collapse_5" data-parent="#accordion2" data-toggle="collapse" class="accordion-toggle collapsed">Feels Like</a></div>
+                            <div class="accordion-body collapse" id="collapse_5">
+                              <div class="accordion-inner padd20 MB20">
+                                <div class="control-group ">
+                                	<label class="control-label">What do you feel?</label>
+                                    <div class="controls">
+                                      <label class="radio">
+                                      <div class="radio" id="uniform-undefined"><span><input type="radio" value="option1" name="optionsRadios1" style="opacity: 0;"></span></div>
+                                      Drifts- Gradual movements to one side. </label>
+                                      <label class="radio">
+                                      <div class="radio" id="uniform-undefined"><span><input type="radio" =""="" checked="" value="option2" name="optionsRadios1" style="opacity: 0;"></span></div>
+                                       Excessive play- Looseness, lack of response in the steering wheel. </label>
+                                      <label class="radio">
+                                      <div class="radio" id="uniform-undefined"><span><input type="radio" value="option2" name="optionsRadios1" style="opacity: 0;"></span></div>
+                                      Pulls- Sharp movement to one side. </label>
+                                      <label class="radio">
+                                      <div class="radio" id="uniform-undefined"><span><input type="radio" value="option2" name="optionsRadios1" style="opacity: 0;"></span></div>
+                                      Pulsation- Fluctuation of the brake pedal when the brakes are applied. </label>
+                                      <label class="radio">
+                                      <div class="radio" id="uniform-undefined"><span><input type="radio" value="option2" name="optionsRadios1" style="opacity: 0;"></span></div>
+                                      Shimmy- Rapid side to side movement of the front wheels. </label>
+                                      <label class="radio">
+                                      <div class="radio" id="uniform-undefined"><span><input type="radio" value="option2" name="optionsRadios1" style="opacity: 0;"></span></div>
+                                      Sway- Gradual movement from side to side. </label>
+                                      <label class="radio">
+                                      <div class="radio" id="uniform-undefined"><span><input type="radio" value="option2" name="optionsRadios1" style="opacity: 0;"></span></div>
+                                      Vibration- Vehicle shakes. Ususally felt in the steering wheel or the seat. </label>
+                                    </div>
+                                 </div>
+                              </div>
+                            </div>
+                            </div>
+                            <div class="accordion-group">
+                            <div class="accordion-heading"><a href="#collapse_6" data-parent="#accordion2" data-toggle="collapse" class="accordion-toggle collapsed">Not Working</a></div>
+                            <div class="accordion-body collapse" id="collapse_6">
+                              <div class="accordion-inner padd20 MB20">
+                                <div class="control-group ">
+                                	<label class="control-label">What do you feel?</label>
+                                    <div class="controls">
+                                      <label class="radio">
+                                      <div class="radio" id="uniform-undefined"><span><input type="radio" value="option1" name="optionsRadios1" style="opacity: 0;"></span></div>
+                                      Drifts- Gradual movements to one side. </label>
+                                      <label class="radio">
+                                      <div class="radio" id="uniform-undefined"><span class="checked"><input type="radio" =""="" checked="" value="option2" name="optionsRadios1" style="opacity: 0;"></span></div>
+                                       Excessive play- Looseness, lack of response in the steering wheel. </label>
+                                      <label class="radio">
+                                      <div class="radio" id="uniform-undefined"><span><input type="radio" value="option2" name="optionsRadios1" style="opacity: 0;"></span></div>
+                                      Pulls- Sharp movement to one side. </label>
+                                      <label class="radio">
+                                      <div class="radio" id="uniform-undefined"><span><input type="radio" value="option2" name="optionsRadios1" style="opacity: 0;"></span></div>
+                                      Pulsation- Fluctuation of the brake pedal when the brakes are applied. </label>
+                                      <label class="radio">
+                                      <div class="radio" id="uniform-undefined"><span><input type="radio" value="option2" name="optionsRadios1" style="opacity: 0;"></span></div>
+                                      Shimmy- Rapid side to side movement of the front wheels. </label>
+                                      <label class="radio">
+                                      <div class="radio" id="uniform-undefined"><span><input type="radio" value="option2" name="optionsRadios1" style="opacity: 0;"></span></div>
+                                      Sway- Gradual movement from side to side. </label>
+                                      <label class="radio">
+                                      <div class="radio" id="uniform-undefined"><span><input type="radio" value="option2" name="optionsRadios1" style="opacity: 0;"></span></div>
+                                      Vibration- Vehicle shakes. Ususally felt in the steering wheel or the seat. </label>
+                                    </div>
+                                 </div>
+                              </div>
+                            </div>
+                            </div>
+                          </div>
+                          		<p>Add notes for mechanic</p>
+                                <textarea type="text" class="span12" value="" ></textarea>
+                                 <div class="space20"></div>
+                                <div class="accordion MB20 yourNego" id="accordion1">
+                                  <div class="accordion-group widgetLBox">
+                                    <div class="accordion-heading"><a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion1" href="#collapse_9">Inspection fee<span class="fright">Pending</span></a></div>
+                                    <div id="collapse_9" class="accordion-body collapse">
+                                      <div class="accordion-inner">&nbsp;</div>
+                                    </div>
+                                  </div>
+                                  <div class="accordion-group widgetLBox">
+                                    <div class="accordion-heading"><a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion1" href="#collapse_10">Total<span class="fright">Pending</span></a></div>
+                                    <div id="collapse_10" class="accordion-body collapse">
+                                      <div class="accordion-inner">&nbsp;</div>
+                                    </div>
+                                  </div>
+                              </div>
+                              <a href="#" class="btn btn-info fright">Add Job</a><a href="#" class="btn fright">Cancel</a>
+                              <div class="clearb"></div>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+		</section>
+	</div>
+</div>
+
+</div>
+
+<!--  ---------------- Footer Part -------------------------------------------------- -->
+<footer id="footer">
+      <div class="fixbar row-fluid">
+        <span class="span8"><a href="about-us.html">About us</a><a href="faq.html">FAQ</a><a href="terms-of-use.html">Terms of use</a><a href="privacy.html">Privacy Policy</a><a href="blog.html">Blog</a><a href="contact-us.html">Contact Us</a></span>
+        <div class="span3 fright"><span><a href="#"><i class="icon-facebook-sign FS30 MR5"></i></a><a href="#"><i class="icon-twitter-sign FS30 MR5"></i></a><a href="#"><i class="icon-google-plus-sign FS30"></i></a></span><span>Connect with us </span></div>
+        <div class="clearb"></div>
+      </div>
+    </footer>
+
+</body>
+</html>
