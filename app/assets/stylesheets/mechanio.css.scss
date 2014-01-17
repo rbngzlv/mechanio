@@ -60,6 +60,10 @@ a:hover {
   margin: 0
 }
 
+.hide {
+  display: none;
+}
+
 .header {
   background: #fff;
   border-radius: 0;
@@ -672,6 +676,10 @@ section {
   margin: 0 10px;
   position: relative;
 
+  .clickable {
+    cursor: pointer;
+  }
+
   .text-center {
     line-height: 20px;
 
@@ -695,6 +703,10 @@ section {
     + h5 {
       margin-bottom: -10px;
     }
+  }
+
+  .experience {
+    margin-bottom: -20px;
   }
 }
 
@@ -751,7 +763,6 @@ section {
 
   .rating {
     direction: rtl;
-    cursor: pointer;
 
     span {
       background: asset-url("sprite-png.png") no-repeat;
@@ -766,9 +777,7 @@ section {
       background-position: -4px -20px;
     }
 
-    span.full-star,
-    span:hover,
-    span:hover ~ span {
+    span.full-star {
       background-position: -20px -20px;
     }
   }

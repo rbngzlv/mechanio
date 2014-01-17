@@ -3,6 +3,7 @@
 --
 
 SET statement_timeout = 0;
+SET lock_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SET check_function_bodies = false;
@@ -523,7 +524,11 @@ CREATE TABLE mechanics (
     warranty_covered boolean DEFAULT false,
     qualification_verified boolean DEFAULT false,
     location_id integer,
-    business_location_id integer
+    business_location_id integer,
+    business_name character varying(255),
+    business_mobile_number character varying(255),
+    repair_work_classes text,
+    tradesperson_certificates text
 );
 
 
@@ -563,8 +568,8 @@ CREATE TABLE model_variations (
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     make_id integer,
-    display_title character varying(255),
     comment text,
+    display_title character varying(255),
     detailed_title character varying(255)
 );
 
@@ -1171,14 +1176,6 @@ ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regcl
 
 
 --
--- Data for Name: spatial_ref_sys; Type: TABLE DATA; Schema: public; Owner: -
---
-
-COPY spatial_ref_sys (srid, auth_name, auth_srid, srtext, proj4text) FROM stdin;
-\.
-
-
---
 -- Name: admins_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1526,27 +1523,6 @@ CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (v
 
 
 --
--- Name: geometry_columns_delete; Type: RULE; Schema: public; Owner: -
---
-
-CREATE RULE geometry_columns_delete AS ON DELETE TO geometry_columns DO INSTEAD NOTHING;
-
-
---
--- Name: geometry_columns_insert; Type: RULE; Schema: public; Owner: -
---
-
-CREATE RULE geometry_columns_insert AS ON INSERT TO geometry_columns DO INSTEAD NOTHING;
-
-
---
--- Name: geometry_columns_update; Type: RULE; Schema: public; Owner: -
---
-
-CREATE RULE geometry_columns_update AS ON UPDATE TO geometry_columns DO INSTEAD NOTHING;
-
-
---
 -- PostgreSQL database dump complete
 --
 
@@ -1700,8 +1676,12 @@ INSERT INTO schema_migrations (version) VALUES ('20131224174010');
 
 INSERT INTO schema_migrations (version) VALUES ('20131225151228');
 
+INSERT INTO schema_migrations (version) VALUES ('20140108105707');
+
 INSERT INTO schema_migrations (version) VALUES ('20140114132200');
 
 INSERT INTO schema_migrations (version) VALUES ('20140115140743');
+
+INSERT INTO schema_migrations (version) VALUES ('20140116101829');
 
 INSERT INTO schema_migrations (version) VALUES ('20140117081109');

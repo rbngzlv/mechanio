@@ -2,6 +2,7 @@ require 'spec_helper'
 
 feature 'dashboard page' do
   let(:mechanic) { create :mechanic, description: nil }
+  let(:reviews_block_content) { "#{mechanic.reviews} Reviews" }
 
   subject { page }
 
@@ -11,9 +12,13 @@ feature 'dashboard page' do
   end
 
   context 'should have dynamic content' do
-    include_examples("description block") do
-      let(:reviews_count) { "#{mechanic.reviews} Reviews" }
-      let(:profile) { mechanic }
+    specify 'comments count' do
+      page.should have_selector 'span', text: reviews_block_content
+    end
+
+    specify 'default values when user is new' do
+      page.should have_selector 'h4', text: mechanic.full_name
+      page.should have_content "Add some information about yourself"
     end
   end
 
@@ -41,6 +46,28 @@ feature 'dashboard page' do
         should have_content "#{job.user.full_name}"
         should have_content "#{job.scheduled_at.to_s(:date_time)}"
       end
+    end
+  end
+
+  specify 'N review should be link to profile' do
+    visit mechanics_dashboard_path
+    click_link reviews_block_content
+    should have_selector 'li.active', text: 'My Profile'
+  end
+
+  context 'edit avatar by clicking on the profile picture' do
+    specify 'form can upload photo' do
+      image_path = "#{Rails.root}/spec/features/fixtures/test_img.jpg"
+      visit mechanics_dashboard_path
+      attach_file('mechanic_avatar', image_path)
+      expect {
+        click_button 'Save'
+      }.to change { mechanic.reload.avatar? }.from(false).to(true)
+    end
+
+    specify 'form should be hidden' do
+      should have_selector '#mechanic_avatar', visible: false
+      should have_selector 'input[type=submit]', visible: false
     end
   end
 end

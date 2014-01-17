@@ -52,8 +52,8 @@ feature 'mechanic profile page' do
         attach_file('mechanic_avatar', "#{Rails.root}/spec/features/fixtures/test_img.jpg")
         click_button 'Save'
 
-        should have_content 'Your profile succesfully updated.'
-        find('img.avatar')['src'].should have_content mechanic.reload.avatar_url :thumb
+        should have_content 'Your profile successfully updated.'
+        find('.mechanic_avatar img')['src'].should have_content mechanic.reload.avatar_url :thumb
       end
     end
   end

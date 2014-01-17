@@ -7,7 +7,7 @@ class Mechanics::ProfilesController < Mechanics::ApplicationController
 
   def update
     if current_mechanic.update_attributes(permitted_params)
-      redirect_to mechanics_profile_path, notice: 'Your profile succesfully updated.'
+      redirect_to :back, notice: 'Your profile successfully updated.'
     else
       render :edit
     end
