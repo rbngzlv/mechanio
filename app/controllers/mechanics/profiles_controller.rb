@@ -10,6 +10,7 @@ class Mechanics::ProfilesController < Mechanics::ApplicationController
     if current_mechanic.update_attributes(permitted_params)
       redirect_to :back, notice: 'Your profile successfully updated.'
     else
+      current_mechanic.build_locations
       render :edit
     end
   end
