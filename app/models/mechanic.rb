@@ -39,7 +39,7 @@ class Mechanic < ActiveRecord::Base
     end
   end
 
-  def build_associations
+  def build_locations
     build_location unless location
     build_business_location unless business_location
   end

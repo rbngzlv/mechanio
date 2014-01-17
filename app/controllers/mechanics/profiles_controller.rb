@@ -3,7 +3,7 @@ class Mechanics::ProfilesController < Mechanics::ApplicationController
   end
 
   def edit
-    current_mechanic.build_associations
+    current_mechanic.build_locations
   end
 
   def update

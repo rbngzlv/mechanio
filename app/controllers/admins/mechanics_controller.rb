@@ -8,7 +8,7 @@ class Admins::MechanicsController < Admins::ApplicationController
 
   def new
     @mechanic = Mechanic.new
-    @mechanic.build_associations
+    @mechanic.build_locations
   end
 
   def create
@@ -24,7 +24,7 @@ class Admins::MechanicsController < Admins::ApplicationController
   end
 
   def edit
-    @mechanic.build_associations
+    @mechanic.build_locations
   end
 
   def update
