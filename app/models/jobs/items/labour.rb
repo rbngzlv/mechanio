@@ -6,7 +6,7 @@ class Labour < ActiveRecord::Base
 
   has_one :task_item, as: :itemable
 
-  validates :description, :duration_hours, presence: true
+  validates :duration_hours, presence: true
   validates :duration_hours, inclusion: { in: Labour::HOURS }
   validates :duration_minutes, inclusion: { in: Labour::MINUTES }
 

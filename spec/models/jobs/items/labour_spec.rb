@@ -6,13 +6,12 @@ describe Labour do
 
   it { should have_one :task_item }
 
-  it { should validate_presence_of :description }
   it { should validate_presence_of :duration_hours }
   it { should ensure_inclusion_of(:duration_hours).in_array(Labour::HOURS) }
   it { should ensure_inclusion_of(:duration_minutes).in_array(Labour::MINUTES) }
 
   it 'saves hours and minutes' do
-    labour = Labour.create(description: 'test', duration_hours: '1', duration_minutes: '30')
+    labour = Labour.create(duration_hours: '1', duration_minutes: '30')
     labour.reload.tap do |l|
       l.duration_hours.should eq 1
       l.duration_minutes.should eq 30

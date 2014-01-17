@@ -9,8 +9,8 @@ describe 'User register', :js do
     end
     within '#social-login-modal' do
 
-      page.should have_link 'facebook-link', href: '/users/auth/facebook'
-      page.should have_link 'gmail-link', href: '/users/auth/google_oauth2'
+      find('a.facebook-link')[:href].should be_eql '/users/auth/facebook'
+      find('a.gmail-link')[:href].should be_eql '/users/auth/google_oauth2'
       page.should have_content 'Sign up with Mechanio to book reliable mobile mechanics'
       page.should have_link 'Use regular email sign up'
       page.should have_link 'Log in'
@@ -28,6 +28,7 @@ describe 'User register', :js do
         click_link 'Sign up'
       end
       click_link 'Use regular email sign up'
+      sleep 0.2
     end
 
     it 'shows validation errors' do
@@ -43,7 +44,7 @@ describe 'User register', :js do
         fill_in 'First name', with: 'First'
         fill_in 'Last name', with: 'Last'
         fill_in 'Email', with: 'user@host.com'
-        fill_in 'Password', with: 'password'
+        fill_in 'Password (Minimum 8 Characters)', with: 'password'
         click_button 'Sign up'
       end
 

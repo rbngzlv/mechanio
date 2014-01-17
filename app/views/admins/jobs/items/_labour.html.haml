@@ -8,12 +8,12 @@
       %a.delete-item{ href: '', 'ng-click' => 'item.delete()' }
         %i.glyphicon.glyphicon-remove
     .desc
-      = i.input :description, placeholder: 'Labour description', as: :string, input_html: { value: '{{item.itemable.description}}' }
+      Labour
     .subtotal
       = i.input :duration_hours, collection: Labour::hour_options, include_blank: false, input_html: { class: 'input-sm labour-hours', 'ng-model' => 'item.itemable.duration_hours' }
       %span :
       = i.input :duration_minutes, collection: Labour::minute_options, include_blank: false, input_html: { class: 'input-sm labour-minutes', 'ng-model' => 'item.itemable.duration_minutes' }
-      %span x {{item.itemable.hourly_rate | currency}}
+      %span.hourly-rate x {{item.itemable.hourly_rate | currency}}
     .pull-right
       .total
         .form-control-static {{item.total() | cost_or_pending}}

@@ -1,0 +1,14 @@
+.tasks.clearfix
+  .panel.panel-default.panel-rounded.task.clearfix{ 'ng-repeat' => 'task in job.tasks', 'ng-hide' => 'task.isDeleted()' }
+    = render partial: 'task', locals: { f: f }
+
+.pull-right
+  .grand-total
+    %dl.dl-horizontal
+      %dt Job total
+      %dd {{job.total() | cost_or_pending}}
+
+.pull-left
+  %a.btn.btn-sm.btn-primary{ href: '', 'ng-disabled' => 'job.hasService()', 'ng-click' => 'job.addTask("Service")' } Add service
+  %a.btn.btn-sm.btn-primary{ href: '', 'ng-click' => 'job.addTask("Repair")' } Add repair
+

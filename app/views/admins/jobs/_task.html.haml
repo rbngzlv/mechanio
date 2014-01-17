@@ -37,7 +37,7 @@
           %a{ href: '', 'ng-click' => 'task.addItem("Part")' }
             %i.glyphicon.glyphicon-cog
             Add parts
-          %a{ href: '', 'ng-click' => 'task.addItem("Labour")' }
+          %a{ href: '', 'ng-click' => 'task.addItem("Labour")', 'ng-hide' => 'task.hasLabour()' }
             %i.glyphicon.glyphicon-time
             Add labour
           %a{ href: '', 'ng-click' => 'task.addItem("FixedAmount")' }
