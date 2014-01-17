@@ -42,4 +42,26 @@ feature 'mechanic profile page' do
       should_not have_css '.verified-icon.disabled.icon-book'
     end
   end
+
+  context 'should be editable' do
+    before { visit edit_mechanics_profile_path }
+
+    scenario "fail" do
+      fill_in 'mechanic_first_name', with: ''
+      click_button "Save"
+
+      should have_content 'Please review the problems below'
+      should have_selector '.has-error', text: "can't be blank"
+    end
+
+    context 'success' do
+      scenario "upload avatar" do
+        attach_file('mechanic_avatar', "#{Rails.root}/spec/features/fixtures/test_img.jpg")
+        click_button 'Save'
+
+        should have_content 'Your profile successfully updated.'
+        find('.mechanic_avatar img')['src'].should have_content mechanic.reload.avatar_url :thumb
+      end
+    end
+  end
 end
