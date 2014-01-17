@@ -14,7 +14,8 @@ describe 'User login', :js do
       end
     end
 
-    it { should have_link "Social connections" }
+    it { should have_selector "a.facebook-link"}
+    it { should have_selector "a.gmail-link"}
 
     it 'shows an error on invalid login' do
       login_with email: 'unknown@host.com', password: 'password'

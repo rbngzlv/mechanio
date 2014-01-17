@@ -1,0 +1,14 @@
+.row
+  .col-md-12
+    .panel.panel-default.panel-rounded
+      .panel-heading.clearfix
+        %h4.panel-title
+          %i.glyphicon.glyphicon-user
+          = mechanic.full_name
+      .panel-body.modal-body
+        .row
+          = render 'shared/mechanic/profile_description', mechanic: current_mechanic
+        .row
+          .review-block
+            .panel-body
+              = render 'shared/comments', title: 'Customer Reviews', comments: mechanic.comments

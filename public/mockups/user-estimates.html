@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--<![endif]-->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Estimates</title>
+<link rel="shortcut icon" href="images/favicon.ico">
+<!--[if lt IE 9]><script src="js/html5shiv.js"></script><script src="js/respond.js"></script><![endif]-->
+<link href="css/style.css" type="text/css" rel="stylesheet" />
+<script src="js/scripts.js"></script>
+<script>jQuery(document).ready(function(){App.init()});</script>
+</head>
+
+<body>
+<div id="wrap">
+<!--  ---------------- Header Part -------------------------------------------------- -->
+<header class="navbar navbar-inverse">
+	<div class="navbar-inner">
+    	<div class="fixbar row-fluid">
+        	<a class="brand" href="index.html"><img src="images/logo.png" alt="Mechanio"></a>
+        <div class="fright">
+        	<div class="fright"><a href="#" class="btn btn-link">How IT Works</a><button data-target=".nav-collapse" data-toggle="collapse" class="btn btn-navbar collapsed" type="button">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <div class="top-nav fright MALL5">
+        		<ul class="nav pull-right top-menu">
+          <li class="dropdown"><a href="#" class="dropdown-toggle margin0 padd0" data-toggle="dropdown"><span class="username">Andrew</span><b class="caret"></b></a>
+            <ul class="dropdown-menu">
+          			<li><a  href="user-dashboard.html"><span class="icon-box"><i class="icon-dashboard"></i></span> Dashboard</a></li>
+                <li><a  href="user-cars.html"><span class="icon-box"><i class="icon-truck"></i></span> My Cars</a></li>
+                <li><a  href="user-appointments.html"><span class="icon-box"><i class="icon-calendar"></i></span> My Appointments</a></li>
+                <li><a  href="user-estimates.html"><span class="icon-box"><i class="icon-list"></i></span> My Estimates</a></li>
+                 <li><a  href="user-profile.html"><span class="icon-box"><i class="icon-user"></i></span> My Profile</a></li>
+                 <li><a  href="user-settings.html"><span class="icon-box"><i class="icon-cog"></i></span> Settings</a></li>
+              <li class="divider"></li>
+              <li><a href="./login.html"><i class="icon-key"></i> Log Out</a></li>
+            </ul>
+          </li>
+        </ul>
+		      </div>
+            </div>
+            <div class="space5"></div>
+            <div class="NeedHelp AlignRight">Need Help ? / Call 1800 123 1234</div>
+        </div>
+    	</div>
+    </div>
+</header>
+
+<div class="container-narrow">
+	<div class="row-fluid">
+    	<!--  ---------------- Left Navigation Part -------------------------------------------------- -->
+		<div id="sidebar" class="nav-collapse collapse">
+			<ul class="sidebar-menu">
+      			<li><a  href="user-dashboard.html"><span class="icon-box"><i class="icon-dashboard"></i></span> Dashboard</a></li>
+                <li><a  href="user-cars.html"><span class="icon-box"><i class="icon-truck"></i></span> My Cars</a></li>
+                <li><a  href="user-appointments.html"><span class="icon-box"><i class="icon-calendar"></i></span> My Appointments</a></li>
+                <li class="active"><a  href="user-estimates.html"><span class="icon-box"><i class="icon-list"></i></span> My Estimates <span class="badge badge-important">2</span></a></li>
+                 <li><a  href="user-profile.html"><span class="icon-box"><i class="icon-user"></i></span> My Profile</a></li>
+                 <li><a  href="user-settings.html"><span class="icon-box"><i class="icon-cog"></i></span> Settings</a></li>
+			 </ul>       
+    	</div>
+
+        <!--  ---------------- Right Content Part -------------------------------------------------- -->
+        <section id="main-content">
+        <!--Confirm Delete Light Box Start -->
+            <div aria-hidden="true" aria-labelledby="myModalLabel3" role="dialog" tabindex="-1" class="modal hide fade" id="myModal3" style="display: none;">
+             <div class="modal-header greybox"><button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button><h3 id="myModalLabel1">Please tell us why you are cancelling</h3></div>
+            <div class="modal-body ">
+                <div class="row-fluid">
+                    <div class="controls offset2 span8">
+                      <label class="radio line"><input type="radio" name="optionsRadios2" value="option1" />
+                      I plan to get this service in the future </label>
+                      <label class="radio line"><input type="radio" name="optionsRadios2" value="option2" checked/="" />
+                      I no longer need this service </label>
+                      <label class="radio line"><input type="radio" name="optionsRadios2" value="option2" />
+                      A local shop gave me a lower quote. </label>
+                      <label class="radio line"><input type="radio" name="optionsRadios2" value="option2" />
+                      Other </label>
+                      <textarea class="AddNotes span12" name="" type="text"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer"><button class="btn btn-primary span8 offset2" aria-hidden="true" data-dismiss="modal">Confirm Delete</button></div>
+            </div>
+        <!--Confirm Delete Light Box End -->
+          <div class="span12 greybox margin0">
+            <h3 class="span3">Show Estimates for</h3>
+             <select class="span7 MALL5" data-placeholder="All my cars" tabindex="1">
+                <option value="All my cars" selected="">  All my cars</option>
+<option value=" 2000 Toyota Corolla L4-1.8L">  2000 Toyota Corolla L4-1.8L</option>
+<option value=" 2010 Kia Optima L4-2.4L">  2010 Kia Optima L4-2.4L</option>
+<option value=" 2010 Ford F10 Lightning V8-5.4L">  2010 Ford F10 Lightning V8-5.4L</option>
+<option value=" Manage Cars">  Manage Cars</option>
+              </select>
+        </div>
+         <div class="space20">&nbsp;</div>
+           <div class="row-fluid"> <div class="widget">
+            <div class="widget-title">
+                <h4><span class="text-info">Estimate Requested:</span> <small>May 6, 2013 (yesterday)</small></h4>
+                <span class="tools"><a class="icon-chevron-down" href="javascript:;"></a>
+                <a data-toggle="modal" role="button" href="#myModal3" class="icon-remove"></a></span>
+             </div>
+             <div class="widget-body GBheight">
+                <div class="span12 margin0 BorderDotBot">
+                    <span class="span2"><b>Car:</b></span>
+                    <span class="span9">2000 Toyota Corolla L4-1.8L</span>
+                    <span class="span2 margin0"><b>Services:</b></span>
+                    <span class="span6">Car is making a noice (inspection)</span>
+                    <span class="span2">1.0 hour</span>
+                    <span class="span2">$75.00</span>
+                </div>
+                 <div class="span12 margin0">
+                    <span class="span8 margin0"><b>Billing</b></span>
+                    <span class="span2 BorderDotBot">Labour</span>
+                    <span class="span2 BorderDotBot">$75.00</span>
+                </div>
+                <div class="span12 margin0">
+                    <span class="span8">&nbsp;</span>
+                    <span class="span2"><b>Total Fees &nbsp;&nbsp;</b></span>
+                    <span class="span2"><b>$75.00</b></span>
+                </div>
+                <a href="search-result.html" class="btn btn-success fright MALL5">Book Appointments</a>
+                <div class="clearb"></div>
+             </div>
+          </div> </div>
+           <div class="row-fluid"> <div class="widget">
+            <div class="widget-title">
+                <h4><span class="text-info">Estimate Requested:</span> <small>May 6, 2013 (yesterday)</small></h4>
+                <span class="tools"><a class="icon-chevron-down" href="javascript:;"></a>
+                <a data-toggle="modal" role="button" href="#myModal3" class="icon-remove"></a></span>
+             </div>
+             <div class="widget-body GBheight">
+                <div class="span12 margin0 BorderDotBot">
+                    <span class="span2"><b>Car:</b></span>
+                    <span class="span9">2000 Toyota Corolla L4-1.8L</span>
+                    <span class="span2 margin0"><b>Services:</b></span>
+                    <span class="span6">Car is making a noice (inspection)</span>
+                    <span class="span2">1.0 hour</span>
+                    <span class="span2">$75.00</span>
+                </div>
+                 <div class="span12 margin0">
+                    <span class="span8 margin0"><b>Billing</b></span>
+                    <span class="span2 BorderDotBot">Labour</span>
+                    <span class="span2 BorderDotBot">$75.00</span>
+                </div>
+                <div class="span12 margin0">
+                    <span class="span8">&nbsp;</span>
+                    <span class="span2"><b>Total Fees &nbsp;&nbsp;</b></span>
+                    <span class="span2"><b>$75.00</b></span>
+                </div>
+                <a href="search-result.html" class="btn btn-success fright MALL5">Book Appointments</a>
+                <div class="clearb"></div>
+             </div>
+          </div> </div>
+        </section>
+	</div>
+</div>
+
+</div>
+
+<!--  ---------------- Footer Part -------------------------------------------------- -->
+<footer id="footer">
+      <div class="fixbar row-fluid">
+        <span class="span8"><a href="about-us.html">About us</a><a href="faq.html">FAQ</a><a href="terms-of-use.html">Terms of use</a><a href="privacy.html">Privacy Policy</a><a href="blog.html">Blog</a><a href="contact-us.html">Contact Us</a></span>
+        <div class="span3 fright"><span><a href="#"><i class="icon-facebook-sign FS30 MR5"></i></a><a href="#"><i class="icon-twitter-sign FS30 MR5"></i></a><a href="#"><i class="icon-google-plus-sign FS30"></i></a></span><span>Connect with us </span></div>
+        <div class="clearb"></div>
+      </div>
+    </footer>
+
+</body>
+</html>

@@ -2,7 +2,7 @@ $(document).ready(function(){
   $('[data-toggle = "tooltip"]').tooltip();
 
   // customize bootstrap file_upload_plugin
-  $('input[type=file]').bootstrapFileInput();
+  $('input[type=file]:not(.js-skip-bootstrap-fileinput)').bootstrapFileInput();
   $('.file-input-wrapper').addClass('btn-success col-md-3');
 
   $('.mobile-nav').click(function(){

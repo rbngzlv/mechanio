@@ -60,6 +60,10 @@ a:hover {
   margin: 0
 }
 
+.hide {
+  display: none;
+}
+
 .header {
   background: #fff;
   border-radius: 0;
@@ -672,6 +676,10 @@ section {
   margin: 0 10px;
   position: relative;
 
+  .clickable {
+    cursor: pointer;
+  }
+
   .text-center {
     line-height: 20px;
 
@@ -695,6 +703,10 @@ section {
     + h5 {
       margin-bottom: -10px;
     }
+  }
+
+  .experience {
+    margin-bottom: -20px;
   }
 }
 
@@ -751,7 +763,6 @@ section {
 
   .rating {
     direction: rtl;
-    cursor: pointer;
 
     span {
       background: asset-url("sprite-png.png") no-repeat;
@@ -766,9 +777,7 @@ section {
       background-position: -4px -20px;
     }
 
-    span.full-star,
-    span:hover,
-    span:hover ~ span {
+    span.full-star {
       background-position: -20px -20px;
     }
   }
@@ -861,6 +870,14 @@ section {
 
     select:nth-child(3) {
       width: 18%;
+    }
+    &.dob, &.date-format-d-m-y {
+      select:nth-child(1) {
+        width: 18%;
+      }
+      select:nth-child(3) {
+        width: 22%;
+      }
     }
   }
 
@@ -1438,6 +1455,24 @@ form {
     overflow-y: scroll;
     overflow-x: hidden;
     max-height: 500px;
+  }
+}
+
+#login-modal {
+  p.login-type-separator {
+    width: 95%;
+    border-bottom: 1px dotted lightgrey;
+    margin: -5px auto 5px;
+  }
+}
+
+#register-modal {
+  .simple_form.new_user .user_first_name {
+    padding-left: 0;
+  }
+
+  .simple_form.new_user .user_last_name {
+    padding: 0;
   }
 }
 

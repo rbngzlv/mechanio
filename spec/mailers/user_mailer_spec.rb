@@ -26,6 +26,7 @@ describe UserMailer do
     mail.from.should      eq from
     mail.subject.should   eq 'Your booking with Mechanio is confirmed'
     mail.body.encoded.should match users_appointments_url
+    mail.body.encoded.should match "ID: #{job.uid}"
   end
 
   specify '#job_quote_changed' do

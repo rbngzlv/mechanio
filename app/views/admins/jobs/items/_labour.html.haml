@@ -4,17 +4,16 @@
   = ti.hidden_field :itemable_type, value: 'Labour'
   = ti.simple_fields_for :itemable_attributes, Labour.new, defaults: { label: false, wrapper: false, input_html: { class: 'input-sm', required: true } } do |i|
     = i.hidden_field :id, value: '{{item.itemable.id}}'
+    .actions
+      %a.delete-item{ href: '', 'ng-click' => 'item.delete()' }
+        %i.glyphicon.glyphicon-remove
     .desc
-      = i.input :description, placeholder: 'Description', as: :string, input_html: { value: '{{item.itemable.description}}' }
+      Labour
     .subtotal
-      = i.input :duration_hours, as: :select, collection: Labour::HOURS, include_blank: 'Hours', input_html: { class: 'input-sm labour-hours', 'ng-model' => 'item.itemable.duration_hours' }
+      = i.input :duration_hours, collection: Labour::hour_options, include_blank: false, input_html: { class: 'input-sm labour-hours', 'ng-model' => 'item.itemable.duration_hours' }
       %span :
-      = i.input :duration_minutes, as: :select, collection: Labour::MINUTES, include_blank: 'Mins', input_html: { class: 'input-sm labour-minutes', 'ng-model' => 'item.itemable.duration_minutes' }
-      %span x {{item.itemable.hourly_rate | currency}}
+      = i.input :duration_minutes, collection: Labour::minute_options, include_blank: false, input_html: { class: 'input-sm labour-minutes', 'ng-model' => 'item.itemable.duration_minutes' }
+      %span.hourly-rate x {{item.itemable.hourly_rate | currency}}
     .pull-right
       .total
-        .form-control-static {{item.itemable.cost | currency}}
-      .actions
-        %a.delete-item{ href: '', 'ng-click' => 'deleteItem(item)' }
-          %i.glyphicon.glyphicon-remove
-
+        .form-control-static {{item.total() | cost_or_pending}}

@@ -19,7 +19,6 @@ feature 'mechanic signin' do
     scenario 'first success login' do
       signin_as_mechanic mechanic
 
-      should have_content('Signed in successfully.')
       should have_selector('h4', text: 'Settings')
       should have_selector('li.active', text: 'Settings')
     end
@@ -30,7 +29,6 @@ feature 'mechanic signin' do
       visit new_mechanic_session_path
       signin_as_mechanic mechanic
 
-      should have_content('Signed in successfully.')
       should have_selector('h4', text: mechanic.full_name)
       should have_selector('li.active', text: 'Dashboard')
     end

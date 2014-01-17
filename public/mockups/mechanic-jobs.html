@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--<![endif]-->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Jobs</title>
+<link rel="shortcut icon" href="images/favicon.ico">
+<!--[if lt IE 9]><script src="js/html5shiv.js"></script><script src="js/respond.js"></script><![endif]-->
+<link href="css/style.css" type="text/css" rel="stylesheet" />
+<link href="assets/fancybox/source/jquery.fancybox.css" rel="stylesheet" />
+<script src="js/scripts.js"></script>
+<script src="assets/fancybox/source/jquery.fancybox.pack.js"></script>
+<script>jQuery(document).ready(function(){App.init()});
+var hash = document.location.hash;
+var prefix = "tab_";
+if (hash) {
+    $('.nav-tabs a[href='+hash.replace(prefix,"")+']').tab('show');
+} 
+// Change hash for page-reload
+$('.nav-tabs a').on('shown', function (e) {
+	window.location.hash = e.target.hash.replace("#", "#" + prefix);
+});
+
+</script>
+<script>jQuery(document).ready(function(){App.init()});</script>
+</head>
+
+<body>
+<div id="wrap">
+<!--  ---------------- Header Part -------------------------------------------------- -->
+<header class="navbar navbar-inverse">
+	<div class="navbar-inner">
+    	<div class="fixbar row-fluid">
+        	<a class="brand" href="index.html"><img src="images/logo.png" alt="Mechanio"></a>
+        	<div class="fright">
+        	<div class="fright"><a href="#" class="btn btn-link">How IT Works</a><button data-target=".nav-collapse" data-toggle="collapse" class="btn btn-navbar collapsed" type="button">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <div class="top-nav fright MALL5">
+        		<ul class="nav pull-right top-menu">
+                  <li class="dropdown"><a href="#" class="dropdown-toggle margin0 padd0" data-toggle="dropdown"><span class="username">Mechanic Name</span><b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                    		<li><a  href="mechanic-dashboard.html"><span class="icon-box"><i class="icon-dashboard"></i></span> Dashboard</a></li>
+                            <li><a  href="mechanic-profile.html"><span class="icon-box"><i class="icon-user"></i></span> My Profile</a></li>
+                            <li><a  href="mechanic-jobs.html"><span class="icon-box"><i class="icon-thumbs-up"></i></span> My Jobs</a></li>
+                            <li><a  href="mechanic-payout.html"><span class="icon-box"><i class="icon-credit-card"></i></span> Payout Information</a></li>
+                            <li><a  href="mechanic-settings.html"><span class="icon-box"><i class="icon-calendar"></i></span> Settings</a></li>
+                      <li class="divider"></li>
+                      <li><a href="./login.html"><i class="icon-key"></i> Log Out</a></li>
+                    </ul>
+                  </li>
+                </ul>
+		      </div>
+            </div>
+            <div class="space5"></div>
+            <div class="NeedHelp AlignRight">Need Help ? / Call 1800 123 1234</div>
+        </div>
+    	</div>
+    </div>
+</header>
+
+<!--  ---------------- Content Part -------------------------------------------------- -->
+<div class="container-narrow">
+	<div class="row-fluid">
+    	<!--  ---------------- Left Navigation Part -------------------------------------------------- -->
+		<div id="sidebar" class="nav-collapse collapse">
+			<ul class="sidebar-menu">
+            	<li><a  href="mechanic-dashboard.html"><span class="icon-box"><i class="icon-dashboard"></i></span> Dashboard</a></li>
+                <li><a  href="mechanic-profile.html"><span class="icon-box"><i class="icon-user"></i></span> My Profile</a></li>
+                <li class="active"><a  href="mechanic-jobs.html"><span class="icon-box"><i class="icon-thumbs-up"></i></span> My Jobs</a></li>
+                <li><a  href="mechanic-payout.html"><span class="icon-box"><i class="icon-credit-card"></i></span> Payout Information</a></li>
+                <li><a  href="mechanic-settings.html"><span class="icon-box"><i class="icon-calendar"></i></span> Settings</a></li>
+			 </ul>       
+    	</div>
+        
+        <!--  ---------------- Right Content Part -------------------------------------------------- -->
+    <section id="main-content">
+    <!-- Cancel Light Box Start -->
+    
+    <div aria-hidden="true" aria-labelledby="myModalLabel1" role="dialog" tabindex="-1" class="modal hide fade" id="myModal2" style="display: none;">
+     <div class="modal-header greybox"><button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button><h3 id="myModalLabel1">Cancel Job</h3></div>
+    <div class="modal-body "><p>Too many cancellations may lead to the suspension of your Mechanio account!</p></div>
+    <div class="modal-footer"><button class="btn fleft" aria-hidden="true" data-dismiss="modal">Back</button><button class="btn btn-primary fright" aria-hidden="true" data-dismiss="modal">Cancel Job</button></div>
+    </div>
+    <!-- Cancel Light Box End -->
+        <div class="widget">
+            <div class="widget-body">
+                <div class="tabbable tabbable-custom">
+                  <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#scheduled-jobs">Upcoming Jobs</a></li>
+                    <li><a data-toggle="tab" href="#past-jobs">Completed Jobs</a></li>
+                  </ul>
+                  <div class="tab-content Focscolor">
+                    <!-- Scheduled Jobs Tab-->
+                    <div id="scheduled-jobs" class="tab-pane active">
+                        <div class="widget MALL5">
+                            <div class="widget-title">
+                                <h4><span class="text-info">Nandjroo Andrew</span></h4>
+                             </div>
+                             <div class="widget-body GBheight">
+                                <div class="alert alert-info">
+                                    <i class="icon-time"></i><small> 11 : 00 AM,</small> May 8, 2013 (Friday)                                        <i class="icon-map-marker MLeft10"></i> 123 ABC st, Mountain View, CA, 92012
+                                </div>
+                                <div class="span12 margin0 BorderDotBot">
+                                    <span class="span2"><b>Car:</b></span>
+                                    <span class="span9">2000 Toyota Corolla L4-1.8L</span>
+                                    <div class="space10">&nbsp;</div>
+                                    <span class="span2 margin0"><b>Services:</b></span>
+                                    <span class="span6">Car is making a noice (inspection)</span>
+                                    <span class="span2">Mechanic Fee</span>
+                                    <span class="span2 AlignRight">$90.00</span>
+                                </div>
+    
+                                 <div class="span12 margin0">
+                                    <span class="span8 margin0"></span>
+                                    <span class="span2 BorderDotBot">Parts Cost</span>
+                                    <span class="span2 AlignRight BorderDotBot">$90.00</span>
+                                </div>
+                                <div class="span12 margin0">
+                                    <span class="span8">&nbsp;</span>
+                                    <span class="span2"><b>Total Fees</b></span>
+                                    <span class="span2 AlignRight"><b>$90.00</b></span>
+                                </div>
+                                 <a  href="scheduled-job-details.html" class="btn btn-success fright">View Details</a>
+                                <div class="clearb"></div>
+                             </div>
+                          </div>
+                         <div class="space10"></div>
+                        <div class="widget MALL5">
+                            <div class="widget-title">
+                                <h4><span class="text-info">Nandjroo Andrew</span></h4>
+                             </div>
+                             <div class="widget-body GBheight">
+                                <div class="alert alert-info">
+                                    <i class="icon-time"></i><small> 11 : 00 AM,</small> May 8, 2013 (Friday)                                        <i class="icon-map-marker MLeft10"></i> 123 ABC st, Mountain View, CA, 92012
+                                </div>
+                                <div class="span12 margin0 BorderDotBot">
+                                    <span class="span2"><b>Car:</b></span>
+                                    <span class="span9">2000 Toyota Corolla L4-1.8L</span>
+                                    <div class="space10">&nbsp;</div>
+                                    <span class="span2 margin0"><b>Services:</b></span>
+                                    <span class="span6">Car is making a noice (inspection)</span>
+                                    <span class="span2">Mechanic Fee</span>
+                                    <span class="span2 AlignRight">$90.00</span>
+                                </div>
+    
+                                 <div class="span12 margin0">
+                                    <span class="span8 margin0"></span>
+                                    <span class="span2 BorderDotBot">Parts Cost</span>
+                                    <span class="span2 AlignRight BorderDotBot">$90.00</span>
+                                </div>
+                                <div class="span12 margin0">
+                                    <span class="span8">&nbsp;</span>
+                                    <span class="span2"><b>Total Fees</b></span>
+                                    <span class="span2 AlignRight"><b>$90.00</b></span>
+                                </div>
+                                <a  href="scheduled-job-details.html" class="btn btn-success fright">View Details</a>
+                                <div class="clearb"></div>
+                             </div>
+                          </div>
+                    </div>
+                    <!--  Post Job Tab -->
+                    <div id="past-jobs" class="tab-pane">
+                          <table class="table table-striped table-bordered" id="sample_1">
+                                <thead>
+                                  <tr>
+                                  	<th>Client Name</th>
+                                    <th>Car</th>
+                                    <th>Services</th>
+                                    <th>Labour Costs</th>
+                                    <th>Parts Costs</th>
+                                    <th>Total Costs</th>
+                                    <th colspan="2">Option</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr class="odd gradeX">	
+									<td>Nandjroo Andrew</td>
+                                    <td >2000 Toyota Corolla L4-1.8L</td>
+                                    <td>Car is making a noice (inspection)</td>
+                                    <td>$90.00</td>
+                                    <td>$90.00</td>
+                                    <td>$180.00</td>
+                                    <td class="ActionIcons" nowrap><a href="#" data-original-title="Date & Time" data-content="11 : 00 AM, May 8, 2013 (Friday)" data-placement="top" data-trigger="hover" class="popovers"><i class="icon-time"></i></a><a href="#" data-original-title="Address" data-content="123 ABC st, Mountain View, CA, 92012" data-placement="top" data-trigger="hover" class="popovers"><i class="icon-map-marker"></i></a><a href="images/receipt.jpg" data-rel="fancybox-button" class="tooltips fancybox-button" data-placement="top" data-original-title="View Recipt"><i class="icon-picture"></i></a></td>
+                                    <td><a href="mechanic-completed-job.html" class="btn padd0 btn-info">View Details</a></td>
+                                  </tr>
+                                  <tr class="odd gradeX">	
+									<td>Nandjroo Andrew</td>
+                                    <td >2000 Toyota Corolla L4-1.8L</td>
+                                    <td>Car is making a noice (inspection)</td>
+                                    <td>$90.00</td>
+                                    <td>$90.00</td>
+                                    <td>$180.00</td>
+                                    <td class="ActionIcons" nowrap><a href="#" data-original-title="Date & Time" data-content="11 : 00 AM, May 8, 2013 (Friday)" data-placement="top" data-trigger="hover" class="popovers"><i class="icon-time"></i></a><a href="#" data-original-title="Address" data-content="123 ABC st, Mountain View, CA, 92012" data-placement="top" data-trigger="hover" class="popovers"><i class="icon-map-marker"></i></a><a href="images/receipt.jpg" data-rel="fancybox-button" class="tooltips fancybox-button" data-placement="top" data-original-title="View Recipt"><i class="icon-picture"></i></a></td>
+                                     <td><a href="mechanic-completed-job.html" class="btn padd0 btn-info">View Details</a></td>
+                                  </tr>
+                                   <tr class="odd gradeX">	
+									<td>Nandjroo Andrew</td>
+                                    <td >2000 Toyota Corolla L4-1.8L</td>
+                                    <td>Car is making a noice (inspection)</td>
+                                    <td>$90.00</td>
+                                    <td>$90.00</td>
+                                    <td>$180.00</td>
+                                    <td class="ActionIcons" nowrap><a href="#" data-original-title="Date & Time" data-content="11 : 00 AM, May 8, 2013 (Friday)" data-placement="top" data-trigger="hover" class="popovers"><i class="icon-time"></i></a><a href="#" data-original-title="Address" data-content="123 ABC st, Mountain View, CA, 92012" data-placement="top" data-trigger="hover" class="popovers"><i class="icon-map-marker"></i></a><a href="images/receipt.jpg" data-rel="fancybox-button" class="tooltips fancybox-button" data-placement="top" data-original-title="View Recipt"><i class="icon-picture"></i></a></td>
+                                     <td><a href="mechanic-completed-job.html" class="btn padd0 btn-info">View Details</a></td>
+                                  </tr>
+                                </tbody>
+                              </table>     
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+</div>
+
+</div>
+<!--  ---------------- Footer Part -------------------------------------------------- -->
+<footer id="footer">
+      <div class="fixbar row-fluid">
+        <span class="span8"><a href="about-us.html">About us</a><a href="faq.html">FAQ</a><a href="terms-of-use.html">Terms of use</a><a href="privacy.html">Privacy Policy</a><a href="blog.html">Blog</a><a href="contact-us.html">Contact Us</a></span>
+        <div class="span3 fright"><span><a href="#"><i class="icon-facebook-sign FS30 MR5"></i></a><a href="#"><i class="icon-twitter-sign FS30 MR5"></i></a><a href="#"><i class="icon-google-plus-sign FS30"></i></a></span><span>Connect with us </span></div>
+        <div class="clearb"></div>
+      </div>
+    </footer>
+
+</body>
+</html>

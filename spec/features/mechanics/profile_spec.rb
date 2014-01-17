@@ -22,6 +22,16 @@ feature 'mechanic profile page' do
       should have_content mechanic.description
     end
 
+    scenario 'check links to calenar and edit profile page' do
+      click_link 'Availabilities'
+      should have_selector 'h1', text: 'Calendar'
+
+      click_link 'Back'
+      click_link 'Edit Profile'
+      should have_selector 'h4', text: 'Edit Profile'
+      current_path.should be_eql edit_mechanics_profile_path
+    end
+
     scenario 'check verified statuses work' do
       should have_css '.verified-icon.icon-map-marker.disabled'
       should have_css '.verified-icon.icon-phone.disabled'
@@ -49,8 +59,8 @@ feature 'mechanic profile page' do
         attach_file('mechanic_avatar', "#{Rails.root}/spec/features/fixtures/test_img.jpg")
         click_button 'Save'
 
-        should have_content 'Your profile succesfully updated.'
-        find('img.avatar')['src'].should have_content mechanic.reload.avatar_url :thumb
+        should have_content 'Your profile successfully updated.'
+        find('.mechanic_avatar img')['src'].should have_content mechanic.reload.avatar_url :thumb
       end
     end
   end

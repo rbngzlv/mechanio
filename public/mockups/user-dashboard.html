@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--<![endif]-->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard</title>
+<link rel="shortcut icon" href="images/favicon.ico">
+<!--[if lt IE 9]><script src="js/html5shiv.js"></script><script src="js/respond.js"></script><![endif]-->
+<link href="css/style.css" type="text/css" rel="stylesheet" />
+<script src="js/scripts.js"></script>
+<script>jQuery(document).ready(function(){App.init()});</script>
+</head>
+
+<body>
+<div id="wrap">
+<!--  ---------------- Header Part -------------------------------------------------- -->
+<header class="navbar navbar-inverse">
+	<div class="navbar-inner">
+    	<div class="fixbar row-fluid">
+        	<a class="brand" href="index.html"><img src="images/logo.png" alt="Mechanio"></a>
+        <div class="fright">
+        	<div class="fright"><a href="#" class="btn btn-link">How IT Works</a><button data-target=".nav-collapse" data-toggle="collapse" class="btn btn-navbar collapsed" type="button">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <div class="top-nav fright MALL5">
+        		<ul class="nav pull-right top-menu">
+          <li class="dropdown"><a href="#" class="dropdown-toggle margin0 padd0" data-toggle="dropdown"><span class="username">Andrew</span><b class="caret"></b></a>
+            <ul class="dropdown-menu">
+          			<li><a  href="user-dashboard.html"><span class="icon-box"><i class="icon-dashboard"></i></span> Dashboard</a></li>
+                <li><a  href="user-cars.html"><span class="icon-box"><i class="icon-truck"></i></span> My Cars</a></li>
+                <li><a  href="user-appointments.html"><span class="icon-box"><i class="icon-calendar"></i></span> My Appointments</a></li>
+                <li><a  href="user-estimates.html"><span class="icon-box"><i class="icon-list"></i></span> My Estimates</a></li>
+                 <li><a  href="user-profile.html"><span class="icon-box"><i class="icon-user"></i></span> My Profile</a></li>
+                 <li><a  href="user-settings.html"><span class="icon-box"><i class="icon-cog"></i></span> Settings</a></li>
+              <li class="divider"></li>
+              <li><a href="./login.html"><i class="icon-key"></i> Log Out</a></li>
+            </ul>
+          </li>
+        </ul>
+		      </div>
+            </div>
+            <div class="space5"></div>
+            <div class="NeedHelp AlignRight">Need Help ? / Call 1800 123 1234</div>
+        </div>
+    	</div>
+    </div>
+</header>
+
+<div class="container-narrow">
+	<div class="row-fluid">
+    	<!--  ---------------- Left Navigation Part -------------------------------------------------- -->
+		 <div id="sidebar" class="nav-collapse collapse">
+			<ul class="sidebar-menu">
+      			<li class="active"><a  href="user-dashboard.html"><span class="icon-box"><i class="icon-dashboard"></i></span> Dashboard</a></li>
+                <li><a  href="user-cars.html"><span class="icon-box"><i class="icon-truck"></i></span> My Cars</a></li>
+                <li><a  href="user-appointments.html"><span class="icon-box"><i class="icon-calendar"></i></span> My Appointments</a></li>
+                <li><a  href="user-estimates.html"><span class="icon-box"><i class="icon-list"></i></span> My Estimates <span class="badge badge-important">2</span></a></li>
+                 <li><a  href="user-profile.html"><span class="icon-box"><i class="icon-user"></i></span> My Profile</a></li>
+                 <li><a  href="user-settings.html"><span class="icon-box"><i class="icon-cog"></i></span> Settings</a></li>
+			 </ul>       
+    	</div>
+        
+        <!--  ---------------- Right Content Part -------------------------------------------------- -->
+		<section id="main-content">
+        	<!-- Profile -->
+            <div class="row-fluid">
+	        <div class="widget">
+              <div class="widget-title">
+                <h4><i class="icon-user"></i> Andrew Nanjdroo</h4><span class="tools"><a class="icon-chevron-down" href="javascript:;"></a></span></div>
+              <div class="widget-body">
+                <div class="row-fluid">
+                	<div class="MechProfile span4">
+                    	<div class="profileImg">
+                        	<img src="images/photo.jpg">
+                            <div class="ReviewsRow text-center">
+                               Reviews Left : <b>15</b>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="span8 greybox margin0">
+                    	<h3>Hi, My name is Andrew Nanjdroo</h3>
+                        <p class="MB20">I like cars and curry. I'm actually the prince of 7-11. There are 5000 7-11s in Thailand.</p>
+                    </div>
+                   </div>
+              </div>
+         	</div>
+            </div>
+            
+            <div class="row-fluid">
+            	<!-- Verifications Block -->
+                <div class="span4">
+                    <div class="widget">
+                        <div class="widget-title"><h4>Verifications</h4><span class="tools"><a class="icon-chevron-down" href="javascript:;"></a></span></div>
+                      <div class="widget-body">
+                            <div class="greybox">
+                                <span class="span9 BorderDotRight"><b>Facebook</b><br><small>299 Friends</small></span><span class="fright MT5"><i class="icon-facebook FS20"></i></span>	<div class="clearb"></div>
+                            </div>
+                            <div class="space10"></div>
+                            <div class="greybox">
+                                <span class="span9 BorderDotRight"><b>Email Address</b><br><small>Verified</small></span><span class="fright MT5"><i class="icon-envelope-alt FS20"></i></span>	<div class="clearb"></div>
+                            </div>
+                            <div class="space10"></div>
+                            <div class="greybox">
+                                <span class="span9 BorderDotRight"><b>Reviews left</b><br><small>2 Reviews</small></span><span class="fright MT5"><i class="icon-thumbs-up FS20"></i></span>	<div class="clearb"></div>
+                            </div>
+                      </div>
+                </div>
+                </div>
+                <!-- Booked Appointments Block -->
+                <div class="span8">
+                    <div class="widget">
+                  <div class="widget-title">
+                    <h4>Booked Appointments</h4><span class="tools"><a class="icon-chevron-down" href="javascript:;"></a></span></div>
+                  <div class="widget-body">
+                        <div class="row-fluid">
+                            <div class="greybox">
+                            	<div class="ReviewsRow">
+                            	<div class="fleft"><b>Bob Mechanic</b></div><div class="stars fleft span3">
+                                                        <span class="Star">&nbsp;</span>
+                                                        <span class="Star">&nbsp;</span>
+                                                        <span class="Star">&nbsp;</span>
+                                                        <span class="Star">&nbsp;</span>
+                                                        <span class="Star">&nbsp;</span>
+                                                    </div><small class="fleft">12 Reviews</small><span class="fright"><i class="icon-phone"></i> 123 123 1234</span>
+                                <div class="span12 margin0 BorderDotBot">11:00AM, May 8, 2013 (Friday)</div>
+                                <div class="space10"></div>
+                                <div class="span8 margin0">
+                                	<div class="span3 margin0">Services:</div><div class="span7">10,000 KM Repair</div>
+                                    <div class="span3 margin0">Car:</div><div class="span7">2000 ford Mustana V6-3.OL</div>
+                                </div>
+                                <a href="user-appointments.html" class="btn btn-success fright">View Appointment</a> 
+                                </div>
+                                <div class="clearb"></div>
+                            </div>
+                            <div class="space10"></div>
+                            <div class="greybox">
+                            	<div class="ReviewsRow">
+                            	<div class="fleft"><b>Bob Mechanic</b></div><div class="stars fleft span3">
+                                                        <span class="Star">&nbsp;</span>
+                                                        <span class="Star">&nbsp;</span>
+                                                        <span class="Star">&nbsp;</span>
+                                                        <span class="Star">&nbsp;</span>
+                                                        <span class="Star">&nbsp;</span>
+                                                    </div><small class="fleft">12 Reviews</small><span class="fright"><i class="icon-phone"></i> 123 123 1234</span>
+                                <div class="span12 margin0 BorderDotBot">11:00AM, May 8, 2013 (Friday)</div>
+                                <div class="space10"></div>
+                                <div class="span8 margin0">
+                                	<div class="span3 margin0">Services:</div><div class="span7">10,000 KM Repair</div>
+                                    <div class="span3 margin0">Car:</div><div class="span7">2000 ford Mustana V6-3.OL</div>
+                                </div>
+                                <a href="user-appointments.html" class="btn btn-success fright">View Appointment</a> 
+                                </div>
+                                <div class="clearb"></div>
+                            </div>
+                        </div>
+                  </div>
+             </div>
+                </div>
+            </div>
+            
+            <div class="row-fluid">
+            	<!-- Reviews Outstanding Block -->
+                <div class="span4">
+                    <div class="widget">
+                      <div class="widget-title">
+                        <h4>Reviews Outstanding</h4><span class="tools"><a class="icon-chevron-down" href="javascript:;"></a></span></div>
+                        <div class="widget-body">
+                            <div class="greybox">
+                                <span class="span9 BorderDotRight"><b>35000 KM Service</b><br><small>May 8, 2013</small></span><a href="#" class="fright MT5 tooltips" data-original-title="Leave Feedback" data-placement="right"><i class="icon-thumbs-up FS20"></i></a>	<div class="clearb"></div>
+                            </div>
+                            <div class="space10"></div>
+                            <div class="greybox">
+                                <span class="span9 BorderDotRight"><b>45000 KM Service</b><br><small>June 10, 2013</small></span><a href="#" class="fright MT5 tooltips" data-original-title="Leave Feedback" data-placement="right"><i class="icon-thumbs-up FS20"></i></a>	<div class="clearb"></div>
+                            </div>
+                            <div class="space10"></div>
+                            <div class="greybox">
+                                <span class="span9 BorderDotRight"><b>45000 KM Service</b><br><small>June 10, 2013</small></span><a href="#" class="fright MT5 tooltips" data-original-title="Leave Feedback" data-placement="right"><i class="icon-thumbs-up FS20"></i></a>	<div class="clearb"></div>
+                            </div>
+                            <div class="space10"></div>
+                            <div class="greybox">
+                                <span class="span9 BorderDotRight"><b>45000 KM Service</b><br><small>June 10, 2013</small></span><a href="#" class="fright MT5 tooltips" data-original-title="Leave Feedback" data-placement="right"><i class="icon-thumbs-up FS20"></i></a>	<div class="clearb"></div>
+                            </div>
+                      </div>
+                    </div>
+                </div>
+                <!-- My Estimates Block -->
+                <div class="span8">
+                    <div class="widget">
+                  <div class="widget-title">
+                    <h4>My Estimates</h4><span class="tools"><a class="icon-chevron-down" href="javascript:;"></a></span></div>
+                  <div class="widget-body">
+                         <div class="greybox">
+                                <div class="span7 padd5">
+                                    <p><b class="text-info">May 6, 2013</b><br><br>
+                                    <b>Car:</b> 2000 ford Mustana V6-3.0L<br>
+                                    <b>Services:</b> Car is making a noise (Inspcction)<br> </p>
+                                </div>	
+                                <div class="span5 alignCenter">
+                                    <div class="alert-success padd5 MALL5">
+                                        <small>Total Cost</small><br><b class="FS20">$283.34</b>
+                                    </div>
+                                    <a href="search-result.html" class="btn btn-success">Book Appointments</a>
+                                </div>
+                                <div class="clearb"></div>
+                            </div>
+                          <div class="space5"></div>
+                          <div class="greybox">
+                                <div class="span7 padd5">
+                                    <p><b class="text-info">May 6, 2013</b><br><br>
+                                    <b>Car:</b> 2000 ford Mustana V6-3.0L<br>
+                                    <b>Services:</b> Car is making a noise (Inspcction)<br> </p>
+                                </div>	
+                                <div class="span5 alignCenter">
+                                    <div class="alert-success padd5 MALL5">
+                                        <small>Total Cost</small><br><b class="FS20">$283.34</b>
+                                    </div>
+                                    <a href="search-result.html" class="btn btn-success">Book Appointments</a>
+                                </div>
+                                <div class="clearb"></div>
+                            </div>
+                  </div>
+             </div>
+                </div>
+            </div>
+		</section>
+	</div>
+</div>
+
+</div>
+<!--  ---------------- Footer Part -------------------------------------------------- -->
+<footer id="footer">
+      <div class="fixbar row-fluid">
+        <span class="span8"><a href="about-us.html">About us</a><a href="faq.html">FAQ</a><a href="terms-of-use.html">Terms of use</a><a href="privacy.html">Privacy Policy</a><a href="blog.html">Blog</a><a href="contact-us.html">Contact Us</a></span>
+        <div class="span3 fright"><span><a href="#"><i class="icon-facebook-sign FS30 MR5"></i></a><a href="#"><i class="icon-twitter-sign FS30 MR5"></i></a><a href="#"><i class="icon-google-plus-sign FS30"></i></a></span><span>Connect with us </span></div>
+        <div class="clearb"></div>
+      </div>
+    </footer>
+</body>
+</html>
