@@ -3,6 +3,7 @@
 --
 
 SET statement_timeout = 0;
+SET lock_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SET check_function_bodies = false;
@@ -507,6 +508,7 @@ CREATE TABLE mechanics (
     driver_license character varying(255),
     abn character varying(255),
     mechanic_license character varying(255),
+    abn_name character varying(255),
     business_website character varying(255),
     business_email character varying(255),
     years_as_a_mechanic integer,
@@ -523,11 +525,12 @@ CREATE TABLE mechanics (
     qualification_verified boolean DEFAULT false,
     location_id integer,
     business_location_id integer,
-    total_earnings numeric(8,2) DEFAULT 0,
-    current_jobs_count integer DEFAULT 0,
-    completed_jobs_count integer DEFAULT 0,
     business_name character varying(255),
-    business_mobile_number character varying(255)
+    business_mobile_number character varying(255),
+    repair_work_classes text,
+    tradesperson_certificates text,
+    completed_jobs integer DEFAULT 0,
+    total_earnings numeric(8,2) DEFAULT 0
 );
 
 
@@ -567,8 +570,8 @@ CREATE TABLE model_variations (
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     make_id integer,
-    display_title character varying(255),
     comment text,
+    display_title character varying(255),
     detailed_title character varying(255)
 );
 
@@ -1175,14 +1178,6 @@ ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regcl
 
 
 --
--- Data for Name: spatial_ref_sys; Type: TABLE DATA; Schema: public; Owner: -
---
-
-COPY spatial_ref_sys (srid, auth_name, auth_srid, srtext, proj4text) FROM stdin;
-\.
-
-
---
 -- Name: admins_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1530,27 +1525,6 @@ CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (v
 
 
 --
--- Name: geometry_columns_delete; Type: RULE; Schema: public; Owner: -
---
-
-CREATE RULE geometry_columns_delete AS ON DELETE TO geometry_columns DO INSTEAD NOTHING;
-
-
---
--- Name: geometry_columns_insert; Type: RULE; Schema: public; Owner: -
---
-
-CREATE RULE geometry_columns_insert AS ON INSERT TO geometry_columns DO INSTEAD NOTHING;
-
-
---
--- Name: geometry_columns_update; Type: RULE; Schema: public; Owner: -
---
-
-CREATE RULE geometry_columns_update AS ON UPDATE TO geometry_columns DO INSTEAD NOTHING;
-
-
---
 -- PostgreSQL database dump complete
 --
 
@@ -1713,6 +1687,8 @@ INSERT INTO schema_migrations (version) VALUES ('20140115140743');
 INSERT INTO schema_migrations (version) VALUES ('20140116101829');
 
 INSERT INTO schema_migrations (version) VALUES ('20140117081109');
+
+INSERT INTO schema_migrations (version) VALUES ('20140117144843');
 
 INSERT INTO schema_migrations (version) VALUES ('20140120121306');
 

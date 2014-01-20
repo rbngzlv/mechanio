@@ -40,6 +40,27 @@ describe 'User login', :js do
     should have_link 'Login'
   end
 
+  it 'recover password' do
+    reset_mail_deliveries
+    user
+    visit root_path
+    within('.header') { click_link 'Login' }
+    click_link 'Reset it here'
+    within '#recover-modal' do
+      fill_in 'Email', with: user.email
+      click_button 'Reset Password'
+    end
+
+    mail_deliveries.count.should eq 1
+    mail_deliveries[0].tap do |m|
+      m.to.should eq [user.email]
+      m.body.should include 'Change my password'
+      m.body.encoded.should match edit_user_password_path
+      m.body.encoded.should match user.reload.reset_password_token
+      m.subject.should eq 'Reset password instructions'
+    end
+  end
+
   def login_with(params)
     within '#login-modal' do
       fill_in 'Email', with: params[:email]
