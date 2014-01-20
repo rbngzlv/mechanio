@@ -1,41 +1,79 @@
+:javascript
+  var path = "#{admins_mechanic_url(@mechanic)}";
+:coffeescript
+  $ ->
+    $('input[type=file]').on 'change', ->
+      $cancel_button = $('<span>').addClass('btn-change-image btn-cancel-image-upload').html('&nbsp;×')
+      $(this).parents('div').find('span.file-input-name').append($cancel_button)
+
+    $(document).on 'click', '.btn-change-image', ->
+      $this = $(this)
+      $that = $(this).parent()
+      if $this.hasClass('btn-delete-image')
+        if confirm "Are you sure you want to delete this image?"
+          sent_data = { _method: 'PATCH', mechanic: {} }
+          sent_data.mechanic[$that.attr('data-delete')] = 1
+          $.post path, sent_data, (data)->
+            $that.parent().find('img').remove()
+            $that.remove()
+            $('body > .container').prepend('<div class="alert alert-info">Image successfully deleted.</div>')
+      else if $this.hasClass('btn-cancel-image-upload')
+        if confirm "Are you sure you want to cancel upload this image?"
+          $that.parent().find('input').val('')
+          $that.remove()
+
 = simple_form_for [:admins, @mechanic], html: { class: 'form-horizontal admin_mechanic_form', multipart: true }, defaults: { label_html: { class: 'col-md-2 col-sm-2' } }, wrapper: :bootstrap_horizontal do |f|
+
+  - if @mechanic.new_record?
+    %legend Mechanic Details
   = f.error_notification
   = f.input :first_name
   = f.input :last_name
-  = f.input :dob, label: 'Date of birth', input_html: { class: 'form-control' }, start_year: Date.today.year - 60, end_year: Date.today.year - 18
-  = f.input :email, label: 'Personal email'
+  = f.input :email, label: 'Email'
+  = f.input :dob, label: 'Date of birth', start_year: Date.today.year - 18, end_year: Date.today.year - 60, order: [:day, :month, :year], wrapper_html: { class: 'dob' }
   = f.input :description, label: 'Personal description'
-  = f.input :avatar, label: 'Photo', as: :image, wrapper: :bootstrap, input_html: { wrap_class: 'col-md-4 col-sm-5' }
-  %legend Personal Address
-  = render partial: 'shared/location_form', locals: { f: f, location_assoc: :location }
+  = render partial: 'shared/location_form', locals: { f: f, location_assoc: :location, defaults: { required: true } }
+  = f.input :mobile_number
+  = f.input :years_as_a_mechanic, label: 'Years as mechanic'
+  = f.input :avatar, label: 'Photo', as: :image, wrapper: :bootstrap, input_html: { wrap_class: 'col-md-4 col-sm-5' }, show_file_name: true
+
+  %legend Driver License
+  = f.input :driver_license_number, label: "License number"
+  = f.association :license_state, label: 'Registered state', prompt: '-- Please select --'
+  = f.input :license_expiry, label: 'Expiry date', start_year: Date.today.year, end_year: Date.today.year + 20, order: [:day, :month, :year], wrapper_html: { class: 'dob' }
+  = f.input :driver_license, label: 'Image', as: :image, wrapper: :bootstrap, input_html: { wrap_class: 'col-md-4 col-sm-5' }, show_file_name: true
+
+  %legend Business Details
+  = f.input :business_name, label: 'Business name'
+  = f.input :business_website, label: 'Business website '
+  = f.input :business_email, label: 'Business email'
+  = f.input :business_mobile_number, label: 'Business phone number'
+  = f.simple_fields_for :business_location do |l|
+    = l.input :address, label: 'Business address'
+    = l.input :suburb
+    = l.association :state, prompt: '-- Please select --'
+    = l.input :postcode
+
+  %legend ABN Details
+  = f.input :abn_name, label: 'Registered business name'
+  = f.input :abn_number, label: 'ABN number'
+  = f.input :abn_expiry, label: 'Expiry date', start_year: Date.today.year, end_year: Date.today.year + 20, order: [:day, :month, :year], wrapper_html: { class: 'dob' }
+  = f.input :abn, label: 'Image', as: :image, wrapper: :bootstrap, input_html: { wrap_class: 'col-md-4 col-sm-5' }, show_file_name: true
+
+  %legend Mechanic Motor License
+  = f.input :mechanic_license_number, label: 'Motor License Number'
+  = f.input :mechanic_license_expiry, label: 'Expiry date', start_year: Date.today.year, end_year: Date.today.year + 20, order: [:day, :month, :year], wrapper_html: { class: 'dob' }
+  = f.association :mechanic_license_state, label: 'Registered state', prompt: '-- Please select --'
+  = f.input :repair_work_classes, label: 'Repair work classes'
+  = f.input :tradesperson_certificates, label: 'Tradesperson certificates'
+  = f.input :mechanic_license, label: 'Image', as: :image, wrapper: :bootstrap, input_html: { wrap_class: 'col-md-4 col-sm-5' }, show_file_name: true
+
   %legend Verified Statuses
   = f.input :phone_verified
   = f.input :super_mechanic
   = f.input :warranty_covered
   = f.input :qualification_verified
-  %legend Driver License
-  = f.input :driver_license_number, label: "Driver's license"
-  = f.association :license_state, label: 'Registered state', prompt: '-- Please select --'
-  = f.input :license_expiry, label: 'Expiry date', input_html: { class: 'form-control' }, start_year: Date.today.year, end_year: Date.today.year + 20
-  = f.input :driver_license, label: 'Image', as: :image, wrapper: :bootstrap, input_html: { wrap_class: 'col-md-4 col-sm-5' }
-  %legend Business Details
-  = f.input :business_website
-  = f.input :business_email
-  = f.input :years_as_a_mechanic
-  = f.input :mobile_number
-  = f.input :other_number
-  %legend ABN
-  = f.input :abn_name, label: 'ABN name'
-  = f.input :abn_number, label: 'ABN number'
-  = f.input :abn_expiry, label: 'Expiry date', input_html: { class: 'form-control' }, start_year: Date.today.year, end_year: Date.today.year + 20
-  = f.input :abn, label: 'Image', as: :image, wrapper: :bootstrap, input_html: { wrap_class: 'col-md-4 col-sm-5' }
-  %legend Business Address
-  = render partial: 'shared/location_form', locals: { f: f, location_assoc: :business_location }
-  %legend Motor Mechanics License
-  = f.input :mechanic_license_number, label: 'Number'
-  = f.input :mechanic_license_expiry, label: 'Expiry date', input_html: { class: 'form-control' }, start_year: Date.today.year, end_year: Date.today.year + 20
-  = f.association :mechanic_license_state, label: 'Registered state', prompt: '-- Please select --'
-  = f.input :mechanic_license, label: 'Image', as: :image, wrapper: :bootstrap, input_html: { wrap_class: 'col-md-4 col-sm-5' }
+
   %hr.hr-dark-gray
   .form-group
     .col-md-offset-2.col-md-4

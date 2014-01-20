@@ -17,7 +17,8 @@ class Mechanic < ActiveRecord::Base
   mount_uploader :abn, ImgUploader
   mount_uploader :mechanic_license, ImgUploader
 
-  validates :first_name, :last_name, :email, :dob, :location, presence: true
+  validates :first_name, :last_name, :email, :dob, :mobile_number, :location, presence: true
+  validates :abn_number, format: { with: /\A\d{11}\Z/, message: 'ABN should be 11-digit number' }, allow_blank: true
 
   belongs_to :license_state, class_name: 'State'
   belongs_to :mechanic_license_state, class_name: 'State'

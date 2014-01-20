@@ -17,8 +17,9 @@ class Admins::MechanicsController < Admins::ApplicationController
 
     if @mechanic.save
       registration_email @mechanic, password
-      redirect_to edit_admins_mechanic_path(@mechanic), notice: 'Mechanic succesfully created.'
+      redirect_to edit_admins_mechanic_path(@mechanic), notice: 'Mechanic successfully created.'
     else
+      @mechanic.build_locations
       render :new
     end
   end
@@ -29,15 +30,16 @@ class Admins::MechanicsController < Admins::ApplicationController
 
   def update
     if @mechanic.update_attributes(permitted_params)
-      redirect_to edit_admins_mechanic_path(@mechanic), notice: 'Mechanic succesfully updated.'
+      redirect_to edit_admins_mechanic_path(@mechanic), notice: 'Mechanic successfully updated.'
     else
+      @mechanic.build_locations
       render :edit
     end
   end
 
   def destroy
     @mechanic.destroy
-    redirect_to admins_mechanics_path, notice: 'Mechanic succesfully deleted.'
+    redirect_to admins_mechanics_path, notice: 'Mechanic successfully deleted.'
   end
 
   def edit_regions

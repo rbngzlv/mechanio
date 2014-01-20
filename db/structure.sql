@@ -526,7 +526,11 @@ CREATE TABLE mechanics (
     business_location_id integer,
     total_earnings numeric(8,2) DEFAULT 0,
     current_jobs_count integer DEFAULT 0,
-    completed_jobs_count integer DEFAULT 0
+    completed_jobs_count integer DEFAULT 0,
+    business_name character varying(255),
+    business_mobile_number character varying(255),
+    repair_work_classes text,
+    tradesperson_certificates text
 );
 
 
@@ -1703,9 +1707,13 @@ INSERT INTO schema_migrations (version) VALUES ('20131224174010');
 
 INSERT INTO schema_migrations (version) VALUES ('20131225151228');
 
+INSERT INTO schema_migrations (version) VALUES ('20140108105707');
+
 INSERT INTO schema_migrations (version) VALUES ('20140114132200');
 
 INSERT INTO schema_migrations (version) VALUES ('20140115140743');
+
+INSERT INTO schema_migrations (version) VALUES ('20140116101829');
 
 INSERT INTO schema_migrations (version) VALUES ('20140117081109');
 

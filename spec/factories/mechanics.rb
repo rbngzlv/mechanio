@@ -12,5 +12,6 @@ FactoryGirl.define do
     driver_license_number   'CBN123447765'
     license_state           { State.find_or_create_by(name: 'Queensland') }
     license_expiry          { Time.now + 1.year }
+    mobile_number           '0420123456'
   end
 end

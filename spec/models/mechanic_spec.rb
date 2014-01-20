@@ -8,6 +8,7 @@ describe Mechanic do
   it { should validate_presence_of :password }
   it { should validate_presence_of :dob }
   it { should validate_presence_of :location }
+  it { should validate_presence_of :mobile_number }
 
   it { should belong_to :location }
   it { should belong_to :business_location }
@@ -17,6 +18,13 @@ describe Mechanic do
   it { should respond_to :driver_license }
   it { should respond_to :abn }
   it { should respond_to :mechanic_license }
+
+  it { should allow_value('12345678901').for(:abn_number) }
+  it { should_not allow_value('123456789012').for(:abn_number) }
+  it do
+    should_not allow_value('1234567890').for(:abn_number)
+    subject.errors.messages[:abn_number].should be_eql ['ABN should be 11-digit number']
+  end
 
   describe '#by_location' do
     let!(:mechanic1) { create :mechanic, location: create(:location, latitude: 40.00, longitude: -77.00, postcode: '1234') }
