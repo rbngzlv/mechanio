@@ -23,14 +23,14 @@ feature 'mechanic edit profile page' do
       new_mechanic_name = "#{mechanic.first_name}_new_name"
       fill_in 'mechanic_first_name', with: new_mechanic_name
       click_button "Save"
-      should have_selector '.alert.alert-info', text: 'Your profile succesfully updated.'
+      should have_selector '.alert.alert-info', text: 'Your profile successfully updated.'
     end
 
     scenario "upload avatar" do
       attach_file('mechanic_avatar', "#{Rails.root}/spec/features/fixtures/test_img.jpg")
       click_button 'Save'
 
-      should have_content 'Your profile succesfully updated.'
+      should have_content 'Your profile successfully updated.'
       find('img.avatar')['src'].should have_content mechanic.reload.avatar_url :thumb
     end
   end

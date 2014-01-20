@@ -19,7 +19,7 @@ class Admins::MechanicsController < Admins::ApplicationController
       registration_email @mechanic, password
       redirect_to edit_admins_mechanic_path(@mechanic), notice: 'Mechanic successfully created.'
     else
-      build_associations
+      @mechanic.build_locations
       render :new
     end
   end
@@ -32,7 +32,7 @@ class Admins::MechanicsController < Admins::ApplicationController
     if @mechanic.update_attributes(permitted_params)
       redirect_to edit_admins_mechanic_path(@mechanic), notice: 'Mechanic successfully updated.'
     else
-      build_associations
+      @mechanic.build_locations
       render :edit
     end
   end
