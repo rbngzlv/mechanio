@@ -11,26 +11,24 @@
     %table.table.table-striped
       %thead
         %tr
-          %th.col-md-3 Name
-          %th Completed Jobs
-          %th Total Earnings
-          %th Average Feedback Score
-          %th Mobile Number
-          %th Email
-          %th Regions assigned
-          %th.col-md-2 Signup date
+          %th.col-md-2 Name
+          %th.col-md-2 Mobile Number
+          %th.text-right Current Appts.
+          %th.text-right Completed Jobs
+          %th.text-right Total Earnings
+          %th.text-right Feedback Score
+          %th.text-right Date joined
           %th.col-md-1
       %tbody
         - @mechanics.each do |u|
           %tr
             %td= u.full_name
-            %td= u.jobs.completed.count
-            %td
-            %td= u.rating
             %td= u.mobile_number
-            %td= u.email
-            %td= u.mechanic_regions.count
-            %td= u.created_at.to_s(:short)
+            %td.text-right= u.current_jobs
+            %td.text-right= u.completed_jobs
+            %td.text-right= number_to_currency(u.total_earnings)
+            %td.text-right= u.rating
+            %td.text-right= u.created_at.to_s(:short)
             %td.text-right= link_to "Edit", edit_admins_mechanic_path(u)
 
   = paginate @mechanics
