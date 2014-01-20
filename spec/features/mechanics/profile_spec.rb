@@ -33,13 +33,13 @@ feature 'mechanic profile page' do
     end
 
     scenario 'check verified statuses work' do
-      should have_css '.verified-icon.icon-map-marker.disabled'
-      should have_css '.verified-icon.icon-phone.disabled'
-      should have_css '.verified-icon:nth-child(3)'
-      should_not have_css '.verified-icon:nth-child(3).disabled'
-      should have_css '.verified-icon.icon-thumbs-up.disabled'
-      should have_css '.verified-icon.icon-book'
-      should_not have_css '.verified-icon.disabled.icon-book'
+      within '.verified-icons' do
+        find('i:nth-child(1)')[:class].should eq 'icon-map-marker disabled'
+        find('i:nth-child(2)')[:class].should eq 'icon-phone disabled'
+        find('i:nth-child(3)')[:class].should eq ''
+        find('i:nth-child(4)')[:class].should eq 'icon-thumbs-up disabled'
+        find('i:nth-child(5)')[:class].should eq 'icon-book'
+      end
     end
   end
 

@@ -40,13 +40,12 @@ module ApplicationHelper
     end.html_safe
   end
 
-  def verify_icon(title, icon_type = nil, is_verified = false, content = nil)
-    klass = "verified-icon #{icon_type}"
-    unless is_verified
-      klass << " disabled"
-      title = ''
-    end
-    content_tag(:i, content, class: klass, 'data-original-title' => title, 'data-toggle' => 'tooltip').html_safe
+  def verify_icon(title, icon_type = '', is_verified = false, content = nil)
+    options = { 'class' => icon_type, 'data-toggle' => 'tooltip' }
+    options['data-original-title'] = title if is_verified
+    options['class'] << ' disabled' unless is_verified
+
+    content_tag(:i, content, options).html_safe
   end
 
   def job_status(status)

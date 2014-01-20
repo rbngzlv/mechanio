@@ -195,23 +195,25 @@ a:hover {
   margin-bottom: 10px;
 }
 
-i.verified-icon {
-  display: inline-block;
-  width: 35px;
-  height: 31px;
-  line-height: 31px;
-  background: asset-url('back-symbol.png');
-  text-align: center;
-  color: #fff;
-  font-style: normal;
-  font-size: 15px;
+.verified-icons {
+  i {
+    display: inline-block;
+    width: 35px;
+    height: 31px;
+    line-height: 31px;
+    background: asset-url('back-symbol.png');
+    text-align: center;
+    color: #fff;
+    font-style: normal;
+    font-size: 15px;
 
-  &:hover {
-    color: #ccc;
-  }
+    &:hover {
+      color: #ccc;
+    }
 
-  &.disabled {
-    background: asset-url('back-symbol-false.png');
+    &.disabled {
+      background: asset-url('back-symbol-false.png');
+    }
   }
 }
 

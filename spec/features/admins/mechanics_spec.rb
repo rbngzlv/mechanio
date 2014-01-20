@@ -9,9 +9,23 @@ feature 'Admin mechanics management' do
   end
 
   it 'lists available mechanics' do
+    mechanic.mobile_number = '0410123456'
+    mechanic.save
+    create(:job_with_service, :completed, mechanic: mechanic)
+    create(:job_with_service, :confirmed, mechanic: mechanic)
+    create(:job_with_service, :assigned, mechanic: mechanic)
     visit admins_mechanics_path
 
     page.should have_css 'td', text: mechanic.full_name
+    page.should have_css 'th:nth-child(3)', text: 'Total Earnings'
+    page.should have_css 'th:nth-child(4)', text: 'Average Feedback Score'
+    page.should have_css 'th:nth-child(5)', text: 'Mobile Number'
+    within 'tbody' do
+      page.should have_css 'tr:nth-child(1) td:nth-child(2)', text: '0'
+      page.should have_css 'tr:nth-child(1) td:nth-child(3)', text: '0$'
+      page.should have_css 'tr:nth-child(1) td:nth-child(4)', text: '2'
+      page.should have_css 'tr:nth-child(1) td:nth-child(5)', text: '0410123456'
+    end
   end
 
   it 'shows mechanic details' do

@@ -3,7 +3,7 @@ require 'spec_helper'
 describe BraintreeClient, :vcr do
 
   let(:client)      { BraintreeClient.new }
-  let(:job)         { create :job, :with_service, :assigned, :confirmed, credit_card: users_card }
+  let(:job)         { create :job, :with_service, :assigned, credit_card: users_card }
   let(:customer)         { { first_name: 'First', last_name: 'Last', email: 'email@host.com' } }
 
   # Braintree provided values for simulating success/error

@@ -19,6 +19,12 @@ FactoryGirl.define do
       end
     end
 
+    trait :with_credit_card do
+      after :build do |j|
+        j.credit_card = build(:credit_card)
+      end
+    end
+
     trait :estimated do
       status  :estimated
       cost    123
@@ -33,6 +39,7 @@ FactoryGirl.define do
 
     trait :assigned do
       mechanic
+      credit_card
       status :assigned
       scheduled_at { DateTime.tomorrow }
     end
@@ -41,11 +48,6 @@ FactoryGirl.define do
       after :create do |j|
         j.build_event_from_scheduled_at
       end
-    end
-
-    trait :confirmed do
-      credit_card
-      status :confirmed
     end
 
     trait :completed do
