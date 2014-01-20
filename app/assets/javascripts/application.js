@@ -17,4 +17,5 @@
 //= require angular.min
 //= require angular-animate
 //= require angular-strap
+//= require_tree ../../../vendor/assets/javascripts/
 //= require_tree .
