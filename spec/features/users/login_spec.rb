@@ -29,6 +29,15 @@ describe 'User login', :js do
       should have_css '.alert', text: 'Signed in successfully.'
       should have_css 'li.active', text: 'Dashboard'
     end
+
+    it 'redirect to previous url if exists' do
+      visit users_cars_path
+      within '.header' do
+        click_link 'Login'
+      end
+      login_with email: user.email, password: user.password
+      should have_css 'h4', text: 'My Cars'
+    end
   end
 
   it 'logs user out' do

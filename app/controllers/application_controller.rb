@@ -2,7 +2,6 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery with: :exception
 
-
   before_filter :configure_permitted_parameters, if: :devise_controller?
 
   private
@@ -17,7 +16,25 @@ class ApplicationController < ActionController::Base
     case
       when resource.instance_of?(Mechanic)  then resource.sign_in_count == 1 ? edit_mechanics_settings_path : mechanics_dashboard_path
       when resource.instance_of?(Admin)     then admins_dashboard_path
-      when resource.instance_of?(User)      then session[:tmp_job_id] ? service_path : users_dashboard_path
+      when resource.instance_of?(User)      then session[:tmp_job_id] ? service_path : (session.delete(:previous_url) || users_dashboard_path)
     end
+  end
+
+  # def after_sign_up_path_for(resource)
+  #   if resource.instance_of?(User)
+  #     session[:tmp_job_id] ? service_path : root_path
+  #   end
+  # end
+
+  # def after_inactive_sign_up_path_for(resource)
+  #   if resource.instance_of?(User)
+  #     session[:tmp_job_id] ? service_path : root_path
+  #   end
+  # end
+
+  protected
+
+  def store_location
+    session[:previous_url] = request.url if request.get?
   end
 end

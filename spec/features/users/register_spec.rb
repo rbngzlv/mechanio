@@ -28,10 +28,10 @@ describe 'User register', :js do
         click_link 'Sign up'
       end
       click_link 'Use regular email sign up'
-      sleep 0.2
     end
 
     it 'shows validation errors' do
+      sleep 0.2
       within '#register-modal' do
         click_button 'Sign up'
       end
@@ -39,7 +39,27 @@ describe 'User register', :js do
       page.should have_css '.help-block', text: "can't be blank"
     end
 
-    it 'redirects to dashboard' do
+    it 'redirects to homepage' do
+      register
+      current_path.should == root_path
+      page.should have_link 'Car Needs Servicing'
+      page.should have_css '.alert', text: 'Welcome! You have signed up successfully.'
+
+      mail_deliveries.count.should eq 1
+    end
+
+    it 'redirects to previous url' do
+      visit users_cars_path
+      within '.header' do
+        click_link 'Sign up'
+      end
+      click_link 'Use regular email sign up'
+      register
+      should have_css 'h4', text: 'My Cars'
+    end
+
+    def register
+      sleep 0.2
       within '#register-modal' do
         fill_in 'First name', with: 'First'
         fill_in 'Last name', with: 'Last'
@@ -47,11 +67,6 @@ describe 'User register', :js do
         fill_in 'Password (Minimum 8 Characters)', with: 'password'
         click_button 'Sign up'
       end
-
-      page.should have_css 'li.active', text: 'Dashboard'
-      page.should have_css '.alert', text: 'Welcome! You have signed up successfully.'
-
-      mail_deliveries.count.should eq 1
     end
   end
 end
