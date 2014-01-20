@@ -27,7 +27,6 @@ en:
           pending: Pending
           estimated: Estimated
           assigned: Assigned
-          confirmed: Confirmed
           payment_error: Payment error
           awaiting_feedback: Awaiting feedback
           completed: Completed

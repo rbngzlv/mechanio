@@ -4,13 +4,14 @@
     %span
       Reviews Left:
       %strong= user.reviews
-.panel.nested-panel
-  = user.description || "Add some information about yourself"
-  .col-md-12.panel.nested-panel.clearfix
-    .social.pull-left
-      - user.socials.each do |name|
-        %i{ class: "icon-#{name}-sign" }
-    .col-md-9.pull-right
-      .pull-right.verified-block
-        = render "shared/user_verified_block", account: user
-      %span.pull-right Verified:
+%div
+  - unless user.description.blank?
+    .panel.nested-panel
+      = user.description
+
+  .col-md-6.pull-right.text-right
+    = render "shared/user/verified_icons", account: user
+
+  .col-md-6.social
+    - user.socials.each do |name|
+      %i{ class: "icon-#{name}-sign" }

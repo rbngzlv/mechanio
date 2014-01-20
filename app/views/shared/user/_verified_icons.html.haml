@@ -1,0 +1,5 @@
+%span Verified:
+%span.verified-icons
+  = verify_icon 'Email Confirmed', '', account.confirmed_at, '@'
+  = verify_icon 'Communications Verified', 'icon-mobile-phone', true
+  = verify_icon 'Payment Method Verified', '', true, '$'

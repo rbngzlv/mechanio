@@ -4,12 +4,12 @@ FactoryGirl.define do
   end
 
   factory :symptom_tree, class: 'Symptom' do
-    description 'Root'
+    description 'Looks like'
+    comment 'What do you see?'
 
-    after(:create) do |root|
-      parent = create(:symptom, description: 'Looks like', parent: root)
-      create(:symptom, description: 'Sway - Gradual movement from side to side.', parent: parent)
-      create(:symptom, description: 'Drifts - Gradual movements to one side.', parent: parent)
+    after(:build) do |parent|
+      parent.children << build(:symptom, description: 'Smoke')
+      parent.children << build(:symptom, description: 'Poor gas mileage')
     end
   end
 end

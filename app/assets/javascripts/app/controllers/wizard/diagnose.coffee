@@ -50,7 +50,7 @@ app.controller 'DiagnoseController', ['$scope', '$http', ($scope, $http) ->
     if $scope.service_plan then 'Edit Service' else 'Add Service'
 
   $scope.symptomIds = ->
-    for k, v of $scope.symptoms when v then parseInt(k)
+    for k, v of $scope.selected_symptoms when v then parseInt(k)
 
   $scope.repairValid = ->
     !!$scope.symptomIds().length || !!$scope.problem_description
