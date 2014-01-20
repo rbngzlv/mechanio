@@ -82,6 +82,17 @@
   .indent-left {
     padding-left: 30px;
   }
+
+  ul.symptoms {
+    ul {
+      padding-left: 20px;
+      border: 1px solid #eee;
+      border-radius: 5px;
+    }
+    li {
+      padding: 5px 0;
+    }
+  }
 }
 
 .tree {
