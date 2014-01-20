@@ -24,13 +24,10 @@ describe 'User register', :js do
     before do
       reset_mail_deliveries
       visit root_path
-      within '.header' do
-        click_link 'Sign up'
-      end
-      click_link 'Use regular email sign up'
     end
 
     it 'shows validation errors' do
+      open_signup_popup
       sleep 0.2
       within '#register-modal' do
         click_button 'Sign up'
@@ -40,6 +37,7 @@ describe 'User register', :js do
     end
 
     it 'redirects to homepage' do
+      open_signup_popup
       register
       current_path.should == root_path
       page.should have_link 'Car Needs Servicing'
@@ -50,12 +48,9 @@ describe 'User register', :js do
 
     it 'redirects to previous url' do
       visit users_cars_path
-      within '.header' do
-        click_link 'Sign up'
-      end
-      click_link 'Use regular email sign up'
+      open_signup_popup
       register
-      should have_css 'h4', text: 'My Cars'
+      page.should have_css 'h4', text: 'My Cars'
     end
 
     def register
@@ -67,6 +62,13 @@ describe 'User register', :js do
         fill_in 'Password (Minimum 8 Characters)', with: 'password'
         click_button 'Sign up'
       end
+    end
+
+    def open_signup_popup
+      within '.header' do
+        click_link 'Sign up'
+      end
+      click_link 'Use regular email sign up'
     end
   end
 end

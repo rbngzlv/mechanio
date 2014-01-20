@@ -10,4 +10,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
     build_resource hash
     respond_with self.resource
   end
+
+  protected
+
+  def after_sign_up_path_for(resource)
+    session[:tmp_job_id] ? service_path : (session.delete(:previous_url) || root_path)
+  end
 end

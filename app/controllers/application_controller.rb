@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery with: :exception
 
+
   before_filter :configure_permitted_parameters, if: :devise_controller?
 
   private
@@ -19,18 +20,6 @@ class ApplicationController < ActionController::Base
       when resource.instance_of?(User)      then session[:tmp_job_id] ? service_path : (session.delete(:previous_url) || users_dashboard_path)
     end
   end
-
-  # def after_sign_up_path_for(resource)
-  #   if resource.instance_of?(User)
-  #     session[:tmp_job_id] ? service_path : root_path
-  #   end
-  # end
-
-  # def after_inactive_sign_up_path_for(resource)
-  #   if resource.instance_of?(User)
-  #     session[:tmp_job_id] ? service_path : root_path
-  #   end
-  # end
 
   protected
 
