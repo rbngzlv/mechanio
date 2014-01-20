@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
     case
       when resource.instance_of?(Mechanic)  then resource.sign_in_count == 1 ? edit_mechanics_settings_path : mechanics_dashboard_path
       when resource.instance_of?(Admin)     then admins_dashboard_path
-      when resource.instance_of?(User)      then session[:tmp_job_id] ? service_path : users_dashboard_path
+      when resource.instance_of?(User)      then session[:tmp_job_id] ? service_path : (session.delete(:previous_url) || root_path)
     end
   end
 end
