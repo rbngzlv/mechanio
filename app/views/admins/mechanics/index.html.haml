@@ -12,6 +12,7 @@
       %thead
         %tr
           %th.col-md-2 Name
+          %th.col-md-2 Email
           %th.col-md-2 Mobile Number
           %th.text-right Current Appts.
           %th.text-right Completed Jobs
@@ -23,12 +24,13 @@
         - @mechanics.each do |u|
           %tr
             %td= u.full_name
+            %td= u.email
             %td= u.mobile_number
             %td.text-right= u.current_jobs_count
             %td.text-right= u.completed_jobs_count
             %td.text-right= number_to_currency(u.total_earnings)
             %td.text-right= u.rating
-            %td.text-right= u.created_at.to_s(:short)
+            %td.text-right= u.created_at.to_s(:date_short)
             %td.text-right= link_to "Edit", edit_admins_mechanic_path(u)
 
   = paginate @mechanics
