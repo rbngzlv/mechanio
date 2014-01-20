@@ -19,6 +19,11 @@
       .item{ 'ng-repeat' => 'item in task.task_items', 'ng-hide' => 'item.isDeleted()' }
         %ng-include{ src: 'item.template()' }
 
+      .notes{ 'ng-show' => 'task.note' }
+        %strong Notes:
+        {{task.note}}
+        %hr
+
       - ['service', 'repair'].each do |template|
         %script{ type: 'text/ng-template', id: template }
           = render partial: "admins/jobs/tasks/#{template}", locals: { f: f }
