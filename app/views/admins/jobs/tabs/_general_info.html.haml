@@ -1,0 +1,30 @@
+.panel.panel-default.panel-rounded
+  .panel-body.form-horizontal
+    = simple_fields_for @job, defaults: { label_html: { class: 'col-md-4' }, required: false }, wrapper: :bootstrap_horizontal do |j|
+      .col-md-4
+        %h5 Requested by
+        %p= requested_by(@job)
+        %hr
+
+        %h5 Allocated to
+        %p= allocated_to(@job)
+        %hr
+
+        %h5 Vehicle
+        %p= @job.car.display_title
+        %p Last service: #{last_service(@job.car)}
+
+      .col-md-4
+        %h5 Location
+        %hr
+        = j.simple_fields_for :location, wrapper: :horiz_8 do |l|
+          = l.input :address
+          = l.input :suburb
+          = l.input :postcode
+          = l.association :state
+
+      .col-md-4
+        %h5 Contact
+        %hr
+        = j.input :contact_email, label: 'Email', wrapper: :horiz_8
+        = j.input :contact_phone, label: 'Phone', wrapper: :horiz_8

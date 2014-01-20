@@ -15,5 +15,6 @@
 //= require twitter/bootstrap
 //= require fullcalendar
 //= require angular.min
+//= require angular-animate
 //= require angular-strap
 //= require_tree .

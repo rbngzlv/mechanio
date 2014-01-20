@@ -40,6 +40,7 @@ class Users::JobsController < Users::ApplicationController
     @cars = []
     @location = @job.build_location
     @contact = {}
+    @symptoms = Symptom.graph
 
     if user_signed_in?
       @user_id = current_user.id
@@ -54,11 +55,6 @@ class Users::JobsController < Users::ApplicationController
 
     render 'wizard'
   end
-
-  def symptoms
-    Symptom.tree
-  end
-  helper_method :symptoms
 
   def states_json
     State.select([:id, :name]).to_json

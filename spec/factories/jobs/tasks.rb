@@ -22,6 +22,12 @@ FactoryGirl.define do
           r.task_items << build(:task_item, itemable: build(:labour))
         end
       end
+
+      trait :with_fixed_amount do
+        after :build do |r|
+          r.task_items << build(:task_item, itemable: build(:fixed_amount))
+        end
+      end
     end
   end
 end

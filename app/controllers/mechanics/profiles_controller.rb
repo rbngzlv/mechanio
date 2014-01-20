@@ -3,12 +3,14 @@ class Mechanics::ProfilesController < Mechanics::ApplicationController
   end
 
   def edit
+    current_mechanic.build_locations
   end
 
   def update
     if current_mechanic.update_attributes(permitted_params)
-      redirect_to mechanics_profile_path, notice: 'Your profile succesfully updated.'
+      redirect_to :back, notice: 'Your profile successfully updated.'
     else
+      current_mechanic.build_locations
       render :edit
     end
   end

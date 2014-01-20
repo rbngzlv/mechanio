@@ -32,6 +32,8 @@ feature 'navigation in header' do
       current_path.should be_eql mechanics_dashboard_path
       click_link 'My Jobs'
       current_path.should be_eql mechanics_jobs_path
+      click_link 'Settings'
+      current_path.should be_eql edit_mechanics_settings_path
       click_link 'Log out'
       current_path.should be_eql root_path
     end

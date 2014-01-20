@@ -1,1 +1,1 @@
-angular.module('mechanio', ['$strap.directives']);
+angular.module('mechanio', ['$strap.directives', 'ngAnimate']);

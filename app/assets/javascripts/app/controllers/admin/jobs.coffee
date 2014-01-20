@@ -70,6 +70,10 @@ class Task
   isDeleted: ->
     @_destroy == true
 
+  hasLabour: ->
+    labour = item for item in @task_items when item instanceof Labour && !item.isDeleted()
+    if labour then true else false
+
   delete: ->
     @_destroy = true
 
