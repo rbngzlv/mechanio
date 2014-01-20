@@ -1,10 +1,12 @@
-.row.repair-form
-  .col-md-4
-    = f.simple_fields_for :tasks, Repair.new, child_index: '', defaults: { label: false, required: true } do |t|
-      = t.hidden_field :id, value: '{{task.id}}'
-      = t.hidden_field :_destroy, value: '{{task._destroy}}'
-      = t.hidden_field :type, value: 'Repair'
+= f.simple_fields_for :tasks, Repair.new, child_index: '', defaults: { label: false, required: true } do |t|
+  = t.hidden_field :id, value: '{{task.id}}'
+  = t.hidden_field :_destroy, value: '{{task._destroy}}'
+  = t.hidden_field :type, value: 'Repair'
+
+  .row.repair-form
+    .col-md-4
       = t.input :title, placeholder: 'Repair description', input_html: { 'ng-model' => 'task.title' }
+  .row
+    .col-md-8
       = t.input :note, placeholder: 'Notes', input_html: { 'ng-model' => 'task.note' }
-  .col-md-2
-    %a.btn.btn-success.btn-sm{ href: '', 'ng-click' => 'task.doneEditing()' } Done
+      %a.btn.btn-success.btn-sm{ href: '', 'ng-click' => 'task.doneEditing()' } Done
