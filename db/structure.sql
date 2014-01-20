@@ -507,7 +507,6 @@ CREATE TABLE mechanics (
     driver_license character varying(255),
     abn character varying(255),
     mechanic_license character varying(255),
-    abn_name character varying(255),
     business_website character varying(255),
     business_email character varying(255),
     years_as_a_mechanic integer,
@@ -528,9 +527,7 @@ CREATE TABLE mechanics (
     current_jobs_count integer DEFAULT 0,
     completed_jobs_count integer DEFAULT 0,
     business_name character varying(255),
-    business_mobile_number character varying(255),
-    repair_work_classes text,
-    tradesperson_certificates text
+    business_mobile_number character varying(255)
 );
 
 
@@ -1718,3 +1715,7 @@ INSERT INTO schema_migrations (version) VALUES ('20140116101829');
 INSERT INTO schema_migrations (version) VALUES ('20140117081109');
 
 INSERT INTO schema_migrations (version) VALUES ('20140120121306');
+
+INSERT INTO schema_migrations (version) VALUES ('20140120145046');
+
+INSERT INTO schema_migrations (version) VALUES ('20140120145329');

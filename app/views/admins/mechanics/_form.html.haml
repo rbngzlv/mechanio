@@ -45,6 +45,8 @@
 
   %legend Business Details
   = f.input :business_name, label: 'Business name'
+  = f.input :abn_number, label: 'ABN number'
+  = f.input :abn_expiry, label: 'ABN expiry date', start_year: Date.today.year, end_year: Date.today.year + 20, order: [:day, :month, :year], wrapper_html: { class: 'dob' }
   = f.input :business_website, label: 'Business website '
   = f.input :business_email, label: 'Business email'
   = f.input :business_mobile_number, label: 'Business phone number'
@@ -53,20 +55,13 @@
     = l.input :suburb
     = l.association :state, prompt: '-- Please select --'
     = l.input :postcode
-
-  %legend ABN Details
-  = f.input :abn_name, label: 'Registered business name'
-  = f.input :abn_number, label: 'ABN number'
-  = f.input :abn_expiry, label: 'Expiry date', start_year: Date.today.year, end_year: Date.today.year + 20, order: [:day, :month, :year], wrapper_html: { class: 'dob' }
-  = f.input :abn, label: 'Image', as: :image, wrapper: :bootstrap, input_html: { wrap_class: 'col-md-4 col-sm-5' }, show_file_name: true
+  = f.input :abn, label: 'ABN certificate', as: :image, wrapper: :bootstrap, input_html: { wrap_class: 'col-md-4 col-sm-5' }, show_file_name: true
 
   %legend Mechanic Motor License
   = f.input :mechanic_license_number, label: 'Motor License Number'
   = f.input :mechanic_license_expiry, label: 'Expiry date', start_year: Date.today.year, end_year: Date.today.year + 20, order: [:day, :month, :year], wrapper_html: { class: 'dob' }
   = f.association :mechanic_license_state, label: 'Registered state', prompt: '-- Please select --'
-  = f.input :repair_work_classes, label: 'Repair work classes'
-  = f.input :tradesperson_certificates, label: 'Tradesperson certificates'
-  = f.input :mechanic_license, label: 'Image', as: :image, wrapper: :bootstrap, input_html: { wrap_class: 'col-md-4 col-sm-5' }, show_file_name: true
+  = f.input :mechanic_license, label: 'Tradesperson certificates', as: :image, wrapper: :bootstrap, input_html: { wrap_class: 'col-md-4 col-sm-5' }, show_file_name: true
 
   %legend Verified Statuses
   = f.input :phone_verified
