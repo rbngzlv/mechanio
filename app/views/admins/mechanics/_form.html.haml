@@ -22,52 +22,62 @@
           $that.parent().find('input').val('')
           $that.remove()
 
+%ul.nav.nav-tabs
+  %li.active= link_to 'Personal details', '#personal', 'data-toggle' => 'tab'
+  %li= link_to 'Contact details', '#contact', 'data-toggle' => 'tab'
+  %li= link_to 'Business details', '#business', 'data-toggle' => 'tab'
+  %li= link_to 'Driver license', '#driver_license', 'data-toggle' => 'tab'
+  %li= link_to 'Motor license', '#motor_license', 'data-toggle' => 'tab'
+  %li= link_to 'Badges', '#badges', 'data-toggle' => 'tab'
+
 = simple_form_for [:admins, @mechanic], html: { class: 'form-horizontal admin_mechanic_form', multipart: true }, defaults: { label_html: { class: 'col-md-2 col-sm-2' } }, wrapper: :bootstrap_horizontal do |f|
 
-  - if @mechanic.new_record?
-    %legend Mechanic Details
-  = f.error_notification
-  = f.input :first_name
-  = f.input :last_name
-  = f.input :email, label: 'Email'
-  = f.input :dob, label: 'Date of birth', start_year: Date.today.year - 18, end_year: Date.today.year - 60, order: [:day, :month, :year], wrapper_html: { class: 'dob' }
-  = f.input :description, label: 'Personal description'
-  = render partial: 'shared/location_form', locals: { f: f, location_assoc: :location, defaults: { required: true } }
-  = f.input :mobile_number
-  = f.input :years_as_a_mechanic, label: 'Years as mechanic'
-  = f.input :avatar, label: 'Photo', as: :image, wrapper: :bootstrap, input_html: { wrap_class: 'col-md-4 col-sm-5' }, show_file_name: true
+  .tab-content
+    #personal.tab-pane.active
+      = f.error_notification
+      = f.input :first_name
+      = f.input :last_name
+      = f.input :email, label: 'Email'
+      = f.input :dob, label: 'Date of birth', start_year: Date.today.year - 18, end_year: Date.today.year - 60, order: [:day, :month, :year], wrapper_html: { class: 'dob' }
+      = f.input :description, label: 'Personal description'
+      = f.input :years_as_a_mechanic, label: 'Years as mechanic'
+      = f.input :avatar, label: 'Photo', as: :image, wrapper: :bootstrap, input_html: { wrap_class: 'col-md-4 col-sm-5' }, show_file_name: true
 
-  %legend Driver License
-  = f.input :driver_license_number, label: "License number"
-  = f.association :license_state, label: 'Registered state', prompt: '-- Please select --'
-  = f.input :license_expiry, label: 'Expiry date', start_year: Date.today.year, end_year: Date.today.year + 20, order: [:day, :month, :year], wrapper_html: { class: 'dob' }
-  = f.input :driver_license, label: 'Image', as: :image, wrapper: :bootstrap, input_html: { wrap_class: 'col-md-4 col-sm-5' }, show_file_name: true
+    #contact.tab-pane
+      = f.input :mobile_number
+      = render partial: 'shared/location_form', locals: { f: f, location_assoc: :location, defaults: { required: true } }
 
-  %legend Business Details
-  = f.input :business_name, label: 'Business name'
-  = f.input :abn_number, label: 'ABN number'
-  = f.input :abn_expiry, label: 'ABN expiry date', start_year: Date.today.year, end_year: Date.today.year + 20, order: [:day, :month, :year], wrapper_html: { class: 'dob' }
-  = f.input :business_website, label: 'Business website '
-  = f.input :business_email, label: 'Business email'
-  = f.input :business_mobile_number, label: 'Business phone number'
-  = f.simple_fields_for :business_location do |l|
-    = l.input :address, label: 'Business address'
-    = l.input :suburb
-    = l.association :state, prompt: '-- Please select --'
-    = l.input :postcode
-  = f.input :abn, label: 'ABN certificate', as: :image, wrapper: :bootstrap, input_html: { wrap_class: 'col-md-4 col-sm-5' }, show_file_name: true
+    #business.tab-pane
+      = f.input :business_name, label: 'Business name'
+      = f.input :abn_number, label: 'ABN number'
+      = f.input :abn_expiry, label: 'ABN expiry date', start_year: Date.today.year, end_year: Date.today.year + 20, order: [:day, :month, :year], wrapper_html: { class: 'dob' }
+      = f.input :business_website, label: 'Business website'
+      = f.input :business_email, label: 'Business email'
+      = f.input :business_mobile_number, label: 'Business phone number'
+      = f.simple_fields_for :business_location do |l|
+        = l.input :address, label: 'Business address'
+        = l.input :suburb
+        = l.association :state, prompt: '-- Please select --'
+        = l.input :postcode
+      = f.input :abn, label: 'ABN certificate', as: :image, wrapper: :bootstrap, input_html: { wrap_class: 'col-md-4 col-sm-5' }, show_file_name: true
 
-  %legend Mechanic Motor License
-  = f.input :mechanic_license_number, label: 'Motor License Number'
-  = f.input :mechanic_license_expiry, label: 'Expiry date', start_year: Date.today.year, end_year: Date.today.year + 20, order: [:day, :month, :year], wrapper_html: { class: 'dob' }
-  = f.association :mechanic_license_state, label: 'Registered state', prompt: '-- Please select --'
-  = f.input :mechanic_license, label: 'Tradesperson certificates', as: :image, wrapper: :bootstrap, input_html: { wrap_class: 'col-md-4 col-sm-5' }, show_file_name: true
+    #driver_license.tab-pane
+      = f.input :driver_license_number, label: 'License number'
+      = f.association :license_state, label: 'Registered state', prompt: '-- Please select --'
+      = f.input :license_expiry, label: 'Expiry date', start_year: Date.today.year, end_year: Date.today.year + 20, order: [:day, :month, :year], wrapper_html: { class: 'dob' }
+      = f.input :driver_license, label: 'Image', as: :image, wrapper: :bootstrap, input_html: { wrap_class: 'col-md-4 col-sm-5' }, show_file_name: true
 
-  %legend Verified Statuses
-  = f.input :phone_verified
-  = f.input :super_mechanic
-  = f.input :warranty_covered
-  = f.input :qualification_verified
+    #motor_license.tab-pane
+      = f.input :mechanic_license_number, label: 'Motor license number'
+      = f.association :mechanic_license_state, label: 'Registered state', prompt: '-- Please select --'
+      = f.input :mechanic_license_expiry, label: 'Expiry date', start_year: Date.today.year, end_year: Date.today.year + 20, order: [:day, :month, :year], wrapper_html: { class: 'dob' }
+      = f.input :mechanic_license, label: 'Tradesperson certificates', as: :image, wrapper: :bootstrap, input_html: { wrap_class: 'col-md-4 col-sm-5' }, show_file_name: true
+
+    #badges.tab-pane
+      = f.input :phone_verified
+      = f.input :super_mechanic
+      = f.input :warranty_covered
+      = f.input :qualification_verified
 
   %hr.hr-dark-gray
   .form-group

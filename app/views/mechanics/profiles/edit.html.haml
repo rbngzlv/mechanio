@@ -1,35 +1,44 @@
 .row
-  .col-md-12
-    = link_to 'Availabilities', mechanics_events_path, class: 'btn btn-info pull-right col-md-2 bottom-margin'
+  .col-md-9
+    %ul.nav.nav-tabs
+      %li.active= link_to 'Personal details', '#personal', 'data-toggle' => 'tab'
+      %li= link_to 'Contact details', '#contact', 'data-toggle' => 'tab'
+      %li= link_to 'Business details', '#business', 'data-toggle' => 'tab'
+  .col-md-3.text-right
+    = link_to 'Availabilities', mechanics_events_path, class: 'btn btn-info'
 .row
   .col-md-12
     .panel.panel-default.panel-rounded
-      .panel-heading.clearfix
-        %h4.panel-title
-          %i.glyphicon.glyphicon-user
-          Edit Profile
       .panel-body
-        = simple_form_for current_mechanic, url: mechanics_profile_path, html: { class: 'form-horizontal mechanic_form', multipart: true }, defaults: { label_html: { class: 'col-md-4 col-sm-4' } }, wrapper: :bootstrap_horizontal do |f|
+        = simple_form_for current_mechanic, url: mechanics_profile_path, html: { class: 'form-horizontal mechanic_form', multipart: true }, defaults: { label_html: { class: 'col-md-3 col-sm-3' } }, wrapper: :bootstrap_horizontal do |f|
           = f.error_notification
-          = f.input :first_name
-          = f.input :last_name
-          = f.input :dob, label: 'Date of birth', start_year: Date.today.year - 60, end_year: Date.today.year - 17, order: [:day, :month, :year], wrapper_html: { class: 'date-format-d-m-y' }
-          = f.input :email, label: 'Personal email'
-          = f.input :description, label: 'Personal description'
-          = f.input :avatar, label: 'Photo', as: :image
-          %legend Personal Address
-          = render partial: 'shared/location_form', locals: { f: f, location_assoc: :location }
-          %legend Driver's License
-          = f.input :driver_license_number, label: "Driver License Number"
-          = f.association :license_state, label: 'Registered state', prompt: '-- Please select --'
-          = f.input :license_expiry, label: 'Expiry date', start_year: Date.today.year, end_year: Date.today.year + 20, order: [:day, :month, :year], wrapper_html: { class: 'date-format-d-m-y' }
-          = f.input :driver_license, label: 'Image', as: :image
-          %legend Business Details
-          = f.input :business_website
-          = f.input :business_email
-          = f.input :years_as_a_mechanic, as: :string
-          = f.input :mobile_number
-          = render partial: 'shared/location_form', locals: { f: f, location_assoc: :business_location }
+          .tab-content
+            #personal.tab-pane.active
+              = f.input :first_name
+              = f.input :last_name
+              = f.input :email, label: 'Personal email'
+              = f.input :dob, label: 'Date of birth', start_year: Date.today.year - 60, end_year: Date.today.year - 17, order: [:day, :month, :year], wrapper_html: { class: 'date-format-d-m-y' }
+              = f.input :description, label: 'Personal description'
+              = f.input :avatar, label: 'Photo', as: :image
+
+            #contact.tab-pane
+              = f.input :mobile_number
+              = render partial: 'shared/location_form', locals: { f: f, location_assoc: :location }
+
+            #business.tab-pane
+              = f.input :business_name, label: 'Business name'
+              = f.input :abn_number, label: 'ABN number'
+              = f.input :abn_expiry, label: 'ABN expiry date', start_year: Date.today.year, end_year: Date.today.year + 20, order: [:day, :month, :year], wrapper_html: { class: 'dob' }
+              = f.input :business_website, label: 'Business website'
+              = f.input :business_email, label: 'Business email'
+              = f.input :business_mobile_number, label: 'Business phone number'
+              = f.simple_fields_for :business_location do |l|
+                = l.input :address, label: 'Business address'
+                = l.input :suburb
+                = l.association :state, prompt: '-- Please select --'
+                = l.input :postcode
+              = f.input :abn, label: 'ABN certificate', as: :image, wrapper: :bootstrap, input_html: { wrap_class: 'col-md-4 col-sm-5' }, show_file_name: true
+
           %hr.hr-dark-gray
           .form-group
             .col-md-offset-3.col-md-6
