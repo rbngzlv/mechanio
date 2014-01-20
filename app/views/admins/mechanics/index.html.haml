@@ -24,8 +24,8 @@
           %tr
             %td= u.full_name
             %td= u.mobile_number
-            %td.text-right= u.current_jobs
-            %td.text-right= u.completed_jobs
+            %td.text-right= u.current_jobs_count
+            %td.text-right= u.completed_jobs_count
             %td.text-right= number_to_currency(u.total_earnings)
             %td.text-right= u.rating
             %td.text-right= u.created_at.to_s(:short)
