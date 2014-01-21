@@ -59,7 +59,7 @@
               = f.button :submit, 'Reset Password', class: 'btn-block btn-success'
       .modal-footer
         %p.pull-right
-          It's free to join!
+          Already have an account?
           = link_to 'Log in', '', class: 'js-modal', 'data-toggle' => '#login-modal'
 - if devise_mapping.registerable?
   #register-modal.modal.fade
@@ -87,7 +87,7 @@
             = link_to 'Reset it here', '', class: 'js-modal', 'data-toggle' => '#recover-modal'
           %p.pull-right
             Already have an account?
-            = link_to 'Login', '', class: 'js-modal', 'data-toggle' => '#login-modal'
+            = link_to 'Log in', '', class: 'js-modal', 'data-toggle' => '#login-modal'
 :coffee
   $('.js-modal').click (e) ->
     e.preventDefault()
