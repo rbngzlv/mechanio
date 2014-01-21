@@ -15,7 +15,6 @@ app.controller 'DiagnoseController', ['$scope', '$http', ($scope, $http) ->
   $scope.$on 'cars_step.car_changed', (e, args...) ->
     $scope.service_plan = null
     $scope.data.tasks = []
-    console.log args[0]
     $scope.loadServicePlans(args[0]) if args[0]
 
   $scope.init = (options = {}) ->
