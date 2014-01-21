@@ -89,6 +89,13 @@
   }
 
   .step-diagnose {
+    .panel-heading a {
+      color: #666;
+      margin-left: 5px;
+      &:hover {
+        color: #666;
+      }
+    }
     .job_task_service_plan_id {
       width: 40%;
     }
