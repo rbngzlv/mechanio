@@ -31,9 +31,10 @@
               .text-center.experience #{ mechanic.years_as_a_mechanic } years of experience
 
           %div
-            - unless mechanic.description.blank?
-              .panel.nested-panel
-                = mechanic.description
+            .panel.nested-panel
+              = mechanic.description
+              - if mechanic.description.blank?
+                = link_to 'Add some information about yourself', edit_mechanics_profile_path
             .col-md-6.pull-right
               = render "shared/mechanic/verified_icons", account: mechanic
         .row

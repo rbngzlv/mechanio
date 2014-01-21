@@ -1,13 +1,13 @@
 .step-diagnose{ 'ng-controller' => 'DiagnoseController', 'ng-show' => 'stepVisible("diagnose")', 'ng-init' => "init({ mode: '#{@mode}', symptoms: #{@symptoms} })" }
 
   .wizard-body{ 'ng-show' => 'mode == "review"' }
-    .panel.panel-default.panel-rounded{ 'ng-repeat' => 'task in tasks' }
+    .task.panel.panel-default.panel-rounded{ 'ng-repeat' => 'task in tasks' }
       .panel-heading
         {{task.title}}
         .pull-right
-          %a{ href: '', 'ng-click' => 'editTask($index)' }
+          %a.edit-task{ href: '', 'ng-click' => 'editTask($index)' }
             %i.icon.icon-edit
-          %a{ href: '', 'ng-click' => 'removeTask(task)' }
+          %a.remove-task{ href: '', 'ng-click' => 'removeTask(task)' }
             %i.icon.icon-remove
       .panel-body
         {{task.note}}

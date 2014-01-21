@@ -18,7 +18,7 @@ feature 'dashboard page' do
 
     specify 'default values when user is new' do
       page.should have_selector 'h4', text: mechanic.full_name
-      page.should have_content "Add some information about yourself"
+      page.should have_link 'Add some information about yourself', href: edit_mechanics_profile_path
     end
   end
 

@@ -9,8 +9,11 @@ describe 'Service wizard', js: true do
   let(:model)         { create :model, make: make }
   let!(:variation)    { create :model_variation, model: model, make: make }
   let!(:service_plan) { create :service_plan, make: make, model: model, model_variation: variation }
+  let(:another_service_plan) { create :service_plan, make: make, model: model, model_variation: variation }
   let!(:state)        { create :state, name: 'State' }
   let(:last_service_year) { Date.today.year - 1 }
+  let(:service_note)  { 'A note goes here' }
+  let(:another_service_note)  { 'Edited note' }
 
   before do
     reset_mail_deliveries
@@ -29,6 +32,7 @@ describe 'Service wizard', js: true do
       verify_current_step 'Diagnose'
       verify_sidebar 2, 'VEHICLE', variation.display_title
       select_service_plan
+      verify_task 1, service_plan.display_title, service_note
       click_on 'Continue'
 
       verify_current_step 'Contact'
@@ -58,6 +62,7 @@ describe 'Service wizard', js: true do
       verify_current_step 'Diagnose'
       verify_sidebar 2, 'VEHICLE', variation.display_title
       select_service_plan
+      verify_task 1, service_plan.display_title, service_note
       click_on 'Continue'
 
       verify_current_step 'Contact'
@@ -106,6 +111,7 @@ describe 'Service wizard', js: true do
       verify_current_step 'Diagnose'
       verify_sidebar 2, 'VEHICLE', variation.display_title
       select_service_plan
+      verify_task 1, service_plan.display_title, service_note
       click_on 'Continue'
 
       verify_current_step 'Contact'
@@ -139,6 +145,32 @@ describe 'Service wizard', js: true do
 
       page.should have_css 'h5', text: 'FIX CAR PROBLEM'
       add_repair_symptoms
+      verify_task 1, 'Inspection', ''
+      click_on 'Continue'
+
+      verify_current_step 'Contact'
+      verify_sidebar 3, 'CAR SERVICING', 'Inspection'
+      click_on 'Continue'
+
+      verify_pending_quote
+      # verify_email_notification
+      verify_job_pending(user)
+      verify_last_service_date(user)
+    end
+
+    it 'add repair with keywords', pending: 'Keywords system is not implemented yet' do
+      visit repair_path
+
+      verify_current_step 'Car Details'
+      select_car(car)
+      enter_last_service_date
+      click_on 'Continue'
+
+      verify_current_step 'Diagnose'
+      verify_sidebar 2, 'VEHICLE', variation.display_title
+
+      add_repair_keywords
+      verify_task 1, 'Inspection', ''
       click_on 'Continue'
 
       verify_current_step 'Contact'
@@ -151,7 +183,9 @@ describe 'Service wizard', js: true do
       verify_last_service_date(user)
     end
 
-    it 'add repair with description' do
+    it 'edits tasks' do
+      another_service_plan
+
       visit service_path
 
       verify_current_step 'Car Details'
@@ -161,46 +195,20 @@ describe 'Service wizard', js: true do
 
       verify_current_step 'Diagnose'
       verify_sidebar 2, 'VEHICLE', variation.display_title
-
-      click_link 'Add Repair'
-      add_repair_description
-      click_on 'Continue'
-
-      verify_current_step 'Contact'
-      verify_sidebar 3, 'CAR SERVICING', 'Diagnose car problem'
-      click_on 'Continue'
-
-      verify_pending_quote
-      # verify_email_notification
-      verify_job_pending(user)
-      verify_last_service_date(user)
-    end
-
-    it 'allows to edit tasks from sidebar' do
-      visit service_path
-
-      verify_current_step 'Car Details'
-      select_car(car)
-      enter_last_service_date
-      click_on 'Continue'
-
-      verify_current_step 'Diagnose'
-      verify_sidebar 2, 'VEHICLE', variation.display_title
-
       select_service_plan
+      verify_task 1, service_plan.display_title, service_note
+
       click_link 'Add Repair'
-      add_repair_description
-      click_on 'Continue'
+      add_repair_symptoms
+      verify_task 2, 'Inspection', ''
 
-      verify_current_step 'Contact'
+      within_task(1) { find('.edit-task').click }
+      select_service_plan(another_service_plan, another_service_note)
+      verify_task 1, another_service_plan.display_title, another_service_note
 
-      within_sidebar_block(3) { find('li:nth-child(1) a').click }
-      verify_current_step 'Diagnose'
-      page.should have_css 'h5', "PLEASE PICK A SERVICE INTERVAL YOU'LL LIKE OUR PROFESSIONAL MOBILE MECHANIC TO PERFORM"
-
-      within_sidebar_block(3) { find('li:nth-child(2) a').click }
-      verify_current_step 'Diagnose'
-      page.should have_css 'h5', "FIX CAR PROBLEM"
+      within_task(2) { find('.edit-task').click }
+      add_repair_symptoms('Poor gas mileage')
+      verify_task 2, 'Inspection', 'Replace the lambda sensor'
     end
   end
 
@@ -237,19 +245,30 @@ describe 'Service wizard', js: true do
     click_on 'Continue'
   end
 
-  def select_service_plan
-    select service_plan.display_title, from: 'job_task_service_plan_id'
-    fill_in 'job_task_note', with: 'A note goes here'
+  def select_service_plan(plan = nil, note = nil)
+    plan ||= service_plan
+    note ||= service_note
+    select plan.display_title, from: 'job_task_service_plan_id'
+    fill_in 'job_task_note', with: note
+    click_on 'Done'
   end
 
-  def add_repair_symptoms
+  def add_repair_symptoms(symptom = nil)
+    symptom ||= 'Smoke'
     click_on 'Looks like'
-    check 'Sway - Gradual movement from side to side.'
-    check 'Drifts - Gradual movements to one side.'
+    choose symptom
+    click_on 'Add to order'
   end
 
-  def add_repair_description
+  def add_repair_keywords
     fill_in 'Describe any issues you have with your car', with: 'I have 3 wheels'
+  end
+
+  def verify_task(position, title, content)
+    within_task(position) do
+      page.should have_css '.panel-heading', text: title
+      page.should have_css '.panel-body',    text: content
+    end
   end
 
   def verify_quote
@@ -272,6 +291,12 @@ describe 'Service wizard', js: true do
     within_sidebar_block(position) do
       page.should have_css 'h5', text: title
       page.should have_css '.panel-body', text: content
+    end
+  end
+
+  def within_task(position, &block)
+    within ".wizard-body .task:nth-child(#{position})" do
+      yield
     end
   end
 
