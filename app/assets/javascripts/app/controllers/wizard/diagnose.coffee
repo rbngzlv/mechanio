@@ -19,7 +19,6 @@ app.controller 'DiagnoseController', ['$scope', '$http', ($scope, $http) ->
 
   $scope.init = (options = {}) ->
     $scope[key] = value for key, value of options
-    $scope.loadServicePlans(5422)
 
   $scope.saveService = ->
     service =
