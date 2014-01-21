@@ -68,7 +68,7 @@ app.controller 'WizardController', ['$scope', '$http', ($scope, $http) ->
     angular.isNumber($scope.user_id)
 
   $scope.authorize = ->
-    angular.element('#login-modal').modal('show')
+    angular.element('#social-login-modal').modal('show')
 
   $scope.saveJob = (success = false, error = false) ->
     params = $scope.data.job
