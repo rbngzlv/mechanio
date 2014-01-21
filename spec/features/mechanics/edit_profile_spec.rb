@@ -48,7 +48,6 @@ feature 'mechanic edit profile page' do
 
       click_button 'Save'
 
-      ####################################
 
       page.should have_css '.alert', text: 'Your profile successfully updated.'
 

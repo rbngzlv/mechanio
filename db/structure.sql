@@ -529,7 +529,6 @@ CREATE TABLE mechanics (
     business_mobile_number character varying(255),
     repair_work_classes text,
     tradesperson_certificates text,
-    completed_jobs integer DEFAULT 0,
     total_earnings numeric(8,2) DEFAULT 0,
     current_jobs_count integer DEFAULT 0,
     completed_jobs_count integer DEFAULT 0
