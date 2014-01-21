@@ -1,10 +1,12 @@
-.row.service-form
-  .col-md-4
-    = f.simple_fields_for :tasks, Service.new, child_index: '', defaults: { label: false, required: true } do |t|
-      = t.hidden_field :id, value: '{{task.id}}'
-      = t.hidden_field :_destroy, value: '{{task._destroy}}'
-      = t.hidden_field :type, value: 'Service'
+= f.simple_fields_for :tasks, Service.new, child_index: '', defaults: { label: false, required: true } do |t|
+  = t.hidden_field :id, value: '{{task.id}}'
+  = t.hidden_field :_destroy, value: '{{task._destroy}}'
+  = t.hidden_field :type, value: 'Service'
+
+  .row.service-form
+    .col-md-4
       = t.input :service_plan_id, as: :select, collection: @service_plans, label_method: :display_title, include_blank: '-- Service plan --', input_html: { 'ng-model' => 'task.service_plan_id', class: 'input-sm' }
+  .row
+    .col-md-8
       = t.input :note, placeholder: 'Notes', input_html: { 'ng-model' => 'task.note' }
-  .col-md-2
-    %a.btn.btn-success.btn-sm{ href: '', 'ng-click' => 'task.doneEditing()' } Done
+      %a.btn.btn-success.btn-sm{ href: '', 'ng-click' => 'task.doneEditing()' } Done

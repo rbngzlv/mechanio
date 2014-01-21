@@ -27,6 +27,17 @@
       }
     }
 
+    .notes {
+      display: block;
+      padding-left: 24px;
+      max-width: 80%;
+
+      hr {
+        margin-top: 8px;
+        margin-bottom: 8px;
+      }
+    }
+
     .item {
       padding-bottom: 7px;
       margin-bottom: 7px;

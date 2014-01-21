@@ -1,11 +1,28 @@
 .step-diagnose{ 'ng-controller' => 'DiagnoseController', 'ng-show' => 'stepVisible("diagnose")', 'ng-init' => "init({ mode: '#{@mode}', symptoms: #{@symptoms} })" }
+
+  .wizard-body{ 'ng-show' => 'mode == "review"' }
+    .panel.panel-default.panel-rounded{ 'ng-repeat' => 'task in tasks' }
+      .panel-heading
+        {{task.title}}
+        .pull-right
+          %a{ href: '', 'ng-click' => 'editTask($index)' }
+            %i.icon.icon-edit
+          %a{ href: '', 'ng-click' => 'removeTask(task)' }
+            %i.icon.icon-remove
+      .panel-body
+        {{task.note}}
+
+    .text-right
+      %a.btn.btn-success{ 'href' => '', 'ng-click' => 'mode = "service"', 'ng-hide' => 'hasService()' } Add Service
+      %a.btn.btn-success{ 'href' => '', 'ng-click' => 'mode = "repair"' } Add Repair
+
   .wizard-body{ 'ng-show' => "mode == 'service'", 'ng-form' => 'service_form' }
     %h5 PLEASE PICK A SERVICE INTERVAL YOU'LL LIKE OUR PROFESSIONAL MOBILE MECHANIC TO PERFORM
     %hr.hr-dark-gray
     = f.simple_fields_for :task do |s|
       = s.input :service_plan_id, label: false, include_blank: '-- Please select --', collection: [], input_html: { 'ng-model' => 'service_plan', 'ng-options' => 'v.display_title for v in service_plans', 'ng-disabled' => 'service_plans.length == 0', 'ng-focus' => true, 'required' => true }
       = s.input :note, label: false, placeholder: 'Write any additional issues or concerns you have with your car', as: :text, input_html: { 'ng-model' => 'note' }
-    %a.btn.btn-success{ 'href' => '', 'ng-click' => 'mode = "repair"' } Add Repair
+    %a.btn.btn-success{ 'href' => '', 'ng-click' => 'saveService()', 'ng-disabled' => '!service_plan.id' } Done
 
   .wizard-body{ 'ng-show' => 'mode == "repair"', 'ng-form' => 'repair_form' }
     %h5 FIX CAR PROBLEM
@@ -29,12 +46,11 @@
 
       %script{ type: 'text/ng-template', id: 'questions' }
         %p {{parent.comment}}
+        %a.btn.btn-success{ :href => '', 'ng-click' => 'saveRepair()', 'ng-hide' => 'hasChildren(parent)' } Add to order
         %p{ 'ng-repeat' => 'symptom in symptoms | filter:childrenOf(parent)' }
           %input{ type: 'radio', 'ng-value' => 'symptom', id: 'symptom_{{symptom.id}}', name: 'symptom_id[]', 'ng-model' => 'selected_symptoms[symptom.id]' }
           %label{ for: 'symptom_{{symptom.id}}' }
             {{symptom.description}}
-
-    %a.btn.btn-success{ 'href' => '', 'ng-click' => 'mode = "service"' } {{serviceButtonLabel()}}
 
   %hr
   %button.btn.btn-default{ 'type' => 'button', 'ng-click' => 'gotoStep("car-details")' }

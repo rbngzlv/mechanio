@@ -32,10 +32,6 @@ app.controller 'WizardController', ['$scope', '$http', ($scope, $http) ->
       $scope.step = step
       $scope.$broadcast("#{step}_step.enter")
 
-  $scope.editTask = (task) ->
-    $scope.$broadcast('task_edit', task)
-    $scope.gotoStep('diagnose')
-
   $scope.findNextStep = ->
     index = $scope.steps.indexOf($scope.step)
     $scope.steps[index + 1]
@@ -72,7 +68,7 @@ app.controller 'WizardController', ['$scope', '$http', ($scope, $http) ->
     angular.isNumber($scope.user_id)
 
   $scope.authorize = ->
-    angular.element('#login-modal').modal('show')
+    angular.element('#social-login-modal').modal('show')
 
   $scope.saveJob = (success = false, error = false) ->
     params = $scope.data.job

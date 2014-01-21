@@ -9,6 +9,6 @@ class Symptom < ActiveRecord::Base
   validates :description, presence: true
 
   def self.graph
-    includes(:symptom_hierarchies).all.to_json(only: [:id, :description, :comment], methods: [:parent_ids])
+    includes(:symptom_hierarchies).to_json(only: [:id, :description, :comment], methods: [:parent_ids])
   end
 end

@@ -17,7 +17,6 @@
     %hr.hr-dark-gray
     %ul
       %li{ 'ng-repeat' => 'task in data.tasks' }
-        %a.pull-right{ href: '', 'ng-click' => 'editTask(task)' } edit
         %p {{ task.title }}
 
 .panel.panel-default.panel-rounded{ 'ng-show' => 'data.location.address' }
