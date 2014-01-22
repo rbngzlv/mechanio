@@ -2,8 +2,14 @@ module Resque
   module Mailer
     class MessageDecoy
       def deliver
-        record = @args.first        
-        resque.enqueue @mailer_class, @method_name, record.class.name, record.id
+        return deliver! if environment_excluded?
+
+        record = @args.first
+        if record.respond_to?(:id)
+          resque.enqueue @mailer_class, @method_name, record.class.name, record.id
+        else
+          resque.enqueue @mailer_class, @method_name, @args
+        end
       end
     end
   end
