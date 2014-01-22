@@ -8,13 +8,12 @@ class Symptom < ActiveRecord::Base
 
   before_save :check_parent_id
 
-
   def self.top
     roots.first
   end
 
   def self.tree
-    top ? top.descendants.arrange : {}
+    top ? top.descendants.arrange(order: :id) : {}
   end
 
   def self.json_tree
@@ -23,7 +22,7 @@ class Symptom < ActiveRecord::Base
 
   def self.traverse(subtree)
     subtree.map do |parent, children|
-      json = parent.as_json(only: [:id, :description])
+      json = parent.as_json(only: [:id, :description, :comment])
       json['children'] = traverse(children) if children
       json
     end

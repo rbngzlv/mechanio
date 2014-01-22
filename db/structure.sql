@@ -812,9 +812,10 @@ ALTER SEQUENCE states_id_seq OWNED BY states.id;
 
 CREATE TABLE symptoms (
     id integer NOT NULL,
-    description text,
+    description character varying(255),
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
+    comment text,
     ancestry character varying(255)
 );
 
