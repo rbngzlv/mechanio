@@ -523,11 +523,11 @@ CREATE TABLE mechanics (
     qualification_verified boolean DEFAULT false,
     location_id integer,
     business_location_id integer,
+    business_name character varying(255),
+    business_mobile_number character varying(255),
     total_earnings numeric(8,2) DEFAULT 0,
     current_jobs_count integer DEFAULT 0,
-    completed_jobs_count integer DEFAULT 0,
-    business_name character varying(255),
-    business_mobile_number character varying(255)
+    completed_jobs_count integer DEFAULT 0
 );
 
 
@@ -567,8 +567,8 @@ CREATE TABLE model_variations (
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     make_id integer,
-    display_title character varying(255),
     comment text,
+    display_title character varying(255),
     detailed_title character varying(255)
 );
 
@@ -1171,14 +1171,6 @@ ALTER TABLE ONLY body_types
 
 
 --
--- Name: brands_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY makes
-    ADD CONSTRAINT brands_pkey PRIMARY KEY (id);
-
-
---
 -- Name: cars_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1232,6 +1224,14 @@ ALTER TABLE ONLY labours
 
 ALTER TABLE ONLY locations
     ADD CONSTRAINT locations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: makes_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY makes
+    ADD CONSTRAINT makes_pkey PRIMARY KEY (id);
 
 
 --
@@ -1469,27 +1469,6 @@ CREATE UNIQUE INDEX index_users_on_reset_password_token ON users USING btree (re
 --
 
 CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (version);
-
-
---
--- Name: geometry_columns_delete; Type: RULE; Schema: public; Owner: -
---
-
-CREATE RULE geometry_columns_delete AS ON DELETE TO geometry_columns DO INSTEAD NOTHING;
-
-
---
--- Name: geometry_columns_insert; Type: RULE; Schema: public; Owner: -
---
-
-CREATE RULE geometry_columns_insert AS ON INSERT TO geometry_columns DO INSTEAD NOTHING;
-
-
---
--- Name: geometry_columns_update; Type: RULE; Schema: public; Owner: -
---
-
-CREATE RULE geometry_columns_update AS ON UPDATE TO geometry_columns DO INSTEAD NOTHING;
 
 
 --

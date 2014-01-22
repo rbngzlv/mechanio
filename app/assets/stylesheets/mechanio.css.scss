@@ -1569,6 +1569,7 @@ form {
     top: 0;
     width: 100%;
     background: rgba(0, 0, 0, .6);
+    overflow: auto;
   }
 
   .show-aside {
@@ -1905,4 +1906,10 @@ input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
+}
+
+@media (max-height: 420px) {
+  .show-aside {
+    height: auto;
+  }
 }
