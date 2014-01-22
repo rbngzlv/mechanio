@@ -32,7 +32,10 @@ feature 'Appointments' do
   context 'book appointment', :js do
     before { visit edit_users_appointment_path(job) }
 
-    it 'shows mechanic popup' do
+    it 'check content' do
+      should have_css '.fc-button-prev.fc-state-disabled'
+      should have_css '.fc-agenda-axis + th', text: Date.tomorrow.strftime('%a %-m/%d')
+
       click_link mechanic.full_name
       should have_css "#js-mechanic-#{mechanic.id}", visible: true
     end

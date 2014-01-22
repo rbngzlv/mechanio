@@ -11,7 +11,7 @@
         right: 'prev,next,today'
       },
       defaultView: 'agendaWeek',
-      firstDay: #{ Date.today.wday },
+      firstDay: #{ Date.tomorrow.wday },
       firstHour: 9,
       minTime: 9,
       maxTime: 19,
@@ -27,8 +27,18 @@
       dayClick: function(date, allDay, jsEvent, view) {
         form.find('#job_scheduled_at').val(moment(date).format('YYYY-MM-DDTHH:mm'));
         form.find('input[type=submit]').attr('disabled', false);
+      },
+      viewRender: function(view, element) {
+        var date = new Date(new Date().getTime() + 86400000)
+
+        if((date - view.start) > 0) {
+          $('.fc-button-prev').addClass("fc-state-disabled");
+        } else {
+          $('.fc-button-prev').removeClass("fc-state-disabled");
+        }
       }
     });
+    calendar.find('.fc-button-next').click();
   });
 .panel.panel-default.panel-rounded
   .panel-body
