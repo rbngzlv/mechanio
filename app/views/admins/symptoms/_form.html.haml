@@ -3,6 +3,7 @@
   - unless @symptom.persisted? && @symptom.has_children?
     = f.input :parent_id, collection: Symptom.roots.first.children, label_method: :description, label: 'Parent symptom', prompt: '-- Make a root symptom --'
   = f.input :description
+  = f.input :comment, input_html: { rows: 8 }
   .form-group
     .col-md-offset-2.col-md-4
       = f.submit 'Save', class: 'btn btn-primary'

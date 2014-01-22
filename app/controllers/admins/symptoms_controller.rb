@@ -38,7 +38,7 @@ class Admins::SymptomsController < Admins::ApplicationController
   private
 
   def permitted_params
-    attrs = params.require(:symptom).permit(:description, :parent_id)
+    attrs = params.require(:symptom).permit(:description, :comment, :parent_id)
     attrs
   end
 
