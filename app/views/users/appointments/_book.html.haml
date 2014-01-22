@@ -33,10 +33,10 @@
 .panel.panel-default.panel-rounded
   .panel-body
     .row
-      .profile-border
-        = render 'shared/mechanic/avatar', mechanic: mechanic
+      .profile-border.clickable{ data: { toggle: 'modal', target: "#js-mechanic-#{mechanic.id}" }, role: 'button' }
+        = render "shared/mechanic/avatar", mechanic: mechanic
         %h5.text-center
-          = link_to mechanic.full_name, "#js-mechanic-#{mechanic.id}", data: { toggle: 'modal' }, role: 'button'
+          = mechanic.full_name
           - if mechanic.years_as_a_mechanic
             %br #{ mechanic.years_as_a_mechanic } years of experience
 
@@ -59,7 +59,7 @@
         .panel-body.modal-body
           .row
             .profile-border
-              = image_tag mechanic.avatar? ? mechanic.avatar_url(:thumb) : 'photo.jpg', class: 'avatar clickable js-update-avatar'
+              = image_tag mechanic.avatar? ? mechanic.avatar_url(:thumb) : 'photo.jpg', class: 'avatar js-update-avatar'
               .reviews-row.clearfix
                 .rating.pull-left
                   = rating_stars(mechanic.rating)
