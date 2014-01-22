@@ -40,7 +40,7 @@ class Users::JobsController < Users::ApplicationController
     @cars = []
     @location = @job.build_location
     @contact = {}
-    @symptoms = Symptom.graph
+    @symptoms = Symptom.json_tree
 
     if user_signed_in?
       @user_id = current_user.id

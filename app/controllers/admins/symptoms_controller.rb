@@ -3,7 +3,7 @@ class Admins::SymptomsController < Admins::ApplicationController
   before_filter :find_symptom, except: [:index, :new, :create]
 
   def index
-    @symptoms = Symptom.graph
+    @symptoms = Symptom.tree
   end
 
   def new
@@ -38,9 +38,7 @@ class Admins::SymptomsController < Admins::ApplicationController
   private
 
   def permitted_params
-    # FIXME: Symptom now can have multiple parents and a comment
     attrs = params.require(:symptom).permit(:description, :parent_id)
-    attrs[:parent_id] = root.id if attrs[:parent_id].blank?
     attrs
   end
 

@@ -1,14 +1,35 @@
 class Symptom < ActiveRecord::Base
 
-  has_many :symptom_hierarchies
-  has_many :children, through: :symptom_hierarchies
+  has_ancestry
 
-  has_many :parent_hierarchies, class_name: 'SymptomHierarchy', foreign_key: :child_id
-  has_many :parents, through: :parent_hierarchies
+  belongs_to :symptom, foreign_key: :parent_id
 
   validates :description, presence: true
 
-  def self.graph
-    includes(:symptom_hierarchies).to_json(only: [:id, :description, :comment], methods: [:parent_ids])
+  before_save :check_parent_id
+
+
+  def self.top
+    roots.first
+  end
+
+  def self.tree
+    top ? top.descendants.arrange : {}
+  end
+
+  def self.json_tree
+    traverse(tree).to_json
+  end
+
+  def self.traverse(subtree)
+    subtree.map do |parent, children|
+      json = parent.as_json(only: [:id, :description])
+      json['children'] = traverse(children) if children
+      json
+    end
+  end
+
+  def check_parent_id
+    self.parent_id ||= self.class.top.id unless self.description == 'Root'
   end
 end

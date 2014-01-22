@@ -6,7 +6,8 @@ app.controller 'DiagnoseController', ['$scope', '$http', ($scope, $http) ->
   $scope.service_plan = {}
   $scope.note = ''
   $scope.symptoms = []
-  $scope.selected_symptoms = {}
+  $scope.questions = []
+  $scope.selected_symptoms = []
   $scope.problem_description = ''
 
   $scope.tasks = []
@@ -19,6 +20,7 @@ app.controller 'DiagnoseController', ['$scope', '$http', ($scope, $http) ->
 
   $scope.init = (options = {}) ->
     $scope[key] = value for key, value of options
+    $scope.questions = $scope.symptoms
 
   $scope.saveService = ->
     service =
@@ -29,7 +31,8 @@ app.controller 'DiagnoseController', ['$scope', '$http', ($scope, $http) ->
     $scope.updateTask(service)
 
   $scope.saveRepair = ->
-    last = s for k, s of $scope.selected_symptoms
+    s = $scope.selected_symptoms
+    last = s[s.length - 1]
     repair = {
       type: 'Inspection',
       title: 'Inspection',
@@ -73,8 +76,12 @@ app.controller 'DiagnoseController', ['$scope', '$http', ($scope, $http) ->
   $scope.valid = ->
     $scope.tasks.length > 0
 
+  $scope.addSymptom = (symptom) ->
+    $scope.selected_symptoms.push(symptom)
+    $scope.questions = symptom.children
+
   $scope.resetSelectedSymptoms = ->
-    $scope.selected_symptoms = {}
+    $scope.selected_symptoms = []
 
   $scope.isParent = (symptom) ->
     symptom.parent_ids.length == 0

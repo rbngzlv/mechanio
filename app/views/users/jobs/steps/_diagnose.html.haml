@@ -32,25 +32,14 @@
 
       %h6 Or select type of symptom you have
 
-      #js-accordion.accordion.panel-group.symptoms
-        .panel.nested-panel{ 'ng-repeat' => 'parent in symptoms | filter:isParent' }
-          .panel-heading.clearfix
-            %h4.panel-title
-              = link_to '{{parent.description}}', '#collapse_{{parent.id}}', class: 'accordion-toggle', data: { toggle: 'collapse', parent: '#js-accordion', 'ng-click' => 'resetSelectedSymptoms()' }
-          .panel-collapse.collapse{ id: 'collapse_{{parent.id}}' }
-            .panel-body
-              .questions.col-md-12
-                %ng-include{ src: '"questions"' }
-              .questions.col-md-12{ 'ng-repeat' => 'parent in selected_symptoms' }
-                %ng-include{ src: '"questions"' }
-
-      %script{ type: 'text/ng-template', id: 'questions' }
-        %p {{parent.comment}}
-        %a.btn.btn-success{ :href => '', 'ng-click' => 'saveRepair()', 'ng-hide' => 'hasChildren(parent)' } Add to order
-        %p{ 'ng-repeat' => 'symptom in symptoms | filter:childrenOf(parent)' }
-          %input{ type: 'radio', 'ng-value' => 'symptom', id: 'symptom_{{symptom.id}}', name: 'symptom_id[]', 'ng-model' => 'selected_symptoms[symptom.id]' }
-          %label{ for: 'symptom_{{symptom.id}}' }
-            {{symptom.description}}
+      .row
+        .col-md-6
+          %div{ 'ng-repeat' => 'symptom in questions' }
+            .panel.nested-panel{ 'ng-click' => 'addSymptom(symptom)', 'ng-show' => 'symptom.children' }
+              %small.pull-right &#x276F;
+              {{symptom.description}}
+            .advice{ 'ng-hide' => 'symptom.children' }
+              %p {{symptom.comment}}
 
   %hr
   %button.btn.btn-default{ 'type' => 'button', 'ng-click' => 'gotoStep("car-details")' }
