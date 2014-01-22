@@ -12,6 +12,7 @@
       },
       defaultView: 'agendaWeek',
       firstDay: #{ Date.tomorrow.wday },
+      date: #{ Date.tomorrow.day },
       firstHour: 9,
       minTime: 9,
       maxTime: 19,
@@ -29,16 +30,15 @@
         form.find('input[type=submit]').attr('disabled', false);
       },
       viewRender: function(view, element) {
-        var date = new Date(new Date().getTime() + 86400000)
+        var tomorrow = moment().add('days', 1)
 
-        if((date - view.start) > 0) {
+        if(tomorrow.isAfter(view.start)) {
           $('.fc-button-prev').addClass("fc-state-disabled");
         } else {
           $('.fc-button-prev').removeClass("fc-state-disabled");
         }
       }
     });
-    calendar.find('.fc-button-next').click();
   });
 .panel.panel-default.panel-rounded
   .panel-body
