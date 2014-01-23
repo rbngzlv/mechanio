@@ -50,9 +50,9 @@ describe 'Service wizard', js: true do
         click_on 'Login'
       end
 
-      verify_quote
+      verify_quote ["#{service_plan.display_title} service"], '$350.00'
       verify_email_notification
-      verify_job_created(user)
+      verify_job_estimated(user, 350)
       verify_last_service_kms(user)
     end
 
@@ -78,17 +78,20 @@ describe 'Service wizard', js: true do
         click_on 'Use regular email sign up'
       end
 
-      within('#register-modal') do
-        fill_in 'user_first_name', with: 'First'
-        fill_in 'user_last_name', with: 'Last'
-        fill_in 'user_email', with: 'email@host.com'
-        fill_in 'user_password', with: 'password'
-        click_on 'Sign up'
-      end
+      expect {
+        within('#register-modal') do
+          fill_in 'user_first_name', with: 'First'
+          fill_in 'user_last_name', with: 'Last'
+          fill_in 'user_email', with: 'email@host.com'
+          fill_in 'user_password', with: 'password'
+          click_on 'Sign up'
+        end
+      }.to change { User.count }.by 1
 
-      verify_quote
+      user = User.last
+      verify_quote ["#{service_plan.display_title} service"], '$350.00'
       # verify_email_notification
-      verify_job_created(User.last)
+      verify_job_estimated(user, 350)
       verify_last_service_kms(User.last)
 
       visit edit_users_profile_path
@@ -129,9 +132,9 @@ describe 'Service wizard', js: true do
       page.should have_field 'job_contact_phone', with: user.mobile_number
       click_on 'Continue'
 
-      verify_quote
+      verify_quote ["#{service_plan.display_title} service"], '$350.00'
       verify_email_notification
-      verify_job_created(user)
+      verify_job_estimated(user, 350)
       verify_last_service_date(user)
     end
 
@@ -157,10 +160,11 @@ describe 'Service wizard', js: true do
       verify_current_step 'Contact'
       verify_sidebar 3, 'CAR SERVICING', 'Break safety inspection'
       click_on 'Continue'
+      sleep 2
 
-      verify_pending_quote
+      verify_quote ['Break safety inspection $80.00'], '$80.00'
       # verify_email_notification
-      verify_job_pending(user)
+      verify_job_estimated(user, 80)
       verify_last_service_date(user)
     end
 
@@ -221,6 +225,38 @@ describe 'Service wizard', js: true do
       click_on 'Update'
       verify_task 2, 'Break safety inspection', 'Replace the break pads Notes: Edited note'
     end
+
+    it 'deletes tasks' do
+      another_service_plan
+
+      visit service_path
+
+      verify_current_step 'Car Details'
+      select_car(car)
+      enter_last_service_date
+      click_on 'Continue'
+
+      verify_current_step 'Diagnose'
+      verify_sidebar 2, 'VEHICLE', variation.display_title
+      select_service_plan
+      click_on 'Add'
+      verify_task 1, service_plan.display_title, note
+
+      click_link 'Diagnose problem'
+      add_repair_symptoms
+      fill_in 'job_task_note', with: note
+      click_on 'Add'
+      verify_task 2, 'Break safety inspection', 'Replace the break pads Notes: A note goes here'
+
+      within_task(1) { find('.remove-task').click }
+      verify_task 1, 'Break safety inspection', 'Replace the break pads Notes: A note goes here'
+
+      within_task(1) { find('.remove-task').click }
+      page.should have_css 'h4', text: 'Please select a service or diagnose your problem'
+      page.should have_link 'Select service'
+      page.should have_link 'Diagnose problem'
+      find('button', text: 'Continue')[:disabled].should be_true
+    end
   end
 
   def add_new_car
@@ -278,10 +314,12 @@ describe 'Service wizard', js: true do
     end
   end
 
-  def verify_quote
+  def verify_quote(tasks, total)
     page.should have_css 'h4', text: 'YOUR NEGOTIATED QUOTE'
-    find('table.tasks tr:last-child').text.should eq "Total Fees #{number_to_currency service_plan.cost}"
-    page.should have_css 'h4', text: 'SELECT A MECHANIC'
+    tasks.each_with_index do |task, i|
+      page.should have_css ".tasks tr:nth-child(#{i + 1})", text: task
+    end
+    find('.tasks tr:last-child').text.should eq "Total Fees #{total}"
   end
 
   def verify_pending_quote
@@ -325,11 +363,11 @@ describe 'Service wizard', js: true do
     end
   end
 
-  def verify_job_created(user)
+  def verify_job_estimated(user, total)
     user.reload.jobs.count.should eq 1
     user.jobs.last.tap do |j|
       j.status.should eq 'estimated'
-      j.cost.should eq 350
+      j.cost.should eq total
     end
   end
 

@@ -115,7 +115,7 @@ class Job < ActiveRecord::Base
       :car_id, :contact_email, :contact_phone,
       location_attributes:  [:address, :suburb, :postcode, :state_id],
       car_attributes:       [:id, :year, :model_variation_id, :last_service_kms, :last_service_date],
-      tasks_attributes:     [:type, :service_plan_id, :note, :title, symptom_ids: [],
+      tasks_attributes:     [:type, :service_plan_id, :note, :title, :description,
         task_items_attributes: [:itemable_type,
           itemable_attributes: [:description, :name, :unit_cost, :quantity, :duration_hours, :duration_minutes, :cost]
         ]

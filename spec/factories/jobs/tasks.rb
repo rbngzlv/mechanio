@@ -7,6 +7,11 @@ FactoryGirl.define do
       service_plan
     end
 
+    factory :inspection, class: 'Inspection' do
+      title 'Break pedal vibration'
+      description 'Mechanic should diagnose this problem'
+    end
+
     factory :repair, class: 'Repair' do
       type 'Repair'
       title 'Replace break pads'

@@ -33,7 +33,7 @@ feature 'Appointments' do
     before { visit edit_users_appointment_path(job) }
 
     it 'shows mechanic popup' do
-      click_link mechanic.full_name
+      find('.profile-border.clickable').click
       should have_css "#js-mechanic-#{mechanic.id}", visible: true
     end
 

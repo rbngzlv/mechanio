@@ -885,7 +885,8 @@ CREATE TABLE tasks (
     title character varying(255),
     cost numeric(8,2),
     tax numeric(8,2),
-    total numeric(8,2)
+    total numeric(8,2),
+    description text
 );
 
 
@@ -1657,3 +1658,5 @@ INSERT INTO schema_migrations (version) VALUES ('20140121215503');
 INSERT INTO schema_migrations (version) VALUES ('20140121215545');
 
 INSERT INTO schema_migrations (version) VALUES ('20140123110341');
+
+INSERT INTO schema_migrations (version) VALUES ('20140123111537');
