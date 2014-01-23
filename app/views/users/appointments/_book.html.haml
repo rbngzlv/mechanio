@@ -6,9 +6,9 @@
 
     calendar.fullCalendar({
       header: {
-        left: 'title',
+        left: '',
         center: '',
-        right: 'prev,next,today'
+        right: ''
       },
       defaultView: 'agendaWeek',
       firstDay: #{ Date.tomorrow.wday },
@@ -30,14 +30,43 @@
         form.find('input[type=submit]').attr('disabled', false);
       },
       viewRender: function(view, element) {
+        // FIXME: bug with current date(in morning I can see today) may be bug not here
         var tomorrow = moment().add('days', 1)
 
         if(tomorrow.isAfter(view.start)) {
-          $('.fc-button-prev').addClass("fc-state-disabled");
+          $('#mechanic_#{mechanic.id} .left-arrow').addClass("disabled");
         } else {
-          $('.fc-button-prev').removeClass("fc-state-disabled");
+          $('#mechanic_#{mechanic.id} .left-arrow').removeClass("disabled");
         }
+      },
+      // try to have more pretty "answer"
+      eventAfterRender: function(event, element, view) {
+        $el = $(element);
+        width = parseInt($el.css('width'))
+        width *= 1.04
+        $el.css('width', width + 'px');
+        $elWrap = $('.fc-content > div > div > div');
+        height = parseInt($elWrap.css('height'))
+        height *= 1.04
+        $elWrap.css('height', height + 'px');
+        height = parseInt($el.css('height'))
+        height *= 1.04
+        $el.css('height', height + 'px');
+        $('.fc-content > div > div > div > div').css('overflow', 'visible');
+
       }
+    });
+    $('#mechanic_#{mechanic.id} .right-arrow').click(function() {
+      calendar.fullCalendar('next');
+    });
+    $('#mechanic_#{mechanic.id} .left-arrow').click(function() {
+      if(!$(this).hasClass('disabled')) {
+        calendar.fullCalendar('prev');
+      }
+    });
+
+    $(document).click(function () {
+      $('input[type=submit]').attr('disabled', true);
     });
   });
 .panel.panel-default.panel-rounded
@@ -53,9 +82,14 @@
 
       .row.calendar-container[mechanic]
         %legend Select Arrival Time
+        .arrows.left-arrow &#x276E
+        .arrows.right-arrow &#x276F
         .calendar.week-view
-        = simple_form_for @job, url: users_appointment_path, html: { class: 'choose_mechanic_form' }, wrapper: :nolabel do |f|
-          = f.hidden_field :scheduled_at, value: nil
-          = f.hidden_field :mechanic_id, value: mechanic.id
-          = f.submit 'Book Appointment', class: 'btn btn-info', disabled: true
+
+        %p
+          = simple_form_for @job, url: users_appointment_path, html: { class: 'choose_mechanic_form' }, wrapper: :nolabel do |f|
+            = f.hidden_field :scheduled_at, value: nil
+            = f.hidden_field :mechanic_id, value: mechanic.id
+            = f.submit 'Book Appointment', class: 'btn btn-info pull-right', disabled: true, style: "margin-right: 30px"
+
     = render "shared/mechanic/modal", mechanic: mechanic
