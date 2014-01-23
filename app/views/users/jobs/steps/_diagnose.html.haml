@@ -7,20 +7,21 @@
       %a.btn.btn-success{ 'href' => '', 'ng-click' => 'mode = "service"', 'ng-hide' => 'hasService()' } Select service
       %a.btn.btn-success{ 'href' => '', 'ng-click' => 'mode = "repair"' } Diagnose problem
 
-    .task.panel.panel-default.panel-rounded{ 'ng-repeat' => 'task in tasks' }
-      .panel-heading
-        {{task.title}}
-        .pull-right
-          %a.edit-task{ href: '', 'ng-click' => 'editTask($index)' }
-            %i.icon.icon-edit
-          %a.remove-task{ href: '', 'ng-click' => 'removeTask($index)' }
-            %i.icon.icon-remove
-      .panel-body
-        %p{ 'ng-show' => 'task.description' }
-          {{task.description}}
-        %p{ 'ng-show' => 'task.note'}
-          %strong Notes:
-          {{task.note}}
+    .tasks
+      .task.panel.panel-default.panel-rounded{ 'ng-repeat' => 'task in tasks' }
+        .panel-heading
+          {{task.title}}
+          .pull-right
+            %a.edit-task{ href: '', 'ng-click' => 'editTask($index)' }
+              %i.icon.icon-edit
+            %a.remove-task{ href: '', 'ng-click' => 'removeTask($index)' }
+              %i.icon.icon-remove
+        .panel-body
+          %p{ 'ng-show' => 'task.description' }
+            {{task.description}}
+          %p{ 'ng-show' => 'task.note'}
+            %strong Notes:
+            {{task.note}}
 
     .text-right{ 'ng-show' => 'tasks.length' }
       %a.btn.btn-success{ 'href' => '', 'ng-click' => 'mode = "service"', 'ng-hide' => 'hasService()' } Select service
