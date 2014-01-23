@@ -700,6 +700,7 @@ section {
   margin: 0 10px;
   position: relative;
 
+  &.clickable,
   .clickable {
     cursor: pointer;
   }

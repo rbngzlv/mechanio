@@ -105,26 +105,14 @@
     }
 
     .symptoms {
-      .panel-body {
-        height: 350px;
-        position: relative;
-      }
+      min-height: 310px;
 
-      .questions {
-        position: absolute;
-        top: 10px;
-        background: #fbfbfb;
-        padding-left: 1px;
-        height: 350px;
-
-        &.ng-enter {
-          -webkit-transition: 0.1s linear all;
-          transition: 0.1s linear all;
-          left: 100%;
-        }
-        &.ng-enter.ng-enter-active {
-          left: 0;
-        }
+      a.btn {
+        width: 100%;
+        text-align: left;
+        background: #eee;
+        border-radius: 5px;
+        margin-bottom: 5px;
       }
     }
   }

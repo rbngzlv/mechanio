@@ -5,9 +5,8 @@
       Reviews Left:
       %strong= user.reviews
 %div
-  - unless user.description.blank?
-    .panel.nested-panel
-      = user.description
+  .panel.nested-panel
+    = user.description || 'Add some information about yourself'
 
   .col-md-6.pull-right.text-right
     = render "shared/user/verified_icons", account: user
