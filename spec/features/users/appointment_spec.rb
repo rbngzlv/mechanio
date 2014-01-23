@@ -6,7 +6,6 @@ feature 'Appointments' do
   let!(:job)        { create :job_with_service, :estimated, user: user, location: location }
   let(:appointment) { create :job, :with_service, :estimated, :assigned, user: user }
   let(:location)    { create(:location, :with_coordinates, postcode: '1234') }
-  let(:tomorrow)    { DateTime.now.tomorrow.day }
 
   subject { page }
 
@@ -29,32 +28,11 @@ feature 'Appointments' do
     should have_content "ID: #{appointment.uid}"
   end
 
-  context 'book appointment', :js do
-    before { visit edit_users_appointment_path(job) }
-
-    it 'check content' do
-      should have_css '.fc-button-prev.fc-state-disabled'
-      should have_css '.fc-agenda-axis + th', text: Date.tomorrow.strftime('%a %-m/%d')
-
-      click_link mechanic.full_name
+  context 'book appointment page' do
+    it 'check mechanic description', :js do
+      visit edit_users_appointment_path(job)
+      find('h5', text: mechanic.full_name).click
       should have_css "#js-mechanic-#{mechanic.id}", visible: true
-    end
-
-    scenario 'success' do
-      select_date
-      click_button 'Book Appointment'
-
-      should have_content 'Appointment booked'
-      should have_content 'Payment Process'
-
-      job.reload.mechanic.should eq mechanic
-      job.assigned?.should be_true
-      mechanic.events.count.should eq 1
-      mail_deliveries.count.should eq 3
-    end
-
-    def select_date
-      find('.fc-agenda-slots tr:nth-of-type(5) td.fc-widget-content').click
     end
   end
 

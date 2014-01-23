@@ -27,6 +27,7 @@
       },
       dayClick: function(date, allDay, jsEvent, view) {
         form.find('#job_scheduled_at').val(moment(date).format('YYYY-MM-DDTHH:mm'));
+        $('input[type=submit]').attr('disabled', true);
         form.find('input[type=submit]').attr('disabled', false);
       },
       viewRender: function(view, element) {
@@ -64,10 +65,6 @@
         calendar.fullCalendar('prev');
       }
     });
-
-    $(document).click(function () {
-      $('input[type=submit]').attr('disabled', true);
-    });
   });
 .panel.panel-default.panel-rounded
   .panel-body
@@ -82,8 +79,8 @@
 
       .row.calendar-container[mechanic]
         %legend Select Arrival Time
-        .arrows.left-arrow &#x276E
-        .arrows.right-arrow &#x276F
+        .calendar-arrow.left-arrow &#x276E
+        .calendar-arrow.right-arrow &#x276F
         .calendar.week-view
 
         %p
