@@ -12,8 +12,8 @@ describe 'Service wizard', js: true do
   let(:another_service_plan) { create :service_plan, make: make, model: model, model_variation: variation }
   let!(:state)        { create :state, name: 'State' }
   let(:last_service_year) { Date.today.year - 1 }
-  let(:service_note)  { 'A note goes here' }
-  let(:another_service_note)  { 'Edited note' }
+  let(:note)          { 'A note goes here' }
+  let(:another_note)  { 'Edited note' }
 
   before do
     reset_mail_deliveries
@@ -33,7 +33,7 @@ describe 'Service wizard', js: true do
       verify_sidebar 2, 'VEHICLE', variation.display_title
       select_service_plan
       click_on 'Add'
-      verify_task 1, service_plan.display_title, service_note
+      verify_task 1, service_plan.display_title, note
       click_on 'Continue'
 
       verify_current_step 'Contact'
@@ -67,7 +67,7 @@ describe 'Service wizard', js: true do
       verify_sidebar 2, 'VEHICLE', variation.display_title
       select_service_plan
       click_on 'Add'
-      verify_task 1, service_plan.display_title, service_note
+      verify_task 1, service_plan.display_title, note
       click_on 'Continue'
 
       verify_current_step 'Contact'
@@ -115,7 +115,7 @@ describe 'Service wizard', js: true do
       verify_sidebar 2, 'VEHICLE', variation.display_title
       select_service_plan
       click_on 'Add'
-      verify_task 1, service_plan.display_title, service_note
+      verify_task 1, service_plan.display_title, note
       click_on 'Continue'
 
       verify_current_step 'Contact'
@@ -203,22 +203,23 @@ describe 'Service wizard', js: true do
       verify_sidebar 2, 'VEHICLE', variation.display_title
       select_service_plan
       click_on 'Add'
-      verify_task 1, service_plan.display_title, service_note
+      verify_task 1, service_plan.display_title, note
 
       click_link 'Diagnose problem'
       add_repair_symptoms
+      fill_in 'job_task_note', with: note
       click_on 'Add'
-      verify_task 2, 'Break safety inspection', ''
+      verify_task 2, 'Break safety inspection', 'Replace the break pads Notes: A note goes here'
 
       within_task(1) { find('.edit-task').click }
-      select_service_plan(another_service_plan, another_service_note)
+      select_service_plan(another_service_plan, another_note)
       click_on 'Update'
-      verify_task 1, another_service_plan.display_title, another_service_note
+      verify_task 1, another_service_plan.display_title, another_note
 
       within_task(2) { find('.edit-task').click }
-      add_repair_symptoms(1)
+      fill_in 'job_task_note', with: another_note
       click_on 'Update'
-      verify_task 2, 'Inspection', 'Replace the vacuum pump'
+      verify_task 2, 'Break safety inspection', 'Replace the break pads Notes: Edited note'
     end
   end
 
@@ -255,11 +256,10 @@ describe 'Service wizard', js: true do
     click_on 'Continue'
   end
 
-  def select_service_plan(plan = nil, note = nil)
+  def select_service_plan(plan = nil, custom_note = nil)
     plan ||= service_plan
-    note ||= service_note
     select plan.display_title, from: 'job_task_service_plan_id'
-    fill_in 'job_task_note', with: note
+    fill_in 'job_task_note', with: custom_note || note
   end
 
   def add_repair_symptoms(symptom_pos = 0)
