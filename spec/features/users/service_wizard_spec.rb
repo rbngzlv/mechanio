@@ -32,6 +32,7 @@ describe 'Service wizard', js: true do
       verify_current_step 'Diagnose'
       verify_sidebar 2, 'VEHICLE', variation.display_title
       select_service_plan
+      click_on 'Add'
       verify_task 1, service_plan.display_title, service_note
       click_on 'Continue'
 
@@ -39,7 +40,10 @@ describe 'Service wizard', js: true do
       verify_sidebar 3, 'CAR SERVICING', service_plan.display_title
       fill_in_address
 
-      find('#login-modal').should be_visible
+      within '#social-login-modal' do
+        click_link 'Log in'
+      end
+
       within '#login-modal' do
         fill_in 'user_email', with: user.email
         fill_in 'user_password', with: user.password
@@ -62,6 +66,7 @@ describe 'Service wizard', js: true do
       verify_current_step 'Diagnose'
       verify_sidebar 2, 'VEHICLE', variation.display_title
       select_service_plan
+      click_on 'Add'
       verify_task 1, service_plan.display_title, service_note
       click_on 'Continue'
 
@@ -69,12 +74,10 @@ describe 'Service wizard', js: true do
       verify_sidebar 3, 'CAR SERVICING', service_plan.display_title
       fill_in_address
 
-      page.should have_css '#login-modal'
-      within '#login-modal' do
-        click_on 'Sign up'
+      within '#social-login-modal' do
+        click_on 'Use regular email sign up'
       end
 
-      page.should have_css '#register-modal'
       within('#register-modal') do
         fill_in 'user_first_name', with: 'First'
         fill_in 'user_last_name', with: 'Last'
@@ -111,6 +114,7 @@ describe 'Service wizard', js: true do
       verify_current_step 'Diagnose'
       verify_sidebar 2, 'VEHICLE', variation.display_title
       select_service_plan
+      click_on 'Add'
       verify_task 1, service_plan.display_title, service_note
       click_on 'Continue'
 
@@ -145,11 +149,13 @@ describe 'Service wizard', js: true do
 
       page.should have_css 'h5', text: 'FIX CAR PROBLEM'
       add_repair_symptoms
-      verify_task 1, 'Inspection', ''
+      click_on 'Add'
+      verify_task 1, 'Break safety inspection', ''
+      page.should have_link 'Select service'
       click_on 'Continue'
 
       verify_current_step 'Contact'
-      verify_sidebar 3, 'CAR SERVICING', 'Inspection'
+      verify_sidebar 3, 'CAR SERVICING', 'Break safety inspection'
       click_on 'Continue'
 
       verify_pending_quote
@@ -196,19 +202,23 @@ describe 'Service wizard', js: true do
       verify_current_step 'Diagnose'
       verify_sidebar 2, 'VEHICLE', variation.display_title
       select_service_plan
+      click_on 'Add'
       verify_task 1, service_plan.display_title, service_note
 
-      click_link 'Add Repair'
+      click_link 'Diagnose problem'
       add_repair_symptoms
-      verify_task 2, 'Inspection', ''
+      click_on 'Add'
+      verify_task 2, 'Break safety inspection', ''
 
       within_task(1) { find('.edit-task').click }
       select_service_plan(another_service_plan, another_service_note)
+      click_on 'Update'
       verify_task 1, another_service_plan.display_title, another_service_note
 
       within_task(2) { find('.edit-task').click }
-      add_repair_symptoms('Poor gas mileage')
-      verify_task 2, 'Inspection', 'Replace the lambda sensor'
+      add_repair_symptoms(1)
+      click_on 'Update'
+      verify_task 2, 'Inspection', 'Replace the vacuum pump'
     end
   end
 
@@ -250,14 +260,11 @@ describe 'Service wizard', js: true do
     note ||= service_note
     select plan.display_title, from: 'job_task_service_plan_id'
     fill_in 'job_task_note', with: note
-    click_on 'Done'
   end
 
-  def add_repair_symptoms(symptom = nil)
-    symptom ||= 'Smoke'
-    click_on 'Looks like'
-    choose symptom
-    click_on 'Add to order'
+  def add_repair_symptoms(symptom_pos = 0)
+    all('.symptoms a.btn')[0].click
+    all('.symptoms a.btn')[symptom_pos].click
   end
 
   def add_repair_keywords
@@ -295,7 +302,7 @@ describe 'Service wizard', js: true do
   end
 
   def within_task(position, &block)
-    within ".wizard-body .task:nth-child(#{position})" do
+    within ".tasks .task:nth-child(#{position})" do
       yield
     end
   end

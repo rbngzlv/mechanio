@@ -6,37 +6,38 @@ app.controller 'DiagnoseController', ['$scope', '$http', ($scope, $http) ->
   $scope.service_plan = {}
   $scope.note = ''
   $scope.symptoms = []
-  $scope.selected_symptoms = {}
+  $scope.questions = []
+  $scope.selected_symptoms = []
   $scope.problem_description = ''
 
   $scope.tasks = []
   $scope.editing_task = null
 
   $scope.$on 'cars_step.car_changed', (e, args...) ->
-    $scope.service_plan = null
-    $scope.data.tasks = []
-    $scope.loadServicePlans(args[0]) if args[0]
+    $scope.resetServicePlans(args[0])
 
   $scope.init = (options = {}) ->
     $scope[key] = value for key, value of options
+    $scope.questions = $scope.symptoms
+    $scope.loadServicePlans(5422)
 
   $scope.saveService = ->
-    service =
+    $scope.updateTask
       type: 'Service',
       service_plan_id: $scope.service_plan.id,
       title: "#{$scope.service_plan.display_title} service",
       note: $scope.note
-    $scope.updateTask(service)
 
   $scope.saveRepair = ->
-    last = s for k, s of $scope.selected_symptoms
-    repair = {
-      type: 'Inspection',
-      title: 'Inspection',
-      note: last.comment
-    }
-    $scope.resetSelectedSymptoms()
-    $scope.updateTask(repair)
+    if $scope.editing_task
+      $scope.updateTask
+        note: $scope.problem_description
+    else
+      $scope.updateTask
+        type: 'Inspection',
+        title: $scope.selected_symptoms[1].description,
+        description: $scope.lastSymptom().comment
+        note: $scope.problem_description
 
   $scope.updateTask = (task) ->
     if $scope.editing_task == null
@@ -45,45 +46,63 @@ app.controller 'DiagnoseController', ['$scope', '$http', ($scope, $http) ->
       else
         $scope.tasks.push task
     else
-      $scope.tasks[$scope.editing_task] = task
-    $scope.editing_task = null
-    $scope.mode = 'review'
+      $scope.tasks[$scope.editing_task][k] = v for k, v of task
+    $scope.backToSummary()
+
+  $scope.removeTask = (i) ->
+    $scope.tasks.splice(i, 1)
 
   $scope.editTask = (i) ->
     $scope.editing_task = i
     $scope.mode = if $scope.tasks[i].type == 'Service' then 'service' else 'repair'
 
+  $scope.addingRepair = ->
+    $scope.editing_task == null && $scope.mode == 'repair'
+
+  $scope.editingRepair = ->
+    $scope.editing_task != null && $scope.mode == 'repair'
+
+  $scope.saveButtonLabel = ->
+    if $scope.editing_task == null then 'Add' else 'Update'
+
+  $scope.backToSummary = ->
+    $scope.resetDiagnostics()
+    $scope.editing_task = null
+    $scope.mode = 'review'
+
   $scope.submit = ->
     $scope.data.tasks = $scope.tasks
     $scope.submitStep()
+
+  $scope.resetServicePlans = (model_variation_id = null) ->
+    $scope.service_plan = null
+    $scope.data.tasks = []
+    $scope.loadServicePlans(model_variation_id) if model_variation_id
 
   $scope.loadServicePlans = (model_variation_id) ->
     $http.get('/ajax/service_plans.json', params: { model_variation_id: model_variation_id })
       .success (data) -> $scope.service_plans = data
 
-  $scope.findService = ->
-    service = task for task in $scope.tasks when task.type == 'Service'
-
   $scope.hasService = ->
-    if $scope.findService() then true else false
+    for task in $scope.tasks
+      return task if task.type == 'Service'
+    false
 
   $scope.repairValid = ->
-    !!$scope.symptomIds().length || !!$scope.problem_description
+    !!$scope.selected_symptoms.length || !!$scope.problem_description
 
   $scope.valid = ->
     $scope.tasks.length > 0
 
-  $scope.resetSelectedSymptoms = ->
-    $scope.selected_symptoms = {}
+  $scope.addSymptom = (symptom) ->
+    $scope.selected_symptoms.push(symptom)
+    $scope.questions = symptom.children
 
-  $scope.isParent = (symptom) ->
-    symptom.parent_ids.length == 0
+  $scope.lastSymptom = ->
+    l = $scope.selected_symptoms.length
+    $scope.selected_symptoms[l - 1]
 
-  $scope.childrenOf = (parent) ->
-    (symptom) ->
-      parent.id in symptom.parent_ids
-
-  $scope.hasChildren = (parent) ->
-    children = s for s in $scope.symptoms when parent.id in s.parent_ids
-    if children then true else false
+  $scope.resetDiagnostics = ->
+    $scope.selected_symptoms = []
+    $scope.questions = $scope.symptoms
 ]
