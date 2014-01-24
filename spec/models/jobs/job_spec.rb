@@ -97,14 +97,15 @@ describe Job do
   end
 
   it 'builds title from tasks' do
-    job.tasks << build(:service)
-    job.set_title.should eq '1,000 kms / 6 months service'
+    service = build(:service)
+    job.tasks << service
+    job.set_title.should eq service.title
 
     job.tasks << build(:repair)
-    job.set_title.should eq '1,000 kms / 6 months service and repair'
+    job.set_title.should eq "#{service.title} and repair"
 
     job.tasks << build(:inspection)
-    job.set_title.should eq '1,000 kms / 6 months service, repair, and inspection'
+    job.set_title.should eq "#{service.title}, repair, and inspection"
 
     job.tasks = [build(:repair)]
     job.set_title.should eq 'Repair'

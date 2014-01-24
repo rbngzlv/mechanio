@@ -130,33 +130,54 @@ feature 'Jobs section' do
 
         within_task(1) { verify_inspection }
 
-        grand_total.should eq '$350.00'
+        grand_total.should eq '$80.00'
       end
 
       scenario 'edit items' do
-        job = create :job, :with_service, :with_repair
+        job = create :job, :with_service, :with_repair, :with_inspection
         service_plan = job.tasks.first.service_plan
+        another_service_plan = create(:service_plan, model_variation: job.car.model_variation)
 
         visit_job_items(job)
 
         within_task(1) { verify_service(service_plan) }
         within_task(2) { verify_repair }
+        within_task(3) { verify_inspection }
 
-        grand_total.should eq '$683.00'
+        grand_total.should eq '$763.00'
+
+        within_task(1) do
+          click_link 'Edit'
+          fill_in_service(another_service_plan)
+        end
 
         within_task(2) do
+          click_link 'Edit'
+          fill_in_repair
           within_row(0) { fill_in_part }
           within_row(1) { fill_in_labour }
           within_row(2) { fill_in_fixed }
         end
 
+        within_task(3) do
+          click_link 'Edit'
+          fill_in_inspection 'Edited title', 'Edited notes'
+        end
+
         before_and_after_save job do
-          within_task(2) do
-            verify_edited_items
-            task_total.should eq '$331.00'
+          within_task(1) do
+            verify_service(another_service_plan)
           end
 
-          grand_total.should eq '$681.00'
+          within_task(2) do
+            verify_edited_repair
+          end
+
+          within_task(3) do
+            verify_inspection 'Edited title', 'Edited notes'
+          end
+
+          grand_total.should eq '$761.00'
         end
       end
 
@@ -255,11 +276,15 @@ feature 'Jobs section' do
     within_row(2) { verify_fixed 'Fixed amount', '100.0' }
   end
 
-  def verify_inspection
-    screen
-    task_title.should eq 'Break pedal vibration'
-    task_total.should eq '$80.00'
-    page.should have_css '.panel-body', text: 'Mechanic should diagnose this problem Note: A note to mechanic'
+  def fill_in_inspection(title, notes)
+    fill_in 'Inspection description', with: title
+    fill_in 'Notes', with: notes
+    click_on 'Done'
+  end
+
+  def verify_inspection(title = nil, notes = nil)
+    task_title.should eq title || 'Break pedal vibration'
+    page.should have_css '.panel-body', text: notes || 'Notes: A note to mechanic Cost $80.00'
   end
 
   def verify_service_cost(description, cost)
