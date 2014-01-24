@@ -131,6 +131,10 @@ class Job < ActiveRecord::Base
     tasks.any? { |t| t.is_a?(Repair) }
   end
 
+  def has_inspection?
+    tasks.any? { |t| t.is_a?(Inspection) }
+  end
+
   def assign_mechanic(params)
     mechanic = Mechanic.find(params[:mechanic_id])
 
@@ -155,14 +159,13 @@ class Job < ActiveRecord::Base
   end
 
   def set_title
+    title = []
     service = tasks.find { |t| t.is_a?(Service) }
-    if service
-      title = service.set_title
-      title += " and repair" if has_repair?
-    else
-      title = "Repair"
-    end
-    self.title = title
+    title << service.set_title if service
+    title << 'repair'     if has_repair?
+    title << 'inspection' if has_inspection?
+
+    self.title = title.to_sentence.capitalize
   end
 
   def set_uid

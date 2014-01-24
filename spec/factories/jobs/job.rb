@@ -19,6 +19,12 @@ FactoryGirl.define do
       end
     end
 
+    trait :with_inspection do
+      after :build do |j|
+        j.tasks << build(:inspection)
+      end
+    end
+
     trait :with_credit_card do
       after :build do |j|
         j.credit_card = build(:credit_card)
