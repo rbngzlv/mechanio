@@ -96,6 +96,20 @@ describe Job do
     end
   end
 
+  it 'builds title from tasks' do
+    job.tasks << build(:service)
+    job.set_title.should eq '1,000 kms / 6 months service'
+
+    job.tasks << build(:repair)
+    job.set_title.should eq '1,000 kms / 6 months service and repair'
+
+    job.tasks << build(:inspection)
+    job.set_title.should eq '1,000 kms / 6 months service, repair, and inspection'
+
+    job.tasks = [build(:repair)]
+    job.set_title.should eq 'Repair'
+  end
+
   it 'sets uid on job creation' do
     job_with_service.uid.length.should eq 10
   end

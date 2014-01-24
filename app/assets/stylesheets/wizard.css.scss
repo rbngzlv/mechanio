@@ -89,6 +89,7 @@
   }
 
   .step-diagnose {
+
     .panel-heading a {
       color: #666;
       margin-left: 5px;
@@ -96,12 +97,21 @@
         color: #666;
       }
     }
+
     .job_task_service_plan_id {
       width: 40%;
     }
 
-    textarea#job_task_note {
-      height: 90px;
+    .service_form {
+      textarea#job_task_note {
+        height: 90px;
+      }
+    }
+
+    .repair_form {
+      textarea#job_task_note {
+        height: 60px;
+      }
     }
 
     .symptoms {

@@ -123,6 +123,16 @@ feature 'Jobs section' do
         end
       end
 
+      scenario 'job with inspection' do
+        job = create :job, :with_inspection
+
+        visit_job_items(job)
+
+        within_task(1) { verify_inspection }
+
+        grand_total.should eq '$350.00'
+      end
+
       scenario 'edit items' do
         job = create :job, :with_service, :with_repair
         service_plan = job.tasks.first.service_plan
@@ -243,6 +253,13 @@ feature 'Jobs section' do
     within_row(0) { verify_part 'Break pad', '2', '54.0', '$108.00' }
     within_row(1) { verify_labour '02 h', '30 m', '$125.00' }
     within_row(2) { verify_fixed 'Fixed amount', '100.0' }
+  end
+
+  def verify_inspection
+    screen
+    task_title.should eq 'Break pedal vibration'
+    task_total.should eq '$80.00'
+    page.should have_css '.panel-body', text: 'Mechanic should diagnose this problem Note: A note to mechanic'
   end
 
   def verify_service_cost(description, cost)

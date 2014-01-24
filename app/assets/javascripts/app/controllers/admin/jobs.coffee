@@ -113,11 +113,19 @@ class Repair extends Task
   heading: ->
     @title || 'Repair'
 
+class Inspection extends Task
+  heading: ->
+    @title
+
+  total: ->
+    @cost
+
 class TaskFactory
   @create: (attrs, hourly_rate, service_plans) ->
     switch attrs.type
-      when 'Service'  then new Service(attrs, hourly_rate, service_plans)
-      when 'Repair'   then new Repair(attrs, hourly_rate, service_plans)
+      when 'Service'    then new Service(attrs, hourly_rate, service_plans)
+      when 'Repair'     then new Repair(attrs, hourly_rate, service_plans)
+      when 'Inspection' then new Inspection(attrs, hourly_rate, service_plans)
 
 class Job
   constructor: (attrs, @hourly_rate, @service_plans) ->

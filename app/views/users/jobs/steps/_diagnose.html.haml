@@ -1,12 +1,6 @@
 .step-diagnose{ 'ng-controller' => 'DiagnoseController', 'ng-show' => 'stepVisible("diagnose")', 'ng-init' => "init({ mode: '#{@mode}', symptoms: #{@symptoms} })" }
 
   .wizard-body{ 'ng-show' => 'mode == "review"' }
-    .text-center{ 'ng-hide' => 'tasks.length' }
-      %h4
-        Please select a service or diagnose your problem
-      %a.btn.btn-success{ 'href' => '', 'ng-click' => 'mode = "service"', 'ng-hide' => 'hasService()' } Select service
-      %a.btn.btn-success{ 'href' => '', 'ng-click' => 'mode = "repair"' } Diagnose problem
-
     .tasks
       .task.panel.panel-default.panel-rounded{ 'ng-repeat' => 'task in tasks' }
         .panel-heading
@@ -23,9 +17,9 @@
             %strong Notes:
             {{task.note}}
 
-    .text-right{ 'ng-show' => 'tasks.length' }
-      %a.btn.btn-success{ 'href' => '', 'ng-click' => 'mode = "service"', 'ng-hide' => 'hasService()' } Select service
-      %a.btn.btn-success{ 'href' => '', 'ng-click' => 'mode = "repair"' } Diagnose problem
+    .text-right
+      %a.btn.btn-success{ 'href' => '', 'ng-click' => 'mode = "service"', 'ng-hide' => 'hasService()' } Add Service
+      %a.btn.btn-success{ 'href' => '', 'ng-click' => 'mode = "repair"' } Add Repair
 
   .wizard-body{ 'ng-show' => "mode == 'service'", 'ng-form' => 'service_form' }
     %h5 PLEASE PICK A SERVICE INTERVAL YOU'LL LIKE OUR PROFESSIONAL MOBILE MECHANIC TO PERFORM
@@ -38,7 +32,7 @@
     %h5 FIX CAR PROBLEM
     %hr.hr-dark-gray
     = f.simple_fields_for :task, Repair.new do |s|
-      = s.input :title, label: false, placeholder: 'Describe any issues you have with your car', as: :text, input_html: { 'ng-model' => 'problem_description' }
+      = s.input :note, label: false, placeholder: 'Describe any issues you have with your car', as: :text, input_html: { 'ng-model' => 'problem_description' }
 
       .symptoms{ 'ng-hide' => 'editingRepair()' }
         %h6 Or select type of symptom you have
@@ -53,21 +47,10 @@
 
   %hr
 
-  .buttons{ 'ng-show' => 'mode != "review"' }
-    %button.btn.btn-default{ 'type' => 'button', 'ng-click' => 'backToSummary()' }
-      %small &#x276E;
-      Back
-    %button.btn.btn-primary.pull-right{ 'type' => 'button', 'ng-click' => 'saveService()', 'ng-disabled' => '!service_plan.id', 'ng-show' => 'mode == "service"' }
-      {{saveButtonLabel()}}
-    %button.btn.btn-primary.pull-right{ 'type' => 'button', 'ng-click' => 'saveRepair()', 'ng-disabled' => '!lastSymptom().comment', 'ng-show' => 'addingRepair()' }
-      Add
-    %button.btn.btn-primary.pull-right{ 'type' => 'button', 'ng-click' => 'saveRepair()', 'ng-show' => 'editingRepair()' }
-      Update
+  %button.btn.btn-default{ 'type' => 'button', 'ng-click' => 'goBack()' }
+    %small &#x276E;
+    Back
 
-  .buttons{ 'ng-show' => 'mode == "review"' }
-    %button.btn.btn-default{ 'type' => 'button', 'ng-click' => 'gotoStep("car-details")' }
-      %small &#x276E;
-      Back
-    %button.btn.btn-primary.pull-right{ 'type' => 'button', 'ng-click' => 'submit()', 'ng-disabled' => '!valid()' }
-      Continue
-      %small &#x276F;
+  %button.btn.btn-primary.pull-right{ 'type' => 'button', 'ng-click' => 'continue()', 'ng-disabled' => '!continueEnabled()' }
+    {{continueLabel()}}
+    %small{ 'ng-show' => 'mode == "review"' } &#x276F;

@@ -31,7 +31,7 @@ feature 'Appointments' do
   context 'book appointment page' do
     it 'check mechanic description', :js do
       visit edit_users_appointment_path(job)
-      find('h5', text: mechanic.full_name).click
+      find('.profile-border.clickable').click
       should have_css "#js-mechanic-#{mechanic.id}", visible: true
     end
   end

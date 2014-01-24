@@ -3,6 +3,8 @@
   = @job.title
   = job_status(@job.status)
 
+%hr
+
 %ul.nav.nav-tabs
   %li.active= link_to 'General info', '#general_info', 'data-toggle' => 'tab'
   %li= link_to 'Job and labour', '#job_and_labour', 'data-toggle' => 'tab'

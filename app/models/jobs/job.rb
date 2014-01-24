@@ -115,7 +115,7 @@ class Job < ActiveRecord::Base
       :car_id, :contact_email, :contact_phone,
       location_attributes:  [:address, :suburb, :postcode, :state_id],
       car_attributes:       [:id, :year, :model_variation_id, :last_service_kms, :last_service_date],
-      tasks_attributes:     [:type, :service_plan_id, :note, :title, symptom_ids: [],
+      tasks_attributes:     [:type, :service_plan_id, :note, :title, :description,
         task_items_attributes: [:itemable_type,
           itemable_attributes: [:description, :name, :unit_cost, :quantity, :duration_hours, :duration_minutes, :cost]
         ]
@@ -129,6 +129,10 @@ class Job < ActiveRecord::Base
 
   def has_repair?
     tasks.any? { |t| t.is_a?(Repair) }
+  end
+
+  def has_inspection?
+    tasks.any? { |t| t.is_a?(Inspection) }
   end
 
   def assign_mechanic(params)
@@ -155,14 +159,13 @@ class Job < ActiveRecord::Base
   end
 
   def set_title
+    title = []
     service = tasks.find { |t| t.is_a?(Service) }
-    if service
-      title = service.set_title
-      title += " and repair" if has_repair?
-    else
-      title = "Repair"
-    end
-    self.title = title
+    title << service.set_title if service
+    title << 'repair'     if has_repair?
+    title << 'inspection' if has_inspection?
+
+    self.title = title.to_sentence.capitalize
   end
 
   def set_uid

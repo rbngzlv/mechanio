@@ -523,11 +523,11 @@ CREATE TABLE mechanics (
     qualification_verified boolean DEFAULT false,
     location_id integer,
     business_location_id integer,
-    business_name character varying(255),
-    business_mobile_number character varying(255),
     total_earnings numeric(8,2) DEFAULT 0,
     current_jobs_count integer DEFAULT 0,
-    completed_jobs_count integer DEFAULT 0
+    completed_jobs_count integer DEFAULT 0,
+    business_name character varying(255),
+    business_mobile_number character varying(255)
 );
 
 
@@ -567,8 +567,8 @@ CREATE TABLE model_variations (
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     make_id integer,
-    comment text,
     display_title character varying(255),
+    comment text,
     detailed_title character varying(255)
 );
 
@@ -840,16 +840,6 @@ ALTER SEQUENCE symptoms_id_seq OWNED BY symptoms.id;
 
 
 --
--- Name: symptoms_tasks; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE symptoms_tasks (
-    task_id integer NOT NULL,
-    symptom_id integer NOT NULL
-);
-
-
---
 -- Name: task_items; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -895,7 +885,8 @@ CREATE TABLE tasks (
     title character varying(255),
     cost numeric(8,2),
     tax numeric(8,2),
-    total numeric(8,2)
+    total numeric(8,2),
+    description text
 );
 
 
@@ -1171,6 +1162,14 @@ ALTER TABLE ONLY body_types
 
 
 --
+-- Name: brands_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY makes
+    ADD CONSTRAINT brands_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: cars_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1224,14 +1223,6 @@ ALTER TABLE ONLY labours
 
 ALTER TABLE ONLY locations
     ADD CONSTRAINT locations_pkey PRIMARY KEY (id);
-
-
---
--- Name: makes_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY makes
-    ADD CONSTRAINT makes_pkey PRIMARY KEY (id);
 
 
 --
@@ -1472,6 +1463,27 @@ CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (v
 
 
 --
+-- Name: geometry_columns_delete; Type: RULE; Schema: public; Owner: -
+--
+
+CREATE RULE geometry_columns_delete AS ON DELETE TO geometry_columns DO INSTEAD NOTHING;
+
+
+--
+-- Name: geometry_columns_insert; Type: RULE; Schema: public; Owner: -
+--
+
+CREATE RULE geometry_columns_insert AS ON INSERT TO geometry_columns DO INSTEAD NOTHING;
+
+
+--
+-- Name: geometry_columns_update; Type: RULE; Schema: public; Owner: -
+--
+
+CREATE RULE geometry_columns_update AS ON UPDATE TO geometry_columns DO INSTEAD NOTHING;
+
+
+--
 -- PostgreSQL database dump complete
 --
 
@@ -1644,3 +1656,7 @@ INSERT INTO schema_migrations (version) VALUES ('20140120145329');
 INSERT INTO schema_migrations (version) VALUES ('20140121215503');
 
 INSERT INTO schema_migrations (version) VALUES ('20140121215545');
+
+INSERT INTO schema_migrations (version) VALUES ('20140123110341');
+
+INSERT INTO schema_migrations (version) VALUES ('20140123111537');

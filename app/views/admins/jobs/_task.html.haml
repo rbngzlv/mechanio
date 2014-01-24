@@ -24,15 +24,13 @@
         {{task.note}}
         %hr
 
-      - ['service', 'repair'].each do |template|
-        %script{ type: 'text/ng-template', id: template }
-          = render partial: "admins/jobs/tasks/#{template}", locals: { f: f }
+      .totals-row{ 'ng-show' => 'task.type == "Inspection"' }
+        .pull-right
+          %dl.dl-horizontal.totals
+            %dt Cost
+            %dd.task-total {{task.total() | cost_or_pending}}
 
-      - ['fixed_amount', 'service_cost', 'part', 'labour'].each do |template|
-        %script{ type: 'text/ng-template', id: template }
-          = render partial: "admins/jobs/items/#{template}", locals: { t: t }
-
-      .totals-row
+      .totals-row{ 'ng-show' => 'task.type != "Inspection"' }
         .pull-right
           %dl.dl-horizontal.totals
             %dt Total
@@ -48,3 +46,11 @@
           %a{ href: '', 'ng-click' => 'task.addItem("FixedAmount")' }
             %i.glyphicon.glyphicon-usd
             Add amount
+
+      - ['service', 'repair', 'inspection'].each do |template|
+        %script{ type: 'text/ng-template', id: template }
+          = render partial: "admins/jobs/tasks/#{template}", locals: { f: f }
+
+      - ['fixed_amount', 'service_cost', 'part', 'labour'].each do |template|
+        %script{ type: 'text/ng-template', id: template }
+          = render partial: "admins/jobs/items/#{template}", locals: { t: t }
