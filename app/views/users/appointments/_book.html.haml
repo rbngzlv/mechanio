@@ -1,10 +1,11 @@
 :javascript
   $(function() {
-    var container = $('.calendar-container#mechanic_#{mechanic.id}'),
-        calendar = container.find('.calendar'),
-        form = container.find('form');
+    var $container = $('.calendar-container#mechanic_#{mechanic.id}'),
+        $calendar = $container.find('.calendar'),
+        $left_arrow = $('#mechanic_#{mechanic.id} .left-arrow'),
+        form = $container.find('form');
 
-    calendar.fullCalendar({
+    $calendar.fullCalendar({
       header: {
         left: '',
         center: '',
@@ -27,17 +28,12 @@
       },
       dayClick: function(date, allDay, jsEvent, view) {
         form.find('#job_scheduled_at').val(moment(date).format('YYYY-MM-DDTHH:mm'));
-        $('input[type=submit]').attr('disabled', true);
-        form.find('input[type=submit]').attr('disabled', false);
+        $(':submit').prop('disabled', true);
+        form.find(':submit').prop('disabled', false);
       },
       viewRender: function(view, element) {
-        var tomorrow = moment().add('days', 1)
-
-        if(tomorrow.isAfter(view.start)) {
-          $('#mechanic_#{mechanic.id} .left-arrow').addClass("disabled");
-        } else {
-          $('#mechanic_#{mechanic.id} .left-arrow').removeClass("disabled");
-        }
+        var tomorrow = moment().add('days', 1);
+        $left_arrow.toggleClass('disabled', tomorrow.isAfter(view.start));
       },
       eventAfterRender: function(event, element, view) {
         var $el = $(element),
@@ -59,12 +55,12 @@
     });
 
     $('#mechanic_#{mechanic.id} .right-arrow').click(function() {
-      calendar.fullCalendar('next');
+      $calendar.fullCalendar('next');
     });
 
-    $('#mechanic_#{mechanic.id} .left-arrow').click(function() {
+    $left_arrow.click(function() {
       if(!$(this).hasClass('disabled')) {
-        calendar.fullCalendar('prev');
+        $calendar.fullCalendar('prev');
       };
     });
   });

@@ -5,8 +5,7 @@ feature 'book appointment' do
   let(:job)        { create :job_with_service, :estimated, :with_credit_card, user: user, location: create(:location, postcode: '1234') }
   let!(:mechanic)  { create :mechanic, mechanic_regions: [create(:mechanic_region, postcode: '1234')] }
   let(:tomorrow)          { Date.tomorrow }
-  let(:expected_date)     { tomorrow + 3.day }
-  let(:expected_datetime) { expected_date + 17.hour }
+  let(:expected_datetime) { tomorrow + 3.day + 17.hour }
 
   before do
     login_user user
@@ -15,15 +14,15 @@ feature 'book appointment' do
   end
 
   scenario 'check content', :js do
-    page.should have_css '.fc-agenda-axis + th', text: tomorrow.strftime('%a %-m/%d')
+    verify_calendar_start_day tomorrow
     page.should have_css '.left-arrow.disabled'
 
     find('.right-arrow').click
-    page.should have_css '.fc-agenda-axis + th', text: (tomorrow + 7.days).strftime('%a %-m/%d')
+    verify_calendar_start_day tomorrow + 7.days
     find('.left-arrow').click
-    page.should have_css '.fc-agenda-axis + th', text: tomorrow.strftime('%a %-m/%d')
+    verify_calendar_start_day tomorrow
     find('.left-arrow.disabled').click
-    page.should have_css '.fc-agenda-axis + th', text: tomorrow.strftime('%a %-m/%d')
+    verify_calendar_start_day tomorrow
 
     button = find('input[type=submit]')
     button[:value].should be_eql 'Book Appointment'
@@ -41,13 +40,12 @@ feature 'book appointment' do
     job.reload.mechanic.should eq mechanic
     job.assigned?.should be_true
 
-    event = mechanic.events.last
-    event.date_start.should be_eql expected_date
-    (event.date_start + event.time_start.hour.hour).should be_eql expected_datetime
-    (event.date_start + event.time_end.hour.hour).should be_eql expected_datetime + 2.hour
-
     mechanic.events.count.should eq 1
     mail_deliveries.count.should eq 3
+  end
+
+  def verify_calendar_start_day(date)
+    page.should have_css '.fc-agenda-axis + th', text: date.strftime('%a %-m/%-d')
   end
 
   def select_time_slot
