@@ -28,7 +28,6 @@ describe 'User register', :js do
 
     it 'shows validation errors' do
       open_signup_popup
-      sleep 0.2
       within '#register-modal' do
         click_button 'Sign up'
       end
@@ -54,7 +53,6 @@ describe 'User register', :js do
     end
 
     def register
-      sleep 0.2
       within '#register-modal' do
         fill_in 'First name', with: 'First'
         fill_in 'Last name', with: 'Last'
