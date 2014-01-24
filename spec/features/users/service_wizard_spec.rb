@@ -154,7 +154,7 @@ describe 'Service wizard', js: true do
       add_repair_symptoms
       click_on 'Add'
       verify_task 1, 'Break safety inspection', ''
-      page.should have_link 'Select service'
+      page.should have_link 'Add Service'
       click_on 'Continue'
 
       verify_current_step 'Contact'
@@ -209,7 +209,7 @@ describe 'Service wizard', js: true do
       click_on 'Add'
       verify_task 1, service_plan.display_title, note
 
-      click_link 'Diagnose problem'
+      click_link 'Add Repair'
       add_repair_symptoms
       fill_in 'job_task_note', with: note
       click_on 'Add'
@@ -242,7 +242,7 @@ describe 'Service wizard', js: true do
       click_on 'Add'
       verify_task 1, service_plan.display_title, note
 
-      click_link 'Diagnose problem'
+      click_link 'Add Repair'
       add_repair_symptoms
       fill_in 'job_task_note', with: note
       click_on 'Add'
@@ -252,10 +252,8 @@ describe 'Service wizard', js: true do
       verify_task 1, 'Break safety inspection', 'Replace the break pads Notes: A note goes here'
 
       within_task(1) { find('.remove-task').click }
-      page.should have_css 'h4', text: 'Please select a service or diagnose your problem'
-      page.should have_link 'Select service'
-      page.should have_link 'Diagnose problem'
-      find('button', text: 'Continue')[:disabled].should be_true
+      page.should have_css 'h5', text: 'PLEASE PICK A SERVICE INTERVAL YOU\'LL LIKE OUR PROFESSIONAL MOBILE MECHANIC TO PERFORM'
+      find('button', text: 'Add')[:disabled].should be_true
     end
   end
 
