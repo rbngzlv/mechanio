@@ -2,7 +2,7 @@
   $(function() {
     var $container = $('.calendar-container#mechanic_#{mechanic.id}'),
         $calendar = $container.find('.calendar'),
-        $left_arrow = $('#mechanic_#{mechanic.id} .left-arrow'),
+        $left_arrow = $container.find('.left-arrow'),
         form = $container.find('form');
 
     $calendar.fullCalendar({
