@@ -12,14 +12,20 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def auth_with(provider)
     auth = request.env["omniauth.auth"]
-    @auth = Authentication.find_or_create_from_oauth(auth)
-
-    if @auth.user.persisted?
-      set_flash_message(:notice, :success, kind: provider.capitalize)
-      sign_in_and_redirect @auth.user, event: :authentication
+    if @auth = Authentication.find_or_create_from_oauth(auth, current_user)
+      if @auth.user.persisted?
+        if user_signed_in?
+          redirect_to edit_users_profile_path(anchor: 'social-connections'), notice: 'Successfully added'
+        else
+          set_flash_message(:notice, :success, kind: provider.capitalize)
+          sign_in_and_redirect @auth.user, event: :authentication
+        end
+      else
+        session["devise.oauth_data"] = auth
+        redirect_to new_user_registration_url, alert: 'Error occurred'
+      end
     else
-      session["devise.oauth_data"] = auth
-      redirect_to new_user_registration_url, alert: 'Error occured'
+      redirect_to edit_users_profile_path(anchor: 'social-connections'), alert: 'Connection not available'
     end
   end
 end
