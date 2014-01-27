@@ -15,7 +15,8 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     if @auth = Authentication.find_or_create_from_oauth(auth, current_user)
       if @auth.user.persisted?
         if user_signed_in?
-          redirect_to edit_users_profile_path(anchor: 'social-connections'), notice: 'Successfully added'
+          flash[:success] = 'Successfully added'
+          redirect_to edit_users_profile_path(anchor: 'social-connections')
         else
           set_flash_message(:notice, :success, kind: provider.capitalize)
           sign_in_and_redirect @auth.user, event: :authentication

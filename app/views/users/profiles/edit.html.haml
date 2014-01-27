@@ -37,12 +37,12 @@
               %p
                 - if fb = current_user.authentications.find_by_provider(:facebook)
                   Facebook connected.
-                  = link_to 'disconnect it?', users_authentication_path(fb), method: :delete
+                  = link_to "disconnect #{fb.email}?", users_authentication_path(fb), method: :delete
                 - else
                   = link_to image_tag('facebook-btn.jpg'), user_omniauth_authorize_path(:facebook), class: 'facebook-link'
               %p
                 - if gm = current_user.authentications.find_by_provider(:google_oauth2)
                   Gmail connected.
-                  = link_to 'disconnect it?', users_authentication_path(gm), method: :delete
+                  = link_to "disconnect #{gm.email}?", users_authentication_path(gm), method: :delete
                 - else
                   = link_to image_tag('gmail-btn.jpg'), user_omniauth_authorize_path(:google_oauth2), class: 'gmail-link'
