@@ -1,12 +1,10 @@
 require 'spec_helper'
 
 feature 'user profile' do
-  let(:user) { create :user }
-
   subject { page }
 
   before do
-    login_user user
+    login_user
   end
 
   include_examples("navigation") do
@@ -15,6 +13,8 @@ feature 'user profile' do
 
   context 'view page' do
     context 'describe block show' do
+      let(:user) { create :user }
+
       before do
         visit users_profile_path
       end
@@ -40,14 +40,14 @@ feature 'user profile' do
 
         click_button 'Save'
         should have_content 'Your profile successfully updated.'
-        find('img.avatar')['src'].should have_content user.reload.avatar_url :thumb
+        find('img.avatar')['src'].should match /uploads\/user\/avatar\/\d+\/thumb_test_img.jpg/
 
         click_on 'Edit Profile'
         should have_field 'Address', with: 'address 123'
 
         within('.wrap > .container') { click_link 'Dashboard' }
         should have_content description
-        find('img.avatar')['src'].should have_content user.reload.avatar_url :thumb
+        find('img.avatar')['src'].should match /uploads\/user\/avatar\/\d+\/thumb_test_img.jpg/
       end
     end
 
@@ -59,28 +59,37 @@ feature 'user profile' do
     end
   end
 
-  context 'social media connections' do
-    let(:authentication) { Authentication.new provider: :facebook, user: user }
+  context 'social media connections', :js do
+    let!(:gmail_is_not_available) { Authentication.create provider: :google_oauth2, user: create(:user), uid: '2' }
 
     before { visit edit_users_profile_path(anchor: 'social-connections') }
 
-    scenario 'manage social connections', :js do
-      should have_selector 'a.facebook-link'
-      should have_selector 'a.gmail-link'
+    scenario 'manage social connections' do
+      should_have_link_to_connect_with 'facebook'
+      should_have_link_to_connect_with 'gmail'
 
-      find('a.facebook-link').click
+      click_link_to_connect_with 'facebook'
       should have_selector 'li.active', text: 'Social Media Connections'
       should have_selector '.alert-success', text: 'Successfully added'
-      should have_no_selector 'a.facebook-link'
       should have_content 'Facebook connected.'
       should have_content 'user1@fb.com'
       should have_link 'disconnect user1@fb.com?'
-      should have_selector 'a.gmail-link'
+
+      click_link_to_connect_with 'gmail'
+      should have_selector '.alert-danger', text: 'Connection not available'
 
       click_link 'disconnect user1@fb.com?'
       should have_selector 'li.active', text: 'Social Media Connections'
       should have_selector '.alert-info', text: 'Connection successfully destroyed'
-      should have_selector 'a.facebook-link'
+      should_have_link_to_connect_with 'facebook'
+    end
+
+    def should_have_link_to_connect_with(provider)
+      should have_selector "a.#{provider}-link"
+    end
+
+    def click_link_to_connect_with(provider)
+      find("a.#{provider}-link").click
     end
   end
 end
