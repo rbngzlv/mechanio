@@ -44,8 +44,31 @@ feature 'book appointment' do
     mail_deliveries.count.should eq 3
   end
 
+  scenario 'two mechanics', :js do
+    mechanic2 = create :mechanic, mechanic_regions: [create(:mechanic_region, postcode: '1234')]
+    visit edit_users_appointment_path(job)
+    within(calendar 1) { find('.right-arrow').click }
+
+    verify_calendar 1, start_day: tomorrow + 7.days
+    verify_calendar 2, start_day: tomorrow
+
+    within(calendar 1) { page.should have_no_css '.left-arrow.disabled' }
+    within(calendar 2) { page.should have_css '.left-arrow.disabled' }
+  end
+
   def verify_calendar_start_day(date)
     page.should have_css '.fc-agenda-axis + th', text: date.strftime('%a %-m/%-d')
+  end
+
+  def verify_calendar(calendar_number = 1, opt = {})
+    date = opt[:start_day] || Date.tomorrow
+    within calendar(calendar_number) do
+      verify_calendar_start_day date
+    end
+  end
+
+  def calendar(calendar_number)
+    "section > div:nth-child(#{calendar_number * 2 + 3}) .calendar-container"
   end
 
   def select_time_slot
