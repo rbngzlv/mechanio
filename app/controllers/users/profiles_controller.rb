@@ -8,7 +8,7 @@ class Users::ProfilesController < Users::ApplicationController
 
   def update
     if current_user.update_attributes(permitted_params)
-      redirect_to users_profile_path, notice: 'Your profile succesfully updated.'
+      redirect_to users_profile_path, notice: 'Your profile successfully updated.'
     else
       render :edit
     end
