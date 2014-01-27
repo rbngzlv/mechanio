@@ -1,4 +1,6 @@
 .calendar.week-view {
+  padding: 0 30px;
+
   .fc-agenda td {
     cursor: pointer;
   }
@@ -46,6 +48,14 @@
     }
     thead th {
       border-top: none;
+
+      &:nth-child(1) {
+        border-left: none;
+      }
+
+      &:nth-last-child(2) {
+        border-right: none;
+      }
     }
 
     tbody > tr {
@@ -78,6 +88,30 @@
     border-radius: 6px;
     overflow: hidden;
     border: 1px solid #ddd;
+    clear: none;
+  }
+}
+
+.calendar-container {
+  .calendar-arrow {
+    float: left;
+    position: absolute;
+    font-size: 3.5em;
+    line-height: 220px;
+    cursor: pointer;
+    color: #999;
+
+    &:hover {
+      color: #666;
+    }
+
+    &.right-arrow {
+      right: 30px;
+    }
+
+    &.disabled {
+      color: #bbb;
+    }
   }
 }
 
