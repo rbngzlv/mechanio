@@ -94,7 +94,8 @@ CREATE TABLE authentications (
     uid character varying(255),
     user_id integer,
     created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    updated_at timestamp without time zone,
+    email character varying(255)
 );
 
 
@@ -1637,3 +1638,5 @@ INSERT INTO schema_migrations (version) VALUES ('20140121215545');
 INSERT INTO schema_migrations (version) VALUES ('20140123110341');
 
 INSERT INTO schema_migrations (version) VALUES ('20140123111537');
+
+INSERT INTO schema_migrations (version) VALUES ('20140127135118');

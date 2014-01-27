@@ -58,4 +58,29 @@ feature 'user profile' do
       should have_content "can't be blank"
     end
   end
+
+  context 'social media connections' do
+    let(:authentication) { Authentication.new provider: :facebook, user: user }
+
+    before { visit edit_users_profile_path(anchor: 'social-connections') }
+
+    scenario 'manage social connections', :js do
+      should have_selector 'a.facebook-link'
+      should have_selector 'a.gmail-link'
+
+      find('a.facebook-link').click
+      should have_selector 'li.active', text: 'Social Media Connections'
+      should have_selector '.alert-success', text: 'Successfully added'
+      should have_no_selector 'a.facebook-link'
+      should have_content 'Facebook connected.'
+      should have_content 'user1@fb.com'
+      should have_link 'disconnect user1@fb.com?'
+      should have_selector 'a.gmail-link'
+
+      click_link 'disconnect user1@fb.com?'
+      should have_selector 'li.active', text: 'Social Media Connections'
+      should have_selector '.alert-info', text: 'Connection successfully destroyed'
+      should have_selector 'a.facebook-link'
+    end
+  end
 end

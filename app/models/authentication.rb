@@ -6,7 +6,7 @@ class Authentication < ActiveRecord::Base
   def self.find_or_create_from_oauth(hash, signed_in_resource = nil)
     unless auth = find_by(provider: hash['provider'], uid: hash['uid'])
       user = signed_in_resource || User.find_or_create_from_oauth(hash['info'])
-      auth = Authentication.create(user: user, uid: hash['uid'], provider: hash['provider'])
+      auth = Authentication.create(user: user, uid: hash['uid'], provider: hash['provider'], email: hash['info']['email'])
     else
       return false if signed_in_resource
     end
