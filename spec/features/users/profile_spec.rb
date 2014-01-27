@@ -39,7 +39,7 @@ feature 'user profile' do
         fill_in 'Address', with: 'address 123'
 
         click_button 'Save'
-        should have_content 'Your profile succesfully updated.'
+        should have_content 'Your profile successfully updated.'
         find('img.avatar')['src'].should have_content user.reload.avatar_url :thumb
 
         click_on 'Edit Profile'
