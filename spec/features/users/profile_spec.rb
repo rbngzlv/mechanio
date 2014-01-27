@@ -6,7 +6,7 @@ feature 'user profile' do
   subject { page }
 
   before do
-    login_user
+    login_user user
   end
 
   include_examples("navigation") do

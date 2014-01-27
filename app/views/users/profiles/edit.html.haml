@@ -1,3 +1,8 @@
+:coffee
+  $ ->
+    hash = window.location.hash;
+    hash && $('a[href="' + hash + '"]').tab('show')
+
 .row
   .col-md-12
     .panel.panel-default.panel-rounded
@@ -6,18 +11,38 @@
           %i.glyphicon.glyphicon-user
           Edit Profile
       .panel-body
-        = simple_form_for current_user, url: users_profile_path, html: { class: 'form-horizontal user_form', multipart: true }, defaults: { label_html: { class: 'col-md-3 col-sm-3' } }, wrapper: :bootstrap_horizontal do |f|
-          = f.error_notification
-          = f.input :first_name
-          = f.input :last_name
-          = f.input :email
-          = f.input :dob, label: 'Date of birth', input_html: { class: 'form-control' }, start_year: Date.today.year - 60, end_year: Date.today.year - 18
-          = f.input :mobile_number
-          = render partial: 'shared/location_form', locals: { f: f, location_assoc: :location, defaults: { required: false } }
-          = f.input :description, label: 'Personal description'
-          = f.input :avatar, label: 'Photo', as: :image, wrapper: :bootstrap, input_html: { wrap_class: 'col-md-6' }
-          %hr.hr-dark-gray
-          .form-group
-            .col-md-offset-3.col-md-6
-              = f.submit 'Save', class: 'btn btn-primary col-md-3'
-              %span &nbsp;or #{ link_to 'cancel', users_profile_path }
+        %ul.nav.nav-tabs
+          %li.active= link_to 'My Profile', '#personal', 'data-toggle' => 'tab'
+          %li= link_to 'Social Media Connections', '#social-connections', 'data-toggle' => 'tab'
+        .tab-content
+          #personal.tab-pane.active
+            = simple_form_for current_user, url: users_profile_path, html: { class: 'form-horizontal user_form', multipart: true }, defaults: { label_html: { class: 'col-md-3 col-sm-3' } }, wrapper: :bootstrap_horizontal do |f|
+              = f.error_notification
+              = f.input :first_name
+              = f.input :last_name
+              = f.input :email
+              = f.input :dob, label: 'Date of birth', input_html: { class: 'form-control' }, start_year: Date.today.year - 60, end_year: Date.today.year - 18
+              = f.input :mobile_number
+              = render partial: 'shared/location_form', locals: { f: f, location_assoc: :location, defaults: { required: false } }
+              = f.input :description, label: 'Personal description'
+              = f.input :avatar, label: 'Photo', as: :image, wrapper: :bootstrap, input_html: { wrap_class: 'col-md-6' }
+              %hr.hr-dark-gray
+              .form-group
+                .col-md-offset-3.col-md-6
+                  = f.submit 'Save', class: 'btn btn-primary col-md-3'
+                  %span &nbsp;or #{ link_to 'cancel', users_profile_path }
+          #social-connections.tab-pane
+            %h4 Social Media Connections
+            .pane.nested-panel
+              %p
+                - if fb = current_user.authentications.find_by_provider(:facebook)
+                  Facebook connected.
+                  = link_to 'disconnect it?', users_authentication_path(fb), method: :delete
+                - else
+                  = link_to image_tag('facebook-btn.jpg'), user_omniauth_authorize_path(:facebook), class: 'facebook-link'
+              %p
+                - if gm = current_user.authentications.find_by_provider(:google_oauth2)
+                  Gmail connected.
+                  = link_to 'disconnect it?', users_authentication_path(gm), method: :delete
+                - else
+                  = link_to image_tag('gmail-btn.jpg'), user_omniauth_authorize_path(:google_oauth2), class: 'gmail-link'
