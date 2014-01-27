@@ -70,17 +70,17 @@ feature 'user profile' do
 
       click_link_to_connect_with 'facebook'
       should have_selector 'li.active', text: 'Social Media Connections'
-      should have_selector '.alert-success', text: 'Successfully added'
+      should have_selector '.alert-success', text: 'Facebook connection added.'
       should have_content 'Facebook connected.'
       should have_content 'user1@fb.com'
-      should have_link 'disconnect user1@fb.com?'
+      should have_link 'Disconnect user1@fb.com'
 
       click_link_to_connect_with 'gmail'
-      should have_selector '.alert-danger', text: 'Connection not available'
+      should have_selector '.alert-danger', text: 'This Gmail account is already connected to another user.'
 
-      click_link 'disconnect user1@fb.com?'
+      click_link 'Disconnect user1@fb.com'
       should have_selector 'li.active', text: 'Social Media Connections'
-      should have_selector '.alert-info', text: 'Connection successfully destroyed'
+      should have_selector '.alert-info', text: 'Facebook connection removed'
       should_have_link_to_connect_with 'facebook'
     end
 
