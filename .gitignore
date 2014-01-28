@@ -15,7 +15,7 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
-
+.sass-cache
 config/database.yml
 .idea
 .env
