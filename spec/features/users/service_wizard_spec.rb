@@ -214,7 +214,7 @@ describe 'Service wizard', js: true do
       add_repair_symptoms
       fill_in 'job_task_note', with: repair_note
       click_on 'Add'
-      verify_task 2, 'Break safety inspection', 'Replace the break pads Notes: Repair note'
+      verify_task 2, 'Break safety inspection', 'Notes: Repair note'
 
       within_task(1) { find('.edit-task').click }
       page.should have_select 'job_task_service_plan_id', selected: service_plan.display_title
@@ -229,7 +229,7 @@ describe 'Service wizard', js: true do
 
       fill_in 'job_task_note', with: another_note
       click_on 'Update'
-      verify_task 2, 'Break safety inspection', 'Replace the break pads Notes: Edited note'
+      verify_task 2, 'Break safety inspection', 'Notes: Edited note'
     end
 
     it 'deletes tasks' do
@@ -252,10 +252,10 @@ describe 'Service wizard', js: true do
       add_repair_symptoms
       fill_in 'job_task_note', with: note
       click_on 'Add'
-      verify_task 2, 'Break safety inspection', 'Replace the break pads Notes: A note goes here'
+      verify_task 2, 'Break safety inspection', 'Notes: A note goes here'
 
       within_task(1) { find('.remove-task').click }
-      verify_task 1, 'Break safety inspection', 'Replace the break pads Notes: A note goes here'
+      verify_task 1, 'Break safety inspection', 'Notes: A note goes here'
 
       within_task(1) { find('.remove-task').click }
       page.should have_css 'h5', text: 'PLEASE PICK A SERVICE INTERVAL YOU\'LL LIKE OUR PROFESSIONAL MOBILE MECHANIC TO PERFORM'

@@ -25,6 +25,7 @@ app.controller 'DiagnoseController', ['$scope', '$http', ($scope, $http) ->
       service_plan_id: $scope.service_plan.id,
       title: "#{$scope.service_plan.display_title} service",
       note: $scope.note
+    $scope.service_plan = {}
 
   $scope.saveRepair = ->
     if $scope.editing_task
@@ -46,14 +47,20 @@ app.controller 'DiagnoseController', ['$scope', '$http', ($scope, $http) ->
     $scope.backToSummary()
 
   $scope.removeTask = (i) ->
+    if $scope.tasks[i].type == 'Service'
+      $scope.service_plan = {}
     $scope.tasks.splice(i, 1)
     $scope.mode = 'service' if $scope.tasks.length == 0
 
   $scope.editTask = (i) ->
     $scope.editing_task = i
     task = $scope.tasks[i]
+    if task.type == 'Service'
+      $scope.service_plan = sp for sp in $scope.service_plans when sp.id == task.service_plan_id
+      $scope.mode = 'service'
+    else
+      $scope.mode = 'repair'
     $scope.note = task.note
-    $scope.mode = if task.type == 'Service' then 'service' else 'repair'
 
   $scope.editingRepair = ->
     $scope.editing_task != null && $scope.mode == 'repair'
