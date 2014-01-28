@@ -13,6 +13,7 @@ describe 'Service wizard', js: true do
   let!(:state)        { create :state, name: 'State' }
   let(:last_service_year) { Date.today.year - 1 }
   let(:note)          { 'A note goes here' }
+  let(:repair_note)   { 'Repair note' }
   let(:another_note)  { 'Edited note' }
 
   before do
@@ -211,16 +212,21 @@ describe 'Service wizard', js: true do
 
       click_link 'Add Repair'
       add_repair_symptoms
-      fill_in 'job_task_note', with: note
+      fill_in 'job_task_note', with: repair_note
       click_on 'Add'
-      verify_task 2, 'Break safety inspection', 'Replace the break pads Notes: A note goes here'
+      verify_task 2, 'Break safety inspection', 'Replace the break pads Notes: Repair note'
 
       within_task(1) { find('.edit-task').click }
+      page.should have_select 'job_task_service_plan_id', selected: service_plan.display_title
+      page.should have_field  'job_task_note', with: note
+
       select_service_plan(another_service_plan, another_note)
       click_on 'Update'
       verify_task 1, another_service_plan.display_title, another_note
 
       within_task(2) { find('.edit-task').click }
+      page.should have_field  'job_task_note', with: repair_note
+
       fill_in 'job_task_note', with: another_note
       click_on 'Update'
       verify_task 2, 'Break safety inspection', 'Replace the break pads Notes: Edited note'

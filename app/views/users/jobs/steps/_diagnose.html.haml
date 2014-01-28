@@ -32,7 +32,7 @@
     %h5 FIX CAR PROBLEM
     %hr.hr-dark-gray
     = f.simple_fields_for :task, Repair.new do |s|
-      = s.input :note, label: false, placeholder: 'Describe any issues you have with your car', as: :text, input_html: { 'ng-model' => 'problem_description' }
+      = s.input :note, label: false, placeholder: 'Describe any issues you have with your car', as: :text, input_html: { 'ng-model' => 'note' }
 
       .symptoms{ 'ng-hide' => 'editingRepair()' }
         %h6 Or select type of symptom you have
