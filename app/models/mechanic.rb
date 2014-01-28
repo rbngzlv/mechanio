@@ -32,6 +32,14 @@ class Mechanic < ActiveRecord::Base
     joins(:mechanic_regions).where(mechanic_regions: { postcode: postcode }).uniq
   }
 
+  def appointments
+    jobs.appointments
+  end
+
+  def past_appointments
+    jobs.past_appointments
+  end
+
   def self.by_location(location)
     if location.geocoded?
       close_to(location.latitude, location.longitude)

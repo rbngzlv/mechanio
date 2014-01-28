@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe User do
 
-  let(:user) { build :user }
+  let(:user) { build :user, first_name: 'First', last_name: 'Last' }
 
   it { should have_many :cars }
   it { should have_many :jobs }
@@ -16,19 +16,18 @@ describe User do
   it { should validate_presence_of :password }
 
   it 'combines first and last names into full name' do
-    user.full_name.length.should > 0
-    user.full_name.should eq "#{user.first_name} #{user.last_name}"
+    user.full_name.should eq "First Last"
   end
 
-  describe '#estimates' do
-    it 'should has jobs with status pending and estimated' do
-      user.estimates.count.should be_zero
-      job_pending   = create :job_with_service, user: user, status: :pending
-      job_estimated = create :job_with_service, user: user, status: :estimated
-      job_assigned  = create :assigned_job,     user: user
-      user.estimates.should include job_pending
-      user.estimates.should include job_estimated
-      user.estimates.should_not include job_assigned
+  describe 'job scopes' do
+    let!(:pending_job)   { create :job_with_service, :pending,   user: user }
+    let!(:estimated_job) { create :job_with_service, :estimated, user: user }
+    let!(:assigned_job)  { create :job_with_service, :assigned,  user: user }
+
+    it 'gets correct jobs' do
+      user.estimates.should     eq [estimated_job]
+      user.appointments.should  eq [assigned_job]
+      user.pending_and_estimated.should =~ [pending_job, estimated_job]
     end
   end
 

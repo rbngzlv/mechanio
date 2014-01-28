@@ -4,7 +4,8 @@ class Users::AppointmentsController < Users::ApplicationController
   layout :select_layout
 
   def index
-    @current_appointments = current_user.jobs.assigned.reorder(:scheduled_at)
+    @appointments = current_user.appointments
+    @past_appointments = current_user.past_appointments
   end
 
   def edit
@@ -28,7 +29,7 @@ class Users::AppointmentsController < Users::ApplicationController
   helper_method :mechanics
 
   def find_job
-    @job = current_user.jobs.estimated.find(params[:id])
+    @job = current_user.estimates.find(params[:id])
   end
 
   def select_layout

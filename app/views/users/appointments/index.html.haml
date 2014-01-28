@@ -22,7 +22,7 @@
               = link_to 'Feedback', '#tab_feedback', data: { toggle: 'tab' }
         .tab-content
           #tab_current.tab-pane.active
-            = render(partial: 'current', collection: @current_appointments, as: :job) || render('no_appointments')
+            = render(partial: 'current', collection: @appointments, as: :job) || render('no_appointments')
           #tab_past.tab-pane
             .table-responsive
               %table.table.table-striped.table-bordered

@@ -18,6 +18,22 @@ class User < ActiveRecord::Base
 
   validates :first_name, :last_name, :email, presence: true
 
+  def pending_and_estimated
+    jobs.with_status(:pending, :estimated)
+  end
+
+  def estimates
+    jobs.with_status(:estimated)
+  end
+
+  def appointments
+    jobs.appointments
+  end
+
+  def past_appointments
+    jobs.past_appointments
+  end
+
   def self.new_with_session(params, session)
     super.tap do |user|
       if session[:tmp_job_id]
@@ -48,10 +64,6 @@ class User < ActiveRecord::Base
 
   def full_name
     "#{first_name} #{last_name}"
-  end
-
-  def estimates
-    jobs.with_status(:pending, :estimated)
   end
 
   def avatar_thumb

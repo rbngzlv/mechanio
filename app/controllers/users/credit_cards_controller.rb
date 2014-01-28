@@ -20,7 +20,7 @@ class Users::CreditCardsController < Users::ApplicationController
   private
 
   def find_job
-    @job = current_user.jobs.assigned.find(params[:job_id])
+    @job = current_user.appointments.find(params[:job_id])
     @mechanic = @job.mechanic
   end
 

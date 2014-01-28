@@ -66,7 +66,9 @@ describe 'User register', :js do
       within '.header' do
         click_link 'Sign up'
       end
-      click_link 'Use regular email sign up'
+      within '#social-login-modal' do
+        click_link 'Use regular email sign up'
+      end
     end
   end
 end
