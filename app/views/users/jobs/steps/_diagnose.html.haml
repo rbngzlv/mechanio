@@ -11,8 +11,6 @@
             %a.remove-task{ href: '', 'ng-click' => 'removeTask($index)' }
               %i.icon.icon-remove
         .panel-body
-          %p{ 'ng-show' => 'task.description' }
-            {{task.description}}
           %p{ 'ng-show' => 'task.note'}
             %strong Notes:
             {{task.note}}
