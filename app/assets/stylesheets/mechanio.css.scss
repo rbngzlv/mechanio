@@ -56,6 +56,10 @@ a:hover {
   color: #22878e !important;
 }
 
+.gray {
+  color: gray;
+}
+
 .no-margin {
   margin: 0
 }
@@ -1413,6 +1417,12 @@ table.table {
 
 .table-borderless td {
   border: none !important;
+}
+
+table.job-details {
+  td {
+    padding: 3px 0;
+  }
 }
 
 form {

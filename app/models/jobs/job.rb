@@ -48,7 +48,7 @@ class Job < ActiveRecord::Base
     state :assigned do
       transition to: :completed, on: :complete
       transition to: :payment_error, on: :payment_error
-      validates :credit_card, presence: true
+      # validates :credit_card, presence: true
     end
     state :payment_error
     state :awaiting_feedback
