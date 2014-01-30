@@ -1,16 +1,7 @@
 .row.new-payment
   .col-md-9.col-sm-12.col-xs-12
     %section
-      :coffee
-        $ ->
-          if $(window).width() > 992
-            maxHeight = 0
-            $('.js-fix-height').each( ->
-              height = $(this).outerHeight()
-              if height > maxHeight
-                maxHeight = height
-            ).height(maxHeight)
-      .js-fix-height.panel.col-md-7-9.job-details
+      .panel.job-details
         .panel-heading.panel-heading-border.clearfix
           %h4.panel-title #{@job.title}
         .panel-body
@@ -50,7 +41,8 @@
                       %span= @job.location.full_address
           = render "shared/mechanic/modal", mechanic: @mechanic
 
-      .js-fix-height.panel.col-md-4.col-md-offset-0-1.price-breakdown
+      .div-divider
+      .panel.price-breakdown
         .panel-heading.panel-heading-border.clearfix
           %h4.panel-title Price Breakdown
         .panel-body
@@ -64,11 +56,14 @@
               %tr
                 %td.pull-right Total Price:
                 %td= number_to_currency @job.cost
-          %p.text-center= link_to 'Redeem promo code', '#'
-          %p
-            .red You pay $0 to secure this booking.
-            .red
-              %strong You pay after the job is done.
+          .payment-notice
+            -#
+              %p.text-center
+                = link_to 'Redeem promo code', '#'
+            %p
+              .red You pay $0 to secure this booking.
+              .red
+                %strong You pay after the job is done.
       .clearfix
 
     .clearfix

@@ -1,4 +1,17 @@
 .new-payment {
+  section {
+    display: table;
+    margin-bottom: 20px;
+
+    .panel {
+      display: table-cell;
+    }
+
+    .div-divider {
+      width: 10px
+    }
+  }
+
   .btn-book-mechanic {
     text-transform: uppercase;
     -webkit-box-shadow: 1px 1px 5px 0px rgba(50, 50, 50, 0.25);
@@ -20,6 +33,15 @@
   }
 
   .price-breakdown {
+    position: relative;
+    padding-bottom: 20px;
+
+    .payment-notice {
+      position: absolute;
+      bottom: 0;
+      padding: 10px;
+    }
+
     table {
       margin-bottom: 30px;
     }
