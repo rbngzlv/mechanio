@@ -1,7 +1,16 @@
-.row
+.row.new-payment
   .col-md-9.col-sm-12.col-xs-12
     %section
-      .panel.col-md-8(style="width: 65.66666%;")
+      :coffee
+        $ ->
+          if $(window).width() > 992
+            maxHeight = 0
+            $('.js-fix-height').each( ->
+              height = $(this).outerHeight()
+              if height > maxHeight
+                maxHeight = height
+            ).height(maxHeight)
+      .js-fix-height.panel.col-md-7-9.job-details
         .panel-heading.panel-heading-border.clearfix
           %h4.panel-title #{@job.title}
         .panel-body
@@ -9,16 +18,16 @@
             .profile-border.clickable{ data: { toggle: 'modal', target: "#js-mechanic-#{@mechanic.id}" }, role: 'button' }
               = render 'shared/mechanic/avatar', mechanic: @mechanic
             %div
-              %table.job-details
-                %tbody(style="vertical-align: top;")
+              %table
+                %tbody
                   %tr
                     %td
                       %strong Mechanic:
                     %td
-                      %span.gray(style="display: block")
+                      .gray
                         %strong= @mechanic.full_name
                       - if @mechanic.years_as_a_mechanic
-                        %span #{pluralize @mechanic.years_as_a_mechanic, 'year'} experience
+                        %span #{pluralize @mechanic.years_as_a_mechanic, 'year'} of experience
                   %tr.reviews-row
                     %td
                       %strong Rating:
@@ -40,26 +49,25 @@
                     %td
                       %span= @job.location.full_address
           = render "shared/mechanic/modal", mechanic: @mechanic
-      -# TODO: Is this blocks really should have same heights
-      .panel.col-md-4.col-md-offset-1(style="margin-left: 1%; min-height: 266px;")
+
+      .js-fix-height.panel.col-md-4.col-md-offset-0-1.price-breakdown
         .panel-heading.panel-heading-border.clearfix
           %h4.panel-title Price Breakdown
         .panel-body
-          %table(style='width: 100%;')
+          %table
             %tbody
               - @job.tasks.each do |task|
                 %tr
-                  -# TODO: Service Fee - what does it mean here? is it mean that its all tasks?
-                  %td(style="width: 100%;") #{task.type} Fee:
+                  %td.task-title #{task.title}:
                   %td= number_to_currency task.cost
-              %tr(style="height: 15px;")
+              %tr.tr-divider
               %tr
                 %td.pull-right Total Price:
                 %td= number_to_currency @job.cost
-          %p.text-center(style="margin-top: 34px;")= link_to 'Redeem promo code', '#'
-          %p(style="color: red;")
-            %span(style="display: block")You pay $0 to secure this booking.
-            %span(style="display: block")
+          %p.text-center= link_to 'Redeem promo code', '#'
+          %p
+            .red You pay $0 to secure this booking.
+            .red
               %strong You pay after the job is done.
       .clearfix
 
@@ -107,7 +115,7 @@
               I have read and agreed to the
               = link_to 'terms of use', page_path(:terms_of_use), target: '_blank'
             %div
-              %button.btn.btn-info{type: 'submit'}(style="text-transform: uppercase;-webkit-box-shadow: 1px 1px 5px 0px rgba(50, 50, 50, 0.25); -moz-box-shadow: 1px 1px 5px 0px rgba(50, 50, 50, 0.25); box-shadow: 1px 1px 5px 0px rgba(50, 50, 50, 0.25); background-color: #FF8F00; border-color: #FF8F00; width: 100%; padding: 10px 0; border-radius: 5px;") Book #{@mechanic.first_name} for #{@job.scheduled_at.to_s(:date_abr)}
+              %button.btn.btn-info.btn-book-mechanic{type: 'submit'} Book #{@mechanic.first_name} for #{@job.scheduled_at.to_s(:date_abr)}
             %small Your credit card is not billed until the work is done!
 = javascript_include_tag 'https://js.braintreegateway.com/v1/braintree.js'
 :coffee

@@ -60,6 +60,10 @@ a:hover {
   color: gray;
 }
 
+.red {
+  color: red;
+}
+
 .no-margin {
   margin: 0
 }
@@ -1419,12 +1423,6 @@ table.table {
   border: none !important;
 }
 
-table.job-details {
-  td {
-    padding: 3px 0;
-  }
-}
-
 form {
   font-size: 13px;
 
@@ -1521,6 +1519,17 @@ form {
 @media (max-width: 1025px) {
   .banner > .container {
     padding-top: 20%;
+  }
+}
+
+@media (min-width: 992px) {
+  .col-md-7-9 {
+    width: 65.66666%;
+    float: left;
+  }
+
+  .col-md-offset-0-1 {
+    margin-left: 1%;
   }
 }
 

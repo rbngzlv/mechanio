@@ -1,0 +1,39 @@
+.new-payment {
+  .btn-book-mechanic {
+    text-transform: uppercase;
+    -webkit-box-shadow: 1px 1px 5px 0px rgba(50, 50, 50, 0.25);
+    -moz-box-shadow: 1px 1px 5px 0px rgba(50, 50, 50, 0.25);
+    box-shadow: 1px 1px 5px 0px rgba(50, 50, 50, 0.25);
+    background-color: #FF8F00;
+    border-color: #FF8F00;
+    width: 100%;
+    padding: 10px 0;
+    border-radius: 5px;
+  }
+
+  .job-details tbody {
+    vertical-align: top;
+
+    td {
+      padding: 3px 0;
+    }
+  }
+
+  .price-breakdown {
+    table {
+      margin-bottom: 30px;
+    }
+
+    tbody {
+      vertical-align: bottom;
+
+      .task-title {
+        width: 100%;
+      }
+
+      .tr-divider {
+        height: 15px;
+      }
+    }
+  }
+}
