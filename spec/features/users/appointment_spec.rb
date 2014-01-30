@@ -28,9 +28,16 @@ feature 'Appointments' do
     should have_content "ID: #{appointment.uid}"
   end
 
-  context 'book appointment page' do
-    it 'check mechanic description', :js do
+  context 'check mechanic description', :js do
+    specify 'book appointment page' do
       visit edit_users_appointment_path(job)
+      find('.profile-border.clickable').click
+      should have_css "#js-mechanic-#{mechanic.id}", visible: true
+    end
+
+    specify 'my appointment page' do
+      create :assigned_job, user: user, mechanic: mechanic
+      visit users_appointments_path
       find('.profile-border.clickable').click
       should have_css "#js-mechanic-#{mechanic.id}", visible: true
     end

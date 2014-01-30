@@ -1,5 +1,5 @@
 .row
-  .profile-border
+  .profile-border.clickable{ data: { toggle: 'modal', target: "#js-mechanic-#{job.mechanic.id}" }, role: 'button' }
     = render 'shared/mechanic/avatar', mechanic: job.mechanic
   %div
     .nested-panel.clearfix
@@ -25,6 +25,7 @@
             = link_to 'Add Another Service', '#', class: 'btn btn-success col-md-12 col-sm-12 bottom-margin'
           .col-md-12.col-sm-6
             = link_to 'Reschedule', '#', class: 'btn btn-success col-md-12 col-sm-12'
+    = render "shared/mechanic/modal", mechanic: job.mechanic
 %br
 .row
   .col-md-12
