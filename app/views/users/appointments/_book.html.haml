@@ -1,3 +1,4 @@
+- tomorrow = Date.tomorrow
 :javascript
   $(function() {
     var $container = $('.calendar-container#mechanic_#{mechanic.id}'),
@@ -12,8 +13,10 @@
         right: ''
       },
       defaultView: 'agendaWeek',
-      firstDay: #{ Date.tomorrow.wday },
-      date: #{ Date.tomorrow.day },
+      firstDay: #{ tomorrow.wday },
+      year: #{ tomorrow.year },
+      month: #{ tomorrow.month - 1 },
+      date: #{ tomorrow.day },
       firstHour: 9,
       minTime: 9,
       maxTime: 19,
