@@ -1,0 +1,61 @@
+.new-payment {
+  section {
+    display: table;
+    margin-bottom: 20px;
+
+    .panel {
+      display: table-cell;
+    }
+
+    .div-divider {
+      width: 10px
+    }
+  }
+
+  .btn-book-mechanic {
+    text-transform: uppercase;
+    -webkit-box-shadow: 1px 1px 5px 0px rgba(50, 50, 50, 0.25);
+    -moz-box-shadow: 1px 1px 5px 0px rgba(50, 50, 50, 0.25);
+    box-shadow: 1px 1px 5px 0px rgba(50, 50, 50, 0.25);
+    background-color: #FF8F00;
+    border-color: #FF8F00;
+    width: 100%;
+    padding: 10px 0;
+    border-radius: 5px;
+  }
+
+  .job-details tbody {
+    vertical-align: top;
+
+    td {
+      padding: 3px 0;
+    }
+  }
+
+  .price-breakdown {
+    position: relative;
+    padding-bottom: 20px;
+
+    .payment-notice {
+      position: absolute;
+      bottom: 0;
+      padding: 10px;
+    }
+
+    table {
+      margin-bottom: 30px;
+    }
+
+    tbody {
+      vertical-align: bottom;
+
+      .task-title {
+        width: 100%;
+      }
+
+      .tr-divider {
+        height: 15px;
+      }
+    }
+  }
+}
