@@ -49,6 +49,21 @@ describe Mechanic do
     Mechanic.by_region('1234').should eq [mechanic1]
   end
 
+  specify '#toggle_regions' do
+    mechanic = create :mechanic
+    region1 = create :region, postcode: '1234'
+    region2 = create :region, postcode: '5678'
+
+    mechanic.toggle_regions([region1.id], true)
+    Mechanic.by_region('1234').to_a.should eq [mechanic]
+    Mechanic.by_region('5678').to_a.should eq []
+
+    mechanic.toggle_regions([region1.id], false)
+    mechanic.toggle_regions([region2.id], true)
+    Mechanic.by_region('1234').to_a.should eq []
+    Mechanic.by_region('5678').to_a.should eq [mechanic]
+  end
+
   describe '.build_locations' do
     let(:mechanic) { Mechanic.new }
 
