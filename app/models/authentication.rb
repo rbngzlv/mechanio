@@ -10,9 +10,4 @@ class Authentication < ActiveRecord::Base
     end
     auth
   end
-
-  def social_icon
-    return 'google-plus' if provider == 'google_oauth2'
-    provider
-  end
 end
