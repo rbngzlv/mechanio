@@ -27,6 +27,6 @@
 
     .col-md-6.social
       - user.authentications.each do |auth|
-        %i{ class: "icon-#{(provider = auth.provider) == 'google_oauth2' ? 'google-plus' : provider}-sign" }
+        %i{ class: "icon-#{auth.social_icon}-sign" }
 
     .clearfix
