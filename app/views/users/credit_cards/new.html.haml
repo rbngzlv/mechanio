@@ -13,8 +13,7 @@
                 %tr
                   %th Mechanic:
                   %td
-                    .gray
-                      %strong= @mechanic.full_name
+                    %strong.gray= @mechanic.full_name
                     - if @mechanic.years_as_a_mechanic
                       %br
                       %span #{pluralize @mechanic.years_as_a_mechanic, 'year'} of experience
