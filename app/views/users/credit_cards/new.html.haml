@@ -1,6 +1,6 @@
 .row.new-payment
   .col-md-9.col-sm-12.col-xs-12
-    %section
+    .equal-height
       .panel.job-details
         .panel-heading.panel-heading-border.clearfix
           %h4.panel-title #{@job.title}
@@ -10,38 +10,31 @@
               = render 'shared/mechanic/avatar', mechanic: @mechanic
             %div
               %table
-                %tbody
-                  %tr
-                    %td
-                      %strong Mechanic:
-                    %td
-                      .gray
-                        %strong= @mechanic.full_name
-                      - if @mechanic.years_as_a_mechanic
-                        %span #{pluralize @mechanic.years_as_a_mechanic, 'year'} of experience
-                  %tr.reviews-row
-                    %td
-                      %strong Rating:
-                    %td.rating
-                      .pull-left= rating_stars(@mechanic.rating)
-                  %tr
-                    %td
-                      %strong Date and Time:
-                    %td
-                      %span.lazure #{@job.scheduled_at.to_s(:date)} #{@job.scheduled_at.to_s(:time)}
-                  %tr
-                    %td
-                      %strong Car:
-                    %td
-                      %span.gray= @job.car.display_title
-                  %tr
-                    %td
-                      %strong Location:
-                    %td
-                      %span= @job.location.full_address
+                %tr
+                  %th Mechanic:
+                  %td
+                    .gray
+                      %strong= @mechanic.full_name
+                    - if @mechanic.years_as_a_mechanic
+                      %br
+                      %span #{pluralize @mechanic.years_as_a_mechanic, 'year'} of experience
+                    .reviews-row
+                      .rating.text-left
+                        = rating_stars(@mechanic.rating)
+                %tr
+                  %th Date:
+                  %td
+                    %span.lazure #{@job.scheduled_at.to_s(:date)} #{@job.scheduled_at.to_s(:time)}
+                %tr
+                  %th Car:
+                  %td
+                    %span.gray= @job.car.display_title
+                %tr
+                  %th Location:
+                  %td
+                    %span= @job.location.full_address
           = render "shared/mechanic/modal", mechanic: @mechanic
-
-      .div-divider
+      .divider
       .panel.price-breakdown
         .panel-heading.panel-heading-border.clearfix
           %h4.panel-title Price Breakdown
@@ -50,21 +43,21 @@
             %tbody
               - @job.tasks.each do |task|
                 %tr
-                  %td.task-title #{task.title}:
+                  %th #{task.title}:
                   %td= number_to_currency task.cost
               %tr.tr-divider
+                %td{ colspan: 2 }
               %tr
-                %td.pull-right Total Price:
+                %th Total Price:
                 %td= number_to_currency @job.cost
+
+          -#
+            %p.text-center
+              = link_to 'Redeem promo code', '#'
           .payment-notice
-            -#
-              %p.text-center
-                = link_to 'Redeem promo code', '#'
-            %p
-              .red You pay $0 to secure this booking.
-              .red
-                %strong You pay after the job is done.
-      .clearfix
+            You pay $0 to secure this booking.
+            %br
+            %strong You pay after the job is done.
 
     .clearfix
 
