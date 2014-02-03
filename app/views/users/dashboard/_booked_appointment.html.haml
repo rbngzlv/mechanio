@@ -5,29 +5,29 @@
         %p.clearfix
           .col-md-5.col-sm-5.col-xs-6
             .pull-left
-              %b= @booked_appointment_mechanic.full_name
+              %b= @appointment.mechanic.full_name
           .col-md-7.col-sm-7.col-xs-6
             .reviews-row.clearfix
               .rating.pull-left
-                = rating_stars(@booked_appointment_mechanic.rating)
-              %span.review-text.pull-left= pluralize(@booked_appointment_mechanic.reviews, 'Review')
+                = rating_stars(@appointment.mechanic.rating)
+              %span.review-text.pull-left= pluralize(@appointment.mechanic.reviews, 'Review')
       .row
         %p.clearfix
-          .col-md-12= @booked_appointment.scheduled_at.to_s :date_time
+          .col-md-12= @appointment.scheduled_at.to_s :date_time
     .col-md-4.col-sm-4
       %p
         .pull-right
           %i.icon-phone
-          = @booked_appointment_mechanic.mobile_number
+          = @appointment.mechanic.mobile_number
     .tr-divider.clearfix
   .row
     %p.clearfix
       .col-md-8.col-sm-8
         .row
           .col-md-4.col-sm-5.col-xs-6 Services:
-          .col-md-8.col-sm-7.col-xs-6= @booked_appointment.title
+          .col-md-8.col-sm-7.col-xs-6= @appointment.title
           %p.clearfix
             .col-md-4.col-sm-5.col-xs-6 Car:
-            .col-md-8.col-sm-7.col-xs-6= @booked_appointment.car.display_title
+            .col-md-8.col-sm-7.col-xs-6= @appointment.car.display_title
       .col-md-4.col-sm-4
         = link_to 'View Appointment', users_appointments_path, class: 'btn btn-success pull-right'

@@ -23,7 +23,7 @@ class User < ActiveRecord::Base
   end
 
   def estimates
-    jobs.with_status(:estimated)
+    jobs.estimates
   end
 
   def appointments

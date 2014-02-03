@@ -1,9 +1,7 @@
 class Users::DashboardController < Users::ApplicationController
 
   def index
-    if @booked_appointment = current_user.jobs.appointments.first
-      @booked_appointment_mechanic = @booked_appointment.mechanic
-    end
-    @last_estimate = current_user.jobs.estimates.first
+    @appointment = current_user.appointments.first
+    @estimate = current_user.estimates.first
   end
 end

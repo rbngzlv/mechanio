@@ -2,18 +2,18 @@
   .row
     .col-md-7.col-sm-7
       %p
-        %b.text-info= @last_estimate.created_at.to_s :date_short
+        %b.text-info= @estimate.created_at.to_s :date_short
         %br
         %br
         %b Car:
-        = @last_estimate.car.display_title
+        = @estimate.car.display_title
         %br
         %b Services:
-        = @last_estimate.title
+        = @estimate.title
         %br
     .col-md-5.col-sm-5.text-center
       .alert-success
         %small Total Cost
         %br
-        %b.big= number_to_currency @last_estimate.cost
-      = link_to 'Book Appointments', edit_users_appointment_path(@last_estimate), class: 'btn btn-success'
+        %b.big= number_to_currency @estimate.cost
+      = link_to 'Book Appointments', edit_users_appointment_path(@estimate), class: 'btn btn-success'
