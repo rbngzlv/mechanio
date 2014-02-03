@@ -11,18 +11,18 @@ feature 'payment page spec' do
   end
 
   it 'shows job details' do
-    within('section > .panel:nth-of-type(1)') do
+    within('.equal-height > .panel:nth-of-type(1)') do
       page.should have_css 'h4', text: job.title
       page.should have_css 'tr:nth-child(1)', text: mechanic.full_name
       page.should have_css 'tr:nth-child(1)', text: '2 years of experience'
-      page.should have_css 'tr:nth-child(3)', text: '06 Feb 2014 (Thursday) 11:00'
-      page.should have_css 'tr:nth-child(4)', text: job.car.display_title
-      page.should have_css 'tr:nth-child(5)', text: job.location.full_address
+      page.should have_css 'tr:nth-child(2)', text: '06 Feb 2014 (Thursday) 11:00'
+      page.should have_css 'tr:nth-child(3)', text: job.car.display_title
+      page.should have_css 'tr:nth-child(4)', text: job.location.full_address
     end
   end
 
   it 'shows job quote' do
-    within('section > .panel:nth-of-type(3)') do
+    within('.equal-height > .panel:nth-of-type(3)') do
       page.should have_css 'h4', text: 'Price Breakdown'
       page.should have_css 'tr:nth-child(1)', text: job.tasks.first.title
       page.should have_css 'tr:nth-child(1)', text: job.tasks.first.title
