@@ -62,6 +62,15 @@ feature 'mechanic "my jobs" page' do
 
       visit mechanics_jobs_path
       click_link 'Completed Jobs'
+
+      within '#past-jobs thead' do
+        should have_css 'th:nth-child(1)', text: 'Client Name'
+        should have_css 'th:nth-child(2)', text: 'Car'
+        should have_css 'th:nth-child(3)', text: 'Services'
+        should have_css 'th:nth-child(4)', text: 'Total Cost'
+        should have_css 'th:nth-child(5)', text: 'Option'
+      end
+
       within '#past-jobs tbody' do
         completed_jobs.each_with_index do |job, index|
           within "tr:nth-child(#{ index + 1 })" do
