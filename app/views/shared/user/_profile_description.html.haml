@@ -22,11 +22,11 @@
     %h5= "Hi, my name is #{user.full_name}"
     %p= user.description || 'Add some information about yourself'
 
-    .col-md-6.pull-right.text-right
-      = render "shared/user/verified_icons", account: user
-
     .col-md-6.social
       - user.authentications.each do |auth|
         = social_icon(auth.provider)
 
-    .clearfix
+  .col-md-6.pull-right.text-right
+    = render "shared/user/verified_icons", account: user
+
+  .clearfix
