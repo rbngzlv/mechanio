@@ -23,7 +23,7 @@ class User < ActiveRecord::Base
   end
 
   def estimates
-    jobs.with_status(:estimated)
+    jobs.estimates
   end
 
   def appointments
@@ -79,10 +79,5 @@ class User < ActiveRecord::Base
   def comments
     # TODO: It must return collection of all users comments
     fake_comments
-  end
-
-  def socials
-    # TODO: It must return collection of socials connections
-    fake_socials
   end
 end

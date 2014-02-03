@@ -1,16 +1,32 @@
 .profile-border
-  = image_tag user.avatar? ? user.avatar_url(:thumb) : 'photo.jpg', class: 'avatar'
+  = image_tag user.avatar? ? user.avatar_url(:thumb) : 'photo.jpg', class: 'avatar clickable js-update-avatar'
+
   .reviews-row.clearfix.text-center
     %span
-      Reviews Left:
-      %strong= user.reviews
+      = link_to users_profile_path do
+        Reviews Left:
+        %strong= user.reviews
+
+  :coffee
+    $('.js-update-avatar').click ->
+      $('#user_avatar').click()
+    $(document).on 'change', '#user_avatar', ->
+      this.form.submit()
+  .hide
+    = simple_form_for user, url: users_profile_path do |f|
+      = f.input :avatar, input_html: { class: 'js-skip-bootstrap-fileinput' }
+      = f.submit 'Save', class: 'btn btn-success'
+
 %div
-  .panel.nested-panel
-    = user.description || 'Add some information about yourself'
+  .panel.nested-panel.user-panel-body-fix-height
+    %h5= "Hi, my name is #{user.full_name}"
+    %p= user.description || 'Add some information about yourself'
 
-  .col-md-6.pull-right.text-right
-    = render "shared/user/verified_icons", account: user
+    .col-md-6.pull-right.text-right
+      = render "shared/user/verified_icons", account: user
 
-  .col-md-6.social
-    - user.socials.each do |name|
-      %i{ class: "icon-#{name}-sign" }
+    .col-md-6.social
+      - user.authentications.each do |auth|
+        = social_icon(auth.provider)
+
+    .clearfix

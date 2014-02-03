@@ -1,0 +1,19 @@
+.panel.nested-panel.clearfix
+  .row
+    .col-md-7.col-sm-7
+      %p
+        %b.text-info= @estimate.created_at.to_s :date_short
+        %br
+        %br
+        %b Car:
+        = @estimate.car.display_title
+        %br
+        %b Services:
+        = @estimate.title
+        %br
+    .col-md-5.col-sm-5.text-center
+      .alert-success
+        %small Total Cost
+        %br
+        %b.big= number_to_currency @estimate.cost
+      = link_to 'Book Appointments', edit_users_appointment_path(@estimate), class: 'btn btn-success'
