@@ -77,7 +77,7 @@ feature 'mechanic "my jobs" page' do
             should have_content job.user.full_name
             should have_content job.car.display_title
             should have_content job.title
-            should have_content job.cost
+            should have_content "$#{job.cost}"
           end
         end
 
