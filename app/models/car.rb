@@ -10,6 +10,7 @@ class Car < ActiveRecord::Base
   validates :user, presence: true, unless: :skip_user_validation
   validates :year, year: true
   validates :last_service_kms, numericality: true, allow_blank: true
+  validates :vin, format: { with: /\A\d{17}\Z/, message: 'VIN should be 17-digit number' }, allow_blank: true
   validate :verify_last_service
 
   attr_accessor :skip_user_validation
