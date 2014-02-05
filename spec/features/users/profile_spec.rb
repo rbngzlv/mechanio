@@ -69,24 +69,24 @@ feature 'user profile' do
     before { visit edit_users_profile_path(anchor: 'social-connections') }
 
     scenario 'manage social connections' do
-      should_have_link_to_connect_with 'facebook'
-      should_have_link_to_connect_with 'google_oauth2'
+      should_have_sonnect_button 'facebook'
+      should_have_sonnect_button 'google_oauth2'
 
-      click_link_to_connect_with 'facebook'
+      click_connect 'facebook'
       should have_selector 'li.active', text: 'Social Media Connections'
       should have_selector '.alert-success', text: 'Facebook connection added.'
       should_have_connection_with 'facebook'
 
-      click_link_to_connect_with 'google_oauth2'
+      click_connect 'google_oauth2'
       should have_selector '.alert-danger', text: 'This Gmail account is already connected to another user.'
 
-      click_link_to_disconnect 'facebook'
+      click_disconnect 'facebook'
       should have_selector 'li.active', text: 'Social Media Connections'
       should have_selector '.alert-info', text: 'Facebook connection removed'
-      should_have_link_to_connect_with 'facebook'
+      should_have_sonnect_button 'facebook'
     end
 
-    def should_have_link_to_connect_with(provider)
+    def should_have_connect_button(provider)
       within(".#{provider}") { should have_link 'Connect' }
     end
 
@@ -94,11 +94,11 @@ feature 'user profile' do
       within(".#{provider}") { should have_content 'Connected.' }
     end
 
-    def click_link_to_connect_with(provider)
+    def click_connect(provider)
       within(".#{provider}") { click_link 'Connect' }
     end
 
-    def click_link_to_disconnect(provider)
+    def click_disconnect(provider)
       within(".#{provider}") { click_link 'Disconnect' }
     end
   end

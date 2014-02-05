@@ -95,7 +95,7 @@ module ApplicationHelper
     content_tag :i, '', class: "icon-#{icon}-sign"
   end
 
-  def link_to_connect_with(provider)
+  def social_connect_button(provider)
     link_to image_tag("#{provider}-btn.jpg"), user_omniauth_authorize_path(provider), class: "#{provider}-link"
   end
 end

@@ -1165,26 +1165,26 @@ section {
   border-radius: 8px;
 }
 
-.social {
+.table.social {
   [class *= 'icon'] {
-    color: #22878e;
     font-size: 30px;
     margin-left: 2px;
   }
 
-  table {
-    td:nth-child(2) {
-      padding: 0 5px;
-    }
+  td {
+    vertical-align: middle;
+  }
+  td:nth-child(1) {
+    width: 50px;
+  }
 
-    .btn.btn-xs {
-      width: 85px;
+  .btn.btn-xs {
+    width: 85px;
 
+    border-radius: 3px;
+    &:hover,
+    &:active {
       border-radius: 3px;
-      &:hover,
-      &:active {
-        border-radius: 3px;
-      }
     }
   }
 }
