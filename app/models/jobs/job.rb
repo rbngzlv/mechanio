@@ -20,7 +20,7 @@ class Job < ActiveRecord::Base
   before_save :set_title, :set_cost, :set_status, :on_quote_change
 
   validates :car, :location, :tasks, :contact_email, :contact_phone, presence: true
-  validates :contact_phone, format: { with: /\A04\d{8}\z/ }
+  validates :contact_phone, phone: true
   validates :user, presence: true, unless: :skip_user_validation
   validates :cost, numericality: { greater_than: 0 }, allow_blank: true
 
