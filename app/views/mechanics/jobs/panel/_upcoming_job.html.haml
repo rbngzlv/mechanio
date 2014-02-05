@@ -5,20 +5,21 @@
   .panel-body
     .alert.alert-info
       %i.icon-time
-      = job.scheduled_at.to_s(:date_time)
+      = job.scheduled_at.to_s(:time_day_month)
       %i.icon-map-marker
       = job.location.full_address
     .table-responsive
       %table.table.table-borderless
         %tr
           %td
+            %b Client:
+          %td
+            = job.user.full_name
+        %tr
+          %td
             %b Car:
           %td
             = job.car.display_title
-        %tr
-          %td
-          %td
-          %td
         = render partial: '/mechanics/jobs/panel/upcoming_job_task', collection: job.tasks, as: :task
         %tr
           %td
@@ -26,5 +27,5 @@
           %td
             %b Total Fees
           %td.text-right
-            %b= job.cost
+            %b= number_to_currency job.cost
     = link_to 'View Details', mechanics_job_path(job), class: 'btn btn-success pull-right'
