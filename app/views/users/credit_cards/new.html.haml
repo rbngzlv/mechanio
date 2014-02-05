@@ -102,9 +102,9 @@
               I have read and agreed to the
               = link_to 'terms of use', page_path(:terms_of_use), target: '_blank'
             %div
-              %button.btn.btn-info.btn-book-mechanic{type: 'submit'} Book #{@mechanic.first_name} for #{@job.scheduled_at.to_s(:date_abr)}
+              %button.btn.btn-info.btn-book-mechanic{type: 'submit'} Book #{@mechanic.first_name} for #{@scheduled_at.to_s(:date_abr)}
             %small Your credit card is not billed until the work is done!
 = javascript_include_tag 'https://js.braintreegateway.com/v1/braintree.js'
 :coffee
-braintree = Braintree.create('MIIBCgKCAQEA0iDZGZeMW3w4c1dljlEghWBskAEQUiwnzi5ilc4Rk6oLtV0HKMJEm1ARXnopAYnaQh7FIOotLXcsJGAZf1Dxhe/lR6dJmSCFh8BLBLjNs1k1jUhhnZJHsh+SNhBjqJ/gmqbnrgY0mEvSSfVOcPN4jiGesMTijAeWaREM5t7SmivtdmMQ3hqYS41cMWeGYXi74B/uObS9uFq5A6DQUaIjfFkpEi504f2njPY9L76ZsRqKr5UZwcR6BLhUpvAHeJvvJs0NkX2TGdzsS1KWNLYN1mSmW1ja7xGDXb53dvXFdkfes2eB8tzAcjYojv+9a8SfgGC4/9kMdR21/axEhG7NTwIDAQAB')
-braintree.onSubmitEncryptForm('new_credit_card')
+  braintree = Braintree.create('MIIBCgKCAQEA0iDZGZeMW3w4c1dljlEghWBskAEQUiwnzi5ilc4Rk6oLtV0HKMJEm1ARXnopAYnaQh7FIOotLXcsJGAZf1Dxhe/lR6dJmSCFh8BLBLjNs1k1jUhhnZJHsh+SNhBjqJ/gmqbnrgY0mEvSSfVOcPN4jiGesMTijAeWaREM5t7SmivtdmMQ3hqYS41cMWeGYXi74B/uObS9uFq5A6DQUaIjfFkpEi504f2njPY9L76ZsRqKr5UZwcR6BLhUpvAHeJvvJs0NkX2TGdzsS1KWNLYN1mSmW1ja7xGDXb53dvXFdkfes2eB8tzAcjYojv+9a8SfgGC4/9kMdR21/axEhG7NTwIDAQAB')
+  braintree.onSubmitEncryptForm('new_credit_card')

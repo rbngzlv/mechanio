@@ -60,7 +60,7 @@ describe EventsManager do
     end
 
     it 'does not delete appointment' do
-      event = create :event, :with_job, mechanic: mechanic
+      event = create :event, job: create(:job_with_service, mechanic: mechanic), mechanic: mechanic
       expect {
         events_manager.delete_event(event.id)
       }.to_not change { Event.count }
@@ -146,7 +146,7 @@ describe EventsManager do
 
     context 'check time start/end' do
       specify 'whole day' do
-        event = create(:event, mechanic: mechanic, date_start: Date.parse('2012-07-04'))
+        event = create(:event, :whole_day, mechanic: mechanic, date_start: Date.parse('2012-07-04'))
         events_manager.events_list.last[:start].to_s(:db).should be_eql '2012-07-04 09:00:00'
         events_manager.events_list.last[:end].to_s(:db).should be_eql '2012-07-04 19:00:00'
       end
@@ -197,7 +197,7 @@ describe EventsManager do
 
   describe '#get_time_start_and_end' do
     let(:today) { Date.today }
-    let(:event) { build :event, date_start: today }
+    let(:event) { build :event, :whole_day, date_start: today }
 
     it 'should create start and end time if their are not exists in event' do
       events_manager.get_time_start_and_end(event).should be_eql [today + 9.hour, today + 19.hour]

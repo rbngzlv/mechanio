@@ -14,20 +14,20 @@ describe Event do
   end
 
   specify '.repeated' do
-    create :event, recurrence: nil
-    desired_event = create :event, recurrence: :weekly
-    create :event, recurrence: :daily
-    (events = described_class.repeated(:weekly)).length.should be 1
-    events.last.should == desired_event
+    single = create :event
+    weekly = create :event, recurrence: :weekly
+    daily  = create :event, recurrence: :daily
+
+    Event.repeated(:weekly).should eq [weekly]
+    Event.repeated(:daily).should eq [daily]
   end
 
   specify '.time_slot' do
-    t = Time.now
-    desired_event = create :event, time_start: t, time_end: t + 2.hour
-    create :event, time_start: t - 1.hour, time_end: t + 1.hour
-    create :event
-    (events = described_class.time_slot(t)).length.should be 1
-    events.last.should == desired_event
+    time_slot = Date.tomorrow + 10.hours
+    first  = create :event, time_start: time_slot, time_end: time_slot + 2.hour
+    second = create :event, time_start: time_slot + 2.hours, time_end: time_slot + 4.hour
+
+    Event.time_slot(time_slot).should eq [first]
   end
 
   specify '.is_appointment?' do
@@ -39,34 +39,30 @@ describe Event do
   end
 
   context '.set_title' do
-    let(:date)              { Date.new(2012, 11, 5) }
-    let(:date_short)        { date.to_s(:short) }
-    let(:time_start)        { date + 7.hour }
-    let(:time_end)          { time_start + 2.hour }
-    let(:time_range_string) { "#{time_start.to_s(:short)} - #{time_end.strftime('%H:%M')}" }
+    let(:date) { Date.new(2010, 11, 5) }
 
     specify do
-      event = build_stubbed(:event, date_start: date, recurrence: :weekly)
+      event = build_stubbed(:event, :whole_day, date_start: date, recurrence: :weekly)
       event.set_title
       event.title.should eq "weekly from 5 Nov, all day"
     end
 
     specify do
-      event = build_stubbed(:event, date_start: date, recurrence: :weekly, time_start: time_start, time_end: time_end)
+      event = build_stubbed(:event, date_start: date, time_start: date + 10.hours, time_end: date + 12.hours, recurrence: :weekly)
       event.set_title
-      event.title.should eq "weekly from 5 Nov, 07:00 - 09:00"
+      event.title.should eq "weekly from 5 Nov, 10:00 - 12:00"
     end
 
     specify do
-      event = build_stubbed(:event, date_start: date)
+      event = build_stubbed(:event, date_start: date, time_start: nil, time_end: nil)
       event.set_title
       event.title.should eq "all day"
     end
 
     specify do
-      event = build_stubbed(:event, date_start: date, time_start: time_start, time_end: time_end)
+      event = build_stubbed(:event, date_start: date, time_start: date + 10.hours, time_end: date + 12.hours)
       event.set_title
-      event.title.should eq "07:00 - 09:00"
+      event.title.should eq "10:00 - 12:00"
     end
   end
 end

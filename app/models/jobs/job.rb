@@ -41,14 +41,12 @@ class Job < ActiveRecord::Base
     end
     state :assigned do
       transition to: :cancelled, on: :cancel
-      validates :mechanic, :scheduled_at, presence: true
-      validate :scheduled_at_cannot_be_in_the_past, if: :scheduled_at
-      validate :mechanic_available?, if: [:mechanic, :scheduled_at]
+      validates :mechanic, :scheduled_at, :assigned_at, presence: true
     end
     state :assigned do
       transition to: :completed, on: :complete
       transition to: :payment_error, on: :payment_error
-      # validates :credit_card, presence: true
+      validates :credit_card, presence: true
     end
     state :payment_error
     state :awaiting_feedback
@@ -59,7 +57,6 @@ class Job < ActiveRecord::Base
 
     after_transition to: :pending, do: :notify_pending
     after_transition from: [:temporary, :pending], to: :estimated, do: :notify_estimated
-    after_transition from: :estimated, to: :assigned,  do: [:build_event_from_scheduled_at, :notify_assigned]
   end
 
   default_scope { order(created_at: :desc).without_status(:temporary) }
@@ -133,20 +130,6 @@ class Job < ActiveRecord::Base
     tasks.any? { |t| t.is_a?(Inspection) }
   end
 
-  def assign_mechanic(params)
-    mechanic = Mechanic.find(params[:mechanic_id])
-
-    self.attributes = params.merge(
-      assigned_at: DateTime.now,
-      mechanic_id: mechanic.id
-    )
-    assign && save
-  end
-
-  def build_event_from_scheduled_at
-    self.build_event(date_start: scheduled_at, time_start: scheduled_at, time_end: scheduled_at + 2.hour, mechanic: mechanic).save
-  end
-
   def car_attributes=(attrs)
     self.car = Car.find(attrs[:id]) if attrs[:id].present?
     super
@@ -192,15 +175,6 @@ class Job < ActiveRecord::Base
     !cost_was.nil? && cost_changed?
   end
 
-  def scheduled_at_cannot_be_in_the_past
-    errors.add(:scheduled_at, "You could not check time slot in the past") if
-      scheduled_at < DateTime.now
-  end
-
-  def mechanic_available?
-    self.errors.add(:scheduled_at, "This mechanic is unavailable in #{scheduled_at}") if EventsManager.new(mechanic).unavailable_at? scheduled_at
-  end
-
   def on_quote_change
     if estimated? || assigned?
       notify_quote_changed if quote_changed?
@@ -238,12 +212,6 @@ class Job < ActiveRecord::Base
   def notify_estimated
     AdminMailer.job_estimated(self.id).deliver
     UserMailer.job_estimated(self.id).deliver
-  end
-
-  def notify_assigned
-    AdminMailer.job_assigned(self.id).deliver
-    UserMailer.job_assigned(self.id).deliver
-    MechanicMailer.job_assigned(self.id).deliver
   end
 
   def notify_quote_changed

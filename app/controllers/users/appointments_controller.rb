@@ -12,16 +12,22 @@ class Users::AppointmentsController < Users::ApplicationController
   end
 
   def update
-    attrs = params.require(:job).permit(:scheduled_at, :mechanic_id)
-    if @job.assign_mechanic(attrs)
-      redirect_to new_users_job_credit_card_path(@job), notice: 'Appointment booked'
+    appointment = AppointmentService.new(@job, appointment_params)
+
+    if appointment.valid?
+      session[:appointment_params] = appointment_params
+      redirect_to new_users_job_credit_card_path(@job)
     else
-      flash[:error] = @job.errors.full_messages.join(', ')
+      flash[:error] = appointment.errors.full_messages.join("\n")
       render :edit
     end
   end
 
   private
+
+  def appointment_params
+    appointment_params = params.require(:job).permit(:scheduled_at, :mechanic_id)
+  end
 
   def mechanics
     Mechanic.by_region(@job.location_postcode)
