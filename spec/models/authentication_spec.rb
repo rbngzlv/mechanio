@@ -70,4 +70,22 @@ describe Authentication do
       end
     end
   end
+
+  describe '#provider_name' do
+    it 'for facebook shouled be "Facebook"' do
+      Authentication.provider_name('facebook').should be_eql 'Facebook'
+    end
+
+    it 'for google_oauth2 shouled be "Gmail"' do
+      Authentication.provider_name('google_oauth2').should be_eql 'Gmail'
+    end
+  end
+
+  describe '.provider_name' do
+    it 'should call #provider_name' do
+      Authentication.should_receive(:provider_name)
+      auth = create :authentication
+      auth.provider_name
+    end
+  end
 end

@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 feature 'user profile' do
+  let(:user) { create :user }
+
   subject { page }
 
   before do
@@ -13,7 +15,6 @@ feature 'user profile' do
 
   context 'view page' do
     context 'describe block show' do
-      let(:user) { create :user }
 
       before do
         visit users_profile_path
@@ -44,13 +45,13 @@ feature 'user profile' do
 
         click_button 'Save'
         should have_content 'Your profile successfully updated.'
-        page.find('.user_avatar img')['src'].should have_content 'thumb_test_img.jpg'
+        page.find('.user_avatar img')['src'].should match /thumb_test_img.jpg/
 
         should have_field 'Address', with: 'address 123'
 
         within('.wrap > .container') { click_link 'Dashboard' }
         should have_content description
-        page.find('img.avatar')['src'].should have_content 'thumb_test_img.jpg'
+        page.find('img.avatar')['src'].should match /thumb_test_img.jpg/
       end
     end
 
@@ -69,7 +70,7 @@ feature 'user profile' do
 
     scenario 'manage social connections' do
       should_have_link_to_connect_with 'facebook'
-      should_have_link_to_connect_with 'gmail'
+      should_have_link_to_connect_with 'google_oauth2'
 
       click_link_to_connect_with 'facebook'
       should have_selector 'li.active', text: 'Social Media Connections'
@@ -78,7 +79,7 @@ feature 'user profile' do
       should have_content 'user1@fb.com'
       should have_link 'Disconnect user1@fb.com'
 
-      click_link_to_connect_with 'gmail'
+      click_link_to_connect_with 'google_oauth2'
       should have_selector '.alert-danger', text: 'This Gmail account is already connected to another user.'
 
       click_link 'Disconnect user1@fb.com'

@@ -15,7 +15,7 @@ describe 'User login', :js do
     end
 
     it { should have_selector "a.facebook-link"}
-    it { should have_selector "a.gmail-link"}
+    it { should have_selector "a.google_oauth2-link"}
 
     it 'shows an error on invalid login' do
       login_with email: 'unknown@host.com', password: 'password'

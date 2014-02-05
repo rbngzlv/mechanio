@@ -5,8 +5,8 @@
         %button{ type: 'button', class: 'close', 'data-dismiss' => 'modal', 'aria-hidden' => true } &times;
         %h4.modal-title Login
       .modal-body
-        %p.text-center= link_to image_tag('facebook-btn.jpg'), user_omniauth_authorize_path(:facebook), class: 'facebook-link'
-        %p.text-center= link_to image_tag('gmail-btn.jpg'), user_omniauth_authorize_path(:google_oauth2), class: 'gmail-link'
+        - Authentication::PROVIDERS.each_key do |provider|
+          %p.text-center= link_to image_tag("#{provider}-btn.jpg"), user_omniauth_authorize_path(provider), class: "#{provider}-link"
         %p.text-center.login-type-separator or
         = simple_form_for(resource, as: resource_name, url: session_path(resource_name), format: :json, defaults: { required: false, label: false }) do |f|
           .row
@@ -31,8 +31,8 @@
         %button{ type: 'button', class: 'close', 'data-dismiss' => 'modal', 'aria-hidden' => true } &times;
         %h4.modal-title Sign Up
       .modal-body
-        %p.text-center= link_to image_tag('facebook-btn.jpg'), user_omniauth_authorize_path(:facebook), class: 'facebook-link'
-        %p.text-center= link_to image_tag('gmail-btn.jpg'), user_omniauth_authorize_path(:google_oauth2), class: 'gmail-link'
+        - Authentication::PROVIDERS.each_key do |provider|
+          %p.text-center= link_to image_tag("#{provider}-btn.jpg"), user_omniauth_authorize_path(provider), class: "#{provider}-link"
         %p
           Sign up with Mechanio to book reliable mobile mechanics to service your car from your home or office.
         %p.text-center

@@ -10,7 +10,7 @@ describe 'User register', :js do
     within '#social-login-modal' do
 
       find('a.facebook-link')[:href].should be_eql '/users/auth/facebook'
-      find('a.gmail-link')[:href].should be_eql '/users/auth/google_oauth2'
+      find('a.google_oauth2-link')[:href].should be_eql '/users/auth/google_oauth2'
       page.should have_content 'Sign up with Mechanio to book reliable mobile mechanics'
       page.should have_link 'Use regular email sign up'
       page.should have_link 'Log in'

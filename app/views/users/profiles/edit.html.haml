@@ -34,15 +34,10 @@
           #social-connections.tab-pane
             %h4 Social Media Connections
             .pane.nested-panel
-              %p
-                - if fb = current_user.authentications.find_by_provider(:facebook)
-                  Facebook connected.
-                  = link_to "Disconnect #{fb.email}", users_authentication_path(fb), method: :delete
-                - else
-                  = link_to image_tag('facebook-btn.jpg'), user_omniauth_authorize_path(:facebook), class: 'facebook-link'
-              %p
-                - if gm = current_user.authentications.find_by_provider(:google_oauth2)
-                  Gmail connected.
-                  = link_to "Disconnect #{gm.email}", users_authentication_path(gm), method: :delete
-                - else
-                  = link_to image_tag('gmail-btn.jpg'), user_omniauth_authorize_path(:google_oauth2), class: 'gmail-link'
+              - Authentication::PROVIDERS.each_pair do |provider, provider_name|
+                %p
+                  - if connection = current_user.authentications.find_by_provider(provider)
+                    #{provider_name} connected.
+                    = link_to "Disconnect #{connection.email}", users_authentication_path(connection), method: :delete
+                  - else
+                    = link_to image_tag("#{provider}-btn.jpg"), user_omniauth_authorize_path(provider), class: "#{provider}-link"
