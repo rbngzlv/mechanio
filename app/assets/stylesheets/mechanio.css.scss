@@ -1167,7 +1167,6 @@ section {
 
 .table.social {
   [class *= 'icon'] {
-    font-size: 30px;
     margin-left: 2px;
   }
 
@@ -1379,10 +1378,13 @@ form .radio {
     position: relative;
     top: -3px;
     margin-left: 5px;
+  }
+}
 
-    [class^="icon-"] {
-      font-size: 30px;
-    }
+.social {
+  [class^="icon-"] {
+    font-size: 30px;
+    color: #fff;
   }
 }
 

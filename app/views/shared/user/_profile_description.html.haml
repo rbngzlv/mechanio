@@ -22,7 +22,7 @@
     %h5= "Hi, my name is #{user.full_name}"
     %p= user.description || 'Add some information about yourself'
 
-    .col-md-6.social
+    .social
       - user.authentications.each do |auth|
         = social_icon(auth.provider)
 
