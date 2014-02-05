@@ -75,25 +75,31 @@ feature 'user profile' do
       click_link_to_connect_with 'facebook'
       should have_selector 'li.active', text: 'Social Media Connections'
       should have_selector '.alert-success', text: 'Facebook connection added.'
-      should have_content 'Facebook connected.'
-      should have_content 'user1@fb.com'
-      should have_link 'Disconnect user1@fb.com'
+      should_have_connection_with 'facebook'
 
       click_link_to_connect_with 'google_oauth2'
       should have_selector '.alert-danger', text: 'This Gmail account is already connected to another user.'
 
-      click_link 'Disconnect user1@fb.com'
+      click_link_to_disconnect 'facebook'
       should have_selector 'li.active', text: 'Social Media Connections'
       should have_selector '.alert-info', text: 'Facebook connection removed'
       should_have_link_to_connect_with 'facebook'
     end
 
     def should_have_link_to_connect_with(provider)
-      should have_selector "a.#{provider}-link"
+      within(".#{provider}") { should have_link 'Connect' }
+    end
+
+    def should_have_connection_with(provider)
+      within(".#{provider}") { should have_content 'Connected.' }
     end
 
     def click_link_to_connect_with(provider)
-      find("a.#{provider}-link").click
+      within(".#{provider}") { click_link 'Connect' }
+    end
+
+    def click_link_to_disconnect(provider)
+      within(".#{provider}") { click_link 'Disconnect' }
     end
   end
 end

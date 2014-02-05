@@ -1171,6 +1171,34 @@ section {
     font-size: 30px;
     margin-left: 2px;
   }
+
+  table {
+    td:nth-child(2) {
+      padding: 0 5px;
+    }
+
+    .btn.btn-xs {
+      width: 85px;
+
+      border-radius: 3px;
+      &:hover,
+      &:active {
+        border-radius: 3px;
+      }
+    }
+  }
+}
+
+.icon-facebook-sign {
+  color: #0567a5 !important;
+}
+
+.icon-twitter-sign {
+  color: #29a9e0 !important;
+}
+
+.icon-google-plus-sign {
+  color: #d3492c !important;
 }
 
 .header-social {
@@ -1354,18 +1382,6 @@ form .radio {
 
     [class^="icon-"] {
       font-size: 30px;
-    }
-
-    .icon-facebook-sign {
-      color: #0567a5;
-    }
-
-    .icon-twitter-sign {
-      color: #29a9e0;
-    }
-
-    .icon-google-plus-sign {
-      color: #d3492c;
     }
   }
 }
