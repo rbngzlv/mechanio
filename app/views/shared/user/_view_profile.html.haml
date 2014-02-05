@@ -5,7 +5,7 @@
         %h4.panel-title
           %i.glyphicon.glyphicon-user
           = user.full_name
-      .panel-body.modal-body
+      .panel-body.modal-body.user-panel-body
         .row
           = render 'shared/user/profile_description', user: user
         - if show_comments

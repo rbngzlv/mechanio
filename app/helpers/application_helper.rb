@@ -88,4 +88,10 @@ module ApplicationHelper
       'Unassigned'
     end
   end
+
+  def social_icon(provider)
+    icon = provider
+    icon = 'google-plus' if provider == 'google_oauth2'
+    content_tag :i, '', class: "icon-#{icon}-sign"
+  end
 end

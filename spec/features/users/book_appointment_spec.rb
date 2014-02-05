@@ -34,7 +34,7 @@ feature 'book appointment' do
     click_button 'Book Appointment'
 
     page.should have_css '.alert-info', text: 'Appointment booked'
-    page.should have_css 'h4', text: 'Mechanic'
+    page.should have_css 'h4', text: job.title
     page.should have_css 'h4', text: 'Payment Process'
 
     job.reload.mechanic.should eq mechanic

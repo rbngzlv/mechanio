@@ -4,7 +4,7 @@ feature 'user profile' do
   subject { page }
 
   before do
-    login_user
+    login_user user
   end
 
   include_examples("navigation") do
@@ -19,9 +19,13 @@ feature 'user profile' do
         visit users_profile_path
       end
 
-      include_examples("description block") do
-        let(:reviews_count) { "Reviews Left: #{user.reviews}" }
-        let(:profile) { user }
+      it 'should contain comments count' do
+        page.should have_selector 'span', text: "Reviews Left: #{user.reviews}"
+      end
+
+      it 'should contain default values when user is new' do
+        page.should have_selector 'h4', text: user.full_name
+        page.should have_content "Add some information about yourself"
       end
     end
 
@@ -40,14 +44,13 @@ feature 'user profile' do
 
         click_button 'Save'
         should have_content 'Your profile successfully updated.'
-        find('img.avatar')['src'].should match /uploads\/user\/avatar\/\d+\/thumb_test_img.jpg/
+        page.find('.user_avatar img')['src'].should have_content 'thumb_test_img.jpg'
 
-        click_on 'Edit Profile'
         should have_field 'Address', with: 'address 123'
 
         within('.wrap > .container') { click_link 'Dashboard' }
         should have_content description
-        find('img.avatar')['src'].should match /uploads\/user\/avatar\/\d+\/thumb_test_img.jpg/
+        page.find('img.avatar')['src'].should have_content 'thumb_test_img.jpg'
       end
     end
 

@@ -35,16 +35,21 @@ feature 'mechanic "my jobs" page' do
           within ".panel:nth-child(#{ index + 1 })" do
             should have_css '.panel-title', text: job.user.full_name
             within '.alert-info' do
-              job.scheduled_at.to_s(:date_time)
-              job.location.full_address
+              should have_content job.scheduled_at.to_s(:time_day_month)
+              should have_content job.location.full_address
             end
             within '.panel-body > .table-responsive' do
+              should have_content 'Client'
+              should have_content job.user.full_name
+              should have_content 'Car'
               should have_content job.car.display_title
               job.tasks.each do |task|
                 should have_content task.type
                 should have_content task.title
+                should have_content "$#{task.cost}"
               end
-              should have_content job.cost
+              should have_content 'Total Fees'
+              should have_content "$#{job.cost}"
             end
           end
         end
@@ -62,13 +67,22 @@ feature 'mechanic "my jobs" page' do
 
       visit mechanics_jobs_path
       click_link 'Completed Jobs'
+
+      within '#past-jobs thead' do
+        should have_css 'th:nth-child(1)', text: 'Client Name'
+        should have_css 'th:nth-child(2)', text: 'Car'
+        should have_css 'th:nth-child(3)', text: 'Services'
+        should have_css 'th:nth-child(4)', text: 'Total Cost'
+        should have_css 'th:nth-child(5)', text: 'Option'
+      end
+
       within '#past-jobs tbody' do
         completed_jobs.each_with_index do |job, index|
           within "tr:nth-child(#{ index + 1 })" do
             should have_content job.user.full_name
             should have_content job.car.display_title
             should have_content job.title
-            should have_content job.cost
+            should have_content "$#{job.cost}"
           end
         end
 

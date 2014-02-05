@@ -56,6 +56,10 @@ a:hover {
   color: #22878e !important;
 }
 
+.gray {
+  color: gray;
+}
+
 .no-margin {
   margin: 0
 }
@@ -189,6 +193,11 @@ a:hover {
     margin: 0 15px;
     padding-bottom: 8px;
   }
+}
+
+.user-panel-body .panel.nested-panel.user-panel-body-fix-height {
+  float: left;
+  width: 100%;
 }
 
 .feedback .row {
@@ -1432,6 +1441,25 @@ form {
   }
 }
 
+.upcoming-job-details {
+  .simple_form .form-group {
+    padding: 0 5px 0 0;
+    margin: 0;
+
+    .help-block {
+      margin-bottom: 0;
+    }
+
+    input {
+      height: 33px;
+    }
+  }
+
+  .reg-number-label {
+    width: 17%
+  }
+}
+
 .modal{
   padding-top: 2%;
 
@@ -1511,6 +1539,17 @@ form {
 @media (max-width: 1025px) {
   .banner > .container {
     padding-top: 20%;
+  }
+}
+
+@media (min-width: 992px) {
+  .col-md-7-9 {
+    width: 65.66666%;
+    float: left;
+  }
+
+  .col-md-offset-0-1 {
+    margin-left: 1%;
   }
 }
 

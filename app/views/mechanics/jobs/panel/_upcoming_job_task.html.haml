@@ -3,28 +3,6 @@
     %b #{ task.type }:
   %td
     = task.title
-  -#
-    %td $90.00
-    %td $90.00
   %td
-    / Mechanic Fee
   %td.text-right
-    / $90.00
--#
-  %tr
-    %td
-    %td
-    %td
-      %table.col-md-12.pull-right
-        %tr.tr-divider
-          %td.text-left
-            Parts Costs
-    %td
-      %table.col-md-12.pull-right
-        %tr.tr-divider
-          %td.text-right
-            $90.00
-%tr
-  %td
-  %td
-  %td
+    = number_to_currency task.cost

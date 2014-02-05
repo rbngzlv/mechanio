@@ -2,7 +2,8 @@
   %td= job.user.full_name
   %td= job.car.display_title
   %td= job.title
-  %td= job.cost
+  %td
+    %span.pull-right= number_to_currency job.cost
   -#
     %td.info-icons
       = link_to '#' do
