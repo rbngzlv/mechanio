@@ -45,12 +45,14 @@ describe ModelVariation do
   end
 
   it '#search' do
-    variation1 = create :model_variation, from_year: 2005, to_year: 2007, fuel: 'Petrol', transmission: 'Manual'
-    variation2 = create :model_variation, from_year: 2007, to_year: 2010, fuel: 'Diesel', transmission: 'Automatic'
+    vw   = create :make, name: 'Volkswagen'
+    audi = create :make, name: 'Audi'
+    variation1 = create :model_variation, from_year: 2005, to_year: 2007, fuel: 'Petrol', transmission: 'Manual', make: vw
+    variation2 = create :model_variation, from_year: 2007, to_year: 2010, fuel: 'Diesel', transmission: 'Automatic', make: audi
     ModelVariation.search(make_id: variation1.make_id).should eq [variation1]
     ModelVariation.search(model_id: variation2.model_id).should eq [variation2]
     ModelVariation.search(from_year: 2006).should eq [variation2]
-    ModelVariation.search(from_year: 2005, to_year: 2011).should eq [variation1, variation2]
+    ModelVariation.search(from_year: 2005, to_year: 2011).should eq [variation2, variation1]
     ModelVariation.search(to_year: 2009).should eq [variation1]
     ModelVariation.search(transmission: 'Manual').should eq [variation1]
     ModelVariation.search(fuel: 'Diesel').should eq [variation2]
