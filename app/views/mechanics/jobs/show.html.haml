@@ -8,42 +8,68 @@
     .panel-body
       .alert.alert-info
         %span.black Appointment on:
-        = @job.scheduled_at.to_s(:date_time)
-      %form{action: ''}
-        .table-responsive
-          %table.table
+        = @job.scheduled_at.to_s(:time_day_month)
+      .table-responsive
+        %table.table.table-borderless.upcoming-job-details
+          %tr.tr-divider
+            %td
+              %b Client:
+            %td
+              = @job.user.full_name
+            %td
+          %tr
+            %td
+              %b Car:
+            %td
+              = @job.car.display_title
+            %td
+          %tr
+            %td
+              %b VIN:
+            %td
+              = simple_form_for [:mechanics, @job, @job.car], wrapper: :nolabel, html: { class: 'edit_car edit_vin' } do |f|
+                = f.input :vin, wrapper_html: { class: 'col-md-6 col-sm-6' }
+                = f.submit 'Save', class: 'btn btn-default'
+            %td
+          %tr.tr-divider
+            %td.reg-number-label
+              %b Car Registration Number:
+            %td
+              = simple_form_for [:mechanics, @job, @job.car], wrapper: :nolabel, html: { class: 'edit_car edit_reg_number' } do |f|
+                = f.input :reg_number, wrapper_html: { class: 'col-md-6 col-sm-6' }
+                = f.submit 'Save', class: 'btn btn-default'
+            %td
+          - @job.tasks.each do |task|
             %tr
               %td
-                %b Car:
+                %b #{ task.type }:
               %td
-                = @job.car.display_title
-              %td
-            %tr.tr-divider
-              - @job.tasks.each do |task|
-                %td
-                  %b #{ task.type }:
-                %td
-                  = task.title
-                %td
-            %tr.tr-divider.big
-              %td
-                Billing:
+                = task.title
               %td.text-right
-                %b Total Fees:
-              %td.text-right
-                %b= number_to_currency @job.cost
-            %tr
-              %td
-                Location
-              %td
-                = @job.location.full_address
-              %td
-            %tr.tr-divider
-              %td
-                Contact
-              %td
-                = @job.contact_phone
-              %td
+                = number_to_currency task.cost
+          %tr.tr-divider
+            %td
+            %td
+            %td
+          %tr.tr-divider.big
+            %td
+              Billing:
+            %td.text-right
+              %b Total Fees:
+            %td.text-right
+              %b= number_to_currency @job.cost
+          %tr
+            %td
+              Location
+            %td
+              = @job.location.full_address
+            %td
+          %tr.tr-divider
+            %td
+              Contact
+            %td
+              = @job.contact_phone
+            %td
         .clearfix
           =link_to 'Cancel Job', '#js-modal', class: 'btn btn-info pull-left', :data => {:toggle => 'modal'}, :role => 'button'
           =link_to 'Edit Job', '#', class: 'btn btn-info pull-left'

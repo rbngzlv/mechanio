@@ -1441,6 +1441,25 @@ form {
   }
 }
 
+.upcoming-job-details {
+  .simple_form .form-group {
+    padding: 0 5px 0 0;
+    margin: 0;
+
+    .help-block {
+      margin-bottom: 0;
+    }
+
+    input {
+      height: 33px;
+    }
+  }
+
+  .reg-number-label {
+    width: 17%
+  }
+}
+
 .modal{
   padding-top: 2%;
 
