@@ -14,13 +14,13 @@ describe 'Symptoms management' do
     page.should have_css 'li', 'Looks like - What do you see?'
   end
 
-  context 'on index page', :js, pending: 'Symptom editing should be updated to use new data structure' do
+  context 'on index page' do
     before { visit admins_symptoms_path }
 
     it 'creates a new symptom' do
       click_on 'Add symptom'
 
-      select 'Looks like', from: 'Parent category'
+      select 'Break Problems', from: 'Parent symptom'
       fill_in 'Description', with: 'Vibration'
       click_on 'Save'
 
