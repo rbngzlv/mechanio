@@ -15,7 +15,6 @@ feature 'user profile' do
 
   context 'view page' do
     context 'describe block show' do
-
       before do
         visit users_profile_path
       end
@@ -64,42 +63,32 @@ feature 'user profile' do
   end
 
   context 'social media connections', :js do
-    let!(:gmail_is_not_available) { Authentication.create provider: :google_oauth2, user: create(:user), uid: '2' }
-
-    before { visit edit_users_profile_path(anchor: 'social-connections') }
+    before do
+      create :authentication, provider: :google_oauth2, user: create(:user), uid: 2
+      visit edit_users_profile_path(anchor: 'social-connections')
+    end
 
     scenario 'manage social connections' do
-      should_have_sonnect_button 'facebook'
-      should_have_sonnect_button 'google_oauth2'
+      within '.facebook' do
+        should have_css 'td', text: 'Facebook not connected'
+        click_link 'Connect'
+      end
+      should have_css '.alert-success', text: 'Facebook connection added.'
 
-      click_connect 'facebook'
-      should have_selector 'li.active', text: 'Social Media Connections'
-      should have_selector '.alert-success', text: 'Facebook connection added.'
-      should_have_connection_with 'facebook'
+      within '.facebook' do
+        should have_css 'td', text: 'Facebook connected'
+        click_link 'Disconnect'
+        should have_css 'td', text: 'Facebook not connected'
+      end
+      should have_css '.alert-info', text: 'Facebook connection removed'
 
-      click_connect 'google_oauth2'
-      should have_selector '.alert-danger', text: 'This Gmail account is already connected to another user.'
+      within '.google_oauth2' do
+        should have_css 'td', text: 'Gmail not connected'
 
-      click_disconnect 'facebook'
-      should have_selector 'li.active', text: 'Social Media Connections'
-      should have_selector '.alert-info', text: 'Facebook connection removed'
-      should_have_sonnect_button 'facebook'
-    end
-
-    def should_have_connect_button(provider)
-      within(".#{provider}") { should have_link 'Connect' }
-    end
-
-    def should_have_connection_with(provider)
-      within(".#{provider}") { should have_content 'Connected.' }
-    end
-
-    def click_connect(provider)
-      within(".#{provider}") { click_link 'Connect' }
-    end
-
-    def click_disconnect(provider)
-      within(".#{provider}") { click_link 'Disconnect' }
+        click_link 'Connect'
+        should have_css 'td', text: 'Gmail not connected'
+      end
+      should have_css '.alert-danger', text: 'This Gmail account is already connected to another user.'
     end
   end
 end

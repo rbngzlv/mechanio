@@ -35,12 +35,12 @@
             %table.table.social
               %tbody
                 - Authentication::PROVIDERS.each_pair do |provider, provider_name|
-                  %tr
+                  %tr{ class: provider }
                     - if connection = current_user.authentications.find_by_provider(provider)
                       %td= social_icon(provider)
                       %td #{Authentication.provider_name(provider)} connected
-                      %td.text-right= link_to "Disconnect", users_authentication_path(connection), method: :delete, class: 'btn btn-dark btn-xs'
+                      %td.text-right= link_to 'Disconnect', users_authentication_path(connection), method: :delete, class: 'btn btn-dark btn-xs'
                     - else
                       %td= social_icon(provider)
                       %td #{Authentication.provider_name(provider)} not connected
-                      %td.text-right= link_to "Connect", user_omniauth_authorize_path(provider), class: 'btn btn-success btn-xs'
+                      %td.text-right= link_to 'Connect', user_omniauth_authorize_path(provider), class: 'btn btn-success btn-xs'

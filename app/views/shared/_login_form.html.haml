@@ -6,7 +6,7 @@
         %h4.modal-title Login
       .modal-body
         - Authentication::PROVIDERS.each_key do |provider|
-          %p.text-center= link_to_connect_with provider
+          %p.text-center= social_connect_button provider
         %p.text-center.login-type-separator or
         = simple_form_for(resource, as: resource_name, url: session_path(resource_name), format: :json, defaults: { required: false, label: false }) do |f|
           .row
@@ -32,7 +32,7 @@
         %h4.modal-title Sign Up
       .modal-body
         - Authentication::PROVIDERS.each_key do |provider|
-          %p.text-center= link_to_connect_with provider
+          %p.text-center= social_connect_button provider
         %p
           Sign up with Mechanio to book reliable mobile mechanics to service your car from your home or office.
         %p.text-center
