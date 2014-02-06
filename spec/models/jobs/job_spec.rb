@@ -96,6 +96,53 @@ describe Job do
     end
   end
 
+  describe 'cancel job' do
+    let(:job) { create :assigned_job, :with_event, reason_for_cancel: 'some reason' }
+
+    describe '#cancel' do
+      it 'should call cancel_job' do
+        Job.any_instance.should_receive(:cancel_job)
+        job.cancel
+      end
+
+      it 'should validate presence of reason_for_cancel' do
+        job.reason_for_cancel = nil
+        job.cancel
+        job.should_not be_cancelled
+      end
+
+      it 'should call notify_cancelled' do
+        Job.any_instance.should_receive(:notify_cancelled)
+        job.cancel
+      end
+    end
+
+    describe '#cancel_job' do
+      it 'should destroy job event' do
+        Event.any_instance.should_receive(:destroy)
+        job.cancel_job
+      end
+
+      it 'should nullify mechanic' do
+        job.status = :cancelled
+        job.save
+        expect { job.cancel_job }.to change { job.reload.mechanic }.to(nil)
+      end
+    end
+
+    describe '#notify_cancelled' do
+      it 'should call AdminMailer#job_cancelled' do
+        AdminMailer.any_instance.should_receive(:job_cancelled)
+        job.instance_eval{ notify_cancelled }
+      end
+
+      it 'should call UserMailer#job_cancelled' do
+        UserMailer.any_instance.should_receive(:job_cancelled)
+        job.instance_eval{ notify_cancelled }
+      end
+    end
+  end
+
   it 'builds title from tasks' do
     service = build(:service)
     job.tasks << service

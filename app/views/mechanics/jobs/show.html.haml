@@ -71,6 +71,30 @@
               = @job.contact_phone
             %td
         .clearfix
-          =link_to 'Cancel Job', '#js-modal', class: 'btn btn-info pull-left', :data => {:toggle => 'modal'}, :role => 'button'
+          =link_to 'Cancel Job', '#js-cancel-modal', class: 'btn btn-info pull-left', data: { toggle: 'modal' }, role: 'button'
           =link_to 'Edit Job', '#', class: 'btn btn-info pull-left'
           =link_to 'Save', '#', class: 'btn btn-success pull-right'
+-# TODO: try to understand special HTML parameters
+#js-cancel-modal.modal.fade{ 'aria-hidden' => 'true', 'aria-labelledby' => 'js-cancel-modal-label', role: 'dialog', tabindex: '1' }
+  .col-md-6.col-md-offset-3
+    .panel.panel-default.cancel-job
+      = simple_form_for [:mechanics, @job], url: cancel_mechanics_job_path(@job), wrapper: :nolabel do |f|
+        .modal-header.clearfix
+          %span#js-cancel-modal-label.pull-left Cancel Job
+        .panel-body
+          Too many cancellations may lead to the suspension of your Mechanio account!
+          :coffee
+            $ ->
+              $('form.edit_job').submit ->
+                $reason = $('#job_reason_for_cancel')
+                $reason_parent = $reason.parent()
+                if $reason.val().replace(/\s/g, '') == ''
+                  unless $reason_parent.hasClass('has-error')
+                    $reason.after($("<span class='help-block'>can't be blank</span>"))
+                  $reason_parent.addClass('has-error')
+                  false
+          -# TODO: When do we need to clean up reaso_for_cancel field?
+          = f.input :reason_for_cancel, as: :text, placeholder: 'Reason for cancel'
+        .panel-footer.clearfix
+          = link_to 'Back', '#', class: 'btn btn-default pull-left', 'aria-hidden' => 'true', data: { dismiss: 'modal' }
+          = f.submit 'Cancel Job', class: 'btn btn-success pull-right'

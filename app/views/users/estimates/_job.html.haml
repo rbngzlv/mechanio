@@ -31,4 +31,5 @@
             %td.text-right
               = cost_or_pending job.cost
 
-      = link_to 'Book Appointment', edit_users_appointment_path(job), class: 'btn btn-success pull-right' if job.estimated?
+      -#TODO: troubles with cancelled status in my estimates page. Should be discussed with Boris.
+      = link_to 'Book Appointment', edit_users_appointment_path(job), class: 'btn btn-success pull-right' if job.estimated? || job.cancelled?

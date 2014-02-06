@@ -1,0 +1,14 @@
+%p Hello, #{@job.user.full_name},
+
+-# TODO: TEXT
+%p Sorry, but chosen mechanic cancel your job, please check another.
+
+%p
+  Click
+  = link_to 'here', edit_users_appointment_url(@job)
+  -# TODO: "another"?
+  to see your quote and book an appointment with another qualified mechanics.
+  %br
+  Please do not hesitate to contact us if you have any questions or special requests.
+
+%p Thank you for choosing Mechanio!<br/>The Mechanio Team

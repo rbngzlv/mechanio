@@ -40,6 +40,7 @@ Mechanio::Application.routes.draw do
 
     resources :jobs, only: [:index, :show] do
       resource :car, only: [:update]
+      patch :cancel, on: :member
     end
     resources :events, only: [:index, :create, :destroy]
 

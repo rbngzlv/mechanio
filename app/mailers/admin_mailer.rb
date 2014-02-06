@@ -20,6 +20,11 @@ class AdminMailer < AsyncMailer
     mail subject: 'Job quote updated', to: all_admins
   end
 
+  def job_cancelled(job_id)
+    @job = Job.find(job_id)
+    mail subject: 'Job cancelled', to: all_admins
+  end
+
   def all_admins
     Admin.all.map(&:email)
   end

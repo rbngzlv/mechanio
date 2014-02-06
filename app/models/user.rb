@@ -18,8 +18,9 @@ class User < ActiveRecord::Base
 
   validates :first_name, :last_name, :email, presence: true
 
-  def pending_and_estimated
-    jobs.with_status(:pending, :estimated)
+  def pending_estimated_and_cancelled
+    # TODO: what is this? How is it should be now?
+    jobs.with_status(:pending, :estimated, :cancelled)
   end
 
   def estimates

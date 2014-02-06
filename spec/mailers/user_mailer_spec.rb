@@ -36,4 +36,13 @@ describe UserMailer do
     mail.subject.should   eq "Your appointment for your #{job.car.display_title} has been updated"
     mail.body.encoded.should match users_estimates_url
   end
+
+  specify '#job_cancelled' do
+    mail = UserMailer.job_cancelled(job.id)
+    mail.to.should        eq [job.user.email]
+    mail.from.should      eq from
+    # TODO: TEXT!!!
+    mail.subject.should   eq 'Your job cancelled from mechanic'
+    mail.body.encoded.should match edit_users_appointment_url(job)
+  end
 end

@@ -2,7 +2,7 @@ require 'spec_helper'
 
 feature 'job details page' do
   let(:mechanic) { create :mechanic }
-  let!(:job) { create :assigned_job, mechanic: mechanic, tasks: [create(:repair, :with_part)] }
+  let!(:job) { create :assigned_job, :with_event, mechanic: mechanic, tasks: [create(:repair, :with_part)] }
 
   subject { page }
 
@@ -27,9 +27,18 @@ feature 'job details page' do
     current_path.should be_eql mechanics_jobs_path
   end
 
+  specify 'mechanic have access only for his own jobs' do
+    another_job = create :assigned_job, mechanic: create(:mechanic, email: 'qw@qw.qw')
+    expect { visit mechanics_job_path(another_job) }.to raise_error
+    visit mechanics_job_path(job)
+    should have_no_selector 'li.active', text: 'Dashboard'
+  end
+
   it 'should show job details' do
     visit mechanics_job_path(job)
-    within '.panel' do
+    within '.panel-rounded' do
+      should have_content 'Appointment on:'
+      should have_content job.scheduled_at.to_s(:time_day_month)
       should have_content 'Client'
       should have_content job.user.full_name
       should have_content 'Car'
@@ -38,8 +47,6 @@ feature 'job details page' do
       should have_field 'car_vin'
       should have_content 'Car Registration Number'
       should have_field 'car_reg_number'
-      should have_content 'Appointment'
-      should have_content job.scheduled_at.to_s(:time_day_month)
       job.tasks.each do |task|
         should have_content task.type
         should have_content task.title
@@ -99,10 +106,48 @@ feature 'job details page' do
     end
   end
 
-  specify 'mechanic have access only for his own jobs' do
-    another_job = create :assigned_job, mechanic: create(:mechanic, email: 'qw@qw.qw')
-    expect { visit mechanics_job_path(another_job) }.to raise_error
+  scenario 'cancel job', :js do
+    reset_mail_deliveries
+
+    # TODO: if merge it with previous tasks then we should improve our code with adding before block for visit feature
     visit mechanics_job_path(job)
-    should have_no_selector 'li.active', text: 'Dashboard'
+
+    click_on 'Cancel Job'
+    within '#js-cancel-modal' do
+      should have_content 'Too many cancellations may lead to the suspension of your Mechanio account!'
+      click_on 'Back'
+    end
+    # TODO: troubles with invisible elements
+    # should have_no_selector '#js-cancel-modal', with: 'Too many cancellations may lead to the suspension of your Mechanio account!'
+
+    click_on 'Cancel Job'
+    within('#js-cancel-modal') do
+      # TODO: real label
+      fill_in 'Reason for cancel', with: ''
+      click_button 'Cancel Job'
+      # TODO: real messages
+      should have_selector 'span.help-block', text: "can't be blank"
+    end
+
+    expect do
+      within('#js-cancel-modal') do
+        fill_in 'Reason for cancel', with: 'My Reason'
+        click_button 'Cancel Job'
+      end
+    end.to change(Event, :count).from(1).to(0)
+    # TODO: real messages
+    should have_selector '.alert-info', text: 'Job cancelled successfully'
+    should have_selector 'li.active', text: 'Upcoming Jobs'
+    should have_content 'You have no upcoming jobs'
+
+    mail_deliveries.count == 2
+    mail_deliveries[0].tap do |m|
+      m.to.should eq ['admin@example.com']
+      m.subject.should eq 'Job cancelled'
+    end
+    mail_deliveries[1].tap do |m|
+      m.to.should eq [job.user.email]
+      m.subject.should eq 'Your job cancelled from mechanic'
+    end
   end
 end

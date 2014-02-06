@@ -43,7 +43,8 @@ class Job < ActiveRecord::Base
       transition to: :cancelled, on: :cancel
       validates :mechanic, :scheduled_at, presence: true
       validate :scheduled_at_cannot_be_in_the_past, if: :scheduled_at
-      validate :mechanic_available?, if: [:mechanic, :scheduled_at]
+      # TODO: very bad idea to use if and unless in one place(further string needed refactoring)
+      validate :mechanic_available?, if: [:mechanic, :scheduled_at], unless: :reason_for_cancel
     end
     state :assigned do
       transition to: :completed, on: :complete
@@ -55,18 +56,25 @@ class Job < ActiveRecord::Base
     state :completed do
       validates :transaction_id, presence: true
     end
-    state :cancelled
+    state :cancelled do
+      transition to: :assigned, on: :assign
+      validates :reason_for_cancel, presence: true
+    end
 
     after_transition to: :pending, do: :notify_pending
     after_transition from: [:temporary, :pending], to: :estimated, do: :notify_estimated
-    after_transition from: :estimated, to: :assigned,  do: [:build_event_from_scheduled_at, :notify_assigned]
+    # TODO: what should we do with cancelled job in general? Could user reassign it? could user see it on my appointments page? and how it should be viewing in code?
+    after_transition from: [:estimated, :cancelled], to: :assigned,  do: [:build_event_from_scheduled_at, :notify_assigned]
+    after_transition to: :cancelled,  do: [:cancel_job, :notify_cancelled]
   end
 
   default_scope { order(created_at: :desc).without_status(:temporary) }
 
   scope :appointments,       -> { with_status(:assigned).reorder(scheduled_at: :asc) }
   scope :past_appointments,  -> { with_status(:completed).reorder(scheduled_at: :desc) }
-  scope :estimates,          -> { with_status(:estimated).reorder(created_at: :desc) }
+  # TODO: Boris, Is user can see cancelled job on appointments page?
+  # TODO: run all tests
+  scope :estimates,          -> { with_status(:estimated, :cancelled).reorder(created_at: :desc) }
 
   def self.sanitize_and_create(user, params)
     create(self.whitelist(params).merge(user: user))
@@ -145,6 +153,12 @@ class Job < ActiveRecord::Base
 
   def build_event_from_scheduled_at
     self.build_event(date_start: scheduled_at, time_start: scheduled_at, time_end: scheduled_at + 2.hour, mechanic: mechanic).save
+  end
+
+  def cancel_job
+    self.event.destroy
+    self.mechanic = nil
+    save
   end
 
   def car_attributes=(attrs)
@@ -238,6 +252,11 @@ class Job < ActiveRecord::Base
   def notify_estimated
     AdminMailer.job_estimated(self.id).deliver
     UserMailer.job_estimated(self.id).deliver
+  end
+
+  def notify_cancelled
+    AdminMailer.job_cancelled(self.id).deliver
+    UserMailer.job_cancelled(self.id).deliver
   end
 
   def notify_assigned

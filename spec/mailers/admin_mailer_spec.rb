@@ -36,4 +36,13 @@ describe AdminMailer do
     mail.subject.should   eq 'Job quote updated'
     mail.body.encoded.should match edit_admins_job_url(job.id)
   end
+
+  specify '#job_cancelled' do
+    mail = AdminMailer.job_cancelled(job.id)
+    mail.to.should        eq to
+    mail.from.should      eq from
+    # TODO: TEXT!!!
+    mail.subject.should   eq 'Job cancelled'
+    mail.body.encoded.should match edit_admins_job_url(job.id)
+  end
 end
