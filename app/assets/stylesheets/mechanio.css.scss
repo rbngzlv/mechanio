@@ -1165,12 +1165,39 @@ section {
   border-radius: 8px;
 }
 
-.social {
+.table.social {
   [class *= 'icon'] {
-    color: #22878e;
-    font-size: 30px;
     margin-left: 2px;
   }
+
+  td {
+    vertical-align: middle;
+  }
+  td:nth-child(1) {
+    width: 50px;
+  }
+
+  .btn.btn-xs {
+    width: 85px;
+
+    border-radius: 3px;
+    &:hover,
+    &:active {
+      border-radius: 3px;
+    }
+  }
+}
+
+.icon-facebook-sign {
+  color: #0567a5 !important;
+}
+
+.icon-twitter-sign {
+  color: #29a9e0 !important;
+}
+
+.icon-google-plus-sign {
+  color: #d3492c !important;
 }
 
 .header-social {
@@ -1351,22 +1378,13 @@ form .radio {
     position: relative;
     top: -3px;
     margin-left: 5px;
+  }
+}
 
-    [class^="icon-"] {
-      font-size: 30px;
-    }
-
-    .icon-facebook-sign {
-      color: #0567a5;
-    }
-
-    .icon-twitter-sign {
-      color: #29a9e0;
-    }
-
-    .icon-google-plus-sign {
-      color: #d3492c;
-    }
+.social {
+  [class^="icon-"] {
+    font-size: 30px;
+    color: #fff;
   }
 }
 

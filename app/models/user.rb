@@ -44,19 +44,6 @@ class User < ActiveRecord::Base
     end
   end
 
-  def self.find_or_create_from_oauth(hash)
-    unless user = User.find_by(email: hash['email'])
-      user = User.create(
-        first_name: hash['first_name'],
-        last_name: hash['last_name'],
-        email: hash['email'],
-        remote_avatar_url: hash['image'],
-        password: Devise.friendly_token[0,20]
-      )
-    end
-    user
-  end
-
   def location_attributes=(attrs)
     attrs[:skip_validation] = true
     super

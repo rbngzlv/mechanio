@@ -94,4 +94,8 @@ module ApplicationHelper
     icon = 'google-plus' if provider == 'google_oauth2'
     content_tag :i, '', class: "icon-#{icon}-sign"
   end
+
+  def social_connect_button(provider)
+    link_to image_tag("#{provider}-btn.jpg"), user_omniauth_authorize_path(provider), class: "#{provider}-link"
+  end
 end

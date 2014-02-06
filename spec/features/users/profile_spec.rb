@@ -57,14 +57,14 @@ feature 'user profile' do
         fill_in 'Address', with: 'address 123'
 
         click_button 'Save'
-        should have_content 'Your profile succesfully updated.'
-        page.find('.user_avatar img')['src'].should have_content 'thumb_test_img.jpg'
+        should have_content 'Your profile successfully updated.'
+        page.find('.user_avatar img')['src'].should match /thumb_test_img.jpg/
 
         should have_field 'Address', with: 'address 123'
 
         within('.wrap > .container') { click_link 'Dashboard' }
         should have_content description
-        page.find('img.avatar')['src'].should have_content 'thumb_test_img.jpg'
+        page.find('img.avatar')['src'].should match /thumb_test_img.jpg/
       end
     end
 
@@ -73,6 +73,36 @@ feature 'user profile' do
       click_button "Save"
       should have_selector '.has-error', text: 'First name'
       should have_content "can't be blank"
+    end
+  end
+
+  context 'social media connections', :js do
+    before do
+      create :authentication, provider: :google_oauth2, user: create(:user), uid: 2
+      visit edit_users_profile_path(anchor: 'social-connections')
+    end
+
+    scenario 'manage social connections' do
+      within '.facebook' do
+        should have_css 'td', text: 'Facebook not connected'
+        click_link 'Connect'
+      end
+      should have_css '.alert-success', text: 'Facebook connection added.'
+
+      within '.facebook' do
+        should have_css 'td', text: 'Facebook connected'
+        click_link 'Disconnect'
+        should have_css 'td', text: 'Facebook not connected'
+      end
+      should have_css '.alert-info', text: 'Facebook connection removed'
+
+      within '.google_oauth2' do
+        should have_css 'td', text: 'Gmail not connected'
+
+        click_link 'Connect'
+        should have_css 'td', text: 'Gmail not connected'
+      end
+      should have_css '.alert-danger', text: 'This Gmail account is already connected to another user.'
     end
   end
 end
