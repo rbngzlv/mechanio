@@ -14,7 +14,7 @@ feature 'mechanic edit profile page' do
   end
 
   context 'edit' do
-    scenario 'success 2', :js do
+    scenario 'success', :js do
       fill_in 'First name',     with: 'First'
       fill_in 'Last name',      with: 'Last'
       fill_in 'Personal email', with: 'new_email@host.com'
@@ -39,7 +39,7 @@ feature 'mechanic edit profile page' do
       select  '1',             from: 'mechanic_abn_expiry_3i'
       fill_in 'Business website', with: 'http://my-company.com'
       fill_in 'Business email',   with: 'email@company.com'
-      fill_in 'Business phone number', with: '01412345678'
+      fill_in 'Business phone number', with: '0498765432'
       fill_in 'Business address', with: 'Sunset Blvd. 26'
       fill_in 'Suburb',           with: 'Sydney'
       select  'QLD',              from: 'State'
@@ -47,7 +47,6 @@ feature 'mechanic edit profile page' do
       attach_file 'mechanic_abn', image_path
 
       click_button 'Save'
-
 
       page.should have_css '.alert', text: 'Your profile successfully updated.'
 
@@ -75,7 +74,7 @@ feature 'mechanic edit profile page' do
       page.should have_field  'mechanic_abn_expiry_3i', with: '1'
       page.should have_field  'Business website',      with: 'http://my-company.com'
       page.should have_field  'Business email',        with: 'email@company.com'
-      page.should have_field  'Business phone number', with: '01412345678'
+      page.should have_field  'Business phone number', with: '0498765432'
       page.should have_field  'Business address',      with: 'Sunset Blvd. 26'
       page.should have_field  'Suburb',                with: 'Sydney'
       page.should have_select 'mechanic_business_location_attributes_state_id', selected: 'QLD'
