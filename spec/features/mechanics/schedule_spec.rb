@@ -110,9 +110,10 @@ feature 'Mechanic schedule' do
     end
 
     specify 'job event', :js do
-      event = create :event, :with_job, mechanic: mechanic
+      event = create :event, job: create(:job_with_service), mechanic: mechanic
 
       visit mechanics_events_path
+
       expect do
         find('.fc-event', text: event.title).click
         sleep 0.1

@@ -1,7 +1,14 @@
 FactoryGirl.define do
   factory :event do
-    date_start    Date.current
+    date_start    Date.tomorrow
+    time_start    Date.tomorrow + 8.hours
+    time_end      Date.tomorrow + 10.hours
     mechanic
+
+    trait :whole_day do
+      time_start nil
+      time_end   nil
+    end
 
     trait :weekly do
       recurrence  :weekly
@@ -12,10 +19,7 @@ FactoryGirl.define do
     end
 
     trait :with_job do
-      date_start  Date.tomorrow
-      time_start  Time.new(2000, 01, 01, 9, 0, 0, '+00:00')
-      time_end    Time.new(2000, 01, 01, 11, 0, 0, '+00:00')
-      job         { create :job_with_service }
+      job { build_stubbed :job_with_service }
     end
   end
 end

@@ -52,7 +52,7 @@ FactoryGirl.define do
 
     trait :with_event do
       after :create do |j|
-        j.build_event_from_scheduled_at
+        create(:event, job: j, mechanic: j.mechanic)
       end
     end
 

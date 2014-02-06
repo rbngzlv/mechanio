@@ -56,46 +56,6 @@ describe Job do
     Job.with_status(:pending).should eq [job1]
   end
 
-  describe '#assign_mechanic' do
-    let(:job) { create :job, :with_service, :with_credit_card }
-    let(:mechanic) { create :mechanic }
-
-    it 'return true if success' do
-      Job.any_instance.should_receive(:notify_assigned)
-      job.assign_mechanic(mechanic_id: mechanic.id, scheduled_at: DateTime.tomorrow).should be_true
-    end
-
-    it 'return false if sheduled time doesnot given' do
-      Job.any_instance.should_not_receive(:notify_assigned)
-      job.assign_mechanic(mechanic_id: mechanic.id).should be_false
-    end
-
-    it 'return false if sheduled time in the past' do
-      Job.any_instance.should_not_receive(:notify_assigned)
-      job.assign_mechanic(mechanic_id: mechanic.id, scheduled_at: Date.yesterday).should be_false
-    end
-
-    it 'return false if mechanic unavailable in choosen time' do
-      Job.any_instance.should_not_receive(:notify_assigned)
-      create :event, mechanic: mechanic, date_start: Date.tomorrow
-      job.assign_mechanic(mechanic_id: mechanic.id, scheduled_at: DateTime.tomorrow + 11.hour).should be_false
-    end
-
-    it 'throw exception if mechanic doesnot given' do
-      Job.any_instance.should_not_receive(:notify_assigned)
-      expect do
-        job.assign_mechanic(scheduled_at: DateTime.now)
-      end.to raise_error
-    end
-
-    it 'throw exception if mechanic doesnot presence' do
-      Job.any_instance.should_not_receive(:notify_assigned)
-      expect do
-        job.assign_mechanic(mechanic_id: 10000, scheduled_at: DateTime.now)
-      end.to raise_error
-    end
-  end
-
   it 'builds title from tasks' do
     service = build(:service)
     job.tasks << service

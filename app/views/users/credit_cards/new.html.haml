@@ -23,7 +23,7 @@
                 %tr
                   %th Date:
                   %td
-                    %span.lazure #{@job.scheduled_at.to_s(:date)} #{@job.scheduled_at.to_s(:time)}
+                    %span.lazure #{@scheduled_at.to_s(:date_time)}
                 %tr
                   %th Car:
                   %td
@@ -89,22 +89,59 @@
             .form-group
               %label Name on the credit card
               %input.col-md-12.form-control{type: 'text', autocomplete: 'off', 'data-encrypted-name' => 'credit_card[cardholder_name]'}
+              %span.help-block.hide Cardholder name is invalid
             .form-group
               %label Credit Card Number
               %input.col-md-12.form-control{type: 'text', autocomplete: 'off', 'data-encrypted-name' => 'credit_card[number]'}
+              %span.help-block.hide Card number name is invalid
             .form-group
               %label Expiration Date
               %input.col-md-12.form-control{type: 'text', placeholder: 'mm/yy', autocomplete: 'off', 'data-encrypted-name' => 'credit_card[expiration_date]'}
+              %span.help-block.hide Expiration date is invalid
             .form-group
               %label CCV
               %input.col-md-12.form-control{type: 'text', autocomplete: 'off', 'data-encrypted-name' => 'credit_card[cvv]'}
+              %span.help-block.hide CVV is invalid
             %label
               I have read and agreed to the
               = link_to 'terms of use', page_path(:terms_of_use), target: '_blank'
             %div
-              %button.btn.btn-info.btn-book-mechanic{type: 'submit'} Book #{@mechanic.first_name} for #{@job.scheduled_at.to_s(:date_abr)}
+              %button.btn.btn-info.btn-book-mechanic{type: 'submit'} Book #{@mechanic.first_name} for #{@scheduled_at.to_s(:date_abr)}
             %small Your credit card is not billed until the work is done!
+
 = javascript_include_tag 'https://js.braintreegateway.com/v1/braintree.js'
+
 :coffee
-braintree = Braintree.create('MIIBCgKCAQEA0iDZGZeMW3w4c1dljlEghWBskAEQUiwnzi5ilc4Rk6oLtV0HKMJEm1ARXnopAYnaQh7FIOotLXcsJGAZf1Dxhe/lR6dJmSCFh8BLBLjNs1k1jUhhnZJHsh+SNhBjqJ/gmqbnrgY0mEvSSfVOcPN4jiGesMTijAeWaREM5t7SmivtdmMQ3hqYS41cMWeGYXi74B/uObS9uFq5A6DQUaIjfFkpEi504f2njPY9L76ZsRqKr5UZwcR6BLhUpvAHeJvvJs0NkX2TGdzsS1KWNLYN1mSmW1ja7xGDXb53dvXFdkfes2eB8tzAcjYojv+9a8SfgGC4/9kMdR21/axEhG7NTwIDAQAB')
-braintree.onSubmitEncryptForm('new_credit_card')
+  inputs = $('#new_credit_card :text')
+
+  validate = ->
+    results = (validateInput(input) for input in inputs)
+    return if false in results then false else true
+
+  validateInput = (input) ->
+    value = $(input).val()
+    $(input).parent().removeClass('has-error').find('.help-block').addClass('hide')
+
+    switch $(input).attr('data-encrypted-name')
+      when 'credit_card[cardholder_name]'
+        return invalidateInput(input) if value == ''
+      when 'credit_card[number]'
+        return invalidateInput(input) unless /^\d{16}$/.test value.replace(/\ /g, '')
+      when 'credit_card[expiration_date]'
+        return invalidateInput(input) unless /^\d{4}$/.test value.replace(/[^\d]/g, '')
+      when 'credit_card[cvv]'
+        return invalidateInput(input) unless /^\d{3}$/.test value
+    true
+
+  invalidateInput = (input) ->
+    $(input).parent().addClass('has-error').find('.help-block').removeClass('hide')
+    false
+
+  inputs.blur (e) ->
+    validateInput(this)
+
+  $('#new_credit_card').submit (f) ->
+    validate()
+
+  braintree = Braintree.create('MIIBCgKCAQEA0iDZGZeMW3w4c1dljlEghWBskAEQUiwnzi5ilc4Rk6oLtV0HKMJEm1ARXnopAYnaQh7FIOotLXcsJGAZf1Dxhe/lR6dJmSCFh8BLBLjNs1k1jUhhnZJHsh+SNhBjqJ/gmqbnrgY0mEvSSfVOcPN4jiGesMTijAeWaREM5t7SmivtdmMQ3hqYS41cMWeGYXi74B/uObS9uFq5A6DQUaIjfFkpEi504f2njPY9L76ZsRqKr5UZwcR6BLhUpvAHeJvvJs0NkX2TGdzsS1KWNLYN1mSmW1ja7xGDXb53dvXFdkfes2eB8tzAcjYojv+9a8SfgGC4/9kMdR21/axEhG7NTwIDAQAB')
+  braintree.onSubmitEncryptForm('new_credit_card')

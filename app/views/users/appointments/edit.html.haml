@@ -21,6 +21,7 @@
                 %b= number_to_currency @job.cost
 
     %h4.black Select a Mechanic
-    = render(partial: 'users/appointments/book', collection: mechanics, as: :mechanic) || render('no_mechanics')
+    .mechanics
+      = render(partial: 'users/appointments/book', collection: mechanics, as: :mechanic) || render('no_mechanics')
   .col-md-3
     = render 'sidebar'

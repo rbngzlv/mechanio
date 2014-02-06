@@ -39,8 +39,6 @@ feature 'mechanic "my jobs" page' do
               should have_content job.location.full_address
             end
             within '.panel-body > .table-responsive' do
-              should have_content 'Client'
-              should have_content job.user.full_name
               should have_content 'Car'
               should have_content job.car.display_title
               job.tasks.each do |task|
