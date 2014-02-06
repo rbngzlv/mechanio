@@ -109,11 +109,10 @@ feature 'dashboard page' do
 
     it 'shows verified icons' do
       within '.verified-icons' do
-        pending 'User mobile and payment method verifications are not implemented yet'
-
-        find('i:nth-child(1)')[:class].should eq ''
-        find('i:nth-child(2)')[:class].should eq 'icon-mobile-phone'
-        find('i:nth-child(3)')[:class].should eq ''
+        find('i:nth-child(1)')[:class].should_not match /disabled/
+        find('i:nth-child(2)')[:class].should match /icon-mobile-phone/
+        find('i:nth-child(2)')[:class].should_not match /disabled/
+        find('i:nth-child(3)')[:class].should_not match /disabled/
       end
     end
 

@@ -14,11 +14,11 @@ feature 'user profile' do
   end
 
   context 'view page' do
-    context 'describe block show' do
-      before do
-        visit users_profile_path
-      end
+    before do
+      visit users_profile_path
+    end
 
+    context 'describe block' do
       it 'should contain comments count' do
         page.should have_selector 'span', text: "Reviews Left: #{user.reviews}"
       end
@@ -30,7 +30,21 @@ feature 'user profile' do
     end
 
     it 'does show left commetns', pending: 'do it after create comment model'
-    it 'does show verified statuses and socials icons', pending: 'task - user verified statuses'
+
+    it 'does show verified statuses' do
+      within '.verified-icons' do
+        all('i').length.should be 3
+      end
+    end
+
+    it 'does show and socials icons' do
+      user.authentications << create(:authentication, :gmail)
+      visit users_profile_path
+      within '.user-panel-body .social' do
+        page.should have_no_selector 'i.icon-facebook-sign'
+        page.should have_selector 'i.icon-google-plus-sign'
+      end
+    end
   end
 
   context 'edit' do
