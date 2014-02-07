@@ -101,16 +101,16 @@ class EventsManager < Struct.new(:mechanic)
     t ? t.to_time.change({:year => 2000 , :month => 1 , :day => 1 }) : nil
   end
 
-  def unavailable_at?(scheduled_at)
+  def available_at?(scheduled_at)
     mechanic.events.map do |event|
       start_time, end_time = get_time_start_and_end(event)
       schedule = Schedule.new(start_time, end_time: end_time)
       if (repeat = event.recurrence)
         schedule.add_recurrence_rule(Rule.send repeat)
       end
-      return true if schedule.occurring_at?(scheduled_at)
+      return false if schedule.occurring_at?(scheduled_at)
     end
-    false
+    true
   end
 
   def get_time_start_and_end(event, occurrence = nil)

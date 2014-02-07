@@ -186,12 +186,14 @@ describe EventsManager do
     end
   end
 
-  describe '#unavailable_at?' do
-    it { events_manager.unavailable_at?(Date.tomorrow + 9.hour).should be_false }
+  describe '#available_at?' do
+    it 'is available' do
+      events_manager.available_at?(Date.tomorrow.to_time).should be_true
+    end
 
-    it do
-      create :event, mechanic: mechanic, date_start: Date.tomorrow
-      events_manager.unavailable_at?(Date.tomorrow + 9.hour).should be_true
+    it 'is unavailable' do
+      create :event, :whole_day, mechanic: mechanic, date_start: Date.tomorrow
+      events_manager.available_at?(Date.tomorrow).should be_false
     end
   end
 
