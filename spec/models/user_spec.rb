@@ -40,4 +40,17 @@ describe User do
       user.cars.first.should be_eql car
     end
   end
+
+  describe 'delete user with jobs' do
+    let!(:user) { create :user }
+    let!(:job)  { create :job, :with_service, user: user }
+
+    it 'deletes user' do
+      expect { user.destroy }.to change { User.count }.by -1
+    end
+
+    it 'nullifies jobs' do
+      expect { user.destroy }.to change { job.reload.user_id }.from(user.id).to(nil)
+    end
+  end
 end
