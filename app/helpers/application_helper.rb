@@ -78,7 +78,7 @@ module ApplicationHelper
   end
 
   def requested_by(job)
-    job.user.full_name + ' on ' + job.created_at.to_s(:date_time_short)
+    job.client_name + ' on ' + job.created_at.to_s(:date_time_short)
   end
 
   def allocated_to(job)

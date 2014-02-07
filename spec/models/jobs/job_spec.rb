@@ -151,6 +151,18 @@ describe Job do
     end
   end
 
+  describe '#client_name' do
+    it 'displays users full name' do
+      job = build(:job, user: build(:user, first_name: 'John', last_name: 'Doe'))
+      job.client_name.should eq 'John Doe'
+    end
+
+    it 'displays dash when user is not present' do
+      job = build(:job, user: nil)
+      job.client_name.should eq '-'
+    end
+  end
+
   describe '#location_geocoded?' do
     it 'is false when location is not geocoded' do
       job.location = build_stubbed(:location)

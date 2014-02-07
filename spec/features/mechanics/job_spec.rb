@@ -33,7 +33,7 @@ feature 'mechanic "my jobs" page' do
       within '#scheduled-jobs' do
         upcoming_jobs.each_with_index do |job, index|
           within ".panel:nth-child(#{ index + 1 })" do
-            should have_css '.panel-title', text: job.user.full_name
+            should have_css '.panel-title', text: job.client_name
             within '.alert-info' do
               should have_content job.scheduled_at.to_s(:time_day_month)
               should have_content job.location.full_address
@@ -77,7 +77,7 @@ feature 'mechanic "my jobs" page' do
       within '#past-jobs tbody' do
         completed_jobs.each_with_index do |job, index|
           within "tr:nth-child(#{ index + 1 })" do
-            should have_content job.user.full_name
+            should have_content job.client_name
             should have_content job.car.display_title
             should have_content job.title
             should have_content "$#{job.cost}"

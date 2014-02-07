@@ -2,7 +2,7 @@ Hello, #{ @job.mechanic.full_name },
 %br
 A customer has requested you to repair or service their car. Please click #{ link_to 'here', mechanics_job_url(@job) } to view the allocated job in detail.
 %br
-CUSTOMER NAME: #{ @job.user.full_name }
+CUSTOMER NAME: #{ @job.client_name }
 %br
 TIME AND DATE OF APPOINTMENT: #{ @job.scheduled_at.to_s(:date_time) }
 %br
