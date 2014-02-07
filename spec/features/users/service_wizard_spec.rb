@@ -194,7 +194,31 @@ describe 'Service wizard', js: true do
       verify_last_service_date(user)
     end
 
-    it 'edits tasks' do
+    it 'edits repair' do
+      visit repair_path
+
+      verify_current_step 'Car Details'
+      select_car(car)
+      enter_last_service_date
+      click_on 'Continue'
+
+      verify_current_step 'Diagnose'
+      verify_sidebar 2, 'VEHICLE', variation.display_title
+      add_repair_symptoms
+      fill_in 'job_task_note', with: repair_note
+      click_on 'Add'
+
+      verify_task 1, 'Break safety inspection', 'Notes: Repair note'
+
+      within_task(1) { find('.edit-task').click }
+      page.should have_field  'job_task_note', with: repair_note
+      fill_in 'job_task_note', with: another_note
+      click_on 'Update'
+
+      verify_task 1, 'Break safety inspection', 'Notes: Edited note'
+    end
+
+    it 'edits service' do
       another_service_plan
 
       visit service_path
@@ -210,12 +234,6 @@ describe 'Service wizard', js: true do
       click_on 'Add'
       verify_task 1, service_plan.display_title, note
 
-      click_link 'Add Repair'
-      add_repair_symptoms
-      fill_in 'job_task_note', with: repair_note
-      click_on 'Add'
-      verify_task 2, 'Break safety inspection', 'Notes: Repair note'
-
       within_task(1) { find('.edit-task').click }
       page.should have_select 'job_task_service_plan_id', selected: service_plan.display_title
       page.should have_field  'job_task_note', with: note
@@ -223,13 +241,6 @@ describe 'Service wizard', js: true do
       select_service_plan(another_service_plan, another_note)
       click_on 'Update'
       verify_task 1, another_service_plan.display_title, another_note
-
-      within_task(2) { find('.edit-task').click }
-      page.should have_field  'job_task_note', with: repair_note
-
-      fill_in 'job_task_note', with: another_note
-      click_on 'Update'
-      verify_task 2, 'Break safety inspection', 'Notes: Edited note'
     end
 
     it 'deletes tasks' do
