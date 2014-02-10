@@ -27,7 +27,7 @@
   %li= link_to 'Contact details', '#contact', 'data-toggle' => 'tab'
   %li= link_to 'Business details', '#business', 'data-toggle' => 'tab'
   %li= link_to 'Driver license', '#driver_license', 'data-toggle' => 'tab'
-  %li= link_to 'Motor license', '#motor_license', 'data-toggle' => 'tab'
+  %li= link_to "Motor Mechanic's License", '#motor_license', 'data-toggle' => 'tab'
   %li= link_to 'Badges', '#badges', 'data-toggle' => 'tab'
 
 = simple_form_for [:admins, @mechanic], html: { class: 'form-horizontal admin_mechanic_form', multipart: true }, defaults: { label_html: { class: 'col-md-2 col-sm-2' } }, wrapper: :bootstrap_horizontal do |f|
@@ -68,7 +68,7 @@
       = f.input :driver_license, label: 'Image', as: :image, wrapper: :bootstrap, input_html: { wrap_class: 'col-md-4 col-sm-5' }, show_file_name: true
 
     #motor_license.tab-pane
-      = f.input :mechanic_license_number, label: 'Motor license number'
+      = f.input :mechanic_license_number, label: "Motor Mechanic's License"
       = f.association :mechanic_license_state, label: 'Registered state', prompt: '-- Please select --'
       = f.input :mechanic_license_expiry, label: 'Expiry date', start_year: Date.today.year, end_year: Date.today.year + 20, order: [:day, :month, :year], wrapper_html: { class: 'dob' }
       = f.input :mechanic_license, label: 'Tradesperson certificates', as: :image, wrapper: :bootstrap, input_html: { wrap_class: 'col-md-4 col-sm-5' }, show_file_name: true

@@ -53,8 +53,8 @@ feature 'adds a new mechanic', :js do
       select  '1',          from: 'mechanic_license_expiry_3i'
       attach_file 'mechanic_driver_license', image_path
 
-      click_on 'Motor license'
-      fill_in 'Motor license number', with: 'MXF12388736423887364'
+      click_on "Motor Mechanic's License"
+      fill_in "Motor Mechanic's License", with: 'MXF12388736423887364'
       select  'QLD',        from: 'Registered state'
       select  next_year,    from: 'mechanic_mechanic_license_expiry_1i'
       select  'September',  from: 'mechanic_mechanic_license_expiry_2i'
@@ -110,8 +110,8 @@ feature 'adds a new mechanic', :js do
     page.should have_field  'mechanic_license_expiry_3i', with: '1'
     page.should have_selector 'img + div', text: 'test_img.jpg'
 
-    click_on 'Motor license'
-    page.should have_field  'Motor license number',                with: 'MXF12388736423887364'
+    click_on "Motor Mechanic's License"
+    page.should have_field  "Motor Mechanic's License",                with: 'MXF12388736423887364'
     page.should have_select 'mechanic_mechanic_license_state_id',  selected: 'QLD'
     page.should have_field  'mechanic_mechanic_license_expiry_1i', with: next_year
     page.should have_select 'mechanic_mechanic_license_expiry_2i', selected: 'September'

@@ -75,7 +75,7 @@ feature 'Admin mechanics management' do
 
     scenario 'uploading cancel', :js do
       visit edit_admins_mechanic_path(mechanic)
-      click_on 'Motor license'
+      click_on "Motor Mechanic's License"
       attach_file('mechanic_mechanic_license', image_path)
 
       page.should have_selector '.file-input-name', text: 'test_img.jpg'
