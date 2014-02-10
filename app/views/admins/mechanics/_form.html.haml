@@ -40,7 +40,7 @@
       = f.input :email, label: 'Email'
       = f.input :dob, label: 'Date of birth', start_year: Date.today.year - 18, end_year: Date.today.year - 60, order: [:day, :month, :year], wrapper_html: { class: 'dob' }
       = f.input :description, label: 'Personal description'
-      = f.input :years_as_a_mechanic, label: 'Years as mechanic'
+      = f.input :years_as_a_mechanic, label: 'Years as mechanic', as: :string
       = f.input :avatar, label: 'Photo', as: :image, wrapper: :bootstrap, input_html: { wrap_class: 'col-md-4 col-sm-5' }, show_file_name: true
 
     #contact.tab-pane
