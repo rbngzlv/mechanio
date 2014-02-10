@@ -59,6 +59,8 @@ feature 'adds a new mechanic', :js do
       select  next_year,    from: 'mechanic_mechanic_license_expiry_1i'
       select  'September',  from: 'mechanic_mechanic_license_expiry_2i'
       select  '1',          from: 'mechanic_mechanic_license_expiry_3i'
+      fill_in 'mechanic_repair_work_classes', with: 'repair_work_classes content'
+      fill_in 'mechanic_tradesperson_certificates', with: 'tradesperson_certificates content'
       attach_file 'mechanic_mechanic_license', image_path
 
       click_on 'Badges'
@@ -103,7 +105,7 @@ feature 'adds a new mechanic', :js do
     page.should have_selector 'img + div', text: 'test_img.jpg'
 
     click_on 'Driver license'
-    page.should have_field  "Driver's License Number",             with: '12345678'
+    page.should have_field  "Driver's License Number", with: '12345678'
     page.should have_select 'mechanic_license_state_id',  selected: 'QLD'
     page.should have_field  'mechanic_license_expiry_1i', with: next_year
     page.should have_select 'mechanic_license_expiry_2i', selected: 'September'
@@ -111,11 +113,13 @@ feature 'adds a new mechanic', :js do
     page.should have_selector 'img + div', text: 'test_img.jpg'
 
     click_on "Motor Mechanic's License"
-    page.should have_field  "Motor Mechanic's License",                with: 'MXF12388736423887364'
+    page.should have_field  "Motor Mechanic's License", with: 'MXF12388736423887364'
     page.should have_select 'mechanic_mechanic_license_state_id',  selected: 'QLD'
     page.should have_field  'mechanic_mechanic_license_expiry_1i', with: next_year
     page.should have_select 'mechanic_mechanic_license_expiry_2i', selected: 'September'
     page.should have_field  'mechanic_mechanic_license_expiry_3i', with: '1'
+    page.should have_field  'mechanic_repair_work_classes', with: 'repair_work_classes content'
+    page.should have_field  'mechanic_tradesperson_certificates', with: 'tradesperson_certificates content'
     page.should have_selector 'img + div', text: 'test_img.jpg'
 
     click_on 'Badges'

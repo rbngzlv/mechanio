@@ -71,6 +71,8 @@
       = f.input :mechanic_license_number, label: "Motor Mechanic's License"
       = f.association :mechanic_license_state, label: 'Registered state', prompt: '-- Please select --'
       = f.input :mechanic_license_expiry, label: 'Expiry date', start_year: Date.today.year, end_year: Date.today.year + 20, order: [:day, :month, :year], wrapper_html: { class: 'dob' }
+      = f.input :repair_work_classes
+      = f.input :tradesperson_certificates
       = f.input :mechanic_license, label: 'Tradesperson certificates', as: :image, wrapper: :bootstrap, input_html: { wrap_class: 'col-md-4 col-sm-5' }, show_file_name: true
 
     #badges.tab-pane
