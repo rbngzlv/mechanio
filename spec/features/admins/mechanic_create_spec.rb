@@ -46,7 +46,7 @@ feature 'adds a new mechanic', :js do
       attach_file 'mechanic_abn', image_path
 
       click_on 'Driver license'
-      fill_in 'License number', with: 'MXF12388736423887364'
+      fill_in 'License number', with: '12345678'
       select  'QLD',        from: 'Registered state'
       select  next_year,    from: 'mechanic_license_expiry_1i'
       select  'September',  from: 'mechanic_license_expiry_2i'
@@ -103,7 +103,7 @@ feature 'adds a new mechanic', :js do
     page.should have_selector 'img + div', text: 'test_img.jpg'
 
     click_on 'Driver license'
-    page.should have_field  'License number',             with: 'MXF12388736423887364'
+    page.should have_field  'License number',             with: '12345678'
     page.should have_select 'mechanic_license_state_id',  selected: 'QLD'
     page.should have_field  'mechanic_license_expiry_1i', with: next_year
     page.should have_select 'mechanic_license_expiry_2i', selected: 'September'
