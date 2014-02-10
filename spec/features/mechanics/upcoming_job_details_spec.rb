@@ -40,7 +40,7 @@ feature 'details page for upcoming job' do
     visit mechanics_job_path(job)
     within '.panel' do
       should have_content 'Client'
-      should have_content job.user.full_name
+      should have_content job.client_name
       should have_content 'Car'
       should have_content job.car.display_title
       should have_content 'VIN'

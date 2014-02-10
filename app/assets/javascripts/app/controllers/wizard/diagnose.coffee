@@ -28,14 +28,14 @@ app.controller 'DiagnoseController', ['$scope', '$http', ($scope, $http) ->
     $scope.service_plan = {}
 
   $scope.saveRepair = ->
-    if $scope.editing_task
-      $scope.updateTask
-        note: $scope.note
-    else
+    if $scope.editing_task == null
       $scope.updateTask
         type: 'Inspection',
         title: $scope.selected_symptoms[1].description,
         description: $scope.lastSymptom().comment
+        note: $scope.note
+    else
+      $scope.updateTask
         note: $scope.note
 
   $scope.updateTask = (task) ->

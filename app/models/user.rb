@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
          :omniauthable, omniauth_providers: [:google_oauth2, :facebook]
 
   has_many :cars, -> { where deleted_at: nil }
-  has_many :jobs
+  has_many :jobs, dependent: :nullify
   has_many :credit_cards
   has_many :authentications, dependent: :destroy
   belongs_to :location, dependent: :destroy

@@ -55,7 +55,7 @@ feature 'Jobs section' do
 
       page.should have_css '.label', text: 'Assigned'
       page.should have_content "ID: #{job.uid}"
-      page.should have_content job.user.full_name
+      page.should have_content job.client_name
       page.should have_content job.mechanic.full_name
       page.should have_content job.car.display_title
       page.should have_content'Last service: 10000 Km'
@@ -220,7 +220,7 @@ feature 'Jobs section' do
     should have_content "#{job.location.suburb}, #{job.location.postcode}"
     should have_content job.title
     should have_content job.created_at.to_s(:date)
-    should have_content job.user.full_name
+    should have_content job.client_name
     should have_content job.scheduled_at? ? job.scheduled_at.to_s(:date_time) : ''
     should have_content job.mechanic ? job.mechanic.full_name : 'unassigned'
     should have_content job.cost

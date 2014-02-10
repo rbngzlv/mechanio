@@ -135,6 +135,10 @@ class Job < ActiveRecord::Base
     super
   end
 
+  def client_name
+    user ? user.full_name : '-'
+  end
+
   def assign_car_to_user
     car.user_id = user_id if car && user_id
   end
