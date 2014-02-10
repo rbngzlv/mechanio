@@ -6,5 +6,6 @@ class Mechanics::JobsController < Mechanics::ApplicationController
 
   def show
     @job = current_mechanic.jobs.find(params[:id])
+    render @job.completed? ? :completed_job : :upcoming_job
   end
 end

@@ -6,7 +6,7 @@ class Mechanics::CarsController < Mechanics::ApplicationController
     if @job.car.update_attributes car_params
       redirect_to mechanics_job_path(@job), notice: 'Car details successfully updated'
     else
-      render 'mechanics/jobs/show'
+      render 'mechanics/jobs/upcoming_job'
     end
   end
 

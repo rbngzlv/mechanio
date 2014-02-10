@@ -59,8 +59,8 @@ feature 'mechanic "my jobs" page' do
     end
 
     it 'all completed jobs', :js do
-      job1 = create :assigned_job, mechanic: mechanic, user: create(:user, first_name: 'Alex'), status: :completed, scheduled_at: DateTime.now
-      job2 = create :assigned_job, mechanic: mechanic, user: create(:user, first_name: 'Stephan'), status: :completed, scheduled_at: DateTime.tomorrow
+      job1 = create :assigned_job, mechanic: mechanic, user: create(:user, first_name: 'Alex'), status: :completed, scheduled_at: DateTime.now, assigned_at: Date.yesterday
+      job2 = create :assigned_job, mechanic: mechanic, user: create(:user, first_name: 'Stephan'), status: :completed, scheduled_at: DateTime.tomorrow, assigned_at: Date.yesterday
       completed_jobs = [job2, job1]
 
       visit mechanics_jobs_path
