@@ -48,7 +48,7 @@ feature 'upcoming job details page' do
       page.should have_content job.car.display_title
     end
 
-    page.should have_css 'h4.panel-title', text: 'Job and Labour'
+    page.should have_css 'h4.hx-default', text: 'Job and Labour'
     job.tasks.each do |task|
       case task.type
       when 'Service'
@@ -107,7 +107,7 @@ feature 'upcoming job details page' do
 
   it 'has feedback section' do
     visit mechanics_job_path(job)
-    page.should have_css 'h4.panel-title', text: 'Feedback'
+    page.should have_css 'h4.hx-default', text: 'Feedback'
   end
 
   it 'should show real feedback', pending: 'feedback mechanism not implemented'

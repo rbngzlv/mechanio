@@ -200,8 +200,12 @@ a:hover {
   width: 100%;
 }
 
-.feedback .row {
-  margin-bottom: 10px;
+.feedback {
+  margin-bottom: 15px !important;
+
+  .row {
+    margin-bottom: 10px;
+  }
 }
 
 .verified-icons {
@@ -1531,7 +1535,7 @@ form {
   }
 
   .total {
-    margin-right: 15px;
+    margin-right: 0;
 
     h4 {
       margin-top: 0;
