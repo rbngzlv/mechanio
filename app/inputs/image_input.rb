@@ -3,7 +3,7 @@ class ImageInput < SimpleForm::Inputs::FileInput
     # options and object exists in parent class
     version     = options.delete(:version) || :thumb
     image_url   = object.send("#{attribute_name}_url", version)
-    file_name   = object.send("#{attribute_name}").file.filename if object.send("#{attribute_name}?") && options.delete(:show_file_name)
+    file_name   = object.send(attribute_name).file.filename if object.send("#{attribute_name}?") && options.delete(:show_file_name)
     out = ''
     out += template.image_tag(image_url)
     if file_name
