@@ -66,8 +66,7 @@ feature 'adds a new mechanic', :js do
       click_on 'Badges'
       check 'Phone verified'
 
-      click_button 'Save'
-
+      within('.top-bar') { click_button 'Save' }
     end.to change { Mechanic.count }.by 1
 
     page.should have_css '.alert', text: 'Mechanic successfully created.'
@@ -145,7 +144,7 @@ feature 'adds a new mechanic', :js do
     within '.mechanic_business_location_address' do
       page.should have_no_selector 'abbr', text: '*'
     end
-    click_button 'Save'
+    within('.top-bar') { click_button 'Save' }
 
     page.should have_content 'Please review the problems below:'
   end
