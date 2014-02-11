@@ -19,6 +19,10 @@ describe Mechanic do
   it { should respond_to :abn }
   it { should respond_to :mechanic_license }
 
+  it { should allow_value('').for(:years_as_a_mechanic) }
+  it { should allow_value(123).for(:years_as_a_mechanic) }
+  it { should_not allow_value('string').for(:years_as_a_mechanic) }
+
   it { should allow_value('12345678901').for(:abn_number) }
   it { should_not allow_value('123456789012').for(:abn_number) }
   it do
