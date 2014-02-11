@@ -37,7 +37,7 @@ feature 'upcoming job details page' do
       page.should have_css 'h4', text: job.scheduled_at.to_s(:date_time_short)
     end
     within '.alert-info + .panel' do
-      page.should have_content 'Job Number'
+      page.should have_content 'Job ID'
       page.should have_content job.uid
       page.should have_content 'Job received date'
       page.should have_content job.assigned_at.to_s(:date_short)
