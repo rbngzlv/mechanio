@@ -105,9 +105,7 @@ class EventsManager < Struct.new(:mechanic)
     mechanic.events.map do |event|
       start_time, end_time = get_time_start_and_end(event)
       schedule = Schedule.new(start_time, end_time: end_time)
-      if (repeat = event.recurrence)
-        schedule.add_recurrence_rule(Rule.send repeat)
-      end
+      schedule.add_recurrence_rule(Rule.send(event.recurrence)) if event.recurrence
       return false if schedule.occurring_at?(scheduled_at)
     end
     true
@@ -116,9 +114,9 @@ class EventsManager < Struct.new(:mechanic)
   def get_time_start_and_end(event, occurrence = nil)
     occurrence ||= event.date_start
     if event.time_start
-      [occurrence + event.time_start.hour.to_i.hour, occurrence + event.time_end.hour.to_i.hour]
+      [occurrence + event.time_start.hour.hours, occurrence + event.time_end.hour.hours]
     else
-      [occurrence + 9.hour, occurrence + 19.hour]
+      [occurrence.to_time, occurrence.to_time.advance(hours: 23, minutes: 59)]
     end
   end
 end

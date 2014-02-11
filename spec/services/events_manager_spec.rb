@@ -147,14 +147,14 @@ describe EventsManager do
     context 'check time start/end' do
       specify 'whole day' do
         event = create(:event, :whole_day, mechanic: mechanic, date_start: Date.parse('2012-07-04'))
-        events_manager.events_list.last[:start].to_s(:db).should be_eql '2012-07-04 09:00:00'
-        events_manager.events_list.last[:end].to_s(:db).should be_eql '2012-07-04 19:00:00'
+        events_manager.events_list.last[:start].to_s(:db).should eq '2012-07-04 00:00:00'
+        events_manager.events_list.last[:end].to_s(:db).should eq '2012-07-04 23:59:00'
       end
 
       specify 'part of day' do
         create(:event, mechanic: mechanic, date_start: Date.parse('2012-06-08'), time_start: Time.parse('11:00 GMT'), time_end: Time.parse('15:00 GMT'))
-        events_manager.events_list.last[:start].to_s(:db).should be_eql '2012-06-08 11:00:00'
-        events_manager.events_list.last[:end].to_s(:db).should be_eql '2012-06-08 15:00:00'
+        events_manager.events_list.last[:start].to_s(:db).should eq '2012-06-08 11:00:00'
+        events_manager.events_list.last[:end].to_s(:db).should eq '2012-06-08 15:00:00'
       end
     end
   end
@@ -202,7 +202,7 @@ describe EventsManager do
     let(:event) { build :event, :whole_day, date_start: today }
 
     it 'should create start and end time if their are not exists in event' do
-      events_manager.get_time_start_and_end(event).should be_eql [today + 9.hour, today + 19.hour]
+      events_manager.get_time_start_and_end(event).should be_eql [today.to_time, today.to_time.advance(hours: 23, minutes: 59)]
     end
 
     it 'should return real start and end time if their are exists and occurrence not given' do
