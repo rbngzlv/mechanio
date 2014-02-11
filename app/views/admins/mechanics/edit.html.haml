@@ -1,8 +1,3 @@
-.col-md-12.clearfix
-  .pull-right
-    = link_to "Edit regions", admins_mechanic_edit_regions_path(@mechanic), class: 'btn btn-primary'
-    = link_to "Delete", admins_mechanic_path(@mechanic), method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure to delete the mechanic?' }
+%h4.mechanic-details.pull-left Mechanic details
 
-  %h4.mechanic-details Mechanic details
-  %hr.hr-dark-gray
-  = render 'form'
+= render 'form'

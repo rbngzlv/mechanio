@@ -9,7 +9,7 @@ FactoryGirl.define do
     dob                     { 25.years.ago }
     description             'I am a great mechanic'
     location
-    driver_license_number   'CBN123447765'
+    driver_license_number   '12345678'
     license_state           { State.find_or_create_by(name: 'Queensland') }
     license_expiry          { Time.now + 1.year }
     mobile_number           '0420123456'

@@ -45,27 +45,28 @@ feature 'adds a new mechanic', :js do
       fill_in 'Postcode',         with: '2000'
       attach_file 'mechanic_abn', image_path
 
-      click_on 'Driver license'
-      fill_in 'License number', with: 'MXF12388736423887364'
+      click_on "Driver's License"
+      fill_in 'License number', with: '12345678'
       select  'QLD',        from: 'Registered state'
       select  next_year,    from: 'mechanic_license_expiry_1i'
       select  'September',  from: 'mechanic_license_expiry_2i'
       select  '1',          from: 'mechanic_license_expiry_3i'
       attach_file 'mechanic_driver_license', image_path
 
-      click_on 'Motor license'
-      fill_in 'Motor license number', with: 'MXF12388736423887364'
+      click_on "Motor Mechanic's License"
+      fill_in 'License number', with: 'MXF12388736423887364'
       select  'QLD',        from: 'Registered state'
       select  next_year,    from: 'mechanic_mechanic_license_expiry_1i'
       select  'September',  from: 'mechanic_mechanic_license_expiry_2i'
       select  '1',          from: 'mechanic_mechanic_license_expiry_3i'
+      fill_in 'mechanic_repair_work_classes', with: 'repair_work_classes content'
+      fill_in 'mechanic_tradesperson_certificates', with: 'tradesperson_certificates content'
       attach_file 'mechanic_mechanic_license', image_path
 
       click_on 'Badges'
       check 'Phone verified'
 
-      click_button 'Save'
-
+      within('.top-bar') { click_button 'Save' }
     end.to change { Mechanic.count }.by 1
 
     page.should have_css '.alert', text: 'Mechanic successfully created.'
@@ -102,20 +103,22 @@ feature 'adds a new mechanic', :js do
     page.should have_field  'Postcode',              with: '2000'
     page.should have_selector 'img + div', text: 'test_img.jpg'
 
-    click_on 'Driver license'
-    page.should have_field  'License number',             with: 'MXF12388736423887364'
+    click_on "Driver's License"
+    page.should have_field  'License number', with: '12345678'
     page.should have_select 'mechanic_license_state_id',  selected: 'QLD'
     page.should have_field  'mechanic_license_expiry_1i', with: next_year
     page.should have_select 'mechanic_license_expiry_2i', selected: 'September'
     page.should have_field  'mechanic_license_expiry_3i', with: '1'
     page.should have_selector 'img + div', text: 'test_img.jpg'
 
-    click_on 'Motor license'
-    page.should have_field  'Motor license number',                with: 'MXF12388736423887364'
+    click_on "Motor Mechanic's License"
+    page.should have_field  'License number', with: 'MXF12388736423887364'
     page.should have_select 'mechanic_mechanic_license_state_id',  selected: 'QLD'
     page.should have_field  'mechanic_mechanic_license_expiry_1i', with: next_year
     page.should have_select 'mechanic_mechanic_license_expiry_2i', selected: 'September'
     page.should have_field  'mechanic_mechanic_license_expiry_3i', with: '1'
+    page.should have_field  'mechanic_repair_work_classes', with: 'repair_work_classes content'
+    page.should have_field  'mechanic_tradesperson_certificates', with: 'tradesperson_certificates content'
     page.should have_selector 'img + div', text: 'test_img.jpg'
 
     click_on 'Badges'
@@ -141,7 +144,7 @@ feature 'adds a new mechanic', :js do
     within '.mechanic_business_location_address' do
       page.should have_no_selector 'abbr', text: '*'
     end
-    click_button 'Save'
+    within('.top-bar') { click_button 'Save' }
 
     page.should have_content 'Please review the problems below:'
   end

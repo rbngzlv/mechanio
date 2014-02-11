@@ -22,15 +22,23 @@
           $that.parent().find('input').val('')
           $that.remove()
 
-%ul.nav.nav-tabs
-  %li.active= link_to 'Personal details', '#personal', 'data-toggle' => 'tab'
-  %li= link_to 'Contact details', '#contact', 'data-toggle' => 'tab'
-  %li= link_to 'Business details', '#business', 'data-toggle' => 'tab'
-  %li= link_to 'Driver license', '#driver_license', 'data-toggle' => 'tab'
-  %li= link_to 'Motor license', '#motor_license', 'data-toggle' => 'tab'
-  %li= link_to 'Badges', '#badges', 'data-toggle' => 'tab'
-
 = simple_form_for [:admins, @mechanic], html: { class: 'form-horizontal admin_mechanic_form', multipart: true }, defaults: { label_html: { class: 'col-md-2 col-sm-2' } }, wrapper: :bootstrap_horizontal do |f|
+
+  .pull-right.top-bar
+    = f.submit 'Save', class: 'btn btn-primary'
+    - if @mechanic.persisted?
+      = link_to 'Edit regions', admins_mechanic_edit_regions_path(@mechanic), class: 'btn btn-primary'
+      = link_to 'Delete', admins_mechanic_path(@mechanic), method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure to delete the mechanic?' }
+  .clearfix
+  %hr.hr-dark-gray
+
+  %ul.nav.nav-tabs
+    %li.active= link_to 'Personal details', '#personal', 'data-toggle' => 'tab'
+    %li= link_to 'Contact details', '#contact', 'data-toggle' => 'tab'
+    %li= link_to 'Business details', '#business', 'data-toggle' => 'tab'
+    %li= link_to "Driver's License", '#driver_license', 'data-toggle' => 'tab'
+    %li= link_to "Motor Mechanic's License", '#motor_license', 'data-toggle' => 'tab'
+    %li= link_to 'Badges', '#badges', 'data-toggle' => 'tab'
 
   .tab-content
     #personal.tab-pane.active
@@ -40,7 +48,7 @@
       = f.input :email, label: 'Email'
       = f.input :dob, label: 'Date of birth', start_year: Date.today.year - 18, end_year: Date.today.year - 60, order: [:day, :month, :year], wrapper_html: { class: 'dob' }
       = f.input :description, label: 'Personal description'
-      = f.input :years_as_a_mechanic, label: 'Years as mechanic'
+      = f.input :years_as_a_mechanic, label: 'Years as mechanic', as: :string
       = f.input :avatar, label: 'Photo', as: :image, wrapper: :bootstrap, input_html: { wrap_class: 'col-md-4 col-sm-5' }, show_file_name: true
 
     #contact.tab-pane
@@ -68,9 +76,11 @@
       = f.input :driver_license, label: 'Image', as: :image, wrapper: :bootstrap, input_html: { wrap_class: 'col-md-4 col-sm-5' }, show_file_name: true
 
     #motor_license.tab-pane
-      = f.input :mechanic_license_number, label: 'Motor license number'
+      = f.input :mechanic_license_number, label: 'License number'
       = f.association :mechanic_license_state, label: 'Registered state', prompt: '-- Please select --'
       = f.input :mechanic_license_expiry, label: 'Expiry date', start_year: Date.today.year, end_year: Date.today.year + 20, order: [:day, :month, :year], wrapper_html: { class: 'dob' }
+      = f.input :repair_work_classes
+      = f.input :tradesperson_certificates
       = f.input :mechanic_license, label: 'Tradesperson certificates', as: :image, wrapper: :bootstrap, input_html: { wrap_class: 'col-md-4 col-sm-5' }, show_file_name: true
 
     #badges.tab-pane
