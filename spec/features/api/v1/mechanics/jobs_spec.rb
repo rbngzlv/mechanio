@@ -40,7 +40,7 @@ resource 'Job' do
         cost: "350.0",
         user: {
           full_name: "John User",
-          avatar_thumb: nil
+          avatar_thumb: "/assets/fallback/thumb_default.jpg"
         },
         car: {
           display_title: job.car.display_title,

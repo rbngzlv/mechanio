@@ -41,7 +41,7 @@
               = current_mechanic.full_name
           .panel-body.mechanic-panel-body
             .profile-border
-              = image_tag current_mechanic.avatar? ? current_mechanic.avatar_url(:thumb) : 'photo.jpg', class: 'avatar'
+              = image_tag current_mechanic.avatar_url(:thumb), class: 'avatar'
               .reviews-row.clearfix
                 .rating.pull-left
                   = rating_stars(2)

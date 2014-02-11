@@ -1,4 +1,4 @@
-= image_tag mechanic.avatar? ? mechanic.avatar_url(:thumb) : 'photo.jpg', class: 'avatar'
+= image_tag mechanic.avatar_url(:thumb), class: 'avatar'
 .reviews-row.clearfix
   .rating.pull-left
     = rating_stars(mechanic.rating)

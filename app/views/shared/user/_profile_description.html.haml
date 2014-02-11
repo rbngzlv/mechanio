@@ -1,5 +1,5 @@
 .profile-border
-  = image_tag user.avatar? ? user.avatar_url(:thumb) : 'photo.jpg', class: 'avatar clickable js-update-avatar'
+  = image_tag user.avatar_url(:thumb), class: 'avatar clickable js-update-avatar'
 
   .reviews-row.clearfix.text-center
     %span

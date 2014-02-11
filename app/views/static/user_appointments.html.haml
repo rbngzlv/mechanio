@@ -25,7 +25,7 @@
               #tab_1_1.tab-pane.active
                 .row
                   .profile-border
-                    = image_tag(asset_url("photo.jpg"))
+                    = image_tag(asset_url('fallback/thumb_default.jpg'))
                     .reviews-row.clearfix
                       .rating.pull-left
                         = rating_stars(2)
@@ -151,7 +151,7 @@
                 .review-block
                   .panel-body.row
                     .col-md-12.clearfix
-                      %h5.hx-default 
+                      %h5.hx-default
                         Leave Feedback
                       %ul.chat
                         %li.clearfix
@@ -364,18 +364,18 @@
                   Serviced By
                   %small.small.pull-right
                     %span.text-info Date Completed:
-                    12, Feb, 2012 
+                    12, Feb, 2012
                     %span.text-info Time Completed:
                     15:30
                 .row
                   .panel-body.mechanic-panel-body
                     .row.clearfix
                       .profile-border
-                        = image_tag current_user.avatar? ? current_user.avatar_url(:thumb) : 'photo.jpg', class: 'avatar'
+                        = image_tag current_user.avatar_url(:thumb), class: 'avatar'
                         .reviews-row.clearfix
                           .rating.pull-left
                             = rating_stars(2)
-                          %span.review-text.pull-right #{ pluralize current_user.reviews, 'Review' } 
+                          %span.review-text.pull-right #{ pluralize current_user.reviews, 'Review' }
                       .panel.nested-panel
                         %h5 Hi, I'm Your Mechanic Bob Mechanic
                         Punched Russell Crowe in the face once. Felt Nice.
