@@ -51,7 +51,7 @@ class AppointmentService
 
   def mechanic_available
     schedule = EventsManager.new(mechanic)
-    if schedule.unavailable_at?(@scheduled_at)
+    unless schedule.available_at?(@scheduled_at)
       errors[:base] << 'This mechanic is unavailable on selected date'
     end
   end
