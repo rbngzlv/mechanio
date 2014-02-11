@@ -7,7 +7,7 @@
         .panel-body
           .row
             .profile-border
-              = image_tag(asset_url("photo.jpg"))
+              = image_tag(asset_url('fallback/thumb_default.jpg'))
               .reviews-row.clearfix
                 .rating.pull-left
                   = rating_stars(2)
@@ -23,7 +23,7 @@
                 %li
                   %i.icon-ok
                   9:00 AM - 11:00 AM
-    
+
     .panel.panel-default.panel-rounded
       .panel-heading
         %h4.panel-title Payment Process
@@ -35,7 +35,7 @@
             %b No money will be billed until you confirm your quote and after your job is complete.
         .col-md-5.col-md-offset-3
           .col-md-12.text-center
-            = image_tag(asset_url('payment-img.jpg'), class: 'payment-img img-responsive') 
+            = image_tag(asset_url('payment-img.jpg'), class: 'payment-img img-responsive')
           %form
             %input.hidden.add-promo#add-promo{type: 'checkbox'}
             %label.add-promo-label.lazure{for: 'add-promo'} Add Promo Code
