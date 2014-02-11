@@ -22,6 +22,13 @@ feature 'Admin mechanics management' do
 
     page.should have_css 'h4', text: 'Mechanic details'
     page.should have_field 'First name', with: mechanic.first_name
+
+    within '.top-bar' do
+      page.should have_button 'Save'
+    end
+    within 'hr + .form-group' do
+      page.should have_button 'Save'
+    end
   end
 
   context 'edits existing mechanic' do
@@ -33,7 +40,8 @@ feature 'Admin mechanics management' do
 
       click_link 'Edit'
       fill_in 'First name', with: 'Alex'
-      click_button 'Save'
+      click_save
+      page.should have_css '.alert-info', text: 'Mechanic successfully updated.'
 
       visit admins_mechanics_path
       page.should have_css 'td', text: 'Alex Mechanic'
@@ -44,7 +52,7 @@ feature 'Admin mechanics management' do
       click_link 'Edit'
       page.should have_selector "h4", text: "Mechanic details"
       fill_in 'First name', with: ''
-      click_button 'Save'
+      click_save
       page.should have_content "Please review the problems below:"
       page.should have_selector "#mechanic_business_location_attributes_address"
     end
@@ -82,7 +90,13 @@ feature 'Admin mechanics management' do
       expect do
         find('span.btn-change-image.btn-cancel-image-upload', text: '×').click
       end.to change { all('.file-input-name').length }.from(1).to(0)
-      expect { click_button 'Save' }.not_to change { all('img').length }
+      expect { click_save }.not_to change { all('img').length }
+    end
+  end
+
+  def click_save
+    within 'hr + .form-group' do
+      click_button 'Save'
     end
   end
 end

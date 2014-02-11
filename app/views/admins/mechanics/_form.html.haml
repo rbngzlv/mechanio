@@ -22,15 +22,23 @@
           $that.parent().find('input').val('')
           $that.remove()
 
-%ul.nav.nav-tabs
-  %li.active= link_to 'Personal details', '#personal', 'data-toggle' => 'tab'
-  %li= link_to 'Contact details', '#contact', 'data-toggle' => 'tab'
-  %li= link_to 'Business details', '#business', 'data-toggle' => 'tab'
-  %li= link_to 'Driver license', '#driver_license', 'data-toggle' => 'tab'
-  %li= link_to "Motor Mechanic's License", '#motor_license', 'data-toggle' => 'tab'
-  %li= link_to 'Badges', '#badges', 'data-toggle' => 'tab'
-
 = simple_form_for [:admins, @mechanic], html: { class: 'form-horizontal admin_mechanic_form', multipart: true }, defaults: { label_html: { class: 'col-md-2 col-sm-2' } }, wrapper: :bootstrap_horizontal do |f|
+
+  - if @mechanic.persisted?
+    .pull-right.top-bar
+      = f.submit 'Save', class: 'btn btn-primary'
+      = link_to 'Edit regions', admins_mechanic_edit_regions_path(@mechanic), class: 'btn btn-primary'
+      = link_to 'Delete', admins_mechanic_path(@mechanic), method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure to delete the mechanic?' }
+    .clearfix
+    %hr.hr-dark-gray
+
+  %ul.nav.nav-tabs
+    %li.active= link_to 'Personal details', '#personal', 'data-toggle' => 'tab'
+    %li= link_to 'Contact details', '#contact', 'data-toggle' => 'tab'
+    %li= link_to 'Business details', '#business', 'data-toggle' => 'tab'
+    %li= link_to 'Driver license', '#driver_license', 'data-toggle' => 'tab'
+    %li= link_to "Motor Mechanic's License", '#motor_license', 'data-toggle' => 'tab'
+    %li= link_to 'Badges', '#badges', 'data-toggle' => 'tab'
 
   .tab-content
     #personal.tab-pane.active
