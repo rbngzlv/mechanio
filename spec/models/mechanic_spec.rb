@@ -23,10 +23,12 @@ describe Mechanic do
   it { should allow_value(123).for(:years_as_a_mechanic) }
   it { should_not allow_value('string').for(:years_as_a_mechanic) }
 
+  it { should allow_value(nil).for(:abn_number) }
   it { should allow_value('12345678901').for(:abn_number) }
   it { should_not allow_value('123456789012').for(:abn_number) }
   it { should_not allow_value('1234567890').for(:abn_number) }
 
+  it { should allow_value(nil).for(:driver_license_number) }
   it { should allow_value('12345678').for(:driver_license_number) }
   it { should_not allow_value('123456789').for(:driver_license_number) }
   it { should_not allow_value('1234567').for(:driver_license_number) }
