@@ -1,0 +1,29 @@
+.panel.nested-panel.clearfix[task]
+  %h5.hx-default
+    - unless task.type == 'Service'
+      = "#{task.type}:"
+    = task.title
+  - if task.note.present?
+    %p
+      %b Note:
+      = task.note
+  .table-responsive
+    %table.task_items.table.table-borderless
+      %tbody
+        - if task.task_items.any?
+          - task.task_items.each do |task_item|
+            = render "mechanics/jobs/task_items/#{task_item.itemable_type.underscore}", item: task_item.itemable
+        - else
+          %tr.inspection
+            %td(colspan=2)= task.title
+            %td
+            %td
+            %td
+            %td.text-right= number_to_currency task.cost
+        %tr.task-cost
+          %td
+          %td
+          %td
+          %td
+          %td
+          %td.text-right= number_to_currency task.cost

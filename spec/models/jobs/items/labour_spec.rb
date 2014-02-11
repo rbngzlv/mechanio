@@ -22,8 +22,12 @@ describe Labour do
     labour.duration.should eq 150
   end
 
-  it 'formats duration' do
-    labour.display_duration.should eq '2:30'
+  describe 'formats duration' do
+    it { labour.display_duration.should eq '2 h 30 m' }
+    it 'should slice minutes if their are excepted' do
+      labour.duration_minutes = 0
+      labour.display_duration.should eq '2 h'
+    end
   end
 
   it 'calculates cost' do

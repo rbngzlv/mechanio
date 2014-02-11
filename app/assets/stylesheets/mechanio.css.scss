@@ -200,8 +200,12 @@ a:hover {
   width: 100%;
 }
 
-.feedback .row {
-  margin-bottom: 10px;
+.feedback {
+  margin-bottom: 15px !important;
+
+  .row {
+    margin-bottom: 10px;
+  }
 }
 
 .verified-icons {
@@ -1475,6 +1479,67 @@ form {
 
   .reg-number-label {
     width: 17%
+  }
+}
+
+.completed-job-details {
+  table.task_items {
+    width: 100%;
+    margin-bottom: 0;
+
+    tr {
+      border-bottom: 1px solid lightgray;
+
+      &:nth-of-type(odd) {
+        background-color: #f3f3f3;
+      }
+
+      &:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+        background-color: #fbfbfb;
+      }
+
+      td {
+        padding: 5px 15px;
+      }
+
+      td:nth-child(1) {
+        width: 15%;
+      }
+
+      td:nth-child(2) {
+        width: 50%;
+      }
+
+      td:nth-child(3) {
+        width: 15%;
+        padding-right: 0;
+      }
+
+      td:nth-child(4) {
+        width: 2%;
+        padding: 0;
+        vertical-align: inherit;
+      }
+
+      td:nth-child(5) {
+        width: 8%;
+        padding-left: 0;
+      }
+
+      td:nth-child(6) {
+        width: 10%;
+      }
+    }
+  }
+
+  .total {
+    margin-right: 0;
+
+    h4 {
+      margin-top: 0;
+    }
   }
 }
 

@@ -31,7 +31,8 @@ class Labour < ActiveRecord::Base
   end
 
   def display_duration
-    Time.at(duration * 60).utc.strftime("%-H:%M")
+    format = duration_minutes == 0 ? "%-H h" : "%-H h %M m"
+    Time.at(duration * 60).utc.strftime(format)
   end
 
   def set_cost

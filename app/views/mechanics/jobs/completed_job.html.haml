@@ -1,0 +1,85 @@
+.row
+  .col-md-12
+    .clearfix
+    .panel.panel-default.panel-rounded
+      .panel-body.clearfix
+        .clearfix
+          = link_to 'View Receipt', '#', class: 'btn btn-info pull-right'
+        .alert.alert-info
+          %h4
+            %span.black Appointment on:
+            = @job.scheduled_at.to_s :date_time_short
+        .panel.nested-panel.clearfix
+          .row
+            .col-md-7.col-sm-7.right-border
+              %p
+                Job ID:
+                %b= @job.uid
+              %p
+                Job received date:
+                %b= @job.assigned_at.to_s(:date_short)
+              %p
+                Client Name:
+                %b= @job.user.full_name
+            .col-md-5.col-sm-5
+              %p
+                %i.icon-map-marker
+                = @job.location.full_address
+              %p
+                %i.icon-phone
+                = @job.contact_phone
+              %p
+                %i.icon-truck
+                = @job.car.display_title
+      .col-md-12.completed-job-details
+        %h4.hx-default Job and Labour
+        = render partial: 'task', collection: @job.tasks, as: :task
+        .row.total
+          .col-md-2.col-md-offset-8.col-sm-3.col-sm-offset-7.col-xs-12
+            %h4.text-right Total
+          .col-md-2.col-sm-2
+            %h4.text-right= number_to_currency @job.cost
+
+      .col-md-12.completed-job-details.clearfix
+        %h4.hx-default Feedback
+        .panel.nested-panel.feedback
+          .row
+            %small.col-md-9.col-sm-9
+              %b Professionalism
+              How helpful was he? Did he do anything beyond expectation?
+            .col-md-3.col-sm-3
+              .reviews-row.clearfix
+                .rating.pull-left
+                  = rating_stars(5)
+          .row
+            %small.col-md-9.col-sm-9
+              %b Service
+              What  was the quality of work like ?
+            .col-md-3.col-sm-3
+              .reviews-row.clearfix
+                .rating.pull-left
+                  = rating_stars(5)
+          .row
+            %small.col-md-9.col-sm-9
+              %b Communication
+              did he aive a clear explanation on everything that he was going to do ?
+            .col-md-3.col-sm-3
+              .reviews-row.clearfix
+                .rating.pull-left
+                  = rating_stars(5)
+          .row
+            %small.col-md-9.col-sm-9
+              %b Quality
+              of Parts What was the quality of replacement parts given like ?
+            .col-md-3.col-sm-3
+              .reviews-row.clearfix
+                .rating.pull-left
+                  = rating_stars(5)
+          .row
+            %small.col-md-9.col-sm-9
+              %b Convenience
+              how convenient was this whole process for you ?
+            .col-md-3.col-sm-3
+              .reviews-row.clearfix
+                .rating.pull-left
+                  = rating_stars(5)
