@@ -5,7 +5,7 @@ class ImageInput < SimpleForm::Inputs::FileInput
     image_url   = object.send("#{attribute_name}_url", version)
     file_name   = object.send("#{attribute_name}").file.filename if object.send("#{attribute_name}?") && options.delete(:show_file_name)
     out = ''
-    out += template.image_tag(image_url) if image_url
+    out += template.image_tag(image_url)
     if file_name
       delete_button = template.content_tag(:span, '×', class: 'btn-change-image btn-delete-image')
       out += template.content_tag(:div, "#{file_name}&nbsp;#{delete_button}".html_safe, class: 'file-input-name', 'data-delete' => "remove_#{attribute_name}")

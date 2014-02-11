@@ -16,7 +16,7 @@ feature 'mechanic profile page' do
 
     scenario 'mechanic details' do
       should have_content mechanic.full_name
-      find('img.avatar')['src'].should have_content '/assets/photo.jpg'
+      find('img.avatar')['src'].should match /\/assets\/fallback\/thumb_default.jpg/
 
       should have_content "#{mechanic.reviews} Review"
       should have_content mechanic.description

@@ -12,7 +12,7 @@ class Mechanic < ActiveRecord::Base
   accepts_nested_attributes_for :location
   accepts_nested_attributes_for :business_location, reject_if: :all_blank
 
-  mount_uploader :avatar, ImgUploader
+  mount_uploader :avatar, AvatarUploader
   mount_uploader :driver_license, ImgUploader
   mount_uploader :abn, ImgUploader
   mount_uploader :mechanic_license, ImgUploader

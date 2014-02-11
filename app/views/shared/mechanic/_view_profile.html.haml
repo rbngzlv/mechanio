@@ -9,7 +9,7 @@
         .row
           .profile-border
 
-            = image_tag mechanic.avatar? ? mechanic.avatar_url(:thumb) : 'photo.jpg', class: 'avatar clickable js-update-avatar'
+            = image_tag mechanic.avatar_url(:thumb), class: 'avatar clickable js-update-avatar'
             .reviews-row.clearfix
               .rating.pull-left
                 = rating_stars(mechanic.rating)
