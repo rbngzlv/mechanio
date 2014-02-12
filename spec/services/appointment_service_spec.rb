@@ -62,6 +62,8 @@ describe AppointmentService do
   context 'appointment invalid' do
     let(:scheduled_at) { Date.today.to_time }
 
+    before { reset_mail_deliveries }
+
     it 'does not book appointment' do
       subject.book_appointment.should be_false
 
