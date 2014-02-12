@@ -33,12 +33,22 @@ feature 'mechanic signin' do
       should have_selector('li.active', text: 'Dashboard')
     end
 
-    scenario 'fail' do
-      within '.wrap > .container' do
-        click_button 'Login'
+    context 'fail' do
+      scenario 'with invalid information' do
+        within '.wrap > .container' do
+          click_button 'Login'
+        end
+
+        should have_content('Invalid email or password.')
       end
 
-      should have_content('Invalid email or password.')
+      scenario 'if mechanic suspended' do
+        mechanic.suspended_at = Date.today
+        mechanic.save
+        signin_as_mechanic mechanic
+
+        should have_content('Your account is suspended. Please contact us to activate it.')
+      end
     end
   end
 

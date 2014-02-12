@@ -56,6 +56,11 @@ class Admins::MechanicsController < Admins::ApplicationController
     render text: view_context.regions_tree(root, selected: @mechanic.region_ids)
   end
 
+  def suspend
+    @mechanic.suspend
+    redirect_to edit_admins_mechanic_path(@mechanic), notice: 'Mechanic successfully suspended.'
+  end
+
   private
 
   def find_mechanic

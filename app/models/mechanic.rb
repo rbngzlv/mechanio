@@ -70,6 +70,23 @@ class Mechanic < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
 
+  def active_for_authentication?
+    super && !suspended?
+  end
+
+  def inactive_message
+    suspended? ? :suspended : super
+  end
+
+  def suspend
+    self.suspended_at = DateTime.now
+    save
+  end
+
+  def suspended?
+    !!suspended_at
+  end
+
   def reviews
     # TODO: It must return count of comments about this mechanic
     12
