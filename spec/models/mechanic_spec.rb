@@ -103,10 +103,16 @@ describe Mechanic do
     mechanic.suspended_at.to_i.should eq DateTime.now.to_i
   end
 
-  describe 'authentication' do
-    let(:mechanic) { build :mechanic }
+  it '.activate' do
+    mechanic = build :mechanic, :suspended
+    mechanic.activate
+    mechanic.suspended_at.should be_nil
+  end
 
+  describe 'authentication' do
     context 'mechanic active' do
+      let(:mechanic) { build :mechanic }
+
       specify '.suspended?' do
         mechanic.suspended?.should be_false
       end
@@ -121,9 +127,7 @@ describe Mechanic do
     end
 
     context 'mechanic suspended' do
-      before do
-        mechanic.suspend
-      end
+      let(:mechanic) { build :mechanic, :suspended }
 
       specify '.suspended?' do
         mechanic.suspended?.should be_true

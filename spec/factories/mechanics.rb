@@ -13,5 +13,9 @@ FactoryGirl.define do
     license_state           { State.find_or_create_by(name: 'Queensland') }
     license_expiry          { Time.now + 1.year }
     mobile_number           '0420123456'
+
+    trait :suspended do
+      suspended_at DateTime.now
+    end
   end
 end

@@ -44,8 +44,8 @@ feature 'mechanic signin' do
       end
 
       scenario 'if mechanic suspended' do
-        mechanic.suspend
-        signin_as_mechanic mechanic
+        suspended_mechanic = create :mechanic, :suspended
+        signin_as_mechanic suspended_mechanic
 
         should have_no_link 'Log out'
         should have_content('Your account is suspended. Please contact us to activate it.')

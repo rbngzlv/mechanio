@@ -1,6 +1,5 @@
 %h4.mechanic-details.pull-left
   Mechanic details
-  - if @mechanic.suspended?
-    %span.label.label-danger Suspended at #{@mechanic.suspended_at.to_s(:date_short)}
+  = mechanic_status(@mechanic, show_suspended_at: true)
 
 = render 'form'

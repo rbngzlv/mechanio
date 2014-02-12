@@ -65,6 +65,15 @@ class Admins::MechanicsController < Admins::ApplicationController
     end
   end
 
+  def activate
+    if @mechanic.activate
+      redirect_to edit_admins_mechanic_path(@mechanic), notice: 'Mechanic successfully activated.'
+    else
+      flash[:error] = 'Error updating mechanic.'
+      render :edit
+    end
+  end
+
   private
 
   def find_mechanic

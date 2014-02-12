@@ -79,12 +79,17 @@ class Mechanic < ActiveRecord::Base
   end
 
   def suspend
-    self.suspended_at = DateTime.now
+    self.suspended_at = DateTime.now if valid?
     save
   end
 
   def suspended?
     !!suspended_at
+  end
+
+  def activate
+    self.suspended_at = nil if valid?
+    save
   end
 
   def reviews

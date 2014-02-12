@@ -60,6 +60,16 @@ module ApplicationHelper
     content_tag :span, status.humanize, class: "label label-#{css}"
   end
 
+  def mechanic_status(mechanic, opt = {})
+    css, text = if mechanic.suspended?
+      text = opt[:show_suspended_at] ? "Suspended at #{mechanic.suspended_at.to_s(:date_short)}" : 'Suspended'
+      ['danger', text]
+    else
+      ['success', 'Active']
+    end
+    content_tag :span, text, class: "label label-#{css}"
+  end
+
   def job_statuses
     labels = Job::STATUSES.map { |s| I18n.t(s, scope: 'activerecord.attributes.job.status') }
     labels.zip(Job::STATUSES)
