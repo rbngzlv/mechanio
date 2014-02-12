@@ -1,67 +1,72 @@
 class AppointmentService
   include ActiveModel::Validations
 
-  attr_accessor :job, :scheduled_at, :mechanic_id
+  attr_accessor :job, :mechanic, :scheduled_at
 
-  validate :scheduled_in_future
-  validate :mechanic_available
+  validate :scheduled_in_future?
+  validate :job_unassigned?
+  validate :mechanic_available?
 
-  def initialize(job, params)
-    @job = job
-    @scheduled_at = params[:scheduled_at].to_time
-    @mechanic_id  = params[:mechanic_id]
-
-    if @scheduled_at.blank? || @mechanic_id.blank?
-      raise ArgumentError, "Invalid params passed: #{params.inspect}"
-    end
-
-    unless mechanic
-      raise ArgumentError, "Mechanic with id #{@mechanic_id} not found"
-    end
+  def initialize(job, mechanic, scheduled_at)
+    @job          = job
+    @mechanic     = mechanic
+    @scheduled_at = scheduled_at
   end
 
-  def confirm
+  def book_appointment
     return false unless valid?
 
-    @job.mechanic     = mechanic
-    @job.scheduled_at = @scheduled_at
-    @job.assigned_at  = DateTime.now
+    ActiveRecord::Base.transaction do
 
-    @job.assign! && @job.save! && create_event && notify
-  end
+      appointment = Appointment.create!(
+        job:          @job,
+        user:         @job.user,
+        mechanic:     @mechanic,
+        scheduled_at: @scheduled_at
+      )
 
-  def notify
+      @job.update_attributes!(
+        appointment:   appointment,
+        mechanic:      mechanic,
+        scheduled_at:  @scheduled_at,
+        assigned_at:   DateTime.now
+      )
+      @job.assign!
+
+      Event.create!(
+        job:        @job,
+        mechanic:   mechanic,
+        date_start: @scheduled_at,
+        time_start: @scheduled_at,
+        time_end:   @scheduled_at + 2.hour
+      )
+    end
+
     [AdminMailer, UserMailer, MechanicMailer].map do |mailer|
       mailer.job_assigned(@job.id).deliver
     end
+
+    true
   end
 
 
   private
 
-  def mechanic
-    @mechanic ||= Mechanic.where(id: @mechanic_id).first
-  end
-
-  def scheduled_in_future
-    if @scheduled_at < Date.tomorrow
+  def scheduled_in_future?
+    if @scheduled_at.to_time < Date.tomorrow
       errors[:base] << 'You can schedule an appointment for tomorrow or later'
     end
   end
 
-  def mechanic_available
-    schedule = EventsManager.new(mechanic)
-    unless schedule.available_at?(@scheduled_at)
-      errors[:base] << 'This mechanic is unavailable on selected date'
+  def job_unassigned?
+    if @job.appointment.present?
+      errors[:base] << 'This job is already assigned'
     end
   end
 
-  def create_event
-    @job.create_event!(
-      date_start: @scheduled_at,
-      time_start: @scheduled_at,
-      time_end: @scheduled_at + 2.hour,
-      mechanic: mechanic
-    )
+  def mechanic_available?
+    unless EventsManager.new(@mechanic).available_at?(@scheduled_at)
+      errors[:base] << 'This mechanic is unavailable on selected date'
+    end
   end
 end

@@ -12,13 +12,14 @@ class Users::AppointmentsController < Users::ApplicationController
   end
 
   def update
-    appointment = AppointmentService.new(@job, appointment_params)
+    mechanic = Mechanic.find(appointment_params[:mechanic_id])
+    appointment_service = AppointmentService.new(@job, mechanic, appointment_params[:scheduled_at])
 
-    if appointment.valid?
+    if appointment_service.valid?
       session[:appointment_params] = appointment_params
       redirect_to new_users_job_credit_card_path(@job)
     else
-      flash[:error] = appointment.errors.full_messages.join("\n")
+      flash[:error] = appointment_service.errors.full_messages.join("\n")
       render :edit
     end
   end
@@ -26,7 +27,7 @@ class Users::AppointmentsController < Users::ApplicationController
   private
 
   def appointment_params
-    appointment_params = params.require(:job).permit(:scheduled_at, :mechanic_id)
+    params.require(:job).permit(:scheduled_at, :mechanic_id)
   end
 
   def mechanics

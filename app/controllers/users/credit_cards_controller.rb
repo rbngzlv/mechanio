@@ -2,7 +2,7 @@ class Users::CreditCardsController < Users::ApplicationController
 
   layout 'application'
 
-  before_filter :verify_appointment, :find_job
+  before_filter :verify_appointment
 
   def new
   end
@@ -10,7 +10,7 @@ class Users::CreditCardsController < Users::ApplicationController
   def create
     payment_verified = PaymentService.new.verify_card(current_user, @job, credit_card_params)
 
-    if payment_verified && appointment.confirm
+    if payment_verified && appointment.book_appointment
       session.delete(:appointment_params)
       redirect_to users_appointments_path, notice: 'Appointment booked'
     else
@@ -31,19 +31,16 @@ class Users::CreditCardsController < Users::ApplicationController
   end
 
   def appointment
-    @appointment ||= AppointmentService.new(@job, appointment_params)
+    @job = current_user.estimates.find(params[:job_id])
+    @scheduled_at = appointment_params[:scheduled_at].to_time
+    @mechanic = Mechanic.find(appointment_params[:mechanic_id])
+    AppointmentService.new(@job, @mechanic, @scheduled_at)
   end
 
   def verify_appointment
-    unless appointment_params
+    unless appointment_params && appointment.valid?
       redirect_to edit_users_appointment_path(params[:job_id])
-      return
+      false
     end
-    @scheduled_at = appointment_params[:scheduled_at].to_time
-    @mechanic = Mechanic.find(appointment_params[:mechanic_id])
-  end
-
-  def find_job
-    @job = current_user.estimates.find(params[:job_id])
   end
 end

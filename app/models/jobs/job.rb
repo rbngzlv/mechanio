@@ -4,11 +4,12 @@ class Job < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :car
-  belongs_to :mechanic
   belongs_to :location, dependent: :destroy
-  has_many :tasks, inverse_of: :job, dependent: :destroy
-  has_one :event, dependent: :destroy
+  belongs_to :mechanic
   belongs_to :credit_card
+  has_many :tasks, inverse_of: :job, dependent: :destroy
+  has_one :appointment, dependent: :destroy
+  has_one :event, dependent: :destroy
 
   accepts_nested_attributes_for :car, :location, update_only: true
   accepts_nested_attributes_for :tasks, allow_destroy: true, reject_if: proc { |attrs| attrs.all? { |k, v| k == 'type' || v.blank? } }
@@ -41,12 +42,9 @@ class Job < ActiveRecord::Base
     end
     state :assigned do
       transition to: :cancelled, on: :cancel
-      validates :mechanic, :scheduled_at, :assigned_at, presence: true
-    end
-    state :assigned do
       transition to: :completed, on: :complete
       transition to: :payment_error, on: :payment_error
-      validates :credit_card, presence: true
+      validates :mechanic, :scheduled_at, :assigned_at, :credit_card, :appointment, presence: true
     end
     state :payment_error
     state :awaiting_feedback

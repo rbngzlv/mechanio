@@ -3,7 +3,6 @@
 --
 
 SET statement_timeout = 0;
-SET lock_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SET check_function_bodies = false;
@@ -82,6 +81,39 @@ CREATE SEQUENCE admins_id_seq
 --
 
 ALTER SEQUENCE admins_id_seq OWNED BY admins.id;
+
+
+--
+-- Name: appointments; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE appointments (
+    id integer NOT NULL,
+    user_id integer,
+    mechanic_id integer,
+    job_id integer,
+    scheduled_at timestamp without time zone,
+    status character varying(255)
+);
+
+
+--
+-- Name: appointments_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE appointments_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: appointments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE appointments_id_seq OWNED BY appointments.id;
 
 
 --
@@ -509,7 +541,6 @@ CREATE TABLE mechanics (
     driver_license character varying(255),
     abn character varying(255),
     mechanic_license character varying(255),
-    abn_name character varying(255),
     business_website character varying(255),
     business_email character varying(255),
     years_as_a_mechanic integer,
@@ -526,13 +557,13 @@ CREATE TABLE mechanics (
     qualification_verified boolean DEFAULT false,
     location_id integer,
     business_location_id integer,
+    total_earnings numeric(8,2) DEFAULT 0,
+    current_jobs_count integer DEFAULT 0,
+    completed_jobs_count integer DEFAULT 0,
     business_name character varying(255),
     business_mobile_number character varying(255),
     repair_work_classes text,
-    tradesperson_certificates text,
-    total_earnings numeric(8,2) DEFAULT 0,
-    current_jobs_count integer DEFAULT 0,
-    completed_jobs_count integer DEFAULT 0
+    tradesperson_certificates text
 );
 
 
@@ -572,8 +603,8 @@ CREATE TABLE model_variations (
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     make_id integer,
-    comment text,
     display_title character varying(255),
+    comment text,
     detailed_title character varying(255)
 );
 
@@ -977,6 +1008,13 @@ ALTER TABLE ONLY admins ALTER COLUMN id SET DEFAULT nextval('admins_id_seq'::reg
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY appointments ALTER COLUMN id SET DEFAULT nextval('appointments_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY authentications ALTER COLUMN id SET DEFAULT nextval('authentications_id_seq'::regclass);
 
 
@@ -1135,11 +1173,27 @@ ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regcl
 
 
 --
+-- Data for Name: spatial_ref_sys; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY spatial_ref_sys (srid, auth_name, auth_srid, srtext, proj4text) FROM stdin;
+\.
+
+
+--
 -- Name: admins_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY admins
     ADD CONSTRAINT admins_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: appointments_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY appointments
+    ADD CONSTRAINT appointments_pkey PRIMARY KEY (id);
 
 
 --
@@ -1341,6 +1395,27 @@ CREATE UNIQUE INDEX index_admins_on_reset_password_token ON admins USING btree (
 
 
 --
+-- Name: index_appointments_on_job_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_appointments_on_job_id ON appointments USING btree (job_id);
+
+
+--
+-- Name: index_appointments_on_mechanic_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_appointments_on_mechanic_id ON appointments USING btree (mechanic_id);
+
+
+--
+-- Name: index_appointments_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_appointments_on_user_id ON appointments USING btree (user_id);
+
+
+--
 -- Name: index_authentications_on_uid_and_provider; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1457,6 +1532,27 @@ CREATE UNIQUE INDEX index_users_on_reset_password_token ON users USING btree (re
 --
 
 CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (version);
+
+
+--
+-- Name: geometry_columns_delete; Type: RULE; Schema: public; Owner: -
+--
+
+CREATE RULE geometry_columns_delete AS ON DELETE TO geometry_columns DO INSTEAD NOTHING;
+
+
+--
+-- Name: geometry_columns_insert; Type: RULE; Schema: public; Owner: -
+--
+
+CREATE RULE geometry_columns_insert AS ON INSERT TO geometry_columns DO INSTEAD NOTHING;
+
+
+--
+-- Name: geometry_columns_update; Type: RULE; Schema: public; Owner: -
+--
+
+CREATE RULE geometry_columns_update AS ON UPDATE TO geometry_columns DO INSTEAD NOTHING;
 
 
 --
@@ -1623,8 +1719,6 @@ INSERT INTO schema_migrations (version) VALUES ('20140116101829');
 
 INSERT INTO schema_migrations (version) VALUES ('20140117081109');
 
-INSERT INTO schema_migrations (version) VALUES ('20140117144843');
-
 INSERT INTO schema_migrations (version) VALUES ('20140120121306');
 
 INSERT INTO schema_migrations (version) VALUES ('20140120145046');
@@ -1640,3 +1734,7 @@ INSERT INTO schema_migrations (version) VALUES ('20140123110341');
 INSERT INTO schema_migrations (version) VALUES ('20140123111537');
 
 INSERT INTO schema_migrations (version) VALUES ('20140127135118');
+
+INSERT INTO schema_migrations (version) VALUES ('20140206150842');
+
+INSERT INTO schema_migrations (version) VALUES ('20140211221307');
