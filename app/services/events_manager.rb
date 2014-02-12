@@ -60,9 +60,9 @@ class EventsManager < Struct.new(:mechanic)
 
   def events_list
     events = mechanic.events.map do |event|
-      if (repeat = event.recurrence)
-        schedule = Schedule.new(event.date_start)
-        schedule.add_recurrence_rule(Rule.send repeat)
+      if event.recurrence
+        schedule = get_schedule(event, event.date_start)
+
         schedule.occurrences_between(Date.today - 1.year,Date.today + 1.year).map do |occurrence|
           hash_for_fullcalendar event, occurrence
         end
@@ -87,8 +87,8 @@ class EventsManager < Struct.new(:mechanic)
     t = time_for_compearing(event.time_end)
     mechanic.events.send(:repeated, event.recurrence).time_slot(event.time_start).each do |e|
       if event.recurrence
-        schedule = Schedule.new(e.date_start)
-        schedule.add_recurrence_rule Rule.send event.recurrence
+        schedule = get_schedule(event, e.date_start)
+
         return false if schedule.occurs_at?(event.date_start) and e.time_end == t
       else
         return false if e.date_start == event.date_start and e.time_end == t
@@ -104,8 +104,8 @@ class EventsManager < Struct.new(:mechanic)
   def available_at?(scheduled_at)
     mechanic.events.map do |event|
       start_time, end_time = get_time_start_and_end(event)
-      schedule = Schedule.new(start_time, end_time: end_time)
-      schedule.add_recurrence_rule(Rule.send(event.recurrence)) if event.recurrence
+      schedule = get_schedule(event, start_time, end_time: end_time)
+
       return false if schedule.occurring_at?(scheduled_at)
     end
     true
@@ -118,5 +118,11 @@ class EventsManager < Struct.new(:mechanic)
     else
       [occurrence.to_time, occurrence.to_time.advance(hours: 23, minutes: 59)]
     end
+  end
+
+  def get_schedule(event, start, options = {})
+    schedule = Schedule.new(start, options)
+    schedule.add_recurrence_rule(Rule.send(event.recurrence)) if event.recurrence
+    schedule
   end
 end
