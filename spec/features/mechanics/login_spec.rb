@@ -19,6 +19,7 @@ feature 'mechanic signin' do
     scenario 'first success login' do
       signin_as_mechanic mechanic
 
+      should have_link 'Log out'
       should have_selector('h4', text: 'Settings')
       should have_selector('li.active', text: 'Settings')
     end
@@ -43,10 +44,10 @@ feature 'mechanic signin' do
       end
 
       scenario 'if mechanic suspended' do
-        mechanic.suspended_at = Date.today
-        mechanic.save
+        mechanic.suspend
         signin_as_mechanic mechanic
 
+        should have_no_link 'Log out'
         should have_content('Your account is suspended. Please contact us to activate it.')
       end
     end

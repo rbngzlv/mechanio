@@ -57,8 +57,12 @@ class Admins::MechanicsController < Admins::ApplicationController
   end
 
   def suspend
-    @mechanic.suspend
-    redirect_to edit_admins_mechanic_path(@mechanic), notice: 'Mechanic successfully suspended.'
+    if @mechanic.suspend
+      redirect_to edit_admins_mechanic_path(@mechanic), notice: 'Mechanic successfully suspended.'
+    else
+      flash[:error] = 'Error updating mechanic.'
+      render :edit
+    end
   end
 
   private

@@ -100,23 +100,23 @@ describe Mechanic do
   it '.suspend' do
     mechanic = build :mechanic
     mechanic.suspend
-    mechanic.suspended_at.to_datetime.to_s.should eql DateTime.current.to_s
+    mechanic.suspended_at.to_i.should eq DateTime.now.to_i
   end
 
   describe 'authentication' do
     let(:mechanic) { build :mechanic }
 
     context 'mechanic active' do
-      describe '.suspended?' do
-        it { mechanic.suspended?.should be_false }
+      specify '.suspended?' do
+        mechanic.suspended?.should be_false
       end
 
-      describe '.active_for_authentication?' do
-        it { mechanic.active_for_authentication?.should be_true }
+      specify '.active_for_authentication?' do
+        mechanic.active_for_authentication?.should be_true
       end
 
-      describe '.inactive_message' do
-        it { mechanic.inactive_message.should be :inactive }
+      specify '.inactive_message' do
+        mechanic.inactive_message.should be :inactive
       end
     end
 
@@ -125,16 +125,16 @@ describe Mechanic do
         mechanic.suspend
       end
 
-      describe '.suspended?' do
-        it { mechanic.suspended?.should be_true }
+      specify '.suspended?' do
+        mechanic.suspended?.should be_true
       end
 
-      describe '.active_for_authentication?' do
-        it { mechanic.active_for_authentication?.should be_false }
+      specify '.active_for_authentication?' do
+        mechanic.active_for_authentication?.should be_false
       end
 
-      describe '.inactive_message' do
-        it { mechanic.inactive_message.should be :suspended }
+      specify '.inactive_message' do
+        mechanic.inactive_message.should be :suspended
       end
     end
   end

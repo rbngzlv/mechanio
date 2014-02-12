@@ -65,13 +65,24 @@ feature 'Admin mechanics management' do
     page.should have_css '.alert', text: 'Mechanic successfully deleted.'
   end
 
-  scenario 'suspend a mechanic' do
-    visit edit_admins_mechanic_path(mechanic)
-    expect do
-      click_on 'Suspend'
-    end.to change { mechanic.reload.suspended_at }.from(nil)
-    page.should have_selector '.alert-info', text: 'Mechanic successfully suspended.'
-    page.should have_selector '.label', text: "Suspended at #{mechanic.suspended_at.to_s(:date_short)}"
+  context 'suspend a mechanic' do
+    it 'success' do
+      visit edit_admins_mechanic_path(mechanic)
+      expect do
+        click_on 'Suspend'
+      end.to change { mechanic.reload.suspended_at }.from(nil)
+      page.should have_selector '.alert-info', text: 'Mechanic successfully suspended.'
+      page.should have_selector '.label', text: "Suspended at #{mechanic.suspended_at.to_s(:date_short)}"
+    end
+
+    it 'fail' do
+      Mechanic.any_instance.should_receive(:save).and_return(false)
+      visit edit_admins_mechanic_path(mechanic)
+      expect do
+        click_on 'Suspend'
+      end.not_to change { mechanic.reload.suspended_at }
+      page.should have_selector '.alert-danger', text: 'Error updating mechanic.'
+    end
   end
 
   context 'edit images' do
