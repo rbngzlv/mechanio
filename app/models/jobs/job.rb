@@ -156,9 +156,8 @@ class Job < ActiveRecord::Base
   end
 
   def set_cost
-    costs = tasks.map { |t| t.marked_for_destruction? ? 0 : t.set_cost }
-    self.cost = costs.include?(nil) ? nil : costs.sum
-    self.cost = nil if self.cost == 0
+    cost_calculator = CostCalculator.new(self)
+    cost_calculator.set_job_cost
   end
 
   def set_status

@@ -2,4 +2,6 @@ app = angular.module('mechanio')
 
 app.filter 'cost_or_pending', ->
   (amount) ->
-    if parseFloat(amount) > 0 then accounting.formatMoney(amount, '$', 2) else 'pending'
+    return 'pending' if amount == 'pending' || parseFloat(amount) == NaN
+    return 'free' if amount == 0
+    accounting.formatMoney(amount, '$', 2)

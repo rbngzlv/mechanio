@@ -80,7 +80,9 @@ module ApplicationHelper
   end
 
   def cost_or_pending(amount)
-    amount ? content_tag(:b, number_to_currency(amount)) : 'pending'
+    return 'pending' if amount.nil?
+    return 'free' if amount.zero?
+    content_tag(:b, number_to_currency(amount))
   end
 
   def last_service(car)

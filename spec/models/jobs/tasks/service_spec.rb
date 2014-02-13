@@ -12,7 +12,7 @@ describe Service do
   it { should validate_presence_of :service_plan }
 
   it 'finds ServiceCost item' do
-    item = service.reload.find_service_cost
+    item = service.reload.find_service_item
     item.should eq task_item
     item.itemable.should be_a ServiceCost
   end
@@ -30,12 +30,6 @@ describe Service do
 
     verify_service(service_plan_2)
     verify_item(service_plan_2)
-  end
-
-  it 'costs as service plan' do
-    service.should be_valid
-    service.set_cost
-    service.cost.should eq task_item.cost
   end
 
   def verify_service(service_plan)
