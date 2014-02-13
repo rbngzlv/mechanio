@@ -11,7 +11,7 @@ class Service < Task
   end
 
   def itemize
-    if item = find_service_cost
+    if item = find_service_item
       item.itemable.update_attributes(service_plan: service_plan)
     else
       task_items.build itemable:
@@ -19,7 +19,7 @@ class Service < Task
     end
   end
 
-  def find_service_cost
+  def find_service_item
     task_items.find { |i| i.itemable_type == 'ServiceCost' }
   end
 end

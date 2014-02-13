@@ -66,21 +66,24 @@ feature 'Jobs section' do
 
     context 'items tab' do
       scenario 'add service' do
-        job = create :job, :with_repair
+        job = create :job, :with_repair, :with_inspection
         service_plan = create :service_plan, model_variation: job.car.model_variation
 
         visit_job_items(job)
 
         within_task(1) { verify_repair }
+        within_task(2) { verify_inspection }
 
-        grand_total.should eq '$333.00'
+        grand_total.should eq '$413.00'
 
         click_on 'Add service'
 
         within('.service-form') { fill_in_service(service_plan) }
 
         before_and_after_save(job) do
-          within_task(2) { verify_service(service_plan) }
+          within_task(1) { verify_repair }
+          within_task(2) { verify_inspection 'free' }
+          within_task(3) { verify_service(service_plan) }
 
           grand_total.should eq '$683.00'
         end
@@ -133,6 +136,17 @@ feature 'Jobs section' do
         grand_total.should eq '$80.00'
       end
 
+      scenario 'job with multiple inspections' do
+        job = create :job, tasks: [create(:inspection), create(:inspection)]
+
+        visit_job_items(job)
+
+        within_task(1) { verify_inspection }
+        within_task(2) { verify_inspection 'free' }
+
+        grand_total.should eq '$80.00'
+      end
+
       scenario 'edit items' do
         job = create :job, :with_service, :with_repair, :with_inspection
         service_plan = job.tasks.first.service_plan
@@ -142,9 +156,9 @@ feature 'Jobs section' do
 
         within_task(1) { verify_service(service_plan) }
         within_task(2) { verify_repair }
-        within_task(3) { verify_inspection }
+        within_task(3) { verify_inspection 'free' }
 
-        grand_total.should eq '$763.00'
+        grand_total.should eq '$683.00'
 
         within_task(1) do
           click_link 'Edit'
@@ -174,31 +188,42 @@ feature 'Jobs section' do
           end
 
           within_task(3) do
-            verify_inspection 'Edited title', 'Edited notes'
+            verify_inspection 'free', 'Edited title', 'Edited notes'
           end
 
-          grand_total.should eq '$761.00'
+          grand_total.should eq '$681.00'
         end
       end
 
       scenario 'delete tasks/items' do
-        job = create :job, :with_service, :with_repair
+        job = create :job, :with_service, :with_repair, :with_inspection
+        service_plan = job.tasks.first.service_plan
 
         visit_job_items(job)
+
+        within_task(1) { verify_service(service_plan) }
+        within_task(2) { verify_repair }
+        within_task(3) { verify_inspection 'free' }
+        grand_total.should eq '$683.00'
 
         within_task(1) do
           find('.remove-task').click
         end
+
+        find_task 1, visible: false
+        within_task(2) { verify_repair }
+        within_task(3) { verify_inspection }
+        grand_total.should eq '$413.00'
 
         within_task(2) do
           within_row(1) { find('.delete-item').click }
         end
 
         before_and_after_save job do
-          page.should have_css '.task', count: 1
+          page.should have_css '.task', count: 2
           page.should have_css '.item', count: 2
-  
-          grand_total.should eq '$208.00'
+
+          grand_total.should eq '$288.00'
         end
       end
 
@@ -265,7 +290,9 @@ feature 'Jobs section' do
   def verify_edited_repair
     task_title.should eq 'Edited repair'
     task_total.should eq '$331.00'
-    verify_edited_items
+    within_row(0) { verify_part 'Edited part', '1', '56.0', '$56.00' }
+    within_row(1) { verify_labour '02 h', '00 m', '$100.00' }
+    within_row(2) { verify_fixed 'Some fixed amount', '175.0' }
   end
 
   def verify_repair
@@ -282,9 +309,10 @@ feature 'Jobs section' do
     click_on 'Done'
   end
 
-  def verify_inspection(title = nil, notes = nil)
+  def verify_inspection(amount = nil, title = nil, notes = nil)
     task_title.should eq title || 'Break pedal vibration'
-    page.should have_css '.panel-body', text: notes || 'Notes: A note to mechanic Cost $80.00'
+    amount ||= '$80'
+    page.should have_css '.panel-body', text: notes || "Notes: A note to mechanic Cost #{amount}"
   end
 
   def verify_service_cost(description, cost)
@@ -329,19 +357,17 @@ feature 'Jobs section' do
     fill_in 'Cost', with: '175.0'
   end
 
-  def verify_edited_items
-    within_row(0) { verify_part 'Edited part', '1', '56.0', '$56.00' }
-    within_row(1) { verify_labour '02 h', '00 m', '$100.00' }
-    within_row(2) { verify_fixed 'Some fixed amount', '175.0' }
-  end
-
   def verify_fixed(description, cost)
     page.should have_field 'Charge description', with: description
     page.should have_field 'Cost', with: cost
   end
 
-  def within_task(task, &block)
-    within ".task:nth-child(#{task})" do
+  def find_task(index, options = {})
+    find ".task:nth-child(#{index})", options
+  end
+
+  def within_task(index, &block)
+    within find_task(index) do
       yield
     end
   end
