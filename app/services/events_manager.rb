@@ -106,7 +106,7 @@ class EventsManager < Struct.new(:mechanic)
       start_time, end_time = get_time_start_and_end(event)
       schedule = get_schedule(event, start_time, end_time: end_time)
 
-      return false if schedule.occurring_at?(scheduled_at)
+      return false if schedule.occurring_at?(scheduled_at.to_time)
     end
     true
   end

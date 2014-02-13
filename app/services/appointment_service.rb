@@ -10,7 +10,7 @@ class AppointmentService
   def initialize(job, mechanic, scheduled_at)
     @job          = job
     @mechanic     = mechanic
-    @scheduled_at = scheduled_at
+    @scheduled_at = scheduled_at.to_time
   end
 
   def book_appointment
@@ -53,7 +53,7 @@ class AppointmentService
   private
 
   def scheduled_in_future?
-    if @scheduled_at.to_time < Date.tomorrow
+    if @scheduled_at < Date.tomorrow
       errors[:base] << 'You can schedule an appointment for tomorrow or later'
     end
   end
