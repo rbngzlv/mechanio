@@ -13,6 +13,7 @@ describe Mechanic do
   it { should belong_to :location }
   it { should belong_to :business_location }
   it { should have_many :jobs }
+  it { should have_many :payout_methods }
 
   it { should respond_to :avatar }
   it { should respond_to :driver_license }

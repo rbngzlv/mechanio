@@ -1,0 +1,9 @@
+%h4 New Payout Method
+%hr.hr-dark-gray
+-# TODO: I think, that in my logic exists problem, because if admin send this form on url with another mechanic ID, then another mechanic receive payout method
+= simple_form_for [:admins, :mechanic, @payout_method], html: { class: 'form-horizontal' }, defaults: { label_html: { class: 'col-md-2 col-sm-2' } }, wrapper: :bootstrap_horizontal do |f|
+  = f.error_notification
+  = f.input :account_name, label: 'Account Name'
+  = f.input :account_number, label: 'Account Number'
+  = f.input :bsb_number, label: 'BSB Number'
+  = f.submit 'Save', class: 'btn btn-primary'
