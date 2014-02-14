@@ -1,28 +1,3 @@
 %h4.mechanic-details.pull-left Mechanic details
 
 = render 'form'
-
-%hr
-- if @mechanic.payout_methods.length > 0
-  %h4 Payout
-
-  %table.table.table-striped
-    %thead
-      %tr
-        %th Account name
-        %th Account number
-        %th BSB number
-        %th
-        %th
-    %tbody
-      - @mechanic.payout_methods.each do |payout_method|
-        %tr
-          %td= payout_method.account_name
-          %td= payout_method.account_number
-          %td= payout_method.bsb_number
-          %td= link_to 'Edit', edit_admins_mechanic_payout_method_path(@mechanic, payout_method)
-          %td= link_to 'Remove', admins_mechanic_payout_method_path(@mechanic, payout_method), method: :delete
-- else
-  %h4 This mechanic has no attached bank accounts
-  -# TODO: add button should be on this page all time(not depended of accounts count)
-= link_to 'Add Payout Method', new_admins_mechanic_payout_method_path(@mechanic), class: 'btn btn-primary'

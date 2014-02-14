@@ -11,13 +11,16 @@ describe PayoutMethod do
     describe 'presence' do
       it { should_not allow_value(nil).for(:account_name) }
       it { should_not allow_value(nil).for(:bsb_number) }
-      it { should_not allow_value(nil).for(:account_number) }
       it { should_not allow_value(nil).for(:mechanic) }
+      it { should_not allow_value(nil).for(:account_number) }
     end
 
     describe 'digits only' do
       it { should_not allow_value('string').for(:account_number) }
-      it { should_not allow_value('1_str' ).for(:account_number) }
+      it do
+        should_not allow_value('1_str' ).for(:account_number)
+        subject.errors.messages[:account_number].should be_eql ['should be digits only']
+      end
       it { should allow_value('123').for(:account_number) }
 
       it { should_not allow_value('string').for(:bsb_number) }
