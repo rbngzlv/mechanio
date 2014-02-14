@@ -26,7 +26,8 @@ feature 'new appointment', :js do
 
     fill_in_cc 'cardholder_name', 'Don Joe'
     fill_in_cc 'number', '4111 1111 1111 1111'
-    fill_in_cc 'expiration_date', '11/08'
+    fill_in_cc 'expiration_month', '11'
+    fill_in_cc 'expiration_year', '08'
     fill_in_cc 'cvv', '123'
     click_button "Book #{mechanic.first_name} for " + timeslot.to_s(:date_abr)
 
@@ -123,7 +124,7 @@ feature 'new appointment', :js do
   end
 
   def fill_in_cc(name, value)
-    find("input[data-encrypted-name=credit_card\\[#{name}\\]]").set(value)
+    find("*[data-encrypted-name=credit_card\\[#{name}\\]]").set(value)
   end
 
   def verify_job_details
