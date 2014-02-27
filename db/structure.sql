@@ -698,6 +698,40 @@ ALTER SEQUENCE parts_id_seq OWNED BY parts.id;
 
 
 --
+-- Name: payout_methods; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE payout_methods (
+    id integer NOT NULL,
+    account_name character varying(255),
+    bsb_number character varying(255),
+    account_number character varying(255),
+    mechanic_id integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: payout_methods_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE payout_methods_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: payout_methods_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE payout_methods_id_seq OWNED BY payout_methods.id;
+
+
+--
 -- Name: regions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1121,6 +1155,13 @@ ALTER TABLE ONLY parts ALTER COLUMN id SET DEFAULT nextval('parts_id_seq'::regcl
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY payout_methods ALTER COLUMN id SET DEFAULT nextval('payout_methods_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY regions ALTER COLUMN id SET DEFAULT nextval('regions_id_seq'::regclass);
 
 
@@ -1318,6 +1359,14 @@ ALTER TABLE ONLY parts
 
 
 --
+-- Name: payout_methods_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY payout_methods
+    ADD CONSTRAINT payout_methods_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: regions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1491,6 +1540,13 @@ CREATE UNIQUE INDEX index_mechanics_on_reset_password_token ON mechanics USING b
 --
 
 CREATE INDEX index_on_locations_location ON locations USING gist (st_geographyfromtext((((('SRID=4326;POINT('::text || longitude) || ' '::text) || latitude) || ')'::text)));
+
+
+--
+-- Name: index_payout_methods_on_mechanic_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_payout_methods_on_mechanic_id ON payout_methods USING btree (mechanic_id);
 
 
 --
@@ -1741,3 +1797,5 @@ INSERT INTO schema_migrations (version) VALUES ('20140206150842');
 INSERT INTO schema_migrations (version) VALUES ('20140211170449');
 
 INSERT INTO schema_migrations (version) VALUES ('20140211221307');
+
+INSERT INTO schema_migrations (version) VALUES ('20140214095427');

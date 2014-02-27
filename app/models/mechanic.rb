@@ -6,6 +6,7 @@ class Mechanic < ActiveRecord::Base
   belongs_to :business_location, dependent: :destroy, class_name: "Location"
   has_many :jobs
   has_many :events
+  has_many :payout_methods
   has_many :mechanic_regions
   has_many :regions, through: :mechanic_regions
 
