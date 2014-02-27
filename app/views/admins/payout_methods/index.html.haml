@@ -1,6 +1,18 @@
 .pull-right
-  = link_to "Edit profile", edit_admins_mechanic_path(@mechanic), class: 'btn btn-primary'
-  = link_to 'Add Payout Method', new_admins_mechanic_payout_method_path(@mechanic), class: 'btn btn-primary'
+  = link_to 'Back to profile', edit_admins_mechanic_path(@mechanic), class: 'btn btn-primary'
+  = link_to 'Add bank account', new_admins_mechanic_payout_method_path(@mechanic), class: 'btn btn-primary'
 
-= render(@mechanic.payout_methods.any? ? 'admins/payout_methods/payout_methods' : 'admins/payout_methods/no_payout_methods')
+%h4 #{@mechanic.full_name} - bank accounts
 
+- if @mechanic.payout_methods.any?
+  %table.table.table-striped
+    %thead
+      %tr
+        %th Account name
+        %th Account number
+        %th BSB number
+        %th
+    %tbody
+      = render @mechanic.payout_methods
+- else
+  %h5.text-center No bank accounts

@@ -1,7 +1,7 @@
 module ApplicationHelper
 
-  def active_li(title, url, current_controller)
-    css = params[:controller] == current_controller ? ' active' : ''
+  def active_li(title, url, current_controllers)
+    css = Array(current_controllers).include?(params[:controller]) ? ' active' : ''
 
     content_tag :li, class: css do
       link_to title, url

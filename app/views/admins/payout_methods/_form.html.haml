@@ -3,5 +3,7 @@
   = f.input :account_name, label: 'Account Name'
   = f.input :account_number, label: 'Account Number'
   = f.input :bsb_number, label: 'BSB Number'
-  = f.submit 'Save', class: 'btn btn-primary'
-  %span &nbsp;or #{ link_to 'cancel', admins_mechanic_payout_methods_path(@mechanic) }
+
+  .form-group
+    .col-md-offset-2.col-md-4
+      = f.submit 'Save', class: 'btn btn-primary col-md-3 col-sm-4'
