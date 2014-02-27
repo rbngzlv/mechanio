@@ -1,3 +1,5 @@
-%h4.mechanic-details.pull-left Mechanic details
+%h4.mechanic-details.pull-left
+  Mechanic details
+  = mechanic_status(@mechanic, show_suspended_at: true)
 
 = render 'form'

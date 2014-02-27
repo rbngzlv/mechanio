@@ -56,6 +56,24 @@ class Admins::MechanicsController < Admins::ApplicationController
     render text: view_context.regions_tree(root, selected: @mechanic.region_ids)
   end
 
+  def suspend
+    if @mechanic.suspend
+      redirect_to edit_admins_mechanic_path(@mechanic), notice: 'Mechanic successfully suspended.'
+    else
+      flash[:error] = 'Error updating mechanic.'
+      render :edit
+    end
+  end
+
+  def activate
+    if @mechanic.activate
+      redirect_to edit_admins_mechanic_path(@mechanic), notice: 'Mechanic successfully activated.'
+    else
+      flash[:error] = 'Error updating mechanic.'
+      render :edit
+    end
+  end
+
   private
 
   def find_mechanic

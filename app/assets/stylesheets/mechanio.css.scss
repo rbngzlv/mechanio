@@ -914,6 +914,20 @@ section {
     }
   }
 
+  &.month-year {
+    label {
+      display: block;
+    }
+
+    select:nth-child(2) {
+      width: 22%;
+    }
+
+    select:nth-child(3) {
+      width: 35%;
+    }
+  }
+
   select {
     display: inline-block;
 

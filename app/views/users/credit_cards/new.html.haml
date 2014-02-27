@@ -94,10 +94,10 @@
               %label Credit Card Number
               %input.col-md-12.form-control{type: 'text', autocomplete: 'off', 'data-encrypted-name' => 'credit_card[number]'}
               %span.help-block.hide Card number name is invalid
-            .form-group
+            .form-group.month-year
               %label Expiration Date
-              %input.col-md-12.form-control{type: 'text', placeholder: 'mm/yy', autocomplete: 'off', 'data-encrypted-name' => 'credit_card[expiration_date]'}
-              %span.help-block.hide Expiration date is invalid
+              = select_tag nil, options_for_select(1..12), class: 'form-control', 'data-encrypted-name' => 'credit_card[expiration_month]'
+              = select_tag false, options_for_select(Date.today.year.upto(Date.today.year + 20)), class: 'form-control', 'data-encrypted-name' => 'credit_card[expiration_year]'
             .form-group
               %label CCV
               %input.col-md-12.form-control{type: 'text', autocomplete: 'off', 'data-encrypted-name' => 'credit_card[cvv]'}
@@ -127,8 +127,6 @@
         return invalidateInput(input) if value == ''
       when 'credit_card[number]'
         return invalidateInput(input) unless /^\d{16}$/.test value.replace(/\ /g, '')
-      when 'credit_card[expiration_date]'
-        return invalidateInput(input) unless /^\d{4}$/.test value.replace(/[^\d]/g, '')
       when 'credit_card[cvv]'
         return invalidateInput(input) unless /^\d{3}$/.test value
     true
