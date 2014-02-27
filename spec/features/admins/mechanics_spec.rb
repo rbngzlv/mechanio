@@ -10,11 +10,13 @@ feature 'Admin mechanics management' do
 
   it 'lists available mechanics' do
     mechanic
+    suspended_mechanic = create :mechanic, :suspended
     visit admins_mechanics_path
 
     date_joined = mechanic.created_at.to_s(:date_short)
-    page.should have_css 'thead', text: 'Name Email Mobile Current Appts. Completed Jobs Total Earnings Feedback Score Date joined'
-    page.should have_css 'tbody tr', text: "#{mechanic.full_name} #{mechanic.email} 0410123456 0 0 $0.00 2 #{date_joined} Edit"
+    page.should have_css 'thead', text: 'Name Status Email Mobile Current Appts. Completed Jobs Total Earnings Feedback Score Date joined'
+    page.should have_css 'tbody tr', text: "#{mechanic.full_name} Active #{mechanic.email} 0410123456 0 0 $0.00 2 #{date_joined} Edit"
+    page.should have_css 'tbody td', text: "Suspended"
   end
 
   it 'shows mechanic details' do
@@ -63,6 +65,50 @@ feature 'Admin mechanics management' do
 
     expect { click_link 'Delete' }.to change { Mechanic.count }.by -1
     page.should have_css '.alert', text: 'Mechanic successfully deleted.'
+  end
+
+  context 'suspend a mechanic' do
+    before { visit edit_admins_mechanic_path(mechanic) }
+
+    it 'success' do
+      expect do
+        click_on 'Suspend'
+      end.to change { mechanic.reload.suspended_at }.from(nil)
+      page.should have_selector '.alert-info', text: 'Mechanic successfully suspended.'
+      page.should have_selector '.label-danger', text: "Suspended at #{mechanic.suspended_at.to_s(:date_short)}"
+    end
+
+    it 'fail' do
+      Mechanic.any_instance.stub(:suspend).and_return(false)
+      expect do
+        click_on 'Suspend'
+      end.not_to change { mechanic.reload.suspended_at }
+      page.should have_selector '.label-success', text: 'Active'
+      page.should have_selector '.alert-danger', text: 'Error updating mechanic.'
+    end
+  end
+
+  context 'activate suspended mechanic' do
+    let(:suspended_mechanic) { create :mechanic, :suspended }
+
+    before { visit edit_admins_mechanic_path(suspended_mechanic) }
+
+    it 'success' do
+      expect do
+        click_on 'Activate'
+      end.to change { suspended_mechanic.reload.suspended_at }.to(nil)
+      page.should have_selector '.alert-info', text: 'Mechanic successfully activated.'
+      page.should have_selector '.label-success', text: 'Active'
+    end
+
+    it 'fails' do
+      Mechanic.any_instance.stub(:activate).and_return(false)
+      expect do
+        click_on 'Activate'
+      end.not_to change { suspended_mechanic.reload.suspended_at }.to(nil)
+      page.should have_selector '.alert-danger', text: 'Error updating mechanic.'
+      page.should have_selector '.label-danger', text: "Suspended at #{suspended_mechanic.suspended_at.to_s(:date_short)}"
+    end
   end
 
   context 'edit images' do

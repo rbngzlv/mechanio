@@ -96,4 +96,50 @@ describe Mechanic do
       expect { mechanic.build_locations }.not_to change { mechanic.business_location }
     end
   end
+
+  it '.suspend' do
+    mechanic = build :mechanic
+    mechanic.suspend
+    mechanic.suspended_at.to_i.should eq DateTime.now.to_i
+  end
+
+  it '.activate' do
+    mechanic = build :mechanic, :suspended
+    mechanic.activate
+    mechanic.suspended_at.should be_nil
+  end
+
+  describe 'authentication' do
+    context 'mechanic active' do
+      let(:mechanic) { build :mechanic }
+
+      specify '.suspended?' do
+        mechanic.suspended?.should be_false
+      end
+
+      specify '.active_for_authentication?' do
+        mechanic.active_for_authentication?.should be_true
+      end
+
+      specify '.inactive_message' do
+        mechanic.inactive_message.should be :inactive
+      end
+    end
+
+    context 'mechanic suspended' do
+      let(:mechanic) { build :mechanic, :suspended }
+
+      specify '.suspended?' do
+        mechanic.suspended?.should be_true
+      end
+
+      specify '.active_for_authentication?' do
+        mechanic.active_for_authentication?.should be_false
+      end
+
+      specify '.inactive_message' do
+        mechanic.inactive_message.should be :suspended
+      end
+    end
+  end
 end

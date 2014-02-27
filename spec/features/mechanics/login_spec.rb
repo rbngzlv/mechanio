@@ -19,6 +19,7 @@ feature 'mechanic signin' do
     scenario 'first success login' do
       signin_as_mechanic mechanic
 
+      should have_link 'Log out'
       should have_selector('h4', text: 'Settings')
       should have_selector('li.active', text: 'Settings')
     end
@@ -33,12 +34,22 @@ feature 'mechanic signin' do
       should have_selector('li.active', text: 'Dashboard')
     end
 
-    scenario 'fail' do
-      within '.wrap > .container' do
-        click_button 'Login'
+    context 'fail' do
+      scenario 'with invalid information' do
+        within '.wrap > .container' do
+          click_button 'Login'
+        end
+
+        should have_content('Invalid email or password.')
       end
 
-      should have_content('Invalid email or password.')
+      scenario 'if mechanic suspended' do
+        suspended_mechanic = create :mechanic, :suspended
+        signin_as_mechanic suspended_mechanic
+
+        should have_no_link 'Log out'
+        should have_content('Your account is suspended. Please contact us to activate it.')
+      end
     end
   end
 

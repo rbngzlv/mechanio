@@ -563,7 +563,8 @@ CREATE TABLE mechanics (
     business_name character varying(255),
     business_mobile_number character varying(255),
     repair_work_classes text,
-    tradesperson_certificates text
+    tradesperson_certificates text,
+    suspended_at timestamp without time zone
 );
 
 
@@ -1736,5 +1737,7 @@ INSERT INTO schema_migrations (version) VALUES ('20140123111537');
 INSERT INTO schema_migrations (version) VALUES ('20140127135118');
 
 INSERT INTO schema_migrations (version) VALUES ('20140206150842');
+
+INSERT INTO schema_migrations (version) VALUES ('20140211170449');
 
 INSERT INTO schema_migrations (version) VALUES ('20140211221307');

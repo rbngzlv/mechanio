@@ -28,6 +28,10 @@
     = f.submit 'Save', class: 'btn btn-primary'
     - if @mechanic.persisted?
       = link_to 'Edit regions', admins_mechanic_edit_regions_path(@mechanic), class: 'btn btn-primary'
+      - if @mechanic.suspended?
+        = link_to 'Activate', admins_mechanic_activate_path(@mechanic), method: :patch, class: 'btn btn-success'
+      - else
+        = link_to 'Suspend', admins_mechanic_suspend_path(@mechanic), method: :patch, class: 'btn btn-dark'
       = link_to 'Delete', admins_mechanic_path(@mechanic), method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure to delete the mechanic?' }
   .clearfix
   %hr.hr-dark-gray
