@@ -46,6 +46,7 @@ Mechanio::Application.routes.draw do
     resources :events, only: [:index, :create, :destroy]
 
     resource :profile, only: [:show, :edit, :update]
+    resource :payout_method, only: [:edit, :update]
     resource :settings, only: [:edit, :update]
   end
 
