@@ -31,6 +31,7 @@ class Mechanic < ActiveRecord::Base
 
   delegate :geocoded?, to: :location, prefix: true, allow_nil: true
 
+  scope :active, -> { where(suspended_at: nil) }
   scope :close_to, -> (latitude, longitude) {
     joins(:location).merge(Location.close_to(latitude, longitude))
   }

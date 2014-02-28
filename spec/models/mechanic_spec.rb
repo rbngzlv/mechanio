@@ -42,6 +42,13 @@ describe Mechanic do
   it { should_not allow_value('12345678').for(:business_mobile_number) }
   it { should_not allow_value('04123456').for(:business_mobile_number) }
 
+  specify '#active' do
+    mechanic1 = create :mechanic
+    mechanic2 = create :mechanic, :suspended
+
+    Mechanic.active.to_a.should eq [mechanic1]
+  end
+
   describe '#by_location' do
     let!(:mechanic1) { create :mechanic, location: create(:location, latitude: 40.00, longitude: -77.00, postcode: '1234') }
     let!(:mechanic2) { create :mechanic, location: create(:location, latitude: 39.01, longitude: -75.99, postcode: '2345') }

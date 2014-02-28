@@ -2,10 +2,11 @@ require 'spec_helper'
 
 feature 'Appointments' do
   let(:user)        { create :user }
-  let!(:mechanic)   { create :mechanic, mechanic_regions: [create(:mechanic_region, postcode: '1234')] }
+  let!(:mechanic)   { create :mechanic, mechanic_regions: [create(:mechanic_region, postcode: postcode)], location: location }
   let!(:job)        { create :job_with_service, :estimated, user: user, location: location }
   let(:appointment) { create :job, :with_service, :estimated, :assigned, user: user }
-  let(:location)    { create(:location, :with_coordinates, postcode: '1234') }
+  let(:location)    { create :location, postcode: postcode, latitude: 38.000000, longitude: -75.000000 }
+  let(:postcode)    { '1234' }
 
   subject { page }
 
@@ -48,8 +49,7 @@ feature 'Appointments' do
 
     mechanic2 = create :mechanic, location: create(:location, latitude: 40.000000, longitude: -77.000000)
     mechanic3 = create :mechanic, location: create(:location, latitude: 39.100000, longitude: -76.100000)
-    mechanic.location = create(:location, latitude: 38.000000, longitude: -75.000000)
-    mechanic.save
+
     visit edit_users_appointment_path(job)
     within 'section' do
 
@@ -59,12 +59,18 @@ feature 'Appointments' do
     end
   end
 
+  specify 'only lists active mechanics' do
+    suspended_mechanic = create :mechanic, :suspended, mechanic_regions: [create(:mechanic_region, postcode: postcode)], location: location
+
+    visit edit_users_appointment_path(job)
+
+    page.should have_content mechanic.full_name
+    page.should_not have_content suspended_mechanic.full_name
+  end
+
   specify 'show error when no mechanics found' do
     job_without_location = create(:job_with_service, :estimated, user: user, location: create(:location, postcode: '9999'))
     visit edit_users_appointment_path(job_without_location)
     should have_content 'Sorry, we could not find any mechanics near you'
-  end
-
-  scenario 'cancel', pending: 'we are have not cancel button on the mockup' do
   end
 end

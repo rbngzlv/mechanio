@@ -12,7 +12,7 @@ class Users::AppointmentsController < Users::ApplicationController
   end
 
   def update
-    mechanic = Mechanic.find(appointment_params[:mechanic_id])
+    mechanic = mechanics.find(appointment_params[:mechanic_id])
     appointment_service = AppointmentService.new(@job, mechanic, appointment_params[:scheduled_at])
 
     if appointment_service.valid?
@@ -31,7 +31,7 @@ class Users::AppointmentsController < Users::ApplicationController
   end
 
   def mechanics
-    Mechanic.by_region(@job.location_postcode)
+    Mechanic.active.by_region(@job.location_postcode)
   end
   helper_method :mechanics
 
