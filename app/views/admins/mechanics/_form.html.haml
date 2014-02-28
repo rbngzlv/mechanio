@@ -36,8 +36,6 @@
           %li
             = link_to 'Edit regions', admins_mechanic_edit_regions_path(@mechanic)
           %li
-            = link_to 'Edit bank accounts', admins_mechanic_payout_methods_path(@mechanic)
-          %li
             - if @mechanic.suspended?
               = link_to 'Activate account', admins_mechanic_activate_path(@mechanic), method: :patch
             - else
@@ -56,6 +54,7 @@
     %li= link_to "Driver's License", '#driver_license', 'data-toggle' => 'tab'
     %li= link_to "Motor Mechanic's License", '#motor_license', 'data-toggle' => 'tab'
     %li= link_to 'Badges', '#badges', 'data-toggle' => 'tab'
+    %li= link_to 'Payout Information', '#payout', 'data-toggle' => 'tab'
 
   .tab-content
     #personal.tab-pane.active
@@ -105,6 +104,12 @@
       = f.input :super_mechanic
       = f.input :warranty_covered
       = f.input :qualification_verified
+
+    #payout.tab-pane
+      = f.simple_fields_for :payout_method do |p|
+        = p.input :account_name
+        = p.input :account_number
+        = p.input :bsb_number
 
   %hr.hr-dark-gray
   .form-group

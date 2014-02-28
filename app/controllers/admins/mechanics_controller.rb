@@ -8,7 +8,7 @@ class Admins::MechanicsController < Admins::ApplicationController
 
   def new
     @mechanic = Mechanic.new
-    @mechanic.build_locations
+    @mechanic.build_associations
   end
 
   def create
@@ -19,20 +19,20 @@ class Admins::MechanicsController < Admins::ApplicationController
       registration_email @mechanic, password
       redirect_to edit_admins_mechanic_path(@mechanic), notice: 'Mechanic successfully created.'
     else
-      @mechanic.build_locations
+      @mechanic.build_associations
       render :new
     end
   end
 
   def edit
-    @mechanic.build_locations
+    @mechanic.build_associations
   end
 
   def update
     if @mechanic.update_attributes(permitted_params)
       redirect_to edit_admins_mechanic_path(@mechanic), notice: 'Mechanic successfully updated.'
     else
-      @mechanic.build_locations
+      @mechanic.build_associations
       render :edit
     end
   end

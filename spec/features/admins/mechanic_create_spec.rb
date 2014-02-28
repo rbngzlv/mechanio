@@ -66,6 +66,11 @@ feature 'adds a new mechanic', :js do
       click_on 'Badges'
       check 'Phone verified'
 
+      click_on 'Payout Information'
+      fill_in 'Account name', with: 'Bank of Australia'
+      fill_in 'Account number', with: '1234567890'
+      fill_in 'Bsb number', with: '123456'
+
       within('.top-bar') { click_button 'Save' }
     end.to change { Mechanic.count }.by 1
 
@@ -126,6 +131,11 @@ feature 'adds a new mechanic', :js do
     page.should have_unchecked_field 'Super mechanic'
     page.should have_unchecked_field 'Warranty covered'
     page.should have_unchecked_field 'Qualification verified'
+
+    click_on 'Payout Information'
+    page.should have_field 'Account name', with: 'Bank of Australia'
+    page.should have_field 'Account number', with: '1234567890'
+    page.should have_field 'Bsb number', with: '123456'
 
     last_delivery.body.should include('mechanic@host.com')
     last_delivery.subject.should include('Welcome to Mechanio')

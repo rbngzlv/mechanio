@@ -1,9 +1,0 @@
-= simple_form_for [:admins, @mechanic, @payout_method], html: { class: 'form-horizontal' }, defaults: { label_html: { class: 'col-md-2 col-sm-2' } }, wrapper: :bootstrap_horizontal do |f|
-  = f.error_notification
-  = f.input :account_name, label: 'Account Name'
-  = f.input :account_number, label: 'Account Number'
-  = f.input :bsb_number, label: 'BSB Number'
-
-  .form-group
-    .col-md-offset-2.col-md-4
-      = f.submit 'Save', class: 'btn btn-primary col-md-3 col-sm-4'

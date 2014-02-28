@@ -6,12 +6,13 @@ class Mechanic < ActiveRecord::Base
   belongs_to :business_location, dependent: :destroy, class_name: "Location"
   has_many :jobs
   has_many :events
-  has_many :payout_methods
   has_many :mechanic_regions
   has_many :regions, through: :mechanic_regions
+  has_one :payout_method
 
   accepts_nested_attributes_for :location
   accepts_nested_attributes_for :business_location, reject_if: :all_blank
+  accepts_nested_attributes_for :payout_method, reject_if: :all_blank
 
   mount_uploader :avatar, AvatarUploader
   mount_uploader :driver_license, DocumentUploader
@@ -53,9 +54,10 @@ class Mechanic < ActiveRecord::Base
     end
   end
 
-  def build_locations
-    build_location unless location
+  def build_associations
+    build_location          unless location
     build_business_location unless business_location
+    build_payout_method     unless payout_method
   end
 
   def toggle_regions(region_ids, toggle)

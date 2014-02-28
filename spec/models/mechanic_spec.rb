@@ -13,7 +13,7 @@ describe Mechanic do
   it { should belong_to :location }
   it { should belong_to :business_location }
   it { should have_many :jobs }
-  it { should have_many :payout_methods }
+  it { should have_one :payout_method }
 
   it { should respond_to :avatar }
   it { should respond_to :driver_license }
@@ -80,21 +80,26 @@ describe Mechanic do
     Mechanic.by_region('5678').to_a.should eq [mechanic]
   end
 
-  describe '.build_locations' do
+  describe '.build_associations' do
     let(:mechanic) { Mechanic.new }
 
-    it 'should create location association' do
-      expect { mechanic.build_locations }.to change { mechanic.location }.from(nil)
+    it 'should build location' do
+      expect { mechanic.build_associations }.to change { mechanic.location }.from(nil)
     end
 
-    it 'should create business location association' do
-      expect { mechanic.build_locations }.to change { mechanic.business_location }.from(nil)
+    it 'should build business_location' do
+      expect { mechanic.build_associations }.to change { mechanic.business_location }.from(nil)
     end
 
-    it 'should not change associations if their are exists' do
-      mechanic.build_locations
-      expect { mechanic.build_locations }.not_to change { mechanic.location }
-      expect { mechanic.build_locations }.not_to change { mechanic.business_location }
+    it 'should build payout_method' do
+      expect { mechanic.build_associations }.to change { mechanic.payout_method }.from(nil)
+    end
+
+    it 'should not overwrite existing associations' do
+      mechanic.build_associations
+      expect { mechanic.build_associations }.not_to change { mechanic.location }
+      expect { mechanic.build_associations }.not_to change { mechanic.business_location }
+      expect { mechanic.build_associations }.not_to change { mechanic.payout_method }
     end
   end
 
