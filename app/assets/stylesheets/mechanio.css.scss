@@ -1478,6 +1478,10 @@ form {
 }
 
 .upcoming-job-details {
+  tbody > tr > th {
+    border-top: none;
+  }
+
   .simple_form .form-group {
     padding: 0 5px 0 0;
     margin: 0;

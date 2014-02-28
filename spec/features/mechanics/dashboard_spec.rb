@@ -24,8 +24,8 @@ feature 'dashboard page' do
 
   context 'jobs' do
     specify 'notify about empty job list' do
-      should have_content 'No Upcoming Jobs'
-      should have_content 'No Completed Jobs'
+      should have_content 'No upcoming jobs'
+      should have_content 'No completed jobs'
     end
 
     scenario 'upcoming jobs' do

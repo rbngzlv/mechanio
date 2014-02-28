@@ -8,4 +8,12 @@ class Mechanics::JobsController < Mechanics::ApplicationController
     @job = current_mechanic.jobs.find(params[:id])
     render @job.completed? ? :completed_job : :upcoming_job
   end
+
+  def complete
+    job = current_mechanic.appointments.find(params[:job_id])
+    job_service = JobService.new(job)
+    job_service.complete
+
+    redirect_to :back
+  end
 end

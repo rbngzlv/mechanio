@@ -9,7 +9,11 @@
             = link_to 'Completed Jobs', '#past-jobs', :data => {:toggle => 'tab'}
         .tab-content
           #scheduled-jobs.tab-pane.active
-            = render partial: 'mechanics/jobs/panel/upcoming_job', collection: @upcoming_jobs, as: :job || render('no_upcoming_jobs')
+            - if @upcoming_jobs.length > 0
+              = render partial: 'mechanics/jobs/panel/upcoming_job', collection: @upcoming_jobs, as: :job
+            - else
+              %h5 You have no upcoming jobs
+
           #past-jobs.tab-pane
             - if @completed_jobs.length > 0
               .table-responsive

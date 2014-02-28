@@ -29,7 +29,7 @@
 
     - if @mechanic.persisted?
       .btn-group
-        %button.btn.btn-primary{type: "button"} More actions
+        %button.btn.btn-primary{"data-toggle" => "dropdown", type: "button"} More actions
         %button.btn.btn-primary.dropdown-toggle{"data-toggle" => "dropdown", type: "button"}
           %span.caret
         %ul.dropdown-menu{role: "menu"}

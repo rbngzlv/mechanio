@@ -63,7 +63,10 @@ feature 'Admin mechanics management' do
   it 'deletes a mechanic', :js do
     visit edit_admins_mechanic_path(mechanic)
 
-    expect { click_link 'Delete' }.to change { Mechanic.count }.by -1
+    expect {
+      click_on 'More actions'
+      click_on 'Delete mechanic'
+    }.to change { Mechanic.count }.by -1
     page.should have_css '.alert', text: 'Mechanic successfully deleted.'
   end
 

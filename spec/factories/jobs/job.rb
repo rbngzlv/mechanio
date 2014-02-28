@@ -48,6 +48,7 @@ FactoryGirl.define do
       credit_card
       status :assigned
       scheduled_at { DateTime.tomorrow }
+      assigned_at  { DateTime.now }
     end
 
     trait :with_event do

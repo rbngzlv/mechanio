@@ -40,6 +40,7 @@ Mechanio::Application.routes.draw do
     get '/', to: 'dashboard#index', as: :dashboard
 
     resources :jobs, only: [:index, :show] do
+      get :complete
       resource :car, only: [:update]
     end
     resources :events, only: [:index, :create, :destroy]

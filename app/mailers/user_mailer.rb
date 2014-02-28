@@ -19,4 +19,9 @@ class UserMailer < AsyncMailer
     @job = Job.find(job_id)
     mail subject: "Your appointment for your #{@job.car.display_title} has been updated", to: @job.user.email
   end
+
+  def job_completed(job_id)
+    @job = Job.find(job_id)
+    mail subject: "Your job for your #{@job.car.display_title} has been completed", to: @job.user.email
+  end
 end

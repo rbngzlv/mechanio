@@ -12,28 +12,28 @@
       .table-responsive
         %table.table.table-borderless.upcoming-job-details
           %tr.tr-divider
+            %th Client
             %td
-              %b Client:
-            %td
-              = @job.client_name
-            %td
-          %tr
-            %td
-              %b Car:
-            %td
-              = @job.car.display_title
+              %p= @job.client_name
+              %p= @job.location.full_address
+              - if @job.contact_phone
+                %p
+                  %i.icon.icon-phone
+                  = @job.contact_phone
             %td
           %tr
+            %th Car
+            %td= @job.car.display_title
             %td
-              %b VIN:
+          %tr
+            %th VIN
             %td
               = simple_form_for [:mechanics, @job, @job.car], wrapper: :nolabel, html: { class: 'edit_car edit_vin' } do |f|
                 = f.input :vin, wrapper_html: { class: 'col-md-6 col-sm-6' }
                 = f.submit 'Save', class: 'btn btn-default'
             %td
           %tr.tr-divider
-            %td.reg-number-label
-              %b Car Registration Number:
+            %th.reg-number-label Registration Number
             %td
               = simple_form_for [:mechanics, @job, @job.car], wrapper: :nolabel, html: { class: 'edit_car edit_reg_number' } do |f|
                 = f.input :reg_number, wrapper_html: { class: 'col-md-6 col-sm-6' }
@@ -41,36 +41,12 @@
             %td
           - @job.tasks.each do |task|
             %tr
-              %td
-                %b #{ task.type }:
-              %td
-                = task.title
-              %td.text-right
-                = number_to_currency task.cost
+              %th #{ task.type }:
+              %td= task.title
+              %td.text-right= number_to_currency task.cost
           %tr.tr-divider
             %td
-            %td
-            %td
-          %tr.tr-divider.big
-            %td
-              Billing:
-            %td.text-right
-              %b Total Fees:
-            %td.text-right
-              %b= number_to_currency @job.cost
-          %tr
-            %td
-              Location
-            %td
-              = @job.location.full_address
-            %td
-          %tr.tr-divider
-            %td
-              Contact
-            %td
-              = @job.contact_phone
-            %td
+            %th.text-right Total Fees:
+            %th.text-right= number_to_currency @job.cost
         .clearfix
-          =link_to 'Cancel Job', '#js-modal', class: 'btn btn-info pull-left', :data => {:toggle => 'modal'}, :role => 'button'
-          =link_to 'Edit Job', '#', class: 'btn btn-info pull-left'
-          =link_to 'Save', '#', class: 'btn btn-success pull-right'
+          =link_to 'Complete job', mechanics_job_complete_path(@job), class: 'btn btn-success pull-right'

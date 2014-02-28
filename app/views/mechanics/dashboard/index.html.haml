@@ -11,7 +11,10 @@
           = link_to '', '#js-collapse-two', class: 'glyphicon glyphicon-chevron-down accordion-toggle', :data => {:toggle => 'collapse', :parent => '#accordion'}
       #js-collapse-two.panel-collapse.collapse.in
         .panel-body
-          = render partial: 'job', collection: @upcoming_jobs || 'No Upcoming Jobs'
+          - if @upcoming_jobs.length > 0
+            = render partial: 'job', collection: @upcoming_jobs
+          - else
+            %p.text-center No upcoming jobs
 .row.completed
   .col-md-12
     .panel.panel-default.panel-rounded
@@ -23,4 +26,7 @@
           = link_to '', '#js-collapse-three', class: 'glyphicon glyphicon-chevron-down accordion-toggle', :data => {:toggle => 'collapse', :parent => '#accordion'}
       #js-collapse-three.panel-collapse.collapse.in
         .panel-body
-          = render partial: 'job', collection: @upcoming_jobs || 'No Completed Jobs'
+          - if @completed_jobs.length > 0
+            = render partial: 'job', collection: @completed_jobs || 'No Completed Jobs'
+          - else
+            %p.text-center No completed jobs

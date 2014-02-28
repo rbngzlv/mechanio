@@ -49,7 +49,7 @@ class Job < ActiveRecord::Base
     state :payment_error
     state :awaiting_feedback
     state :completed do
-      validates :transaction_id, presence: true
+      # validates :transaction_id, presence: true
     end
     state :cancelled
 

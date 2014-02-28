@@ -36,4 +36,12 @@ describe UserMailer do
     mail.subject.should   eq "Your appointment for your #{job.car.display_title} has been updated"
     mail.body.encoded.should match users_estimates_url
   end
+
+  specify '#job_completed' do
+    mail = UserMailer.job_completed(job.id)
+    mail.to.should        eq to
+    mail.from.should      eq from
+    mail.subject.should   eq "Your job for your #{job.car.display_title} has been completed"
+    mail.body.encoded.should match '#'
+  end
 end

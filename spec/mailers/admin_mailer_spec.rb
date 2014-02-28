@@ -36,4 +36,12 @@ describe AdminMailer do
     mail.subject.should   eq 'Job quote updated'
     mail.body.encoded.should match edit_admins_job_url(job.id)
   end
+
+  specify '#job_completed' do
+    mail = AdminMailer.job_completed(job.id)
+    mail.to.should        eq to
+    mail.from.should      eq from
+    mail.subject.should   eq "Job #{job.uid} has been completed"
+    mail.body.encoded.should match edit_admins_job_url(job.id)
+  end
 end

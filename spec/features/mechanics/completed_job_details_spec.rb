@@ -21,14 +21,6 @@ feature 'upcoming job details page' do
     end.to change { page.has_content? job.uid }.from(false).to(true)
   end
 
-  specify 'mechanic have access only for his own completed job' do
-    another_job = create :job_with_service, :completed, mechanic:
-      create(:mechanic, email: 'qw@qw.qw')
-    expect { visit mechanics_job_path(another_job) }.to raise_error
-    visit mechanics_job_path(job)
-    page.should have_no_selector 'li.active', text: 'Dashboard'
-  end
-
   it 'should show job details' do
     visit mechanics_job_path(job)
     page.should have_link 'View Receipt'
@@ -111,15 +103,4 @@ feature 'upcoming job details page' do
   end
 
   it 'should show real feedback', pending: 'feedback mechanism not implemented'
-
-  it 'should not show note if not exists' do
-    job.tasks.first.tap do |task|
-      task.note = nil
-      task.save
-      visit mechanics_job_path(job)
-      within "##{task.type.downcase}_#{task.id}" do
-        page.should_not have_css 'p b', text: 'Note'
-      end
-    end
-  end
 end
