@@ -6,7 +6,7 @@ module AncestryHelper
     collapse_depth = options[:collapse_depth]
     content_tag(:ul) do
       grupos.map do |grupo, sub_grupos|
-        content_tag(:li, style: ('display: none' if collapse_depth && grupo.ancestry_depth >= collapse_depth)) do
+        content_tag(:li) do
           nested_title(grupo, options, &block) + nested_groups(sub_grupos, options, &block).html_safe
         end
       end.join.html_safe

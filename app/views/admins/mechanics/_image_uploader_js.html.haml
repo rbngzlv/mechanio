@@ -1,0 +1,23 @@
+:javascript
+  var path = "#{admins_mechanic_url(@mechanic)}";
+:coffeescript
+  $ ->
+    $('input[type=file]').on 'change', ->
+      $cancel_button = $('<span>').addClass('btn-change-image btn-cancel-image-upload').html('&nbsp;×')
+      $(this).parents('div').find('span.file-input-name').append($cancel_button)
+
+    $(document).on 'click', '.btn-change-image', ->
+      $this = $(this)
+      $that = $(this).parent()
+      if $this.hasClass('btn-delete-image')
+        if confirm "Are you sure you want to delete this image?"
+          sent_data = { _method: 'PATCH', mechanic: {} }
+          sent_data.mechanic[$that.attr('data-delete')] = 1
+          $.post path, sent_data, (data)->
+            $that.parent().find('img').remove()
+            $that.remove()
+            $('body > .container').prepend('<div class="alert alert-info">Image successfully deleted.</div>')
+      else if $this.hasClass('btn-cancel-image-upload')
+        if confirm "Are you sure you want to cancel upload this image?"
+          $that.parent().find('input').val('')
+          $that.remove()

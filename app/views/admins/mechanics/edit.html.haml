@@ -1,5 +1,21 @@
-%h4.mechanic-details.pull-left
-  Mechanic details
-  = mechanic_status(@mechanic, show_suspended_at: true)
+= render 'image_uploader_js'
 
-= render 'form'
+= simple_form_for [:admins, @mechanic], html: { class: 'form-horizontal admin_mechanic_form', multipart: true }, defaults: { label_html: { class: 'col-md-2 col-sm-2' } }, wrapper: :bootstrap_horizontal do |f|
+  .top-bar
+    = render 'header'
+    .pull-right
+      = f.submit 'Save', class: 'btn btn-primary'
+      = render 'more_actions'
+  .clearfix
+  %hr.hr-dark-gray
+
+  .row
+    .col-md-3
+      = render 'sidebar_menu'
+    .col-md-9
+      = render 'profile_tabs', f: f
+
+      %hr.hr-dark-gray
+      .form-group
+        .col-md-offset-2.col-md-4
+          = f.submit 'Save', class: 'btn btn-primary col-md-3 col-sm-4'

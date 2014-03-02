@@ -1,0 +1,19 @@
+= render 'admins/mechanics/header'
+.pull-right
+  = render 'admins/mechanics/more_actions'
+.clearfix
+%hr.hr-dark-gray
+
+.row
+  .col-md-3
+    = render 'admins/mechanics/sidebar_menu'
+  .col-md-9
+    %h4 Edit Regions
+    %hr.hr-dark-gray
+
+    .tree
+      #regions-progress.alert.alert-success.col-md-3 Regions saved
+      .pull-left
+        = form_for @mechanic, url: admins_mechanic_regions_path(@mechanic) do |f|
+          = f.hidden_field :id
+          = regions_tree(Region.roots.first, selected: @mechanic.region_ids, collapse_depth: 3)

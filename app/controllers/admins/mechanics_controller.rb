@@ -42,20 +42,6 @@ class Admins::MechanicsController < Admins::ApplicationController
     redirect_to admins_mechanics_path, notice: 'Mechanic successfully deleted.'
   end
 
-  def edit_regions
-  end
-
-  def update_regions
-    region_ids = Region.find(params[:region_id]).subtree_ids
-    @mechanic.toggle_regions(region_ids, params[:toggle] == 'true')
-    render text: region_ids.inspect
-  end
-
-  def regions_subtree
-    root = Region.find(params[:region_id])
-    render text: view_context.regions_tree(root, selected: @mechanic.region_ids)
-  end
-
   def suspend
     if @mechanic.suspend
       redirect_to edit_admins_mechanic_path(@mechanic), notice: 'Mechanic successfully suspended.'

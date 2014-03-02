@@ -11,8 +11,11 @@ $.fn.extend
       mechanic_id = $('#mechanic_id').val()
       checked = this.checked
       el = $(this).parent()
-      $.post("/admins/mechanics/#{mechanic_id}/update_regions", region_id: el.data('region-id'), toggle: checked)
-        .success (html) ->
+      $.ajax
+        url: "/admins/mechanics/#{mechanic_id}/regions",
+        type: 'PATCH',
+        data: { region_id: el.data('region-id'), toggle: checked },
+        success: (html) ->
           $('#regions-progress').show().delay(1000).fadeOut()
 
       for cb in el.parent().find('li :checkbox')
@@ -37,7 +40,7 @@ $.fn.extend
   load_subtree: ->
     el = this
     mechanic_id = $('#mechanic_id').val()
-    $.get("/admins/mechanics/#{mechanic_id}/regions_subtree", region_id: el.data('region-id'))
+    $.get("/admins/mechanics/#{mechanic_id}/regions/subtree", region_id: el.data('region-id'))
       .success (html) ->
         el.after(html).parent('li').subtree() unless html == ''
     

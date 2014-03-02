@@ -55,11 +55,13 @@ Mechanio::Application.routes.draw do
 
     resources :users
     resources :mechanics, except: [:show] do
-      get   :regions_subtree
-      get   :edit_regions
-      post  :update_regions
       patch :suspend
       patch :activate
+
+      resource :regions, only: [:edit, :update], controller: 'mechanics/regions' do
+        get :subtree
+      end
+      resource :payout_method, only: [:edit, :update], controller: 'mechanics/payout_methods'
     end
     resources :model_variations, only: [:index]
     resources :service_plans, except: [:index, :show] do

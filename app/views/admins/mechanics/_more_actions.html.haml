@@ -1,0 +1,13 @@
+.btn-group
+  %button.btn.btn-primary{"data-toggle" => "dropdown", type: "button"} More actions
+  %button.btn.btn-primary.dropdown-toggle{"data-toggle" => "dropdown", type: "button"}
+    %span.caret
+  %ul.dropdown-menu{role: "menu"}
+    %li
+      - if @mechanic.suspended?
+        = link_to 'Activate account', admins_mechanic_activate_path(@mechanic), method: :patch
+      - else
+        = link_to 'Suspend account', admins_mechanic_suspend_path(@mechanic), method: :patch
+    %li.divider
+    %li
+      = link_to 'Delete mechanic', admins_mechanic_path(@mechanic), method: :delete, data: { confirm: 'Are you sure to delete the mechanic?' }

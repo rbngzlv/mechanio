@@ -22,12 +22,9 @@ feature 'Admin mechanics management' do
   it 'shows mechanic details' do
     visit edit_admins_mechanic_path(mechanic)
 
-    page.should have_css 'h4', text: 'Mechanic details'
+    page.should have_css 'h4', text: mechanic.full_name
     page.should have_field 'First name', with: mechanic.first_name
 
-    within '.top-bar' do
-      page.should have_button 'Save'
-    end
     within 'hr + .form-group' do
       page.should have_button 'Save'
     end
@@ -41,6 +38,8 @@ feature 'Admin mechanics management' do
       page.should have_css 'td', text: 'Joe Mechanic'
 
       click_link 'Edit'
+      page.should have_css '.nav-stacked li.active a', text: 'Edit Profile'
+
       fill_in 'First name', with: 'Alex'
       click_save
       page.should have_css '.alert-info', text: 'Mechanic successfully updated.'
@@ -52,11 +51,23 @@ feature 'Admin mechanics management' do
     scenario 'fail' do
       visit admins_mechanics_path
       click_link 'Edit'
-      page.should have_selector "h4", text: "Mechanic details"
+      page.should have_selector "h4", text: mechanic.full_name
       fill_in 'First name', with: ''
       click_save
       page.should have_content "Please review the problems below:"
       page.should have_selector "#mechanic_business_location_attributes_address"
+    end
+
+    scenario 'edit payout information' do
+      visit edit_admins_mechanic_path(mechanic)
+      click_on 'Payout Information'
+
+      fill_in 'Account name', with: 'Back on Australia'
+      fill_in 'Account number', with: '1234567890'
+      fill_in 'Bsb number', with: '123123'
+      click_on 'Save'
+
+      page.should have_content 'Payout information successfully updated.'
     end
   end
 
