@@ -1,0 +1,10 @@
+%tr
+  %td= job.uid
+  %td= job_status(job.status)
+  %td= job.title
+  %td
+    = job.client_name
+    %br
+    %span.small= job.created_at.to_s(:date) 
+  %td= number_to_currency(job.cost) || 'pending'
+  %td= link_to 'Edit', edit_admins_job_path(job)

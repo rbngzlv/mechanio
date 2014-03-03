@@ -3,6 +3,7 @@ require 'spec_helper'
 feature 'Admin mechanics management' do
 
   let(:mechanic) { create :mechanic, mobile_number: '0410123456' }
+  let(:job) { create :job, :with_service, :assigned, mechanic: mechanic }
 
   before do
     login_admin
@@ -84,6 +85,8 @@ feature 'Admin mechanics management' do
         end
 
         first('input[type=checkbox]').set(true)
+
+        page.should have_content 'Regions saved'
 
         all('input[type=checkbox]').each do |checkbox|
           checkbox.checked?.should be_true
@@ -180,6 +183,23 @@ feature 'Admin mechanics management' do
         find('span.btn-change-image.btn-cancel-image-upload', text: '×').click
       end.to change { all('.file-input-name').length }.from(1).to(0)
       expect { click_save }.not_to change { all('img').length }
+    end
+  end
+
+  context 'jobs' do
+    before do
+      job
+    end
+
+    scenario 'lists mechanics jobs' do
+      visit edit_admins_mechanic_path(mechanic)
+      within '.nav-stacked' do
+        click_on 'Jobs'
+      end
+
+      page.should have_css 'h4', text: mechanic.full_name
+      page.should have_css 'tr', text: 'ID Status Job Requested by Cost'
+      page.should have_css 'tr', text: "#{job.uid}"
     end
   end
 

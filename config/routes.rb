@@ -62,6 +62,7 @@ Mechanio::Application.routes.draw do
         get :subtree
       end
       resource :payout_method, only: [:edit, :update], controller: 'mechanics/payout_methods'
+      resources :jobs, only: [:index], controller: 'mechanics/jobs'
     end
     resources :model_variations, only: [:index]
     resources :service_plans, except: [:index, :show] do

@@ -1,0 +1,25 @@
+.top-bar
+  = render 'admins/mechanics/header'
+
+.clearfix
+%hr.hr-dark-gray
+
+.row
+  .col-md-3
+    = render 'admins/mechanics/sidebar_menu'
+  .col-md-9
+    - if @jobs.length > 0
+      .table-responsive
+        %table.table.table-striped
+          %thead
+            %tr
+              %th ID
+              %th Status
+              %th Job
+              %th Requested by
+              %th Cost
+              %th
+          %tbody
+            = render @jobs
+    - else
+      %h5.text-center No jobs found
