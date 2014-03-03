@@ -54,6 +54,7 @@ describe AppointmentService do
       job.scheduled_at.should     eq scheduled_at
       job.event.time_start.should eq scheduled_at
       job.event.should            eq mechanic.reload.events.last
+      mechanic.current_jobs_count.should eq 1
 
       mail_deliveries.count.should eq 3
     end
@@ -71,6 +72,7 @@ describe AppointmentService do
       job.assigned_at.should      be_nil
       job.scheduled_at.should     be_nil
       job.event.should            be_nil
+      mechanic.current_jobs_count.should eq 0
 
       mail_deliveries.count.should eq 0
     end

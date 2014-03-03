@@ -155,4 +155,21 @@ describe Mechanic do
       end
     end
   end
+
+  specify '#update_job_counters' do
+    mechanic = create :mechanic
+    mechanic.update_job_counters
+    mechanic.current_jobs_count.should eq 0
+    mechanic.completed_jobs_count.should eq 0
+
+    mechanic.jobs << create(:job, :with_service, :assigned, mechanic: mechanic)
+    mechanic.update_job_counters
+    mechanic.current_jobs_count.should eq 1
+    mechanic.completed_jobs_count.should eq 0
+
+    mechanic.jobs << create(:job, :with_service, :completed, mechanic: mechanic)
+    mechanic.update_job_counters
+    mechanic.current_jobs_count.should eq 1
+    mechanic.completed_jobs_count.should eq 1
+  end
 end

@@ -13,6 +13,8 @@ describe JobService do
       job_service.complete
 
       job.status.should eq 'completed'
+      job.mechanic.completed_jobs_count.should eq 1
+
       mail_deliveries.count.should eq 2
     end
   end

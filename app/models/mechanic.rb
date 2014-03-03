@@ -74,6 +74,13 @@ class Mechanic < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
 
+  def update_job_counters
+    update_attributes(
+      current_jobs_count: appointments.length,
+      completed_jobs_count: past_appointments.length
+    )
+  end
+
   def active_for_authentication?
     super && !suspended?
   end

@@ -40,6 +40,8 @@ class AppointmentService
         time_start: @scheduled_at,
         time_end:   @scheduled_at + 2.hour
       )
+
+      mechanic.update_job_counters
     end
 
     [AdminMailer, UserMailer, MechanicMailer].map do |mailer|
