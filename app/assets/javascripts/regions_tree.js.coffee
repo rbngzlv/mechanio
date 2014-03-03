@@ -7,16 +7,18 @@ $.fn.extend
     this.find(':checked').parents('li').show()
 
     this.on 'click', ':checkbox', (e) ->
-      $('#regions-progress').hide()
+      $('#regions-progress', '#regions-error').hide()
       mechanic_id = $('#mechanic_id').val()
       checked = this.checked
       el = $(this).parent()
       $.ajax
         url: "/admins/mechanics/#{mechanic_id}/regions",
-        type: 'PATCH',
+        type: 'PUT',
         data: { region_id: el.data('region-id'), toggle: checked },
         success: (html) ->
           $('#regions-progress').show().delay(1000).fadeOut()
+        error: (xhr, error, e) ->
+          $('#regions-error').show()
 
       for cb in el.parent().find('li :checkbox')
         cb.checked = checked

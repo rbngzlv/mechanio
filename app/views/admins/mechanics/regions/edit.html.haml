@@ -13,6 +13,7 @@
 
     .tree
       #regions-progress.alert.alert-success.col-md-3 Regions saved
+      #regions-error.alert.alert-danger.col-md-3 Error occured
       .pull-left
         = form_for @mechanic, url: admins_mechanic_regions_path(@mechanic) do |f|
           = f.hidden_field :id

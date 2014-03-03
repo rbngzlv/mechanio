@@ -69,6 +69,35 @@ feature 'Admin mechanics management' do
 
       page.should have_content 'Payout information successfully updated.'
     end
+
+    scenario 'edit regions', :js do
+      root = create :region, name: 'Root'
+      region1 = create :region, name: 'NSW', parent: root
+      region2 = create :region, name: 'Sydney', parent: region1
+
+      visit edit_admins_mechanic_path(mechanic)
+      click_on 'Edit Regions'
+
+      within '.tree' do
+        all('input[type=checkbox]').each do |checkbox|
+          checkbox.checked?.should be_false
+        end
+
+        first('input[type=checkbox]').set(true)
+
+        all('input[type=checkbox]').each do |checkbox|
+          checkbox.checked?.should be_true
+        end
+      end
+
+      click_on 'Edit Regions'
+
+      within '.tree' do
+        all('input[type=checkbox]').each do |checkbox|
+          checkbox.checked?.should be_true
+        end
+      end
+    end
   end
 
   it 'deletes a mechanic', :js do
