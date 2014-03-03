@@ -6,5 +6,5 @@
     = job.client_name
     %br
     %span.small= job.created_at.to_s(:date) 
-  %td= number_to_currency(job.cost) || 'pending'
+  %td.text-right= number_to_currency(job.cost)
   %td= link_to 'Edit', edit_admins_job_path(job)
