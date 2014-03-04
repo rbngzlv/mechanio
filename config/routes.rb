@@ -73,6 +73,7 @@ Mechanio::Application.routes.draw do
     end
 
     resources :jobs, only: [:index, :edit, :update, :destroy]
+    resources :payouts, only: [:create, :update]
     resources :symptoms
   end
 

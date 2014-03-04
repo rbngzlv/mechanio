@@ -8,6 +8,7 @@ class Mechanic < ActiveRecord::Base
   has_many :events
   has_many :mechanic_regions
   has_many :regions, through: :mechanic_regions
+  has_many :payouts
   has_one :payout_method
 
   accepts_nested_attributes_for :location
@@ -79,6 +80,10 @@ class Mechanic < ActiveRecord::Base
       current_jobs_count: appointments.length,
       completed_jobs_count: past_appointments.length
     )
+  end
+
+  def update_earnings
+    update_attributes(total_earnings: payouts.sum(:amount))
   end
 
   def active_for_authentication?

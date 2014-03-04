@@ -1,6 +1,6 @@
 .tasks.clearfix
   .panel.panel-default.panel-rounded.task.clearfix{ 'ng-repeat' => 'task in job.tasks', 'ng-hide' => 'task.isDeleted()' }
-    = render partial: 'task', locals: { f: f }
+    = render partial: 'admins/jobs/task', locals: { f: f }
 
 .pull-right
   .grand-total

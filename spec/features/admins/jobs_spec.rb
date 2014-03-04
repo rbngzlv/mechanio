@@ -46,9 +46,9 @@ feature 'Jobs section' do
   end
 
   context 'editing a job', :js do
-    scenario 'general info tab' do
-      job = create :job, :with_service, :estimated, :assigned
+    let(:job) { create :job, :with_service, :estimated, :assigned }
 
+    scenario 'general info tab' do
       visit edit_admins_job_path(job)
 
       page.should have_css 'li.active a', text: 'General info'
@@ -62,6 +62,34 @@ feature 'Jobs section' do
 
       page.should have_field 'job_contact_email', with: job.contact_email
       page.should have_field 'job_contact_phone', with: job.contact_phone
+    end
+
+    context 'edit payout' do
+      before do
+        visit edit_admins_job_path(job)
+
+        within '.nav-tabs' do
+          click_on 'Payout'
+        end
+      end
+
+      scenario 'failure', :js do
+        click_on 'Save payout'
+
+        page.should have_content 'Error saving payout'
+        page.should have_css '.nav-tabs .active a', text: 'Payout'
+      end
+
+      scenario 'success' do
+        fill_in 'Account name', with: 'Bank of Australia'
+        fill_in 'Account number', with: '1234567890'
+        fill_in 'Bsb number', with: '123456'
+        fill_in 'Transaction', with: 'ASDSA11231'
+        fill_in 'Amount', with: '100,50'
+        click_on 'Save payout'
+
+        page.should have_content 'Payout succesfully saved'
+      end
     end
 
     context 'items tab' do

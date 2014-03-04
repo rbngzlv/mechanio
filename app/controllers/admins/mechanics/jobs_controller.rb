@@ -3,7 +3,7 @@ class Admins::Mechanics::JobsController < Admins::ApplicationController
   before_filter :find_mechanic
 
   def index
-    @jobs = @mechanic.jobs
+    @jobs = @mechanic.jobs.includes(:user, :payout)
   end
 
 

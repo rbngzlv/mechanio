@@ -1,0 +1,16 @@
+.panel.panel-default.panel-rounded
+  .panel-body.form-horizontal
+    = simple_form_for [:admins, @payout], defaults: { label_html: { class: 'col-md-4' }, required: false }, wrapper: :bootstrap_horizontal do |p|
+      = p.hidden_field :job_id, value: @job.id
+      .col-md-6
+        %h5 Payout
+        %hr
+        = p.input :account_name
+        = p.input :account_number
+        = p.input :bsb_number
+        = p.input :transaction_id
+        = p.input :amount
+
+        .form-group
+          .col-md-6.col-md-offset-4
+            = p.submit 'Save payout', class: 'btn btn-success'

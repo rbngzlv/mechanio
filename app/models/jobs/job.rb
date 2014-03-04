@@ -10,6 +10,7 @@ class Job < ActiveRecord::Base
   has_many :tasks, inverse_of: :job, dependent: :destroy
   has_one :appointment, dependent: :destroy
   has_one :event, dependent: :destroy
+  has_one :payout
 
   accepts_nested_attributes_for :car, :location, update_only: true
   accepts_nested_attributes_for :tasks, allow_destroy: true, reject_if: proc { |attrs| attrs.all? { |k, v| k == 'type' || v.blank? } }

@@ -1,4 +1,5 @@
 class Admins::JobsController < Admins::ApplicationController
+  include AdminHelper
 
   before_filter :find_job, only: [:edit, :update, :destroy]
 
@@ -9,8 +10,7 @@ class Admins::JobsController < Admins::ApplicationController
   end
 
   def edit
-    @service_plans = @job.car.service_plans
-    @service_plans_json = @service_plans.to_json(only: [:id, :cost, :display_title])
+    prepare_job_edit
   end
 
   def update

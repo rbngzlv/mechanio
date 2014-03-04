@@ -1,0 +1,4 @@
+.clearfix
+%hr
+= f.submit 'Save Changes', class: 'btn btn-success pull-right'
+= link_to 'Delete Job', admins_job_path(@job), method: :delete, class: 'btn btn-danger', data: {confirm: 'Are you sure?'}

@@ -13,6 +13,10 @@ describe Mechanic do
   it { should belong_to :location }
   it { should belong_to :business_location }
   it { should have_many :jobs }
+  it { should have_many :events }
+  it { should have_many :mechanic_regions }
+  it { should have_many(:regions).through(:mechanic_regions) }
+  it { should have_many :payouts }
   it { should have_one :payout_method }
 
   it { should respond_to :avatar }
@@ -20,27 +24,20 @@ describe Mechanic do
   it { should respond_to :abn }
   it { should respond_to :mechanic_license }
 
-  it { should allow_value('').for(:years_as_a_mechanic) }
-  it { should allow_value(123).for(:years_as_a_mechanic) }
+  it { should allow_value('', 123).for(:years_as_a_mechanic) }
   it { should_not allow_value('string').for(:years_as_a_mechanic) }
 
-  it { should allow_value(nil).for(:abn_number) }
-  it { should allow_value('12345678901').for(:abn_number) }
-  it { should_not allow_value('123456789012').for(:abn_number) }
-  it { should_not allow_value('1234567890').for(:abn_number) }
+  it { should allow_value(nil, '12345678901').for(:abn_number) }
+  it { should_not allow_value('123456789012', '1234567890').for(:abn_number) }
 
-  it { should allow_value(nil).for(:driver_license_number) }
-  it { should allow_value('12345678').for(:driver_license_number) }
-  it { should_not allow_value('123456789').for(:driver_license_number) }
-  it { should_not allow_value('1234567').for(:driver_license_number) }
+  it { should allow_value(nil, '12345678').for(:driver_license_number) }
+  it { should_not allow_value('1234567', '123456789').for(:driver_license_number) }
 
   it { should allow_value('0412345678').for(:mobile_number) }
-  it { should_not allow_value('12345678').for(:mobile_number) }
-  it { should_not allow_value('04123456').for(:mobile_number) }
+  it { should_not allow_value('04123456', '12345678').for(:mobile_number) }
 
   it { should allow_value('0412345678').for(:business_mobile_number) }
-  it { should_not allow_value('12345678').for(:business_mobile_number) }
-  it { should_not allow_value('04123456').for(:business_mobile_number) }
+  it { should_not allow_value('04123456', '12345678').for(:business_mobile_number) }
 
   specify '#active' do
     mechanic1 = create :mechanic
@@ -171,5 +168,15 @@ describe Mechanic do
     mechanic.update_job_counters
     mechanic.current_jobs_count.should eq 1
     mechanic.completed_jobs_count.should eq 1
+  end
+
+  specify '#update_earnings' do
+    mechanic = create :mechanic
+    mechanic.update_earnings
+    mechanic.total_earnings.should eq 0
+
+    mechanic.payouts << create(:payout, amount: 100)
+    mechanic.update_earnings
+    mechanic.total_earnings.should eq 100
   end
 end
