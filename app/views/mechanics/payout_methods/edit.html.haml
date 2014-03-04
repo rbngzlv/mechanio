@@ -1,13 +1,15 @@
-.row
+.row.locked-form
   .col-md-12
     .panel.panel-default.panel-rounded
       .panel-heading
+        %a.pull-right.unlock-form{ href: '#' }
+          %i.icon-pencil
+          Edit
         %h4.panel-title
           %i.icon-credit-card
           Payout Information
       .panel-body
         = simple_form_for current_mechanic, url: mechanics_payout_method_path, html: { class: 'form-horizontal mechanic_form' } do |f|
-          = f.error_notification
           = f.simple_fields_for :payout_method, defaults: { label_html: { class: 'col-md-3 col-sm-3' } }, wrapper: :bootstrap_horizontal do |p|
             = p.input :account_name
             = p.input :account_number

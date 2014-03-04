@@ -8,16 +8,22 @@
   .col-md-3
     = render 'admins/mechanics/sidebar_menu'
   .col-md-9
-    %h4 Payout Information
-    %hr.hr-dark-gray
+    .panel.panel-default.panel-rounded.locked-form
+      .panel-heading
+        %a.pull-right.unlock-form{ href: '#' }
+          %i.icon-pencil
+          Edit
+        %h4.panel-title
+          %i.icon-credit-card
+          Payout Information
+      .panel-body
+        = simple_form_for @mechanic, url: admins_mechanic_payout_method_path(@mechanic), html: { class: 'form-horizontal' }, defaults: { label_html: { class: 'col-md-2 col-sm-2' } }, wrapper: :bootstrap_horizontal do |f|
+          = f.simple_fields_for :payout_method do |p|
+            = p.input :account_name
+            = p.input :account_number
+            = p.input :bsb_number
 
-    = simple_form_for @mechanic, url: admins_mechanic_payout_method_path(@mechanic), html: { class: 'form-horizontal' }, defaults: { label_html: { class: 'col-md-2 col-sm-2' } }, wrapper: :bootstrap_horizontal do |f|
-      = f.simple_fields_for :payout_method do |p|
-        = p.input :account_name
-        = p.input :account_number
-        = p.input :bsb_number
-
-      %hr.hr-dark-gray
-      .form-group
-        .col-md-offset-2.col-md-4
-          = f.submit 'Save', class: 'btn btn-primary col-md-3 col-sm-4'
+          %hr.hr-dark-gray
+          .form-group
+            .col-md-offset-2.col-md-6
+              = f.submit 'Save', class: 'btn btn-primary col-md-3'
