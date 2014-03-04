@@ -23,7 +23,7 @@ class Users::CreditCardsController < Users::ApplicationController
   private
 
   def credit_card_params
-    params.require(:credit_card).permit(:cardholder_name, :number, :cvv, :expiration_date)
+    params.require(:credit_card).permit(:cardholder_name, :number, :cvv, :expiration_month, :expiration_year)
   end
 
   def appointment_params
