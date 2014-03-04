@@ -633,6 +633,10 @@ section {
     }
   }
 
+  li.error > a {
+    color: #b94a48;
+  }
+
   &.radio-tabs {
     border: none;
 
