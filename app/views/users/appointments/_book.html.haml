@@ -4,6 +4,7 @@
     var $container = $('.calendar-container#mechanic_#{mechanic.id}'),
         $calendar = $container.find('.calendar'),
         $left_arrow = $container.find('.left-arrow'),
+        $right_arrow = $container.find('.right-arrow'),
         form = $container.find('form');
 
     $calendar.fullCalendar({
@@ -35,8 +36,10 @@
         form.find(':submit').prop('disabled', false);
       },
       viewRender: function(view, element) {
-        var tomorrow = moment().add('days', 1);
-        $left_arrow.toggleClass('disabled', tomorrow.isAfter(view.start));
+        var start_date = moment().add('days', 1);
+        var end_date = moment().add('days', 14);
+        $left_arrow.toggleClass('disabled', start_date.isAfter(view.start));
+        $right_arrow.toggleClass('disabled', !end_date.isAfter(view.end));
       },
       eventAfterRender: function(event, element, view) {
         var $el = $(element),
@@ -57,8 +60,10 @@
       }
     });
 
-    $('#mechanic_#{mechanic.id} .right-arrow').click(function() {
-      $calendar.fullCalendar('next');
+    $right_arrow.click(function() {
+      if(!$(this).hasClass('disabled')) {
+        $calendar.fullCalendar('next');
+      }
     });
 
     $left_arrow.click(function() {
