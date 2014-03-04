@@ -135,17 +135,8 @@ feature 'adds a new mechanic', :js do
     visit admins_mechanics_path
     click_link 'Add mechanic'
 
-    click_on 'Contact details'
-    within '.mechanic_location_address' do
-      page.should have_selector 'abbr', text: '*'
-    end
-
-    click_on 'Business details'
-    within '.mechanic_business_location_address' do
-      page.should have_no_selector 'abbr', text: '*'
-    end
     within('.top-bar') { click_button 'Save' }
 
-    page.should have_content 'Please review the problems below:'
+    page.should have_css '.form-group.has-error'
   end
 end

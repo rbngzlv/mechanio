@@ -25,14 +25,18 @@ describe 'Payout information' do
       click_on 'Payout Information'
     end
 
+    within '.panel-heading' do
+      click_on 'Edit'
+    end
+
     fill_in 'Account name', with: 'Bank of Australia'
     fill_in 'Account number', with: '123456789'
     fill_in 'Bsb number', with: '123456'
     click_on 'Save'
 
     page.should have_content 'Your payout information successfully updated.'
-    page.should have_field 'Account name', with: 'Bank of Australia'
-    page.should have_field 'Account number', with: '123456789'
-    page.should have_field 'Bsb number', with: '123456'
+    page.should have_field 'Account name', with: 'Bank of Australia', disabled: true
+    page.should have_field 'Account number', with: '123456789', disabled: true
+    page.should have_field 'Bsb number', with: '123456', disabled: true
   end
 end

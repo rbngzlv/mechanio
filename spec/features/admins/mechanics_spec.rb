@@ -52,11 +52,12 @@ feature 'Admin mechanics management' do
     scenario 'fail' do
       visit admins_mechanics_path
       click_link 'Edit'
-      page.should have_selector "h4", text: mechanic.full_name
+
+      page.should have_selector 'h4', text: mechanic.full_name
       fill_in 'First name', with: ''
       click_save
-      page.should have_content "Please review the problems below:"
-      page.should have_selector "#mechanic_business_location_attributes_address"
+
+      page.should have_selector '.form-group.has-error'
     end
 
     scenario 'edit payout information' do
