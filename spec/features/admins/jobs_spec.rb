@@ -46,7 +46,9 @@ feature 'Jobs section' do
   end
 
   context 'editing a job', :js do
-    let(:job) { create :job, :with_service, :estimated, :assigned }
+    let(:job)           { create :job, :with_service, :estimated, :assigned, mechanic: mechanic }
+    let(:payout_method) { create :payout_method, account_name: 'Some bank', account_number: '99988881', bsb_number: '987654' }
+    let(:mechanic)      { create :mechanic, payout_method: payout_method }
 
     scenario 'general info tab' do
       visit edit_admins_job_path(job)
@@ -81,14 +83,20 @@ feature 'Jobs section' do
       end
 
       scenario 'success' do
-        fill_in 'Account name', with: 'Bank of Australia'
+        fill_in 'Account name',   with: 'Bank of Australia'
+        fill_in 'Bsb number',     with: '123456'
         fill_in 'Account number', with: '1234567890'
-        fill_in 'Bsb number', with: '123456'
-        fill_in 'Transaction', with: 'ASDSA11231'
-        fill_in 'Amount', with: '100,50'
+        fill_in 'Amount',         with: '100,50'
+        fill_in 'Receipt number', with: 'ASDSA11231'
         click_on 'Save payout'
 
         page.should have_content 'Payout succesfully saved'
+      end
+
+      scenario 'payout is prefilled with mechanics bank details' do
+        page.should have_field 'Account name',    with: 'Some bank'
+        page.should have_field 'Bsb number',      with: '987654'
+        page.should have_field 'Account number',  with: '99988881'
       end
     end
 
