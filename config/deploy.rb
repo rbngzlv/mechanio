@@ -47,6 +47,22 @@ namespace :deploy do
   end
 end
 
+namespace :resque do
+  desc "Quit running Resque workers"
+  task :stop do
+    run "if [ -e #{current_path}/tmp/pids/resque_work_1.pid ]; then \
+      for f in `ls #{current_path}/tmp/pids/resque_work*.pid`; do \
+        echo `cat $f`; \
+        if [ ! -z `cat $f` ] && ps -p `cat $f`; then \
+          kill -s #{resque_kill_signal} `cat $f` && rm $f; \
+        else \
+          rm $f \
+        ;fi \
+      ;done \
+    ;fi"
+  end
+end
+
 before  'deploy:finalize_update', 'configure'
 after   'deploy:update', 'deploy:migrate'
 
