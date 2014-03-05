@@ -1,14 +1,13 @@
 %tr
+  %td= job_status(job.status)
+  %td= job.title
+  %td= job.mechanic.full_name
+  %td= job.car.display_title
+  %td= job.scheduled_at.to_s(:date_short)
   %td
-    .label.label-warning Awaiting Feedback
-  %td 30,000 KM Servicing
-  %td Vera Liu
-  %td 2011 Toyota Corolla L4-1.8L
-  %td Apr 9-15, 2012
-  %td
-    = link_to '#', title: 'Leave Feedback', :data => {:toggle => 'tooltip'} do
+    = link_to '#', title: 'Leave Feedback', data: { toggle: 'tooltip' } do
       .big.icon-share
-    = link_to '#tab_1_4', title: 'View Job', :data => {:toggle => 'tab'} do
-      .big.icon-list-alt{{title: 'View Job', data: {toggle: 'tooltip'}}}
-    = link_to '#', title: 'View Receipt', :data => {:toggle => 'tooltip'} do
+    = link_to '#', title: 'View Job', data: { toggle: 'tooltip' } do
+      .big.icon-list-alt
+    = link_to '#', title: 'View Receipt', data: { toggle: 'tooltip' } do
       .big.icon-picture

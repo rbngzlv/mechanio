@@ -2,8 +2,10 @@ require 'spec_helper'
 
 feature 'new appointment', :js do
   let(:user)       { create :user }
-  let(:job)        { create :job_with_service, :estimated, user: user, location: create(:location, postcode: '1234') }
-  let!(:mechanic)  { create :mechanic, mechanic_regions: [create(:mechanic_region, postcode: '1234')], years_as_a_mechanic: 2 }
+  let(:job)        { create :job_with_service, :estimated, user: user, location: create(:location, postcode: postcode) }
+  let(:mechanic)   { create :mechanic, mechanic_regions: [create(:mechanic_region, postcode: postcode)], years_as_a_mechanic: 2 }
+  let(:location)   { create :location, postcode: postcode }
+  let(:postcode)   { '1234' }
   let(:tomorrow)   { Date.tomorrow.to_time }
   let(:timeslot)   { tomorrow.advance(days: 3, hours: 9) }
 
@@ -13,7 +15,15 @@ feature 'new appointment', :js do
   end
 
   scenario 'book appointment', :vcr do
-    visit edit_users_appointment_path(job)
+    mechanic
+    job
+
+    visit users_estimates_path
+    click_link 'Book Appointment'
+
+    find('.profile-border.clickable').click
+    page.should have_css "#js-mechanic-#{mechanic.id}", visible: true
+    find('.close').click
 
     click_timeslot
     click_button 'Book Appointment'
@@ -41,6 +51,7 @@ feature 'new appointment', :js do
   end
 
   scenario 'calendar navigation' do
+    mechanic
     mechanic2 = create :mechanic, mechanic_regions: [create(:mechanic_region, postcode: '1234')]
 
     visit edit_users_appointment_path(job)
@@ -69,6 +80,40 @@ feature 'new appointment', :js do
       prev_enabled?(false)
       calendar_starts_at?(tomorrow)
     end
+  end
+
+  specify 'ordering mechanic by distance' do
+    pending 'Geocoding is not used for now, as we switched to matching mechanics by region'
+
+    mechanic2 = create :mechanic, location: create(:location, latitude: 40.000000, longitude: -77.000000)
+    mechanic3 = create :mechanic, location: create(:location, latitude: 39.100000, longitude: -76.100000)
+
+    visit edit_users_appointment_path(job)
+    within 'section' do
+
+      should have_selector('> :nth-child(5) h5', text: mechanic.full_name)
+      should have_selector('> :nth-child(7) h5', text: mechanic3.full_name)
+      should have_selector('> :nth-child(9) h5', text: mechanic2.full_name)
+    end
+  end
+
+  specify 'only lists active mechanics' do
+    mechanic
+    suspended_mechanic = create :mechanic, :suspended, mechanic_regions: [create(:mechanic_region, postcode: postcode)], location: create(:location, postcode: postcode)
+
+    visit edit_users_appointment_path(job)
+
+    page.should have_content mechanic.full_name
+    page.should_not have_content suspended_mechanic.full_name
+  end
+
+  specify 'show error when no mechanics found', :js do
+    mechanic
+    job_without_location = create(:job_with_service, :estimated, user: user, location: create(:location, postcode: '9999'))
+
+    visit edit_users_appointment_path(job_without_location)
+
+    page.should have_content 'Sorry, we could not find any mechanics near you'
   end
 
   def within_calendar(i, &block)
