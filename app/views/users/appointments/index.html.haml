@@ -22,7 +22,10 @@
               = link_to 'Feedback', '#tab_feedback', data: { toggle: 'tab' }
         .tab-content
           #tab_current.tab-pane.active
-            = render(partial: 'current', collection: @appointments, as: :job) || render('shared/no_appointments')
+            - if @appointments.length > 0
+              = render partial: 'job_current', collection: @appointments, as: :job
+            - else
+              %h5 No appointments
           #tab_past.tab-pane
             .table-responsive
               %table.table.table-striped.table-bordered
@@ -35,7 +38,7 @@
                     %th Date
                     %th Option
                 %tbody
-                  = render partial: 'past', collection: @past_appointments, as: :job
+                  = render partial: 'job_past', collection: @past_appointments, as: :job
           #tab_feedback.tab-pane
             .review-block
               .panel-body.row

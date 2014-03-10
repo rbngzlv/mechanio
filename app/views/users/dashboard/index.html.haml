@@ -12,7 +12,11 @@
         %h4.panel-title Booked Appointments
       #js-collapse-three.panel-collapse.collapse.in
         .panel-body
-          = render @appointment ? 'booked_appointment' : 'shared/no_appointments'
+          - if @appointment
+            = render 'booked_appointment'
+          - else
+            %h5 No appointments
+
 .row
   .col-md-4
     .panel.panel-default.panel-rounded
@@ -25,4 +29,7 @@
         %h4.panel-title My Estimates
       #js-collapse-five.panel-collapse.collapse.in
         .panel-body
-          = render @estimate ? 'last_estimate' : 'shared/no_estimates'
+          - if @estimate
+            = render 'last_estimate'
+          - else
+            %h5 No estimates

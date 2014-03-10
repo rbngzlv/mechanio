@@ -22,6 +22,12 @@
 
     %h4.black Select a Mechanic
     .mechanics
-      = render(partial: 'users/appointments/book', collection: mechanics, as: :mechanic) || render('no_mechanics')
+      - if mechanics.length > 0
+        = render partial: 'users/appointments/book', collection: mechanics, as: :mechanic
+      - else
+        .panel.panel-default.panel-rounded
+          .panel-body
+            %h5 Sorry, we could not find any mechanics near you
+
   .col-md-3
     = render 'sidebar'
