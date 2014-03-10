@@ -26,7 +26,6 @@ describe 'Admin login' do
         click_button 'Login'
       end
 
-      page.should have_css '.alert', text: 'Signed in successfully.'
       page.should have_css 'h4', text: 'Dashboard'
     end
   end

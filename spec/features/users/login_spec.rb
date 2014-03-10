@@ -26,8 +26,7 @@ describe 'User login', :js do
     it 'loggs user in' do
       login_with email: user.email, password: user.password
 
-      should have_css '.alert', text: 'Signed in successfully.'
-      current_path.should == root_path
+      page.should have_css 'button.dropdown-toggle', text: user.first_name
       page.should have_link 'Car Needs Servicing'
     end
 
