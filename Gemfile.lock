@@ -194,6 +194,7 @@ GEM
       oauth2 (~> 0.8.0)
       omniauth (~> 1.0)
     orm_adapter (0.4.0)
+    pdf-core (0.2.5)
     pg (0.16.0)
     poltergeist (1.4.0)
       capybara (~> 2.1.0)
@@ -201,6 +202,9 @@ GEM
       multi_json (~> 1.0)
       websocket-driver (>= 0.2.0)
     polyglot (0.3.3)
+    prawn (1.0.0)
+      pdf-core (~> 0.2.2)
+      ttfunk (~> 1.1.1)
     pry (0.9.12.2)
       coderay (~> 1.0.5)
       method_source (~> 0.8)
@@ -310,6 +314,7 @@ GEM
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
+    ttfunk (1.1.1)
     tzinfo (0.3.37)
     uglifier (2.2.0)
       execjs (>= 0.3.0)
@@ -366,6 +371,7 @@ DEPENDENCIES
   omniauth-google-oauth2
   pg
   poltergeist
+  prawn
   pry
   quiet_assets
   rails (= 4.0.0)

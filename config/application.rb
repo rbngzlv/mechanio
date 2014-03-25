@@ -16,6 +16,7 @@ module Mechanio
 
     config.autoload_paths += Dir[Rails.root.join('app', 'models', '**/')]
     config.autoload_paths += Dir[Rails.root.join('lib')]
+    config.autoload_paths += Dir[Rails.root.join('receipts')]
 
     config.active_record.schema_format = :sql
 

@@ -24,6 +24,12 @@ class Users::AppointmentsController < Users::ApplicationController
     end
   end
 
+  def receipt
+    job = current_user.past_jobs.find(params[:appointment_id])
+    receipt = UsersJobReceipt.new(job)
+    send_data receipt.to_pdf, type: 'application/pdf', disposition: 'inline'
+  end
+
   private
 
   def appointment_params
