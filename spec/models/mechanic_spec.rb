@@ -153,21 +153,38 @@ describe Mechanic do
     end
   end
 
-  specify '#update_job_counters' do
-    mechanic = create :mechanic
-    mechanic.update_job_counters
-    mechanic.current_jobs_count.should eq 0
-    mechanic.completed_jobs_count.should eq 0
+  describe 'jobs' do
+    let(:mechanic)      { create :mechanic }
+    let(:assigned_job)  { create :job, :with_service, :assigned, mechanic: mechanic }
+    let(:completed_job) { create :job, :with_service, :completed, mechanic: mechanic }
 
-    mechanic.jobs << create(:job, :with_service, :assigned, mechanic: mechanic)
-    mechanic.update_job_counters
-    mechanic.current_jobs_count.should eq 1
-    mechanic.completed_jobs_count.should eq 0
+    specify '#current_jobs' do
+      assigned_job
+      completed_job
+      mechanic.current_jobs.should eq [assigned_job]
+    end
 
-    mechanic.jobs << create(:job, :with_service, :completed, mechanic: mechanic)
-    mechanic.update_job_counters
-    mechanic.current_jobs_count.should eq 1
-    mechanic.completed_jobs_count.should eq 1
+    specify '#past_jobs' do
+      assigned_job
+      completed_job
+      mechanic.past_jobs.should eq [completed_job]
+    end
+
+    specify '#update_job_counters' do
+      mechanic.update_job_counters
+      mechanic.current_jobs_count.should eq 0
+      mechanic.completed_jobs_count.should eq 0
+
+      assigned_job
+      mechanic.update_job_counters
+      mechanic.current_jobs_count.should eq 1
+      mechanic.completed_jobs_count.should eq 0
+
+      completed_job
+      mechanic.update_job_counters
+      mechanic.current_jobs_count.should eq 1
+      mechanic.completed_jobs_count.should eq 1
+    end
   end
 
   specify '#update_earnings' do

@@ -40,12 +40,12 @@ class Mechanic < ActiveRecord::Base
     joins(:mechanic_regions).where(mechanic_regions: { postcode: postcode }).uniq
   }
 
-  def appointments
-    jobs.appointments
+  def current_jobs
+    jobs.assigned
   end
 
-  def past_appointments
-    jobs.past_appointments
+  def past_jobs
+    jobs.completed
   end
 
   def self.by_location(location)
@@ -77,8 +77,8 @@ class Mechanic < ActiveRecord::Base
 
   def update_job_counters
     update_attributes(
-      current_jobs_count: appointments.length,
-      completed_jobs_count: past_appointments.length
+      current_jobs_count: current_jobs.length,
+      completed_jobs_count: past_jobs.length
     )
   end
 

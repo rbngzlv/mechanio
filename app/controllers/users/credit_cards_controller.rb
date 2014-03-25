@@ -31,7 +31,7 @@ class Users::CreditCardsController < Users::ApplicationController
   end
 
   def appointment
-    @job = current_user.estimates.find(params[:job_id])
+    @job = current_user.estimated_jobs.find(params[:job_id])
     @scheduled_at = appointment_params[:scheduled_at].to_time
     @mechanic = Mechanic.find(appointment_params[:mechanic_id])
     AppointmentService.new(@job, @mechanic, @scheduled_at)

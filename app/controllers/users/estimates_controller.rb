@@ -1,5 +1,5 @@
 class Users::EstimatesController < Users::ApplicationController
   def index
-    @jobs = current_user.pending_and_estimated
+    @jobs = current_user.pending_and_estimated_jobs
   end
 end

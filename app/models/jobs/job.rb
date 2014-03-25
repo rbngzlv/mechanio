@@ -60,9 +60,9 @@ class Job < ActiveRecord::Base
 
   default_scope { order(created_at: :desc).without_status(:temporary) }
 
-  scope :appointments,       -> { with_status(:assigned).reorder(scheduled_at: :asc) }
-  scope :past_appointments,  -> { with_status(:completed).reorder(scheduled_at: :desc) }
-  scope :estimates,          -> { with_status(:estimated).reorder(created_at: :desc) }
+  scope :estimated, -> { with_status(:estimated).reorder(created_at: :desc) }
+  scope :assigned,  -> { with_status(:assigned).reorder(scheduled_at: :asc) }
+  scope :completed, -> { with_status(:completed).reorder(scheduled_at: :desc) }
 
   def self.sanitize_and_create(user, params)
     create(self.whitelist(params).merge(user: user))

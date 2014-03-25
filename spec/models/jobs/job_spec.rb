@@ -26,6 +26,18 @@ describe Job do
   it { should_not allow_value('12345678').for(:contact_phone) }
   it { should_not allow_value('04123456').for(:contact_phone) }
 
+  context 'scopes' do
+    let(:estimated_job)  { create :job, :with_service, :estimated }
+    let(:assigned_job)   { create :job, :with_service, :assigned  }
+    let(:completed_job)  { create :job, :with_service, :completed }
+
+    it 'finds scoped jobs' do
+      Job.estimated.should eq [estimated_job]
+      Job.assigned.should  eq [assigned_job]
+      Job.completed.should eq [completed_job]
+    end
+  end
+
   it '#sanitize_and_create' do
     Job.any_instance.should_receive(:notify_estimated)
     job = Job.sanitize_and_create(user, job: attrs)
@@ -47,13 +59,6 @@ describe Job do
     Job.any_instance.should_receive(:notify_estimated)
     job = Job.convert_from_temporary(tmp.id, user)
     verify_estimated_job(job)
-  end
-
-  specify '#with_status' do
-    job1 = create :job, :with_service, :pending
-    job2 = create :job, :with_service, :completed
-
-    Job.with_status(:pending).should eq [job1]
   end
 
   it 'builds title from tasks' do

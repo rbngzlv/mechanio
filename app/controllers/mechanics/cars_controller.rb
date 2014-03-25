@@ -13,6 +13,6 @@ class Mechanics::CarsController < Mechanics::ApplicationController
   private
 
   def find_job
-    @job = current_mechanic.appointments.find(params[:job_id])
+    @job = current_mechanic.current_jobs.find(params[:job_id])
   end
 end

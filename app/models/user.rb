@@ -18,20 +18,20 @@ class User < ActiveRecord::Base
 
   validates :first_name, :last_name, :email, presence: true
 
-  def pending_and_estimated
+  def pending_and_estimated_jobs
     jobs.with_status(:pending, :estimated)
   end
 
-  def estimates
-    jobs.estimates
+  def estimated_jobs
+    jobs.estimated
   end
 
-  def appointments
-    jobs.appointments
+  def current_jobs
+    jobs.assigned
   end
 
-  def past_appointments
-    jobs.past_appointments
+  def past_jobs
+    jobs.completed
   end
 
   def self.new_with_session(params, session)

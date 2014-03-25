@@ -23,11 +23,13 @@ describe User do
     let!(:pending_job)   { create :job_with_service, :pending,   user: user }
     let!(:estimated_job) { create :job_with_service, :estimated, user: user }
     let!(:assigned_job)  { create :job_with_service, :assigned,  user: user }
+    let!(:completed_job) { create :job_with_service, :completed, user: user }
 
     it 'gets correct jobs' do
-      user.estimates.should     eq [estimated_job]
-      user.appointments.should  eq [assigned_job]
-      user.pending_and_estimated.should =~ [pending_job, estimated_job]
+      user.estimated_jobs.should   eq [estimated_job]
+      user.current_jobs.should     eq [assigned_job]
+      user.past_jobs.should        eq [completed_job]
+      user.pending_and_estimated_jobs.should =~ [pending_job, estimated_job]
     end
   end
 

@@ -1,7 +1,7 @@
 class Mechanics::JobsController < Mechanics::ApplicationController
   def index
-    @upcoming_jobs = current_mechanic.appointments
-    @completed_jobs = current_mechanic.past_appointments
+    @upcoming_jobs = current_mechanic.current_jobs
+    @completed_jobs = current_mechanic.past_jobs
   end
 
   def show
@@ -10,7 +10,7 @@ class Mechanics::JobsController < Mechanics::ApplicationController
   end
 
   def complete
-    job = current_mechanic.appointments.find(params[:job_id])
+    job = current_mechanic.current_jobs.find(params[:job_id])
     job_service = JobService.new(job)
     job_service.complete
 
