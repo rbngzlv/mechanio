@@ -11,8 +11,8 @@ class Mechanics::JobsController < Mechanics::ApplicationController
 
   def complete
     job = current_mechanic.current_jobs.find(params[:job_id])
-    job_service = JobService.new(job)
-    job_service.complete
+    service = MechanicCompleteJobService.new(job)
+    service.perform
 
     redirect_to :back
   end

@@ -1,10 +1,10 @@
-class JobService
+class MechanicCompleteJobService
 
   def initialize(job)
     @job = job
   end
 
-  def complete
+  def perform
     @job.completed_at = Time.now
     @job.complete!
 
