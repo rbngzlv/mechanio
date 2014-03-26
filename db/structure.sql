@@ -351,7 +351,8 @@ CREATE TABLE jobs (
     transaction_id character varying(255),
     transaction_status character varying(255),
     transaction_errors text,
-    uid character varying(255)
+    uid character varying(255),
+    completed_at timestamp without time zone
 );
 
 
@@ -1867,3 +1868,5 @@ INSERT INTO schema_migrations (version) VALUES ('20140211221307');
 INSERT INTO schema_migrations (version) VALUES ('20140214095427');
 
 INSERT INTO schema_migrations (version) VALUES ('20140303155311');
+
+INSERT INTO schema_migrations (version) VALUES ('20140326090031');

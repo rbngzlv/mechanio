@@ -10,8 +10,11 @@ describe JobService do
     before { reset_mail_deliveries }
 
     specify 'success' do
+      job.completed_at.should be_nil
+
       job_service.complete
 
+      job.completed_at.should_not be_nil
       job.status.should eq 'completed'
       job.mechanic.completed_jobs_count.should eq 1
 

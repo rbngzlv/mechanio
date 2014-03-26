@@ -5,6 +5,7 @@ class JobService
   end
 
   def complete
+    @job.completed_at = Time.now
     @job.complete!
 
     @job.mechanic.update_job_counters
