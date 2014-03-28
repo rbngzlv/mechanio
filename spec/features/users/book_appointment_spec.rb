@@ -6,7 +6,7 @@ feature 'new appointment', :js do
   let(:mechanic)   { create :mechanic, mechanic_regions: [create(:mechanic_region, postcode: postcode)], years_as_a_mechanic: 2 }
   let(:location)   { create :location, postcode: postcode }
   let(:postcode)   { '1234' }
-  let(:tomorrow)   { Date.tomorrow.to_time }
+  let(:tomorrow)   { Date.tomorrow.in_time_zone }
   let(:timeslot)   { tomorrow.advance(days: 3, hours: 9) }
 
   before do

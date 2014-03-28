@@ -1,5 +1,6 @@
 class Users::AppointmentsController < Users::ApplicationController
-  before_filter :find_job, only: [:edit, :update]
+  before_filter :find_estimated_job, only: [:edit, :update]
+  before_filter :find_completed_job, only: [:show, :receipt]
 
   layout :select_layout
 
@@ -24,9 +25,11 @@ class Users::AppointmentsController < Users::ApplicationController
     end
   end
 
+  def show
+  end
+
   def receipt
-    job = current_user.past_jobs.find(params[:appointment_id])
-    receipt = UsersJobReceipt.new(job)
+    receipt = UsersJobReceipt.new(@job)
     send_data receipt.to_pdf, type: 'application/pdf', disposition: 'inline'
   end
 
@@ -41,11 +44,15 @@ class Users::AppointmentsController < Users::ApplicationController
   end
   helper_method :mechanics
 
-  def find_job
+  def find_estimated_job
     @job = current_user.estimated_jobs.find(params[:id])
   end
 
+  def find_completed_job
+    @job = current_user.past_jobs.find(params[:id])
+  end
+
   def select_layout
-    action_name == 'index' ? 'sidebar' : 'application'
+    %w(index show).include?(action_name) ? 'sidebar' : 'application'
   end
 end

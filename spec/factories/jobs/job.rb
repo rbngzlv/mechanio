@@ -60,7 +60,8 @@ FactoryGirl.define do
     trait :completed do
       mechanic
       status :completed
-      scheduled_at { DateTime.now }
+      completed_at { DateTime.now }
+      scheduled_at { DateTime.tomorrow }
     end
 
     factory :job_with_service, traits: [:with_service]

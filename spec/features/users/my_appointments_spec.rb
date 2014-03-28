@@ -22,16 +22,28 @@ feature 'My appointments' do
     page.should have_css "#js-mechanic-#{mechanic.id}", visible: true
   end
 
-  specify 'past appointments', :js do
-    completed_job
+  describe 'past appointments', :js do
+    before do
+      completed_job
 
-    visit users_appointments_path
+      visit users_appointments_path
 
-    within '.nav-tabs' do
-      click_on 'Past Appointments'
+      within '.nav-tabs' do
+        click_on 'Past Appointments'
+      end
     end
 
-    page.should have_css 'tr', text: 'Status Job Mechanic Vehicle Date Option'
-    page.should have_css 'tr', text: "Completed #{completed_job.title} #{mechanic.full_name} #{completed_job.car.display_title} #{completed_job.scheduled_at.to_s(:date_short)}"
+    specify 'lists apoointments' do
+      page.should have_css 'tr', text: 'Status Job Mechanic Vehicle Date Option'
+      page.should have_css 'tr', text: "Completed #{completed_job.title} #{mechanic.full_name} #{completed_job.car.display_title} #{completed_job.scheduled_at.to_s(:date_short)}"
+    end
+
+    specify 'shows appointment details' do
+      find('a[data-original-title="View Job"]').click
+
+      page.should have_css 'td', text: "Total Fees"
+      page.should have_content "Hi, I'm your mechanic #{completed_job.mechanic.full_name}"
+      page.should have_content "LEAVE FEEDBACK"
+    end
   end
 end
