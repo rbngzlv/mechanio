@@ -27,7 +27,7 @@ Mechanio::Application.routes.draw do
       resource :credit_card, only: [:new, :create]
     end
     resources :appointments, only: [:index, :edit, :update] do
-      get :receipt
+      get :receipt, on: :member
     end
     resources :cars, only: [:index, :destroy]
 
