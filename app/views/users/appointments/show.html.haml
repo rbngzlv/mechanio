@@ -21,7 +21,7 @@
               %td
                 = t.title
               %td.text-right
-                = number_to_currency t.cost
+                = t.cost > 0 ? number_to_currency(t.cost) : 'free'
           %tr
             %td
             %td
