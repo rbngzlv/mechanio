@@ -11,11 +11,10 @@
           %tr
             %td
               %b Car:
-            %td
+            %td{ colspan: '2' }
               = @job.car.display_title
-            %td
-          %tr.tr-divider
-            - @job.tasks.each_with_index do |t, i|
+          - @job.tasks.each_with_index do |t, i|
+            %tr.tr-divider
               %td
                 - if i == 0
                   %b Services:
