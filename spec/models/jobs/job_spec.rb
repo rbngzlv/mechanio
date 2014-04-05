@@ -10,10 +10,13 @@ describe Job do
 
   it { should belong_to :user }
   it { should belong_to :car }
-  it { should belong_to :mechanic }
   it { should belong_to :location }
+  it { should belong_to :mechanic }
+  it { should belong_to :credit_card }
   it { should have_many :tasks }
+  it { should have_one :appointment }
   it { should have_one :event }
+  it { should have_one :payout }
 
   it { should validate_presence_of :user }
   it { should validate_presence_of :car }
