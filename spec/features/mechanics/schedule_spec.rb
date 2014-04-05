@@ -105,7 +105,7 @@ feature 'Mechanic schedule' do
         # It's needed to click success on confirm alert
         sleep 0.1
       end.to change { Event.count }.by -1
-      should have_content 'Event succesfully deleted.'
+      should have_content 'Event successfully deleted.'
       should have_no_content event.title
     end
 

@@ -11,7 +11,7 @@ class Admins::UsersController < Admins::ApplicationController
 
   def destroy
     @user.destroy
-    redirect_to admins_users_path, notice: "User succesfully deleted."
+    redirect_to admins_users_path, notice: "User successfully deleted."
   end
 
 

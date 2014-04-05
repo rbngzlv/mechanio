@@ -41,7 +41,7 @@ describe 'Manage service plans' do
         click_on 'Save'
 
         page.should have_css 'h4', text: 'Default service plans'
-        page.should have_css '.alert-info', text: 'Service plan created succesfully.'
+        page.should have_css '.alert-info', text: 'Service plan created successfully.'
         page.should have_css 'td', text: '15,000 kms / 8 months'
       end
 
@@ -51,7 +51,7 @@ describe 'Manage service plans' do
         click_on 'Save'
 
         page.should have_css 'h4', text: 'Default service plans'
-        page.should have_css '.alert-info', text: 'Service plan created succesfully.'
+        page.should have_css '.alert-info', text: 'Service plan created successfully.'
         page.should have_css 'td', text: 'Minor/Interim'
       end
     end
@@ -66,7 +66,7 @@ describe 'Manage service plans' do
       click_on 'Save'
 
       page.should have_css 'h4', text: 'Default service plans'
-      page.should have_css '.alert-info', text: 'Service plan updated succesfully.'
+      page.should have_css '.alert-info', text: 'Service plan updated successfully.'
       page.should have_css 'td', text: '20,000 kms / 6 months'
     end
 
@@ -74,7 +74,7 @@ describe 'Manage service plans' do
       visit edit_admins_service_plan_path(default_service_plan)
       click_on 'Delete'
       current_path.should be_eql default_admins_service_plans_path
-      page.should have_css'.alert.alert-info', text: 'Service plan deleted succesfully'
+      page.should have_css'.alert.alert-info', text: 'Service plan deleted successfully'
     end
 
     specify 'delete service plan from index' do
@@ -82,7 +82,7 @@ describe 'Manage service plans' do
       visit default_admins_service_plans_path
       click_link 'Delete'
       current_path.should be_eql default_admins_service_plans_path
-      page.should have_css '.alert.alert-info', text: 'Service plan deleted succesfully'
+      page.should have_css '.alert.alert-info', text: 'Service plan deleted successfully'
     end
   end
 
@@ -130,7 +130,7 @@ describe 'Manage service plans' do
         fill_in 'Cost', with: '250'
         click_on 'Save'
 
-        page.should have_css '.alert-info', text: 'Service plan created succesfully.'
+        page.should have_css '.alert-info', text: 'Service plan created successfully.'
         page.should have_css 'td', text: '15,000 kms / 8 months'
         verify_selected_model
       end
@@ -140,7 +140,7 @@ describe 'Manage service plans' do
         fill_in 'Cost', with: '250'
         click_on 'Save'
 
-        page.should have_css '.alert-info', text: 'Service plan created succesfully.'
+        page.should have_css '.alert-info', text: 'Service plan created successfully.'
         page.should have_css 'td', text: 'Minor/Interim'
         verify_selected_model
       end
@@ -160,7 +160,7 @@ describe 'Manage service plans' do
         fill_in 'Kms travelled', with: '20000'
         click_on 'Save'
 
-        page.should have_css '.alert-info', text: 'Service plan updated succesfully.'
+        page.should have_css '.alert-info', text: 'Service plan updated successfully.'
         page.should have_css 'td', text: '20,000 kms / 6 months'
         verify_selected_model
       end
@@ -168,13 +168,13 @@ describe 'Manage service plans' do
       specify 'delete service plan' do
         click_on 'Edit'
         click_on 'Delete'
-        page.should have_css '.alert.alert-info', text: 'Service plan deleted succesfully'
+        page.should have_css '.alert.alert-info', text: 'Service plan deleted successfully'
         verify_selected_model
       end
 
       specify 'delete service plan from index' do
         click_link 'Delete'
-        page.should have_css '.alert.alert-info', text: 'Service plan deleted succesfully'
+        page.should have_css '.alert.alert-info', text: 'Service plan deleted successfully'
         verify_selected_model
       end
     end

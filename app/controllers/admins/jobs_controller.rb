@@ -24,7 +24,7 @@ class Admins::JobsController < Admins::ApplicationController
 
   def destroy
     @job.destroy
-    redirect_to admins_jobs_path, notice: 'Job succesfully deleted.'
+    redirect_to admins_jobs_path, notice: 'Job successfully deleted.'
   end
 
 

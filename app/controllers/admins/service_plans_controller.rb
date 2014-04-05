@@ -19,7 +19,7 @@ class Admins::ServicePlansController < Admins::ApplicationController
     @service_plan = ServicePlan.new(permitted_params)
 
     if @service_plan.save
-      redirect_to redirect_after_save, notice: 'Service plan created succesfully.'
+      redirect_to redirect_after_save, notice: 'Service plan created successfully.'
     else
       render :new
     end
@@ -30,7 +30,7 @@ class Admins::ServicePlansController < Admins::ApplicationController
 
   def update
     if @service_plan.update_attributes(permitted_params)
-      redirect_to redirect_after_save, notice: 'Service plan updated succesfully.'
+      redirect_to redirect_after_save, notice: 'Service plan updated successfully.'
     else
       render :edit
     end
@@ -38,7 +38,7 @@ class Admins::ServicePlansController < Admins::ApplicationController
 
   def destroy
     @service_plan.destroy
-    redirect_to redirect_after_save, notice: 'Service plan deleted succesfully.'
+    redirect_to redirect_after_save, notice: 'Service plan deleted successfully.'
   end
 
 

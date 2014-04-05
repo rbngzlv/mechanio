@@ -67,6 +67,6 @@ feature 'Admin user management' do
       click_link 'Delete'
     end.to change { User.count }.by -1
 
-    should have_css '.alert', text: 'User succesfully deleted.'
+    should have_css '.alert', text: 'User successfully deleted.'
   end
 end

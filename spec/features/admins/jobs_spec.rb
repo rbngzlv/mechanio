@@ -90,7 +90,7 @@ feature 'Jobs section' do
         fill_in 'Receipt number', with: 'ASDSA11231'
         click_on 'Save payout'
 
-        page.should have_content 'Payout succesfully saved'
+        page.should have_content 'Payout successfully saved'
       end
 
       scenario 'payout is prefilled with mechanics bank details' do
@@ -269,7 +269,7 @@ feature 'Jobs section' do
         visit edit_admins_job_path(job)
 
         expect { click_link 'Delete Job' }.to change { Job.count }.by -1
-        page.should have_css '.alert.alert-info', text: 'Job succesfully deleted.'
+        page.should have_css '.alert.alert-info', text: 'Job successfully deleted.'
       end
     end
   end
