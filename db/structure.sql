@@ -253,6 +253,43 @@ ALTER SEQUENCE credit_cards_id_seq OWNED BY credit_cards.id;
 
 
 --
+-- Name: discounts; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE discounts (
+    id integer NOT NULL,
+    title character varying(255),
+    code character varying(255),
+    discount_type character varying(255),
+    discount_value numeric(8,2),
+    uses_left integer,
+    starts_at date,
+    ends_at date,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: discounts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE discounts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: discounts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE discounts_id_seq OWNED BY discounts.id;
+
+
+--
 -- Name: events; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1116,6 +1153,13 @@ ALTER TABLE ONLY credit_cards ALTER COLUMN id SET DEFAULT nextval('credit_cards_
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY discounts ALTER COLUMN id SET DEFAULT nextval('discounts_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY events ALTER COLUMN id SET DEFAULT nextval('events_id_seq'::regclass);
 
 
@@ -1321,6 +1365,14 @@ ALTER TABLE ONLY cars
 
 ALTER TABLE ONLY credit_cards
     ADD CONSTRAINT credit_cards_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: discounts_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY discounts
+    ADD CONSTRAINT discounts_pkey PRIMARY KEY (id);
 
 
 --
@@ -1537,6 +1589,13 @@ CREATE INDEX index_authentications_on_user_id ON authentications USING btree (us
 --
 
 CREATE INDEX index_credit_cards_on_user_id ON credit_cards USING btree (user_id);
+
+
+--
+-- Name: index_discounts_on_code; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_discounts_on_code ON discounts USING btree (code);
 
 
 --
@@ -1870,3 +1929,5 @@ INSERT INTO schema_migrations (version) VALUES ('20140214095427');
 INSERT INTO schema_migrations (version) VALUES ('20140303155311');
 
 INSERT INTO schema_migrations (version) VALUES ('20140326090031');
+
+INSERT INTO schema_migrations (version) VALUES ('20140331173751');

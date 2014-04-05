@@ -77,6 +77,7 @@ Mechanio::Application.routes.draw do
     resources :jobs, only: [:index, :edit, :update, :destroy]
     resources :payouts, only: [:create, :update]
     resources :symptoms
+    resources :discounts
   end
 
   resource :ajax, controller: 'ajax', only: [] do

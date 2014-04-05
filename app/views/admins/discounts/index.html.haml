@@ -1,0 +1,22 @@
+.pull-right
+  = link_to 'Create discount', new_admins_discount_path, class: 'btn btn-primary'
+
+%h4 Discounts
+
+- if @discounts.count > 0
+  .table-responsive
+    %table.table.table-striped
+      %thead
+        %tr
+          %th Title
+          %th Code
+          %th Value
+          %th Uses left
+          %th Starts on
+          %th Ends on
+          %th{ style: 'width: 10%' }
+      %tbody
+        = render @discounts
+  = paginate @discounts
+- else
+  %p.text-center No discounts found

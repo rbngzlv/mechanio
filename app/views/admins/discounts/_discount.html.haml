@@ -1,0 +1,12 @@
+%tr
+  %td= discount.title
+  %td= discount.code
+  %td= discount.display_value
+  %td= discount.uses_left.nil? ? 'unlimited' : discount.uses_left
+  %td= discount.starts_at ? discount.starts_at.to_s(:date) : '-'
+  %td= discount.ends_at ? discount.ends_at.to_s(:date) : '-'
+  %td
+    = link_to 'Edit', edit_admins_discount_path(discount)
+    &nbsp;|&nbsp;
+    = link_to 'Delete', admins_discount_path(discount), method: :delete, data: { confirm: 'Are you sure to delete the discount?' }
+

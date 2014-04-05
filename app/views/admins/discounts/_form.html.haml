@@ -1,0 +1,12 @@
+.col-md-6
+  = simple_form_for [:admins, @discount] do |f|
+    = f.error_notification
+    = f.input :title
+    = f.input :code
+    = f.input :discount_value
+    = f.input :discount_type, as: :select, collection: Discount::DISCOUNT_TYPES, include_blank: false
+    = f.input :uses_left, label: 'Uses', hint: 'Leave blank for unlimited use'
+    = f.input :starts_at, include_blank: true, start_year: Date.current.year
+    = f.input :ends_at, include_blank: true, start_year: Date.current.year
+
+    = f.submit 'Save', class: 'btn btn-primary'
