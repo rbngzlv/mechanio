@@ -64,35 +64,6 @@ class Job < ActiveRecord::Base
   scope :assigned,  -> { with_status(:assigned).reorder(scheduled_at: :asc) }
   scope :completed, -> { with_status(:completed).reorder(scheduled_at: :desc) }
 
-  def self.sanitize_and_create(user, params)
-    create(self.whitelist(params).merge(user: user))
-  end
-
-  def self.create_temporary(params)
-    job = build_temporary(self.whitelist(params))
-    unless job.valid?
-      raise ActiveRecord::RecordInvalid, job
-    end
-
-    job = build_temporary(serialized_params: params)
-    job.save(validate: false)
-    job
-  end
-
-  def self.build_temporary(params)
-    job = Job.new(params)
-    job.skip_user_validation = true
-    job.car.skip_user_validation = true if job.car
-    job.status = :temporary
-    job
-  end
-
-  def self.convert_from_temporary(id, user)
-    job = find_temporary(id)
-    job.user_id = user.id
-    job.update(self.whitelist(job.serialized_params))
-    job
-  end
 
   def self.find_temporary(id)
     unscoped.with_status(:temporary).find(id)
@@ -101,20 +72,6 @@ class Job < ActiveRecord::Base
   def self.get_location_from_temporary(id)
     job = find_temporary(id) rescue nil
     job.serialized_params[:job][:location_attributes] if job
-  end
-
-  def self.whitelist(params)
-    params = ActionController::Parameters.new(params) unless params.is_a?(ActionController::Parameters)
-    params.require(:job).permit(
-      :car_id, :contact_email, :contact_phone,
-      location_attributes:  [:address, :suburb, :postcode, :state_id],
-      car_attributes:       [:id, :year, :model_variation_id, :last_service_kms, :last_service_date],
-      tasks_attributes:     [:type, :service_plan_id, :note, :title, :description,
-        task_items_attributes: [:itemable_type,
-          itemable_attributes: [:description, :name, :unit_cost, :quantity, :duration_hours, :duration_minutes, :cost]
-        ]
-      ]
-    )
   end
 
   def has_service?

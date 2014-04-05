@@ -41,29 +41,6 @@ describe Job do
     end
   end
 
-  it '#sanitize_and_create' do
-    Job.any_instance.should_receive(:notify_estimated)
-    job = Job.sanitize_and_create(user, job: attrs)
-    verify_estimated_job(job)
-  end
-
-  it '#create_temporary' do
-    Job.any_instance.should_not_receive(:notify_pending)
-    Job.any_instance.should_not_receive(:notify_estimated)
-    tmp = Job.create_temporary(job: attrs)
-    tmp.reload.serialized_params.should eq ({ job: attrs })
-    tmp.status.should eq 'temporary'
-  end
-
-  it '#convert_from_temporary' do
-    tmp = Job.create_temporary(job: attrs)
-    tmp.reload.status.should eq 'temporary'
-
-    Job.any_instance.should_receive(:notify_estimated)
-    job = Job.convert_from_temporary(tmp.id, user)
-    verify_estimated_job(job)
-  end
-
   it 'builds title from tasks' do
     service = build(:service)
     job.tasks << service
@@ -92,7 +69,7 @@ describe Job do
   end
 
   it 'associates car with user when creating car via nested_attributes' do
-    job = Job.sanitize_and_create(user, job: attrs)
+    job = Job.create(attrs_with_user)
 
     job.car.user_id.should_not be_nil
     job.car.user_id.should eq job.user_id
@@ -103,7 +80,7 @@ describe Job do
       id: car.id,
       last_service_kms: '10000'
     }
-    expect { Job.sanitize_and_create(user, job: attrs) }.to_not change{ Car.count }
+    expect { Job.create(attrs_with_user) }.to_not change{ Car.count }
     car.reload.last_service_kms.should eq 10000
   end
 
@@ -112,7 +89,7 @@ describe Job do
   end
 
   it 'sums tasks costs when creating from nested_attributes' do
-    job = Job.sanitize_and_create(user, job: attrs)
+    job = Job.create(attrs_with_user)
     job.cost.should eq 475
   end
 
@@ -190,11 +167,6 @@ describe Job do
     }.to change { Job.count }.by(-1)
   end
 
-  def verify_estimated_job(job)
-    job.reload.status.should eq 'estimated'
-    job.tasks.count.should eq 2
-    job.cost.should eq 475
-  end
 
   def attrs
     repair_item = attributes_for(:task_item, itemable_type: 'Labour', itemable_attributes: attributes_for(:labour))
@@ -207,5 +179,9 @@ describe Job do
       ],
       car_attributes: { year: '2000', model_variation_id: create(:model_variation).id, last_service_kms: '10000' }
     })
+  end
+
+  def attrs_with_user
+    attrs.merge(user: user)
   end
 end
