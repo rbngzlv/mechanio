@@ -15,7 +15,7 @@ class Admins::JobsController < Admins::ApplicationController
 
   def update
     if @job.update_attributes(permitted_parms)
-      flash[:notice] = 'Job successfuly updated'
+      flash[:notice] = 'Job successfully updated'
     else
       flash[:error] = 'Error updating job'
     end
