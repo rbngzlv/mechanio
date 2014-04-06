@@ -29,9 +29,7 @@ class UserCreateJobService
 
   def create_temporary
     job = build_temporary(whitelist(@params))
-    unless job.valid?
-      raise ActiveRecord::RecordInvalid, job
-    end
+    raise ActiveRecord::RecordInvalid, job unless job.valid?
 
     job = build_temporary(serialized_params: @params)
     job.save(validate: false)

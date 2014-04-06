@@ -21,6 +21,13 @@ describe UserCreateJobService do
       job.user_id.should be_nil
       job.serialized_params.should_not be_nil
     end
+
+    it 'raises exception when temporary job is invalid' do
+      invalid_attrs = attrs
+      invalid_attrs[:location_attributes] = {}
+
+      expect { service(nil, invalid_attrs).create_job }.to raise_error(ActiveRecord::RecordInvalid)
+    end
   end
 
   specify '#convert_from_temporary' do
