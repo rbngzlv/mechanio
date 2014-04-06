@@ -98,7 +98,7 @@ class EventsManager < Struct.new(:mechanic)
   end
 
   def time_for_compearing(t)
-    t ? t.to_time.change({:year => 2000 , :month => 1 , :day => 1 }) : nil
+    t ? t.in_time_zone.change({:year => 2000 , :month => 1 , :day => 1 }) : nil
   end
 
   def available_at?(scheduled_at)
