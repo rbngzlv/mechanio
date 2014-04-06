@@ -6,11 +6,7 @@ class UserCreateJobService
   end
 
   def create_job
-    if @user
-      sanitize_and_create
-    else
-      create_temporary
-    end
+    @user ? create : create_temporary
   end
 
   def convert_from_temporary(id)
@@ -23,7 +19,7 @@ class UserCreateJobService
 
   private
 
-  def sanitize_and_create
+  def create
     Job.create(whitelist(@params).merge(user: @user))
   end
 
