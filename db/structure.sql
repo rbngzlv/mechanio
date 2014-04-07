@@ -389,7 +389,10 @@ CREATE TABLE jobs (
     transaction_status character varying(255),
     transaction_errors text,
     uid character varying(255),
-    completed_at timestamp without time zone
+    completed_at timestamp without time zone,
+    discount_id integer,
+    discount_amount numeric(8,2),
+    final_cost numeric(8,2)
 );
 
 
@@ -1931,3 +1934,5 @@ INSERT INTO schema_migrations (version) VALUES ('20140303155311');
 INSERT INTO schema_migrations (version) VALUES ('20140326090031');
 
 INSERT INTO schema_migrations (version) VALUES ('20140331173751');
+
+INSERT INTO schema_migrations (version) VALUES ('20140407181553');

@@ -21,6 +21,7 @@ RSpec.configure do |config|
   config.include FeatureMacros, type: :feature
   config.include ScreenshotHelper, type: :feature
   config.include MailerAliasMethods
+  config.include JobAttributesHelper
 
   config.treat_symbols_as_metadata_keys_with_true_values = true
 

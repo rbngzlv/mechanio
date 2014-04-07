@@ -39,14 +39,19 @@
                 = f.input :reg_number, wrapper_html: { class: 'col-md-6 col-sm-6' }
                 = f.submit 'Save', class: 'btn btn-default'
             %td
-          - @job.tasks.each do |task|
+          - job_breakdown(@job).each_with_index do |row, i|
             %tr
-              %th #{ task.type }:
-              %td= task.title
-              %td.text-right= number_to_currency task.cost
+              %th= 'Service' if i == 0
+              %td= row[:title]
+              %td.text-right= row[:value]
           %tr.tr-divider
             %td
-            %th.text-right Total Fees:
-            %th.text-right= number_to_currency @job.cost
+            %td
+            %td
+          - job_totals(@job).each do |row|
+            %tr
+              %td
+              %th.text-right= row[:title]
+              %th.text-right= row[:value]
         .clearfix
           =link_to 'Complete job', mechanics_job_complete_path(@job), class: 'btn btn-success pull-right'

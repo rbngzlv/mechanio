@@ -28,13 +28,13 @@
         .pull-right
           %dl.dl-horizontal.totals
             %dt Cost
-            %dd.task-total {{task.total() | cost_or_pending}}
+            %dd.task-total {{task.total() | formatted_cost}}
 
       .totals-row{ 'ng-show' => 'task.type != "Inspection"' }
         .pull-right
           %dl.dl-horizontal.totals
             %dt Total
-            %dd.task-total {{task.total() | cost_or_pending}}
+            %dd.task-total {{task.total() | formatted_cost}}
 
         .add-item
           %a{ href: '', 'ng-click' => 'task.addItem("Part")' }

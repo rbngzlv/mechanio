@@ -22,6 +22,7 @@ class Users::JobsController < Users::ApplicationController
 
   def create
     job = job_service.create_job
+    discount_service(job, params[:discount_code]).apply_discount if params[:discount_code]
     session[:tmp_job_id] = job.id unless user_signed_in?
 
     respond_with job, location: false
@@ -52,7 +53,11 @@ class Users::JobsController < Users::ApplicationController
   end
 
   def job_service
-    @job_service ||= UserCreateJobService.new(current_user, params)
+    UserCreateJobService.new(current_user, params)
+  end
+
+  def discount_service(job, discount_code)
+    JobDiscountService.new(job, discount_code)
   end
 
   def states_json

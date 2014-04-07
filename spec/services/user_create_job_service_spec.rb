@@ -2,12 +2,12 @@ require 'spec_helper'
 
 describe UserCreateJobService do
 
-  let(:user) { create :user }
-  let(:tmp_job) { service(nil, attrs).create_job }
+  let(:user)            { create :user }
+  let(:temporary_job)   { create_temporary_job }
 
   describe '#create_job' do
     it 'creates job' do
-      job = service(user, attrs).create_job
+      job = service(user, job_attributes).create_job
 
       job.reload.status.should eq 'estimated'
       job.user_id.should eq user.id
@@ -15,7 +15,7 @@ describe UserCreateJobService do
     end
 
     it 'creates temporary job' do
-      job = service(nil, attrs).create_job
+      job = service(nil, job_attributes).create_job
 
       job.reload.status.should eq 'temporary'
       job.user_id.should be_nil
@@ -23,7 +23,7 @@ describe UserCreateJobService do
     end
 
     it 'raises exception when temporary job is invalid' do
-      invalid_attrs = attrs
+      invalid_attrs = job_attributes
       invalid_attrs[:location_attributes] = {}
 
       expect { service(nil, invalid_attrs).create_job }.to raise_error(ActiveRecord::RecordInvalid)
@@ -31,28 +31,14 @@ describe UserCreateJobService do
   end
 
   specify '#convert_from_temporary' do
-    tmp_job.reload.status.should eq 'temporary'
-    job = service(user, nil).convert_from_temporary(tmp_job.id)
+    job = service(user, nil).convert_from_temporary(temporary_job.id)
 
-    job.reload.id.should eq tmp_job.id
+    job.reload.id.should eq temporary_job.id
     job.status.should eq 'estimated'
     job.user_id.should eq user.id
   end
 
   def service(user, params)
     UserCreateJobService.new(user, { job: params })
-  end
-
-  def attrs
-    @attrs ||= attributes_for(:job).merge({
-      location_attributes: attributes_for(:location, state_id: create(:state).id),
-      tasks_attributes: [
-        attributes_for(:service, service_plan_id: create(:service_plan).id),
-        attributes_for(:repair, task_items_attributes: [
-          attributes_for(:task_item, itemable_type: 'Labour', itemable_attributes: attributes_for(:labour))
-        ])
-      ],
-      car_attributes: { year: '2000', model_variation_id: create(:model_variation).id, last_service_kms: '10000' }
-    })
   end
 end

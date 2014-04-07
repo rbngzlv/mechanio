@@ -15,6 +15,7 @@ describe 'Service wizard', js: true do
   let(:note)          { 'A note goes here' }
   let(:repair_note)   { 'Repair note' }
   let(:another_note)  { 'Edited note' }
+  let(:discount)      { create :discount, discount_value: 20, discount_type: 'percent' }
 
   before do
     reset_mail_deliveries
@@ -27,14 +28,11 @@ describe 'Service wizard', js: true do
       click_on 'Car Needs Servicing'
 
       verify_current_step 'Car Details'
-      enter_last_service_kms
       add_new_car
 
       verify_current_step 'Diagnose'
       verify_sidebar 2, 'VEHICLE', variation.display_title
-      select_service_plan
-      click_on 'Add'
-      verify_task 1, service_plan.display_title, note
+      add_a_service_plan
       click_on 'Continue'
 
       verify_current_step 'Contact'
@@ -61,14 +59,11 @@ describe 'Service wizard', js: true do
       visit service_path
 
       verify_current_step 'Car Details'
-      enter_last_service_kms
       add_new_car
 
       verify_current_step 'Diagnose'
       verify_sidebar 2, 'VEHICLE', variation.display_title
-      select_service_plan
-      click_on 'Add'
-      verify_task 1, service_plan.display_title, note
+      add_a_service_plan
       click_on 'Continue'
 
       verify_current_step 'Contact'
@@ -111,15 +106,11 @@ describe 'Service wizard', js: true do
       visit service_path
 
       verify_current_step 'Car Details'
-      select_car(car)
-      enter_last_service_date
-      click_on 'Continue'
+      select_a_car
 
       verify_current_step 'Diagnose'
       verify_sidebar 2, 'VEHICLE', variation.display_title
-      select_service_plan
-      click_on 'Add'
-      verify_task 1, service_plan.display_title, note
+      add_a_service_plan
       click_on 'Continue'
 
       verify_current_step 'Contact'
@@ -144,9 +135,7 @@ describe 'Service wizard', js: true do
       click_on 'Car Needs Repair'
 
       verify_current_step 'Car Details'
-      select_car(car)
-      enter_last_service_date
-      click_on 'Continue'
+      select_a_car
 
       verify_current_step 'Diagnose'
       verify_sidebar 2, 'VEHICLE', variation.display_title
@@ -169,38 +158,11 @@ describe 'Service wizard', js: true do
       verify_last_service_date(user)
     end
 
-    it 'add repair with keywords', pending: 'Keywords system is not implemented yet' do
-      visit repair_path
-
-      verify_current_step 'Car Details'
-      select_car(car)
-      enter_last_service_date
-      click_on 'Continue'
-
-      verify_current_step 'Diagnose'
-      verify_sidebar 2, 'VEHICLE', variation.display_title
-
-      add_repair_keywords
-      verify_task 1, 'Inspection', ''
-      click_on 'Continue'
-
-      verify_current_step 'Contact'
-      verify_sidebar 3, 'CAR SERVICING', 'Diagnose car problem'
-      click_on 'Continue'
-
-      verify_pending_quote
-      # verify_email_notification
-      verify_job_pending(user)
-      verify_last_service_date(user)
-    end
-
     it 'edits repair' do
       visit repair_path
 
       verify_current_step 'Car Details'
-      select_car(car)
-      enter_last_service_date
-      click_on 'Continue'
+      select_a_car
 
       verify_current_step 'Diagnose'
       verify_sidebar 2, 'VEHICLE', variation.display_title
@@ -224,15 +186,11 @@ describe 'Service wizard', js: true do
       visit service_path
 
       verify_current_step 'Car Details'
-      select_car(car)
-      enter_last_service_date
-      click_on 'Continue'
+      select_a_car
 
       verify_current_step 'Diagnose'
       verify_sidebar 2, 'VEHICLE', variation.display_title
-      select_service_plan
-      click_on 'Add'
-      verify_task 1, service_plan.display_title, note
+      add_a_service_plan
 
       within_task(1) { find('.edit-task').click }
       page.should have_select 'job_task_service_plan_id', selected: service_plan.display_title
@@ -249,15 +207,11 @@ describe 'Service wizard', js: true do
       visit service_path
 
       verify_current_step 'Car Details'
-      select_car(car)
-      enter_last_service_date
-      click_on 'Continue'
+      select_a_car
 
       verify_current_step 'Diagnose'
       verify_sidebar 2, 'VEHICLE', variation.display_title
-      select_service_plan
-      click_on 'Add'
-      verify_task 1, service_plan.display_title, note
+      add_a_service_plan
 
       click_link 'Add Repair'
       add_repair_symptoms
@@ -272,6 +226,31 @@ describe 'Service wizard', js: true do
       page.should have_css 'h5', text: 'PLEASE PICK A SERVICE INTERVAL YOU\'LL LIKE OUR PROFESSIONAL MOBILE MECHANIC TO PERFORM'
       find('button', text: 'Add')[:disabled].should be_true
     end
+
+    context 'discount' do
+      it 'applies discount' do
+        visit service_path
+
+        verify_current_step 'Car Details'
+        select_a_car
+
+        verify_current_step 'Diagnose'
+        verify_sidebar 2, 'VEHICLE', variation.display_title
+        add_a_service_plan
+        click_on 'Continue'
+
+        verify_current_step 'Contact'
+        verify_sidebar 3, 'CAR SERVICING', service_plan.display_title
+        enter_discount_code
+
+        click_on 'Continue'
+
+        verify_quote ["#{service_plan.display_title} service"], '$350.00'
+        verify_email_notification
+        verify_job_estimated(user, 350)
+        verify_last_service_date(user)
+      end
+    end
   end
 
   def add_new_car
@@ -281,15 +260,16 @@ describe 'Service wizard', js: true do
     select variation.make.name, from: 'car_make_id'
     select variation.model.name, from: 'car_model_id'
     select variation.detailed_title, from: 'car_model_variation_id'
+
+    fill_in 'Kms', with: '15000'
+
     click_on 'Continue'
   end
 
-  def select_car(car)
+  def select_a_car
     choose car.display_title
-  end
-
-  def enter_last_service_kms
-    fill_in 'Kms', with: '15000'
+    enter_last_service_date
+    click_on 'Continue'
   end
 
   def enter_last_service_date
@@ -307,6 +287,12 @@ describe 'Service wizard', js: true do
     click_on 'Continue'
   end
 
+  def add_a_service_plan
+    select_service_plan
+    click_on 'Add'
+    verify_task 1, service_plan.display_title, note
+  end
+
   def select_service_plan(plan = nil, custom_note = nil)
     plan ||= service_plan
     select plan.display_title, from: 'job_task_service_plan_id'
@@ -320,6 +306,10 @@ describe 'Service wizard', js: true do
 
   def add_repair_keywords
     fill_in 'Describe any issues you have with your car', with: 'I have 3 wheels'
+  end
+
+  def enter_discount_code
+    fill_in 'discount_code', with: discount.code
   end
 
   def verify_task(position, title, content)

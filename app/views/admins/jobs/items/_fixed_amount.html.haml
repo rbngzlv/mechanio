@@ -13,4 +13,4 @@
       = i.input :cost, placeholder: 'Cost', as: :string, input_html: { min: 0.1, 'ng-model' => 'item.itemable.cost' }
     .pull-right
       .total
-        .form-control-static {{item.total() | cost_or_pending}}
+        .form-control-static {{item.total() | formatted_cost}}

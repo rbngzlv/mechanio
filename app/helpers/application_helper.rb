@@ -48,18 +48,6 @@ module ApplicationHelper
     content_tag(:i, content, options).html_safe
   end
 
-  def job_status(status)
-    css = case status
-      when 'pending'    then 'warning'
-      when 'estimated'  then 'info'
-      when 'assigned'   then 'primary'
-      when 'completed'  then 'success'
-      when 'cancelled'  then 'default'
-    end
-
-    content_tag :span, status.humanize, class: "label label-#{css}"
-  end
-
   def mechanic_status(mechanic, opt = {})
     css, text = if mechanic.suspended?
       text = opt[:show_suspended_at] ? "Suspended at #{mechanic.suspended_at.to_s(:date_short)}" : 'Suspended'
@@ -70,35 +58,8 @@ module ApplicationHelper
     content_tag :span, text, class: "label label-#{css}"
   end
 
-  def job_statuses
-    labels = Job::STATUSES.map { |s| I18n.t(s, scope: 'activerecord.attributes.job.status') }
-    labels.zip(Job::STATUSES)
-  end
-
   def suburb_with_postcode(location)
     "#{location.suburb}, #{location.postcode}"
-  end
-
-  def cost_or_pending(amount)
-    return 'pending' if amount.nil?
-    return 'free' if amount.zero?
-    content_tag(:b, number_to_currency(amount))
-  end
-
-  def last_service(car)
-    car.last_service_kms ? "#{car.last_service_kms} Km" : car.last_service_date.to_s(:month_year)
-  end
-
-  def requested_by(job)
-    job.client_name + ' on ' + job.created_at.to_s(:date_time_short)
-  end
-
-  def allocated_to(job)
-    if @job.mechanic && @job.scheduled_at
-      @job.mechanic.full_name + ' on ' + job.scheduled_at.to_s(:date_time_short)
-    else
-      'Unassigned'
-    end
   end
 
   def social_icon(provider)

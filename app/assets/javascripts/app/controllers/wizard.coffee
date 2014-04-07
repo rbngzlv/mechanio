@@ -71,27 +71,29 @@ app.controller 'WizardController', ['$scope', '$http', ($scope, $http) ->
     angular.element('#social-login-modal').modal('show')
 
   $scope.saveJob = (success = false, error = false) ->
-    params = $scope.data.job
-    params.location_attributes = $scope.data.location
-    params.tasks_attributes = $scope.data.tasks
+    job = $scope.data.job
+    job.location_attributes = $scope.data.location
+    job.tasks_attributes = $scope.data.tasks
 
     if $scope.data.car.id
-      params.car_id = $scope.data.car.id
+      job.car_id = $scope.data.car.id
       if $scope.data.car.last_service_kms || $scope.data.car.last_service_date
-        params.car_attributes = {
+        job.car_attributes = {
           id:                 $scope.data.car.id,
           last_service_kms:   $scope.data.car.last_service_kms,
           last_service_date:  $scope.data.car.last_service_date
         }
     else
-      params.car_attributes = {
+      job.car_attributes = {
         year:               $scope.data.car.year,
         model_variation_id: $scope.data.car.model_variation_id,
         last_service_kms:   $scope.data.car.last_service_kms,
         last_service_date:  $scope.data.car.last_service_date
       }
 
-    $http.post('/users/jobs.json', { job: params })
+    params = { job: job, discount_code: $scope.data.discount_code }
+
+    $http.post('/users/jobs.json', params)
       .success (data) ->
         success(data) if success
       .error (data) ->

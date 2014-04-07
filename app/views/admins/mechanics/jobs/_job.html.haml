@@ -6,6 +6,6 @@
     = job.client_name
     %br
     %span.small= job.created_at.to_s(:date) 
-  %td.text-right= number_to_currency(job.cost)
+  %td.text-right= formatted_cost(job.final_cost)
   %td.text-right= job.payout ? number_to_currency(job.payout.amount) : '-'
   %td= link_to 'Edit', edit_admins_job_path(job)

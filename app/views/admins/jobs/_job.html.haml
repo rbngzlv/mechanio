@@ -14,5 +14,5 @@
     - else
       unassigned
   %td= suburb_with_postcode(job.location)
-  %td= number_to_currency(job.cost) || 'pending'
+  %td= formatted_cost(job.final_cost)
   %td= link_to 'Edit', edit_admins_job_path(job)

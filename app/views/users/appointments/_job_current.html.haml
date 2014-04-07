@@ -19,7 +19,7 @@
         .alert-success.alert.col-md-12.clearfix
           .pull-left Total Cost
           .pull-right.text-right
-            %b= number_to_currency job.cost
+            %b= formatted_cost job.final_cost
         -#
           .col-md-12.col-sm-6
             = link_to 'Add Another Service', '#', class: 'btn btn-success col-md-12 col-sm-12 bottom-margin'
@@ -46,11 +46,12 @@
                 Services:
               %td
                 = job.tasks.map(&:title).join(', ')
-              %td
-            %tr
-              %td
-                Billing
-              %td
-                %b Total Fees
               %td.text-right
-                %b= number_to_currency job.cost
+                = formatted_cost job.cost
+            - job_totals(job).each do |row|
+              %tr
+                %td
+                %td
+                  %b= row[:title]
+                %td.text-right
+                  %b= row[:value]

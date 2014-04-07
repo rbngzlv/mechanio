@@ -13,6 +13,7 @@ describe Job do
   it { should belong_to :location }
   it { should belong_to :mechanic }
   it { should belong_to :credit_card }
+  it { should belong_to :discount }
   it { should have_many :tasks }
   it { should have_one :appointment }
   it { should have_one :event }
@@ -69,18 +70,18 @@ describe Job do
   end
 
   it 'associates car with user when creating car via nested_attributes' do
-    job = Job.create(attrs_with_user)
+    job = Job.create(job_attributes_with_user)
 
     job.car.user_id.should_not be_nil
     job.car.user_id.should eq job.user_id
   end
 
   it 'updates car when via nested_attributes' do
-    attrs[:car_attributes] = {
+    job_attributes[:car_attributes] = {
       id: car.id,
       last_service_kms: '10000'
     }
-    expect { Job.create(attrs_with_user) }.to_not change{ Car.count }
+    expect { Job.create(job_attributes) }.to_not change{ Car.count }
     car.reload.last_service_kms.should eq 10000
   end
 
@@ -89,7 +90,7 @@ describe Job do
   end
 
   it 'sums tasks costs when creating from nested_attributes' do
-    job = Job.create(attrs_with_user)
+    job = Job.create(job_attributes_with_user)
     job.cost.should eq 475
   end
 
@@ -107,6 +108,7 @@ describe Job do
 
   context 'updating task' do
     it 'should be pending when some tasks have unknown cost' do
+      attrs = job_attributes
       attrs[:tasks_attributes][1].delete(:task_items_attributes)
 
       job.update_attributes(attrs)
@@ -118,6 +120,7 @@ describe Job do
       job = create :job, :pending
       job.reload.status.should eq 'pending'
 
+      attrs = job_attributes
       attrs[:tasks_attributes][1][:id] = job.tasks.first.id
       job.should_receive(:notify_estimated)
       job.update_attributes(attrs)
@@ -130,7 +133,7 @@ describe Job do
       job.cost.should eq 350
 
       job.should_receive(:notify_quote_changed)
-      job.update_attributes(attrs)
+      job.update_attributes(job_attributes)
       job.status.should eq 'estimated'
       job.cost.should eq 825
     end
@@ -168,20 +171,7 @@ describe Job do
   end
 
 
-  def attrs
-    repair_item = attributes_for(:task_item, itemable_type: 'Labour', itemable_attributes: attributes_for(:labour))
-
-    @attrs ||= attributes_for(:job).merge({
-      location_attributes: attributes_for(:location, state_id: create(:state).id),
-      tasks_attributes: [
-        attributes_for(:service, service_plan_id: create(:service_plan).id),
-        attributes_for(:repair, task_items_attributes: [repair_item])
-      ],
-      car_attributes: { year: '2000', model_variation_id: create(:model_variation).id, last_service_kms: '10000' }
-    })
-  end
-
-  def attrs_with_user
-    attrs.merge(user: user)
+  def job_attributes_with_user
+    job_attributes.merge(user: user)
   end
 end

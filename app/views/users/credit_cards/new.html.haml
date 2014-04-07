@@ -40,19 +40,16 @@
         .panel-body
           %table
             %tbody
-              - @job.tasks.each do |task|
+              - job_breakdown(@job).each do |row|
                 %tr
-                  %th #{task.title}:
-                  %td= number_to_currency task.cost
+                  %th= row[:title]
+                  %td= row[:value]
               %tr.tr-divider
                 %td{ colspan: 2 }
-              %tr
-                %th Total Price:
-                %td= number_to_currency @job.cost
-
-          -#
-            %p.text-center
-              = link_to 'Redeem promo code', '#'
+              - job_totals(@job).each do |row|
+                %tr
+                  %th= row[:title]
+                  %td= row[:value]
           .payment-notice
             You pay $0 to secure this booking.
             %br

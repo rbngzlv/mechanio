@@ -22,7 +22,12 @@ class CostCalculator
 
     @job.cost = costs.include?(nil) ? nil : costs.sum
     @job.cost = nil if @job.cost == 0
-    @job.cost
+    @job.final_cost = @job.cost
+
+    if @job.cost && @job.discount.present?
+      @job.discount_amount = @job.discount.discount_amount(@job.cost)
+      @job.final_cost = @job.cost - @job.discount_amount
+    end
   end
 
 

@@ -33,6 +33,7 @@ describe CostCalculator do
         service.cost.should     eq 350
         inspection.cost.should  eq 0
         job.cost.should         eq 683
+        job.final_cost.should   eq 683
       end
     end
 
@@ -42,16 +43,28 @@ describe CostCalculator do
       specify 'inspection is paid' do
         inspection.cost.should  eq 80
         job.cost.should         eq 413
+        job.final_cost.should   eq 413
       end
     end
 
     context 'no service, multiple inspections' do
       let(:job) { build_stubbed :job, tasks: [repair, inspection, another_inspection] }
 
-      specify ' multiple inspections should cost as single inspection' do
+      specify 'multiple inspections should cost as single inspection' do
         inspection.cost.should          eq 80
         another_inspection.cost.should  eq 0
         job.cost.should                 eq 413
+        job.final_cost.should           eq 413
+      end
+    end
+
+    context 'job with discount' do
+      let(:job) { build :job, :with_discount, tasks: [repair] }
+
+      specify 'final_cost should include discount' do
+        job.cost.should                  eq 333
+        job.discount_amount.to_f.should  eq 66.6
+        job.final_cost.should            eq 266.4
       end
     end
   end

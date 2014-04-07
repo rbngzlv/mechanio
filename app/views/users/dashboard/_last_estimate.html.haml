@@ -15,5 +15,5 @@
       .alert-success
         %small Total Cost
         %br
-        %b.big= number_to_currency @estimate.cost
+        %b.big= formatted_cost @estimate.final_cost
       = link_to 'Book Appointments', edit_users_appointment_path(@estimate), class: 'btn btn-success'

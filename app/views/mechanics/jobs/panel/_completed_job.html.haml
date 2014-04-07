@@ -3,7 +3,7 @@
   %td= job.car.display_title
   %td= job.title
   %td
-    %span.pull-right= number_to_currency job.cost
+    %span.pull-right= formatted_cost job.final_cost
   -#
     %td.info-icons
       = link_to '#' do

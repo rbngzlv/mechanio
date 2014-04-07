@@ -9,11 +9,11 @@ class Discount < ActiveRecord::Base
   validates :uses_left, numericality: true, allow_nil: true
 
   def apply_discount(amount)
-    if discount_type == 'percent'
-      amount - (amount * discount_value / 100)
-    else
-      amount - discount_value
-    end
+    amount - discount_amount(amount)
+  end
+
+  def discount_amount(amount)
+    discount_type == 'percent' ? amount * discount_value / 100 : discount_value
   end
 
   def display_value

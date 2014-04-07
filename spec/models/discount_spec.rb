@@ -19,6 +19,11 @@ describe Discount do
     amount_discount.apply_discount(200).should eq 180
   end
 
+  specify '#discount_amount' do
+    percent_discount.discount_amount(200).should eq 40
+    amount_discount.discount_amount(200).should eq 20
+  end
+
   specify '#display_value' do
     percent_discount.display_value.should eq '20%'
     amount_discount.display_value.should eq '$20.00'

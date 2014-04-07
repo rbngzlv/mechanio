@@ -8,17 +8,18 @@
       .panel-body
         .table-responsive
           %table.table.table-borderless.no-margin.tasks
-            - @job.tasks.each do |t|
+            - job_breakdown(@job).each do |row|
               %tr.tr-divider
                 %td
-                  = t.title
+                  = row[:title]
                 %td.text-right
-                  = number_to_currency t.cost
-            %tr
-              %td.text-right
-                %b Total Fees
-              %td.text-right
-                %b= number_to_currency @job.cost
+                  = row[:value]
+            - job_totals(@job).each do |row|
+              %tr
+                %td.text-right
+                  %b= row[:title]
+                %td.text-right
+                  %b= row[:value]
 
     %h4.black Select a Mechanic
     .mechanics

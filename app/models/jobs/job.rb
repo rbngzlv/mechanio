@@ -7,6 +7,7 @@ class Job < ActiveRecord::Base
   belongs_to :location, dependent: :destroy
   belongs_to :mechanic
   belongs_to :credit_card
+  belongs_to :discount
   has_many :tasks, inverse_of: :job, dependent: :destroy
   has_one :appointment, dependent: :destroy
   has_one :event, dependent: :destroy

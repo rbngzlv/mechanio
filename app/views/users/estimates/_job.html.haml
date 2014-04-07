@@ -13,22 +13,23 @@
               %b Car
             %td{ colspan: 3 }
               = job.car.display_title
-          - job.tasks.each do |task|
+          - job_breakdown(job).each_with_index do |row, i|
             %tr.tr-divider
               %td
-                %b= task.type
+                - if i == 0
+                  %b Service
               %td
-                = task.title
+                = row[:title]
               %td
               %td.text-right
-                = cost_or_pending task.cost
-          %tr
-            %td
-              %b Billing
-            %td
-            %td
-              %b Total Fees
-            %td.text-right
-              = cost_or_pending job.cost
+                = row[:value]
+          - job_totals(job).each do |row|
+            %tr
+              %td
+              %td
+              %td.text-right
+                %b= row[:title]
+              %td.text-right{ style: 'width: 20%' }
+                = row[:value]
 
       = link_to 'Book Appointment', edit_users_appointment_path(job), class: 'btn btn-success pull-right' if job.estimated?

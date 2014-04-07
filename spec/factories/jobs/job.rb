@@ -31,6 +31,12 @@ FactoryGirl.define do
       end
     end
 
+    trait :with_discount do
+      after :build do |j|
+        j.discount = build(:discount)
+      end
+    end
+
     trait :estimated do
       status  :estimated
       cost    123
