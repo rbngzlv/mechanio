@@ -8,7 +8,7 @@ module JobHelper
 
   def job_totals(job)
     totals = []
-    totals << { title: 'Discount', value: number_to_currency(job.discount_amount) } if job.discount
+    totals << { title: 'Discount', value: formatted_cost(job.discount_amount) } if job.discount
     totals << { title: 'Total Fees', value: formatted_cost(job.final_cost) }
   end
 

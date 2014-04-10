@@ -172,6 +172,39 @@ feature 'Jobs section' do
         grand_total.should eq '$80.00'
       end
 
+      scenario 'job with discount' do
+        job = create :job, :with_inspection, :with_discount
+
+        visit_job_items(job)
+
+        within_task(1) { verify_inspection }
+
+        find('.grand-total:nth-child(1)').text.should eq 'Discount 20OFF $16.00'
+        find('.grand-total:nth-child(2)').text.should eq 'Job total $64.00'
+
+        click_on 'Add repair'
+
+        within('.repair-form') { fill_in_repair }
+
+        within_task(2) do
+          click_on 'Add parts'
+          within_row(0) { fill_in_part }
+
+          click_on 'Add labour'
+          within_row(1) { fill_in_labour }
+
+          click_on 'Add amount'
+          within_row(2) { fill_in_fixed }
+        end
+
+        before_and_after_save job do
+          within_task(2) { verify_edited_repair }
+
+          find('.grand-total:nth-child(1)').text.should eq 'Discount 20OFF $82.20'
+          find('.grand-total:nth-child(2)').text.should eq 'Job total $328.80'
+        end
+      end
+
       scenario 'job with multiple inspections' do
         job = create :job, tasks: [create(:inspection), create(:inspection)]
 

@@ -2,8 +2,8 @@ require 'spec_helper'
 
 feature 'upcoming job details page' do
   let(:mechanic) { create :mechanic }
-  let!(:job) { create :job_with_service, :with_repair, :with_inspection,
-    :completed, mechanic: mechanic, assigned_at: Date.tomorrow }
+  let!(:job) { create :job, :completed, :with_service, :with_repair, :with_inspection, :with_discount,
+    mechanic: mechanic, assigned_at: Date.tomorrow }
 
   before { login_mechanic mechanic }
 
@@ -23,78 +23,63 @@ feature 'upcoming job details page' do
 
   it 'should show job details' do
     visit mechanics_job_path(job)
+
     page.should have_link 'View Receipt'
+
     within '.alert-info' do
-      page.should have_css 'h4', text: 'Appointment on:'
-      page.should have_css 'h4', text: job.scheduled_at.to_s(:date_time_short)
+      date = job.scheduled_at.to_s(:date_time_short)
+      page.should have_css 'h4', text: "Appointment on: #{date}"
     end
+
     within '.alert-info + .panel' do
-      page.should have_content 'Job ID'
-      page.should have_content job.uid
-      page.should have_content 'Job received date'
-      page.should have_content job.assigned_at.to_s(:date_short)
-      page.should have_content 'Client Name'
-      page.should have_content job.user.full_name
-      page.should have_content job.location.full_address
-      page.should have_content job.contact_phone
-      page.should have_content job.car.display_title
+      date = job.assigned_at.to_s(:date_short)
+      page.should have_css "p", text: "Job ID: #{job.uid}"
+      page.should have_css "p", "Job received date: #{date}"
+      page.should have_css "p", "Client Name: #{job.user.full_name}"
+      page.should have_css "p", job.location.full_address
+      page.should have_css "p", job.contact_phone
+      page.should have_css "p", job.car.display_title
     end
 
     page.should have_css 'h4.hx-default', text: 'Job and Labour'
+
     job.tasks.each do |task|
       case task.type
       when 'Service'
         within "#service_#{task.id}" do
+          item_title = task.task_items.first.itemable.description
           page.should have_css 'h5.hx-default', text: task.title
-          page.should have_css 'p b', text: 'Note'
-          page.should have_css 'p', text: 'A note to mechanic'
-          page.should have_css 'td:nth-child(1)', text: 'Service Title'
-          page.should have_css 'td:nth-child(2)', text: task.task_items.first.itemable.description
-          page.should have_css 'td:nth-child(6)', text: '$350.00'
-          page.should have_css '.task-cost', text: "$#{task.cost}"
+          page.should have_css 'p', text: 'Note: A note to mechanic'
+
+          page.should have_css 'tr', text: "Service Title #{item_title} $350.00"
+
+          page.should have_css '.task-cost', text: "#{number_to_currency task.cost}"
         end
       when 'Repair'
         within "#repair_#{task.id}" do
           page.should have_css 'h5.hx-default', text: task.title
-          page.should have_css 'p b', text: 'Note'
-          page.should have_css 'p', text: 'A note to mechanic'
+          page.should have_css 'p', text: 'Note: A note to mechanic'
 
-          page.should have_css 'td:nth-child(1)', text: 'Part'
-          page.should have_css 'td:nth-child(2)', text: 'Break pad'
-          page.should have_css 'td:nth-child(3)', text: '2'
-          page.should have_css 'td:nth-child(5)', text: '$54'
-          page.should have_css 'td:nth-child(6)', text: '$108.00'
+          page.should have_css 'tr', text: 'Part Break pad 2 x $54.00 $108.00'
+          page.should have_css 'tr', text: 'Labour 2 h 30 m x $50.00 $125.00'
+          page.should have_css 'tr', text: 'Fixed Amount Fixed amount $100.00'
 
-          page.should have_css 'td:nth-child(1)', text: 'Labour'
-          page.should have_css 'td:nth-child(3)', text: '2 h 30 m'
-          page.should have_css 'td:nth-child(5)', text: '$50'
-          page.should have_css 'td:nth-child(6)', text: '$125.00'
-
-          page.should have_css 'td:nth-child(1)', text: 'Fixed Amount'
-          page.should have_css 'td:nth-child(2)', text: 'Fixed amount'
-          page.should have_css 'td:nth-child(6)', text: '$100.00'
-          page.should have_css '.task-cost', text: "$#{task.cost}"
+          page.should have_css '.task-cost', text: "#{number_to_currency task.cost}"
         end
       when 'Inspection'
         within "#inspection_#{task.id}" do
           page.should have_css 'h5.hx-default', text: task.title
-          page.should have_css 'p b', text: 'Note'
-          page.should have_css 'p', text: 'A note to mechanic'
-          page.should have_css 'td:nth-child(1)', text: task.title
-          page.should have_css 'td:nth-child(5)', text: task.cost
-          page.should have_css '.task-cost', text: "$#{task.cost}"
+          page.should have_css 'p', text: 'Note: A note to mechanic'
+
+          page.should have_css 'tr', text: 'Break pedal vibration free'
+
+          page.should have_css '.task-cost', text: "free"
         end
       end
     end
 
-    within '.total' do
-      page.should have_content 'Total'
-      page.should have_content "$#{job.cost}"
-    end
-
-    page.should have_no_selector '.container form'
-    page.should have_no_link 'Edit Job'
-    page.should have_no_button 'Edit Job'
+    page.should have_css '.total', 'Discount $136.60'
+    page.should have_css '.total', 'Total $546.40'
   end
 
   it 'has feedback section' do

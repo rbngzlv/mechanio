@@ -149,7 +149,7 @@ class Job < ActiveRecord::Base
         location: { only: [:address, :suburb, :postcode], methods: [:state_name] }
       })
     else
-      super(only: [:id, :cost, :contact_phone], include: {
+      super(only: [:id, :discount_amount, :final_cost, :contact_phone], include: {
         user: { only: [], methods: [:full_name, :avatar_thumb] },
         car: { only: [:display_title, :vin, :reg_number] },
         location: { only: [:address, :suburb, :postcode], methods: [:state_name] },
@@ -157,7 +157,8 @@ class Job < ActiveRecord::Base
           task_items: { only: [:id, :itemable_id, :itemable_type], include: {
             itemable: { only: [:id, :description, :cost, :hourly_rate, :duration_hours, :duration_minutes, :name, :quantity, :unit_cost] }
           }}
-        }}
+        }},
+        discount: { only: [:code, :discount_type, :discount_value ] }
       })
     end
   end

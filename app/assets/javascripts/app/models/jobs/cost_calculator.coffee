@@ -14,10 +14,15 @@ app.factory 'CostCalculator', ->
         else
           @task_cost(t)
 
-      job.cost = if totals.length == 0 || 'pending' in totals
-        'pending'
+      if totals.length == 0 || 'pending' in totals
+        job.cost = 'pending'
       else
-        totals.reduce (a, b) -> a + b
+        job.cost = totals.reduce (a, b) -> a + b
+
+      job.final_cost = job.cost
+
+      if job.discount && job.cost && job.cost != 'pending'
+        job.final_cost -= job.discount.discount_amount(job.cost)
 
     task_cost: (task) ->
       totals = for i in task.task_items when !i.isDeleted()

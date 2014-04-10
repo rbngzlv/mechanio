@@ -10,7 +10,6 @@ describe 'Payout information' do
   end
 
   specify 'top menu navigation', :js do
-    screen
     within 'header.navbar' do
       click_on mechanic.full_name
       click_on 'Payout Information'

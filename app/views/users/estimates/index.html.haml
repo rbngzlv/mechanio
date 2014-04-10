@@ -1,1 +1,9 @@
-= render(partial: 'users/estimates/job', collection: @jobs) || render('no_estimates')
+- if @jobs.size > 0
+  = render partial: 'users/estimates/job', collection: @jobs
+- else
+  .panel.panel-default.panel-rounded
+    .panel-heading
+      %h4.panel-title
+        %span.text-info My Estimates
+    .panel-body
+      %h5 You have no estimates

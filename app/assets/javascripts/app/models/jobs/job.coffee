@@ -1,10 +1,11 @@
 app = angular.module('mechanio.models')
 
-app.factory 'Job', ['CostCalculator', 'Service', 'Repair', 'Inspection', (CostCalculator, Service, Repair, Inspection) ->
+app.factory 'Job', ['CostCalculator', 'Service', 'Repair', 'Inspection', 'Discount', (CostCalculator, Service, Repair, Inspection, Discount) ->
   class Job
     constructor: (attrs, @hourly_rate, @service_plans) ->
-      @[key] = value for key, value of attrs when key != 'tasks'
+      @[key] = value for key, value of attrs when key not in ['tasks', 'discount']
       @tasks = attrs.tasks.map (t) => @create_task(t, hourly_rate, service_plans)
+      @discount = new Discount(attrs.discount) if attrs.discount
 
     create_task: (attrs, hourly_rate, service_plans) ->
       switch attrs.type
@@ -26,4 +27,5 @@ app.factory 'Job', ['CostCalculator', 'Service', 'Repair', 'Inspection', (CostCa
 
     total: ->
       @updateCost()
+      @final_cost
 ]

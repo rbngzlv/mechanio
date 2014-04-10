@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 feature 'details page for upcoming job' do
-  let!(:job) { create :job, :with_repair, :assigned, mechanic: mechanic }
+  let!(:job) { create :job, :assigned, :with_service, :with_repair, :with_discount, mechanic: mechanic }
   let(:mechanic) { create :mechanic }
 
   subject { page }
@@ -29,25 +29,33 @@ feature 'details page for upcoming job' do
 
   it 'should show job details' do
     visit mechanics_job_path(job)
+
     within '.panel' do
+      should have_content 'Appointment'
+      should have_content job.scheduled_at.to_s(:time_day_month)
+
       should have_content 'Client'
       should have_content job.client_name
       should have_content job.location.full_address
       should have_content job.contact_phone
+
       should have_content 'Car'
       should have_content job.car.display_title
+
       should have_content 'VIN'
       should have_field 'car_vin'
+
       should have_content 'Registration Number'
       should have_field 'car_reg_number'
-      should have_content 'Appointment'
-      should have_content job.scheduled_at.to_s(:time_day_month)
-      job.tasks.each do |task|
-        should have_content task.type
-        should have_content task.title
-        should have_content "$#{task.cost}"
+
+      job.tasks.each_with_index do |task, i|
+        row = "#{task.title} #{number_to_currency task.cost}"
+        row = "Service #{row}" if i == 0
+        should have_css "tr", row
       end
-      should have_content "$#{job.cost}"
+
+      should have_css "tr", "Discount #{number_to_currency job.discount_amount}"
+      should have_css "tr", "Total Fees #{number_to_currency job.final_cost}"
     end
   end
 

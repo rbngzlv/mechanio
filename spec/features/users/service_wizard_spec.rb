@@ -49,7 +49,7 @@ describe 'Service wizard', js: true do
         click_on 'Login'
       end
 
-      verify_quote ["#{service_plan.display_title} service"], '$350.00'
+      verify_quote "#{service_plan.display_title} service $350.00", 'Total Fees $350.00'
       verify_email_notification
       verify_job_estimated(user, 350)
       verify_last_service_kms(user)
@@ -85,7 +85,7 @@ describe 'Service wizard', js: true do
       }.to change { User.count }.by 1
 
       user = User.last
-      verify_quote ["#{service_plan.display_title} service"], '$350.00'
+      verify_quote "#{service_plan.display_title} service $350.00", 'Total Fees $350.00'
       # verify_email_notification
       verify_job_estimated(user, 350)
       verify_last_service_kms(User.last)
@@ -124,7 +124,7 @@ describe 'Service wizard', js: true do
       page.should have_field 'job_contact_phone', with: user.mobile_number
       click_on 'Continue'
 
-      verify_quote ["#{service_plan.display_title} service"], '$350.00'
+      verify_quote "#{service_plan.display_title} service $350.00", 'Total Fees $350.00'
       verify_email_notification
       verify_job_estimated(user, 350)
       verify_last_service_date(user)
@@ -152,7 +152,7 @@ describe 'Service wizard', js: true do
       click_on 'Continue'
       sleep 2
 
-      verify_quote ['Break safety inspection $80.00'], '$80.00'
+      verify_quote 'Break safety inspection $80.00', 'Total Fees $80.00'
       # verify_email_notification
       verify_job_estimated(user, 80)
       verify_last_service_date(user)
@@ -245,7 +245,7 @@ describe 'Service wizard', js: true do
 
         click_on 'Continue'
 
-        verify_quote ["#{service_plan.display_title} service"], '$350.00'
+        verify_quote "#{service_plan.display_title} service $350.00", 'Discount $70.00', 'Total Fees $280.00'
         verify_email_notification
         verify_job_estimated(user, 350)
         verify_last_service_date(user)
@@ -319,12 +319,11 @@ describe 'Service wizard', js: true do
     end
   end
 
-  def verify_quote(tasks, total)
+  def verify_quote(*rows)
     page.should have_css 'h4', text: 'YOUR NEGOTIATED QUOTE'
-    tasks.each_with_index do |task, i|
-      page.should have_css ".tasks tr:nth-child(#{i + 1})", text: task
+    within '.tasks' do
+      verify_job rows
     end
-    find('.tasks tr:last-child').text.should eq "Total Fees #{total}"
   end
 
   def verify_pending_quote

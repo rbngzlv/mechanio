@@ -1,5 +1,11 @@
 module JobAttributesHelper
 
+  def verify_job(rows)
+    rows.each_with_index do |value, i|
+      page.should have_css "tr:nth-child(#{i + 1})", text: value
+    end
+  end
+
   def create_temporary_job
     job = Job.new(status: :temporary, serialized_params: { job: job_attributes })
     job.save(validate: false)

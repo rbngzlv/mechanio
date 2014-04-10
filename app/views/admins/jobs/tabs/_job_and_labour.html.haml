@@ -3,6 +3,10 @@
     = render partial: 'admins/jobs/task', locals: { f: f }
 
 .pull-right
+  .grand-total{ 'ng-if' => 'job.discount' }
+    %dl.dl-horizontal
+      %dt Discount {{job.discount.code}}
+      %dd {{job.discount.discount_amount(job.cost) | formatted_cost}}
   .grand-total
     %dl.dl-horizontal
       %dt Job total

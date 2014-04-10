@@ -37,7 +37,8 @@ resource 'Job' do
       expect(response_body).to eq ({
         id: job.id,
         contact_phone: "0410123456",
-        cost: "350.0",
+        discount_amount: nil,
+        final_cost: "350.0",
         user: {
           full_name: "John User",
           avatar_thumb: "/assets/fallback/thumb_default.jpg"

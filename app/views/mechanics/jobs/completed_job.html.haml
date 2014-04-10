@@ -34,11 +34,12 @@
       .col-md-12.completed-job-details
         %h4.hx-default Job and Labour
         = render partial: 'task', collection: @job.tasks, as: :task
-        .row.total
-          .col-md-2.col-md-offset-8.col-sm-3.col-sm-offset-7.col-xs-12
-            %h4.text-right Total
-          .col-md-2.col-sm-2
-            %h4.text-right= formatted_cost @job.final_cost
+        - job_totals(@job).each do |row|
+          .row.total
+            .col-md-2.col-md-offset-8.col-sm-3.col-sm-offset-7.col-xs-12
+              %h4.text-right= row[:title]
+            .col-md-2.col-sm-2
+              %h4.text-right= row[:value]
 
       .col-md-12.completed-job-details.clearfix
         %h4.hx-default Feedback
