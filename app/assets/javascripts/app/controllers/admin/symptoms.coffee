@@ -8,9 +8,7 @@ app.controller 'SymptomsController', ['$scope', ($scope) ->
     symptom.parent_ids.length == 0
 
   $scope.childrenCount = (parent) ->
-    console.log parent.id
     children = (symptom for symptom in $scope.symptoms when parent.id in symptom.parent_ids)
-    console.log children.length
     children.length
 
   $scope.childrenOf = (parent) ->
