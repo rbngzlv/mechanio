@@ -2,4 +2,4 @@
 .reviews-row.clearfix
   .rating.pull-left
     = rating_stars(mechanic.rating)
-  %span.review-text.pull-right= pluralize mechanic.reviews, 'Review'
+  %span.review-text.pull-right= pluralize mechanic.ratings.size, 'Review'

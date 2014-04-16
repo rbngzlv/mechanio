@@ -25,7 +25,7 @@ feature 'dashboard page' do
     within '.user-closest-appointment' do
       page.should have_css 'h4', text: 'Booked Appointments'
       page.should have_content mechanic.full_name
-      page.should have_css '.reviews-row', text: "#{mechanic.reviews} Reviews"
+      page.should have_css '.reviews-row', text: '0 Reviews'
       page.should have_content mechanic.mobile_number
       page.should have_content scheduled_time.to_s(:date_time)
       page.should have_content closest_appointment.title

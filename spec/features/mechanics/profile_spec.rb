@@ -18,7 +18,7 @@ feature 'mechanic profile page' do
       should have_content mechanic.full_name
       find('img.avatar')['src'].should match /\/assets\/fallback\/thumb_default.jpg/
 
-      should have_content "#{mechanic.reviews} Review"
+      should have_link '0 Reviews'
       should have_content mechanic.description
     end
 

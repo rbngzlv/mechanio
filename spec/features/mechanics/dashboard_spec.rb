@@ -2,7 +2,6 @@ require 'spec_helper'
 
 feature 'dashboard page' do
   let(:mechanic) { create :mechanic, description: nil }
-  let(:reviews_block_content) { "#{mechanic.reviews} Reviews" }
   let(:user)    { create :user, first_name: 'John', last_name: 'Dow' }
   let(:job)     { create :job, :completed, :with_service, user: user, mechanic: mechanic }
   let(:rating)  { create :rating, user: user, mechanic: mechanic, job: job }
@@ -76,7 +75,7 @@ feature 'dashboard page' do
 
   specify 'N review should be link to profile' do
     visit mechanics_dashboard_path
-    click_link reviews_block_content
+    click_link '0 Reviews'
     should have_selector 'li.active', text: 'My Profile'
   end
 

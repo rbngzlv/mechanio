@@ -57,15 +57,4 @@ class User < ActiveRecord::Base
   def avatar_thumb
     avatar_url(:thumb)
   end
-
-  def reviews
-    # TODO: It must return count of comments which this user left
-    15
-  end
-
-  include FakeHelper
-  def comments
-    # TODO: It must return collection of all users comments
-    fake_comments
-  end
 end

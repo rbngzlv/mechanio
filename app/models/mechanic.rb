@@ -106,15 +106,4 @@ class Mechanic < ActiveRecord::Base
   def activate
     update_attribute(:suspended_at, nil)
   end
-
-  def reviews
-    # TODO: It must return count of comments about this mechanic
-    12
-  end
-
-  include FakeHelper
-  def comments
-    # TODO: It must return collection of all mechanic reviews
-    fake_comments
-  end
 end

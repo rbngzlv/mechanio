@@ -10,7 +10,7 @@
             .reviews-row.clearfix
               .rating.pull-left
                 = rating_stars(@appointment.mechanic.rating)
-              %span.review-text.pull-left= pluralize(@appointment.mechanic.reviews, 'Review')
+              %span.review-text.pull-left= pluralize(@appointment.mechanic.ratings.size, 'Review')
       .row
         %p.clearfix
           .col-md-12= @appointment.scheduled_at.to_s :date_time

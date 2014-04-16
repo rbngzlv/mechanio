@@ -14,7 +14,7 @@
               .rating.pull-left
                 = rating_stars(mechanic.rating)
               %span.review-text.pull-right
-                = link_to pluralize(mechanic.reviews, 'Review'), mechanics_profile_path
+                = link_to pluralize(mechanic.ratings.size, 'Review'), mechanics_profile_path
 
             :coffee
               $('.js-update-avatar').click ->
