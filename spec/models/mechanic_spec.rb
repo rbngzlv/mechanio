@@ -17,6 +17,7 @@ describe Mechanic do
   it { should have_many :mechanic_regions }
   it { should have_many(:regions).through(:mechanic_regions) }
   it { should have_many :payouts }
+  it { should have_many :ratings }
   it { should have_one :payout_method }
 
   it { should respond_to :avatar }

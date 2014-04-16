@@ -82,10 +82,26 @@ feature 'upcoming job details page' do
     page.should have_css '.total', 'Total $546.40'
   end
 
-  it 'has feedback section' do
+  it 'shows a message when no feedback given' do
     visit mechanics_job_path(job)
-    page.should have_css 'h4.hx-default', text: 'Feedback'
+
+    page.should have_css 'h4', text: 'Feedback'
+    page.should have_css 'h5', text: 'No feedback yet'
   end
 
-  it 'should show real feedback', pending: 'feedback mechanism not implemented'
+  it 'shows feedback', :js do
+    job.rating = create :rating
+    job.save
+
+    visit mechanics_job_path(job)
+
+    within '.feedback' do
+      rating_categories = all('.rating')
+      within rating_categories[0] { page.should have_css '.full-star', count: 2 }
+      within rating_categories[1] { page.should have_css '.full-star', count: 3 }
+      within rating_categories[2] { page.should have_css '.full-star', count: 2 }
+      within rating_categories[3] { page.should have_css '.full-star', count: 5 }
+      within rating_categories[4] { page.should have_css '.full-star', count: 5 }
+    end
+  end
 end

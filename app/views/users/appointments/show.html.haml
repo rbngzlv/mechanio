@@ -47,65 +47,7 @@
             .col-md-6.pull-right
               = render "shared/mechanic/verified_icons", account: @job.mechanic
         %br
-        .nested-panel.panel.feedback
-          .row.clearfix
-            .col-md-9
-              LEAVE FEEDBACK - How satisfied were you with #{@job.mechanic.full_name}?
-            .col-md-3
-              %small Rollover stars then click to rate
-          .row
-            %small.col-md-9
-              %b Professionalism
-              How helpful was he? Did he do anything beyond expectation?
-            .col-md-3
-              .reviews-row.clearfix
-                .rating.pull-left
-                  = rating_stars(2)
-          .row
-            %small.col-md-9
-              %b Service
-              What  was the quality of work like ?
-            .col-md-3
-              .reviews-row.clearfix
-                .rating.pull-left
-                  = rating_stars(2)
-          .row
-            %small.col-md-9
-              %b Communication
-              did he aive a clear explanation on everything that he was going to do ?
-            .col-md-3
-              .reviews-row.clearfix
-                .rating.pull-left
-                  = rating_stars(2)
-          .row
-            %small.col-md-9
-              %b Quality of Parts
-              What was the quality of replacement parts given like ?
-            .col-md-3
-              .reviews-row.clearfix
-                .rating.pull-left
-                  = rating_stars(2)
-          .row
-            %small.col-md-9
-              %b Convenience
-              how convenient was this whole process for you ?
-            .col-md-3
-              .reviews-row.clearfix
-                .rating.pull-left
-                  = rating_stars(2)
-          .form-group
-            %textarea.form-control.col-md-12{name: "", type: "text"} Tell us more
-          %p
-            %b
-              Would you recommend Bob Mechanic to your friends and family ?
-          .row
-            .col-md-12.row
-              %label.col-md-2
-                %input#optionsRadios1{name: "optionsRadios", type: "radio", value: "option1"}
-                Yes
-              %label.col-md-3
-                %input#optionsRadios2{name: "optionsRadios", type: "radio", value: "option2"}
-                Not This Time
-          .row
-            .col-md-12
-              = link_to 'Save', '#', class: 'btn btn-success pull-right col-md-3'
+        - if @job.rating.present?
+          = render 'feedback', rating: @job.rating
+        - else
+          = render 'feedback_form'

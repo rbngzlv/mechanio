@@ -1,10 +1,12 @@
 require 'spec_helper'
 
 feature 'My appointments' do
-  let(:user)          { create :user }
-  let(:mechanic)      { create :mechanic }
+  let(:user)          { create :user, first_name: 'John', last_name: 'Dow' }
+  let(:mechanic)      { create :mechanic, ratings: [rating] }
   let(:current_job)   { create :job, :with_service, :estimated, :assigned, mechanic: mechanic, user: user }
   let(:completed_job) { create :job, :with_service, :completed, mechanic: mechanic, user: user }
+  let(:rating)        { create :rating, job: job, user: user }
+  let(:job)           { create :job, :completed, :with_service }
 
   before do
     login_user user
@@ -19,7 +21,19 @@ feature 'My appointments' do
     page.should have_content "ID: #{current_job.uid}"
 
     find('.profile-border.clickable').click
-    page.should have_css "#js-mechanic-#{mechanic.id}", visible: true
+
+    within "#js-mechanic-#{mechanic.id}" do
+      page.should have_css 'h5', mechanic.full_name
+      page.should have_css 'h5', 'CUSTOMER REVIEWS'
+
+      within '.chat' do
+        page.should have_content 'John Dow'
+        page.should have_content job.car.display_title
+        page.should have_content job.title
+        page.should have_content number_to_currency job.final_cost
+        page.should have_css '.full-star', count: 3
+      end
+    end
   end
 
   describe 'past appointments', :js do

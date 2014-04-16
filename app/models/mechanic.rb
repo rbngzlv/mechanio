@@ -9,6 +9,7 @@ class Mechanic < ActiveRecord::Base
   has_many :mechanic_regions
   has_many :regions, through: :mechanic_regions
   has_many :payouts
+  has_many :ratings
   has_one :payout_method
 
   accepts_nested_attributes_for :location
@@ -109,11 +110,6 @@ class Mechanic < ActiveRecord::Base
   def reviews
     # TODO: It must return count of comments about this mechanic
     12
-  end
-
-  def rating
-    # TODO: It must return real rating
-    2
   end
 
   include FakeHelper

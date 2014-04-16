@@ -44,43 +44,7 @@
       .col-md-12.completed-job-details.clearfix
         %h4.hx-default Feedback
         .panel.nested-panel.feedback
-          .row
-            %small.col-md-9.col-sm-9
-              %b Professionalism
-              How helpful was he? Did he do anything beyond expectation?
-            .col-md-3.col-sm-3
-              .reviews-row.clearfix
-                .rating.pull-left
-                  = rating_stars(5)
-          .row
-            %small.col-md-9.col-sm-9
-              %b Service
-              What  was the quality of work like ?
-            .col-md-3.col-sm-3
-              .reviews-row.clearfix
-                .rating.pull-left
-                  = rating_stars(5)
-          .row
-            %small.col-md-9.col-sm-9
-              %b Communication
-              did he aive a clear explanation on everything that he was going to do ?
-            .col-md-3.col-sm-3
-              .reviews-row.clearfix
-                .rating.pull-left
-                  = rating_stars(5)
-          .row
-            %small.col-md-9.col-sm-9
-              %b Quality
-              of Parts What was the quality of replacement parts given like ?
-            .col-md-3.col-sm-3
-              .reviews-row.clearfix
-                .rating.pull-left
-                  = rating_stars(5)
-          .row
-            %small.col-md-9.col-sm-9
-              %b Convenience
-              how convenient was this whole process for you ?
-            .col-md-3.col-sm-3
-              .reviews-row.clearfix
-                .rating.pull-left
-                  = rating_stars(5)
+          - unless @job.rating.present?
+            %h5.text-center No feedback yet
+          - else
+            = render 'shared/feedback', rating: @job.rating

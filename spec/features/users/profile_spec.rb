@@ -1,15 +1,16 @@
 require 'spec_helper'
 
 feature 'user profile' do
-  let(:user) { create :user }
-
-  subject { page }
+  let(:user)    { create :user, authentications: [auth], ratings: [rating], first_name: 'John', last_name: 'Dow' }
+  let(:auth)    { create :authentication, :gmail }
+  let(:job)     { create :job, :completed, :with_service }
+  let(:rating)  { create :rating, job: job }
 
   before do
     login_user user
   end
 
-  include_examples("navigation") do
+  include_examples('navigation') do
     let(:role) { 'users' }
   end
 
@@ -18,31 +19,24 @@ feature 'user profile' do
       visit users_profile_path
     end
 
-    context 'describe block' do
-      it 'should contain comments count' do
-        page.should have_selector 'span', text: "Reviews Left: #{user.reviews}"
-      end
-
-      it 'should contain default values when user is new' do
-        page.should have_selector 'h4', text: user.full_name
-        page.should have_content "Add some information about yourself"
-      end
+    specify 'shows basic info' do
+      page.should have_content 'Left 1 Reviews'
+      page.should have_content 'Hi, my name is John Dow'
+      page.should have_css '.verified-icons i', count: 3
+      page.should have_css '.social .icon-google-plus-sign'
     end
 
-    it 'does show left commetns', pending: 'do it after create comment model'
+    specify 'shows ratings' do
+      page.should have_css 'h5', text: 'Reviews Left'
 
-    it 'does show verified statuses' do
-      within '.verified-icons' do
-        all('i').length.should be 3
-      end
-    end
+      within '.review-block' do
+        page.should have_content 'John Dow'
+        page.should have_content number_to_currency(job.final_cost)
+        page.should have_content job.car.display_title
 
-    it 'does show and socials icons' do
-      user.authentications << create(:authentication, :gmail)
-      visit users_profile_path
-      within '.user-panel-body .social' do
-        page.should have_no_selector 'i.icon-facebook-sign'
-        page.should have_selector 'i.icon-google-plus-sign'
+        within '.rating' do
+          page.should have_css '.full-star', count: 3
+        end
       end
     end
   end
@@ -51,19 +45,19 @@ feature 'user profile' do
     before { visit edit_users_profile_path }
 
     context 'success' do
-      scenario "upload avatar" do
+      scenario 'upload avatar' do
         attach_file('user_avatar', "#{Rails.root}/spec/features/fixtures/test_img.jpg")
         fill_in 'Personal description', with: (description = 'my description')
         fill_in 'Address', with: 'address 123'
-
         click_button 'Save'
-        should have_content 'Your profile successfully updated.'
+
+        page.should have_content 'Your profile successfully updated.'
         page.find('.user_avatar img')['src'].should match /thumb_test_img.jpg/
 
-        should have_field 'Address', with: 'address 123'
+        page.should have_field 'Address', with: 'address 123'
 
         within('.wrap > .container') { click_link 'Dashboard' }
-        should have_content description
+        page.should have_content description
         page.find('img.avatar')['src'].should match /thumb_test_img.jpg/
       end
     end
@@ -71,8 +65,8 @@ feature 'user profile' do
     scenario 'fail' do
       fill_in 'First name', with: ''
       click_button "Save"
-      should have_selector '.has-error', text: 'First name'
-      should have_content "can't be blank"
+      page.should have_selector '.has-error', text: 'First name'
+      page.should have_content "can't be blank"
     end
   end
 
@@ -83,26 +77,15 @@ feature 'user profile' do
     end
 
     scenario 'manage social connections' do
-      within '.facebook' do
-        should have_css 'td', text: 'Facebook not connected'
-        click_link 'Connect'
-      end
-      should have_css '.alert-success', text: 'Facebook connection added.'
+      page.should have_content 'Facebook not connected'
+      within('.facebook') { click_link 'Connect' }
+      page.should have_content 'Facebook connection added.'
+      page.should have_content 'Facebook connected'
 
-      within '.facebook' do
-        should have_css 'td', text: 'Facebook connected'
-        click_link 'Disconnect'
-        should have_css 'td', text: 'Facebook not connected'
-      end
-      should have_css '.alert-info', text: 'Facebook connection removed'
-
-      within '.google_oauth2' do
-        should have_css 'td', text: 'Gmail not connected'
-
-        click_link 'Connect'
-        should have_css 'td', text: 'Gmail not connected'
-      end
-      should have_css '.alert-danger', text: 'This Gmail account is already connected to another user.'
+      page.should have_content 'Gmail connected'
+      within('.google_oauth2') { click_link 'Disconnect' }
+      page.should have_content 'Gmail connection removed'
+      page.should have_content 'Gmail not connected'
     end
   end
 end

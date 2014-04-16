@@ -605,7 +605,8 @@ CREATE TABLE mechanics (
     business_mobile_number character varying(255),
     repair_work_classes text,
     tradesperson_certificates text,
-    suspended_at timestamp without time zone
+    suspended_at timestamp without time zone,
+    rating numeric(8,2) DEFAULT 0
 );
 
 
@@ -807,6 +808,46 @@ CREATE SEQUENCE payouts_id_seq
 --
 
 ALTER SEQUENCE payouts_id_seq OWNED BY payouts.id;
+
+
+--
+-- Name: ratings; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE ratings (
+    id integer NOT NULL,
+    user_id integer,
+    mechanic_id integer,
+    job_id integer,
+    professional integer,
+    service_quality integer,
+    communication integer,
+    parts_quality integer,
+    convenience integer,
+    comment text,
+    recommend boolean,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: ratings_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE ratings_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: ratings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE ratings_id_seq OWNED BY ratings.id;
 
 
 --
@@ -1254,6 +1295,13 @@ ALTER TABLE ONLY payouts ALTER COLUMN id SET DEFAULT nextval('payouts_id_seq'::r
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY ratings ALTER COLUMN id SET DEFAULT nextval('ratings_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY regions ALTER COLUMN id SET DEFAULT nextval('regions_id_seq'::regclass);
 
 
@@ -1475,6 +1523,14 @@ ALTER TABLE ONLY payouts
 
 
 --
+-- Name: ratings_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY ratings
+    ADD CONSTRAINT ratings_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: regions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1676,6 +1732,27 @@ CREATE INDEX index_payouts_on_job_id ON payouts USING btree (job_id);
 --
 
 CREATE INDEX index_payouts_on_mechanic_id ON payouts USING btree (mechanic_id);
+
+
+--
+-- Name: index_ratings_on_job_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_ratings_on_job_id ON ratings USING btree (job_id);
+
+
+--
+-- Name: index_ratings_on_mechanic_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_ratings_on_mechanic_id ON ratings USING btree (mechanic_id);
+
+
+--
+-- Name: index_ratings_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_ratings_on_user_id ON ratings USING btree (user_id);
 
 
 --
@@ -1936,3 +2013,7 @@ INSERT INTO schema_migrations (version) VALUES ('20140326090031');
 INSERT INTO schema_migrations (version) VALUES ('20140331173751');
 
 INSERT INTO schema_migrations (version) VALUES ('20140407181553');
+
+INSERT INTO schema_migrations (version) VALUES ('20140414110016');
+
+INSERT INTO schema_migrations (version) VALUES ('20140414161446');

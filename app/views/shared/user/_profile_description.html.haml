@@ -1,17 +1,17 @@
+:coffee
+  $('.js-update-avatar').click ->
+    $('#user_avatar').click()
+  $(document).on 'change', '#user_avatar', ->
+    this.form.submit()
+
 .profile-border
   = image_tag user.avatar_url(:thumb), class: 'avatar clickable js-update-avatar'
 
   .reviews-row.clearfix.text-center
-    %span
-      = link_to users_profile_path do
-        Reviews Left:
-        %strong= user.reviews
+    Left
+    %b= user.ratings.size
+    Reviews
 
-  :coffee
-    $('.js-update-avatar').click ->
-      $('#user_avatar').click()
-    $(document).on 'change', '#user_avatar', ->
-      this.form.submit()
   .hide
     = simple_form_for user, url: users_profile_path do |f|
       = f.input :avatar, input_html: { class: 'js-skip-bootstrap-fileinput' }

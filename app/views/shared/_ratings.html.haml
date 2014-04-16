@@ -1,0 +1,28 @@
+.col-md-12.clearfix
+  %h5.hx-default= title
+  - unless ratings.size > 0
+    %h5 No reviews
+  - else
+    %ul.chat
+      - ratings.each do |rating|
+        %li.clearfix
+          .avatar.hidden-xs
+            = image_tag rating.user.avatar_url(:rounded_thumb), class: 'img-circle'
+          .panel.nested-panel.with-arrow.commentary-block
+            .span.name
+              = rating.user.full_name
+              %span.datetime= rating.created_at.to_s(:date)
+            .panel.nested-panel
+              %span.col-md-3.col-sm-3.col-xs-6.comment-info
+                %i.glyphicon.glyphicon-inbox
+                = rating.job.car.display_title
+              %span.col-md-2.col-sm-2.col-xs-6.comment-info
+                = formatted_cost rating.job.final_cost
+              %span.col-md-4.col-sm-4.col-xs-6.comment-info
+                %i.glyphicon.glyphicon-cog
+                = rating.job.title
+              .reviews-row.clearfix.comment-info
+                .rating.pull-left
+                  = rating_stars(rating.average)
+            %p.commentary
+              = rating.comment

@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
   has_many :jobs, dependent: :nullify
   has_many :credit_cards
   has_many :authentications, dependent: :destroy
+  has_many :ratings
   belongs_to :location, dependent: :destroy
 
   accepts_nested_attributes_for :location, reject_if: :all_blank

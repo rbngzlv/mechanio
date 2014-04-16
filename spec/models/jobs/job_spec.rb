@@ -18,6 +18,7 @@ describe Job do
   it { should have_one :appointment }
   it { should have_one :event }
   it { should have_one :payout }
+  it { should have_one :rating }
 
   it { should validate_presence_of :user }
   it { should validate_presence_of :car }

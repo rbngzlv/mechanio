@@ -1,0 +1,52 @@
+= simple_form_for :rating, url: users_appointment_rating_path(@job) do |f|
+  .nested-panel.panel.feedback.feedback-form
+    .row.clearfix
+      .col-md-9
+        LEAVE FEEDBACK - How satisfied were you with #{@job.mechanic.full_name}?
+      .col-md-3
+        %small Rollover stars then click to rate
+    .row
+      %small.col-md-9
+        %b Professionalism
+        How helpful was he? Did he do anything beyond expectation?
+      .col-md-3
+        .reviews-row.clearfix.pull-left
+          = editable_rating 'rating[professional]'
+    .row
+      %small.col-md-9
+        %b Service
+        What  was the quality of work like ?
+      .col-md-3
+        .reviews-row.clearfix.pull-left
+          = editable_rating 'rating[service_quality]'
+    .row
+      %small.col-md-9
+        %b Communication
+        did he aive a clear explanation on everything that he was going to do ?
+      .col-md-3
+        .reviews-row.clearfix.pull-left
+          = editable_rating 'rating[communication]'
+    .row
+      %small.col-md-9
+        %b Quality of Parts
+        What was the quality of replacement parts given like ?
+      .col-md-3
+        .reviews-row.clearfix.pull-left
+          = editable_rating 'rating[parts_quality]'
+    .row
+      %small.col-md-9
+        %b Convenience
+        how convenient was this whole process for you ?
+      .col-md-3
+        .reviews-row.clearfix.pull-left
+          = editable_rating 'rating[convenience]'
+
+    = f.input :comment, as: :text, label: false, placeholder: 'Tell us more'
+
+    %p
+      %b Would you recommend #{@job.mechanic.first_name} to your friends and family?
+
+    = f.input :recommend, as: :radio_buttons, label: false, collection: { 'Yes' => true, 'Not this time' => false }, item_wrapper_class: 'radio-inline'
+    .row
+      .col-md-12
+        = f.submit 'Save', class: 'btn btn-success pull-right col-md-3 feedback-submit', disabled: true

@@ -28,6 +28,7 @@ Mechanio::Application.routes.draw do
     end
     resources :appointments, only: [:index, :edit, :update, :show] do
       get :receipt, on: :member
+      resource :rating, only: [:create]
     end
     resources :cars, only: [:index, :destroy]
 

@@ -19,6 +19,6 @@
             .panel.nested-panel
               = mechanic.description
           .col-md-6.pull-right
-            = render "shared/mechanic/verified_icons", account: mechanic
+            = render 'shared/mechanic/verified_icons', account: mechanic
       .row
-        = render 'shared/comments', title: "Customer Reviews", comments: mechanic.comments
+        = render 'shared/ratings', title: 'Customer Reviews', ratings: mechanic.ratings

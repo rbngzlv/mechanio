@@ -16,7 +16,7 @@ feature 'Admin mechanics management' do
 
     date_joined = mechanic.created_at.to_s(:date_short)
     page.should have_css 'thead', text: 'Name Status Email Mobile Current Appts. Completed Jobs Total Earnings Feedback Score Date joined'
-    page.should have_css 'tbody tr', text: "#{mechanic.full_name} Active #{mechanic.email} 0410123456 0 0 $0.00 2 #{date_joined} Edit"
+    page.should have_css 'tbody tr', text: "#{mechanic.full_name} Active #{mechanic.email} 0410123456 0 0 $0.00 0.0 #{date_joined} Edit"
     page.should have_css 'tbody td', text: "Suspended"
   end
 

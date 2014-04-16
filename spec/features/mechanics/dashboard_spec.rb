@@ -3,6 +3,9 @@ require 'spec_helper'
 feature 'dashboard page' do
   let(:mechanic) { create :mechanic, description: nil }
   let(:reviews_block_content) { "#{mechanic.reviews} Reviews" }
+  let(:user)    { create :user, first_name: 'John', last_name: 'Dow' }
+  let(:job)     { create :job, :completed, :with_service, user: user, mechanic: mechanic }
+  let(:rating)  { create :rating, user: user, mechanic: mechanic, job: job }
 
   subject { page }
 
@@ -11,14 +14,36 @@ feature 'dashboard page' do
     visit mechanics_dashboard_path
   end
 
-  context 'should have dynamic content' do
-    specify 'comments count' do
-      page.should have_selector 'span', text: reviews_block_content
+  specify 'shows basic profile information' do
+    page.should have_css 'h4', text: mechanic.full_name
+    page.should have_link 'Add some information about yourself', href: edit_mechanics_profile_path
+    page.should have_css '.verified-icons i', count: 5
+  end
+
+  context 'no customer reviews' do
+    specify 'shows a message' do
+      page.should have_css 'h5', text: 'Customer Reviews'
+      page.should have_css 'h5', text: 'No reviews'
+    end
+  end
+
+  context 'some reviews left' do
+    before do
+      mechanic.ratings << rating
+      mechanic.save
+      visit mechanics_dashboard_path
     end
 
-    specify 'default values when user is new' do
-      page.should have_selector 'h4', text: mechanic.full_name
-      page.should have_link 'Add some information about yourself', href: edit_mechanics_profile_path
+    specify 'shows reviews' do
+      within '.review-block' do
+        page.should have_content 'John Dow'
+        page.should have_content number_to_currency(job.final_cost)
+        page.should have_content job.car.display_title
+
+        within '.rating' do
+          page.should have_css '.full-star', count: 3
+        end
+      end
     end
   end
 
@@ -63,11 +88,6 @@ feature 'dashboard page' do
       expect {
         click_button 'Save'
       }.to change { mechanic.reload.avatar? }.from(false).to(true)
-    end
-
-    specify 'form should be hidden' do
-      should have_selector '#mechanic_avatar', visible: false
-      should have_selector 'input[type=submit]', visible: false
     end
   end
 end

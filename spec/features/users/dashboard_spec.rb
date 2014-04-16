@@ -1,9 +1,9 @@
 require 'spec_helper'
 
 feature 'dashboard page' do
-  let(:user) { create :user }
-
-  subject { page }
+  let(:user)    { create :user, ratings: [rating], authentications: [auth], first_name: 'John', last_name: 'Dow' }
+  let(:rating)  { create :rating }
+  let(:auth)    { create :authentication, :facebook }
 
   before do
     login_user user
@@ -62,75 +62,11 @@ feature 'dashboard page' do
     page.should have_css 'h4', text: 'Select a Mechanic'
   end
 
-  context 'description block' do
-    it 'contains user full_name' do
-      page.should have_selector 'h4', text: user.full_name
-    end
-
-    it 'should has link to reviews' do
-      click_link "Reviews Left: #{user.reviews}"
-      page.should have_css 'h5', text: 'Reviews Left'
-    end
-
-    it 'should show description' do
-      page.should have_content "Add some information about yourself"
-
-      user.description = 'USER DESCRIPTION'
-      user.save
-      visit users_dashboard_path
-      within '.user-panel-body .panel.nested-panel' do
-        page.should have_css 'h5', text: "Hi, my name is #{user.full_name}"
-        page.should have_css 'p',  text: 'USER DESCRIPTION'
-      end
-      page.should have_no_content "Add some information about yourself"
-    end
-
-    it 'contains social connections status' do
-      visit users_dashboard_path
-      within '.user-panel-body .panel.nested-panel' do
-        page.should have_no_css '.icon-facebook-sign'
-        page.should have_no_css '.icon-google-plus-sign'
-      end
-
-      create :authentication, :facebook, user: user
-      visit users_dashboard_path
-      within '.user-panel-body .panel.nested-panel' do
-        page.should have_css '.icon-facebook-sign'
-        page.should have_no_css '.icon-google-plus-sign'
-      end
-
-      create :authentication, :gmail, user: user
-      visit users_dashboard_path
-      within '.user-panel-body .panel.nested-panel' do
-        page.should have_css '.icon-facebook-sign'
-        page.should have_css '.icon-google-plus-sign'
-      end
-    end
-
-    it 'shows verified icons' do
-      within '.verified-icons' do
-        find('i:nth-child(1)')[:class].should_not match /disabled/
-        find('i:nth-child(2)')[:class].should match /icon-mobile-phone/
-        find('i:nth-child(2)')[:class].should_not match /disabled/
-        find('i:nth-child(3)')[:class].should_not match /disabled/
-      end
-    end
-
-    context 'editing avatar feature' do
-      specify 'form can upload photo' do
-        image_path = "#{Rails.root}/spec/features/fixtures/test_img.jpg"
-        visit users_dashboard_path
-        attach_file('user_avatar', image_path)
-        expect {
-          click_button 'Save'
-        }.to change { user.reload.avatar? }.from(false).to(true)
-        current_path.should be_eql users_dashboard_path
-      end
-
-      specify 'form should be hidden' do
-        should have_selector '#user_avatar', visible: false
-        should have_selector 'input[type=submit]', visible: false
-      end
-    end
+  it 'shows basic info' do
+    page.should have_selector 'h4', text: user.full_name
+    page.should have_content 'Hi, my name is John Dow'
+    page.should have_content 'Left 1 Reviews'
+    page.should have_css '.icon-facebook-sign'
+    page.should have_css '.verified-icons i', count: 3
   end
 end

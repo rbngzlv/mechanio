@@ -17,13 +17,6 @@ module ApplicationHelper
     end
   end
 
-  def rating_stars(rating)
-    html = ''
-    (5-rating).times { html << '<span class="empty-star">&nbsp;</span>'}
-    rating.times { html << '<span class="full-star">&nbsp;</span>'}
-    html.html_safe
-  end
-
   def count_for_badge(collection)
     (count = collection.count) > 0 ? count : nil
   end
