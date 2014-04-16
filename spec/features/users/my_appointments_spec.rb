@@ -5,6 +5,7 @@ feature 'My appointments' do
   let(:mechanic)      { create :mechanic, ratings: [rating] }
   let(:current_job)   { create :job, :with_service, :estimated, :assigned, mechanic: mechanic, user: user }
   let(:completed_job) { create :job, :with_service, :completed, mechanic: mechanic, user: user }
+  let(:rated_job)     { create :job, :with_service, :completed, :rated, mechanic: mechanic, user: user }
   let(:rating)        { create :rating, job: job, user: user }
   let(:job)           { create :job, :completed, :with_service }
 
@@ -39,6 +40,7 @@ feature 'My appointments' do
   describe 'past appointments', :js do
     before do
       completed_job
+      rated_job
 
       visit users_appointments_path
 
@@ -49,11 +51,16 @@ feature 'My appointments' do
 
     specify 'lists apoointments' do
       page.should have_css 'tr', text: 'Status Job Mechanic Vehicle Date Option'
-      page.should have_css 'tr', text: "Completed #{completed_job.title} #{mechanic.full_name} #{completed_job.car.display_title} #{completed_job.scheduled_at.to_s(:date_short)}"
+
+      within 'tbody' do
+        page.should have_css 'tr', text: "Completed #{completed_job.title} #{mechanic.full_name} #{completed_job.car.display_title} #{completed_job.scheduled_at.to_s(:date_short)}"
+        page.should have_css 'tr', count: 2
+        page.should have_css 'a[data-original-title="Leave Feedback"]', count: 1
+      end
     end
 
     specify 'shows appointment details' do
-      find('a[data-original-title="View Job"]').click
+      first('a[data-original-title="View Job"]').click
 
       page.should have_css 'td', text: "Total Fees"
       page.should have_content "Hi, I'm your mechanic #{completed_job.mechanic.full_name}"

@@ -4,9 +4,10 @@
   %td= job.mechanic.full_name
   %td= job.car.display_title
   %td= job.scheduled_at.to_s(:date_short)
-  %td
-    = link_to '#', title: 'Leave Feedback', data: { toggle: 'tooltip' } do
-      .big.icon-share
+  %td.text-right
+    - unless job.rating.present?
+      = link_to users_appointment_path(job), title: 'Leave Feedback', data: { toggle: 'tooltip' } do
+        .big.icon-share
     = link_to users_appointment_path(job), title: 'View Job', data: { toggle: 'tooltip' } do
       .big.icon-list-alt
     = link_to receipt_users_appointment_path(job), title: 'View Receipt', target: :blank, data: { toggle: 'tooltip' } do

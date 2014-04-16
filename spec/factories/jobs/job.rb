@@ -70,6 +70,10 @@ FactoryGirl.define do
       scheduled_at { DateTime.tomorrow }
     end
 
+    trait :rated do
+      rating
+    end
+
     factory :job_with_service, traits: [:with_service]
     factory :assigned_job, traits: [:with_service, :assigned]
   end
