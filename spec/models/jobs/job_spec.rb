@@ -35,11 +35,13 @@ describe Job do
     let(:estimated_job)  { create :job, :with_service, :estimated }
     let(:assigned_job)   { create :job, :with_service, :assigned  }
     let(:completed_job)  { create :job, :with_service, :completed }
+    let(:rated_job)      { create :job, :with_service, :completed, :rated }
 
     it 'finds scoped jobs' do
       Job.estimated.should eq [estimated_job]
       Job.assigned.should  eq [assigned_job]
-      Job.completed.should eq [completed_job]
+      Job.completed.should eq [completed_job, rated_job]
+      Job.unrated.should   eq [completed_job]
     end
   end
 

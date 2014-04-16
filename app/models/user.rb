@@ -35,6 +35,10 @@ class User < ActiveRecord::Base
     jobs.completed
   end
 
+  def unrated_jobs
+    jobs.unrated
+  end
+
   def self.new_with_session(params, session)
     super.tap do |user|
       if session[:tmp_job_id]

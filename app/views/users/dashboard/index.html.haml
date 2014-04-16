@@ -19,10 +19,19 @@
 
 .row
   .col-md-4
-    .panel.panel-default.panel-rounded
+    .panel.panel-default.panel-rounded.outstanding-reviews
       .panel-heading
         %h4.panel-title Reviews Outstanding
       .panel-body
+        - unless @outstanding_reviews.size > 0
+          %h5 No outstanding reviews
+        - else
+          - @outstanding_reviews.each do |job|
+            .panel.nested-panel
+              = link_to users_appointment_path(job) do
+                %b= job.title
+                %br
+                %span.small= job.scheduled_at.to_s(:date)
   .col-md-8
     .panel.panel-default.panel-rounded.user-last-estimated
       .panel-heading

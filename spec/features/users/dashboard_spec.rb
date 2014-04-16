@@ -4,6 +4,7 @@ feature 'dashboard page' do
   let(:user)    { create :user, ratings: [rating], authentications: [auth], first_name: 'John', last_name: 'Dow' }
   let(:rating)  { create :rating }
   let(:auth)    { create :authentication, :facebook }
+  let(:job)     { create :job, :completed, :with_service, user: user }
 
   before do
     login_user user
@@ -68,5 +69,22 @@ feature 'dashboard page' do
     page.should have_content 'Left 1 Reviews'
     page.should have_css '.icon-facebook-sign'
     page.should have_css '.verified-icons i', count: 3
+  end
+
+  describe 'outstanding reviews' do
+    it 'shows a message when no outstanding reviews' do
+      within '.outstanding-reviews' do
+        page.should have_content 'No outstanding reviews'
+      end
+    end
+
+    it 'shows outstanding reviews' do
+      job
+      visit users_dashboard_path
+
+      within '.outstanding-reviews' do
+        page.should have_content job.title
+      end
+    end
   end
 end

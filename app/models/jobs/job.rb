@@ -65,6 +65,7 @@ class Job < ActiveRecord::Base
   scope :estimated, -> { with_status(:estimated).reorder(created_at: :desc) }
   scope :assigned,  -> { with_status(:assigned).reorder(scheduled_at: :asc) }
   scope :completed, -> { with_status(:completed).reorder(scheduled_at: :desc) }
+  scope :unrated,   -> { completed.includes(:rating).where('ratings.id' => nil) }
 
 
   def self.find_temporary(id)
