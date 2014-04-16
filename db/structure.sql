@@ -822,7 +822,7 @@ CREATE TABLE ratings (
     professional integer,
     service_quality integer,
     communication integer,
-    parts_quality integer,
+    cleanness integer,
     convenience integer,
     comment text,
     recommend boolean,
@@ -2017,3 +2017,5 @@ INSERT INTO schema_migrations (version) VALUES ('20140407181553');
 INSERT INTO schema_migrations (version) VALUES ('20140414110016');
 
 INSERT INTO schema_migrations (version) VALUES ('20140414161446');
+
+INSERT INTO schema_migrations (version) VALUES ('20140416153425');

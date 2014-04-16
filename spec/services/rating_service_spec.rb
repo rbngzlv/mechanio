@@ -6,7 +6,7 @@ describe RatingService do
   let(:user)      { create :user }
   let(:mechanic)  { create :mechanic }
   let(:job)       { create :job, :with_service, mechanic: mechanic }
-  let(:attrs)     { { professional: 2, service_quality: 3, communication: 2, parts_quality: 5, convenience: 5 } }
+  let(:attrs)     { { professional: 2, service_quality: 3, communication: 2, cleanness: 5, convenience: 5 } }
 
   it 'returns a Rating object associated with job, user and mechanic' do
     rating = service.rate(attrs)

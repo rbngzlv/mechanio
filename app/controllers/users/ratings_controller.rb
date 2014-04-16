@@ -12,7 +12,7 @@ class Users::RatingsController < ApplicationController
   private
 
   def rating_params
-    params.require(:rating).permit(:professional, :service_quality, :communication, :parts_quality, :convenience, :comment, :recommend)
+    params.require(:rating).permit(:professional, :service_quality, :communication, :cleanness, :convenience, :comment, :recommend)
   end
 
   def rating_service

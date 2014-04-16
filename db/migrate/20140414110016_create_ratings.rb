@@ -7,7 +7,7 @@ class CreateRatings < ActiveRecord::Migration
       t.integer :professional
       t.integer :service_quality
       t.integer :communication
-      t.integer :parts_quality
+      t.integer :cleanness
       t.integer :convenience
       t.text :comment
       t.boolean :recommend

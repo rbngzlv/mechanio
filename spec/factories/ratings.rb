@@ -3,7 +3,7 @@ FactoryGirl.define do
     professional      2
     service_quality   3
     communication     2
-    parts_quality     5
+    cleanness         5
     convenience       5
   end
 end
