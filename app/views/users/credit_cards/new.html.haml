@@ -54,6 +54,11 @@
             You pay $0 to secure this booking.
             %br
             %strong You pay after the job is done.
+          - unless @job.discount.present?
+            .promo-code
+              = simple_form_for :discount, url: users_job_discount_path(@job) do |f|
+                = f.input :code, label: false, placeholder: 'Enter promo code', wrapper: false
+                = f.submit 'Apply', class: 'btn btn-primary btn-sm'
 
     .clearfix
 

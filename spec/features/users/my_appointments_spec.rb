@@ -62,9 +62,9 @@ feature 'My appointments' do
     specify 'shows appointment details' do
       first('a[data-original-title="View Job"]').click
 
-      page.should have_css 'td', text: "Total Fees"
+      page.should have_css 'td', text: 'Total Fees'
+      page.should have_css '.feedback'
       page.should have_content "Hi, I'm your mechanic #{completed_job.mechanic.full_name}"
-      page.should have_content "LEAVE FEEDBACK"
     end
   end
 end

@@ -91,9 +91,7 @@ app.controller 'WizardController', ['$scope', '$http', ($scope, $http) ->
         last_service_date:  $scope.data.car.last_service_date
       }
 
-    params = { job: job, discount_code: $scope.data.discount_code }
-
-    $http.post('/users/jobs.json', params)
+    $http.post('/users/jobs.json', { job: job })
       .success (data) ->
         success(data) if success
       .error (data) ->

@@ -8,6 +8,7 @@ feature 'new appointment', :js do
   let(:postcode)   { '1234' }
   let(:tomorrow)   { Date.tomorrow.in_time_zone }
   let(:timeslot)   { tomorrow.advance(days: 3, hours: 9) }
+  let(:book_mechanic_page) { BookMechanicPage.new }
 
   before do
     login_user user
@@ -25,8 +26,7 @@ feature 'new appointment', :js do
     page.should have_css "#js-mechanic-#{mechanic.id}", visible: true
     find('.close').click
 
-    click_timeslot
-    click_button 'Book Appointment'
+    book_mechanic_page.select_mechanic(mechanic, timeslot)
 
     page.should have_css 'h4', text: 'Payment Process'
     verify_job_details

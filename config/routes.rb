@@ -25,6 +25,7 @@ Mechanio::Application.routes.draw do
 
     resources :jobs, only: [:show, :create] do
       resource :credit_card, only: [:new, :create]
+      resource :discount, only: [:create]
     end
     resources :appointments, only: [:index, :edit, :update, :show] do
       get :receipt, on: :member

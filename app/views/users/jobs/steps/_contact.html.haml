@@ -44,11 +44,6 @@
               %span.help-block{ 'ng-show' => "inputInvalid(contact_form['job[contact_phone]'])" }
                 phone number invalid
 
-          .row
-            .form-group.col-md-5
-              %label.control-label Enter coupon code here if you have one
-              = text_field_tag 'discount_code', nil, 'ng-model' => 'discount_code', 'class' => 'form-control'
-
         %hr
         %button.btn.btn-default{ 'type' => 'button', 'ng-click' => 'gotoStep("diagnose")' }
           %small &lt;

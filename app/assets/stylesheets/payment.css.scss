@@ -48,7 +48,7 @@
 
   .price-breakdown {
     position: relative;
-    padding-bottom: 20px;
+    padding-bottom: 15px;
 
     table {
       width: 100%;
@@ -77,6 +77,20 @@
     .payment-notice {
       text-align: center;
       color: red;
+      padding-bottom: 15px;
+    }
+
+    .promo-code {
+      label {
+        display: block;
+      }
+      input {
+        float: left
+      }
+      input.string {
+        width: 170px;
+        margin-right: 10px;
+      }
     }
   }
 }

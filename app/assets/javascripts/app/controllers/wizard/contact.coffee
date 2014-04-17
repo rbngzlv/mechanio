@@ -3,7 +3,6 @@ app = angular.module('mechanio')
 app.controller 'ContactController', ['$scope', ($scope) ->
   $scope.job = {}
   $scope.location = {}
-  $scope.discount_code
 
   $scope.states = []
   $scope.state = {}
@@ -23,7 +22,6 @@ app.controller 'ContactController', ['$scope', ($scope) ->
     $scope.data.location = angular.copy($scope.location)
     $scope.data.location.state_id = $scope.state.id
     $scope.data.location.state_name = $scope.state.name
-    $scope.data.discount_code = $scope.discount_code
 
     if $scope.authorized()
       $scope.submitStep()
