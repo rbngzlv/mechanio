@@ -3,7 +3,8 @@ require 'spec_helper'
 describe JobDiscountService do
 
   let(:service)       { JobDiscountService.new(job, discount_code) }
-  let(:job)           { create :job, :with_service, :estimated }
+  let(:user)          { create :user }
+  let(:job)           { create :job, :with_service, :estimated, user: user }
   let(:discount)      { create :discount, uses_left: 1 }
   let(:discount_code) { discount.code }
 
@@ -40,35 +41,58 @@ describe JobDiscountService do
   end
 
   describe 'validations' do
-    subject { service.errors.messages[:base] }
-
-    before do
-      service.apply_discount.should be_false
-      job.discount.should be_nil
-    end
+    let(:errors) { service.errors.messages[:base] }
 
     context 'unexisting discount code' do
       let(:discount_code) { 'Unexisting' }
 
-      it { should include 'Discount code is invalid' }
+      it 'fails' do
+        service.apply_discount.should be_false
+        job.discount.should be_nil
+        errors.should include 'Discount code is invalid'
+      end
     end
 
     context 'no uses left' do
       let(:discount) { create :discount, uses_left: 0 }
 
-      it { should include 'This discount code was already used' }
+      it 'fails' do
+        service.apply_discount.should be_false
+        job.discount.should be_nil
+        errors.should include 'This discount code was already used'
+      end
+    end
+
+    context 'user already used this discount with another job' do
+      before do
+        create :job, :with_service, user: user, discount: discount
+      end
+
+      it 'fails' do
+        service.apply_discount.should be_false
+        job.discount.should be_nil
+        errors.should include 'This discount code was already used'
+      end
     end
 
     context 'start date is in future' do
       let(:discount) { create :discount, starts_at: Date.tomorrow }
 
-      it { should include 'This discount code is not active' }
+      it 'fails' do
+        service.apply_discount.should be_false
+        job.discount.should be_nil
+        errors.should include 'This discount code is not active'
+      end
     end
 
     context 'end date is in the past' do
       let(:discount) { create :discount, ends_at: Date.yesterday }
 
-      it { should include 'This discount code is not active' }
+      it 'fails' do
+        service.apply_discount.should be_false
+        job.discount.should be_nil
+        errors.should include 'This discount code is not active'
+      end
     end
   end
 end

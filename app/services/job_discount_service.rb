@@ -2,11 +2,12 @@ class JobDiscountService
   include ActiveModel::Validations
 
   validate :discount_found?
-  validate :discount_uses_available?
+  validate :discount_available?
   validate :discount_active?
 
   def initialize(job, discount_code)
     @job            = job
+    @user           = job.user
     @discount_code  = discount_code
     @discount       = Discount.find_by(code: discount_code)
   end
@@ -38,12 +39,20 @@ class JobDiscountService
     end
   end
 
-  def discount_uses_available?
+  def discount_available?
     return false unless @discount
 
-    if @discount.uses_left != nil && @discount.uses_left == 0
+    if no_uses_left? || already_used?
       errors[:base] << 'This discount code was already used'
     end
+  end
+
+  def no_uses_left?
+    @discount.uses_left != nil && @discount.uses_left == 0
+  end
+
+  def already_used?
+    @user && @user.jobs.where(discount_id: @discount.id).exists?
   end
 
   def discount_active?

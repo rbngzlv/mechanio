@@ -1658,6 +1658,27 @@ CREATE INDEX index_discounts_on_code ON discounts USING btree (code);
 
 
 --
+-- Name: index_jobs_on_discount_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_jobs_on_discount_id ON jobs USING btree (discount_id);
+
+
+--
+-- Name: index_jobs_on_mechanic_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_jobs_on_mechanic_id ON jobs USING btree (mechanic_id);
+
+
+--
+-- Name: index_jobs_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_jobs_on_user_id ON jobs USING btree (user_id);
+
+
+--
 -- Name: index_mechanic_regions_on_mechanic_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -2019,3 +2040,5 @@ INSERT INTO schema_migrations (version) VALUES ('20140414110016');
 INSERT INTO schema_migrations (version) VALUES ('20140414161446');
 
 INSERT INTO schema_migrations (version) VALUES ('20140416153425');
+
+INSERT INTO schema_migrations (version) VALUES ('20140417143542');
