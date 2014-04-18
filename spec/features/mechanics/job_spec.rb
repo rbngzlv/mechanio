@@ -25,7 +25,7 @@ feature 'mechanic "my jobs" page' do
     it 'all upcoming jobs' do
       job1 = create :job, :assigned, :with_repair, mechanic: mechanic, scheduled_at: DateTime.now
       job2 = create :job, :assigned, :with_service, mechanic: mechanic, scheduled_at: DateTime.tomorrow
-      job3 = create :job, :assigned, :with_service, :with_discount, mechanic: mechanic, scheduled_at: DateTime.tomorrow
+      job3 = create :job, :assigned, :with_service, :with_discount, mechanic: mechanic, scheduled_at: DateTime.tomorrow.advance(days: 1)
       upcoming_jobs = [job1, job2, job3]
 
       visit mechanics_jobs_path
@@ -50,7 +50,7 @@ feature 'mechanic "my jobs" page' do
                 row = "Service: #{row}" if i == 0
                 should have_css "tr", text: row
               end
-              should have_css "tr", text: "Discount #{number_to_currency job.discount_amount}" if job.discount.present?
+              should have_css "tr", text: "20% off discount #{number_to_currency job.discount_amount}" if job.discount.present?
               should have_css "tr", text: "Total Fees #{number_to_currency job.final_cost}"
             end
           end

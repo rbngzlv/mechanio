@@ -34,7 +34,7 @@ feature 'estimates page' do
         estimated_job.tasks.each do |task|
           should have_css "tr", text: "#{task.title} #{number_to_currency task.cost}"
         end
-        should have_css "tr", text: "Discount $70"
+        should have_css "tr", text: "20% off discount $70"
         should have_css "tr", text: "Total Fees $280"
         should have_link 'Book Appointment'
       end
@@ -45,7 +45,7 @@ feature 'estimates page' do
         pending_job.tasks.each do |task|
           should have_css "tr", text: "#{task.title} pending"
         end
-        should have_css "tr", text: "Discount pending"
+        should have_css "tr", text: "20% off discount pending"
         should have_css "tr", text: "Total Fees pending"
         should have_no_link 'Book Appointment'
       end

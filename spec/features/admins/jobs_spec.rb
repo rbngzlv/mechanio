@@ -179,7 +179,7 @@ feature 'Jobs section' do
 
         within_task(1) { verify_inspection }
 
-        find('.grand-total:nth-child(1)').text.should eq 'Discount 20OFF $16.00'
+        find('.grand-total:nth-child(1)').text.should eq '20% off discount $16.00'
         find('.grand-total:nth-child(2)').text.should eq 'Job total $64.00'
 
         click_on 'Add repair'
@@ -200,7 +200,7 @@ feature 'Jobs section' do
         before_and_after_save job do
           within_task(2) { verify_edited_repair }
 
-          find('.grand-total:nth-child(1)').text.should eq 'Discount 20OFF $82.20'
+          find('.grand-total:nth-child(1)').text.should eq '20% off discount $82.20'
           find('.grand-total:nth-child(2)').text.should eq 'Job total $328.80'
         end
       end

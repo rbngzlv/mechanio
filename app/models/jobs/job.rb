@@ -160,7 +160,7 @@ class Job < ActiveRecord::Base
             itemable: { only: [:id, :description, :cost, :hourly_rate, :duration_hours, :duration_minutes, :name, :quantity, :unit_cost] }
           }}
         }},
-        discount: { only: [:code, :discount_type, :discount_value ] }
+        discount: { only: [:title, :code, :discount_type, :discount_value ] }
       })
     end
   end

@@ -5,7 +5,7 @@
 .pull-right
   .grand-total{ 'ng-if' => 'job.discount' }
     %dl.dl-horizontal
-      %dt Discount {{job.discount.code}}
+      %dt {{job.discount.title}} discount
       %dd {{job.discount.discount_amount(job.cost) | formatted_cost}}
   .grand-total
     %dl.dl-horizontal

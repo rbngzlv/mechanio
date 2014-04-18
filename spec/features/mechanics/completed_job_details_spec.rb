@@ -78,7 +78,7 @@ feature 'upcoming job details page' do
       end
     end
 
-    page.should have_css '.total', 'Discount $136.60'
+    page.should have_css '.total', '20% off discount $136.60'
     page.should have_css '.total', 'Total $546.40'
   end
 

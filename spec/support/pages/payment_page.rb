@@ -9,7 +9,7 @@ class PaymentPage < PageObject
 
   def has_discount?(discount_amount)
     within '.price-breakdown' do
-      page.has_css? 'tr', text: "Discount #{number_to_currency discount_amount}"
+      page.has_css? 'tr', text: "20% off discount #{number_to_currency discount_amount}"
     end
   end
 
