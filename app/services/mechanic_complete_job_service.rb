@@ -10,8 +10,8 @@ class MechanicCompleteJobService
 
     @job.mechanic.update_job_counters
 
-    [UserMailer, AdminMailer].each do |mailer|
-      mailer.job_completed(@job.id).deliver
-    end
+    UserMailer.job_completed(@job.id).deliver
+    UserMailer.leave_feedback(@job.id).deliver
+    AdminMailer.job_completed(@job.id).deliver
   end
 end

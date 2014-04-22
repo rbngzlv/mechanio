@@ -1,7 +1,8 @@
 require 'spec_helper'
 
 describe UserMailer do
-  let(:job)  { create :job, :assigned, :with_service, :with_event }
+  let(:job)  { create :job, :assigned, :with_service, :with_event, mechanic: mechanic }
+  let(:mechanic)  { create :mechanic, first_name: 'Joe', last_name: 'Mechanic' }
   let(:to)   { [job.user.email] }
   let(:from) { ['no-reply@mechanio.com'] }
 
@@ -41,7 +42,15 @@ describe UserMailer do
     mail = UserMailer.job_completed(job.id)
     mail.to.should        eq to
     mail.from.should      eq from
-    mail.subject.should   eq "Your job for your #{job.car.display_title} has been completed"
-    mail.body.encoded.should match '#'
+    mail.subject.should   eq "Your Mechanio Receipt is now ready to view"
+    mail.body.encoded.should have_content "Please see the receipt attached"
+  end
+
+  specify '#leave_feedback' do
+    mail = UserMailer.leave_feedback(job.id)
+    mail.to.should        eq to
+    mail.from.should      eq from
+    mail.subject.should   eq "How did Joe Mechanic go?"
+    mail.body.encoded.should have_content "Click here to leave your feedback"
   end
 end

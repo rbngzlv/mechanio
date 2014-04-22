@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe MechanicCompleteJobService do
 
-  let(:job) { create :job, :with_service, :assigned }
+  let(:job)     { create :job, :with_service, :assigned }
   let(:service) { MechanicCompleteJobService.new(job) }
 
   describe '#complete' do
@@ -14,11 +14,11 @@ describe MechanicCompleteJobService do
 
       service.perform
 
-      job.completed_at.should_not be_nil
+      job.reload.completed_at.should_not be_nil
       job.status.should eq 'completed'
       job.mechanic.completed_jobs_count.should eq 1
 
-      mail_deliveries.count.should eq 2
+      mail_deliveries.count.should eq 3
     end
   end
 end

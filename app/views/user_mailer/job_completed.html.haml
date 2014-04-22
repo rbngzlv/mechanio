@@ -1,7 +1,9 @@
-%p Hello, #{@job.client_name},
+%p Hi #{@job.user.first_name},
 
-%p A job for your #{@job.car.display_title} has been completed.
+%p Thank you for Choosing Mechanio! 
 
-%p= link_to 'Leave feedback', '#'
+%p Please see the receipt attached. We hope your experience with us was pleasant and to your satisfaction.
 
-%p Thank you for choosing Mechanio!<br/>The Mechanio Team
+%p You can also see a copy of your receipt in your #{ link_to 'Online Account', users_appointments_url }
+
+= render 'footer'

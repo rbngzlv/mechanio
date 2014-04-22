@@ -1,0 +1,9 @@
+%p Hi #{@job.user.first_name},
+
+%p How did you find your appointment with #{@job.mechanic.full_name}?
+
+%p One of our core principles is to work with the best mobile mechanics. Your feedback is invaluable in finding out what we can do to make our mechanics better, as well as reward the mechanics that do exceptional work.
+
+%p Click #{ link_to 'here', users_appointment_url(@job) } to leave your feedback. It'll only take five minutes. As a way of saying thanks, we’ll take $x off your next service or repair with us!
+
+= render 'footer'

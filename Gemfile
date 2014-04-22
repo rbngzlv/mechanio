@@ -34,11 +34,6 @@ gem 'omniauth-google-oauth2'
 gem 'dotenv-rails'
 gem 'prawn'
 
-group :development do
-  gem 'letter_opener'
-  gem 'pry'
-end
-
 group :test do
   gem 'rspec-rails'
   gem 'rspec_api_documentation'
@@ -55,6 +50,8 @@ end
 group :development, :test do
   gem 'quiet_assets'
   gem 'awesome_print'
+  gem 'letter_opener'
+  gem 'pry'
 end
 
 group :production do

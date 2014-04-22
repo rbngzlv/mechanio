@@ -22,6 +22,11 @@ class UserMailer < AsyncMailer
 
   def job_completed(job_id)
     @job = Job.find(job_id)
-    mail subject: "Your job for your #{@job.car.display_title} has been completed", to: @job.user.email
+    mail subject: "Your Mechanio Receipt is now ready to view", to: @job.user.email
+  end
+
+  def leave_feedback(job_id)
+    @job = Job.find(job_id)
+    mail subject: "How did #{@job.mechanic.full_name} go?", to: @job.user.email
   end
 end
