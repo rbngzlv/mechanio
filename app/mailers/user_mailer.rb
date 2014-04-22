@@ -22,6 +22,8 @@ class UserMailer < AsyncMailer
 
   def job_completed(job_id)
     @job = Job.find(job_id)
+    receipt = UsersJobReceipt.new(@job)
+    attachments["Mechanio_#{@job.uid}"] = receipt.to_pdf
     mail subject: "Your Mechanio Receipt is now ready to view", to: @job.user.email
   end
 
