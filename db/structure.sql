@@ -156,9 +156,7 @@ ALTER SEQUENCE authentications_id_seq OWNED BY authentications.id;
 
 CREATE TABLE body_types (
     id integer NOT NULL,
-    name character varying(255),
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    name character varying(255)
 );
 
 
@@ -494,9 +492,7 @@ ALTER SEQUENCE locations_id_seq OWNED BY locations.id;
 
 CREATE TABLE makes (
     id integer NOT NULL,
-    name character varying(255),
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    name character varying(255)
 );
 
 
@@ -643,8 +639,6 @@ CREATE TABLE model_variations (
     to_year integer,
     transmission character varying(255),
     fuel character varying(255),
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
     make_id integer,
     display_title character varying(255),
     comment text,
@@ -678,9 +672,7 @@ ALTER SEQUENCE model_variations_id_seq OWNED BY model_variations.id;
 CREATE TABLE models (
     id integer NOT NULL,
     name character varying(255),
-    make_id integer,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    make_id integer
 );
 
 
@@ -940,8 +932,6 @@ CREATE TABLE service_plans (
     instructions text,
     parts text,
     notes text,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
     display_title character varying(255)
 );
 
@@ -2042,3 +2032,5 @@ INSERT INTO schema_migrations (version) VALUES ('20140414161446');
 INSERT INTO schema_migrations (version) VALUES ('20140416153425');
 
 INSERT INTO schema_migrations (version) VALUES ('20140417143542');
+
+INSERT INTO schema_migrations (version) VALUES ('20140419092827');
