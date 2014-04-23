@@ -124,7 +124,7 @@ module Resque
       end
 
       def deliver
-        # return deliver! if environment_excluded?
+        return deliver! if environment_excluded?
         if @mailer_class.deliver?
           begin
             resque.enqueue(@mailer_class, @method_name, *@args)
