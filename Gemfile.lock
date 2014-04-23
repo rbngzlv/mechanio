@@ -376,6 +376,7 @@ DEPENDENCIES
   quiet_assets
   rails (= 4.0.0)
   resque
+  resque-scheduler
   resque_mailer
   rspec-rails
   rspec_api_documentation
