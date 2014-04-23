@@ -1,5 +1,9 @@
 %p Dear #{@resource.full_name},
-%p Welcome to Mechanio - the easiest way to organise your car servicing or repair at your location!
-%p In order to get started with Mechanio, please click on the link below:
-%p= link_to(url = confirmation_url(@resource, :confirmation_token => @resource.confirmation_token), url)
-%p Thank you for choosing Mechanio.<br/> The Mechanio Team
+
+%p Welcome to Mechanio - the easy way to service or repair your car from your home or office!
+
+%p In order to get started, please click on the link below: 
+
+%p= link_to 'Validate my account now!', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token)
+
+= render '/user_mailer/footer'

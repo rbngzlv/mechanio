@@ -19,7 +19,7 @@ en:
       suspended: "Your account is suspended. Please contact us to activate it."
     mailer:
       confirmation_instructions:
-        subject: "Mechanio: Please confirm your email"
+        subject: "Welcome to Mechanio: Please confirm your email"
       reset_password_instructions:
         subject: "Reset password instructions"
       unlock_instructions:
