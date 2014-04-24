@@ -21,10 +21,10 @@ describe User do
   end
 
   describe 'job scopes' do
-    let!(:pending_job)   { create :job_with_service, :pending,   user: user }
-    let!(:estimated_job) { create :job_with_service, :estimated, user: user }
-    let!(:assigned_job)  { create :job_with_service, :assigned,  user: user }
-    let!(:completed_job) { create :job_with_service, :completed, user: user }
+    let!(:pending_job)   { create :job, :pending,   :with_service, user: user }
+    let!(:estimated_job) { create :job, :estimated, :with_service, user: user }
+    let!(:assigned_job)  { create :job, :assigned,  :with_service, user: user }
+    let!(:completed_job) { create :job, :completed, :with_service, user: user }
 
     it 'gets correct jobs' do
       user.estimated_jobs.should   eq [estimated_job]

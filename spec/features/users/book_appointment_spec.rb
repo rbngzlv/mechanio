@@ -2,7 +2,7 @@ require 'spec_helper'
 
 feature 'new appointment', :js do
   let(:user)       { create :user }
-  let(:job)        { create :job_with_service, :estimated, user: user, location: create(:location, postcode: postcode) }
+  let(:job)        { create :job, :estimated, :with_service, user: user, location: create(:location, postcode: postcode) }
   let(:mechanic)   { create :mechanic, mechanic_regions: [create(:mechanic_region, postcode: postcode)], years_as_a_mechanic: 2 }
   let(:location)   { create :location, postcode: postcode }
   let(:postcode)   { '1234' }
@@ -109,7 +109,7 @@ feature 'new appointment', :js do
 
   specify 'show error when no mechanics found', :js do
     mechanic
-    job_without_location = create(:job_with_service, :estimated, user: user, location: create(:location, postcode: '9999'))
+    job_without_location = create(:job, :estimated, :with_service, user: user, location: create(:location, postcode: '9999'))
 
     visit edit_users_appointment_path(job_without_location)
 

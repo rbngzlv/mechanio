@@ -19,7 +19,7 @@ FactoryGirl.define do
     end
 
     trait :with_job do
-      job { build_stubbed :job_with_service }
+      job { build_stubbed :job, :with_service }
     end
   end
 end

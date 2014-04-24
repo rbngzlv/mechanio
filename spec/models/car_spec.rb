@@ -35,14 +35,14 @@ describe Car do
   describe '#destroy' do
     context 'soft delete by adding deleted_at' do
       it 'successfully for cars with temporary and completed jobs' do
-        create(:job_with_service, status: :temporary).car.destroy.should be_true
-        create(:job_with_service, :completed).car.destroy.should be_true
+        create(:job, :with_service, status: :temporary).car.destroy.should be_true
+        create(:job, :completed, :with_service).car.destroy.should be_true
       end
 
       it 'fails if car has status like pending, estimated or assigned' do
-        create(:job_with_service, :pending).car.destroy.should be_false
-        create(:job_with_service, :assigned).car.destroy.should be_false
-        create(:job_with_service, :estimated).car.destroy.should be_false
+        create(:job, :pending, :with_service).car.destroy.should be_false
+        create(:job, :assigned, :with_service).car.destroy.should be_false
+        create(:job, :estimated, :with_service).car.destroy.should be_false
       end
     end
   end

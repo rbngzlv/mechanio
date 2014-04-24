@@ -60,7 +60,7 @@ describe EventsManager do
     end
 
     it 'does not delete appointment' do
-      event = create :event, job: create(:job_with_service, mechanic: mechanic), mechanic: mechanic
+      event = create :event, job: create(:job, :with_service, mechanic: mechanic), mechanic: mechanic
       expect {
         events_manager.delete_event(event.id)
       }.to_not change { Event.count }

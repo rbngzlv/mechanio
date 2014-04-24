@@ -54,7 +54,7 @@ describe ServicePlan do
 
   context 'deleting service plan' do
     specify 'when service plan deleted his id in tasks should became nil' do
-      job = create :job_with_service
+      job = create :job, :with_service
       task = job.tasks.first
       service_plan_for_deleting = task.service_plan
 

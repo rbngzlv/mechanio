@@ -68,7 +68,7 @@ describe AppointmentService do
     it 'does not book appointment' do
       subject.book_appointment.should be_false
 
-      job.status.should           eq :estimated
+      job.status.should           eq 'estimated'
       job.assigned_at.should      be_nil
       job.scheduled_at.should     be_nil
       job.event.should            be_nil

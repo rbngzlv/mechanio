@@ -18,8 +18,8 @@ feature 'dashboard page' do
     end
 
     scheduled_time = DateTime.tomorrow + 9.hour
-    closest_appointment = create :assigned_job, user: user, scheduled_at: scheduled_time
-    another_appointment = create :assigned_job, user: user, scheduled_at: (scheduled_time + 1.day)
+    closest_appointment = create :job, :assigned, :with_service, user: user, scheduled_at: scheduled_time
+    another_appointment = create :job, :assigned, :with_service, user: user, scheduled_at: (scheduled_time + 1.day)
     mechanic = closest_appointment.mechanic
     visit users_dashboard_path
 
@@ -44,8 +44,8 @@ feature 'dashboard page' do
       page.should have_css 'h5', text: 'No estimates'
     end
 
-    closest_estimate = create :job_with_service, :estimated, user: user, created_at: Date.today
-    another_estimate = create :job_with_service, :estimated, user: user, created_at: Date.yesterday
+    closest_estimate = create :job, :estimated, :with_service, user: user, created_at: Date.today
+    another_estimate = create :job, :estimated, :with_service, user: user, created_at: Date.yesterday
     visit users_dashboard_path
 
     within '.user-last-estimated' do

@@ -53,7 +53,7 @@ feature 'dashboard page' do
     end
 
     scenario 'upcoming jobs' do
-      job = create :assigned_job, mechanic: mechanic
+      job = create :job, :assigned, :with_service, mechanic: mechanic
       visit mechanics_dashboard_path
       within '.col-md-9 > .row:nth-child(2)' do
         should have_selector '.panel-title', text: 'Upcoming Jobs'
@@ -63,7 +63,7 @@ feature 'dashboard page' do
     end
 
     scenario 'completed jobs' do
-      job = create :assigned_job, mechanic: mechanic, status: :completed
+      job = create :job, :completed, :with_service, mechanic: mechanic
       visit mechanics_dashboard_path
       within '.col-md-9 > .row:nth-child(3)' do
         should have_selector '.panel-title', text: 'Completed Jobs'

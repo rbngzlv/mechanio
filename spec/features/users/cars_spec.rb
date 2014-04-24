@@ -3,7 +3,7 @@ require 'spec_helper'
 feature 'my cars page' do
   let(:user) { create :user }
   let!(:car1) { create :car, user: user }
-  let!(:car2) { create(:job_with_service, user: user).car }
+  let!(:car2) { create(:job, :with_service, user: user).car }
 
   subject { page }
 

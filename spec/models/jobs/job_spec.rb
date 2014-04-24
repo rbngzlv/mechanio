@@ -61,7 +61,7 @@ describe Job do
   end
 
   it 'sets uid on job creation' do
-    job_with_service.uid.length.should eq 10
+    job_with_service.uid.length.should >= 9
   end
 
   it 'builds task association with correct STI subclass' do

@@ -12,8 +12,8 @@ feature 'Jobs section' do
   end
 
   context 'on index' do
-    let!(:job1) { create :job_with_service }
-    let!(:job2) { create :assigned_job, location: create(:location, :with_coordinates) }
+    let!(:job1) { create :job, :with_service, created_at: DateTime.yesterday }
+    let!(:job2) { create :job, :assigned, :with_service }
 
     before { visit admins_jobs_path }
 

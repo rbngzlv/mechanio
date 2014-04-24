@@ -29,9 +29,9 @@ feature 'Admin user management' do
 
   context 'shows user details' do
     scenario 'should show user appointments' do
-      user.jobs << create(:job_with_service, :pending, user: user)
-      user.jobs << create(:job_with_service, :estimated, user: user)
-      user.jobs << create(:assigned_job, user: user)
+      user.jobs << create(:job, :pending, :with_service, user: user)
+      user.jobs << create(:job, :estimated, :with_service, user: user)
+      user.jobs << create(:job, :assigned, :with_service, user: user)
       visit admins_user_path(user)
 
       should have_css 'h4', text: 'User details'

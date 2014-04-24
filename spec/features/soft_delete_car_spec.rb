@@ -3,7 +3,7 @@ require 'spec_helper'
 feature 'Soft delete car' do
   let(:user) { create :user }
   let(:mechanic) { create :mechanic }
-  let!(:job) { create :job_with_service, :completed, user: user, mechanic: mechanic }
+  let!(:job) { create :job, :completed, :with_service, user: user, mechanic: mechanic }
 
   subject { page }
 

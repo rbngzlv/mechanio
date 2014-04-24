@@ -110,7 +110,7 @@ feature 'Mechanic schedule' do
     end
 
     specify 'job event', :js do
-      event = create :event, job: create(:job_with_service), mechanic: mechanic
+      event = create :event, job: create(:job, :with_service), mechanic: mechanic
 
       visit mechanics_events_path
 
