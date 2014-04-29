@@ -2,7 +2,7 @@
 
 = simple_form_for [:admins, @model_variation], url: admins_model_variations_path, method: :get, wrapper: :nolabel_sm, html: { class: 'form-inline' } do |f|
   = f.association :make, include_blank: '-- Make --', wrapper_html: { style: 'width: 15%' }
-  = f.association :model, include_blank: '-- Model --', wrapper_html: { style: 'width: 15%' }
+  = f.association :model, include_blank: '-- Model --', collection: @models, wrapper_html: { style: 'width: 15%' }
   = f.association :body_type, include_blank: '-- Body --', wrapper_html: { style: 'width: 10%' }
   .vertical-divider-sm
   = f.input :fuel, as: :select, collection: ModelVariation::FUEL, include_blank: '-- Fuel --', wrapper_html: { style: 'width: 10%' }
