@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :model_variation do
-    title        '3dr Hatchback 1.6turbo'
+    title        '2.0 Litre 9C SOHC'
     identifier   'AXC12362324'
     make
     model

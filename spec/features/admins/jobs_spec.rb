@@ -12,7 +12,7 @@ feature 'Jobs section' do
   end
 
   context 'on index' do
-    let!(:job1) { create :job, :with_service, created_at: DateTime.yesterday }
+    let!(:job1) { create :job, :estimated, :with_service, created_at: DateTime.yesterday }
     let!(:job2) { create :job, :assigned, :with_service }
 
     before { visit admins_jobs_path }
@@ -309,16 +309,16 @@ feature 'Jobs section' do
 
 
   def verify_job_row(job)
-    should have_content job.uid
-    should have_content job.status.capitalize
-    should have_content "#{job.location.suburb}, #{job.location.postcode}"
-    should have_content job.title
-    should have_content job.created_at.to_s(:date)
-    should have_content job.client_name
-    should have_content job.scheduled_at? ? job.scheduled_at.to_s(:date_time) : ''
-    should have_content job.mechanic ? job.mechanic.full_name : 'unassigned'
-    should have_content job.cost
-    should have_link "Edit"
+    page.should have_content job.uid
+    page.should have_content job.status.capitalize
+    page.should have_content "#{job.location.suburb}, #{job.location.postcode}"
+    page.should have_content job.title
+    page.should have_content job.created_at.to_s(:date)
+    page.should have_content job.client_name
+    page.should have_content job.scheduled_at? ? job.scheduled_at.to_s(:date_time) : ''
+    page.should have_content job.mechanic ? job.mechanic.full_name : 'unassigned'
+    page.should have_content job.cost
+    page.should have_link "Edit"
   end
 
   def visit_job_items(job)

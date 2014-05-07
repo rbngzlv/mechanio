@@ -6,6 +6,14 @@ FactoryGirl.define do
     contact_email 'email@host.com'
     contact_phone '0410123456'
 
+    ignore do
+      skip_set_cost false
+    end
+
+    before(:create) do |j, evaluator|
+      j.set_cost unless evaluator.skip_set_cost
+    end
+
     trait :with_service do
       after :build do |j|
         service_plan = create(:service_plan, model_variation: j.car.model_variation)

@@ -5,6 +5,10 @@ FactoryGirl.define do
     factory :service, class: 'Service' do
       type 'Service'
       service_plan
+
+      after :build do |s|
+        s.itemize
+      end
     end
 
     factory :repair, class: 'Repair' do
@@ -32,6 +36,7 @@ FactoryGirl.define do
   end
 
   factory :inspection, class: 'Inspection' do
+    type 'Inspection'
     note 'A note to mechanic'
     title 'Break pedal vibration'
     description 'Mechanic should diagnose this problem'

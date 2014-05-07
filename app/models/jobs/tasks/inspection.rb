@@ -7,8 +7,4 @@ class Inspection < Task
   def task_items
     []
   end
-
-  def set_cost
-    self.cost = INSPECTION_COST
-  end
 end

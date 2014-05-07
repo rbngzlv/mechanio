@@ -14,7 +14,7 @@ class Admins::JobsController < Admins::ApplicationController
   end
 
   def update
-    if @job.update_attributes(permitted_parms)
+    if job_service.update_job(@job, params)
       flash[:notice] = 'Job successfully updated'
     else
       flash[:error] = 'Error updating job'
@@ -34,7 +34,7 @@ class Admins::JobsController < Admins::ApplicationController
     @job = Job.find(params[:id])
   end
 
-  def permitted_parms
-    params.require('job').permit!
+  def job_service
+    JobService.new
   end
 end

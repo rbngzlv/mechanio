@@ -21,7 +21,7 @@ class Users::JobsController < Users::ApplicationController
   end
 
   def create
-    job = job_service.create_job
+    job = job_service.create_job(current_user, params)
     session[:tmp_job_id] = job.id unless user_signed_in?
 
     respond_with job, location: false
@@ -45,14 +45,14 @@ class Users::JobsController < Users::ApplicationController
       @contact = { contact_email: current_user.email, contact_phone: current_user.mobile_number }
 
       job_id = session.delete(:tmp_job_id)
-      @job = job_service.convert_from_temporary(job_id) if job_id
+      @job = job_service.convert_from_temporary(job_id, current_user) if job_id
     end
 
     render 'wizard'
   end
 
   def job_service
-    UserCreateJobService.new(current_user, params)
+    JobService.new
   end
 
   def states_json

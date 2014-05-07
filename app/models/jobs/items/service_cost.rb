@@ -9,10 +9,10 @@ class ServiceCost < ActiveRecord::Base
   def service_plan=(service_plan)
     super
     self.description = service_plan.display_title
-    self.cost = service_plan.cost
+    set_cost
   end
 
   def set_cost
-    cost
+    self.cost = service_plan.cost
   end
 end

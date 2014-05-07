@@ -2,7 +2,8 @@ require 'spec_helper'
 
 describe ModelVariation do
 
-  let(:model_variation) { build :model_variation }
+  let(:model_variation) { build :model_variation, make: make }
+  let(:make)            { build :make, name: 'Volkswagen' }
 
   it { should belong_to :make }
   it { should belong_to :model }
@@ -10,9 +11,8 @@ describe ModelVariation do
 
   it { should validate_presence_of :title }
   it { should validate_presence_of :identifier }
-  it { should validate_presence_of :make_id }
-  it { should validate_presence_of :model_id }
-  it { should validate_presence_of :body_type_id }
+  it { should validate_presence_of :make }
+  it { should validate_presence_of :model }
   it { should validate_presence_of :from_year }
   it { should validate_presence_of :to_year }
   it { should validate_presence_of :transmission }
@@ -36,12 +36,24 @@ describe ModelVariation do
     model_variation.valid?.should be_true
   end
 
-  it 'caches titles on save' do
-    model_variation.display_title.should eq nil
-    model_variation.detailed_title.should eq nil
-    model_variation.save
-    model_variation.display_title.should eq "#{model_variation.make.name} Golf 3dr Hatchback 1.6turbo"
-    model_variation.detailed_title.should eq '3dr Hatchback 1.6turbo 5dr Hatchback Manual Petrol'
+  describe '#set_titles' do
+    before do
+      model_variation.display_title.should eq nil
+      model_variation.detailed_title.should eq nil
+    end
+
+    it 'sets titles on save' do
+      model_variation.save
+      model_variation.display_title.should  eq 'Volkswagen Golf 2.0 Litre 9C SOHC'
+      model_variation.detailed_title.should eq '2.0 Litre 9C SOHC 5dr Hatchback Manual Petrol'
+    end
+
+    it 'sets titles without body name' do
+      model_variation.body_type = nil
+      model_variation.save
+      model_variation.display_title.should  eq 'Volkswagen Golf 2.0 Litre 9C SOHC'
+      model_variation.detailed_title.should eq '2.0 Litre 9C SOHC Manual Petrol'
+    end
   end
 
   it '#search' do

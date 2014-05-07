@@ -10,13 +10,13 @@ class Labour < ActiveRecord::Base
   validates :duration_hours, inclusion: { in: Labour::HOURS }
   validates :duration_minutes, inclusion: { in: Labour::MINUTES }
 
-  after_validation :set_cost
-
   after_initialize do
     self.duration_hours   ||= 0
     self.duration_minutes ||= 0
     self.hourly_rate      ||= HOURLY_RATE
   end
+
+  before_save :set_cost
 
   def self.hour_options
     HOURS.map { |h| sprintf('%02d h', h) }.zip(HOURS)

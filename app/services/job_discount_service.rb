@@ -18,8 +18,10 @@ class JobDiscountService
     ActiveRecord::Base.transaction do
       @job.update_column(:discount_id, @discount.id)
 
-      # save job to trigger #set_cost
-      @job.save unless @job.status.to_sym == :temporary
+      unless @job.temporary?
+        @job.set_cost
+        @job.save
+      end
 
       unless @discount.uses_left.nil?
         @discount.uses_left -= 1

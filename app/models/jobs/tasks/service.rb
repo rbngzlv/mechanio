@@ -14,8 +14,7 @@ class Service < Task
     if item = find_service_item
       item.itemable.update_attributes(service_plan: service_plan)
     else
-      task_items.build itemable:
-        ServiceCost.new(service_plan: service_plan)
+      task_items.build itemable: ServiceCost.new(service_plan: service_plan)
     end
   end
 

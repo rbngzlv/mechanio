@@ -6,6 +6,5 @@ class FixedAmount < ActiveRecord::Base
   validates :cost, numericality: { greater_than: 0 }
 
   def set_cost
-    cost
   end
 end

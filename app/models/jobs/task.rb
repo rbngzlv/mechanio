@@ -6,4 +6,5 @@ class Task < ActiveRecord::Base
   accepts_nested_attributes_for :task_items, allow_destroy: true, reject_if: proc { |attrs| attrs[:itemable_attributes].all? { |k, v| v.blank? } }
 
   default_scope { order(:created_at) }
+
 end

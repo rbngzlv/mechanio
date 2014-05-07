@@ -6,7 +6,9 @@ class Part < ActiveRecord::Base
   validates :unit_cost, numericality: { greater_than: 0 }
   validates :quantity, numericality: { greater_than: 0, only_integer: true }
 
+  before_save :set_cost
+
   def set_cost
-    self.cost = unit_cost * quantity if unit_cost
+    self.cost = unit_cost * quantity
   end
 end

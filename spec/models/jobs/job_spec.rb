@@ -75,7 +75,6 @@ describe Job do
   it 'associates car with user when creating car via nested_attributes' do
     job = Job.create(job_attributes_with_user)
 
-    job.car.user_id.should_not be_nil
     job.car.user_id.should eq job.user_id
   end
 
@@ -88,15 +87,6 @@ describe Job do
     car.reload.last_service_kms.should eq 10000
   end
 
-  it 'sums tasks costs' do
-    job_with_service.cost.should eq 350
-  end
-
-  it 'sums tasks costs when creating from nested_attributes' do
-    job = Job.create(job_attributes_with_user)
-    job.cost.should eq 475
-  end
-
   it 'determines if there is a service task' do
     job_with_service.has_service?.should be_true
     job_with_repair.has_service?.should be_false
@@ -107,39 +97,6 @@ describe Job do
     job_with_service.has_repair?.should be_false
     job_with_repair.has_repair?.should be_true
     job.has_repair?.should be_false
-  end
-
-  context 'updating task' do
-    it 'should be pending when some tasks have unknown cost' do
-      attrs = job_attributes
-      attrs[:tasks_attributes][1].delete(:task_items_attributes)
-
-      job.update_attributes(attrs)
-      job.reload.status.should eq 'pending'
-      job.cost.should be_nil
-    end
-
-    it 'should notify when quote becomes available' do
-      job = create :job, :pending
-      job.reload.status.should eq 'pending'
-
-      attrs = job_attributes
-      attrs[:tasks_attributes][1][:id] = job.tasks.first.id
-      job.should_receive(:notify_estimated)
-      job.update_attributes(attrs)
-      job.reload.status.should eq 'estimated'
-    end
-
-    it 'should notify when quote changes' do
-      job = job_with_service
-      job.status.should eq 'estimated'
-      job.cost.should eq 350
-
-      job.should_receive(:notify_quote_changed)
-      job.update_attributes(job_attributes)
-      job.status.should eq 'estimated'
-      job.cost.should eq 825
-    end
   end
 
   describe '#client_name' do

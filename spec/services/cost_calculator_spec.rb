@@ -1,71 +1,86 @@
 require 'spec_helper'
 
 describe CostCalculator do
-  let(:job)          { build_stubbed :job, tasks: [service, repair, inspection] }
+  let(:cost_calculator)     { CostCalculator.new(job) }
 
-  let(:service)      { build_stubbed :service, task_items: [service_item] }
-  let(:repair)       { build_stubbed(:repair, task_items: [part_item, labour_item, fixed_item]) }
-  let(:inspection)   { build_stubbed(:inspection) }
-  let(:another_inspection)   { build_stubbed(:inspection) }
+  let(:job)                 { build :job, tasks: [service, repair, inspection], skip_set_cost: true }
 
-  let(:service_item) { build_stubbed(:service_item) }
-  let(:part_item)    { build_stubbed(:part_item) }
-  let(:labour_item)  { build_stubbed(:labour_item) }
-  let(:fixed_item)   { build_stubbed(:fixed_amount_item) }
+  let(:service)             { build :service, task_items: [service_item] }
+  let(:service_item)        { build :service_item }
 
-  subject { CostCalculator.new(job) }
+  let(:repair)              { build :repair, task_items: [part_item, labour_item, fixed_item] }
+  let(:part_item)           { build :part_item }
+  let(:labour_item)         { build :labour_item }
+  let(:fixed_item)          { build :fixed_amount_item }
 
-  describe '#set_job_cost' do
+  let(:inspection)          { build :inspection }
+  let(:another_inspection)  { build :inspection }
 
-    before do
-      subject.set_job_cost
+  before do
+    cost_calculator.set_job_cost
+  end
 
-      service_item.cost.should  eq 350
-      part_item.cost.should     eq 108
-      labour_item.cost.should   eq 125
-      fixed_item.cost.should    eq 100
+  context 'a service ordered' do
+    specify 'inspection is free' do
+      verify_service_cost
+      verify_repair_cost
 
-      repair.cost.should        eq 333
+      inspection.cost.should  eq 0
+
+      job.cost.should         eq 683
+      job.final_cost.should   eq 683
     end
+  end
 
-    context 'a service ordered' do
-      specify 'inspection is free' do
-        service.cost.should     eq 350
-        inspection.cost.should  eq 0
-        job.cost.should         eq 683
-        job.final_cost.should   eq 683
-      end
+  context 'no service ordered' do
+    let(:job) { build :job, tasks: [repair, inspection] }
+
+    specify 'inspection is paid' do
+      verify_repair_cost
+
+      inspection.cost.should  eq 80
+
+      job.cost.should         eq 413
+      job.final_cost.should   eq 413
     end
+  end
 
-    context 'no service ordered' do
-      let(:job) { build_stubbed :job, tasks: [repair, inspection] }
+  context 'no service, multiple inspections' do
+    let(:job) { build :job, tasks: [repair, inspection, another_inspection] }
 
-      specify 'inspection is paid' do
-        inspection.cost.should  eq 80
-        job.cost.should         eq 413
-        job.final_cost.should   eq 413
-      end
+    specify 'multiple inspections should cost as single inspection' do
+      verify_repair_cost
+
+      inspection.cost.should          eq 80
+      another_inspection.cost.should  eq 0
+
+      job.cost.should                 eq 413
+      job.final_cost.should           eq 413
     end
+  end
 
-    context 'no service, multiple inspections' do
-      let(:job) { build_stubbed :job, tasks: [repair, inspection, another_inspection] }
+  context 'job with discount' do
+    let(:job) { build :job, :with_discount, tasks: [repair] }
 
-      specify 'multiple inspections should cost as single inspection' do
-        inspection.cost.should          eq 80
-        another_inspection.cost.should  eq 0
-        job.cost.should                 eq 413
-        job.final_cost.should           eq 413
-      end
+    specify 'final_cost should include discount' do
+      verify_repair_cost
+
+      job.cost.should                  eq 333
+      job.discount_amount.to_f.should  eq 66.6
+      job.final_cost.should            eq 266.4
     end
+  end
 
-    context 'job with discount' do
-      let(:job) { build :job, :with_discount, tasks: [repair] }
 
-      specify 'final_cost should include discount' do
-        job.cost.should                  eq 333
-        job.discount_amount.to_f.should  eq 66.6
-        job.final_cost.should            eq 266.4
-      end
-    end
+  def verify_service_cost
+    service.cost.should       eq 350
+    service_item.cost.should  eq 350
+  end
+
+  def verify_repair_cost
+    repair.cost.should        eq 333
+    part_item.cost.should     eq 108
+    labour_item.cost.should   eq 125
+    fixed_item.cost.should    eq 100
   end
 end

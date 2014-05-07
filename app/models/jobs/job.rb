@@ -21,7 +21,7 @@ class Job < ActiveRecord::Base
 
   before_validation :assign_car_to_user
   before_create :set_uid
-  before_save :set_title, :set_cost, :set_status, :on_quote_change
+  before_save :set_title
 
   validates :car, :location, :tasks, :contact_email, :contact_phone, presence: true
   validates :contact_phone, phone: true
@@ -55,9 +55,6 @@ class Job < ActiveRecord::Base
       # validates :transaction_id, presence: true
     end
     state :cancelled
-
-    after_transition to: :pending, do: :notify_pending
-    after_transition from: [:temporary, :pending], to: :estimated, do: :notify_estimated
   end
 
   default_scope { order(created_at: :desc).without_status(:temporary) }
@@ -121,26 +118,12 @@ class Job < ActiveRecord::Base
     cost_calculator.set_job_cost
   end
 
-  def set_status
-    estimate if pending? && quote_available?
-
-    if temporary? && !new_record?
-      quote_available? ? estimate : pending
-    end
-  end
-
   def quote_available?
     cost && cost > 0
   end
 
   def quote_changed?
     !cost_was.nil? && cost_changed?
-  end
-
-  def on_quote_change
-    if estimated? || assigned?
-      notify_quote_changed if quote_changed?
-    end
   end
 
   def as_json(options = {})
@@ -163,22 +146,5 @@ class Job < ActiveRecord::Base
         discount: { only: [:title, :code, :discount_type, :discount_value ] }
       })
     end
-  end
-
-  private
-
-  def notify_pending
-    AdminMailer.job_pending(self.id).deliver
-    UserMailer.job_pending(self.id).deliver
-  end
-
-  def notify_estimated
-    AdminMailer.job_estimated(self.id).deliver
-    UserMailer.job_estimated(self.id).deliver
-  end
-
-  def notify_quote_changed
-    AdminMailer.job_quote_changed(self.id).deliver
-    UserMailer.job_quote_changed(self.id).deliver
   end
 end

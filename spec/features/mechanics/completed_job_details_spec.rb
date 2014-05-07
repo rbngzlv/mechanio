@@ -78,8 +78,8 @@ feature 'upcoming job details page' do
       end
     end
 
-    page.should have_css '.total', '20% off discount $136.60'
-    page.should have_css '.total', 'Total $546.40'
+    page.should have_css '.total', text: '20% off discount $136.60'
+    page.should have_css '.total', text: 'Total Fees $546.40'
   end
 
   it 'shows a message when no feedback given' do
