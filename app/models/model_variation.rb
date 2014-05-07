@@ -8,7 +8,7 @@ class ModelVariation < ActiveRecord::Base
   belongs_to :body_type
   has_many :service_plans
 
-  validates :title, :identifier, :make_id, :model_id, :body_type_id, :from_year, :to_year, :transmission, :fuel, presence: true
+  validates :title, :identifier, :make, :model, :from_year, :to_year, :transmission, :fuel, presence: true
   validates :from_year, :to_year, year: true
   validates :to_year, numericality: { greater_than: Proc.new { |r| r.from_year } }
   validates :transmission, inclusion: { in: TRANSMISSION }
@@ -17,6 +17,8 @@ class ModelVariation < ActiveRecord::Base
   before_save :set_titles
 
   default_scope { order(:from_year) }
+
+  delegate :name, to: :body_type, allow_nil: true, prefix: true
 
   def self.search(params = {})
     from_year = params.delete(:from_year)
@@ -37,8 +39,8 @@ class ModelVariation < ActiveRecord::Base
   end
 
   def set_titles
-    self.display_title = "#{make.name} #{model.name} #{title}"
-    self.detailed_title = "#{title} #{body_type.name} #{transmission} #{fuel}"
+    self.display_title = [make.name, model.name, title].reject(&:blank?).join(' ')
+    self.detailed_title = [title, body_type_name, transmission, fuel].reject(&:blank?).join(' ')
   end
 
   def title_with_year
