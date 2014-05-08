@@ -334,8 +334,6 @@ CREATE TABLE fixed_amounts (
     id integer NOT NULL,
     description character varying(255),
     cost numeric(8,2),
-    tax numeric(8,2),
-    total numeric(8,2),
     created_at timestamp without time zone,
     updated_at timestamp without time zone
 );
@@ -373,8 +371,6 @@ CREATE TABLE jobs (
     contact_email character varying(255),
     contact_phone character varying(255),
     cost numeric(8,2),
-    tax numeric(8,2),
-    total numeric(8,2),
     serialized_params text,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
@@ -422,8 +418,6 @@ CREATE TABLE labours (
     duration_hours integer,
     hourly_rate numeric(8,2),
     cost numeric(8,2),
-    tax numeric(8,2),
-    total numeric(8,2),
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     duration_minutes integer
@@ -704,8 +698,6 @@ CREATE TABLE parts (
     name character varying(255),
     quantity integer,
     cost numeric(8,2),
-    tax numeric(8,2),
-    total numeric(8,2),
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     unit_cost numeric(8,2)
@@ -1064,8 +1056,6 @@ CREATE TABLE tasks (
     updated_at timestamp without time zone,
     title character varying(255),
     cost numeric(8,2),
-    tax numeric(8,2),
-    total numeric(8,2),
     description text
 );
 
@@ -2034,3 +2024,5 @@ INSERT INTO schema_migrations (version) VALUES ('20140416153425');
 INSERT INTO schema_migrations (version) VALUES ('20140417143542');
 
 INSERT INTO schema_migrations (version) VALUES ('20140419092827');
+
+INSERT INTO schema_migrations (version) VALUES ('20140425120216');
