@@ -10,6 +10,11 @@ class UserMailer < AsyncMailer
     mail subject: "We've got a quote for your #{@job.car.display_title}", to: @job.user.email
   end
 
+  def estimate_followup(job_id)
+    @job = Job.find(job_id)
+    mail subject: "Schedule your appointment today and save $x", to: @job.user.email
+  end
+
   def job_assigned(job_id)
     @job = Job.find(job_id)
     mail subject: 'Your booking with Mechanio is confirmed', to: @job.user.email

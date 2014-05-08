@@ -1,0 +1,7 @@
+%p Hi #{ @job.user.first_name },
+
+%p We know that auto repair can be expensive, and it isn't something you'll look forward to spend your hard earned cash on. So get $x off us if you schedule an appointment with one of our experienced mobile mechanics today. #{ link_to 'Click here', edit_users_appointment_url(@job) } and the discount will be automatically applied to your quote. 
+
+%p Be quick – this offer expires in 24 hours, so book a Mechanio mechanic today! Please don't hesitate to contact us if you need additional assistance.
+
+= render '/shared/mail_footer'

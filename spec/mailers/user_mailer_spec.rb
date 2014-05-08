@@ -1,10 +1,11 @@
 require 'spec_helper'
 
 describe UserMailer do
-  let(:job)  { create :job, :assigned, :with_service, :with_event, mechanic: mechanic }
+  let(:job)       { create :job, :assigned, :with_service, :with_event, mechanic: mechanic, user: user }
+  let(:user)      { create :user, email: 'user@host.com', first_name: 'Buddy' }
   let(:mechanic)  { create :mechanic, first_name: 'Joe', last_name: 'Mechanic' }
-  let(:to)   { [job.user.email] }
-  let(:from) { ['no-reply@mechanio.com'] }
+  let(:to)        { ['user@host.com'] }
+  let(:from)      { ['no-reply@mechanio.com'] }
 
   specify '#job_pending' do
     mail = UserMailer.job_pending(job.id)
@@ -19,6 +20,14 @@ describe UserMailer do
     mail.from.should      eq from
     mail.subject.should   eq "We've got a quote for your #{job.car.display_title}"
     mail.body.encoded.should match edit_users_appointment_url(job)
+  end
+
+  specify '#estimate_followup' do
+    mail = UserMailer.estimate_followup(job.id)
+    mail.to.should        eq to
+    mail.from.should      eq from
+    mail.subject.should   eq "Schedule your appointment today and save $x"
+    mail.body.should match edit_users_appointment_url(job)
   end
 
   specify '#job_assigned' do

@@ -9,6 +9,7 @@ describe JobService do
   describe '#create_job' do
     it 'creates estimated job' do
       service.should_receive(:notify_estimated)
+      service.should_receive(:schedule_followup_email)
 
       job = service.create_job(user, job: job_attributes).reload
 
@@ -35,6 +36,7 @@ describe JobService do
 
     it 'creates pending job' do
       service.should_receive(:notify_pending)
+      service.should_not_receive(:schedule_followup_email)
 
       job = service.create_job(user, job: pending_job_attributes).reload
 
@@ -66,6 +68,7 @@ describe JobService do
     job.cost.should eq 350
 
     service.should_receive(:notify_quote_changed)
+    service.should_receive(:schedule_followup_email)
 
     service.update_job(job, job: attrs)
 
@@ -94,6 +97,7 @@ describe JobService do
 
   specify '#convert_from_temporary' do
     service.should_receive(:notify_estimated)
+    service.should_receive(:schedule_followup_email)
 
     job = service.convert_from_temporary(temporary_job.id, user).reload
 

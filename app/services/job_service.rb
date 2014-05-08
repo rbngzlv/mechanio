@@ -21,6 +21,7 @@ class JobService
 
     if job.quote_available? && job.quote_changed?
       notify_quote_changed(job)
+      schedule_followup_email(job)
     end
 
     job
@@ -72,9 +73,14 @@ class JobService
     if job.quote_available?
       job.estimate
       notify_estimated(job)
+      schedule_followup_email(job)
     else
       notify_pending(job)
     end
+  end
+
+  def schedule_followup_email(job)
+    EstimateFollowupEmailService.schedule(job)
   end
 
   def notify_pending(job)
