@@ -25,7 +25,8 @@ app.controller 'DiagnoseController', ['$scope', '$http', ($scope, $http) ->
       type: 'Service',
       service_plan_id: $scope.service_plan.id,
       title: "#{$scope.service_plan.display_title} service",
-      note: $scope.note
+      note: $scope.note,
+      instructions: $scope.service_plan.instructions
     $scope.service_plan = {}
 
   $scope.saveRepair = ->

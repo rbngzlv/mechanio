@@ -36,8 +36,8 @@ class ServicePlan < ActiveRecord::Base
   end
 
   def self.to_options(params)
-    options = where(model_variation_id: params[:model_variation_id]).pluck(:id, :display_title).map do |s|
-      { id: s[0], display_title: s[1] }
+    options = where(model_variation_id: params[:model_variation_id]).pluck(:id, :display_title, :instructions).map do |s|
+      { id: s[0], display_title: s[1], instructions: s[2] }
     end
   end
 end
