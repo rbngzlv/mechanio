@@ -50,6 +50,7 @@ app.controller 'DiagnoseController', ['$scope', '$http', ($scope, $http) ->
     else
       $scope.tasks[$scope.editing_task][k] = v for k, v of task
     $scope.note = ''
+    $scope.repair_description = ''
     $scope.backToSummary()
 
   $scope.removeTask = (i) ->
