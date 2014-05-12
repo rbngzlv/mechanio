@@ -8,6 +8,7 @@ app.controller 'DiagnoseController', ['$scope', '$http', ($scope, $http) ->
   $scope.questions = []
   $scope.selected_symptoms = []
   $scope.note = ''
+  $scope.repair_description = ''
 
   $scope.tasks = []
   $scope.editing_task = null
@@ -28,15 +29,20 @@ app.controller 'DiagnoseController', ['$scope', '$http', ($scope, $http) ->
     $scope.service_plan = {}
 
   $scope.saveRepair = ->
-    if $scope.editing_task == null
-      $scope.updateTask
-        type: 'Inspection',
-        title: $scope.selected_symptoms[1].description,
-        description: $scope.lastSymptom().comment
-        note: $scope.note
-    else
-      $scope.updateTask
-        note: $scope.note
+    attrs = {
+      type:         'Inspection',
+      description:  $scope.repair_description,
+      note:         $scope.note
+    }
+
+    if $scope.selected_symptoms[1]
+      attrs.title       = $scope.selected_symptoms[1].description
+      attrs.description = $scope.lastSymptom().comment
+
+    unless attrs.title || $scope.editingRepair()
+      attrs.title       = 'Inspection'
+
+    $scope.updateTask(attrs)
 
   $scope.updateTask = (task) ->
     if $scope.editing_task == null
@@ -61,6 +67,7 @@ app.controller 'DiagnoseController', ['$scope', '$http', ($scope, $http) ->
     else
       $scope.mode = 'repair'
     $scope.note = task.note
+    $scope.repair_description = task.description
 
   $scope.editingRepair = ->
     $scope.editing_task != null && $scope.mode == 'repair'
@@ -91,7 +98,9 @@ app.controller 'DiagnoseController', ['$scope', '$http', ($scope, $http) ->
       when 'service' then !!($scope.service_plan && $scope.service_plan.id)
       when 'repair'
         return true unless $scope.editing_task == null
-        !!($scope.lastSymptom() && $scope.lastSymptom().comment)
+        symptom_selected = !!($scope.lastSymptom() && $scope.lastSymptom().comment)
+        !!(symptom_selected || $scope.repair_description)
+
 
   $scope.continueLabel = ->
     if $scope.mode == 'review'

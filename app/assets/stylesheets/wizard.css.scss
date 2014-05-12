@@ -102,16 +102,8 @@
       width: 40%;
     }
 
-    .service_form {
-      textarea#job_task_note {
-        height: 90px;
-      }
-    }
-
-    .repair_form {
-      textarea#job_task_note {
-        height: 60px;
-      }
+    textarea {
+      height: 90px;
     }
 
     .symptoms {

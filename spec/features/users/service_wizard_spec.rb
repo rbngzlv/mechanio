@@ -157,6 +157,20 @@ describe 'Service wizard', js: true do
       verify_last_service_date(user)
     end
 
+    it 'add repair typing in the problem' do
+      visit repair_path
+
+      verify_current_step 'Car Details'
+      select_a_car
+
+      verify_current_step 'Diagnose'
+      verify_sidebar 2, 'VEHICLE', variation.display_title
+      fill_in 'job_task_description', with: 'Problem description'
+      click_on 'Add'
+
+      verify_task 1, 'Inspection', 'Problem description'
+    end
+
     it 'edits repair' do
       visit repair_path
 
@@ -166,17 +180,15 @@ describe 'Service wizard', js: true do
       verify_current_step 'Diagnose'
       verify_sidebar 2, 'VEHICLE', variation.display_title
       add_repair_symptoms
-      fill_in 'job_task_note', with: repair_note
       click_on 'Add'
 
-      verify_task 1, 'Break safety inspection', 'Notes: Repair note'
+      verify_task 1, 'Break safety inspection', 'Replace the break pads'
 
       within_task(1) { find('.edit-task').click }
-      page.should have_field  'job_task_note', with: repair_note
-      fill_in 'job_task_note', with: another_note
+      fill_in 'job_task_description', with: another_note
       click_on 'Update'
 
-      verify_task 1, 'Break safety inspection', 'Notes: Edited note'
+      verify_task 1, 'Break safety inspection', 'Edited note'
     end
 
     it 'edits service' do
@@ -214,12 +226,11 @@ describe 'Service wizard', js: true do
 
       click_link 'Add Repair'
       add_repair_symptoms
-      fill_in 'job_task_note', with: note
       click_on 'Add'
-      verify_task 2, 'Break safety inspection', 'Notes: A note goes here'
+      verify_task 2, 'Break safety inspection', 'Replace the break pads'
 
       within_task(1) { find('.remove-task').click }
-      verify_task 1, 'Break safety inspection', 'Notes: A note goes here'
+      verify_task 1, 'Break safety inspection', 'Replace the break pads'
 
       within_task(1) { find('.remove-task').click }
       page.should have_css 'h5', text: 'PLEASE PICK A SERVICE INTERVAL YOU\'LL LIKE OUR PROFESSIONAL MOBILE MECHANIC TO PERFORM'
