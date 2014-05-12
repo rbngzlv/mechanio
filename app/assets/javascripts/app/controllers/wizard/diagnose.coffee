@@ -54,10 +54,12 @@ app.controller 'DiagnoseController', ['$scope', '$http', ($scope, $http) ->
     $scope.backToSummary()
 
   $scope.removeTask = (i) ->
-    if $scope.tasks[i].type == 'Service'
-      $scope.service_plan = {}
+    is_service = !!($scope.tasks[i].type == 'Service')
+    $scope.service_plan = {} if is_service
     $scope.tasks.splice(i, 1)
-    $scope.mode = 'service' if $scope.tasks.length == 0
+
+    if $scope.tasks.length == 0
+      $scope.mode = if is_service then 'service' else 'repair'
 
   $scope.editTask = (i) ->
     $scope.editing_task = i

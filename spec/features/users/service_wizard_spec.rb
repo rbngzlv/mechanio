@@ -233,7 +233,7 @@ describe 'Service wizard', js: true do
       verify_task 1, 'Break safety inspection', 'Replace the break pads'
 
       within_task(1) { find('.remove-task').click }
-      page.should have_css 'h5', text: 'PLEASE PICK A SERVICE INTERVAL YOU\'LL LIKE OUR PROFESSIONAL MOBILE MECHANIC TO PERFORM'
+      page.should have_css 'h5', text: 'FIX CAR PROBLEM'
       find('button', text: 'Add')[:disabled].should be_true
     end
   end
