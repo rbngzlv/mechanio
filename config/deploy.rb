@@ -10,7 +10,6 @@ set :stages,          %w(staging production)
 set :default_stage,   "staging"
 set :scm,             "git"
 set :user,            "rails"
-# set :runner,        "jwwalls"
 set :use_sudo,        false
 set :deploy_via,      :remote_cache
 set :rvm_ruby_string, "2.0.0"
@@ -69,9 +68,13 @@ after   'deploy:update', 'deploy:migrate'
 # Stop resque before assets precompilation to avoid out of memory errors
 before 'deploy:finalize_update', 'resque:stop'
 
-after 'deploy:start', 'resque:start'
-after 'deploy:stop', 'resque:stop'
+after 'deploy:start',   'resque:start'
+after 'deploy:stop',    'resque:stop'
 after 'deploy:restart', 'resque:restart'
+
+after 'deploy:start',   'resque:scheduler:start'
+after 'deploy:stop',    'resque:scheduler:stop'
+after 'deploy:restart', 'resque:scheduler:restart'
 
 set :resque_environment_task, true
 set :workers, { '*' => 1 }
