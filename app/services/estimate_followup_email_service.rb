@@ -2,10 +2,10 @@ class EstimateFollowupEmailService
   @queue = 'mailer'
 
   def self.schedule(job_id)
-    Resque.enqueue_in(2.days, EstimateFollowupEmailService, job_id: job_id)
+    Resque.enqueue_in(2.days, EstimateFollowupEmailService, job_id)
   end
 
-  def perform(job_id)
+  def self.perform(job_id)
     @job = Job.find(job_id)
 
     if @job.estimated?

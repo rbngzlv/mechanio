@@ -80,7 +80,7 @@ class JobService
   end
 
   def schedule_followup_email(job)
-    EstimateFollowupEmailService.schedule(job)
+    EstimateFollowupEmailService.schedule(job.id)
   end
 
   def notify_pending(job)

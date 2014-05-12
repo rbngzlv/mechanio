@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe EstimateFollowupEmailService do
 
-  # let(:service) { EstimateFollowupEmailService.new }
+  subject { EstimateFollowupEmailService }
 
   before { reset_mail_deliveries }
 
