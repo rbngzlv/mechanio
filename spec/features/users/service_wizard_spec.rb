@@ -246,7 +246,12 @@ describe 'Service wizard', js: true do
     select variation.model.name, from: 'car_model_id'
     select variation.detailed_title, from: 'car_model_variation_id'
 
+    fill_in 'Kms', with: '1000'
+    page.should have_content 'minimum value is 5000'
+    page.find_button('Continue', disabled: true)
+
     fill_in 'Kms', with: '15000'
+    page.should have_no_content 'minimum value is 5000'
 
     click_on 'Continue'
   end
