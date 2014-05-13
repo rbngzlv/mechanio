@@ -290,7 +290,10 @@ describe 'Service wizard', js: true do
   end
 
   def add_repair_symptoms(symptom_pos = 0)
+    page.should have_css '.advice p', text: 'What is happening to your car?'
     all('.symptoms a.btn')[0].click
+
+    page.should have_css '.advice p', text: 'What is wrong with the breaks?'
     all('.symptoms a.btn')[symptom_pos].click
   end
 

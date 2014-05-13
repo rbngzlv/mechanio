@@ -112,6 +112,10 @@ app.controller 'DiagnoseController', ['$scope', '$http', ($scope, $http) ->
     else
       if $scope.editing_task == null then 'Add' else 'Update'
 
+  $scope.symptomComment = ->
+    return $scope.lastSymptom().comment if $scope.lastSymptom()
+    'What is happening to your car?'
+
   $scope.submit = ->
     $scope.data.tasks = $scope.tasks
     $scope.submitStep()

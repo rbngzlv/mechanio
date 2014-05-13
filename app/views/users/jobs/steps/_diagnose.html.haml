@@ -34,6 +34,9 @@
     %h5 SELECT TYPE OF SYMPTOM YOU HAVE
     %hr.hr-dark-gray
 
+    .advice
+      %p {{symptomComment()}}
+
     .symptoms{ 'ng-hide' => 'editingRepair()' }
       .row
         .col-md-6
@@ -41,8 +44,6 @@
             %a.btn.btn-default{ 'ng-click' => 'addSymptom(symptom)' }
               %small.pull-right &#x276F;
               {{symptom.description}}
-          .advice{ 'ng-show' => 'lastSymptom().comment' }
-            %p {{lastSymptom().comment}}
 
     %h5 OR DESCRIBE THE PROBLEM
     %hr.hr-dark-gray
