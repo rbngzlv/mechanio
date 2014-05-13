@@ -139,7 +139,7 @@ describe 'Service wizard', js: true do
       verify_current_step 'Diagnose'
       verify_sidebar 2, 'VEHICLE', variation.display_title
 
-      page.should have_css 'h5', text: 'FIX CAR PROBLEM'
+      page.should have_css 'h5', text: 'SELECT TYPE OF SYMPTOM YOU HAVE'
       add_repair_symptoms
       click_on 'Add'
       verify_task 1, 'Break safety inspection', ''
@@ -233,7 +233,7 @@ describe 'Service wizard', js: true do
       verify_task 1, 'Break safety inspection', 'Replace the break pads'
 
       within_task(1) { find('.remove-task').click }
-      page.should have_css 'h5', text: 'FIX CAR PROBLEM'
+      page.should have_css 'h5', text: 'SELECT TYPE OF SYMPTOM YOU HAVE'
       find('button', text: 'Add')[:disabled].should be_true
     end
   end

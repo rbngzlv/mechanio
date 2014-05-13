@@ -31,21 +31,24 @@
       = s.input :note, label: false, placeholder: 'Write any additional issues or concerns you have with your car', as: :text, input_html: { 'ng-model' => 'note' }
 
   .wizard-body{ 'ng-show' => 'mode == "repair"', 'ng-form' => 'repair_form' }
-    %h5 FIX CAR PROBLEM
+    %h5 SELECT TYPE OF SYMPTOM YOU HAVE
     %hr.hr-dark-gray
+
+    .symptoms{ 'ng-hide' => 'editingRepair()' }
+      .row
+        .col-md-6
+          %div{ 'ng-repeat' => 'symptom in questions' }
+            %a.btn.btn-default{ 'ng-click' => 'addSymptom(symptom)' }
+              %small.pull-right &#x276F;
+              {{symptom.description}}
+          .advice{ 'ng-show' => 'lastSymptom().comment' }
+            %p {{lastSymptom().comment}}
+
+    %h5 OR DESCRIBE THE PROBLEM
+    %hr.hr-dark-gray
+
     = f.simple_fields_for :task, Repair.new do |s|
       = s.input :description, label: false, placeholder: 'Describe any issues you have with your car', as: :text, input_html: { 'ng-model' => 'repair_description' }
-
-      .symptoms{ 'ng-hide' => 'editingRepair()' }
-        %h6 Or select type of symptom you have
-        .row
-          .col-md-6
-            %div{ 'ng-repeat' => 'symptom in questions' }
-              %a.btn.btn-default{ 'ng-click' => 'addSymptom(symptom)' }
-                %small.pull-right &#x276F;
-                {{symptom.description}}
-            .advice{ 'ng-show' => 'lastSymptom().comment' }
-              %p {{lastSymptom().comment}}
 
   %hr
 
