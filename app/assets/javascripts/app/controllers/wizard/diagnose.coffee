@@ -80,8 +80,15 @@ app.controller 'DiagnoseController', ['$scope', '$http', ($scope, $http) ->
     if $scope.editing_task == null then 'Add' else 'Update'
 
   $scope.goBack = ->
-    if $scope.mode == 'review' || $scope.tasks.length == 0
-      $scope.gotoStep("car-details")
+    selected = $scope.selected_symptoms
+    if selected.length
+      $scope.selected_symptoms.pop()
+      $scope.questions = if selected.length
+        selected[selected.length - 1].children
+      else
+        $scope.symptoms
+    else if $scope.mode == 'review' || $scope.tasks.length == 0
+      $scope.gotoStep('car-details')
     else
       $scope.backToSummary()
 

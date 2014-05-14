@@ -156,6 +156,29 @@ describe 'Service wizard', js: true do
       verify_last_service_date(user)
     end
 
+    it 'allows to navigate symptoms back and forth' do
+      visit root_path
+      click_on 'Car Needs Repair'
+
+      verify_current_step 'Car Details'
+      select_a_car
+
+      page.should have_css 'h5', text: 'WHAT IS HAPPENING TO YOUR CAR?'
+      all('.symptoms a.btn')[0].click
+
+      page.should have_css 'h5', text: 'WHAT IS WRONG WITH THE BREAKS?'
+      all('.symptoms a.btn')[0].click
+
+      page.should have_css 'h5', text: 'OUR RECOMMENDATION'
+      page.should have_css '.advice', 'Replace the break pads'
+
+      click_on 'Back'
+      page.should have_css 'h5', text: 'WHAT IS WRONG WITH THE BREAKS?'
+
+      click_on 'Back'
+      page.should have_css 'h5', text: 'WHAT IS HAPPENING TO YOUR CAR?'
+    end
+
     it 'add repair typing in the problem' do
       visit repair_path
 
