@@ -139,7 +139,6 @@ describe 'Service wizard', js: true do
       verify_current_step 'Diagnose'
       verify_sidebar 2, 'VEHICLE', variation.display_title
 
-      page.should have_css 'h5', text: 'SELECT TYPE OF SYMPTOM YOU HAVE'
       add_repair_symptoms
       click_on 'Add'
       verify_task 1, 'Break safety inspection', ''
@@ -233,7 +232,7 @@ describe 'Service wizard', js: true do
       verify_task 1, 'Break safety inspection', 'Replace the break pads'
 
       within_task(1) { find('.remove-task').click }
-      page.should have_css 'h5', text: 'SELECT TYPE OF SYMPTOM YOU HAVE'
+      page.should have_css 'h5', text: 'WHAT IS HAPPENING TO YOUR CAR?'
       find('button', text: 'Add')[:disabled].should be_true
     end
   end
@@ -290,11 +289,14 @@ describe 'Service wizard', js: true do
   end
 
   def add_repair_symptoms(symptom_pos = 0)
-    page.should have_css '.advice p', text: 'What is happening to your car?'
+    page.should have_css 'h5', text: 'WHAT IS HAPPENING TO YOUR CAR?'
     all('.symptoms a.btn')[0].click
 
-    page.should have_css '.advice p', text: 'What is wrong with the breaks?'
+    page.should have_css 'h5', text: 'WHAT IS WRONG WITH THE BREAKS?'
     all('.symptoms a.btn')[symptom_pos].click
+
+    page.should have_css 'h5', text: 'OUR RECOMMENDATION'
+    page.should have_css '.advice', 'Replace the break pads'
   end
 
   def add_repair_keywords

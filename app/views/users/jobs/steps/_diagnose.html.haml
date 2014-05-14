@@ -31,13 +31,10 @@
       = s.input :note, label: false, placeholder: 'Write any additional issues or concerns you have with your car', as: :text, input_html: { 'ng-model' => 'note' }
 
   .wizard-body{ 'ng-show' => 'mode == "repair"', 'ng-form' => 'repair_form' }
-    %h5 SELECT TYPE OF SYMPTOM YOU HAVE
-    %hr.hr-dark-gray
-
-    .advice
-      %p {{symptomComment()}}
-
     .symptoms{ 'ng-hide' => 'editingRepair()' }
+      %h5.orange {{symptomTitle()}}
+      .advice
+        %p {{recommendation()}}
       .row
         .col-md-6
           %div{ 'ng-repeat' => 'symptom in questions' }
@@ -45,8 +42,7 @@
               %small.pull-right &#x276F;
               {{symptom.description}}
 
-    %h5 OR DESCRIBE THE PROBLEM
-    %hr.hr-dark-gray
+    %h5.orange SOMETHING ELSE IS WRONG?
 
     = f.simple_fields_for :task, Repair.new do |s|
       = s.input :description, label: false, placeholder: 'Describe any issues you have with your car', as: :text, input_html: { 'ng-model' => 'repair_description' }

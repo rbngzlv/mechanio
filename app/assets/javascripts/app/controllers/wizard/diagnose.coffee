@@ -38,7 +38,7 @@ app.controller 'DiagnoseController', ['$scope', '$http', ($scope, $http) ->
 
     if $scope.selected_symptoms[1]
       attrs.title       = $scope.selected_symptoms[1].description
-      attrs.description = $scope.lastSymptom().comment
+      attrs.description = $scope.selected_symptoms[1].comment
 
     unless attrs.title || $scope.editingRepair()
       attrs.title       = 'Inspection'
@@ -102,7 +102,7 @@ app.controller 'DiagnoseController', ['$scope', '$http', ($scope, $http) ->
       when 'service' then !!($scope.service_plan && $scope.service_plan.id)
       when 'repair'
         return true unless $scope.editing_task == null
-        symptom_selected = !!($scope.lastSymptom() && $scope.lastSymptom().comment)
+        symptom_selected = !!($scope.selected_symptoms[1] && $scope.selected_symptoms[1].comment)
         !!(symptom_selected || $scope.repair_description)
 
 
@@ -112,9 +112,13 @@ app.controller 'DiagnoseController', ['$scope', '$http', ($scope, $http) ->
     else
       if $scope.editing_task == null then 'Add' else 'Update'
 
-  $scope.symptomComment = ->
-    return $scope.lastSymptom().comment if $scope.lastSymptom()
+  $scope.symptomTitle = ->
+    return 'Our recommendation' if $scope.selected_symptoms[1]
+    return $scope.selected_symptoms[0].comment if $scope.selected_symptoms[0]
     'What is happening to your car?'
+
+  $scope.recommendation = ->
+    $scope.selected_symptoms[1].comment if $scope.selected_symptoms[1]
 
   $scope.submit = ->
     $scope.data.tasks = $scope.tasks
@@ -140,10 +144,6 @@ app.controller 'DiagnoseController', ['$scope', '$http', ($scope, $http) ->
   $scope.addSymptom = (symptom) ->
     $scope.selected_symptoms.push(symptom)
     $scope.questions = symptom.children
-
-  $scope.lastSymptom = ->
-    l = $scope.selected_symptoms.length
-    $scope.selected_symptoms[l - 1]
 
   $scope.resetDiagnostics = ->
     $scope.selected_symptoms = []
