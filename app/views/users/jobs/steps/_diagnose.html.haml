@@ -8,8 +8,10 @@
           .pull-right
             %a.edit-task{ href: '', 'ng-click' => 'editTask($index)' }
               %i.icon.icon-edit
+              Add notes
             %a.remove-task{ href: '', 'ng-click' => 'removeTask($index)' }
               %i.icon.icon-remove
+              Remove
         .panel-body
           %p.description{ 'ng-show' => 'task.type == "Inspection"' }
             {{task.description}}
