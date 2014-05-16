@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 feature 'Admin user management' do
-  let!(:user) { create :user }
+  let!(:user) { create :user, first_name: 'Joe', last_name: 'User', email: 'joe@email.com', mobile_number: '0412345667' }
 
   subject { page }
 
@@ -24,7 +24,11 @@ feature 'Admin user management' do
   it 'lists available users' do
     visit admins_users_path
 
-    should have_css 'td', text: user.full_name
+    signup_date = user.created_at.to_s(:date_short)
+
+    page.should have_css 'h4', 'Manage users'
+    page.should have_css 'tr', text: 'Status Name Email Mobile Signup date'
+    page.should have_css 'tr', text: "Active Joe User joe@email.com 0412345667 #{signup_date}"
   end
 
   context 'shows user details' do

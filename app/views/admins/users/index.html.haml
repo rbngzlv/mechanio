@@ -9,16 +9,20 @@
     %table.table.table-striped
       %thead
         %tr
-          %th.col-md-3 Name
+          %th.col-md-1 Status
+          %th Name
           %th Email
-          %th.col-md-2 Signup date
+          %th Mobile
+          %th.col-md-1 Signup date
           %th.col-md-1
       %tbody
       - @users.each do |u|
         %tr
+          %td= bootstrap_label 'Active', 'success'
           %td= u.full_name
           %td= u.email
-          %td= u.created_at.to_s(:short)
+          %td= u.mobile_number
+          %td= u.created_at.to_s(:date_short)
           %td.text-right= link_to "Details", admins_user_path(u)
 
   = paginate @users
