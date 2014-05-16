@@ -7,10 +7,11 @@ module RatingHelper
     html.html_safe
   end
 
-  def editable_rating(field_name)
-    html = hidden_field_tag(field_name, '0')
+  def editable_rating(attribute, value)
+    html = hidden_field_tag("rating[#{attribute}]", value)
     (1..Rating::MAX).each do |i|
-      html << content_tag(:span, '&nbsp;'.html_safe, 'data-value' => Rating::MAX + 1 - i)
+      current = Rating::MAX + 1 - i
+      html << content_tag(:span, '&nbsp;'.html_safe, 'data-value' => current, 'class' => ('active' if value == current))
     end
     content_tag :div, html.html_safe, class: 'rating editable'
   end

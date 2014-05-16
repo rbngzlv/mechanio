@@ -8,6 +8,10 @@ describe Rating do
   it { should belong_to :mechanic }
   it { should belong_to :job }
 
+  it { should validate_presence_of(:user) }
+  it { should validate_presence_of(:mechanic) }
+  it { should validate_presence_of(:job) }
+
   it { should validate_presence_of(:professional) }
   it { should validate_presence_of(:service_quality) }
   it { should validate_presence_of(:communication) }
@@ -19,6 +23,13 @@ describe Rating do
   it { should ensure_inclusion_of(:communication).in_range(1..5) }
   it { should ensure_inclusion_of(:cleanness).in_range(1..5) }
   it { should ensure_inclusion_of(:convenience).in_range(1..5) }
+
+  specify '#published' do
+    published_rating   = create :rating, :with_job, :with_user, :with_mechanic, published: true
+    unpublished_rating = create :rating, :with_job, :with_user, :with_mechanic, published: false
+
+    Rating.published.should eq [published_rating]
+  end
 
   specify '#average' do
     rating.average.should eq 3.4

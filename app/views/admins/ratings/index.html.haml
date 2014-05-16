@@ -1,0 +1,20 @@
+%h4 Feedback
+
+- if @ratings.count > 0
+  .table-responsive
+    %table.table.table-striped
+      %thead
+        %tr
+          %th Status
+          %th Date
+          %th From user
+          %th To mechanic
+          %th Job
+          %th Score
+          %th Recommend
+          %th
+      %tbody
+        = render @ratings
+  = paginate @ratings
+- else
+  %p.text-center No feedback left

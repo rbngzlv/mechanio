@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 feature 'dashboard page' do
-  let(:user)    { create :user, ratings: [rating], authentications: [auth], first_name: 'John', last_name: 'Dow' }
-  let(:rating)  { create :rating }
+  let(:user)    { create :user, authentications: [auth], first_name: 'John', last_name: 'Dow' }
+  let(:rating)  { create :rating, :with_mechanic, job: job, user: user }
   let(:auth)    { create :authentication, :facebook }
   let(:job)     { create :job, :completed, :with_service, user: user }
 
@@ -63,12 +63,19 @@ feature 'dashboard page' do
     page.should have_css 'h4', text: 'Select a Mechanic'
   end
 
-  it 'shows basic info' do
-    page.should have_selector 'h4', text: user.full_name
-    page.should have_content 'Hi, my name is John Dow'
-    page.should have_content 'Left 1 Reviews'
-    page.should have_css '.icon-facebook-sign'
-    page.should have_css '.verified-icons i', count: 3
+  context 'with review' do
+    before do
+      rating
+      visit users_dashboard_path
+    end
+
+    it 'shows basic info' do
+      page.should have_selector 'h4', text: user.full_name
+      page.should have_content 'Hi, my name is John Dow'
+      page.should have_content 'Left 1 Reviews'
+      page.should have_css '.icon-facebook-sign'
+      page.should have_css '.verified-icons i', count: 3
+    end
   end
 
   describe 'outstanding reviews' do

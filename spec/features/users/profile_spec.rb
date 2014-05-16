@@ -1,10 +1,10 @@
 require 'spec_helper'
 
 feature 'user profile' do
-  let(:user)    { create :user, authentications: [auth], ratings: [rating], first_name: 'John', last_name: 'Dow' }
+  let(:user)    { create :user, authentications: [auth], first_name: 'John', last_name: 'Dow' }
   let(:auth)    { create :authentication, :gmail }
   let(:job)     { create :job, :completed, :with_service }
-  let(:rating)  { create :rating, job: job }
+  let(:rating)  { create :rating, job: job, user: user, mechanic: job.mechanic }
 
   before do
     login_user user
@@ -16,6 +16,7 @@ feature 'user profile' do
 
   context 'view page' do
     before do
+      rating
       visit users_profile_path
     end
 

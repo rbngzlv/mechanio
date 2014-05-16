@@ -41,14 +41,18 @@ module ApplicationHelper
     content_tag(:i, content, options).html_safe
   end
 
-  def mechanic_status(mechanic, opt = {})
-    css, text = if mechanic.suspended?
-      text = opt[:show_suspended_at] ? "Suspended at #{mechanic.suspended_at.to_s(:date_short)}" : 'Suspended'
+  def mechanic_status(mechanic, options = {})
+    css_class, text = if mechanic.suspended?
+      text = options[:show_suspended_at] ? "Suspended at #{mechanic.suspended_at.to_s(:date_short)}" : 'Suspended'
       ['danger', text]
     else
       ['success', 'Active']
     end
-    content_tag :span, text, class: "label label-#{css}"
+    bootstrap_label(text, css_class)
+  end
+
+  def bootstrap_label(text, css_class)
+    content_tag :span, text, class: "label label-#{css_class}"
   end
 
   def suburb_with_postcode(location)

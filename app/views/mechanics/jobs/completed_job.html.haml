@@ -36,7 +36,7 @@
         = render partial: 'task', collection: @job.tasks, as: :task
         - job_totals(@job).each do |row|
           .row.total
-            .col-md-2.col-md-offset-8.col-sm-3.col-sm-offset-7.col-xs-12
+            .col-md-6.col-md-offset-4.col-sm-3.col-sm-offset-7.col-xs-12
               %h4.text-right= row[:title]
             .col-md-2.col-sm-2
               %h4.text-right= row[:value]
@@ -44,7 +44,7 @@
       .col-md-12.completed-job-details.clearfix
         %h4.hx-default Feedback
         .panel.nested-panel.feedback
-          - unless @job.rating.present?
-            %h5.text-center No feedback yet
-          - else
+          - if @job.rated?
             = render 'shared/feedback', rating: @job.rating
+          - else
+            %h5.text-center No feedback yet

@@ -9,7 +9,7 @@ class Mechanic < ActiveRecord::Base
   has_many :mechanic_regions
   has_many :regions, through: :mechanic_regions
   has_many :payouts
-  has_many :ratings
+  has_many :ratings, -> { where(published: true) }
   has_one :payout_method
 
   accepts_nested_attributes_for :location
@@ -85,6 +85,12 @@ class Mechanic < ActiveRecord::Base
 
   def update_earnings
     update_attributes(total_earnings: payouts.sum(:amount))
+  end
+
+  def update_rating
+    averages = ratings.published.map(&:average)
+    rating = averages.size > 0 ? averages.sum.to_f / averages.size : 0
+    update_attribute(:rating, rating)
   end
 
   def active_for_authentication?

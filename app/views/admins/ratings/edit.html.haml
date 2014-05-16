@@ -1,0 +1,5 @@
+%h4 Edit rating
+
+.row
+  .col-md-9
+    = render '/shared/feedback_form', form_action: admins_rating_path(@rating), rating: @rating, job: @rating.job

@@ -13,6 +13,8 @@ describe 'Rate completed appointment' do
   specify 'leave feedback', :js do
     visit users_appointment_path(job.id)
 
+    page.should have_no_css 'p b', text: 'Published'
+
     within('.profile-border .rating') { page.should have_css '.empty-star', count: 5 }
 
     page.find('.feedback-submit')[:disabled].should be_true

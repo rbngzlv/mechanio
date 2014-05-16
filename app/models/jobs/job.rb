@@ -126,6 +126,10 @@ class Job < ActiveRecord::Base
     !cost_was.nil? && cost_changed?
   end
 
+  def rated?
+    rating.present? && rating.published
+  end
+
   def as_json(options = {})
     if options[:format] == :list
       super(only: [:id, :scheduled_at, :title], include: {

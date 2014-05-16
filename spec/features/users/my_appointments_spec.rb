@@ -2,12 +2,13 @@ require 'spec_helper'
 
 feature 'My appointments' do
   let(:user)          { create :user, first_name: 'John', last_name: 'Dow' }
-  let(:mechanic)      { create :mechanic, ratings: [rating] }
+  let(:mechanic)      { create :mechanic }
   let(:current_job)   { create :job, :with_service, :estimated, :assigned, mechanic: mechanic, user: user }
   let(:completed_job) { create :job, :with_service, :completed, mechanic: mechanic, user: user }
-  let(:rated_job)     { create :job, :with_service, :completed, :rated, mechanic: mechanic, user: user }
-  let(:rating)        { create :rating, job: job, user: user }
-  let(:job)           { create :job, :completed, :with_service }
+  let(:rated_job)     { create :job, :with_service, :completed, mechanic: mechanic, user: user }
+  let(:rating)        { create :rating, job: rated_job, user: user, mechanic: mechanic }
+  let(:unpublished_rating)            { create :rating, job: job_with_unpublished_rating, user: user, mechanic: mechanic, published: false }
+  let(:job_with_unpublished_rating)   { create :job, :with_service, :completed, mechanic: mechanic, user: user }
 
   before do
     login_user user
@@ -16,6 +17,8 @@ feature 'My appointments' do
 
   specify 'current appointments', :js do
     current_job
+    rated_job
+    rating
     visit users_appointments_path
 
     page.should have_css 'li.active a', text: 'Current Appointments'
@@ -29,9 +32,9 @@ feature 'My appointments' do
 
       within '.chat' do
         page.should have_content 'John Dow'
-        page.should have_content job.car.display_title
-        page.should have_content job.title
-        page.should have_content number_to_currency job.final_cost
+        page.should have_content rated_job.car.display_title
+        page.should have_content rated_job.title
+        page.should have_content number_to_currency rated_job.final_cost
         page.should have_css '.full-star', count: 3
       end
     end
@@ -41,6 +44,9 @@ feature 'My appointments' do
     before do
       completed_job
       rated_job
+      job_with_unpublished_rating
+      unpublished_rating
+      rating
 
       visit users_appointments_path
 
@@ -54,7 +60,7 @@ feature 'My appointments' do
 
       within 'tbody' do
         page.should have_css 'tr', text: "Completed #{completed_job.title} #{mechanic.full_name} #{completed_job.car.display_title} #{completed_job.scheduled_at.to_s(:date_short)}"
-        page.should have_css 'tr', count: 2
+        page.should have_css 'tr', count: 3
         page.should have_css 'a[data-original-title="Leave Feedback"]', count: 1
       end
     end
@@ -64,6 +70,14 @@ feature 'My appointments' do
 
       page.should have_css 'td', text: 'Total Fees'
       page.should have_css '.feedback'
+      page.should have_content "Hi, I'm your mechanic #{completed_job.mechanic.full_name}"
+    end
+
+    specify 'does not show unpublished rating' do
+      all('a[data-original-title="View Job"]')[2].click
+
+      page.should have_css 'td', text: 'Total Fees'
+      page.should have_no_css '.feedback'
       page.should have_content "Hi, I'm your mechanic #{completed_job.mechanic.full_name}"
     end
   end

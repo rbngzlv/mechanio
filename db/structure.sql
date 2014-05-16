@@ -811,7 +811,8 @@ CREATE TABLE ratings (
     comment text,
     recommend boolean,
     created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    updated_at timestamp without time zone,
+    published boolean
 );
 
 
@@ -2026,3 +2027,5 @@ INSERT INTO schema_migrations (version) VALUES ('20140417143542');
 INSERT INTO schema_migrations (version) VALUES ('20140419092827');
 
 INSERT INTO schema_migrations (version) VALUES ('20140425120216');
+
+INSERT INTO schema_migrations (version) VALUES ('20140514200025');

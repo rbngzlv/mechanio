@@ -83,7 +83,9 @@ FactoryGirl.define do
     end
 
     trait :rated do
-      rating
+      after :build do |j|
+        j.rating = build :rating, job: j, user: j.user, mechanic: j.mechanic
+      end
     end
   end
 end

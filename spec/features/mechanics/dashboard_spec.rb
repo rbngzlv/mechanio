@@ -5,6 +5,7 @@ feature 'dashboard page' do
   let(:user)    { create :user, first_name: 'John', last_name: 'Dow' }
   let(:job)     { create :job, :completed, :with_service, user: user, mechanic: mechanic }
   let(:rating)  { create :rating, user: user, mechanic: mechanic, job: job }
+  let(:unpublished_rating)  { create :rating, user: user, mechanic: mechanic, job: job, published: false }
 
   subject { page }
 
@@ -43,6 +44,19 @@ feature 'dashboard page' do
           page.should have_css '.full-star', count: 3
         end
       end
+    end
+  end
+
+  context 'unpublished review' do
+    before do
+      mechanic.ratings << unpublished_rating
+      mechanic.save
+      visit mechanics_dashboard_path
+    end
+
+    specify 'does not show the review' do
+      page.should have_css 'h5', text: 'Customer Reviews'
+      page.should have_css 'h5', text: 'No reviews'
     end
   end
 

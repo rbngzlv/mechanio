@@ -18,5 +18,6 @@
             %li= link_to 'Service plans by model', by_model_admins_service_plans_path
         = active_li 'Symptoms', admins_symptoms_path, 'admins/symptoms'
         = active_li 'Discounts', admins_discounts_path, 'admins/discounts'
+        = active_li 'Feedback', admins_ratings_path, 'admins/ratings'
     - else
       = link_to 'Login', new_admin_session_path, class: 'btn btn-default navbar-btn'

@@ -1,8 +1,8 @@
-= simple_form_for :rating, url: users_appointment_rating_path(@job) do |f|
+= simple_form_for rating, url: form_action do |f|
   .nested-panel.panel.feedback.feedback-form
     .row.clearfix
       .col-md-9
-        LEAVE FEEDBACK - How satisfied were you with #{@job.mechanic.full_name}?
+        LEAVE FEEDBACK - How satisfied were you with #{job.mechanic.full_name}?
       .col-md-3
         %small Rollover stars then click to rate
     .row
@@ -11,42 +11,48 @@
         How knowledgeable was the mechanic?
       .col-md-3
         .reviews-row.clearfix.pull-left
-          = editable_rating 'rating[professional]'
+          = editable_rating 'professional', rating.professional
     .row
       %small.col-md-9
         %b Service
         How was the service provided by the mechanic?
       .col-md-3
         .reviews-row.clearfix.pull-left
-          = editable_rating 'rating[service_quality]'
+          = editable_rating 'service_quality', rating.service_quality
     .row
       %small.col-md-9
         %b Communication
         How clear was the communication from the mechanic?
       .col-md-3
         .reviews-row.clearfix.pull-left
-          = editable_rating 'rating[communication]'
+          = editable_rating 'communication', rating.communication
     .row
       %small.col-md-9
         %b Cleanliness
         How clean was the work site after the mechanic left?
       .col-md-3
         .reviews-row.clearfix.pull-left
-          = editable_rating 'rating[cleanness]'
+          = editable_rating 'cleanness', rating.cleanness
     .row
       %small.col-md-9
         %b Convenience
         How convenient and easy was it to organise this service/repair?
       .col-md-3
         .reviews-row.clearfix.pull-left
-          = editable_rating 'rating[convenience]'
+          = editable_rating 'convenience', rating.convenience
 
     = f.input :comment, as: :text, label: false, placeholder: 'Tell us more'
 
     %p
-      %b Would you recommend #{@job.mechanic.first_name} to your friends and family?
-
+      %b Would you recommend #{job.mechanic.first_name} to your friends and family?
     = f.input :recommend, as: :radio_buttons, label: false, collection: { 'Yes' => true, 'Not this time' => false }, item_wrapper_class: 'radio-inline'
+
+    - if admin_signed_in?
+      %p
+        %b Published
+      = f.input :published, as: :radio_buttons, label: false, item_wrapper_class: 'radio-inline'
+      = f.input :id, as: :hidden
+
     .row
       .col-md-12
         = f.submit 'Save', class: 'btn btn-success pull-right col-md-3 feedback-submit', disabled: true

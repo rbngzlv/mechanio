@@ -1,7 +1,7 @@
 class Users::RatingsController < ApplicationController
 
   def create
-    unless rating = rating_service.rate(rating_params)
+    unless rating = rating_service.call(rating_params)
       flash[:error] = 'Error saving feedback'
     end
 
@@ -16,7 +16,7 @@ class Users::RatingsController < ApplicationController
   end
 
   def rating_service
-    RatingService.new(current_user, job)
+    Ratings::Create.new(current_user, job)
   end
 
   def job

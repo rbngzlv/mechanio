@@ -90,8 +90,7 @@ feature 'upcoming job details page' do
   end
 
   it 'shows feedback', :js do
-    job.rating = create :rating
-    job.save
+    create :rating, job: job, user: job.user, mechanic: job.mechanic
 
     visit mechanics_job_path(job)
 
@@ -103,5 +102,13 @@ feature 'upcoming job details page' do
       within rating_categories[3] { page.should have_css '.full-star', count: 5 }
       within rating_categories[4] { page.should have_css '.full-star', count: 5 }
     end
+  end
+
+  it 'hides unpublished rating', :js do
+    create :rating, job: job, user: job.user, mechanic: job.mechanic, published: false
+
+    visit mechanics_job_path(job)
+
+    page.should have_content 'No feedback yet'
   end
 end

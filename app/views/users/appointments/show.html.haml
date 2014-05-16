@@ -47,7 +47,11 @@
             .col-md-6.pull-right
               = render "shared/mechanic/verified_icons", account: @job.mechanic
         %br
-        - if @job.rating.present?
-          = render 'feedback', rating: @job.rating
-        - else
-          = render 'feedback_form'
+        - if @job.rated?
+          .nested-panel.panel.feedback
+            .row.clearfix
+              .col-md-9
+                YOUR FEEDBACK
+            = render 'shared/feedback', rating: @job.rating
+        - unless @job.rating.present?
+          = render '/shared/feedback_form', form_action: users_appointment_rating_path(@job), rating: Rating.new, job: @job

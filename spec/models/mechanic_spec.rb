@@ -197,4 +197,15 @@ describe Mechanic do
     mechanic.update_earnings
     mechanic.total_earnings.should eq 100
   end
+
+  specify '#update_rating' do
+    mechanic = create :mechanic
+    published_rating   = create :rating, :with_job, :with_user, mechanic: mechanic, published: true
+    unpublished_rating = create :rating, :with_job, :with_user, mechanic: mechanic, published: false, service_quality: 1
+
+    published_rating.average.should eq 3.4
+    unpublished_rating.average.should eq 3.0
+
+    expect { mechanic.update_rating }.to change { mechanic.rating }.from(0).to(3.4)
+  end
 end
