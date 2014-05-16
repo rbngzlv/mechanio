@@ -9,6 +9,7 @@ app.controller 'DiagnoseController', ['$scope', '$http', ($scope, $http) ->
   $scope.selected_symptoms = []
   $scope.note = ''
   $scope.repair_description = ''
+  $scope.recommendation = ''
 
   $scope.tasks = []
   $scope.editing_task = null
@@ -52,6 +53,7 @@ app.controller 'DiagnoseController', ['$scope', '$http', ($scope, $http) ->
       $scope.tasks[$scope.editing_task][k] = v for k, v of task
     $scope.note = ''
     $scope.repair_description = ''
+    $scope.recommendation = ''
     $scope.backToSummary()
 
   $scope.removeTask = (i) ->
@@ -72,6 +74,7 @@ app.controller 'DiagnoseController', ['$scope', '$http', ($scope, $http) ->
       $scope.mode = 'repair'
     $scope.note = task.note
     $scope.repair_description = task.description
+    $scope.recommendation     = task.description
 
   $scope.editingRepair = ->
     $scope.editing_task != null && $scope.mode == 'repair'
@@ -120,12 +123,15 @@ app.controller 'DiagnoseController', ['$scope', '$http', ($scope, $http) ->
       if $scope.editing_task == null then 'Add' else 'Update'
 
   $scope.symptomTitle = ->
-    return 'Our recommendation' if $scope.selected_symptoms[1]
+    return 'Our recommendation' if $scope.selected_symptoms[1] || $scope.editingRepair()
     return $scope.selected_symptoms[0].comment if $scope.selected_symptoms[0]
     'What is happening to your car?'
 
-  $scope.recommendation = ->
-    $scope.selected_symptoms[1].comment if $scope.selected_symptoms[1]
+  $scope.showRecommendation = ->
+    $scope.recommendation || $scope.editingRepair()
+
+  $scope.selectedSomeSymptoms = ->
+    $scope.selected_symptoms.length > 0
 
   $scope.submit = ->
     $scope.data.tasks = $scope.tasks
@@ -151,6 +157,8 @@ app.controller 'DiagnoseController', ['$scope', '$http', ($scope, $http) ->
   $scope.addSymptom = (symptom) ->
     $scope.selected_symptoms.push(symptom)
     $scope.questions = symptom.children
+    if $scope.selected_symptoms[1]
+      $scope.recommendation = $scope.selected_symptoms[1].comment
 
   $scope.resetDiagnostics = ->
     $scope.selected_symptoms = []

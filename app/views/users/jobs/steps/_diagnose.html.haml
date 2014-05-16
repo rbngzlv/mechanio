@@ -31,21 +31,24 @@
       = s.input :note, label: false, placeholder: 'Write any additional issues or concerns you have with your car', as: :text, input_html: { 'ng-model' => 'note' }
 
   .wizard-body{ 'ng-show' => 'mode == "repair"', 'ng-form' => 'repair_form' }
-    .symptoms{ 'ng-hide' => 'editingRepair()' }
-      %h5.orange {{symptomTitle()}}
-      .advice
-        %p {{recommendation()}}
-      .row
-        .col-md-6
-          %div{ 'ng-repeat' => 'symptom in questions' }
-            %a.btn.btn-default{ 'ng-click' => 'addSymptom(symptom)' }
-              %small.pull-right &#x276F;
-              {{symptom.description}}
-
-    %h5.orange SOMETHING ELSE IS WRONG?
-
     = f.simple_fields_for :task, Repair.new do |s|
-      = s.input :description, label: false, placeholder: 'Describe any issues you have with your car', as: :text, input_html: { 'ng-model' => 'repair_description' }
+      %h5.orange {{symptomTitle()}}
+
+      .advice{ 'ng-show' => 'showRecommendation()' }
+        %p {{recommendation}}
+        = s.input :note, label: false, placeholder: 'Add notes', as: :text, input_html: { 'ng-model' => 'note' }
+
+      .symptoms{ 'ng-hide' => 'showRecommendation()' }
+        .row
+          .col-md-6
+            %div{ 'ng-repeat' => 'symptom in questions' }
+              %a.btn.btn-default{ 'ng-click' => 'addSymptom(symptom)' }
+                %small.pull-right &#x276F;
+                {{symptom.description}}
+
+      .something-else{ 'ng-hide' => 'editingRepair() || selectedSomeSymptoms()' }
+        %h5.orange SOMETHING ELSE IS WRONG?
+        = s.input :description, label: false, placeholder: 'Describe any issues you have with your car', as: :text, input_html: { 'ng-model' => 'repair_description' }
 
   %hr
 

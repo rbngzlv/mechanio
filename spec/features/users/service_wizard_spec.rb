@@ -141,7 +141,7 @@ describe 'Service wizard', js: true do
 
       add_repair_symptoms
       click_on 'Add'
-      verify_task 1, 'Break safety inspection', ''
+      verify_task 1, 'Break safety inspection', 'Replace the break pads Notes: Repair notes'
       page.should have_link 'Add Service'
       click_on 'Continue'
 
@@ -207,10 +207,10 @@ describe 'Service wizard', js: true do
       verify_task 1, 'Break safety inspection', 'Replace the break pads'
 
       within_task(1) { find('.edit-task').click }
-      fill_in 'job_task_description', with: another_note
+      fill_in 'job_task_note', with: another_note
       click_on 'Update'
 
-      verify_task 1, 'Break safety inspection', 'Edited note'
+      verify_task 1, 'Break safety inspection', 'Replace the break pads Notes: Edited note'
     end
 
     it 'edits service' do
@@ -312,14 +312,18 @@ describe 'Service wizard', js: true do
   end
 
   def add_repair_symptoms(symptom_pos = 0)
+    page.should have_css 'h5', text: 'SOMETHING ELSE IS WRONG?'
     page.should have_css 'h5', text: 'WHAT IS HAPPENING TO YOUR CAR?'
     all('.symptoms a.btn')[0].click
 
+    page.should have_no_css 'h5', text: 'SOMETHING ELSE IS WRONG?'
     page.should have_css 'h5', text: 'WHAT IS WRONG WITH THE BREAKS?'
     all('.symptoms a.btn')[symptom_pos].click
 
+    page.should have_no_css 'h5', text: 'SOMETHING ELSE IS WRONG?'
     page.should have_css 'h5', text: 'OUR RECOMMENDATION'
     page.should have_css '.advice', 'Replace the break pads'
+    fill_in 'job_task_note', with: 'Repair notes'
   end
 
   def add_repair_keywords
