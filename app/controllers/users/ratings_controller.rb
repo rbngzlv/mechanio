@@ -1,7 +1,9 @@
 class Users::RatingsController < ApplicationController
 
   def create
-    unless rating = rating_service.call(rating_params)
+    if rating = rating_service.call(rating_params)
+      session[:show_thankyou_modal] = true
+    else
       flash[:error] = 'Error saving feedback'
     end
 

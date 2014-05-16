@@ -55,3 +55,4 @@
             = render 'shared/feedback', rating: @job.rating
         - unless @job.rating.present?
           = render '/shared/feedback_form', form_action: users_appointment_rating_path(@job), rating: Rating.new, job: @job
+        = render 'feedback_thankyou' if @show_thankyou_modal

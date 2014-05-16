@@ -26,6 +26,7 @@ class Users::AppointmentsController < Users::ApplicationController
   end
 
   def show
+    @show_thankyou_modal = session.delete(:show_thankyou_modal)
   end
 
   def receipt

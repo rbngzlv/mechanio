@@ -4,11 +4,11 @@ feature 'My appointments' do
   let(:user)          { create :user, first_name: 'John', last_name: 'Dow' }
   let(:mechanic)      { create :mechanic }
   let(:current_job)   { create :job, :with_service, :estimated, :assigned, mechanic: mechanic, user: user }
-  let(:completed_job) { create :job, :with_service, :completed, mechanic: mechanic, user: user }
-  let(:rated_job)     { create :job, :with_service, :completed, mechanic: mechanic, user: user }
+  let(:completed_job) { create :job, :with_service, :completed, mechanic: mechanic, user: user, scheduled_at: Time.now.advance(hour: 1) }
+  let(:rated_job)     { create :job, :with_service, :completed, mechanic: mechanic, user: user, scheduled_at: Time.now.advance(hour: 2) }
   let(:rating)        { create :rating, job: rated_job, user: user, mechanic: mechanic }
   let(:unpublished_rating)            { create :rating, job: job_with_unpublished_rating, user: user, mechanic: mechanic, published: false }
-  let(:job_with_unpublished_rating)   { create :job, :with_service, :completed, mechanic: mechanic, user: user }
+  let(:job_with_unpublished_rating)   { create :job, :with_service, :completed, mechanic: mechanic, user: user, scheduled_at: Time.now.advance(hour: 3) }
 
   before do
     login_user user
@@ -66,15 +66,16 @@ feature 'My appointments' do
     end
 
     specify 'shows appointment details' do
-      first('a[data-original-title="View Job"]').click
+      all('a[data-original-title="View Job"]')[2].click
 
       page.should have_css 'td', text: 'Total Fees'
       page.should have_css '.feedback'
       page.should have_content "Hi, I'm your mechanic #{completed_job.mechanic.full_name}"
+      page.should have_no_css '.modal'
     end
 
     specify 'does not show unpublished rating' do
-      all('a[data-original-title="View Job"]')[2].click
+      first('a[data-original-title="View Job"]').click
 
       page.should have_css 'td', text: 'Total Fees'
       page.should have_no_css '.feedback'

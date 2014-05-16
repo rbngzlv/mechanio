@@ -1,0 +1,16 @@
+.modal.fade
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %h4 Thank you!
+      .modal-body
+        %p Thank you for your invaluable feedback. We strive to give you the best mechanic service to your door, every time!
+      .modal-footer
+        %button.btn.btn-primary{ 'type' => 'button', 'data-dismiss' => 'modal' } Close
+
+:coffee
+  jQuery ->
+    $('.modal').modal('show')
+    setTimeout ( ->
+      $('.modal').modal('hide')
+    ), 5000

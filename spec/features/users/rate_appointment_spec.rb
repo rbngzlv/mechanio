@@ -31,6 +31,9 @@ describe 'Rate completed appointment' do
 
     click_on 'Save'
 
+    page.should have_css '.modal h4', text: 'Thank you!'
+    within('.modal') { click_on 'Close' }
+    page.should have_no_css '.modal'
 
     within('.profile-border .rating') { page.should have_css '.full-star', count: 3 }
 
