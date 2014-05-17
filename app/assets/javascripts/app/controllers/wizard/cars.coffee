@@ -7,6 +7,7 @@ app.controller 'CarsController', ['$scope', '$http', ($scope, $http) ->
   $scope.last_service_year
 
   $scope.cars = []
+  $scope.makes = []
   $scope.models = []
   $scope.model_variations = []
 
@@ -18,13 +19,10 @@ app.controller 'CarsController', ['$scope', '$http', ($scope, $http) ->
     $scope.adding_vehicle = $scope.cars.length == 0
 
   $scope.setYear = ->
-    $scope.loadModelVariations()
+    $scope.loadMakes()
 
   $scope.setMake = ->
-    $http.get('/ajax/models.json', params: { make_id: $scope.car.make_id })
-      .success (data) ->
-        $scope.models = data
-        $scope.no_results_alert = (data.length == 0)
+    $scope.loadModels()
 
     $scope.car.model_id = null
     $scope.car.model_variation_id = null
@@ -49,12 +47,30 @@ app.controller 'CarsController', ['$scope', '$http', ($scope, $http) ->
   $scope.notifyCarChanged = ->
     $scope.$emit 'bounce', 'cars_step.car_changed', $scope.car.model_variation_id
 
+  $scope.loadMakes = ->
+    $http.get('/ajax/makes.json', params: $scope.searchParams())
+      .success (data) ->
+        $scope.makes = data
+        $scope.no_results_alert = (data.length == 0)
+        $scope.models = []
+        $scope.model_variations = []
+
+  $scope.loadModels = ->
+    $http.get('/ajax/models.json', params: $scope.searchParams())
+      .success (data) ->
+        $scope.models = data
+        $scope.no_results_alert = (data.length == 0)
+        $scope.model_variations = []
+
   $scope.loadModelVariations = ->
     if $scope.car.model_id
-      $http.get('/ajax/model_variations.json', params: { model_id: $scope.car.model_id, year: $scope.car.year })
+      $http.get('/ajax/model_variations.json', params: $scope.searchParams())
         .success (data) ->
           $scope.model_variations = data
           $scope.no_results_alert = (data.length == 0)
+
+  $scope.searchParams = ->
+    { year: $scope.car.year, make_id: $scope.car.make_id, model_id: $scope.car.model_id }
 
   $scope.valid = ->
     valid_car = $scope.car.id || $scope.car.model_variation_id

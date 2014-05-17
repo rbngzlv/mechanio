@@ -1,6 +1,33 @@
 require 'spec_helper'
 
 describe AjaxController do
+  let(:vw)    { create :make, name: 'Volkswagen' }
+  let(:audi)  { create :make, name: 'Audi' }
+  let(:golf)  { create :model, name: 'Golf', make: vw }
+  let(:a3)    { create :model, name: 'A3', make: audi }
+
+  let(:vw_golf1) { create :model_variation, make: vw, model: golf, from_year: 2000, to_year: 2005 }
+  let(:vw_golf2) { create :model_variation, make: vw, model: golf, from_year: 2000, to_year: 2004 }
+  let(:audi_a31) { create :model_variation, make: audi, model: a3, from_year: 1998, to_year: 2000 }
+  let(:audi_a32) { create :model_variation, make: audi, model: a3, from_year: 2001, to_year: 2003 }
+
+  context '#GET makes' do
+    it 'with empty params' do
+      get :makes, format: :json
+      response.should be_success
+      response.body.should eq '[]'
+    end
+
+    it 'by year' do
+      vw_golf2
+      audi_a31
+
+      get :makes, format: :json, year: 2001
+
+      response.should be_success
+      response.body.should eq [{ id: vw.id, name: vw.name }].to_json
+    end
+  end
 
   context '#GET models' do
     it 'with empty params' do

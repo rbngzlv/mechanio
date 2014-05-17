@@ -29,15 +29,6 @@ class ModelVariation < ActiveRecord::Base
     scope
   end
 
-  def self.to_options(params)
-    return [] if params.empty?
-    year = params.delete(:year)
-    scope = where(params)
-    scope = scope.where('? BETWEEN from_year AND to_year', year) unless year.blank?
-    scope.select(:id, :display_title, :detailed_title, :from_year, :to_year)
-      .as_json(only: [:id, :display_title, :detailed_title], methods: [:title_with_year])
-  end
-
   def set_titles
     self.display_title = [make.name, model.name, title].reject(&:blank?).join(' ')
     self.detailed_title = [title, body_type_name, transmission, fuel].reject(&:blank?).join(' ')

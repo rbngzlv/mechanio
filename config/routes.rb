@@ -84,6 +84,7 @@ Mechanio::Application.routes.draw do
   end
 
   resource :ajax, controller: 'ajax', only: [] do
+    get 'makes'
     get 'models'
     get 'model_variations'
     get 'service_plans'

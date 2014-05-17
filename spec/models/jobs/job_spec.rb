@@ -35,7 +35,7 @@ describe Job do
     let(:estimated_job)  { create :job, :with_service, :estimated }
     let(:assigned_job)   { create :job, :with_service, :assigned  }
     let(:completed_job)  { create :job, :with_service, :completed }
-    let(:rated_job)      { create :job, :with_service, :completed, :rated }
+    let(:rated_job)      { create :job, :with_service, :completed, :rated, scheduled_at: Time.now.advance(hours: 1) }
 
     it 'finds scoped jobs' do
       Job.estimated.should eq [estimated_job]
