@@ -38,6 +38,9 @@ class Users::JobsController < Users::ApplicationController
     @contact = {}
     @symptoms = Symptom.json_tree
 
+    @from_year = ModelVariation.minimum(:from_year)
+    @to_year   = ModelVariation.maximum(:to_year)
+
     if user_signed_in?
       @user_id = current_user.id
       @cars = current_user.cars.select([:id, :display_title, :model_variation_id]).to_json
