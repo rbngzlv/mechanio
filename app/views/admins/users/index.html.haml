@@ -1,9 +1,17 @@
-%h4 Manage users
+.navbar.navbar-default
+  .navbar-brand Manage users
+  .navbar-form.navbar-right
+    = form_tag '?', method: :get, class: '' do
+      .form-group
+        = text_field_tag 'query', @query, class: 'form-control input-sm'
+      .form-group
+        = submit_tag 'Search', class: 'btn btn-sm btn-primary'
+
 
 - if @users.empty?
   .panel.panel-default
     .panel-body.text-center
-      No users yet
+      No users found
 -else
   .table-responsive
     %table.table.table-striped
@@ -16,13 +24,13 @@
           %th.col-md-1 Signup date
           %th.col-md-1
       %tbody
-      - @users.each do |u|
-        %tr
-          %td= bootstrap_label 'Active', 'success'
-          %td= u.full_name
-          %td= u.email
-          %td= u.mobile_number
-          %td= u.created_at.to_s(:date_short)
-          %td.text-right= link_to "Details", admins_user_path(u)
+        - @users.each do |u|
+          %tr
+            %td= bootstrap_label 'Active', 'success'
+            %td= u.full_name
+            %td= u.email
+            %td= u.mobile_number
+            %td= u.created_at.to_s(:date_short)
+            %td.text-right= link_to "Details", admins_user_path(u)
 
   = paginate @users

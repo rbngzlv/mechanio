@@ -23,6 +23,20 @@ COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
 
 
 --
+-- Name: pg_trgm; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS pg_trgm WITH SCHEMA public;
+
+
+--
+-- Name: EXTENSION pg_trgm; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON EXTENSION pg_trgm IS 'text similarity measurement and index searching based on trigrams';
+
+
+--
 -- Name: postgis; Type: EXTENSION; Schema: -; Owner: -
 --
 
@@ -2029,3 +2043,5 @@ INSERT INTO schema_migrations (version) VALUES ('20140419092827');
 INSERT INTO schema_migrations (version) VALUES ('20140425120216');
 
 INSERT INTO schema_migrations (version) VALUES ('20140514200025');
+
+INSERT INTO schema_migrations (version) VALUES ('20140519165519');

@@ -13,7 +13,7 @@ feature 'Admin user management' do
     visit admins_dashboard_path
     click_link 'Users'
 
-    should have_css 'h4', text: 'Manage users'
+    should have_css '.navbar-brand', text: 'Manage users'
     should have_css 'td', text: user.full_name
     click_link 'Details'
 
@@ -26,9 +26,25 @@ feature 'Admin user management' do
 
     signup_date = user.created_at.to_s(:date_short)
 
-    page.should have_css 'h4', 'Manage users'
+    page.should have_css '.navbar-brand', 'Manage users'
     page.should have_css 'tr', text: 'Status Name Email Mobile Signup date'
     page.should have_css 'tr', text: "Active Joe User joe@email.com 0412345667 #{signup_date}"
+  end
+
+  it 'searches users by keywords' do
+    another_user = create :user, first_name: 'Jimmy', last_name: 'Smith', email: 'jimmy@example.com', mobile_number: '0412345668'
+
+    visit admins_users_path
+
+    page.should have_css 'tbody tr', count: 2
+
+    fill_in 'query', with: 'Jim'
+    click_on 'Search'
+
+    signup_date = another_user.created_at.to_s(:date_short)
+
+    page.should have_css 'tbody tr', count: 1
+    page.should have_css 'tr', text: "Active Jimmy Smith jimmy@example.com 0412345668 #{signup_date}"
   end
 
   context 'shows user details' do

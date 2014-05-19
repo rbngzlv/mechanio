@@ -34,6 +34,7 @@ gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
 gem 'dotenv-rails'
 gem 'prawn'
+gem 'textacular', '~> 3.0'
 
 group :test do
   gem 'rspec-rails'
