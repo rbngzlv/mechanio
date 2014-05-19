@@ -47,7 +47,7 @@
                 {{symptom.description}}
 
       .something-else{ 'ng-hide' => 'editingRepair() || selectedSomeSymptoms()' }
-        %h5.orange SOMETHING ELSE IS WRONG?
+        %h5.orange Something else is wrong?
         = s.input :description, label: false, placeholder: 'Describe any issues you have with your car', as: :text, input_html: { 'ng-model' => 'repair_description' }
 
   %hr
