@@ -41,10 +41,15 @@ module ApplicationHelper
     content_tag(:i, content, options).html_safe
   end
 
-  def mechanic_status(mechanic, options = {})
-    css_class, text = if mechanic.suspended?
-      text = options[:show_suspended_at] ? "Suspended at #{mechanic.suspended_at.to_s(:date_short)}" : 'Suspended'
-      ['danger', text]
+  def account_status(account, options = {})
+    css_class, text = if account.suspended?
+
+      label = if options[:show_suspended_at]
+        suspended_date = account.suspended_at.to_s(:date_short)
+        "Suspended at #{suspended_date}"
+      end
+
+      ['danger', label || 'Suspended']
     else
       ['success', 'Active']
     end

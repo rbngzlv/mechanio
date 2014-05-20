@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, omniauth_providers: [:google_oauth2, :facebook]
 
+  include AccountSuspendable
+
   has_many :cars, -> { where deleted_at: nil }
   has_many :jobs, dependent: :nullify
   has_many :credit_cards

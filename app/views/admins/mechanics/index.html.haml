@@ -25,7 +25,7 @@
         - @mechanics.each do |u|
           %tr
             %td= u.full_name
-            %td= mechanic_status(u)
+            %td= account_status(u)
             %td= u.email
             %td= u.mobile_number
             %td.text-right= u.current_jobs_count

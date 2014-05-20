@@ -17,8 +17,8 @@ feature 'Admin user management' do
     should have_css 'td', text: user.full_name
     click_link 'Details'
 
-    should have_css 'h4', text: 'User details'
-    should have_css 'dd', text: user.full_name
+    should have_css 'h4', text: user.full_name
+    should have_css 'dd', text: user.email
   end
 
   it 'lists available users' do
@@ -52,10 +52,11 @@ feature 'Admin user management' do
       user.jobs << create(:job, :pending, :with_service, user: user)
       user.jobs << create(:job, :estimated, :with_service, user: user)
       user.jobs << create(:job, :assigned, :with_service, user: user)
+
       visit admins_user_path(user)
 
-      should have_css 'h4', text: 'User details'
-      should have_css 'dd', text: user.full_name
+      should have_css 'h4', text: user.full_name
+      should have_css 'dd', text: user.email
 
       within 'tbody' do
         user.jobs.each_with_index do |job, index|
@@ -81,12 +82,25 @@ feature 'Admin user management' do
     end
   end
 
-  it 'deletes a user' do
-    expect do
-      visit admins_user_path(user)
-      click_link 'Delete'
-    end.to change { User.count }.by -1
+  it 'suspends a user' do
+    visit admins_user_path(user)
 
-    should have_css '.alert', text: 'User successfully deleted.'
+    page.should have_css '.label-success', text: 'Active'
+
+    click_on 'Suspend'
+
+    page.should have_css '.label-danger', text: 'Suspended'
+  end
+
+  it 'activates a user' do
+    user.suspend
+
+    visit admins_user_path(user)
+
+    page.should have_css '.label-danger', text: 'Suspended'
+
+    click_on 'Activate'
+
+    page.should have_css '.label-success', text: 'Active'
   end
 end

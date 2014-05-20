@@ -57,7 +57,13 @@ Mechanio::Application.routes.draw do
   namespace :admins do
     get '/', to: 'dashboard#index', as: :dashboard
 
-    resources :users
+    resources :users, only: [:index, :show] do
+      member do
+        get :suspend
+        get :activate
+      end
+    end
+
     resources :mechanics, except: [:show] do
       patch :suspend
       patch :activate

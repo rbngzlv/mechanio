@@ -23,6 +23,14 @@ describe 'User login', :js do
       should have_css '.alert', text: 'Invalid email or password.'
     end
 
+    it 'show an error for suspended user' do
+      user.suspend
+
+      login_with email: user.email, password: user.password
+
+      page.should have_css '.alert', text: 'Your account is suspended. Please contact us to activate it.'
+    end
+
     it 'loggs user in' do
       login_with email: user.email, password: user.password
 

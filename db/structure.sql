@@ -1123,7 +1123,8 @@ CREATE TABLE users (
     description text,
     avatar character varying(255),
     braintree_customer_id character varying(255),
-    location_id integer
+    location_id integer,
+    suspended_at timestamp without time zone
 );
 
 
@@ -2045,3 +2046,5 @@ INSERT INTO schema_migrations (version) VALUES ('20140425120216');
 INSERT INTO schema_migrations (version) VALUES ('20140514200025');
 
 INSERT INTO schema_migrations (version) VALUES ('20140519165519');
+
+INSERT INTO schema_migrations (version) VALUES ('20140520120934');

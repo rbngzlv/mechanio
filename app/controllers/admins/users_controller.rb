@@ -1,6 +1,6 @@
 class Admins::UsersController < Admins::ApplicationController
 
-  before_filter :find_user, only: [:show, :destroy]
+  before_filter :find_user, only: [:show, :suspend, :activate]
 
   def index
     @query = params[:query]
@@ -11,9 +11,14 @@ class Admins::UsersController < Admins::ApplicationController
   def show
   end
 
-  def destroy
-    @user.destroy
-    redirect_to admins_users_path, notice: "User successfully deleted."
+  def suspend
+    @user.suspend
+    redirect_to admins_users_path, notice: 'User suspended'
+  end
+
+  def activate
+    @user.activate
+    redirect_to admins_users_path, notice: 'User activated'
   end
 
 

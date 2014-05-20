@@ -26,7 +26,7 @@
       %tbody
         - @users.each do |u|
           %tr
-            %td= bootstrap_label 'Active', 'success'
+            %td= account_status(u)
             %td= u.full_name
             %td= u.email
             %td= u.mobile_number

@@ -2,6 +2,8 @@ class Mechanic < ActiveRecord::Base
 
   devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable
 
+  include AccountSuspendable
+
   belongs_to :location, dependent: :destroy
   belongs_to :business_location, dependent: :destroy, class_name: "Location"
   has_many :jobs
@@ -91,25 +93,5 @@ class Mechanic < ActiveRecord::Base
     averages = ratings.published.map(&:average)
     rating = averages.size > 0 ? averages.sum.to_f / averages.size : 0
     update_attribute(:rating, rating)
-  end
-
-  def active_for_authentication?
-    super && !suspended?
-  end
-
-  def inactive_message
-    suspended? ? :suspended : super
-  end
-
-  def suspend
-    update_attribute(:suspended_at, DateTime.now)
-  end
-
-  def suspended?
-    !!suspended_at
-  end
-
-  def activate
-    update_attribute(:suspended_at, nil)
   end
 end
