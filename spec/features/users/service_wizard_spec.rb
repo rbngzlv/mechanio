@@ -163,20 +163,20 @@ describe 'Service wizard', js: true do
       verify_current_step 'Car Details'
       select_a_car
 
-      page.should have_css 'h5', text: 'WHAT IS HAPPENING TO YOUR CAR?'
+      page.should have_css 'h5', text: 'What is happening to your car?'
       all('.symptoms a.btn')[0].click
 
-      page.should have_css 'h5', text: 'WHAT IS WRONG WITH THE BREAKS?'
+      page.should have_css 'h5', text: 'What is wrong with the breaks?'
       all('.symptoms a.btn')[0].click
 
-      page.should have_css 'h5', text: 'OUR RECOMMENDATION'
+      page.should have_css 'h5', text: 'Our recommendation'
       page.should have_css '.advice', 'Replace the break pads'
 
       click_on 'Back'
-      page.should have_css 'h5', text: 'WHAT IS WRONG WITH THE BREAKS?'
+      page.should have_css 'h5', text: 'What is wrong with the breaks?'
 
       click_on 'Back'
-      page.should have_css 'h5', text: 'WHAT IS HAPPENING TO YOUR CAR?'
+      page.should have_css 'h5', text: 'What is happening to your car?'
     end
 
     it 'add repair typing in the problem' do
@@ -255,7 +255,7 @@ describe 'Service wizard', js: true do
       verify_task 1, 'Break safety inspection', 'Replace the break pads'
 
       within_task(1) { find('.remove-task').click }
-      page.should have_css 'h5', text: 'WHAT IS HAPPENING TO YOUR CAR?'
+      page.should have_css 'h5', text: 'What is happening to your car?'
       find('button', text: 'Add')[:disabled].should be_true
     end
   end
@@ -312,16 +312,16 @@ describe 'Service wizard', js: true do
   end
 
   def add_repair_symptoms(symptom_pos = 0)
-    page.should have_css 'h5', text: 'SOMETHING ELSE IS WRONG?'
-    page.should have_css 'h5', text: 'WHAT IS HAPPENING TO YOUR CAR?'
+    page.should have_css 'h5', text: 'Something else is wrong?'
+    page.should have_css 'h5', text: 'What is happening to your car?'
     all('.symptoms a.btn')[0].click
 
-    page.should have_no_css 'h5', text: 'SOMETHING ELSE IS WRONG?'
-    page.should have_css 'h5', text: 'WHAT IS WRONG WITH THE BREAKS?'
+    page.should have_no_css 'h5', text: 'Something else is wrong?'
+    page.should have_css 'h5', text: 'What is wrong with the breaks?'
     all('.symptoms a.btn')[symptom_pos].click
 
-    page.should have_no_css 'h5', text: 'SOMETHING ELSE IS WRONG?'
-    page.should have_css 'h5', text: 'OUR RECOMMENDATION'
+    page.should have_no_css 'h5', text: 'Something else is wrong?'
+    page.should have_css 'h5', text: 'Our recommendation'
     page.should have_css '.advice', 'Replace the break pads'
     fill_in 'job_task_note', with: 'Repair notes'
   end
