@@ -20,6 +20,20 @@
     }
   }
 
+  .right-inner-addon {
+    position: relative;
+
+    input {
+        padding-right: 30px;
+    }
+    i {
+        position: absolute;
+        right: 0px;
+        padding: 7px;
+        cursor: pointer;
+    }
+  }
+
   .edit_job {
     .panel-heading a {
       float: right;

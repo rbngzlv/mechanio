@@ -1,11 +1,11 @@
 .navbar.navbar-default
   .navbar-brand Manage users
-  .navbar-form.navbar-right
-    = form_tag '?', method: :get, class: '' do
-      .form-group
-        = text_field_tag 'query', @query, class: 'form-control input-sm'
-      .form-group
-        = submit_tag 'Search', class: 'btn btn-sm btn-primary'
+  = form_tag '?', method: :get, class: 'navbar-form navbar-right' do
+    .form-group.right-inner-addon
+      = text_field_tag 'query', @query, class: 'form-control input-sm'
+      %i.glyphicon.glyphicon-remove-circle.clear-field
+    .form-group
+      = submit_tag 'Search', class: 'btn btn-sm btn-primary'
 
 
 - if @users.empty?
