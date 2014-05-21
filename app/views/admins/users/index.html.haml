@@ -3,7 +3,8 @@
   = form_tag '?', method: :get, class: 'navbar-form navbar-right' do
     .form-group.right-inner-addon
       = text_field_tag 'query', @query, class: 'form-control input-sm'
-      %i.glyphicon.glyphicon-remove-circle.clear-field
+      = link_to admins_users_path, class: 'text-muted' do
+        %i.glyphicon.glyphicon-remove-circle.clear-field
     .form-group
       = submit_tag 'Search', class: 'btn btn-sm btn-primary'
 
