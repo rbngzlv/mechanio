@@ -1,7 +1,7 @@
 !!!
 %html{ 'ng-app' => 'mechanio' }
   = render 'layouts/head'
-  %body.admin
+  %body.admin{ class: ('navbar-padding' if impersonated?) }
     = render 'admins/shared/navbar'
     .container
       = render 'shared/flash_messages'

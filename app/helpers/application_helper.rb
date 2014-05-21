@@ -1,5 +1,9 @@
 module ApplicationHelper
 
+  def impersonated?
+    session[:remember_admin_id]
+  end
+
   def active_li(title, url, current_controllers)
     css = Array(current_controllers).include?(params[:controller]) ? ' active' : ''
 

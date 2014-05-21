@@ -61,7 +61,9 @@ Mechanio::Application.routes.draw do
       member do
         get :suspend
         get :activate
+        get :impersonate
       end
+      get :stop_impersonating, on: :collection
     end
 
     resources :mechanics, except: [:show] do

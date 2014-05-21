@@ -1,3 +1,9 @@
+- if impersonated?
+  .navbar.navbar-inverse.navbar-fixed-top
+    .container
+      %p.navbar-text Logged in as #{current_user.full_name}
+      = link_to 'Back to admin', stop_impersonating_admins_users_path, class: 'btn btn-sm btn-default navbar-btn'
+
 %header.navbar.header{ role: 'navigation' }
   .container
     .col-md-12.col-sm-12.col-xs-12

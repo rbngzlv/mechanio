@@ -32,6 +32,9 @@
             %td= u.email
             %td= u.mobile_number
             %td= u.created_at.to_s(:date_short)
-            %td.text-right= link_to "Details", admins_user_path(u)
+            %td.text-right
+              = link_to 'Details', admins_user_path(u)
+              &nbsp;
+              = link_to 'Login', impersonate_admins_user_path(u)
 
   = paginate @users
