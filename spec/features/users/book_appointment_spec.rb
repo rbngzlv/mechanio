@@ -41,7 +41,10 @@ feature 'new appointment', :js do
     fill_in_cc 'cvv', '123'
     click_button "Book #{mechanic.first_name} for " + timeslot.to_s(:date_abr)
 
-    page.should have_css '.alert-info', text: 'Appointment booked'
+    page.should have_css '.modal h4', text: 'Success!'
+    within('.modal') { click_on 'Close' }
+    page.should have_no_css '.modal'
+
     page.should have_css '.aside li.active a', text: 'My Appointments'
     page.should have_css '.nav-tabs li.active a', text: 'Current Appointments'
     page.should have_content mechanic.full_name

@@ -26,3 +26,5 @@
                     %th{ style: "width: 10%" } Option
                 %tbody
                   = render partial: 'job_past', collection: @past_jobs, as: :job
+
+= render 'success_modal' if @just_booked
