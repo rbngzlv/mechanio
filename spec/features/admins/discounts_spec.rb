@@ -11,7 +11,7 @@ feature 'Discounts' do
         click_on 'Discounts'
       end
 
-      page.should have_css 'h4', text: 'Discounts'
+      page.should have_css '.navbar-brand', text: 'Manage discounts'
       page.should have_content 'No discounts found'
     end
 
@@ -23,12 +23,27 @@ feature 'Discounts' do
       page.should have_css 'tr', text: 'Title Code Value Uses left Starts on Ends on'
       page.should have_css 'tr', text: '20% off 20OFF 20% unlimited - - Edit'
     end
+
+    scenario 'searches discounts by keywords' do
+      create :discount, code: '20%OFF'
+      create :discount, code: 'PROMO', title: 'New Year promo'
+
+      visit admins_discounts_path
+
+      page.should have_css 'tbody tr', count: 2
+
+      fill_in 'query', with: 'prom'
+      click_on 'Search'
+
+      page.should have_css 'tbody tr', count: 1
+      page.should have_css 'tbody tr', text: 'New Year promo PROMO 20% unlimited - - Edit | Delete'
+    end
   end
 
   scenario 'Create single discount' do
     visit admins_discounts_path
 
-    click_on 'Create discount'
+    click_on 'Add discount'
 
     fill_in 'Title', with: 'A discount'
     fill_in 'Code', with: '20OFF'

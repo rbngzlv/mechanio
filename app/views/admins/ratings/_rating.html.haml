@@ -1,9 +1,9 @@
 %tr
   %td= bootstrap_label rating.published ? 'Published' : 'Unpublished', rating.published ? 'success' : 'danger'
   %td= rating.created_at.to_s(:date)
-  %td= rating.user.full_name
-  %td= rating.mechanic.full_name
-  %td= rating.job.title
+  %td= rating.user_name
+  %td= rating.mechanic_name
+  %td= rating.job_title
   %td= rating.average
   %td= rating.recommend? ? 'Yes' : 'No'
   %td= link_to 'Edit', edit_admins_rating_path(rating)

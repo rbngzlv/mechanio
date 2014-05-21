@@ -1,7 +1,7 @@
-.pull-right
-  = link_to 'Create discount', new_admins_discount_path, class: 'btn btn-primary'
-
-%h4 Discounts
+.navbar.navbar-default
+  .navbar-brand Manage discounts
+  = render 'admins/shared/search_box', index_page: admins_discounts_path
+  = link_to 'Add discount', new_admins_discount_path, class: 'btn btn-sm btn-primary navbar-btn navbar-right'
 
 - if @discounts.count > 0
   .table-responsive

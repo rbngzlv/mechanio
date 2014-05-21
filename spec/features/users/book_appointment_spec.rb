@@ -15,7 +15,7 @@ feature 'new appointment', :js do
     reset_mail_deliveries
   end
 
-  scenario 'book appointment', :vcr do
+  scenario 'book appointment', :js, :vcr do
     mechanic
     job
 

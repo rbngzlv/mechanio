@@ -3,7 +3,9 @@ class Admins::MechanicsController < Admins::ApplicationController
   before_filter :find_mechanic, except: [:index, :new, :create]
 
   def index
+    @query     = params[:query]
     @mechanics = Mechanic.order(created_at: :desc).page(params[:page])
+    @mechanics = @mechanics.fuzzy_search(@query) unless @query.blank?
   end
 
   def new

@@ -2,7 +2,9 @@ class Admins::DiscountsController < Admins::ApplicationController
   before_filter :find_discount, only: [:edit, :update, :destroy]
 
   def index
-    @discounts = Discount.all.page(params[:page])
+    @query     = params[:query]
+    @discounts = Discount.page(params[:page])
+    @discounts = @discounts.fuzzy_search(@query) unless @query.blank?
   end
 
   def new

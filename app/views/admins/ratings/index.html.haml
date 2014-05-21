@@ -1,4 +1,6 @@
-%h4 Feedback
+.navbar.navbar-default
+  .navbar-brand Feedback
+  = render 'admins/shared/search_box', index_page: admins_ratings_path
 
 - if @ratings.count > 0
   .table-responsive
@@ -17,4 +19,4 @@
         = render @ratings
   = paginate @ratings
 - else
-  %p.text-center No feedback left
+  %p.text-center No feedback found

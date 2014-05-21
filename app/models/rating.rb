@@ -6,6 +6,8 @@ class Rating < ActiveRecord::Base
   belongs_to :mechanic
   belongs_to :job
 
+  before_save :set_text_fields
+
   validates :user, :mechanic, :job, presence: true
   validates :professional, :service_quality, :communication, :cleanness, :convenience,
     presence: true, inclusion: { in: 1..MAX }
@@ -15,5 +17,11 @@ class Rating < ActiveRecord::Base
 
   def average
     (professional + service_quality + communication + cleanness + convenience).to_f / MAX
+  end
+
+  def set_text_fields
+    self.user_name      = user.full_name
+    self.mechanic_name  = mechanic.full_name
+    self.job_title      = job.title
   end
 end

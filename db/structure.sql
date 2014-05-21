@@ -826,7 +826,10 @@ CREATE TABLE ratings (
     recommend boolean,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    published boolean
+    published boolean,
+    user_name character varying(255),
+    mechanic_name character varying(255),
+    job_title character varying(255)
 );
 
 
@@ -2048,3 +2051,5 @@ INSERT INTO schema_migrations (version) VALUES ('20140514200025');
 INSERT INTO schema_migrations (version) VALUES ('20140519165519');
 
 INSERT INTO schema_migrations (version) VALUES ('20140520120934');
+
+INSERT INTO schema_migrations (version) VALUES ('20140521205442');

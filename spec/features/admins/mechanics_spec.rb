@@ -15,9 +15,26 @@ feature 'Admin mechanics management' do
     visit admins_mechanics_path
 
     date_joined = mechanic.created_at.to_s(:date_short)
-    page.should have_css 'thead', text: 'Name Status Email Mobile Current Appts. Completed Jobs Total Earnings Feedback Score Date joined'
-    page.should have_css 'tbody tr', text: "#{mechanic.full_name} Active #{mechanic.email} 0410123456 0 0 $0.00 0.0 #{date_joined} Edit"
+    page.should have_css 'thead', text: 'Status Name Email Mobile Current Appts. Completed Jobs Total Earnings Feedback Score Date joined'
+    page.should have_css 'tbody tr', text: "Active #{mechanic.full_name} #{mechanic.email} 0410123456 0 0 $0.00 0.0 #{date_joined} Edit"
     page.should have_css 'tbody td', text: "Suspended"
+  end
+
+  it 'searches mechanics by keywords' do
+    mechanic
+    another_mechanic = create :mechanic, first_name: 'Jimmy', last_name: 'Smith', email: 'jimmy@example.com', mobile_number: '0412345668'
+
+    visit admins_mechanics_path
+
+    page.should have_css 'tbody tr', count: 2
+
+    fill_in 'query', with: 'Jim'
+    click_on 'Search'
+
+    signup_date = another_mechanic.created_at.to_s(:date_short)
+
+    page.should have_css 'tbody tr', count: 1
+    page.should have_css 'tr', text: "Active Jimmy Smith jimmy@example.com 0412345668 0 0 $0.00 0.0 #{signup_date} Edit"
   end
 
   it 'shows mechanic details' do

@@ -3,7 +3,9 @@ class Admins::RatingsController < Admins::ApplicationController
   before_filter :find_rating, only: [:edit, :update]
 
   def index
-    @ratings = Rating.includes(:user, :mechanic, :job).page(params[:page])
+    @query    = params[:query]
+    @ratings  = Rating.page(params[:page])
+    @ratings  = @ratings.fuzzy_search(@query) unless @query.blank?
   end
 
   def edit
