@@ -12,7 +12,8 @@ class Users::CreditCardsController < Users::ApplicationController
 
     if payment_verified && appointment.book_appointment
       session.delete(:appointment_params)
-      redirect_to users_appointments_path, notice: 'Appointment booked'
+      session[:just_booked] = true
+      redirect_to users_appointments_path
     else
       @error = true
       render :new

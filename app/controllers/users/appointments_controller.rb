@@ -5,7 +5,7 @@ class Users::AppointmentsController < Users::ApplicationController
   layout :select_layout
 
   def index
-    @just_booked  = flash.delete(:notice) == 'Appointment booked'
+    @just_booked  = session.delete(:just_booked)
     @current_jobs = current_user.current_jobs
     @past_jobs    = current_user.past_jobs
   end
