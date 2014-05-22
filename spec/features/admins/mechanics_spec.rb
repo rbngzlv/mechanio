@@ -91,7 +91,6 @@ feature 'Admin mechanics management' do
       click_on 'Edit'
       find('#rating_recommend_true').click
       click_on 'Save'
-      within('.nav-stacked') { click_on 'Feedback' }
 
       page.should have_css '.nav-stacked li.active a', text: 'Feedback'
       page.should have_css 'td', text: 'Yes'

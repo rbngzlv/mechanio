@@ -8,11 +8,12 @@ class Admins::RatingsController < Admins::ApplicationController
   end
 
   def edit
+    session[:return_to] = admins_ratings_path
   end
 
   def update
     if rating_service.call(permitted_params)
-      redirect_to :back, notice: 'Rating updated successfuly'
+      redirect_to session.delete(:return_to), notice: 'Rating updated successfuly'
     else
       render :edit
     end

@@ -10,6 +10,7 @@ class Admins::JobsController < Admins::ApplicationController
   end
 
   def edit
+    session[:return_to] = edit_admins_job_path(@job)
     prepare_job_edit
   end
 

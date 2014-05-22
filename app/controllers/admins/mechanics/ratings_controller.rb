@@ -6,6 +6,7 @@ class Admins::Mechanics::RatingsController < Admins::ApplicationController
   end
 
   def edit
+    session[:return_to] = admins_mechanic_ratings_path(@mechanic)
     @rating = @mechanic.ratings.find(params[:id])
   end
 
