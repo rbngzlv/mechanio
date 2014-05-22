@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
 
 
   before_filter :configure_permitted_parameters, if: :devise_controller?
+  before_filter :clear_remembered_admin
 
   private
 
@@ -19,5 +20,9 @@ class ApplicationController < ActionController::Base
       when resource.instance_of?(Admin)     then admins_dashboard_path
       when resource.instance_of?(User)      then session[:tmp_job_id].blank? ? (session.delete(:previous_url) || root_path) : service_path
     end
+  end
+
+  def clear_remembered_admin
+    session.delete(:remember_admin_id) unless current_user
   end
 end
