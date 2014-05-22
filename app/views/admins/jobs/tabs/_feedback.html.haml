@@ -1,0 +1,6 @@
+.panel.panel-default.panel-rounded
+  .panel-body
+    - if @job.rating
+      = render '/shared/feedback_form', form_action: admins_rating_path(@job.rating), rating: @job.rating, job: @job
+    - else
+      %p No feedback

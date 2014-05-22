@@ -100,6 +100,31 @@ feature 'Jobs section' do
       end
     end
 
+    context 'feedback tab', :js do
+      let(:job)     { create :job, :completed, :with_service }
+      let(:rating)  { create :rating, job: job, mechanic: job.mechanic, user: job.user, recommend: false }
+      let(:radio)   { find('#rating_recommend_true') }
+
+      before do
+        rating
+        visit edit_admins_job_path(job)
+        within('.nav-tabs') { click_on 'Feedback' }
+      end
+
+      scenario 'edits rating' do
+        page.should have_content 'LEAVE FEEDBACK'
+        within '.rating_recommend' do
+          radio.checked?.should be_false
+          radio.click
+        end
+
+        click_on 'Save'
+
+        within('.nav-tabs') { click_on 'Feedback' }
+        radio.checked?.should be_true
+      end
+    end
+
     context 'items tab' do
       scenario 'add service' do
         job = create :job, :with_repair, :with_inspection

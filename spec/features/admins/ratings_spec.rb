@@ -62,6 +62,9 @@ describe 'Ratings' do
     click_on 'Save'
 
     page.should have_content 'Rating updated successfuly'
+
+    click_on 'Feedback'
+
     page.should have_css 'td', 'Unpublished'
     page.should have_css 'td', '4.0'
 

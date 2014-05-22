@@ -1,0 +1,27 @@
+.top-bar
+  = render 'admins/mechanics/header'
+
+.clearfix
+%hr.hr-dark-gray
+
+.row
+  .col-md-3
+    = render 'admins/mechanics/sidebar_menu'
+  .col-md-9
+    - ap @ratings.length
+    - ap @ratings.size
+    - if @ratings.length > 0
+      .table-responsive
+        %table.table.table-striped
+          %thead
+            %tr
+              %th Date
+              %th From user
+              %th Job
+              %th Score
+              %th Recommend
+              %th
+          %tbody
+            = render @ratings
+    - else
+      %h5.text-center No feedback found

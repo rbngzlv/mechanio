@@ -13,7 +13,7 @@ class Admins::RatingsController < Admins::ApplicationController
 
   def update
     if rating_service.call(permitted_params)
-      redirect_to admins_ratings_path, notice: 'Rating updated successfuly'
+      redirect_to :back, notice: 'Rating updated successfuly'
     else
       render :edit
     end

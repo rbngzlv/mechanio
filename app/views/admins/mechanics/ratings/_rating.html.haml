@@ -1,0 +1,7 @@
+%tr
+  %td= rating.created_at.to_s(:date)
+  %td= rating.user_name
+  %td= rating.job_title
+  %td= rating.average
+  %td= rating.recommend? ? 'Yes' : 'No'
+  %td= link_to 'Edit', edit_admins_mechanic_rating_path(@mechanic, rating)

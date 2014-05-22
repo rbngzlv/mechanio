@@ -3,7 +3,8 @@ require 'spec_helper'
 feature 'Admin mechanics management' do
 
   let(:mechanic) { create :mechanic, mobile_number: '0410123456' }
-  let(:job) { create :job, :with_service, :assigned, mechanic: mechanic }
+  let(:job)      { create :job, :with_service, :assigned, mechanic: mechanic }
+  let(:rating)   { create :rating, :with_user, mechanic: mechanic, job: job }
 
   before do
     login_admin
@@ -75,6 +76,25 @@ feature 'Admin mechanics management' do
       click_save
 
       page.should have_selector '.form-group.has-error'
+    end
+
+    scenario 'lists and edits feedback', :js do
+      rating
+      visit admins_mechanics_path(mechanic)
+      click_on 'Edit'
+      within('.nav-stacked') { click_on 'Feedback' }
+
+      page.should have_css '.nav-stacked li.active a', text: 'Feedback'
+      page.should have_css 'tr', text: 'Date From user Job Score Recommend'
+      page.should have_css 'td', text: 'No'
+
+      click_on 'Edit'
+      find('#rating_recommend_true').click
+      click_on 'Save'
+      within('.nav-stacked') { click_on 'Feedback' }
+
+      page.should have_css '.nav-stacked li.active a', text: 'Feedback'
+      page.should have_css 'td', text: 'Yes'
     end
 
     scenario 'edit payout information' do

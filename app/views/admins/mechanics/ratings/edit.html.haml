@@ -1,0 +1,13 @@
+.top-bar
+  = render 'admins/mechanics/header'
+
+.clearfix
+%hr.hr-dark-gray
+
+.row
+  .col-md-3
+    = render 'admins/mechanics/sidebar_menu'
+  .col-md-9
+    %h4 Edit rating
+
+    = render '/shared/feedback_form', form_action: admins_rating_path(@rating), rating: @rating, job: @rating.job
