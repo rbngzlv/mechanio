@@ -6,8 +6,7 @@ class Admins::UsersController < Admins::ApplicationController
 
   def index
     @query = params[:query]
-    @users = User.order(created_at: :desc).page(params[:page])
-    @users = @users.fuzzy_search(@query) unless @query.blank?
+    @users = User.search(@query).order(created_at: :desc).page(params[:page])
   end
 
   def show

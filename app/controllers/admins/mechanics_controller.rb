@@ -4,8 +4,7 @@ class Admins::MechanicsController < Admins::ApplicationController
 
   def index
     @query     = params[:query]
-    @mechanics = Mechanic.order(created_at: :desc).page(params[:page])
-    @mechanics = @mechanics.fuzzy_search(@query) unless @query.blank?
+    @mechanics = Mechanic.search(@query).order(created_at: :desc).page(params[:page])
   end
 
   def new

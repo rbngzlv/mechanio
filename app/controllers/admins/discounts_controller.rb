@@ -3,8 +3,7 @@ class Admins::DiscountsController < Admins::ApplicationController
 
   def index
     @query     = params[:query]
-    @discounts = Discount.page(params[:page])
-    @discounts = @discounts.fuzzy_search(@query) unless @query.blank?
+    @discounts = Discount.search(@query).page(params[:page])
   end
 
   def new

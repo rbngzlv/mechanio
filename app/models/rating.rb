@@ -1,4 +1,5 @@
 class Rating < ActiveRecord::Base
+  extend Searchable
 
   MAX = 5
 
@@ -14,6 +15,10 @@ class Rating < ActiveRecord::Base
 
   default_scope { order created_at: :desc }
   scope :published, -> { where published: true }
+
+  def self.search_fields
+    [:user_name, :mechanic_name, :job_title]
+  end
 
   def average
     (professional + service_quality + communication + cleanness + convenience).to_f / MAX

@@ -2,6 +2,7 @@ class Mechanic < ActiveRecord::Base
 
   devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable
 
+  extend Searchable
   include AccountSuspendable
 
   belongs_to :location, dependent: :destroy
@@ -42,6 +43,10 @@ class Mechanic < ActiveRecord::Base
   scope :by_region, -> (postcode) {
     joins(:mechanic_regions).where(mechanic_regions: { postcode: postcode }).uniq
   }
+
+  def self.search_fields
+    [:first_name, :last_name, :email, :mobile_number]
+  end
 
   def current_jobs
     jobs.assigned

@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, omniauth_providers: [:google_oauth2, :facebook]
 
+  extend Searchable
   include AccountSuspendable
 
   has_many :cars, -> { where deleted_at: nil }
@@ -20,6 +21,10 @@ class User < ActiveRecord::Base
   mount_uploader :avatar, AvatarUploader
 
   validates :first_name, :last_name, :email, presence: true
+
+  def self.search_fields
+    [:first_name, :last_name, :mobile_number]
+  end
 
   def pending_and_estimated_jobs
     jobs.with_status(:pending, :estimated)

@@ -4,8 +4,7 @@ class Admins::RatingsController < Admins::ApplicationController
 
   def index
     @query    = params[:query]
-    @ratings  = Rating.page(params[:page])
-    @ratings  = @ratings.fuzzy_search(@query) unless @query.blank?
+    @ratings  = Rating.search(@query).page(params[:page])
   end
 
   def edit

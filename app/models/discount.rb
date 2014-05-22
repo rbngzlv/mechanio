@@ -1,5 +1,6 @@
 class Discount < ActiveRecord::Base
   include ActionView::Helpers::NumberHelper
+  extend Searchable
 
   DISCOUNT_TYPES = %w(amount percent)
 
@@ -7,6 +8,10 @@ class Discount < ActiveRecord::Base
   validates :discount_type, inclusion: { in: DISCOUNT_TYPES }
   validates :discount_value, numericality: true
   validates :uses_left, numericality: true, allow_nil: true
+
+  def self.search_fields
+    [:title, :code]
+  end
 
   def apply_discount(amount)
     amount - discount_amount(amount)
