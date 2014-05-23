@@ -1,6 +1,6 @@
-%p Hello #{@job.mechanic.full_name},
+%p Hello #{@job.mechanic.first_name},
 
-%p A customer has requested an appointment. Please click #{link_to 'here', mechanics_job_url(@job)} to view the allocated job in detail.
+%p A customer has requested you to repair or service their car. Please #{link_to 'click here', mechanics_job_url(@job)} to view the allocated job in detail.
 
 %p
   CUSTOMER NAME: #{ @job.client_name }
@@ -18,6 +18,6 @@
 
 %p Otherwise, you can visit your #{ link_to 'Online Account', mechanics_jobs_url } to make changes.
 
-%p If there are any issues please do not hesitate to call (number)
+%p If there are any issues please do not hesitate to contact support@mechanio.com or call #{$CONTACT_PHONE}
 
 = render '/shared/mail_footer'

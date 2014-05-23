@@ -1,28 +1,25 @@
-%p
-  Hi #{ @job.client_name },
-  %br
-  You're all set for an appointment with #{ @job.mechanic.full_name }.
-  Please make sure that the following information is correct:
+%p Hi #{ @job.user.first_name },
+
+%p You're all set for an appointment with #{ @job.mechanic.full_name }. Please make sure that the following information is correct:
 
 %p
   Time: Between #{ @job.event.time_start.strftime('%l %p') } and #{ @job.event.time_end.strftime('%l %p') }
   %br
-  Date: #{ @job.event.date_start.strftime('%Y-%d-%m') }
+  Date: #{ @job.event.date_start.to_s(:date) }
   %br
   Service location: #{ @job.location.full_address }
   %br
   Vehicle: #{ @job.car.display_title }
   %br
   Job description: #{ @job.title }
+
+%p If you have any questions please contact at support@mechanio.com.
+
+%p
+  What's Next?
   %br
-  Job ID: #{ @job.uid }
-  %br
-  Any changes to your booking can be made through your #{ link_to 'Online Account', users_appointments_url }, which allows you to change your appointment time, add or remove repairs, and more. If you have any questions please contact us on #{ $CONTACT_PHONE }, or reply to support@mechanio.com.
-  What’s Next?
-  %ul
-    %li
-      Once #{ @job.mechanic.first_name } has arrived, he'll tell you what exactly needs to be done, so you'll have the peace of mind without disturbing your busy life.
-    %li
-      All you need to do is sign off on his Mobile App when he completes the job. The cost will be deducted securely from your credit card. You'll receive a receipt email, which can also be found in your Online Account.
+  Once #{ @job.mechanic.first_name } has arrived, he'll tell you what exactly needs to be done, and get to work on your car. 
+  After #{ @job.mechanic.first_name } has finished, the cost will be deducted securely from your credit card. 
+  You'll receive a receipt email, which can also be found in your #{ link_to 'Online Account', users_appointments_url }.
 
 = render '/shared/mail_footer'
