@@ -1,11 +1,5 @@
-:coffee
-  $('.js-update-avatar').click ->
-    $('#user_avatar').click()
-  $(document).on 'change', '#user_avatar', ->
-    this.form.submit()
-
 .profile-border
-  = image_tag user.avatar_url(:thumb), class: 'avatar clickable js-update-avatar'
+  = image_tag user.avatar_url(:thumb), class: 'avatar clickable js-update-avatar', data: { field: '#user_avatar' }
 
   .reviews-row.clearfix.text-center
     Left

@@ -9,18 +9,12 @@
         .row
           .profile-border
 
-            = image_tag mechanic.avatar_url(:thumb), class: 'avatar clickable js-update-avatar'
+            = image_tag mechanic.avatar_url(:thumb), class: 'avatar clickable js-update-avatar', data: { field: '#mechanic_avatar' }
             .reviews-row.clearfix
               .rating.pull-left
                 = rating_stars(mechanic.rating)
               %span.review-text.pull-right
                 = link_to pluralize(mechanic.ratings.size, 'Review'), mechanics_profile_path
-
-            :coffee
-              $('.js-update-avatar').click ->
-                $('#mechanic_avatar').click()
-              $(document).on 'change', '#mechanic_avatar', ->
-                this.form.submit()
             .hide
               = simple_form_for mechanic, url: mechanics_profile_path do |f|
                 = f.input :avatar, input_html: { class: 'js-skip-bootstrap-fileinput' }
