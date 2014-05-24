@@ -21,7 +21,9 @@
           .edit_note{ 'ng-show' => 'task.editing_note' }
             = f.simple_fields_for :task do |s|
               = s.input :note, label: false, placeholder: 'Write any additional issues or concerns you have with your car', as: :text, input_html: { 'ng-model' => 'task.note' }
-              %a.pull-right.btn.btn-success{ 'href' => '', 'ng-click' => 'task.editing_note = false' } Save Notes
+              .pull-right
+                %a.btn.btn-danger{ 'href' => '', 'ng-click' => 'task.editing_note = false' } Cancel
+                %a.btn.btn-success{ 'href' => '', 'ng-click' => 'task.editing_note = false' } Save Notes
 
 
     .text-right
