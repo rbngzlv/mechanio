@@ -1,5 +1,33 @@
 %h4 Edit rating
 
+.panel.panel-default.panel-rounded
+  .panel-body.form-horizontal
+    .col-md-4
+      %h5 Job requested by
+      %p= requested_by(@job)
+      %hr
+
+      %h5 Allocated to
+      %p= allocated_to(@job)
+
+    .col-md-4
+      %h5 Location
+      %p= @job.location.full_address
+      %hr
+
+      %h5 Vehicle
+      %p
+        #{@job.car.display_title}
+        %br
+        Last service: #{last_service(@job.car)}
+
+    .col-md-4
+      %h5 Contact
+      %p
+        #{@job.contact_email}
+        %br
+        #{@job.contact_phone}
+
 .row
   .col-md-9
     = render '/shared/feedback_form', form_action: admins_rating_path(@rating), rating: @rating, job: @rating.job

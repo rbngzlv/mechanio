@@ -8,6 +8,7 @@ class Admins::RatingsController < Admins::ApplicationController
   end
 
   def edit
+    @job = @rating.job
     session[:return_to] = admins_ratings_path
   end
 
