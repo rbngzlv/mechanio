@@ -48,6 +48,7 @@ app.controller 'DiagnoseController', ['$scope', '$http', ($scope, $http) ->
 
   $scope.updateTask = (task) ->
     if $scope.editing_task == null
+      task.editing_note = false
       if task.type == 'Service' then $scope.tasks.unshift(task) else $scope.tasks.push(task)
     else
       $scope.tasks[$scope.editing_task][k] = v for k, v of task

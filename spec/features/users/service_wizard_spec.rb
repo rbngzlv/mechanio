@@ -193,7 +193,27 @@ describe 'Service wizard', js: true do
       verify_task 1, 'Inspection', 'Problem description'
     end
 
-    it 'edits repair' do
+    it 'edits notes' do
+      visit repair_path
+
+      verify_current_step 'Car Details'
+      select_a_car
+
+      verify_current_step 'Diagnose'
+      verify_sidebar 2, 'VEHICLE', variation.display_title
+      add_repair_symptoms
+      click_on 'Add'
+
+      verify_task 1, 'Break safety inspection', 'Replace the break pads'
+
+      within_task(1) { click_on 'Add notes' }
+      fill_in 'job_task_note', with: another_note
+      click_on 'Save Notes'
+
+      verify_task 1, 'Break safety inspection', 'Replace the break pads Notes: Edited note'
+    end
+
+    it 'edits repair', pending: 'Switched to inline note editing' do
       visit repair_path
 
       verify_current_step 'Car Details'
@@ -213,7 +233,7 @@ describe 'Service wizard', js: true do
       verify_task 1, 'Break safety inspection', 'Replace the break pads Notes: Edited note'
     end
 
-    it 'edits service' do
+    it 'edits service', pending: 'Switched to inline note editing' do
       another_service_plan
 
       visit service_path

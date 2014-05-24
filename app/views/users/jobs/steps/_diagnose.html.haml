@@ -6,7 +6,7 @@
         .panel-heading
           {{task.title}}
           .pull-right
-            %a.edit-task{ href: '', 'ng-click' => 'editTask($index)' }
+            %a.edit-task{ href: '', 'ng-click' => 'task.editing_note = true' }
               %i.icon.icon-edit
               Add notes
             %a.remove-task{ href: '', 'ng-click' => 'removeTask($index)' }
@@ -15,9 +15,14 @@
         .panel-body
           %p.description{ 'ng-show' => 'task.type == "Inspection"' }
             {{task.description}}
-          %p.note{ 'ng-show' => 'task.note'}
+          .note{ 'ng-show' => 'task.note && !task.editing_note' }
             %strong Notes:
             {{task.note}}
+          .edit_note{ 'ng-show' => 'task.editing_note' }
+            = f.simple_fields_for :task do |s|
+              = s.input :note, label: false, placeholder: 'Write any additional issues or concerns you have with your car', as: :text, input_html: { 'ng-model' => 'task.note' }
+              %a.pull-right.btn.btn-success{ 'href' => '', 'ng-click' => 'task.editing_note = false' } Save Notes
+
 
     .text-right
       %a.btn.btn-success{ 'href' => '', 'ng-click' => 'mode = "service"', 'ng-hide' => 'hasService()' } Add Service
@@ -36,7 +41,7 @@
 
       .advice{ 'ng-show' => 'showRecommendation()' }
         %p {{recommendation}}
-        = s.input :note, label: false, placeholder: 'Add notes', as: :text, input_html: { 'ng-model' => 'note' }
+        = s.input :note, label: false, placeholder: 'Write any additional issues or concerns you have with your car', as: :text, input_html: { 'ng-model' => 'note' }
 
       .symptoms{ 'ng-hide' => 'showRecommendation()' }
         .row
