@@ -14,7 +14,7 @@ module JobHelper
 
   def formatted_cost(amount)
     return 'pending' if amount.nil?
-    return 'free' if amount.zero?
+    return 'included' if amount.zero?
     number_to_currency(amount)
   end
 

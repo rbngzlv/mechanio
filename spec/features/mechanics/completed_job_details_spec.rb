@@ -71,9 +71,9 @@ feature 'upcoming job details page' do
           page.should have_css 'h5.hx-default', text: task.title
           page.should have_css 'p', text: 'Note: A note to mechanic'
 
-          page.should have_css 'tr', text: 'Break pedal vibration free'
+          page.should have_css 'tr', text: 'Break pedal vibration included'
 
-          page.should have_css '.task-cost', text: "free"
+          page.should have_css '.task-cost', text: 'included'
         end
       end
     end

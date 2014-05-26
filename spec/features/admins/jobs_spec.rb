@@ -143,7 +143,7 @@ feature 'Jobs section' do
 
         before_and_after_save(job) do
           within_task(1) { verify_repair }
-          within_task(2) { verify_inspection 'free' }
+          within_task(2) { verify_inspection 'included' }
           within_task(3) { verify_service(service_plan) }
 
           grand_total.should eq '$683.00'
@@ -236,7 +236,7 @@ feature 'Jobs section' do
         visit_job_items(job)
 
         within_task(1) { verify_inspection }
-        within_task(2) { verify_inspection 'free' }
+        within_task(2) { verify_inspection 'included' }
 
         grand_total.should eq '$80.00'
       end
@@ -250,7 +250,7 @@ feature 'Jobs section' do
 
         within_task(1) { verify_service(service_plan) }
         within_task(2) { verify_repair }
-        within_task(3) { verify_inspection 'free' }
+        within_task(3) { verify_inspection 'included' }
 
         grand_total.should eq '$683.00'
 
@@ -282,7 +282,7 @@ feature 'Jobs section' do
           end
 
           within_task(3) do
-            verify_inspection 'free', 'Edited title', 'Edited notes'
+            verify_inspection 'included', 'Edited title', 'Edited notes'
           end
 
           grand_total.should eq '$681.00'
@@ -297,7 +297,7 @@ feature 'Jobs section' do
 
         within_task(1) { verify_service(service_plan) }
         within_task(2) { verify_repair }
-        within_task(3) { verify_inspection 'free' }
+        within_task(3) { verify_inspection 'included' }
         grand_total.should eq '$683.00'
 
         within_task(1) do
