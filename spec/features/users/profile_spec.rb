@@ -32,7 +32,6 @@ feature 'user profile' do
 
       within '.review-block' do
         page.should have_content 'John Dow'
-        page.should have_content number_to_currency(job.final_cost)
         page.should have_content job.car.display_title
 
         within '.rating' do
