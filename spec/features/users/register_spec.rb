@@ -40,7 +40,7 @@ describe 'User register', :js do
       register
       current_path.should == root_path
       page.should have_link 'Car Needs Servicing'
-      page.should have_css '.alert', text: 'Welcome! You have signed up successfully.'
+      page.should have_css '.dropdown button', text: 'John'
 
       mail_deliveries.count.should eq 1
     end
