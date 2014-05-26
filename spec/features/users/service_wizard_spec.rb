@@ -141,16 +141,16 @@ describe 'Service wizard', js: true do
 
       add_repair_symptoms
       click_on 'Add'
-      verify_task 1, 'Break safety inspection', 'Replace the break pads Notes: Repair notes'
+      verify_task 1, 'Inspection - break safety inspection', 'Replace the break pads Notes: Repair notes'
       page.should have_link 'Add Service'
       click_on 'Continue'
 
       verify_current_step 'Contact'
-      verify_sidebar 3, 'CAR SERVICING', 'Break safety inspection'
+      verify_sidebar 3, 'CAR SERVICING', 'Inspection - break safety inspection'
       click_on 'Continue'
       sleep 2
 
-      verify_quote 'Break safety inspection $80.00', 'Total Fees $80.00'
+      verify_quote 'Inspection - break safety inspection $80.00', 'Total Fees $80.00'
       # verify_email_notification
       verify_job_estimated(user, 80)
       verify_last_service_date(user)
@@ -204,13 +204,13 @@ describe 'Service wizard', js: true do
       add_repair_symptoms
       click_on 'Add'
 
-      verify_task 1, 'Break safety inspection', 'Replace the break pads'
+      verify_task 1, 'Inspection - break safety inspection', 'Replace the break pads'
 
       within_task(1) { click_on 'Add notes' }
       fill_in 'job_task_note', with: another_note
       click_on 'Save Notes'
 
-      verify_task 1, 'Break safety inspection', 'Replace the break pads Notes: Edited note'
+      verify_task 1, 'Inspection - break safety inspection', 'Replace the break pads Notes: Edited note'
     end
 
     it 'edits repair', pending: 'Switched to inline note editing' do
@@ -224,13 +224,13 @@ describe 'Service wizard', js: true do
       add_repair_symptoms
       click_on 'Add'
 
-      verify_task 1, 'Break safety inspection', 'Replace the break pads'
+      verify_task 1, 'Inspection - break safety inspection', 'Replace the break pads'
 
       within_task(1) { find('.edit-task').click }
       fill_in 'job_task_note', with: another_note
       click_on 'Update'
 
-      verify_task 1, 'Break safety inspection', 'Replace the break pads Notes: Edited note'
+      verify_task 1, 'Inspection - break safety inspection', 'Replace the break pads Notes: Edited note'
     end
 
     it 'edits service', pending: 'Switched to inline note editing' do
@@ -269,10 +269,10 @@ describe 'Service wizard', js: true do
       click_link 'Add Repair'
       add_repair_symptoms
       click_on 'Add'
-      verify_task 2, 'Break safety inspection', 'Replace the break pads'
+      verify_task 2, 'Inspection - break safety inspection', 'Replace the break pads'
 
       within_task(1) { find('.remove-task').click }
-      verify_task 1, 'Break safety inspection', 'Replace the break pads'
+      verify_task 1, 'Inspection - break safety inspection', 'Replace the break pads'
 
       within_task(1) { find('.remove-task').click }
       page.should have_css 'h5', text: 'What is happening to your car?'

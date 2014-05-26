@@ -37,12 +37,12 @@ app.controller 'DiagnoseController', ['$scope', '$http', ($scope, $http) ->
       note:         $scope.note
     }
 
-    if $scope.selected_symptoms[1]
-      attrs.title       = $scope.selected_symptoms[1].description
-      attrs.description = $scope.selected_symptoms[1].comment
+    attrs.title = 'Inspection'
 
-    unless attrs.title || $scope.editingRepair()
-      attrs.title       = 'Inspection'
+    if $scope.selected_symptoms[1]
+      attrs.title += ' - '
+      attrs.title += $scope.selected_symptoms[1].description.toLowerCase()
+      attrs.description = $scope.selected_symptoms[1].comment
 
     $scope.updateTask(attrs)
 
