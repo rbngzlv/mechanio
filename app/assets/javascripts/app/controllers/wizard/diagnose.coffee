@@ -65,6 +65,17 @@ app.controller 'DiagnoseController', ['$scope', '$http', ($scope, $http) ->
     if $scope.tasks.length == 0
       $scope.mode = if is_service then 'service' else 'repair'
 
+  $scope.editNote = (task) ->
+    task.old_note = task.note
+    task.editing_note = true
+
+  $scope.saveNote = (task) ->
+    task.editing_note = false
+
+  $scope.cancelEditNote = (task) ->
+    task.editing_note = false
+    task.note = task.old_note
+
   $scope.editTask = (i) ->
     $scope.editing_task = i
     task = $scope.tasks[i]

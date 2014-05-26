@@ -6,7 +6,7 @@
         .panel-heading
           {{task.title}}
           .pull-right
-            %a.edit-task{ href: '', 'ng-click' => 'task.editing_note = true' }
+            %a.edit-task{ href: '', 'ng-click' => 'editNote(task)' }
               %i.icon.icon-edit
               Add notes
             %a.remove-task{ href: '', 'ng-click' => 'removeTask($index)' }
@@ -22,8 +22,8 @@
             = f.simple_fields_for :task do |s|
               = s.input :note, label: false, placeholder: 'Write any additional issues or concerns you have with your car', as: :text, input_html: { 'ng-model' => 'task.note' }
               .pull-right
-                %a.btn.btn-danger{ 'href' => '', 'ng-click' => 'task.editing_note = false' } Cancel
-                %a.btn.btn-success{ 'href' => '', 'ng-click' => 'task.editing_note = false' } Save Notes
+                %a.btn.btn-danger{ 'href' => '', 'ng-click' => 'cancelEditNote(task)' } Cancel
+                %a.btn.btn-success{ 'href' => '', 'ng-click' => 'saveNote(task)' } Save Notes
 
 
     .text-right
