@@ -29,7 +29,7 @@ feature 'mechanic edit profile page' do
       fill_in 'Street Address', with: 'Seashell avenue, 25'
       fill_in 'Suburb',         with: 'Somewhere'
       select  'QLD',            from: 'State'
-      fill_in 'Postcode',       with: 'AX12345'
+      fill_in 'Postcode',       with: '2012'
 
       click_on 'Business details'
       fill_in 'Business name', with: 'My company'
@@ -64,7 +64,7 @@ feature 'mechanic edit profile page' do
       page.should have_field  'Street Address', with: 'Seashell avenue, 25'
       page.should have_field  'Suburb',         with: 'Somewhere'
       page.should have_select 'mechanic_location_attributes_state_id', selected: 'QLD'
-      page.should have_field  'Postcode',       with: 'AX12345'
+      page.should have_field  'Postcode',       with: '2012'
 
       click_on 'Business details'
       page.should have_field  'Business name', with: 'My company'

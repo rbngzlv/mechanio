@@ -28,7 +28,7 @@ feature 'adds a new mechanic', :js do
       fill_in 'Street Address', with: 'Seashell avenue, 25'
       fill_in 'Suburb',         with: 'Somewhere'
       select  'QLD',            from: 'State'
-      fill_in 'Postcode',       with: 'AX12345'
+      fill_in 'Postcode',       with: '2012'
 
       click_on 'Business details'
       fill_in 'Business name', with: 'My company'
@@ -67,6 +67,7 @@ feature 'adds a new mechanic', :js do
       check 'Phone verified'
 
       within('.top-bar') { click_button 'Save' }
+      screen
     end.to change { Mechanic.count }.by 1
 
     page.should have_css '.alert', text: 'Mechanic successfully created.'
@@ -86,7 +87,7 @@ feature 'adds a new mechanic', :js do
     page.should have_field  'Street Address', with: 'Seashell avenue, 25'
     page.should have_field  'Suburb',         with: 'Somewhere'
     page.should have_select 'mechanic_location_attributes_state_id', selected: 'QLD'
-    page.should have_field  'Postcode',       with: 'AX12345'
+    page.should have_field  'Postcode',       with: '2012'
 
     click_on 'Business details'
     page.should have_field  'Business name', with: 'My company'
