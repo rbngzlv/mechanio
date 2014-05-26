@@ -34,7 +34,6 @@ feature 'My appointments' do
         page.should have_content 'John Dow'
         page.should have_content rated_job.car.display_title
         page.should have_content rated_job.title
-        page.should have_content number_to_currency rated_job.final_cost
         page.should have_css '.full-star', count: 3
       end
     end
