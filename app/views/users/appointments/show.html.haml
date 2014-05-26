@@ -44,7 +44,7 @@
             .panel.nested-panel
               %h5 Hi, I'm your mechanic #{@job.mechanic.full_name}
               = @job.mechanic.description
-            .col-md-6.pull-right
+            -#.col-md-6.pull-right
               = render "shared/mechanic/verified_icons", account: @job.mechanic
         %br
         - if @job.rated?

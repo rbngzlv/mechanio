@@ -23,7 +23,7 @@ feature 'user profile' do
     specify 'shows basic info' do
       page.should have_content 'Left 1 Reviews'
       page.should have_content 'Hi, my name is John Dow'
-      page.should have_css '.verified-icons i', count: 3
+      # page.should have_css '.verified-icons i', count: 3
       page.should have_css '.social .icon-google-plus-sign'
     end
 
