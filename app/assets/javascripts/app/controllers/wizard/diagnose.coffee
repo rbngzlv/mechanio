@@ -86,6 +86,7 @@ app.controller 'DiagnoseController', ['$scope', '$http', ($scope, $http) ->
   $scope.goBack = ->
     selected = $scope.selected_symptoms
     if selected.length
+      $scope.recommendation = ''
       $scope.selected_symptoms.pop()
       $scope.questions = if selected.length
         selected[selected.length - 1].children
