@@ -19,7 +19,7 @@ feature 'dashboard page' do
 
     scheduled_time = DateTime.tomorrow + 9.hour
     closest_appointment = create :job, :assigned, :with_service, user: user, scheduled_at: scheduled_time
-    another_appointment = create :job, :assigned, :with_service, user: user, scheduled_at: (scheduled_time + 1.day)
+    another_appointment = create :job, :assigned, :with_service, user: user, scheduled_at: (scheduled_time - 1.day)
     mechanic = closest_appointment.mechanic
     visit users_dashboard_path
 

@@ -26,7 +26,7 @@ feature 'mechanic "my jobs" page' do
       job1 = create :job, :assigned, :with_repair, mechanic: mechanic, scheduled_at: DateTime.now
       job2 = create :job, :assigned, :with_service, mechanic: mechanic, scheduled_at: DateTime.tomorrow
       job3 = create :job, :assigned, :with_service, :with_discount, mechanic: mechanic, scheduled_at: DateTime.tomorrow.advance(days: 1)
-      upcoming_jobs = [job1, job2, job3]
+      upcoming_jobs = [job3, job2, job1]
 
       visit mechanics_jobs_path
 
