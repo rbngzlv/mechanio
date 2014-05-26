@@ -6,8 +6,16 @@ class Users::RegistrationsController < Devise::RegistrationsController
         data = session["devise.oauth_data"]['info']
         { email: data['email'], first_name: data['first_name'], last_name: data['last_name'] }
       else {}
-      end
+    end
     build_resource hash
+    self.resource.build_location
     respond_with self.resource
+  end
+
+
+  private
+
+  def sign_up_params
+    params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, location_attributes: [:postcode])
   end
 end

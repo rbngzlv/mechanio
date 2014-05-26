@@ -21,6 +21,7 @@ class User < ActiveRecord::Base
   mount_uploader :avatar, AvatarUploader
 
   validates :first_name, :last_name, :email, presence: true
+  validates :password, confirmation: true
 
   def self.search_fields
     [:first_name, :last_name, :mobile_number]

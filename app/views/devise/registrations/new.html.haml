@@ -6,7 +6,10 @@
       = f.input :first_name, placeholder: 'First name', autofocus: true
       = f.input :last_name, placeholder: 'Last name'
       = f.input :email, placeholder: 'Email'
+      = f.simple_fields_for :location do |l|
+        = l.input :postcode, placeholder: 'Postcode'
       = f.input :password, placeholder: 'Password'
+      = f.input :password_confirmation, placeholder: 'Confirm password'
       = f.button :submit, "Sign up"
 
     %br

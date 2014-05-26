@@ -52,12 +52,22 @@ describe 'User register', :js do
       page.should have_css 'h4', text: 'My Cars'
     end
 
+    it 'creates a location association with postcode' do
+      visit users_cars_path
+      open_signup_popup
+      register
+
+      User.last.location.postcode.should eq '2000'
+    end
+
     def register
       within '#register-modal' do
-        fill_in 'First name', with: 'First'
+        fill_in 'First name', with: 'John'
         fill_in 'Last name', with: 'Last'
         fill_in 'Email', with: 'user@host.com'
+        fill_in 'Postcode', with: '2000'
         fill_in 'Password (Minimum 8 Characters)', with: 'password'
+        fill_in 'Confirm password', with: 'password'
         click_button 'Sign up'
       end
     end
