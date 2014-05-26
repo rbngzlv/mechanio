@@ -25,7 +25,7 @@
               = f.input :mobile_number
               = render partial: 'shared/location_form', locals: { f: f, location_assoc: :location, defaults: { required: false } }
               = f.input :description, label: 'Personal description'
-              = f.input :avatar, label: 'Photo', as: :image, wrapper: :bootstrap, input_html: { class: 'js-skip-bootstrap-fileinput hide', wrap_class: 'col-md-6' }, image_html: { class: 'clickable js-update-avatar', data: { field: '#user_avatar' } }
+              = f.input :avatar, label: 'Photo', as: :image, wrapper: :bootstrap, input_html: { class: 'js-skip-bootstrap-fileinput hide', wrap_class: 'col-md-6' }, browse_html: { type: 'button', class: 'btn btn-success clickable js-update-avatar', data: { field: '#user_avatar' } }
               %hr.hr-dark-gray
               .form-group
                 .col-md-offset-3.col-md-6
