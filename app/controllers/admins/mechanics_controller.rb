@@ -72,6 +72,6 @@ class Admins::MechanicsController < Admins::ApplicationController
   end
 
   def registration_email(mechanic, password)
-    MechanicMailer::registration_note(mechanic.id, password).deliver
+    MechanicMailer.async.registration_note(mechanic.id, password)
   end
 end

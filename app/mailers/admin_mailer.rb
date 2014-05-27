@@ -1,4 +1,5 @@
-class AdminMailer < AsyncMailer
+class AdminMailer < ActionMailer::Base
+  extend AsyncMailer::Mailer
 
   def job_pending(job_id)
     @job = Job.find(job_id)

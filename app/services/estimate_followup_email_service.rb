@@ -1,5 +1,5 @@
 class EstimateFollowupEmailService
-  @queue = 'mailer'
+  @queue = :mailer
 
   def self.schedule(job_id)
     Resque.enqueue_in(2.days, EstimateFollowupEmailService, job_id)

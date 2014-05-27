@@ -1,4 +1,6 @@
-class MechanicMailer < AsyncMailer
+class MechanicMailer < ActionMailer::Base
+  extend AsyncMailer::Mailer
+
   def registration_note(mechanic_id, mechanic_password)
     @mechanic = Mechanic.find(mechanic_id)
     @password = mechanic_password

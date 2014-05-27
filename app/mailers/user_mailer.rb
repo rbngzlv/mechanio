@@ -1,4 +1,5 @@
-class UserMailer < AsyncMailer
+class UserMailer < ActionMailer::Base
+  extend AsyncMailer::Mailer
 
   def job_pending(job_id)
     @job = Job.find(job_id)

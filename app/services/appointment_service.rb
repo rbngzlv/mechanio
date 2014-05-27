@@ -45,7 +45,7 @@ class AppointmentService
     end
 
     [AdminMailer, UserMailer, MechanicMailer].map do |mailer|
-      mailer.job_assigned(@job.id).deliver
+      mailer.async.job_assigned(@job.id)
     end
 
     true

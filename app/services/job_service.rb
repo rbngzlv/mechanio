@@ -84,17 +84,17 @@ class JobService
   end
 
   def notify_pending(job)
-    AdminMailer.job_pending(job.id).deliver
-    UserMailer.job_pending(job.id).deliver
+    AdminMailer.async.job_pending(job.id)
+    UserMailer.async.job_pending(job.id)
   end
 
   def notify_estimated(job)
-    AdminMailer.job_estimated(job.id).deliver
-    UserMailer.job_estimated(job.id).deliver
+    AdminMailer.async.job_estimated(job.id)
+    UserMailer.async.job_estimated(job.id)
   end
 
   def notify_quote_changed(job)
-    AdminMailer.job_quote_changed(job.id).deliver
-    UserMailer.job_quote_changed(job.id).deliver
+    AdminMailer.async.job_quote_changed(job.id)
+    UserMailer.async.job_quote_changed(job.id)
   end
 end
