@@ -24,7 +24,7 @@ module AsyncMailer
     @queue = :mailer
 
     def self.perform(class_name, method, *args)
-      class_name.constantize.send(method, *args)
+      class_name.constantize.send(method, *args).deliver
     end
   end
 end
