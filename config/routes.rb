@@ -5,8 +5,9 @@ Mechanio::Application.routes.draw do
   devise_for :admins
   devise_for :mechanics
   devise_for :users, controllers: {
-    registrations: "users/registrations",
-    omniauth_callbacks: "users/omniauth_callbacks"
+    registrations:      'users/registrations',
+    omniauth_callbacks: 'users/omniauth_callbacks',
+    confirmations:      'users/confirmations'
   }
 
   mount Resque::Server.new, at: '/resque'

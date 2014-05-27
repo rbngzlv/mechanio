@@ -3,6 +3,5 @@
   = render 'layouts/head'
   %body{ class: ('navbar-padding' if impersonated?) }
     = render 'shared/header'
-    = render 'shared/flash_messages'
     = yield
     = render 'shared/footer'
