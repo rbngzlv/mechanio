@@ -86,6 +86,6 @@ feature 'details page for upcoming job' do
     click_on 'Complete job'
 
     page.should have_content job.uid
-    page.should have_link 'View Receipt'
+    page.should have_content 'No feedback yet'
   end
 end

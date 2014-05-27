@@ -24,8 +24,6 @@ feature 'upcoming job details page' do
   it 'should show job details' do
     visit mechanics_job_path(job)
 
-    page.should have_link 'View Receipt'
-
     within '.alert-info' do
       date = job.scheduled_at.to_s(:date_time_short)
       page.should have_css 'h4', text: "Appointment on: #{date}"
