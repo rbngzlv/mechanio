@@ -54,4 +54,5 @@
               %th.text-right= row[:title]
               %th.text-right= row[:value]
         .clearfix
-          =link_to 'Complete job', mechanics_job_complete_path(@job), class: 'btn btn-success pull-right'
+          - if @job.can_be_completed?
+            = link_to 'Complete job', mechanics_job_complete_path(@job), class: 'btn btn-success pull-right'

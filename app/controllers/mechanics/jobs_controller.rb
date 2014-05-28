@@ -11,6 +11,7 @@ class Mechanics::JobsController < Mechanics::ApplicationController
 
   def complete
     job = current_mechanic.current_jobs.find(params[:job_id])
+
     service = MechanicCompleteJobService.new(job)
     service.perform
 

@@ -5,6 +5,8 @@ class MechanicCompleteJobService
   end
 
   def perform
+    return false unless @job.can_be_completed?
+
     @job.completed_at = Time.now
     @job.complete!
 

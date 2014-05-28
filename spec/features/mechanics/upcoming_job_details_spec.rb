@@ -78,14 +78,4 @@ feature 'details page for upcoming job' do
       should have_field 'car_reg_number', with: 'something'
     end
   end
-
-  specify 'complete job' do
-    visit mechanics_jobs_path
-
-    click_on 'View Details'
-    click_on 'Complete job'
-
-    page.should have_content job.uid
-    page.should have_content 'No feedback yet'
-  end
 end

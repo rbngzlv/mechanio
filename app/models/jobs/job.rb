@@ -130,6 +130,10 @@ class Job < ActiveRecord::Base
     rating.present? && rating.published
   end
 
+  def can_be_completed?
+    completed_at.nil? && scheduled_at.present? && scheduled_at < Time.now
+  end
+
   def as_json(options = {})
     if options[:format] == :list
       super(only: [:id, :scheduled_at, :title], include: {
