@@ -2,8 +2,11 @@
   .modal-dialog
     .modal-content
       .modal-header
-        %h4 Success!
-      .modal-body
-        %p Your appointment has been booked.
-      .modal-footer
-        %button.btn.btn-primary{ 'type' => 'button', 'data-dismiss' => 'modal' } Close
+        %h3.orange Congratulations, your appointment's booked!
+      .modal-body.text-center
+        %p
+          We've successfully processed the details for your appointment.
+          %br
+          Enjoy the convenience of the mechanic you want, come to you!
+      .modal-footer.force-center
+        %button.btn.btn-primary.btn-padded{ 'type' => 'button', 'data-dismiss' => 'modal' } Ok

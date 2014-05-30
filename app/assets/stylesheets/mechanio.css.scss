@@ -52,6 +52,14 @@ a:hover {
   text-decoration: none;
 }
 
+.orange {
+  color: #ff7f27;
+}
+
+h5.orange {
+  font-size: 19px;
+}
+
 .cursor-default {
   cursor: default;
 }
@@ -70,6 +78,10 @@ a:hover {
 
 .hide {
   display: none;
+}
+
+.force-center {
+  text-align: center !important;
 }
 
 .header {
@@ -1276,6 +1288,10 @@ section {
   }
 }
 
+.btn-padded {
+  padding: 6px 24px
+}
+
 .vertical-divider-sm {
   display: inline-block;
   vertical-align: middle;
@@ -1607,6 +1623,10 @@ form {
     background: -ms-linear-gradient(top,  #fdfdfd 0%,#f6f6f6 47%,#eeeeee 100%); /* IE10+ */
     background: linear-gradient(to bottom,  #fdfdfd 0%,#f6f6f6 47%,#eeeeee 100%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fdfdfd', endColorstr='#eeeeee',GradientType=0 ); /* IE6-8 */
+
+    h3 {
+      margin-top: 10px;
+    }
 
     h5 {
       font-weight: bold;
