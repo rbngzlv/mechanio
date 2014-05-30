@@ -184,6 +184,10 @@
   position: relative;
   padding: 25px 0 20px;
 
+  .review-block .panel-body {
+    background: $body-bg;
+  }
+
   .commentary-block {
     min-height: 95px;
   }

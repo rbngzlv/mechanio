@@ -73,8 +73,8 @@
   .responsive-view.bg-white
     .container.text-center
       = image_tag(asset_url('mac-screen.png'), class: 'img-responsive', alt: 'Responsive Website')
-      %p.to-upper Sign up today and receive $10 off!
-  .sign-up-wrap
+      -#%p.to-upper Sign up today and receive $10 off!
+  -#.sign-up-wrap
     .container
       .row.text-center
         %p.col-md-7.col-sm-7.col-xs-12
@@ -88,7 +88,7 @@
             .col-md-9.col-sm-9.col-xs-9
               = f.text_field :email, placeholder: "youremail@address.com", class: 'clearfix col-md-12 col-sm-12 col-xs-12'
             = f.submit 'SIGN UP', class: 'btn btn-primary col-md-3 col-sm-3 col-xs-3'
-  .home-page-reviews.bg-white
+  .home-page-reviews
     .container.review-block
       .panel-body
         %ul.chat
