@@ -79,7 +79,7 @@ module ApplicationHelper
   end
 
   def show_email_confirmation_alert?
-    show = ['users/dashboard', 'users/profile'].include?(params[:controller])
+    show = ['users/dashboard', 'users/profiles'].include?(params[:controller])
     show = show && current_user && !current_user.confirmed?
   end
 
