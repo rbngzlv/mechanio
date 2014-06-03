@@ -15,6 +15,7 @@ set :deploy_via,      :remote_cache
 set :rvm_ruby_string, "2.0.0"
 set :rvm_type,        :user
 set :normalize_asset_timestamps, false
+set :shared_children, shared_children + ['private']
 
 task :configure, roles: :app do
   commands = <<-EOF
