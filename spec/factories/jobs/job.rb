@@ -45,6 +45,12 @@ FactoryGirl.define do
       end
     end
 
+    trait :with_payout do
+      after :build do |j|
+        j.payout = build(:payout)
+      end
+    end
+
     trait :estimated do
       status  'estimated'
       cost    123

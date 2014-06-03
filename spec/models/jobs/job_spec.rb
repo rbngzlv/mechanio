@@ -36,12 +36,33 @@ describe Job do
     let(:assigned_job)   { create :job, :with_service, :assigned  }
     let(:completed_job)  { create :job, :with_service, :completed }
     let(:rated_job)      { create :job, :with_service, :completed, :rated, scheduled_at: Time.now.advance(hours: 1) }
+    let(:paid_job)       { create :job, :with_service, :completed, :with_payout, scheduled_at: Time.now.advance(hours: 2) }
 
-    it 'finds scoped jobs' do
+    before do
+      estimated_job
+      assigned_job
+      completed_job
+      rated_job
+    end
+
+    specify '#estimated' do
       Job.estimated.should eq [estimated_job]
+    end
+
+    specify '#assigned' do
       Job.assigned.should  eq [assigned_job]
-      Job.completed.should eq [completed_job, rated_job]
+    end
+
+    specify '#completed' do
+      Job.completed.should eq [completed_job, paid_job, rated_job]
+    end
+
+    specify '#unrated' do
       Job.unrated.should   eq [completed_job]
+    end
+
+    specify '#paid' do
+      Job.paid.should      eq [paid_job]
     end
   end
 
