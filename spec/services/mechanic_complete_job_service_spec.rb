@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe MechanicCompleteJobService do
 
-  let(:job)     { create :job, :with_service, :assigned }
+  let(:job)     { create :job, :with_service, :assigned, scheduled_at: DateTime.yesterday }
   let(:service) { MechanicCompleteJobService.new(job) }
 
   describe '#complete' do

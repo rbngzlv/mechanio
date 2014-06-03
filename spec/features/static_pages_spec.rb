@@ -12,7 +12,7 @@ describe 'Static Pages' do
       should have_content 'Book professional mobile mechanics to service or repair your car at your convenience'
     end
 
-    it 'has feature to prefill email for signup page' do
+    it 'has feature to prefill email for signup page', pending: 'this block was hidden' do
       within '.sign-up-wrap' do
         fill_in 'user_email', with: 'prefill_test@example.com'
         click_button 'SIGN UP'

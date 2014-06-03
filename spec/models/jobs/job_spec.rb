@@ -40,7 +40,7 @@ describe Job do
     it 'finds scoped jobs' do
       Job.estimated.should eq [estimated_job]
       Job.assigned.should  eq [assigned_job]
-      Job.completed.should eq [rated_job, completed_job]
+      Job.completed.should eq [completed_job, rated_job]
       Job.unrated.should   eq [completed_job]
     end
   end
