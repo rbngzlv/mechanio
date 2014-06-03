@@ -2,3 +2,6 @@
   - css_class = { success: "alert-success", error: "alert-danger", alert: "alert-danger", notice: "alert-info" }[type] || type.to_s
   %div{ class: "alert #{css_class}" }
     = message
+
+- if show_email_confirmation_alert?
+  .alert.alert-info= email_confirmation_alert(current_user.email)
