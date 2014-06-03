@@ -46,7 +46,7 @@ feature 'user profile' do
 
     context 'success' do
       scenario 'upload avatar' do
-        attach_file('user_avatar', "#{Rails.root}/spec/features/fixtures/test_img.jpg")
+        attach_file('user_avatar', "#{Rails.root}/spec/fixtures/test_img.jpg")
         fill_in 'Personal description', with: (description = 'my description')
         fill_in 'Address', with: 'address 123'
         click_button 'Save'

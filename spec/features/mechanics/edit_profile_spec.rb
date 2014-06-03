@@ -3,7 +3,7 @@ require 'spec_helper'
 feature 'mechanic edit profile page' do
   let(:mechanic) { create :mechanic, first_name: 'Bob' }
   let(:next_year)  { (Date.today.year + 1).to_s }
-  let(:image_path) { "#{Rails.root}/spec/features/fixtures/test_img.jpg" }
+  let(:image_path) { "#{Rails.root}/spec/fixtures/test_img.jpg" }
   let!(:state) { create :state, name: 'QLD' } # FIXME: states should be preloaded form seeds before suite
 
   subject { page }
@@ -91,7 +91,7 @@ feature 'mechanic edit profile page' do
     end
 
     scenario 'upload avatar' do
-      attach_file('mechanic_avatar', "#{Rails.root}/spec/features/fixtures/test_img.jpg")
+      attach_file('mechanic_avatar', "#{Rails.root}/spec/fixtures/test_img.jpg")
       click_button 'Save'
 
       should have_content 'Your profile successfully updated.'

@@ -49,6 +49,9 @@ Mechanio::Application.routes.draw do
       resource :car, only: [:update]
     end
     resources :events, only: [:index, :create, :destroy]
+    resources :payouts, only: [] do
+      get :receipt, on: :member
+    end
 
     resource :profile, only: [:show, :edit, :update]
     resource :payout_method, only: [:edit, :update]
@@ -87,7 +90,9 @@ Mechanio::Application.routes.draw do
     end
 
     resources :jobs, only: [:index, :edit, :update, :destroy]
-    resources :payouts, only: [:create, :update]
+    resources :payouts, only: [:create, :update] do
+      get :receipt, on: :member
+    end
     resources :symptoms
     resources :discounts
     resources :ratings, only: [:index, :edit, :update]

@@ -24,6 +24,7 @@ config/database.yml
 
 /public/system/
 /public/assets/
+/private/*
 coverage
 
 TODO

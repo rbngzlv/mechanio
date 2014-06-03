@@ -3,7 +3,7 @@ require 'spec_helper'
 feature 'adds a new mechanic', :js do
   let!(:state) { create :state, name: 'QLD' } # FIXME: states should be preloaded form seeds before suite
   let(:next_year)  { (Date.today.year + 1).to_s }
-  let(:image_path) { "#{Rails.root}/spec/features/fixtures/test_img.jpg" }
+  let(:image_path) { "#{Rails.root}/spec/fixtures/test_img.jpg" }
 
   before { login_admin }
 

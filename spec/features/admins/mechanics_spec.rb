@@ -98,7 +98,7 @@ feature 'Admin mechanics management' do
 
     scenario 'edit payout information' do
       visit edit_admins_mechanic_path(mechanic)
-      click_on 'Payout Information'
+      click_on 'Payments'
 
       fill_in 'Account name', with: 'Back on Australia'
       fill_in 'Account number', with: '1234567890'
@@ -195,7 +195,7 @@ feature 'Admin mechanics management' do
   end
 
   context 'edit images' do
-    let(:image_path) { "#{Rails.root}/spec/features/fixtures/test_img.jpg" }
+    let(:image_path) { "#{Rails.root}/spec/fixtures/test_img.jpg" }
 
     scenario 'deleting', :js do
       mechanic.avatar = File.open(image_path)

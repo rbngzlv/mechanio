@@ -56,6 +56,10 @@ class Mechanic < ActiveRecord::Base
     jobs.completed
   end
 
+  def paid_jobs
+    jobs.paid
+  end
+
   def self.by_location(location)
     if location.geocoded?
       close_to(location.latitude, location.longitude)

@@ -1,6 +1,7 @@
 class Mechanics::PayoutMethodsController < Mechanics::ApplicationController
   def edit
     current_mechanic.build_associations
+    load_paid_jobs
   end
 
   def update
@@ -8,9 +9,11 @@ class Mechanics::PayoutMethodsController < Mechanics::ApplicationController
       redirect_to edit_mechanics_payout_method_path, notice: 'Your payout information successfully updated.'
     else
       current_mechanic.build_associations
+      load_paid_jobs
       render :edit
     end
   end
+
 
   private
 
@@ -18,5 +21,9 @@ class Mechanics::PayoutMethodsController < Mechanics::ApplicationController
     params.require(:mechanic).permit(
       payout_method_attributes: [:account_name, :account_number, :bsb_number]
     )
+  end
+
+  def load_paid_jobs
+    @paid_jobs = current_mechanic.paid_jobs
   end
 end

@@ -785,7 +785,8 @@ CREATE TABLE payouts (
     job_id integer,
     mechanic_id integer,
     created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    updated_at timestamp without time zone,
+    receipt character varying(255)
 );
 
 
@@ -2053,3 +2054,5 @@ INSERT INTO schema_migrations (version) VALUES ('20140519165519');
 INSERT INTO schema_migrations (version) VALUES ('20140520120934');
 
 INSERT INTO schema_migrations (version) VALUES ('20140521205442');
+
+INSERT INTO schema_migrations (version) VALUES ('20140603090552');

@@ -1,7 +1,7 @@
 class Admins::PayoutsController < Admins::ApplicationController
   include AdminHelper
 
-  before_filter :find_job
+  before_filter :find_job, only: [:create, :update]
 
   def create
     record_payout
@@ -9,6 +9,11 @@ class Admins::PayoutsController < Admins::ApplicationController
 
   def update
     record_payout
+  end
+
+  def receipt
+    payout = Payout.find(params[:id])
+    send_file payout.receipt.path
   end
 
 
@@ -34,6 +39,6 @@ class Admins::PayoutsController < Admins::ApplicationController
   end
 
   def permitted_params
-    params.require(:payout).permit(:id, :job_id, :account_name, :account_number, :bsb_number, :transaction_id, :amount)
+    params.require(:payout).permit(:id, :job_id, :account_name, :account_number, :bsb_number, :transaction_id, :amount, :receipt)
   end
 end

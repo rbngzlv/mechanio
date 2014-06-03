@@ -10,4 +10,5 @@ describe Payout do
   it { should validate_presence_of :bsb_number }
   it { should validate_presence_of :amount }
   it { should validate_presence_of :transaction_id }
+  it { should validate_presence_of :receipt }
 end

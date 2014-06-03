@@ -94,7 +94,7 @@ feature 'dashboard page' do
 
   context 'edit avatar by clicking on the profile picture' do
     specify 'form can upload photo' do
-      image_path = "#{Rails.root}/spec/features/fixtures/test_img.jpg"
+      image_path = "#{Rails.root}/spec/fixtures/test_img.jpg"
       visit mechanics_dashboard_path
       attach_file('mechanic_avatar', image_path)
       expect {

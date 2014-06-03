@@ -15,7 +15,7 @@
           Edit
         %h4.panel-title
           %i.icon-credit-card
-          Payout Information
+          Payments
       .panel-body
         = simple_form_for @mechanic, url: admins_mechanic_payout_method_path(@mechanic), html: { class: 'form-horizontal' }, defaults: { label_html: { class: 'col-md-2 col-sm-2' } }, wrapper: :bootstrap_horizontal do |f|
           = f.simple_fields_for :payout_method do |p|

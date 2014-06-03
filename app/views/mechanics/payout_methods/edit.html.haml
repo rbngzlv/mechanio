@@ -1,21 +1,45 @@
+%ul.nav.nav-tabs
+  %li.active= link_to 'Payment', '#payment', 'data-toggle' => 'tab'
+  %li= link_to 'Payout Information', '#payout', 'data-toggle' => 'tab'
+
 .row.locked-form
   .col-md-12
-    .panel.panel-default.panel-rounded
-      .panel-heading
-        %a.pull-right.unlock-form{ href: '#' }
-          %i.icon-pencil
-          Edit
-        %h4.panel-title
-          %i.icon-credit-card
-          My Payment
-      .panel-body
-        = simple_form_for current_mechanic, url: mechanics_payout_method_path, html: { class: 'form-horizontal mechanic_form' } do |f|
-          = f.simple_fields_for :payout_method, defaults: { label_html: { class: 'col-md-3 col-sm-3' } }, wrapper: :bootstrap_horizontal do |p|
-            = p.input :account_name
-            = p.input :account_number
-            = p.input :bsb_number
+    .tab-content
+      #payment.tab-pane.active
+        .panel.panel-default.panel-rounded
+          .panel-body
+            - if @paid_jobs.empty?
+              %p.text-center No payments
+            - else
+              %table.table
+                %tr
+                  %th User
+                  %th Job
+                  %th Date
+                  %th.text-right Amount
+                  %th{ style: 'width: 85px' }
+                - @paid_jobs.each do |j|
+                  %tr
+                    %td= j.user.full_name
+                    %td= j.title
+                    %td= j.completed_at.to_s(:date)
+                    %td.text-right= number_to_currency j.payout.amount
+                    %td= link_to 'View receipt', receipt_mechanics_payout_path(j.payout), target: :blank
 
-          %hr.hr-dark-gray
-          .form-group
-            .col-md-offset-3.col-md-6
-              = f.submit 'Save', class: 'btn btn-primary col-md-3'
+      #payout.tab-pane
+        .panel.panel-default.panel-rounded
+          .panel-body
+            %a.pull-right.unlock-form{ href: '#' }
+              %i.icon-pencil
+              Edit
+
+            = simple_form_for current_mechanic, url: mechanics_payout_method_path, html: { class: 'form-horizontal mechanic_form' } do |f|
+              = f.simple_fields_for :payout_method, defaults: { label_html: { class: 'col-md-3 col-sm-3' } }, wrapper: :bootstrap_horizontal do |p|
+                = p.input :account_name
+                = p.input :account_number
+                = p.input :bsb_number
+
+              %hr.hr-dark-gray
+              .form-group
+                .col-md-offset-3.col-md-6
+                  = f.submit 'Save', class: 'btn btn-primary col-md-3'
