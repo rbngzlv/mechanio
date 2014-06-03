@@ -17,7 +17,7 @@
             = p.input_field :amount
         = p.input :transaction_id, label: 'Receipt number'
         = p.input :receipt, label: 'Receipt'
-        - if @job.payout.receipt.present?
+        - if @job.payout && @job.payout.receipt
           .form-group
             .col-md-6.col-md-offset-4
               = link_to 'View receipt', receipt_admins_payout_path(@job.payout), target: :blank
