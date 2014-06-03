@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe JobDiscountService do
+describe Jobs::ApplyDiscount do
 
-  let(:service)       { JobDiscountService.new(job, discount_code) }
+  let(:service)       { Jobs::ApplyDiscount.new(job, discount_code) }
   let(:user)          { create :user }
   let(:job)           { create :job, :with_service, :estimated, user: user }
   let(:discount)      { create :discount, uses_left: 1 }
@@ -10,20 +10,20 @@ describe JobDiscountService do
 
   describe 'estimated job' do
     it 'associates discount with job' do
-      expect { service.apply_discount }.to change { job.discount }.from(nil).to(discount)
+      expect { service.call }.to change { job.discount }.from(nil).to(discount)
     end
 
     it 'applies discount to job cost' do
       job.cost.should eq 350
-      expect { service.apply_discount }.to change { job.final_cost }.from(350).to(280)
+      expect { service.call }.to change { job.final_cost }.from(350).to(280)
     end
 
     it 'decreases discount uses count' do
-      expect { service.apply_discount }.to change { discount.reload.uses_left }.from(1).to(0)
+      expect { service.call }.to change { discount.reload.uses_left }.from(1).to(0)
     end
 
     it 'returns true on success' do
-      service.apply_discount.should be_true
+      service.call.should be_true
     end
   end
 
@@ -31,12 +31,12 @@ describe JobDiscountService do
     let(:job) { create_temporary_job }
 
     it 'associates discount with job' do
-      expect { service.apply_discount }.to change { job.reload.discount }.from(nil).to(discount)
+      expect { service.call }.to change { job.reload.discount }.from(nil).to(discount)
     end
 
     it 'does not calculates cost' do
       job.should_not_receive(:set_cost)
-      service.apply_discount
+      service.call
     end
   end
 
@@ -47,7 +47,7 @@ describe JobDiscountService do
       let(:discount_code) { 'Unexisting' }
 
       it 'fails' do
-        service.apply_discount.should be_false
+        service.call.should be_false
         job.discount.should be_nil
         errors.should include 'Discount code is invalid'
       end
@@ -57,7 +57,7 @@ describe JobDiscountService do
       let(:discount) { create :discount, uses_left: 0 }
 
       it 'fails' do
-        service.apply_discount.should be_false
+        service.call.should be_false
         job.discount.should be_nil
         errors.should include 'This discount code was already used'
       end
@@ -69,7 +69,7 @@ describe JobDiscountService do
       end
 
       it 'fails' do
-        service.apply_discount.should be_false
+        service.call.should be_false
         job.discount.should be_nil
         errors.should include 'This discount code was already used'
       end
@@ -79,7 +79,7 @@ describe JobDiscountService do
       let(:discount) { create :discount, starts_at: Date.tomorrow }
 
       it 'fails' do
-        service.apply_discount.should be_false
+        service.call.should be_false
         job.discount.should be_nil
         errors.should include 'This discount code is not active'
       end
@@ -89,7 +89,7 @@ describe JobDiscountService do
       let(:discount) { create :discount, ends_at: Date.yesterday }
 
       it 'fails' do
-        service.apply_discount.should be_false
+        service.call.should be_false
         job.discount.should be_nil
         errors.should include 'This discount code is not active'
       end

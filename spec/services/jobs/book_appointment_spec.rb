@@ -1,20 +1,19 @@
 require 'spec_helper'
 
-describe AppointmentService do
+describe Jobs::BookAppointment do
 
-  let(:job) { build_stubbed :job, :with_service, :with_credit_card, :estimated }
-  let(:mechanic) { build_stubbed :mechanic }
+  let(:job)          { build_stubbed :job, :with_service, :with_credit_card, :estimated }
+  let(:mechanic)     { build_stubbed :mechanic }
   let(:scheduled_at) { Date.tomorrow + 10.hours }
+  let(:service)      { Jobs::BookAppointment.new(job, mechanic, scheduled_at) }
 
-  subject { AppointmentService.new(job, mechanic, scheduled_at) }
-
-  it { should be_valid }
+  it { service.should be_valid }
 
   describe 'validations' do
     context 'scheduled_at is before tomorrow' do
       let(:scheduled_at) { Date.today.to_time }
 
-      it { should_not be_valid }
+      it { service.should_not be_valid }
     end
 
     context 'mechanic is unavailable' do
@@ -28,7 +27,7 @@ describe AppointmentService do
         mechanic.stub(:events).and_return([event])
       end
 
-      it { should_not be_valid }
+      it { service.should_not be_valid }
     end
 
     context 'job already assigned' do
@@ -36,7 +35,7 @@ describe AppointmentService do
         job.stub(:appointment).and_return(build_stubbed :appointment)
       end
 
-      it { should_not be_valid }
+      it { service.should_not be_valid }
     end
   end
 
@@ -47,7 +46,7 @@ describe AppointmentService do
     before { reset_mail_deliveries }
 
     it 'books appointment with mechanic' do
-      subject.book_appointment.should be_true
+      service.call.should be_true
 
       job.assigned_at.should_not  be_nil
       job.status.should           eq 'assigned'
@@ -66,7 +65,7 @@ describe AppointmentService do
     before { reset_mail_deliveries }
 
     it 'does not book appointment' do
-      subject.book_appointment.should be_false
+      service.call.should be_false
 
       job.status.should           eq 'estimated'
       job.assigned_at.should      be_nil

@@ -1,25 +1,27 @@
-class Ratings::Create
+module Ratings
+  class Create
 
-  def initialize(user, job)
-    @user     = user
-    @job      = job
-    @mechanic = @job.mechanic
-  end
+    def initialize(user, job)
+      @user     = user
+      @job      = job
+      @mechanic = @job.mechanic
+    end
 
-  def call(attrs)
-    return false if @job.rating.present?
+    def call(attrs)
+      return false if @job.rating.present?
 
-    rating = Rating.new(attrs)
-    rating.user       = @user
-    rating.job        = @job
-    rating.mechanic   = @mechanic
-    rating.published  = true
+      rating = Rating.new(attrs)
+      rating.user       = @user
+      rating.job        = @job
+      rating.mechanic   = @mechanic
+      rating.published  = true
 
-    if rating.save
-      @mechanic.update_rating
-      rating
-    else
-      false
+      if rating.save
+        @mechanic.update_rating
+        rating
+      else
+        false
+      end
     end
   end
 end

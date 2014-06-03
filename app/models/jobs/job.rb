@@ -115,8 +115,7 @@ class Job < ActiveRecord::Base
   end
 
   def set_cost
-    cost_calculator = CostCalculator.new(self)
-    cost_calculator.set_job_cost
+    Jobs::Calculate.new(self).call
   end
 
   def quote_available?

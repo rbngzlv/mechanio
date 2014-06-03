@@ -1,17 +1,19 @@
-class Ratings::Update
+module Ratings
+  class Update
 
-  def initialize(rating)
-    @rating = rating
-  end
+    def initialize(rating)
+      @rating = rating
+    end
 
-  def call(params)
-    rating = Rating.find(params[:id])
+    def call(params)
+      rating = Rating.find(params[:id])
 
-    if rating.update(params)
-      rating.mechanic.update_rating
-      true
-    else
-      false
+      if rating.update(params)
+        rating.mechanic.update_rating
+        true
+      else
+        false
+      end
     end
   end
 end

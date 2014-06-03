@@ -15,7 +15,7 @@ class Admins::JobsController < Admins::ApplicationController
   end
 
   def update
-    if job_service.update_job(@job, params)
+    if update_service.call(@job, params)
       flash[:notice] = 'Job successfully updated'
     else
       flash[:error] = 'Error updating job'
@@ -35,7 +35,7 @@ class Admins::JobsController < Admins::ApplicationController
     @job = Job.find(params[:id])
   end
 
-  def job_service
-    JobService.new
+  def update_service
+    Jobs::Update.new
   end
 end

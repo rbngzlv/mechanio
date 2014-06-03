@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe MechanicCompleteJobService do
+describe Jobs::Complete do
 
   let(:job)     { create :job, :with_service, :assigned, scheduled_at: DateTime.yesterday }
-  let(:service) { MechanicCompleteJobService.new(job) }
+  let(:service) { Jobs::Complete.new(job) }
 
   describe '#complete' do
 
@@ -12,7 +12,7 @@ describe MechanicCompleteJobService do
     specify 'success' do
       job.completed_at.should be_nil
 
-      service.perform
+      service.call
 
       job.reload.completed_at.should_not be_nil
       job.status.should eq 'completed'

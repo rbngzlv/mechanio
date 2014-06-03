@@ -3,7 +3,7 @@ class Users::DiscountsController < ApplicationController
   def create
     @job = Job.find(params[:job_id])
 
-    if discount_service.apply_discount
+    if discount_service.call
       flash[:success] = 'Discount successfully applied'
     else
       flash[:error] = discount_service.errors.full_messages.join("\n")
@@ -16,7 +16,7 @@ class Users::DiscountsController < ApplicationController
   private
 
   def discount_service
-    @discount_service ||= JobDiscountService.new(@job, permitted_params[:code])
+    @discount_service ||= Jobs::ApplyDiscount.new(@job, permitted_params[:code])
   end
 
   def permitted_params

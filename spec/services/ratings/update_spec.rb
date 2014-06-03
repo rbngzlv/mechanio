@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe Ratings::Update do
+
   let(:service)   { Ratings::Update.new(rating) }
   let(:mechanic)  { create :mechanic }
   let(:rating)    { create :rating, :with_user, :with_job, mechanic: mechanic }

@@ -7,8 +7,8 @@ module JobAttributesHelper
   end
 
   def create_temporary_job
-    service = JobService.new
-    service.create_job(nil, job: job_attributes)
+    service = Jobs::Create.new
+    service.call(nil, job: job_attributes)
   end
 
   def job_attributes

@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe CostCalculator do
-  let(:cost_calculator)     { CostCalculator.new(job) }
+describe Jobs::Calculate do
+  let(:cost_calculator)     { Jobs::Calculate.new(job) }
 
   let(:job)                 { build :job, tasks: [service, repair, inspection], skip_set_cost: true }
 
@@ -17,7 +17,7 @@ describe CostCalculator do
   let(:another_inspection)  { build :inspection }
 
   before do
-    cost_calculator.set_job_cost
+    cost_calculator.call
   end
 
   context 'a service ordered' do
