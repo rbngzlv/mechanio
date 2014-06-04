@@ -188,7 +188,7 @@ describe EventsManager do
 
   describe '#available_at?' do
     it 'is available' do
-      events_manager.available_at?(Date.tomorrow.to_time.to_s).should be_true
+      events_manager.available_at?(Date.tomorrow.in_time_zone.to_s).should be_true
     end
 
     it 'is unavailable' do
@@ -199,10 +199,11 @@ describe EventsManager do
 
   describe '#get_time_start_and_end' do
     let(:today) { Date.today }
+    let(:today_time) { today.in_time_zone }
     let(:event) { build :event, :whole_day, date_start: today }
 
     it 'should create start and end time if their are not exists in event' do
-      events_manager.get_time_start_and_end(event).should be_eql [today.to_time, today.to_time.advance(hours: 23, minutes: 59)]
+      events_manager.get_time_start_and_end(event).should be_eql [today_time, today_time.advance(hours: 23, minutes: 59)]
     end
 
     it 'should return real start and end time if their are exists and occurrence not given' do

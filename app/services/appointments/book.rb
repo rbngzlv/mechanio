@@ -11,7 +11,7 @@ module Appointments
     def initialize(job, mechanic, scheduled_at)
       @job          = job
       @mechanic     = mechanic
-      @scheduled_at = scheduled_at.to_time
+      @scheduled_at = scheduled_at.in_time_zone
     end
 
     def call

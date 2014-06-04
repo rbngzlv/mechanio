@@ -33,7 +33,7 @@ class Users::CreditCardsController < Users::ApplicationController
 
   def appointment_service
     @job = current_user.estimated_jobs.find(params[:job_id])
-    @scheduled_at = appointment_params[:scheduled_at].to_time
+    @scheduled_at = appointment_params[:scheduled_at].in_time_zone
     @mechanic = Mechanic.find(appointment_params[:mechanic_id])
     Appointments::Book.new(@job, @mechanic, @scheduled_at)
   end

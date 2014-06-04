@@ -106,7 +106,7 @@ class EventsManager < Struct.new(:mechanic)
       start_time, end_time = get_time_start_and_end(event)
       schedule = get_schedule(event, start_time, end_time: end_time)
 
-      return false if schedule.occurring_at?(scheduled_at.to_time)
+      return false if schedule.occurring_at?(scheduled_at.in_time_zone)
     end
     true
   end
@@ -116,7 +116,7 @@ class EventsManager < Struct.new(:mechanic)
     if event.time_start
       [occurrence + event.time_start.hour.hours, occurrence + event.time_end.hour.hours]
     else
-      [occurrence.to_time, occurrence.to_time.advance(hours: 23, minutes: 59)]
+      [occurrence.in_time_zone, occurrence.in_time_zone.advance(hours: 23, minutes: 59)]
     end
   end
 
