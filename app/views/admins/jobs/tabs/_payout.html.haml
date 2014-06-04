@@ -18,7 +18,7 @@
             = p.input_field :amount
         = p.input :transaction_id, label: 'Receipt number'
         = p.input :receipt, label: 'Receipt', input_html: { class: 'js-skip-bootstrap-fileinput' }
-        - if @job.payout && @job.payout.receipt
+        - if @job.payout.present? && @job.payout.receipt.present?
           .form-group
             .col-md-6.col-md-offset-4
               = link_to @job.payout.receipt.file.filename, receipt_admins_payout_path(@job.payout), target: :blank
