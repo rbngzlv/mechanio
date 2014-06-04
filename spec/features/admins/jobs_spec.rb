@@ -46,7 +46,7 @@ feature 'Jobs section' do
   end
 
   context 'editing a job', :js do
-    let(:job)           { create :job, :with_service, :estimated, :assigned, mechanic: mechanic }
+    let(:job)           { create :job, :with_service, :assigned, mechanic: mechanic }
     let(:payout_method) { create :payout_method, account_name: 'Some bank', account_number: '99988881', bsb_number: '987654' }
     let(:mechanic)      { create :mechanic, payout_method: payout_method }
     let(:receipt_path)  { "#{Rails.root}/spec/fixtures/test_img.jpg" }

@@ -71,13 +71,17 @@ FactoryGirl.define do
       assigned_at  { DateTime.now }
 
       after :build do |j|
-        j.appointment = build(:appointment, user: j.user, mechanic: j.mechanic)
+        j.appointment = build(:appointment, user: j.user, mechanic: j.mechanic, scheduled_at: j.scheduled_at)
       end
-    end
 
-    trait :with_event do
       after :create do |j|
-        create(:event, job: j, mechanic: j.mechanic)
+        create(:event,
+          job: j,
+          mechanic: j.mechanic,
+          date_start: j.scheduled_at,
+          time_start: j.scheduled_at,
+          time_end:   j.scheduled_at + 2.hour
+        )
       end
     end
 

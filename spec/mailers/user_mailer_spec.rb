@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe UserMailer do
-  let(:job)       { create :job, :assigned, :with_service, :with_event, mechanic: mechanic, user: user }
+  let(:job)       { create :job, :assigned, :with_service, mechanic: mechanic, user: user }
   let(:user)      { create :user, email: 'user@host.com', first_name: 'Buddy' }
   let(:mechanic)  { create :mechanic, first_name: 'Joe', last_name: 'Mechanic' }
   let(:to)        { ['user@host.com'] }

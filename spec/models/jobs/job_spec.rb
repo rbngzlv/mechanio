@@ -145,7 +145,7 @@ describe Job do
   end
 
   specify 'deleting a job also deletes its calendar event' do
-    job = create :job, :assigned, :with_service, :with_event
+    job = create :job, :assigned, :with_service
     expect {
       job.destroy!
     }.to change { Job.count }.by(-1)
