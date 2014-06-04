@@ -1,11 +1,11 @@
 require 'spec_helper'
 
-describe Jobs::BookAppointment do
+describe Appointments::Book do
 
   let(:job)          { build_stubbed :job, :with_service, :with_credit_card, :estimated }
   let(:mechanic)     { build_stubbed :mechanic }
   let(:scheduled_at) { Date.tomorrow + 10.hours }
-  let(:service)      { Jobs::BookAppointment.new(job, mechanic, scheduled_at) }
+  let(:service)      { Appointments::Book.new(job, mechanic, scheduled_at) }
 
   it { service.should be_valid }
 

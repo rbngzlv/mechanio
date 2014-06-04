@@ -15,7 +15,7 @@ class Users::AppointmentsController < Users::ApplicationController
 
   def update
     mechanic = mechanics.find(appointment_params[:mechanic_id])
-    appointment_service = Jobs::BookAppointment.new(@job, mechanic, appointment_params[:scheduled_at])
+    appointment_service = Appointments::Book.new(@job, mechanic, appointment_params[:scheduled_at])
 
     if appointment_service.valid?
       session[:appointment_params] = appointment_params

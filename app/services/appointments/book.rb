@@ -1,5 +1,5 @@
-module Jobs
-  class BookAppointment
+module Appointments
+  class Book
     include ActiveModel::Validations
 
     attr_accessor :job, :mechanic, :scheduled_at
