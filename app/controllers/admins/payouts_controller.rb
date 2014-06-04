@@ -28,12 +28,12 @@ class Admins::PayoutsController < Admins::ApplicationController
 
     payout_service = PayoutService.new(@job.mechanic, @job)
     @payout = payout_service.record_payout(permitted_params)
+
     if @payout.valid?
       flash[:notice] = 'Payout successfully saved'
       redirect_to edit_admins_job_path(@job)
     else
       prepare_job_edit
-      flash[:error] = 'Error saving payout'
       render '/admins/jobs/edit'
     end
   end
