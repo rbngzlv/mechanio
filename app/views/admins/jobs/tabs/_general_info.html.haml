@@ -7,7 +7,13 @@
         %hr
 
         %h5 Allocated to
-        %p= allocated_to(@job)
+        %p
+          = allocated_to(@job)
+        - if @job.assigned?
+          %p
+            = link_to edit_admins_appointment_path(@job) do
+              %i.icon-calendar
+              Reschedule
         %hr
 
         %h5 Vehicle

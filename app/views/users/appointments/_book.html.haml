@@ -1,77 +1,15 @@
 - tomorrow = Date.tomorrow
-:javascript
-  $(function() {
-    var $container = $('.calendar-container#mechanic_#{mechanic.id}'),
-        $calendar = $container.find('.calendar'),
-        $left_arrow = $container.find('.left-arrow'),
-        $right_arrow = $container.find('.right-arrow'),
-        form = $container.find('form');
 
-    $calendar.fullCalendar({
-      header: {
-        left: '',
-        center: '',
-        right: ''
-      },
-      defaultView: 'agendaWeek',
+:coffee
+  jQuery ->
+    $('.calendar-container#mechanic_#{mechanic.id}').book_calendar({
       firstDay: #{ tomorrow.wday },
       year: #{ tomorrow.year },
       month: #{ tomorrow.month - 1 },
       date: #{ tomorrow.day },
-      firstHour: 9,
-      minTime: 9,
-      maxTime: 19,
-      slotMinutes: 120,
-      allDayDefault: false,
-      allDaySlot: false,
-      timeFormat: { agenda: '' },
-      selectable: true,
-      events: #{ EventsManager.new(mechanic).events_list.to_json(only: [:start, :end]) },
-      eventClick: function(event) {
-        return false;
-      },
-      dayClick: function(date, allDay, jsEvent, view) {
-        form.find('#job_scheduled_at').val(moment(date).format('YYYY-MM-DDTHH:mm'));
-        $(':submit').prop('disabled', true);
-        form.find(':submit').prop('disabled', false);
-      },
-      viewRender: function(view, element) {
-        var start_date = moment().add('days', 1);
-        var end_date = moment().add('days', 14);
-        $left_arrow.toggleClass('disabled', start_date.isAfter(view.start));
-        $right_arrow.toggleClass('disabled', !end_date.isAfter(view.end));
-      },
-      eventAfterRender: function(event, element, view) {
-        var $el = $(element),
-            $elWrap = $('.fc-content > div > div > div');
+      events: #{ mechanic.event_feed }
+    })
 
-        var width = parseInt($el.css('width')),
-            eHeight = parseInt($el.css('height')),
-            ewHeight = parseInt($elWrap.css('height'));
-        width *= 1.04;
-        eHeight *= 1.04;
-        ewHeight *= 1.04;
-
-        $el.css('width', width + 'px');
-        $el.css('height', eHeight + 'px');
-        $elWrap.css('height', ewHeight + 'px');
-
-        $('.fc-content > div > div > div > div').css('overflow', 'visible');
-      }
-    });
-
-    $right_arrow.click(function() {
-      if(!$(this).hasClass('disabled')) {
-        $calendar.fullCalendar('next');
-      }
-    });
-
-    $left_arrow.click(function() {
-      if(!$(this).hasClass('disabled')) {
-        $calendar.fullCalendar('prev');
-      };
-    });
-  });
 .panel.panel-default.panel-rounded
   .panel-body
     .row

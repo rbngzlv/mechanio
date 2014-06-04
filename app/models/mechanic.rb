@@ -103,4 +103,8 @@ class Mechanic < ActiveRecord::Base
     rating = averages.size > 0 ? averages.sum.to_f / averages.size : 0
     update_attribute(:rating, rating)
   end
+
+  def event_feed
+    EventsManager.new(self).events_list.to_json(only: [:start, :end])
+  end
 end

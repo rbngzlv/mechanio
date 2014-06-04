@@ -1,9 +1,4 @@
-%h4.pull-right ID: #{@job.uid}
-%h4
-  = @job.title
-  = job_status(@job.status)
-
-%hr
+= render 'admins/jobs/header'
 
 %ul.nav.nav-tabs
   %li.active= link_to 'General info', '#general_info', 'data-toggle' => 'tab'

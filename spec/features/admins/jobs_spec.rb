@@ -77,8 +77,9 @@ feature 'Jobs section' do
       end
 
       scenario 'failure', :js do
+        screen
         click_on 'Save payout'
-
+screen
         page.should have_content 'Error saving payout'
         page.should have_css '.nav-tabs .active a', text: 'Payout'
       end
