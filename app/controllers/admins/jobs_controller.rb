@@ -6,7 +6,7 @@ class Admins::JobsController < Admins::ApplicationController
   def index
     @status = params[:status]
     @jobs = @status.present? ? Job.with_status(@status) : Job.all
-    @jobs = @jobs.page(params[:page])
+    @jobs = @jobs.includes(:user, :mechanic, :location).page(params[:page])
   end
 
   def edit

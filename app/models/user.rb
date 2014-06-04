@@ -28,7 +28,7 @@ class User < ActiveRecord::Base
   end
 
   def pending_and_estimated_jobs
-    jobs.with_status(:pending, :estimated)
+    jobs.with_status(:pending, :estimated).includes(:car, :tasks)
   end
 
   def estimated_jobs
@@ -36,11 +36,11 @@ class User < ActiveRecord::Base
   end
 
   def current_jobs
-    jobs.assigned
+    jobs.assigned.includes(:mechanic, :location, :car, :tasks, :rating)
   end
 
   def past_jobs
-    jobs.completed
+    jobs.completed.includes(:mechanic, :car, :rating)
   end
 
   def unrated_jobs
