@@ -67,7 +67,6 @@ feature 'adds a new mechanic', :js do
       check 'Phone verified'
 
       within('.top-bar') { click_button 'Save' }
-      screen
     end.to change { Mechanic.count }.by 1
 
     page.should have_css '.alert', text: 'Mechanic successfully created.'
