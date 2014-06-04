@@ -8,9 +8,9 @@ class PayoutService
   def record_payout(attrs)
     data = attrs.merge(mechanic: @mechanic, job: @job)
 
-    if attrs[:id]
+    if attrs[:id].present?
       payout = @mechanic.payouts.find(attrs[:id])
-      payout.update_attributes(data)
+      payout.update(data)
       payout
     else
       payout = Payout.create(data)

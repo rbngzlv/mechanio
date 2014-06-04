@@ -21,11 +21,11 @@ class Admins::PayoutsController < Admins::ApplicationController
 
   def find_job
     @job = Job.find(permitted_params[:job_id])
+
+    redirect_to edit_admins_job_path(@job) unless @job.completed?
   end
 
   def record_payout
-    redirect_to edit_admins_job_path(@job) unless @job.mechanic
-
     payout_service = PayoutService.new(@job.mechanic, @job)
     @payout = payout_service.record_payout(permitted_params)
 

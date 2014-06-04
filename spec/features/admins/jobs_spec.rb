@@ -67,48 +67,6 @@ feature 'Jobs section' do
       page.should have_field 'job_contact_phone', with: job.contact_phone
     end
 
-    context 'edit payout' do
-      before do
-        visit edit_admins_job_path(job)
-
-        within '.nav-tabs' do
-          click_on 'Payout'
-        end
-      end
-
-      scenario 'failure', :js do
-        screen
-        click_on 'Save payout'
-screen
-        page.should have_content 'Error saving payout'
-        page.should have_css '.nav-tabs .active a', text: 'Payout'
-      end
-
-      scenario 'success', :js do
-        fill_in 'Account name',   with: 'Bank of Australia'
-        fill_in 'Bsb number',     with: '123456'
-        fill_in 'Account number', with: '1234567890'
-        fill_in 'Amount',         with: '100,50'
-        fill_in 'Receipt number', with: 'ASDSA11231'
-        attach_file 'Receipt',    receipt_path
-        click_on 'Save payout'
-
-        page.should have_content 'Payout successfully saved'
-
-        within '.nav-tabs' do
-          click_on 'Payout'
-        end
-
-        page.should have_link 'View receipt'
-      end
-
-      scenario 'payout is prefilled with mechanics bank details' do
-        page.should have_field 'Account name',    with: 'Some bank'
-        page.should have_field 'Bsb number',      with: '987654'
-        page.should have_field 'Account number',  with: '99988881'
-      end
-    end
-
     context 'feedback tab', :js do
       let(:job)     { create :job, :completed, :with_service }
       let(:rating)  { create :rating, job: job, mechanic: job.mechanic, user: job.user, recommend: false }
