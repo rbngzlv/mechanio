@@ -4,7 +4,7 @@ module Appointments
     private
 
     def scheduled_in_future?
-      if @scheduled_at < Date.tomorrow
+      if @scheduled_at < DateTime.tomorrow.in_time_zone
         errors[:base] << 'You can schedule an appointment for tomorrow or later'
       end
     end

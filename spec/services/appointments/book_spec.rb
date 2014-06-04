@@ -11,7 +11,7 @@ describe Appointments::Book do
 
   describe 'validations' do
     context 'scheduled_at is before tomorrow' do
-      let(:scheduled_at) { Date.today.in_time_zone }
+      let(:scheduled_at) { DateTime.now.in_time_zone }
 
       it { service.should_not be_valid }
     end
@@ -60,7 +60,7 @@ describe Appointments::Book do
   end
 
   context 'appointment invalid' do
-    let(:scheduled_at) { Date.today.in_time_zone }
+    let(:scheduled_at) { DateTime.now.in_time_zone }
 
     before { reset_mail_deliveries }
 
