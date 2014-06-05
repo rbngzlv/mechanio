@@ -13,4 +13,5 @@
  *= require font-awesome
  *= require fullcalendar
  *= require mechanio
+ *= require_tree ../../../vendor/assets/stylesheets
  */

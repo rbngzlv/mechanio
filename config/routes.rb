@@ -104,6 +104,7 @@ Mechanio::Application.routes.draw do
     get 'models'
     get 'model_variations'
     get 'service_plans'
+    get 'suburbs'
   end
 
   namespace :api, defaults: { format: :json } do

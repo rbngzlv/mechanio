@@ -39,4 +39,22 @@ app.controller 'ContactController', ['$scope', ($scope) ->
 
   $scope.valid = ->
     $scope['contact_form'].$valid
+
+
+  # Suburb typeahead
+
+  datasource = new Bloodhound(
+    datumTokenizer: (d) ->
+      console.log d
+      Bloodhound.tokenizers.whitespace(d.name)
+    queryTokenizer: Bloodhound.tokenizers.whitespace,
+    remote: '/ajax/suburbs?name=%QUERY'
+  )
+  datasource.initialize()
+
+  $scope.completeOptions = {}
+  $scope.completeDatasets = {
+    displayKey: 'name',
+    source: datasource.ttAdapter()
+  }
 ]

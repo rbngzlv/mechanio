@@ -9,4 +9,8 @@ class Region < ActiveRecord::Base
       parent.serializable_hash.merge 'children' => arrange_serializable(children)
     end
   end
+
+  def self.search(name)
+    Region.where.not(postcode: nil).where("name ILIKE ?", "#{name}%").limit(10)
+  end
 end

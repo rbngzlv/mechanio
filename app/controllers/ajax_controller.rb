@@ -19,6 +19,10 @@ class AjaxController < ApplicationController
     respond_with ServicePlan.to_options(params.permit(:model_variation_id))
   end
 
+  def suburbs
+    respond_with Region.search(params[:name]).as_json(only: [:id, :name])
+  end
+
 
   private
 

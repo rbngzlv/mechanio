@@ -1777,10 +1777,38 @@ CREATE INDEX index_ratings_on_user_id ON ratings USING btree (user_id);
 
 
 --
+-- Name: index_regions_name_vector; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_regions_name_vector ON regions USING gin (name gin_trgm_ops);
+
+
+--
 -- Name: index_regions_on_ancestry; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_regions_on_ancestry ON regions USING btree (ancestry);
+
+
+--
+-- Name: index_regions_on_name; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_regions_on_name ON regions USING btree (name);
+
+
+--
+-- Name: index_regions_on_name_and_postcode; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_regions_on_name_and_postcode ON regions USING btree (name, postcode);
+
+
+--
+-- Name: index_regions_on_postcode; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_regions_on_postcode ON regions USING btree (postcode);
 
 
 --
@@ -2056,3 +2084,5 @@ INSERT INTO schema_migrations (version) VALUES ('20140520120934');
 INSERT INTO schema_migrations (version) VALUES ('20140521205442');
 
 INSERT INTO schema_migrations (version) VALUES ('20140603090552');
+
+INSERT INTO schema_migrations (version) VALUES ('20140605065806');

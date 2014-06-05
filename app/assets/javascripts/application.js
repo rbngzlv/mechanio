@@ -13,9 +13,12 @@
 //= require jquery
 //= require jquery_ujs
 //= require twitter/bootstrap
+//= require typeahead
+//= require bloodhound
 //= require fullcalendar
 //= require angular.min
 //= require angular-animate
 //= require angular-strap
+//= require angular-typeahead
 //= require_tree ../../../vendor/assets/javascripts/
 //= require_tree .
