@@ -44,7 +44,6 @@ class PaymentService
       job.transaction_errors = result.errors.inspect
     end
 
-    result.success? ? job.complete! : job.payment_error!
     job.save
 
     result.success?
