@@ -81,7 +81,7 @@ describe AjaxController do
       get :suburbs, format: :json, name: 'Syd'
 
       response.should be_success
-      response.body.should eq [suburb.as_json(only: [:id, :name])].to_json
+      response.body.should eq [suburb.as_json(only: [:id, :display_name])].to_json
     end
   end
 end

@@ -313,9 +313,7 @@ describe 'Service wizard', js: true do
 
   def fill_in_address
     fill_in 'Street address', with: 'Broadway 54, ap. 1'
-    page.execute_script "$('input.sfTypeahead').unbind('blur')"
-    fill_in 'Suburb', with: 'Syd'
-    find('.tt-dropdown-menu p', text: 'Sydney').click
+    autocomplete 'Suburb', 'Syd', 'Sydney, NSW 2012'
     fill_in 'Postcode', with: '1234'
     select  state.name, from: 'location_state_id'
     fill_in 'job_contact_email', with: 'email@host.com'

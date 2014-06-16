@@ -34,16 +34,16 @@ class Location < ActiveRecord::Base
     end
   end
 
-  def find_suburb(name)
-    Region.suburbs.find_by_name(name)
+  def find_suburb(display_name)
+    Region.suburbs.find_by_display_name(display_name)
   end
 
   def full_address
-    "#{address}, #{suburb_name} #{state_name}, #{postcode}"
+    "#{address}, #{suburb_name}"
   end
 
   def geocoding_address
-    "#{address}, #{suburb_name} #{postcode}, Australia"
+    "#{address}, #{suburb_name} Australia"
   end
 
   def get_coordinates
@@ -55,7 +55,7 @@ class Location < ActiveRecord::Base
   end
 
   def suburb_name
-    suburb.name if suburb.present?
+    suburb.display_name if suburb.present?
   end
 
   def geocoded?

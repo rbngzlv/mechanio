@@ -47,14 +47,13 @@ feature 'user profile' do
 
     scenario 'edit location information with suburb autocomplete', :js do
       fill_in 'Address', with: 'address 123'
-      fill_in 'Suburb', with: 'Sydney'
-      # find('.tt-dropdown-menu p', text: 'Sydney').click
+      autocomplete 'Suburb', 'syd', 'Sydney, NSW 2012'
 
       click_button 'Save'
 
       page.should have_content 'Your profile successfully updated.'
       page.should have_field 'Address', with: 'address 123'
-      page.should have_field 'Suburb', with: 'Sydney'
+      page.should have_field 'Suburb', with: 'Sydney, NSW 2012'
     end
 
     scenario 'unexisting suburb is ignored', :js do

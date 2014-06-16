@@ -52,7 +52,7 @@ class Users::JobsController < Users::ApplicationController
     end
 
     @location_json = location.to_json(only: [:id, :address, :postcode, :state_id, :city, :suburb_id], include: {
-      suburb: { only: [:id, :name] }
+      suburb: { only: [:id, :display_name] }
     })
 
     render 'wizard'

@@ -54,7 +54,7 @@ app.controller 'ContactController', ['$scope', ($scope) ->
 
   $scope.completeOptions = {}
   $scope.completeDatasets = {
-    displayKey: 'name',
+    displayKey: 'display_name',
     source: datasource.ttAdapter()
   }
 ]

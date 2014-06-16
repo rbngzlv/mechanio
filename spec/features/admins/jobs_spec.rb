@@ -64,7 +64,7 @@ feature 'Jobs section' do
       page.should have_content'Last service: 10000 Km'
 
       page.should have_field 'Address',  with: 'Palm beach 55'
-      page.should have_field 'Suburb',   with: 'Sydney'
+      page.should have_field 'Suburb',   with: 'Sydney, NSW 2012'
       page.should have_field 'Postcode', with: '0200'
       page.should have_select 'State',   selected: 'Queensland'
 

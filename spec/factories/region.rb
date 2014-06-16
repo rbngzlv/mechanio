@@ -8,13 +8,15 @@ FactoryGirl.define do
   end
 
   factory :sydney_suburb, class: 'Region' do
-    name      'Sydney'
-    postcode  '2012'
+    name         'Sydney'
+    postcode     '2012'
+    display_name 'Sydney, NSW 2012'
   end
 
   factory :hill_suburb, class: 'Region' do
-    name      'The Hill'
-    postcode  '2300'
+    name          'The Hill'
+    postcode      '2300'
+    display_name  'The Hill, NSW 2300'
   end
 
   factory :regions_tree, class: 'Region' do

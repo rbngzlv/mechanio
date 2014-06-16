@@ -7,7 +7,7 @@
       = f.input :last_name, placeholder: 'Last name'
       = f.input :email, placeholder: 'Email'
       = f.simple_fields_for :location do |l|
-        = l.input :postcode, placeholder: 'Postcode'
+        = l.input :suburb, placeholder: 'Suburb', input_html: { value: l.object.suburb_name, class: 'suburb-typeahead' }
       = f.input :password, placeholder: 'Password'
       = f.input :password_confirmation, placeholder: 'Confirm password'
       = f.button :submit, "Sign up"

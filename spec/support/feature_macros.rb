@@ -17,4 +17,10 @@ module FeatureMacros
     mechanic ||= create :mechanic
     login_as mechanic, scope: :mechanic
   end
+
+  def autocomplete(field, type_text, select_option)
+    page.execute_script "$('input.sfTypeahead, input.suburb-typeahead').unbind('blur')"
+    fill_in field, with: type_text
+    find('.tt-dropdown-menu p', text: select_option).click
+  end
 end

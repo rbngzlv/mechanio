@@ -20,7 +20,7 @@ class AjaxController < ApplicationController
   end
 
   def suburbs
-    respond_with Region.suburbs.search(params[:name]).as_json(only: [:id, :name])
+    respond_with Region.suburbs.search(params[:name]).as_json(only: [:id, :display_name])
   end
 
 

@@ -8,6 +8,6 @@
     datasource.initialize()
 
     $('.suburb-typeahead').typeahead({}, {
-      displayKey: 'name',
+      displayKey: 'display_name',
       source: datasource.ttAdapter()
     })

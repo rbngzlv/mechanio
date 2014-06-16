@@ -68,7 +68,7 @@ feature 'new appointment', :js do
 
     within '.sidebar .panel:nth-of-type(3)' do
       page.should have_css 'h5', text: 'LOCATION'
-      page.should have_css '.panel-body', text: 'Palm beach 55 Sydney Queensland, 1234'
+      page.should have_css '.panel-body', text: 'Palm beach 55 Sydney, NSW 2012'
     end
   end
 

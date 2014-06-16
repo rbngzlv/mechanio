@@ -863,7 +863,8 @@ CREATE TABLE regions (
     postcode integer,
     ancestry character varying(255),
     state_id integer,
-    ancestry_depth integer DEFAULT 0
+    ancestry_depth integer DEFAULT 0,
+    display_name character varying(255)
 );
 
 
@@ -1798,6 +1799,13 @@ CREATE INDEX index_regions_on_ancestry ON regions USING btree (ancestry);
 
 
 --
+-- Name: index_regions_on_display_name; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_regions_on_display_name ON regions USING btree (display_name);
+
+
+--
 -- Name: index_regions_on_name; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -2095,3 +2103,7 @@ INSERT INTO schema_migrations (version) VALUES ('20140603090552');
 INSERT INTO schema_migrations (version) VALUES ('20140605065806');
 
 INSERT INTO schema_migrations (version) VALUES ('20140612152124');
+
+INSERT INTO schema_migrations (version) VALUES ('20140616111744');
+
+INSERT INTO schema_migrations (version) VALUES ('20140616122349');

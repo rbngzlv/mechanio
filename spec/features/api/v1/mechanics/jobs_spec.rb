@@ -24,7 +24,7 @@ resource 'Job' do
           address: "Palm beach 55",
           postcode: "0200",
           state_name: "Queensland",
-          suburb_name: "Sydney"
+          suburb_name: "Sydney, NSW 2012"
         }
       }].to_json
     end
@@ -52,7 +52,7 @@ resource 'Job' do
           address: "Palm beach 55",
           postcode: "0200",
           state_name: "Queensland",
-          suburb_name: "Sydney"
+          suburb_name: "Sydney, NSW 2012"
         },
         tasks: [{
           id: job.tasks.first.id,

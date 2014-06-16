@@ -2,6 +2,8 @@ require 'spec_helper'
 
 describe 'User register', :js do
 
+  let!(:sydney) { create :sydney_suburb }
+
   specify 'social networks registration popup' do
     visit root_path
     within '.header' do
@@ -57,7 +59,7 @@ describe 'User register', :js do
       open_signup_popup
       register
 
-      User.last.location.postcode.should eq '2000'
+      User.last.location.suburb.name.should eq 'Sydney'
     end
 
     def register
@@ -65,7 +67,7 @@ describe 'User register', :js do
         fill_in 'First name', with: 'John'
         fill_in 'Last name', with: 'Last'
         fill_in 'Email', with: 'user@host.com'
-        fill_in 'Postcode', with: '2000'
+        autocomplete 'Suburb', 'syd', 'Sydney, NSW 2012'
         fill_in 'Password (Minimum 8 Characters)', with: 'password'
         fill_in 'Confirm password', with: 'password'
         click_button 'Sign up'

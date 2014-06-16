@@ -14,6 +14,11 @@ describe Location do
   it { should allow_value('0200').for(:postcode) }
   it { should_not allow_value('0300').for(:postcode).with_message('is not a valid postcode') }
 
+  specify '#full_address' do
+    location = build :location, address: '35 Stirling Highway', suburb: build(:sydney_suburb)
+    location.full_address.should eq '35 Stirling Highway, Sydney, NSW 2012'
+  end
+
   describe 'geocoding', :vcr do
     it 'should resolve address into coordinates' do
       location = build :location, address: '35 Stirling Highway', suburb: build(:sydney_suburb), postcode: '6009'
