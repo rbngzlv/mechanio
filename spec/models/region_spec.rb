@@ -4,6 +4,12 @@ describe Region do
   let(:region) { create :sydney_region }
   let(:suburb) { create :sydney_suburb }
 
+  specify '#states' do
+    create :regions_tree
+
+    Region.states.map(&:name).should eq ['NSW']
+  end
+
   specify '#suburbs' do
     Region.suburbs.should eq [suburb]
   end

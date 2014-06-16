@@ -20,9 +20,10 @@ FactoryGirl.define do
   end
 
   factory :regions_tree, class: 'Region' do
-    name 'NSW'
+    name 'Root'
 
-    after(:create) do |state|
+    after(:create) do |root|
+      state = create(:region, name: 'NSW', parent: root)
       region = create(:sydney_region, parent: state)
       suburb = create(:sydney_suburb, parent: region)
     end

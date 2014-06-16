@@ -10,7 +10,6 @@ describe 'Service wizard', js: true do
   let!(:variation)    { create :model_variation, model: model, make: make }
   let!(:service_plan) { create :service_plan, make: make, model: model, model_variation: variation }
   let(:another_service_plan) { create :service_plan, make: make, model: model, model_variation: variation }
-  let!(:state)        { create :state, name: 'State' }
   let(:last_service_year) { Date.today.year - 1 }
   let(:note)          { 'A note goes here' }
   let(:repair_note)   { 'Repair note' }
@@ -119,8 +118,6 @@ describe 'Service wizard', js: true do
 
       page.should have_field 'Street address', with: location.address
       page.should have_field 'Suburb', with: location.suburb_name
-      page.should have_field 'Postcode', with: location.postcode
-      page.should have_select 'location_state_id', selected: location.state.name
       page.should have_field 'job_contact_email', with: user.email
       page.should have_field 'job_contact_phone', with: user.mobile_number
       click_on 'Continue'
@@ -314,8 +311,6 @@ describe 'Service wizard', js: true do
   def fill_in_address
     fill_in 'Street address', with: 'Broadway 54, ap. 1'
     autocomplete 'Suburb', 'Syd', 'Sydney, NSW 2012'
-    fill_in 'Postcode', with: '1234'
-    select  state.name, from: 'location_state_id'
     fill_in 'job_contact_email', with: 'email@host.com'
     fill_in 'job_contact_phone', with: '0412345678'
     click_on 'Continue'

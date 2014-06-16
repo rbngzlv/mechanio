@@ -22,8 +22,8 @@ class Mechanics::ProfilesController < Mechanics::ApplicationController
       :first_name, :last_name, :email, :dob, :description,
       :avatar, :mobile_number, :business_name, :abn_number, :abn_expiry,
       :business_website, :business_email, :business_mobile_number, :abn,
-      location_attributes: [:address, :suburb, :postcode, :state_id],
-      business_location_attributes: [:address, :suburb, :postcode, :state_id]
+      location_attributes: [:address, :suburb],
+      business_location_attributes: [:address, :suburb]
     )
   end
 end

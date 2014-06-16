@@ -65,8 +65,6 @@ feature 'Jobs section' do
 
       page.should have_field 'Address',  with: 'Palm beach 55'
       page.should have_field 'Suburb',   with: 'Sydney, NSW 2012'
-      page.should have_field 'Postcode', with: '0200'
-      page.should have_select 'State',   selected: 'Queensland'
 
       page.should have_field 'job_contact_email', with: job.contact_email
       page.should have_field 'job_contact_phone', with: job.contact_phone
@@ -308,7 +306,7 @@ feature 'Jobs section' do
   def verify_job_row(job)
     page.should have_content job.uid
     page.should have_content job.status.capitalize
-    page.should have_content "#{job.location.suburb_name}, #{job.location.postcode}"
+    page.should have_content job.location.suburb_name
     page.should have_content job.title
     page.should have_content job.created_at.to_s(:date)
     page.should have_content job.client_name

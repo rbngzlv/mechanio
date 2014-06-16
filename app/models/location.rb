@@ -1,10 +1,8 @@
 class Location < ActiveRecord::Base
 
-  belongs_to :state
   belongs_to :suburb, -> { suburbs }, class_name: 'Region'
 
-  validates :state, :address, :suburb, :postcode, presence: true, unless: :skip_validation
-  validates :postcode, postcode: true, unless: :postcode_blank?
+  validates :address, :suburb, presence: true, unless: :skip_validation
 
   attr_accessor :skip_geocoding, :skip_validation
 
@@ -50,19 +48,11 @@ class Location < ActiveRecord::Base
     Resque.enqueue(GeocoderWorker, self.id) unless Rails.env.test?
   end
 
-  def state_name
-    state.name
-  end
-
   def suburb_name
     suburb.display_name if suburb.present?
   end
 
   def geocoded?
     longitude && latitude
-  end
-
-  def postcode_blank?
-    postcode.blank?
   end
 end

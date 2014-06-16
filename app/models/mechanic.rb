@@ -31,8 +31,8 @@ class Mechanic < ActiveRecord::Base
   validates :abn_number, format: { with: /\A\d{11}\Z/, message: 'ABN should be 11-digit number' }, allow_blank: true
   validates :driver_license_number, format: { with: /\A\d{8}\Z/, message: "Driver's License Number should be 8-digit number" }, allow_blank: true
 
-  belongs_to :license_state, class_name: 'State'
-  belongs_to :mechanic_license_state, class_name: 'State'
+  belongs_to :license_state, -> { states }, class_name: 'Region'
+  belongs_to :mechanic_license_state, -> { states }, class_name: 'Region'
 
   delegate :geocoded?, to: :location, prefix: true, allow_nil: true
 

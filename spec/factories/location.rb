@@ -1,8 +1,6 @@
 FactoryGirl.define do
   factory :location do
-    state
     address 'Palm beach 55'
-    postcode '0200'
 
     after(:build) do |location|
       location.suburb = build :sydney_suburb

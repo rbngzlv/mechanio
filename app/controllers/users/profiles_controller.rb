@@ -19,7 +19,7 @@ class Users::ProfilesController < Users::ApplicationController
   def permitted_params
     params.require(:user).permit(
       :first_name, :last_name, :email, :dob, :description, :mobile_number, :avatar,
-      { location_attributes: [:address, :suburb, :postcode, :state_id] }
+      { location_attributes: [:address, :suburb] }
     )
   end
 end

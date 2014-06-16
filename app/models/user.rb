@@ -53,7 +53,7 @@ class User < ActiveRecord::Base
     super.tap do |user|
       if session[:tmp_job_id]
         attrs = Job.get_location_from_temporary(session[:tmp_job_id]) || {}
-        attrs = ActionController::Parameters.new(attrs).permit(:address, :suburb_id, :postcode, :state_id)
+        attrs = ActionController::Parameters.new(attrs).permit(:address, :suburb_id)
         user.build_location(attrs)
       end
     end

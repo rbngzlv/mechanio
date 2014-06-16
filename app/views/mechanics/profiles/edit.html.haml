@@ -35,8 +35,6 @@
               = f.simple_fields_for :business_location do |l|
                 = l.input :address, label: 'Business address'
                 = l.input :suburb, input_html: { value: l.object.suburb_name, class: 'suburb-typeahead' }
-                = l.association :state, prompt: '-- Please select --'
-                = l.input :postcode
               = f.input :abn, label: 'ABN certificate', as: :image, wrapper: :bootstrap, input_html: { wrap_class: 'col-md-6 col-sm-6' }, show_file_name: true
 
           %hr.hr-dark-gray

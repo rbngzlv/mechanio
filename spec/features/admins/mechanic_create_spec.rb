@@ -2,8 +2,9 @@ require 'spec_helper'
 
 feature 'adds a new mechanic', :js do
   # FIXME: states should be preloaded form seeds before suite
-  let!(:state)  { create :state, name: 'QLD' }
-  let!(:sydney) { create :sydney_suburb }
+  let!(:root_region) { create :region, name: 'Root' }
+  let!(:nsw)         { create :region, name: 'NSW', parent: root_region }
+  let!(:sydney)      { create :sydney_suburb, parent: nsw }
 
   let(:next_year)  { (Date.today.year + 1).to_s }
   let(:image_path) { "#{Rails.root}/spec/fixtures/test_img.jpg" }
@@ -30,8 +31,6 @@ feature 'adds a new mechanic', :js do
       fill_in 'Mobile number',  with: '0410123456'
       fill_in 'Street Address', with: 'Seashell avenue, 25'
       autocomplete 'Suburb', 'Syd', 'Sydney, NSW 2012'
-      select  'QLD',            from: 'State'
-      fill_in 'Postcode',       with: '2012'
 
       click_on 'Business details'
       fill_in 'Business name', with: 'My company'
@@ -44,13 +43,11 @@ feature 'adds a new mechanic', :js do
       fill_in 'Business phone number', with: '0498765432'
       fill_in 'Business address', with: 'Sunset Blvd. 26'
       autocomplete 'Suburb', 'Syd', 'Sydney, NSW 2012'
-      select  'QLD',              from: 'State'
-      fill_in 'Postcode',         with: '2000'
       attach_file 'mechanic_abn', image_path
 
       click_on "Driver's License"
       fill_in 'License number', with: '12345678'
-      select  'QLD',        from: 'Registered state'
+      select  'NSW',        from: 'Registered state'
       select  next_year,    from: 'mechanic_license_expiry_1i'
       select  'September',  from: 'mechanic_license_expiry_2i'
       select  '1',          from: 'mechanic_license_expiry_3i'
@@ -58,7 +55,7 @@ feature 'adds a new mechanic', :js do
 
       click_on "Motor Mechanic's License"
       fill_in 'License number', with: 'MXF12388736423887364'
-      select  'QLD',        from: 'Registered state'
+      select  'NSW',        from: 'Registered state'
       select  next_year,    from: 'mechanic_mechanic_license_expiry_1i'
       select  'September',  from: 'mechanic_mechanic_license_expiry_2i'
       select  '1',          from: 'mechanic_mechanic_license_expiry_3i'
@@ -88,8 +85,6 @@ feature 'adds a new mechanic', :js do
     page.should have_field  'Mobile number',  with: '0410123456'
     page.should have_field  'Street Address', with: 'Seashell avenue, 25'
     page.should have_field  'Suburb',         with: 'Sydney, NSW 2012'
-    page.should have_select 'mechanic_location_attributes_state_id', selected: 'QLD'
-    page.should have_field  'Postcode',       with: '2012'
 
     click_on 'Business details'
     page.should have_field  'Business name', with: 'My company'
@@ -102,13 +97,11 @@ feature 'adds a new mechanic', :js do
     page.should have_field  'Business phone number', with: '0498765432'
     page.should have_field  'Business address',      with: 'Sunset Blvd. 26'
     page.should have_field  'Suburb',                with: 'Sydney, NSW 2012'
-    page.should have_select 'mechanic_business_location_attributes_state_id', selected: 'QLD'
-    page.should have_field  'Postcode',              with: '2000'
     page.should have_selector 'img + div', text: 'test_img.jpg'
 
     click_on "Driver's License"
     page.should have_field  'License number', with: '12345678'
-    page.should have_select 'mechanic_license_state_id',  selected: 'QLD'
+    page.should have_select 'mechanic_license_state_id',  selected: 'NSW'
     page.should have_field  'mechanic_license_expiry_1i', with: next_year
     page.should have_select 'mechanic_license_expiry_2i', selected: 'September'
     page.should have_field  'mechanic_license_expiry_3i', with: '1'
@@ -116,7 +109,7 @@ feature 'adds a new mechanic', :js do
 
     click_on "Motor Mechanic's License"
     page.should have_field  'License number', with: 'MXF12388736423887364'
-    page.should have_select 'mechanic_mechanic_license_state_id',  selected: 'QLD'
+    page.should have_select 'mechanic_mechanic_license_state_id',  selected: 'NSW'
     page.should have_field  'mechanic_mechanic_license_expiry_1i', with: next_year
     page.should have_select 'mechanic_mechanic_license_expiry_2i', selected: 'September'
     page.should have_field  'mechanic_mechanic_license_expiry_3i', with: '1'

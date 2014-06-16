@@ -34,9 +34,9 @@ describe Job do
   context 'scopes' do
     let(:estimated_job)  { create :job, :with_service, :estimated }
     let(:assigned_job)   { create :job, :with_service, :assigned  }
-    let(:completed_job)  { create :job, :with_service, :completed }
-    let(:rated_job)      { create :job, :with_service, :completed, :rated, scheduled_at: Time.now.advance(hours: 1) }
-    let(:paid_job)       { create :job, :with_service, :completed, :with_payout, scheduled_at: Time.now.advance(hours: 2) }
+    let(:completed_job)  { create :job, :with_service, :completed, scheduled_at: Time.now }
+    let(:rated_job)      { create :job, :with_service, :completed, :rated, scheduled_at: Time.now.advance(days: 1) }
+    let(:paid_job)       { create :job, :with_service, :completed, :with_payout, scheduled_at: Time.now.advance(days: 2) }
 
     before do
       estimated_job
@@ -54,7 +54,7 @@ describe Job do
     end
 
     specify '#completed' do
-      Job.completed.should eq [completed_job, paid_job, rated_job]
+      Job.completed.should eq [paid_job, rated_job, completed_job]
     end
 
     specify '#unrated' do

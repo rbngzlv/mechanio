@@ -6,9 +6,10 @@ feature 'mechanic edit profile page' do
   let(:image_path) { "#{Rails.root}/spec/fixtures/test_img.jpg" }
 
   # FIXME: states/regions should be preloaded form seeds before suite
-  let!(:state)  { create :state, name: 'QLD' }
-  let!(:sydney) { create :sydney_suburb }
-  let!(:hill)   { create :hill_suburb }
+  let!(:root_region)  { create :region, name: 'Root' }
+  let!(:state)        { create :region, name: 'NSW', parent: root_region }
+  let!(:sydney)       { create :sydney_suburb, parent: state }
+  let!(:hill)         { create :hill_suburb, parent: state }
 
   subject { page }
 
@@ -32,8 +33,6 @@ feature 'mechanic edit profile page' do
       fill_in 'Mobile number',  with: '0410123456'
       fill_in 'Street Address', with: 'Seashell avenue, 25'
       autocomplete 'Suburb', 'the hil', 'The Hill, NSW 2300'
-      select  'QLD',            from: 'State'
-      fill_in 'Postcode',       with: '2012'
 
       click_on 'Business details'
       fill_in 'Business name', with: 'My company'
@@ -46,8 +45,6 @@ feature 'mechanic edit profile page' do
       fill_in 'Business phone number', with: '0498765432'
       fill_in 'Business address', with: 'Sunset Blvd. 26'
       autocomplete 'Suburb', 'the hill', 'The Hill, NSW 2300'
-      select  'QLD',              from: 'State'
-      fill_in 'Postcode',         with: '2000'
       attach_file 'mechanic_abn', image_path
 
       click_button 'Save'
@@ -67,8 +64,6 @@ feature 'mechanic edit profile page' do
       page.should have_field  'Mobile number',  with: '0410123456'
       page.should have_field  'Street Address', with: 'Seashell avenue, 25'
       page.should have_field  'Suburb',         with: 'The Hill, NSW 2300'
-      page.should have_select 'mechanic_location_attributes_state_id', selected: 'QLD'
-      page.should have_field  'Postcode',       with: '2012'
 
       click_on 'Business details'
       page.should have_field  'Business name', with: 'My company'
@@ -81,8 +76,6 @@ feature 'mechanic edit profile page' do
       page.should have_field  'Business phone number', with: '0498765432'
       page.should have_field  'Business address',      with: 'Sunset Blvd. 26'
       page.should have_field  'Suburb',                with: 'The Hill, NSW 2300'
-      page.should have_select 'mechanic_business_location_attributes_state_id', selected: 'QLD'
-      page.should have_field  'Postcode',              with: '2000'
       page.should have_selector 'img + div', text: 'test_img.jpg'
     end
 

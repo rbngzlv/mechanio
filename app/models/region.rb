@@ -3,6 +3,7 @@ class Region < ActiveRecord::Base
   has_ancestry cache_depth: true
 
   default_scope      { order(:name) }
+  scope :states,  -> { at_depth(1) }
   scope :suburbs, -> { where.not(postcode: nil) }
 
   def self.arrange_serializable(nodes = arrange)

@@ -51,15 +51,10 @@ class Users::JobsController < Users::ApplicationController
       @job = Jobs::Convert.new.call(job_id, current_user) if job_id
     end
 
-    @location_json = location.to_json(only: [:id, :address, :postcode, :state_id, :city, :suburb_id], include: {
+    @location_json = location.to_json(only: [:id, :address, :city, :suburb_id], include: {
       suburb: { only: [:id, :display_name] }
     })
 
     render 'wizard'
   end
-
-  def states_json
-    State.select([:id, :name]).to_json
-  end
-  helper_method :states_json
 end
