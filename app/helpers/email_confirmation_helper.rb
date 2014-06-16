@@ -1,7 +1,8 @@
 module EmailConfirmationHelper
   def show_email_confirmation_alert?
-    controllers = %w(dashboard cars appointments estimates profiles settings).map { |c| "users/#{c}"}
+    controllers = %w(dashboard cars appointments estimates profiles settings).map { |c| "users/#{c}" }
     show = controllers.include?(params[:controller])
+    show = false if params[:controller] == 'users/appointments' && params[:action] != 'index'
     show = show && current_user && !current_user.confirmed?
   end
 
