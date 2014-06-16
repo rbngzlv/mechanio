@@ -73,14 +73,14 @@
   }
 
   .step-car-details {
-    .car_last_service_date {
+    .date.car_last_service_date {
       padding-left: 10px;
 
-      input {
-        width: 60px;
-      }
-      select {
+      select:nth-child(1) {
         width: 100px;
+      }
+      select:nth-child(2) {
+        width: 80px;
       }
     }
     .car_last_service_kms input {
