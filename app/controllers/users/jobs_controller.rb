@@ -34,7 +34,7 @@ class Users::JobsController < Users::ApplicationController
     @job = Job.new
     @user_id = false
     @cars = []
-    @location = @job.build_location
+    location = @job.build_location
     @contact = {}
     @symptoms = Symptom.json_tree
 
@@ -44,12 +44,16 @@ class Users::JobsController < Users::ApplicationController
     if user_signed_in?
       @user_id = current_user.id
       @cars = current_user.cars.select([:id, :display_title, :model_variation_id]).to_json
-      @location = current_user.location
+      location = current_user.location
       @contact = { contact_email: current_user.email, contact_phone: current_user.mobile_number }
 
       job_id = session.delete(:tmp_job_id)
       @job = Jobs::Convert.new.call(job_id, current_user) if job_id
     end
+
+    @location_json = location.to_json(only: [:id, :address, :postcode, :state_id, :city, :suburb_id], include: {
+      suburb: { only: [:id, :name] }
+    })
 
     render 'wizard'
   end

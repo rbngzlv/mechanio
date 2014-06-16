@@ -4,7 +4,11 @@ feature 'mechanic edit profile page' do
   let(:mechanic) { create :mechanic, first_name: 'Bob' }
   let(:next_year)  { (Date.today.year + 1).to_s }
   let(:image_path) { "#{Rails.root}/spec/fixtures/test_img.jpg" }
-  let!(:state) { create :state, name: 'QLD' } # FIXME: states should be preloaded form seeds before suite
+
+  # FIXME: states/regions should be preloaded form seeds before suite
+  let!(:state)  { create :state, name: 'QLD' }
+  let!(:sydney) { create :sydney_suburb }
+  let!(:hill)   { create :hill_suburb }
 
   subject { page }
 
@@ -27,7 +31,7 @@ feature 'mechanic edit profile page' do
       click_on 'Contact details'
       fill_in 'Mobile number',  with: '0410123456'
       fill_in 'Street Address', with: 'Seashell avenue, 25'
-      fill_in 'Suburb',         with: 'Somewhere'
+      fill_in 'Suburb',         with: 'The Hill'
       select  'QLD',            from: 'State'
       fill_in 'Postcode',       with: '2012'
 
@@ -41,7 +45,7 @@ feature 'mechanic edit profile page' do
       fill_in 'Business email',   with: 'email@company.com'
       fill_in 'Business phone number', with: '0498765432'
       fill_in 'Business address', with: 'Sunset Blvd. 26'
-      fill_in 'Suburb',           with: 'Sydney'
+      fill_in 'Suburb',           with: 'The Hill'
       select  'QLD',              from: 'State'
       fill_in 'Postcode',         with: '2000'
       attach_file 'mechanic_abn', image_path
@@ -62,7 +66,7 @@ feature 'mechanic edit profile page' do
       click_on 'Contact details'
       page.should have_field  'Mobile number',  with: '0410123456'
       page.should have_field  'Street Address', with: 'Seashell avenue, 25'
-      page.should have_field  'Suburb',         with: 'Somewhere'
+      page.should have_field  'Suburb',         with: 'The Hill'
       page.should have_select 'mechanic_location_attributes_state_id', selected: 'QLD'
       page.should have_field  'Postcode',       with: '2012'
 
@@ -76,7 +80,7 @@ feature 'mechanic edit profile page' do
       page.should have_field  'Business email',        with: 'email@company.com'
       page.should have_field  'Business phone number', with: '0498765432'
       page.should have_field  'Business address',      with: 'Sunset Blvd. 26'
-      page.should have_field  'Suburb',                with: 'Sydney'
+      page.should have_field  'Suburb',                with: 'The Hill'
       page.should have_select 'mechanic_business_location_attributes_state_id', selected: 'QLD'
       page.should have_field  'Postcode',              with: '2000'
       page.should have_selector 'img + div', text: 'test_img.jpg'

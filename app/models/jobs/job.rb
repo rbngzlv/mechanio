@@ -134,13 +134,13 @@ class Job < ActiveRecord::Base
       super(only: [:id, :scheduled_at, :title], include: {
         user: { only: [], methods: [:full_name] },
         car: { only: [:display_title] },
-        location: { only: [:address, :suburb, :postcode], methods: [:state_name] }
+        location: { only: [:address, :postcode], methods: [:state_name, :suburb_name] }
       })
     else
       super(only: [:id, :discount_amount, :final_cost, :contact_phone], include: {
         user: { only: [], methods: [:full_name, :avatar_thumb] },
         car: { only: [:display_title, :vin, :reg_number] },
-        location: { only: [:address, :suburb, :postcode], methods: [:state_name] },
+        location: { only: [:address, :postcode], methods: [:state_name, :suburb_name] },
         tasks: { only: [:id, :title, :note, :type, :cost, :service_plan_id], include: {
           task_items: { only: [:id, :itemable_id, :itemable_type], include: {
             itemable: { only: [:id, :description, :cost, :hourly_rate, :duration_hours, :duration_minutes, :name, :quantity, :unit_cost] }

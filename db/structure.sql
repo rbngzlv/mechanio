@@ -464,14 +464,14 @@ ALTER SEQUENCE labours_id_seq OWNED BY labours.id;
 CREATE TABLE locations (
     id integer NOT NULL,
     address character varying(255),
-    suburb character varying(255),
     postcode character varying(255),
     state_id integer,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     latitude numeric(12,8),
     longitude numeric(12,8),
-    city character varying(255)
+    city character varying(255),
+    suburb_id integer
 );
 
 
@@ -1679,6 +1679,13 @@ CREATE INDEX index_jobs_on_user_id ON jobs USING btree (user_id);
 
 
 --
+-- Name: index_locations_on_suburb_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_locations_on_suburb_id ON locations USING btree (suburb_id);
+
+
+--
 -- Name: index_mechanic_regions_on_mechanic_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -2086,3 +2093,5 @@ INSERT INTO schema_migrations (version) VALUES ('20140521205442');
 INSERT INTO schema_migrations (version) VALUES ('20140603090552');
 
 INSERT INTO schema_migrations (version) VALUES ('20140605065806');
+
+INSERT INTO schema_migrations (version) VALUES ('20140612152124');

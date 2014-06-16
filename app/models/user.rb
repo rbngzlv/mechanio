@@ -47,11 +47,13 @@ class User < ActiveRecord::Base
     jobs.unrated
   end
 
+  # When a new user signs up while ordering a repair/service, the location he entered in the wizard is saved to his profile.
+  # This code should belong to some service class instead of the magick Devise callback.
   def self.new_with_session(params, session)
     super.tap do |user|
       if session[:tmp_job_id]
         attrs = Job.get_location_from_temporary(session[:tmp_job_id]) || {}
-        attrs = ActionController::Parameters.new(attrs).permit(:address, :suburb, :postcode, :state_id)
+        attrs = ActionController::Parameters.new(attrs).permit(:address, :suburb_id, :postcode, :state_id)
         user.build_location(attrs)
       end
     end

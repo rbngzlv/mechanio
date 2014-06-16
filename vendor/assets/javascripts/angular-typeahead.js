@@ -12,7 +12,7 @@ angular.module('siyfion.sfTypeahead', [])
             datasets = (angular.isArray(scope.datasets) ? scope.datasets : [scope.datasets]) || []; // normalize to array
 
         // Create the typeahead on the element
-        element.typeahead(scope.options, scope.datasets);
+        element.typeahead(options, datasets);
 
         // Parses and validates what is going to be set to model (called when: ngModel.$setViewValue(value))
         ngModel.$parsers.push(function (fromView) {

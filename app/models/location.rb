@@ -1,6 +1,7 @@
 class Location < ActiveRecord::Base
 
   belongs_to :state
+  belongs_to :suburb, -> { suburbs }, class_name: 'Region'
 
   validates :state, :address, :suburb, :postcode, presence: true, unless: :skip_validation
   validates :postcode, postcode: true, unless: :postcode_blank?
@@ -23,12 +24,26 @@ class Location < ActiveRecord::Base
     } % [longitude, latitude])
   }
 
+  def suburb=(value)
+    if value.present? && value.is_a?(String)
+      if suburb = find_suburb(value)
+        super(suburb)
+      end
+    elsif value.is_a?(Region) || value.nil?
+      super(value)
+    end
+  end
+
+  def find_suburb(name)
+    Region.suburbs.find_by_name(name)
+  end
+
   def full_address
-    "#{address}, #{suburb} #{state_name}, #{postcode}"
+    "#{address}, #{suburb_name} #{state_name}, #{postcode}"
   end
 
   def geocoding_address
-    "#{address}, #{suburb} #{postcode}, Australia"
+    "#{address}, #{suburb_name} #{postcode}, Australia"
   end
 
   def get_coordinates
@@ -37,6 +52,10 @@ class Location < ActiveRecord::Base
 
   def state_name
     state.name
+  end
+
+  def suburb_name
+    suburb.name if suburb.present?
   end
 
   def geocoded?

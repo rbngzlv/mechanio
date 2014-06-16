@@ -65,4 +65,23 @@ describe AjaxController do
       }].to_json
     end
   end
+
+  context '#GET suburbs' do
+    let!(:region) { create :sydney_region }
+    let!(:suburb) { create :sydney_suburb }
+
+    it 'with empty params' do
+      get :suburbs, format: :json
+
+      response.should be_success
+      response.body.should eq '[]'
+    end
+
+    it 'by partial suburb name' do
+      get :suburbs, format: :json, name: 'Syd'
+
+      response.should be_success
+      response.body.should eq [suburb.as_json(only: [:id, :name])].to_json
+    end
+  end
 end

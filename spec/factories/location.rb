@@ -2,8 +2,11 @@ FactoryGirl.define do
   factory :location do
     state
     address 'Palm beach 55'
-    suburb 'Abbotsbury'
     postcode '0200'
+
+    after(:build) do |location|
+      location.suburb = build :sydney_suburb
+    end
 
     trait :with_type do
       location_type 'location'

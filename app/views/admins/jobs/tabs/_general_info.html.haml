@@ -25,7 +25,7 @@
         %hr
         = j.simple_fields_for :location, wrapper: :horiz_8 do |l|
           = l.input :address
-          = l.input :suburb
+          = l.input :suburb, input_html: { value: l.object.suburb_name, class: 'suburb-typeahead' }
           = l.input :postcode
           = l.association :state
 

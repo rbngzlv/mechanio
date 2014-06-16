@@ -22,9 +22,9 @@ resource 'Job' do
         },
         location: {
           address: "Palm beach 55",
-          suburb: "Abbotsbury",
           postcode: "0200",
-          state_name: "Queensland"
+          state_name: "Queensland",
+          suburb_name: "Sydney"
         }
       }].to_json
     end
@@ -50,9 +50,9 @@ resource 'Job' do
         },
         location: {
           address: "Palm beach 55",
-          suburb: "Abbotsbury",
           postcode: "0200",
-          state_name: "Queensland"
+          state_name: "Queensland",
+          suburb_name: "Sydney"
         },
         tasks: [{
           id: job.tasks.first.id,

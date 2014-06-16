@@ -5,6 +5,7 @@ feature 'user profile' do
   let(:auth)    { create :authentication, :gmail }
   let(:job)     { create :job, :completed, :with_service }
   let(:rating)  { create :rating, job: job, user: user, mechanic: job.mechanic }
+  let!(:suburb) { create :sydney_suburb }
 
   before do
     login_user user
@@ -44,22 +45,36 @@ feature 'user profile' do
   context 'edit' do
     before { visit edit_users_profile_path }
 
-    context 'success' do
-      scenario 'upload avatar' do
-        attach_file('user_avatar', "#{Rails.root}/spec/fixtures/test_img.jpg")
-        fill_in 'Personal description', with: (description = 'my description')
-        fill_in 'Address', with: 'address 123'
-        click_button 'Save'
+    scenario 'edit location information with suburb autocomplete', :js do
+      fill_in 'Address', with: 'address 123'
+      fill_in 'Suburb', with: 'Sydney'
+      # find('.tt-dropdown-menu p', text: 'Sydney').click
 
-        page.should have_content 'Your profile successfully updated.'
-        page.find('.user_avatar img')['src'].should match /thumb_test_img.jpg/
+      click_button 'Save'
 
-        page.should have_field 'Address', with: 'address 123'
+      page.should have_content 'Your profile successfully updated.'
+      page.should have_field 'Address', with: 'address 123'
+      page.should have_field 'Suburb', with: 'Sydney'
+    end
 
-        within('.wrap > .container') { click_link 'Dashboard' }
-        page.should have_content description
-        page.find('img.avatar')['src'].should match /thumb_test_img.jpg/
-      end
+    scenario 'unexisting suburb is ignored', :js do
+      fill_in 'Suburb', with: 'Unexisting'
+
+      click_button 'Save'
+
+      page.should have_content 'Your profile successfully updated.'
+      page.should have_field 'Suburb', with: ''
+    end
+
+    scenario 'upload avatar' do
+      attach_file('user_avatar', "#{Rails.root}/spec/fixtures/test_img.jpg")
+      click_button 'Save'
+
+      page.should have_content 'Your profile successfully updated.'
+      page.find('.user_avatar img')['src'].should match /thumb_test_img.jpg/
+
+      within('.wrap > .container') { click_link 'Dashboard' }
+      page.find('img.avatar')['src'].should match /thumb_test_img.jpg/
     end
 
     scenario 'fail' do

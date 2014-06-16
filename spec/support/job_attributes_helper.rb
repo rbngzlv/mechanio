@@ -40,7 +40,7 @@ module JobAttributesHelper
   end
 
   def location_attributes
-    attributes_for(:location, state_id: create(:state).id)
+    attributes_for(:location, state_id: create(:state).id, suburb_id: create(:sydney_suburb).id)
   end
 
   def service_attributes

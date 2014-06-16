@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe UsersJobReceipt do
 
-  let(:job) { build_stubbed :job, :with_service, :completed }
+  let(:job) { build :job, :with_service, :completed }
 
   subject { UsersJobReceipt.new(job) }
 

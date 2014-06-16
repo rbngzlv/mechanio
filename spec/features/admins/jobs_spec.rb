@@ -51,7 +51,7 @@ feature 'Jobs section' do
     let(:mechanic)      { create :mechanic, payout_method: payout_method }
     let(:receipt_path)  { "#{Rails.root}/spec/fixtures/test_img.jpg" }
 
-    scenario 'general info tab' do
+    scenario 'general info tab', :js do
       visit edit_admins_job_path(job)
 
       page.should have_css 'li.active a', text: 'General info'
@@ -62,6 +62,11 @@ feature 'Jobs section' do
       page.should have_content job.mechanic.full_name
       page.should have_content job.car.display_title
       page.should have_content'Last service: 10000 Km'
+
+      page.should have_field 'Address',  with: 'Palm beach 55'
+      page.should have_field 'Suburb',   with: 'Sydney'
+      page.should have_field 'Postcode', with: '0200'
+      page.should have_select 'State',   selected: 'Queensland'
 
       page.should have_field 'job_contact_email', with: job.contact_email
       page.should have_field 'job_contact_phone', with: job.contact_phone
@@ -303,7 +308,7 @@ feature 'Jobs section' do
   def verify_job_row(job)
     page.should have_content job.uid
     page.should have_content job.status.capitalize
-    page.should have_content "#{job.location.suburb}, #{job.location.postcode}"
+    page.should have_content "#{job.location.suburb_name}, #{job.location.postcode}"
     page.should have_content job.title
     page.should have_content job.created_at.to_s(:date)
     page.should have_content job.client_name

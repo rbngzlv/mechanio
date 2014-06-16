@@ -20,6 +20,7 @@ app.controller 'ContactController', ['$scope', ($scope) ->
   $scope.submit = ->
     $scope.data.job = angular.copy($scope.job)
     $scope.data.location = angular.copy($scope.location)
+    $scope.data.location.suburb_id = $scope.location.suburb.id
     $scope.data.location.state_id = $scope.state.id
     $scope.data.location.state_name = $scope.state.name
 
@@ -45,7 +46,6 @@ app.controller 'ContactController', ['$scope', ($scope) ->
 
   datasource = new Bloodhound(
     datumTokenizer: (d) ->
-      console.log d
       Bloodhound.tokenizers.whitespace(d.name)
     queryTokenizer: Bloodhound.tokenizers.whitespace,
     remote: '/ajax/suburbs?name=%QUERY'

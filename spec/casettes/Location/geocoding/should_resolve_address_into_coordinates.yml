@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: http://maps.googleapis.com/maps/api/geocode/json?address=35%20Stirling%20Highway,%20Crawley%206009,%20Australia&language=en&sensor=false
+    uri: http://maps.googleapis.com/maps/api/geocode/json?address=35%20Stirling%20Highway,%20Sydney%206009,%20Australia&language=en&sensor=false
     body:
       encoding: US-ASCII
       string: ''

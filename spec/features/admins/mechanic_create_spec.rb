@@ -1,7 +1,10 @@
 require 'spec_helper'
 
 feature 'adds a new mechanic', :js do
-  let!(:state) { create :state, name: 'QLD' } # FIXME: states should be preloaded form seeds before suite
+  # FIXME: states should be preloaded form seeds before suite
+  let!(:state)  { create :state, name: 'QLD' }
+  let!(:sydney) { create :sydney_suburb }
+
   let(:next_year)  { (Date.today.year + 1).to_s }
   let(:image_path) { "#{Rails.root}/spec/fixtures/test_img.jpg" }
 
@@ -26,7 +29,7 @@ feature 'adds a new mechanic', :js do
       click_on 'Contact details'
       fill_in 'Mobile number',  with: '0410123456'
       fill_in 'Street Address', with: 'Seashell avenue, 25'
-      fill_in 'Suburb',         with: 'Somewhere'
+      fill_in 'Suburb',         with: 'Sydney'
       select  'QLD',            from: 'State'
       fill_in 'Postcode',       with: '2012'
 
@@ -84,7 +87,7 @@ feature 'adds a new mechanic', :js do
     click_on 'Contact details'
     page.should have_field  'Mobile number',  with: '0410123456'
     page.should have_field  'Street Address', with: 'Seashell avenue, 25'
-    page.should have_field  'Suburb',         with: 'Somewhere'
+    page.should have_field  'Suburb',         with: 'Sydney'
     page.should have_select 'mechanic_location_attributes_state_id', selected: 'QLD'
     page.should have_field  'Postcode',       with: '2012'
 

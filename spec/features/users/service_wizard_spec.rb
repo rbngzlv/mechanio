@@ -19,6 +19,7 @@ describe 'Service wizard', js: true do
   before do
     reset_mail_deliveries
     create :symptom_tree
+    create :sydney_suburb
   end
 
   context 'logged out' do
@@ -117,7 +118,7 @@ describe 'Service wizard', js: true do
       verify_sidebar 3, 'CAR SERVICING', service_plan.display_title
 
       page.should have_field 'Street address', with: location.address
-      page.should have_field 'Suburb', with: location.suburb
+      page.should have_field 'Suburb', with: location.suburb_name
       page.should have_field 'Postcode', with: location.postcode
       page.should have_select 'location_state_id', selected: location.state.name
       page.should have_field 'job_contact_email', with: user.email
@@ -312,7 +313,9 @@ describe 'Service wizard', js: true do
 
   def fill_in_address
     fill_in 'Street address', with: 'Broadway 54, ap. 1'
-    fill_in 'Suburb', with: 'Suburb'
+    page.execute_script "$('input.sfTypeahead').unbind('blur')"
+    fill_in 'Suburb', with: 'Syd'
+    find('.tt-dropdown-menu p', text: 'Sydney').click
     fill_in 'Postcode', with: '1234'
     select  state.name, from: 'location_state_id'
     fill_in 'job_contact_email', with: 'email@host.com'
@@ -376,7 +379,7 @@ describe 'Service wizard', js: true do
   end
 
   def verify_sidebar(position, title, content)
-    within_sidebar_block(position) do
+    within ".wizard-sidebar .panel:nth-of-type(#{position})" do
       page.should have_css 'h5', text: title
       page.should have_css '.panel-body', text: content
     end
@@ -384,12 +387,6 @@ describe 'Service wizard', js: true do
 
   def within_task(position, &block)
     within ".tasks .task:nth-child(#{position})" do
-      yield
-    end
-  end
-
-  def within_sidebar_block(position, &block)
-    within ".wizard-sidebar .panel:nth-of-type(#{position})" do
       yield
     end
   end

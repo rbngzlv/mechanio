@@ -53,6 +53,25 @@ feature 'new appointment', :js do
     emails_sent? true
   end
 
+  scenario 'job details are shown in sidebar' do
+    visit edit_users_appointment_path(job)
+
+    within '.sidebar .panel:nth-of-type(1)' do
+      page.should have_css 'h5', text: 'VEHICLE'
+      page.should have_css '.panel-body', text: job.car.display_title
+    end
+
+    within '.sidebar .panel:nth-of-type(2)' do
+      page.should have_css 'h5', text: 'CAR SERVICING'
+      page.should have_css '.panel-body', text: job.title
+    end
+
+    within '.sidebar .panel:nth-of-type(3)' do
+      page.should have_css 'h5', text: 'LOCATION'
+      page.should have_css '.panel-body', text: 'Palm beach 55 Sydney Queensland, 1234'
+    end
+  end
+
   scenario 'calendar navigation' do
     mechanic
     mechanic2 = create :mechanic, mechanic_regions: [create(:mechanic_region, postcode: '1234')]

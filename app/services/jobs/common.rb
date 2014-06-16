@@ -7,7 +7,7 @@ module Jobs
       params = ActionController::Parameters.new(params) unless params.is_a?(ActionController::Parameters)
       params.require(:job).permit(
         :car_id, :contact_email, :contact_phone,
-        location_attributes:  [:address, :suburb, :postcode, :state_id],
+        location_attributes:  [:address, :suburb_id, :postcode, :state_id],
         car_attributes:       [:id, :year, :model_variation_id, :last_service_kms, :last_service_date],
         tasks_attributes:     [:id, :type, :service_plan_id, :note, :title, :description, :_destroy,
           task_items_attributes: [:id, :itemable_type, :_destroy,

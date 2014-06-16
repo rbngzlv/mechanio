@@ -65,7 +65,7 @@ module ApplicationHelper
   end
 
   def suburb_with_postcode(location)
-    "#{location.suburb}, #{location.postcode}"
+    "#{location.suburb_name}, #{location.postcode}"
   end
 
   def social_icon(provider)

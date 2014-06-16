@@ -16,7 +16,7 @@
 //= require typeahead
 //= require bloodhound
 //= require fullcalendar
-//= require angular.min
+//= require angular
 //= require angular-animate
 //= require angular-strap
 //= require angular-typeahead
