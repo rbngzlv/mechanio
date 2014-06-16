@@ -33,8 +33,11 @@
       .modal-body
         - Authentication::PROVIDERS.each_key do |provider|
           %p.text-center= social_connect_button provider
-        %p
-          Sign up with Mechanio to book reliable mobile mechanics to service your car from your home or office.
+        .fb-facepile{ 'data-app-id' => ENV['FACEBOOK_APP_ID'], 'data-href' => 'https://mechanio.com', 'data-width' => '500', 'data-max-rows' => '1', 'data-colorscheme' => 'light', 'data-size' => 'medium', 'data-show-count' => 'true' }
+        %p.text-center
+          Sign up with Mechanio to book reliable mobile mechanics to service
+          %br
+          your car from your home or office.
         %p.text-center
           %span.small We never post without permission (we hate that tool)
           %br
