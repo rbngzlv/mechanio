@@ -49,4 +49,7 @@ app.controller 'ContactController', ['$scope', ($scope) ->
     displayKey: 'display_name',
     source: datasource.ttAdapter()
   }
+
+  $scope.$on 'typeahead:closed', (e) ->
+    $scope.location.suburb = '' unless typeof $scope.location.suburb == 'object'
 ]

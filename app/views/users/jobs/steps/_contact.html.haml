@@ -18,7 +18,7 @@
             .form-group.col-md-9{ 'ng-class' => "inputClass(contact_form['location[suburb]'])" }
               = l.input :suburb, wrapper: false, input_html: { 'ng-model' => 'location.suburb', 'required' => true, 'ng-focus' => true, options: 'completeOptions', datasets: 'completeDatasets', class: 'sfTypeahead' }
               %span.help-block{ 'ng-show' => "inputInvalid(contact_form['location[suburb]'])" }
-                suburb invalid
+                please select a suburb from the list
 
           %h5 TELL US WHERE WE CAN SEND YOU THE QUOTE
           %hr.hr-dark-gray
