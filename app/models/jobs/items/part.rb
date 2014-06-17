@@ -11,4 +11,8 @@ class Part < ActiveRecord::Base
   def set_cost
     self.cost = unit_cost * quantity
   end
+
+  def data
+    [name, quantity, cost]
+  end
 end

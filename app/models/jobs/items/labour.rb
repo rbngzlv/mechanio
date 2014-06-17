@@ -38,4 +38,8 @@ class Labour < ActiveRecord::Base
   def set_cost
     self.cost = duration * hourly_rate / 60
   end
+
+  def data
+    ['Labour', display_duration, cost]
+  end
 end

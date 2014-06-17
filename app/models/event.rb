@@ -25,10 +25,8 @@ class Event < ActiveRecord::Base
     job.present?
   end
 
-  private
-
   def time_range
-    time_start ? "#{time_start.strftime('%H:%M')} - #{time_end.strftime('%H:%M')}" : "all day"
+    time_start ? "#{time_start.to_s(:time)} - #{time_end.to_s(:time)}" : "all day"
   end
 
   def date_start_short

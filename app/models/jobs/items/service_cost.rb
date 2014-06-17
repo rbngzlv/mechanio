@@ -15,4 +15,8 @@ class ServiceCost < ActiveRecord::Base
   def set_cost
     self.cost = service_plan.cost
   end
+
+  def data
+    ['Service cost', '', cost]
+  end
 end

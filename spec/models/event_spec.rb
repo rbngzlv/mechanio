@@ -50,7 +50,7 @@ describe Event do
     specify do
       event = build_stubbed(:event, date_start: date, time_start: date + 10.hours, time_end: date + 12.hours, recurrence: :weekly)
       event.set_title
-      event.title.should eq "weekly from 5 Nov, 10:00 - 12:00"
+      event.title.should eq "weekly from 5 Nov, 10:00AM - 12:00PM"
     end
 
     specify do
@@ -62,7 +62,7 @@ describe Event do
     specify do
       event = build_stubbed(:event, date_start: date, time_start: date + 10.hours, time_end: date + 12.hours)
       event.set_title
-      event.title.should eq "10:00 - 12:00"
+      event.title.should eq "10:00AM - 12:00PM"
     end
   end
 end

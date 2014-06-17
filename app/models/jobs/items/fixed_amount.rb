@@ -7,4 +7,8 @@ class FixedAmount < ActiveRecord::Base
 
   def set_cost
   end
+
+  def data
+    [description, '', cost]
+  end
 end
