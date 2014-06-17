@@ -95,7 +95,7 @@
             .form-group
               %label Credit Card Number
               %input.col-md-12.form-control{type: 'text', autocomplete: 'off', 'data-encrypted-name' => 'credit_card[number]'}
-              %span.help-block.hide Card number name is invalid
+              %span.help-block.hide Credit card number is invalid
             .form-group.month-year
               %label Expiration Date
               = select_tag nil, options_for_select(1..12), class: 'form-control', 'data-encrypted-name' => 'credit_card[expiration_month]'
