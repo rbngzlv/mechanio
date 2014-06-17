@@ -123,6 +123,7 @@ feature 'Mechanic schedule' do
     def set_for_today(*time_slots)
       time_slots.each { |time_slot| check time_slot}
       click_button 'Set'
+      sleep 1
     end
 
     def set_recurrence_and_range_for_today(recurrence, *time_slots)
