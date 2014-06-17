@@ -1,6 +1,6 @@
 class Job < ActiveRecord::Base
 
-  STATUSES = %w(pending estimated assigned completed)
+  STATUSES = %w(pending estimated assigned completed cancelled)
 
   belongs_to :user
   belongs_to :car
@@ -49,6 +49,9 @@ class Job < ActiveRecord::Base
     end
     state :completed do
       # validates :transaction_id, presence: true
+    end
+    event :cancel do
+      transition any => :cancelled
     end
   end
 
@@ -126,7 +129,7 @@ class Job < ActiveRecord::Base
   end
 
   def can_be_completed?
-    completed_at.nil? && scheduled_at.present? && scheduled_at < Time.now
+    !cancelled? && completed_at.nil? && scheduled_at.present? && scheduled_at < Time.now
   end
 
   def as_json(options = {})

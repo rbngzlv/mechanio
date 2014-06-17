@@ -89,7 +89,12 @@ Mechanio::Application.routes.draw do
       end
     end
 
-    resources :jobs, only: [:index, :edit, :update, :destroy]
+    resources :jobs, only: [:index, :edit, :update, :destroy] do
+      member do
+        get :cancel
+        get :complete
+      end
+    end
     resources :appointments, only: [:edit, :update]
     resources :payouts, only: [:create, :update] do
       get :receipt, on: :member

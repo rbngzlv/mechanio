@@ -1,7 +1,7 @@
 class Admins::JobsController < Admins::ApplicationController
   include AdminHelper
 
-  before_filter :find_job, only: [:edit, :update, :destroy]
+  before_filter :find_job, only: [:edit, :update, :cancel, :complete, :destroy]
 
   def index
     @status = params[:status]
@@ -15,7 +15,7 @@ class Admins::JobsController < Admins::ApplicationController
   end
 
   def update
-    if update_service.call(@job, params)
+    if Jobs::Update.new.call(@job, params)
       flash[:notice] = 'Job successfully updated'
     else
       flash[:error] = 'Error updating job'
@@ -23,19 +23,33 @@ class Admins::JobsController < Admins::ApplicationController
     redirect_to action: :edit
   end
 
-  def destroy
-    @job.destroy
-    redirect_to admins_jobs_path, notice: 'Job successfully deleted.'
+  def cancel
+    if Jobs::Cancel.new(@job).call
+      flash[:notice] = 'Job successfully cancelled'
+    else
+      flash[:alert] = 'Error cancelling job'
+    end
+    redirect_to action: :edit
   end
+
+  def complete
+    if Jobs::Complete.new(@job).call
+      flash[:notice] = 'Job successfully completed'
+    else
+      flash[:alert] = 'Error completing job'
+    end
+    redirect_to action: :edit
+  end
+
+  # def destroy
+  #   @job.destroy
+  #   redirect_to admins_jobs_path, notice: 'Job successfully deleted.'
+  # end
 
 
   private
 
   def find_job
     @job = Job.find(params[:id])
-  end
-
-  def update_service
-    Jobs::Update.new
   end
 end
