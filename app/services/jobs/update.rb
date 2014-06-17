@@ -12,6 +12,8 @@ module Jobs
         schedule_followup_email(job)
       end
 
+      job.save
+
       job
     end
   end

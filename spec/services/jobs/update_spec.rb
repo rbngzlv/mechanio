@@ -12,6 +12,7 @@ describe Jobs::Update do
     attrs[:tasks_attributes][0][:id] = job.tasks[0].id
 
     job.cost.should eq 350
+    job.final_cost.should eq 350
 
     service.should_receive(:notify_quote_changed)
     service.should_receive(:schedule_followup_email)
@@ -38,6 +39,7 @@ describe Jobs::Update do
       inspection.cost.should eq 0
     end
 
-    job.cost.should eq 683
+    job.reload.cost.should eq 683
+    job.final_cost.should eq 683
   end
 end
