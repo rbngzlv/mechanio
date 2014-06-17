@@ -69,8 +69,6 @@ class UsersJobReceipt
       end
 
       t.task_items.each do |i|
-        next if i.itemable_type == 'ServiceCost'
-
         row = i.itemable.data
         row[2] = formatted_cost(row[2])
 
