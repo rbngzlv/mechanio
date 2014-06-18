@@ -33,11 +33,10 @@
               %i.icon-pencil
               Edit
 
-            = simple_form_for current_mechanic, url: mechanics_payout_method_path, html: { class: 'form-horizontal mechanic_form' } do |f|
-              = f.simple_fields_for :payout_method, defaults: { label_html: { class: 'col-md-3 col-sm-3' } }, wrapper: :bootstrap_horizontal do |p|
-                = p.input :account_name
-                = p.input :account_number
-                = p.input :bsb_number
+            = simple_form_for [:mechanics, current_mechanic.payout_method], url: mechanics_payout_method_path, method: :patch, html: { class: 'form-horizontal mechanic_form' }, defaults: { label_html: { class: 'col-md-3 col-sm-3' } }, wrapper: :bootstrap_horizontal do |f|
+              = f.input :account_name
+              = f.input :account_number
+              = f.input :bsb_number
 
               %hr.hr-dark-gray
               .form-group
