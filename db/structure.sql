@@ -400,7 +400,8 @@ CREATE TABLE jobs (
     completed_at timestamp without time zone,
     discount_id integer,
     discount_amount numeric(8,2),
-    final_cost numeric(8,2)
+    final_cost numeric(8,2),
+    search_terms character varying(255)
 );
 
 
@@ -2063,3 +2064,5 @@ INSERT INTO schema_migrations (version) VALUES ('20140616111744');
 INSERT INTO schema_migrations (version) VALUES ('20140616122349');
 
 INSERT INTO schema_migrations (version) VALUES ('20140616200244');
+
+INSERT INTO schema_migrations (version) VALUES ('20140618164911');

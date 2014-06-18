@@ -82,6 +82,20 @@ describe Job do
     job_with_service.uid.length.should >= 9
   end
 
+  context '#set_search_terms' do
+    let(:completed_job) { build :job, :completed, :with_service }
+    let(:pending_job)   { build :job, :pending, :with_repair }
+
+    it 'sets search terms on save' do
+      completed_job.save
+      completed_job.search_terms.should eq '0410123456 john user joe mechanic 0420123456 palm beach 55, sydney, nsw 2012'
+    end
+
+    it 'sets search terms when there is no mechanic' do
+      pending_job.set_search_terms.should eq '0410123456 john user palm beach 55, sydney, nsw 2012'
+    end
+  end
+
   it 'builds task association with correct STI subclass' do
     job.tasks_attributes = [build(:service).attributes, build(:repair).attributes]
     job.save!

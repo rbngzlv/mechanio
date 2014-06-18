@@ -5,7 +5,12 @@ class Admins::JobsController < Admins::ApplicationController
 
   def index
     @status = params[:status]
-    @jobs = @status.present? ? Job.with_status(@status) : Job.all
+    @query = params[:query]
+
+    @jobs = Job.all
+    @jobs = @jobs.with_status(@status) if @status.present?
+    @jobs = @jobs.search(@query) if @query.present?
+
     @jobs = @jobs.includes(:user, :mechanic, :location).page(params[:page])
   end
 

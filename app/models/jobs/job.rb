@@ -22,6 +22,7 @@ class Job < ActiveRecord::Base
   before_validation :assign_car_to_user
   before_create :set_uid
   before_save :set_title
+  before_save :set_search_terms
 
   validates :car, :location, :tasks, :contact_email, :contact_phone, presence: true
   validates :contact_phone, phone: true
@@ -66,6 +67,7 @@ class Job < ActiveRecord::Base
   scope :rated,     -> { with_status(:rated).reorder(scheduled_at: :desc) }
   scope :paid,      -> { includes(:payout).where.not(payouts: { id: nil }).references(:payouts) }
   scope :past,      -> { with_status(:completed, :rated).reorder(scheduled_at: :desc) }
+  scope :search,    -> (query) { where("jobs.search_terms LIKE ?", "%#{query}%") }
 
 
   def self.find_temporary(id)
@@ -118,6 +120,15 @@ class Job < ActiveRecord::Base
 
   def set_cost
     Jobs::Calculate.new(self).call
+  end
+
+  def set_search_terms
+    terms = [uid, contact_phone]
+    terms << user.full_name if user.present?
+    terms << [mechanic.full_name, mechanic.mobile_number] if mechanic.present?
+    terms << location.full_address if location.present?
+
+    self.search_terms = terms.flatten.compact.map(&:downcase).join(' ')
   end
 
   def quote_available?

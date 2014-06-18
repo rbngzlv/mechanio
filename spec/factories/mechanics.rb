@@ -3,7 +3,7 @@ FactoryGirl.define do
 
   factory :mechanic do
     first_name              'Joe'
-    last_name               { generate(:last_name) }
+    last_name               'Mechanic'
     email                   { generate(:email) }
     password                'password'
     dob                     { 25.years.ago }

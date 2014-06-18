@@ -1,10 +1,14 @@
 .navbar.navbar-default
   .navbar-brand Jobs
   = form_tag '?', method: :get, class: 'navbar-form navbar-right' do
-    = label_tag 'status', 'Show'
-    &nbsp;
     .form-group
-      = select_tag 'status', options_for_select([['All', nil], *job_statuses], @status), class: 'form-control input-sm'
+      = select_tag 'status', options_for_select([['Any status', nil], *job_statuses], @status), class: 'form-control input-sm'
+    .form-group.right-inner-addon
+      = text_field_tag 'query', @query, class: 'form-control input-sm', placeholder: 'Search keywords'
+      = link_to admins_jobs_path, class: 'text-muted' do
+        %i.glyphicon.glyphicon-remove-circle.clear-field
+    .form-group
+      = submit_tag 'Search', class: 'btn btn-sm btn-primary'
 
 - if @jobs.count > 0
   .table-responsive
@@ -24,7 +28,3 @@
   = paginate @jobs
 - else
   %p.text-center No jobs found
-
-:coffee
-  $('#status').change ->
-    this.form.submit()
