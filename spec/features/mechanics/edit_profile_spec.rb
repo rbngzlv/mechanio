@@ -15,7 +15,9 @@ feature 'mechanic edit profile page' do
 
   before do
     login_mechanic mechanic
-    visit edit_mechanics_profile_path
+    visit mechanics_profile_path
+    click_link 'Edit Profile'
+    should have_selector 'li.active a', text: 'Personal details'
   end
 
   context 'edit' do

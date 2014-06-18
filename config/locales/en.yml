@@ -30,4 +30,5 @@ en:
           payment_error: Payment error
           awaiting_feedback: Awaiting feedback
           completed: Completed
+          rated: Rated
           cancelled: Cancelled

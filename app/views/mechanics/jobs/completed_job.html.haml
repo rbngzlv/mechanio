@@ -42,7 +42,7 @@
       .col-md-12.completed-job-details.clearfix
         %h4.hx-default Feedback
         .panel.nested-panel.feedback
-          - if @job.rated?
+          - if @job.has_published_rating?
             = render 'shared/feedback', rating: @job.rating
           - else
             %h5.text-center No feedback yet

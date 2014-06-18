@@ -22,16 +22,6 @@ feature 'mechanic profile page' do
       should have_content mechanic.description
     end
 
-    scenario 'check links to calenar and edit profile page' do
-      click_link 'Availabilities'
-      should have_selector 'h1', text: 'Calendar'
-
-      click_link 'Back'
-      click_link 'Edit Profile'
-      should have_selector 'li.active a', text: 'Personal details'
-      current_path.should be_eql edit_mechanics_profile_path
-    end
-
     scenario 'check verified statuses work' do
       within '.verified-icons' do
         find('i:nth-child(1)')[:class].should eq 'icon-map-marker disabled'

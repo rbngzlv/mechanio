@@ -40,11 +40,11 @@ class User < ActiveRecord::Base
   end
 
   def past_jobs
-    jobs.completed.includes(:mechanic, :car, :rating)
+    jobs.past.includes(:mechanic, :car, :rating)
   end
 
   def unrated_jobs
-    jobs.unrated
+    jobs.completed
   end
 
   # When a new user signs up while ordering a repair/service, the location he entered in the wizard is saved to his profile.

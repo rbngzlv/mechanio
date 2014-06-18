@@ -63,20 +63,14 @@ FactoryGirl.define do
       end
     end
 
-    trait :assigned do
-      mechanic
-      credit_card
-      status 'assigned'
+    trait :with_appointment do
       scheduled_at { DateTime.tomorrow }
       assigned_at  { DateTime.now }
 
       after :build do |j|
         j.appointment = build(:appointment, user: j.user, mechanic: j.mechanic, scheduled_at: j.scheduled_at)
-      end
 
-      after :create do |j|
-        create(:event,
-          job: j,
+        j.event = build(:event,
           mechanic: j.mechanic,
           date_start: j.scheduled_at,
           time_start: j.scheduled_at,
@@ -85,14 +79,27 @@ FactoryGirl.define do
       end
     end
 
+    trait :assigned do
+      mechanic
+      with_credit_card
+      with_appointment
+      status 'assigned'
+    end
+
     trait :completed do
       mechanic
+      with_credit_card
+      with_appointment
       status 'completed'
-      completed_at { DateTime.now }
-      scheduled_at { DateTime.tomorrow }
+      completed_at { DateTime.yesterday }
     end
 
     trait :rated do
+      mechanic
+      with_credit_card
+      with_appointment
+      status 'rated'
+
       after :build do |j|
         j.rating = build :rating, job: j, user: j.user, mechanic: j.mechanic
       end

@@ -47,7 +47,7 @@
             -#.col-md-6.pull-right
               = render "shared/mechanic/verified_icons", account: @job.mechanic
         %br
-        - if @job.rated?
+        - if @job.has_published_rating?
           .nested-panel.panel.feedback
             .row.clearfix
               .col-md-9

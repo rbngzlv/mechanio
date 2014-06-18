@@ -27,21 +27,22 @@ module Appointments
           scheduled_at: @scheduled_at
         )
 
-        @job.update_attributes!(
-          appointment:   appointment,
-          mechanic:      mechanic,
-          scheduled_at:  @scheduled_at,
-          assigned_at:   DateTime.now
-        )
-        @job.assign!
-
-        Event.create!(
+        event = Event.create!(
           job:        @job,
           mechanic:   mechanic,
           date_start: @scheduled_at,
           time_start: @scheduled_at,
           time_end:   @scheduled_at + 2.hour
         )
+
+        @job.update_attributes!(
+          appointment:   appointment,
+          event:         event,
+          mechanic:      mechanic,
+          scheduled_at:  @scheduled_at,
+          assigned_at:   DateTime.now
+        )
+        @job.assign!
 
         mechanic.update_job_counters
       end

@@ -5,17 +5,22 @@ describe Ratings::Create do
   let(:service)   { Ratings::Create.new(user, job) }
   let(:user)      { create :user }
   let(:mechanic)  { create :mechanic }
-  let(:job)       { create :job, :with_service, mechanic: mechanic }
+  let(:job)       { create :job, :with_service, :completed, mechanic: mechanic }
+  let(:rated_job) { create :job, :with_service, :rated, rating: rating, mechanic: mechanic }
   let(:rating)    { create :rating, job: job, mechanic: mechanic, user: user }
   let(:attrs)     { { professional: 2, service_quality: 3, communication: 2, cleanness: 5, convenience: 5 } }
 
   it 'returns a Rating object associated with job, user and mechanic' do
     rating = service.call(attrs)
 
-    rating.should             be_a Rating
+    rating.reload.should      be_a Rating
     rating.job_id.should      eq job.id
     rating.user_id.should     eq user.id
     rating.mechanic_id.should eq mechanic.id
+  end
+
+  it 'changes job status to "rated"' do
+    expect { service.call(attrs) }.to change { job.reload.status }.from('completed').to('rated')
   end
 
   it 'updates mechanics average rating' do
@@ -25,7 +30,7 @@ describe Ratings::Create do
   end
 
   it 'does not rate a job that already rated' do
-    job.rating = rating
+    service = Ratings::Create.new(user, rated_job)
 
     service.call(attrs).should be_false
 

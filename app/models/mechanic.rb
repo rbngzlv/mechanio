@@ -52,7 +52,7 @@ class Mechanic < ActiveRecord::Base
   end
 
   def past_jobs
-    jobs.completed.includes(:user, :car, :location, :tasks)
+    jobs.past.includes(:user, :car, :location, :tasks)
   end
 
   def paid_jobs
@@ -98,7 +98,7 @@ class Mechanic < ActiveRecord::Base
   end
 
   def update_rating
-    averages = ratings.published.map(&:average)
+    averages = ratings.map(&:average)
     rating = averages.size > 0 ? averages.sum.to_f / averages.size : 0
     update_attribute(:rating, rating)
   end

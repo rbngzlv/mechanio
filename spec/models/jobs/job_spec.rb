@@ -32,18 +32,11 @@ describe Job do
   it { should_not allow_value('04123456').for(:contact_phone) }
 
   context 'scopes' do
-    let(:estimated_job)  { create :job, :with_service, :estimated }
-    let(:assigned_job)   { create :job, :with_service, :assigned  }
-    let(:completed_job)  { create :job, :with_service, :completed, scheduled_at: Time.now }
-    let(:rated_job)      { create :job, :with_service, :completed, :rated, scheduled_at: Time.now.advance(days: 1) }
-    let(:paid_job)       { create :job, :with_service, :completed, :with_payout, scheduled_at: Time.now.advance(days: 2) }
-
-    before do
-      estimated_job
-      assigned_job
-      completed_job
-      rated_job
-    end
+    let!(:estimated_job)  { create :job, :with_service, :estimated }
+    let!(:assigned_job)   { create :job, :with_service, :assigned  }
+    let!(:completed_job)  { create :job, :with_service, :completed, scheduled_at: Time.now }
+    let!(:rated_job)      { create :job, :with_service, :rated, scheduled_at: Time.now.advance(days: 1) }
+    let!(:paid_job)       { create :job, :with_service, :completed, :with_payout, scheduled_at: Time.now.advance(days: 2) }
 
     specify '#estimated' do
       Job.estimated.should eq [estimated_job]
@@ -54,11 +47,15 @@ describe Job do
     end
 
     specify '#completed' do
-      Job.completed.should eq [paid_job, rated_job, completed_job]
+      Job.completed.should eq [paid_job, completed_job]
     end
 
-    specify '#unrated' do
-      Job.unrated.should   eq [completed_job]
+    specify '#rated' do
+      Job.rated.should eq [rated_job]
+    end
+
+    specify '#past' do
+      Job.past.should eq [paid_job, rated_job, completed_job]
     end
 
     specify '#paid' do

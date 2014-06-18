@@ -44,8 +44,9 @@ module JobHelper
       when 'pending'    then 'warning'
       when 'estimated'  then 'info'
       when 'assigned'   then 'primary'
-      when 'completed'  then 'success'
+      when 'completed'  then 'completed'
       when 'cancelled'  then 'default'
+      when 'rated'      then 'success'
     end
 
     content_tag :span, status.humanize, class: "label label-#{css}"

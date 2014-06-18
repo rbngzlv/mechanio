@@ -1,6 +1,6 @@
 class Job < ActiveRecord::Base
 
-  STATUSES = %w(pending estimated assigned completed cancelled)
+  STATUSES = %w(pending estimated assigned completed rated cancelled)
 
   belongs_to :user
   belongs_to :car
@@ -45,13 +45,16 @@ class Job < ActiveRecord::Base
     end
     state :assigned do
       transition to: :completed, on: :complete
-      validates :mechanic, :scheduled_at, :assigned_at, :credit_card, :appointment, presence: true
+      validates :mechanic, :scheduled_at, :assigned_at, :credit_card, :appointment, :event, presence: true
     end
     state :completed do
-      # validates :transaction_id, presence: true
+      transition to: :rated, on: :rate
+    end
+    state :rated do
+      validates :rating, presence: true
     end
     event :cancel do
-      transition any => :cancelled
+      transition [:temporary, :pending, :estimated, :assigned] => :cancelled
     end
   end
 
@@ -60,8 +63,9 @@ class Job < ActiveRecord::Base
   scope :estimated, -> { with_status(:estimated).reorder(created_at: :desc) }
   scope :assigned,  -> { with_status(:assigned).reorder(scheduled_at: :desc) }
   scope :completed, -> { with_status(:completed).reorder(scheduled_at: :desc) }
-  scope :unrated,   -> { completed.includes(:rating).where('ratings.id' => nil) }
+  scope :rated,     -> { with_status(:rated).reorder(scheduled_at: :desc) }
   scope :paid,      -> { includes(:payout).where.not(payouts: { id: nil }).references(:payouts) }
+  scope :past,      -> { with_status(:completed, :rated).reorder(scheduled_at: :desc) }
 
 
   def self.find_temporary(id)
@@ -124,7 +128,7 @@ class Job < ActiveRecord::Base
     !cost_was.nil? && cost_changed?
   end
 
-  def rated?
+  def has_published_rating?
     rating.present? && rating.published
   end
 
