@@ -9,23 +9,15 @@ feature 'Mechanic schedule' do
 
   scenario 'check navigation' do
     visit mechanics_dashboard_path
-    within('.nav-stacked') { click_link 'My Profile' }
-    click_link 'Edit Profile'
-    click_link 'Availabilities'
-    current_path.should be_eql mechanics_events_path
-    should have_selector 'li.active', text: 'My Profile'
-    click_link 'Back'
-    current_path.should be_eql mechanics_profile_path
+    within('.nav-stacked') { click_link 'My Calendar' }
+
+    page.should have_css '.nav-stacked .active a', text: 'My Calendar'
+    page.should have_css '#calendar'
+    should have_no_selector '.fc-event'
   end
 
   context 'administrate events' do
     before { visit mechanics_events_path }
-
-    specify 'from the begining calendar is empty' do
-      should have_selector '#calendar'
-      should have_no_selector '.fc-event'
-      should have_selector 'h5', text: 'my days off'
-    end
 
     specify 'show alert if user forgot to check time slot(s)' do
       click_button 'Set'
@@ -105,7 +97,7 @@ feature 'Mechanic schedule' do
         # It's needed to click success on confirm alert
         sleep 0.1
       end.to change { Event.count }.by -1
-      should have_content 'Event successfully deleted.'
+      should have_content 'Event successfully deleted'
       should have_no_content event.title
     end
 

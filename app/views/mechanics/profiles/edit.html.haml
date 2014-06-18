@@ -1,11 +1,9 @@
 .row
-  .col-md-9
+  .col-md-12
     %ul.nav.nav-tabs
       %li.active= link_to 'Personal details', '#personal', 'data-toggle' => 'tab'
       %li= link_to 'Contact details', '#contact', 'data-toggle' => 'tab'
       %li= link_to 'Business details', '#business', 'data-toggle' => 'tab'
-  .col-md-3.text-right
-    = link_to 'Availabilities', mechanics_events_path, class: 'btn btn-info'
 .row
   .col-md-12
     .panel.panel-default.panel-rounded
