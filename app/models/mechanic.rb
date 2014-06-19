@@ -48,11 +48,11 @@ class Mechanic < ActiveRecord::Base
   end
 
   def current_jobs
-    jobs.assigned.includes(:user, :car, :location, :tasks)
+    jobs.assigned.includes(:user, :car, :tasks, location: [:suburb])
   end
 
   def past_jobs
-    jobs.past.includes(:user, :car, :location, :tasks)
+    jobs.past.includes(:user, :car, :tasks, location: [:suburb])
   end
 
   def paid_jobs

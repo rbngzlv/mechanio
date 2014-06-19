@@ -36,7 +36,7 @@ class User < ActiveRecord::Base
   end
 
   def current_jobs
-    jobs.assigned.includes(:mechanic, :location, :car, :tasks, :rating)
+    jobs.assigned.includes(:mechanic, :car, :tasks, :rating, location: [:suburb])
   end
 
   def past_jobs

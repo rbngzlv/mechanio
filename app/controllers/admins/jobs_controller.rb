@@ -11,7 +11,7 @@ class Admins::JobsController < Admins::ApplicationController
     @jobs = @jobs.with_status(@status) if @status.present?
     @jobs = @jobs.search(@query.downcase) if @query.present?
 
-    @jobs = @jobs.includes(:user, :mechanic, :location).page(params[:page])
+    @jobs = @jobs.includes(:user, :mechanic, location: [:suburb]).page(params[:page])
   end
 
   def edit
