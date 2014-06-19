@@ -29,19 +29,28 @@ feature 'Jobs section' do
     end
 
     specify 'filters by status', :js do
-
       select 'Estimated', from: 'status'
+      click_on 'Search'
 
       verify_job_row job1
       page.should have_css 'tbody tr', count: 1
       page.should have_field 'status', with: 'estimated'
 
-      select 'All', from: 'status'
+      select 'Any status', from: 'status'
+      click_on 'Search'
 
       verify_job_row job1
       verify_job_row job2
       page.should have_css 'tbody tr', count: 2
       page.should have_field 'status', with: ''
+    end
+
+    specify 'searches job by keywords' do
+      fill_in 'Search keywords', with: job1.uid[0..5]
+      click_on 'Search'
+
+      verify_job_row job1
+      page.should have_css 'tbody tr', count: 1
     end
   end
 
