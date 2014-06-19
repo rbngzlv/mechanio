@@ -36,6 +36,22 @@ describe PaymentService do
     end
   end
 
-  describe '#charge_user_for_job', :pending do
+  describe '#charge_user_for_job', :vcr do
+    before do
+      payment_service.verify_card(user, job, successful_card)
+    end
+
+    specify 'success' do
+      job.transaction_id.should be_nil
+      job.transaction_status.should be_nil
+      job.transaction_errors.should be_nil
+
+      result = payment_service.charge_user_for_job(user, job)
+
+      result.should be_true
+      job.transaction_id.should_not be_nil
+      job.transaction_status.should_not be_nil
+      job.transaction_status.should eq 'submitted_for_settlement'
+    end
   end
 end

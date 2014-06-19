@@ -44,6 +44,13 @@ class PaymentService
       job.transaction_errors = result.errors.inspect
     end
 
+    if result.success?
+      # job.paid
+      AdminMailer.async.payment_error(job.id)
+    else
+      AdminMailer.async.payment_success(job.id)
+    end
+
     job.save
 
     result.success?

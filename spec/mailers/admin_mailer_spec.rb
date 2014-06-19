@@ -44,4 +44,20 @@ describe AdminMailer do
     mail.subject.should   eq "Job #{job.uid} has been completed"
     mail.body.encoded.should match edit_admins_job_url(job.id)
   end
+
+  specify '#payment_error' do
+    mail = AdminMailer.payment_error(job.id)
+    mail.to.should        eq to
+    mail.from.should      eq from
+    mail.subject.should   eq "Error processing payment for job #{job.uid}"
+    mail.body.encoded.should match edit_admins_job_url(job.id)
+  end
+
+  specify '#payment_success' do
+    mail = AdminMailer.payment_success(job.id)
+    mail.to.should        eq to
+    mail.from.should      eq from
+    mail.subject.should   eq "Payment for job #{job.uid} processed succesfully"
+    mail.body.encoded.should match edit_admins_job_url(job.id)
+  end
 end
