@@ -13,7 +13,7 @@ class ServiceCost < ActiveRecord::Base
   end
 
   def set_cost
-    self.cost = service_plan.cost
+    self.cost ||= service_plan.cost
   end
 
   def data

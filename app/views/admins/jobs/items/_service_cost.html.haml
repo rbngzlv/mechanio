@@ -1,9 +1,15 @@
 = t.simple_fields_for :task_items, TaskItem.new, child_index: '{{$index}}' do |ti|
+  = ti.hidden_field :id, value: '{{item.id}}'
+  = ti.hidden_field :_destroy, value: '{{item._destroy}}'
+  = ti.hidden_field :itemable_type, value: 'ServiceCost'
   = ti.simple_fields_for :itemable, ServiceCost.new, defaults: { label: false, wrapper: false, input_html: { class: 'input-sm', required: true } } do |i|
+    = i.hidden_field :id, value: '{{item.itemable.id}}'
     .actions
       %i.glyphicon.glyphicon-remove
     .desc
-      .form-control-static {{item.itemable.description}}
+      = i.input :description, placeholder: 'Service cost', disabled: true
+    .subtotal
+      = i.input :cost, placeholder: 'Cost', as: :string, input_html: { min: 0.1, 'ng-model' => 'item.itemable.cost' }
     .pull-right
       .total
         .form-control-static {{item.total() | formatted_cost}}

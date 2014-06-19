@@ -123,11 +123,10 @@ feature 'Jobs section' do
         before_and_after_save(job) do
           within_task(1) { verify_repair }
           within_task(2) { verify_inspection 'included' }
-          within_task(3) { verify_service(service_plan) }
+          within_task(3) { verify_service(service_plan.display_title, service_plan.cost) }
 
           grand_total.should eq '$683.00'
         end
-
 
         add_service_link[:disabled].should be_true
       end
@@ -138,7 +137,7 @@ feature 'Jobs section' do
 
         visit_job_items(job)
 
-        within_task(1) { verify_service(service_plan) }
+        within_task(1) { verify_service(service_plan.display_title, service_plan.cost) }
 
         grand_total.should eq '$350.00'
 
@@ -227,7 +226,7 @@ feature 'Jobs section' do
 
         visit_job_items(job)
 
-        within_task(1) { verify_service(service_plan) }
+        within_task(1) { verify_service(service_plan.display_title, service_plan.cost) }
         within_task(2) { verify_repair }
         within_task(3) { verify_inspection 'included' }
 
@@ -253,7 +252,7 @@ feature 'Jobs section' do
 
         before_and_after_save job do
           within_task(1) do
-            verify_service(another_service_plan)
+            verify_service(another_service_plan.display_title, another_service_plan.cost)
           end
 
           within_task(2) do
@@ -268,13 +267,33 @@ feature 'Jobs section' do
         end
       end
 
+      scenario 'edit service cost' do
+        job = create :job, :with_service
+        service_plan = job.tasks.first.service_plan
+
+        visit_job_items(job)
+
+        within_task(1) { verify_service_cost('350.0') }
+
+        grand_total.should eq '$350.00'
+
+        within_task(1) do
+          fill_in 'Cost', with: '200.0'
+        end
+
+        before_and_after_save job do
+          within_task(1) { verify_service_cost('200.0') }
+          grand_total.should eq '$200.00'
+        end
+      end
+
       scenario 'delete tasks/items' do
         job = create :job, :with_service, :with_repair, :with_inspection
         service_plan = job.tasks.first.service_plan
 
         visit_job_items(job)
 
-        within_task(1) { verify_service(service_plan) }
+        within_task(1) { verify_service(service_plan.display_title, service_plan.cost) }
         within_task(2) { verify_repair }
         within_task(3) { verify_inspection 'included' }
         grand_total.should eq '$683.00'
@@ -348,10 +367,10 @@ feature 'Jobs section' do
     block.call
   end
 
-  def verify_service(service_plan)
-    task_title.should eq "#{service_plan.display_title} service"
-    task_total.should eq '$350.00'
-    within_row(0) { verify_service_cost service_plan.display_title, '$350.00' }
+  def verify_service(title, cost)
+    task_title.should eq "#{title} service"
+    task_total.should eq formatted_cost(cost)
+    within_row(0) { verify_service_cost(cost) }
   end
 
   def fill_in_repair
@@ -388,9 +407,9 @@ feature 'Jobs section' do
     page.should have_css '.panel-body', text: notes || "Notes: A note to mechanic Cost #{amount}"
   end
 
-  def verify_service_cost(description, cost)
-    page.should have_css '.desc', text: description
-    page.should have_css '.total', text: cost
+  def verify_service_cost(cost)
+    page.should have_field 'Service cost', disabled: true
+    page.should have_field 'Cost', with: cost.to_s
   end
 
   def verify_part(name, qty, unit_cost, total)
