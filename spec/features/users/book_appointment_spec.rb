@@ -121,7 +121,7 @@ feature 'new appointment', :js do
 
   specify 'only lists active mechanics' do
     mechanic
-    suspended_mechanic = create :mechanic, :suspended, mechanic_regions: [create(:mechanic_region, postcode: postcode)], location: create(:location, postcode: postcode)
+    suspended_mechanic = create :mechanic, :suspended, first_name: 'Bill', mechanic_regions: [create(:mechanic_region, postcode: postcode)], location: create(:location, postcode: postcode)
 
     visit edit_users_appointment_path(job)
 
