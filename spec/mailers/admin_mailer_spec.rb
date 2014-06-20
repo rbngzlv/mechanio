@@ -45,6 +45,14 @@ describe AdminMailer do
     mail.body.encoded.should match edit_admins_job_url(job.id)
   end
 
+  specify '#estimate_deleted' do
+    mail = AdminMailer.estimate_deleted(job.id)
+    mail.to.should        eq to
+    mail.from.should      eq from
+    mail.subject.should   eq "A customer has deleted an estimate"
+    mail.body.encoded.should match edit_admins_job_url(job.id)
+  end
+
   specify '#payment_error' do
     mail = AdminMailer.payment_error(job.id)
     mail.to.should        eq to
