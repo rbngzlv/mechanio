@@ -24,3 +24,10 @@ en:
     #     username: 'User name to sign in.'
     #     password: 'No special characters, please.'
 
+    options:
+      job:
+        delete_reason:
+          already_done: I've already got this job done
+          plan_in_future: I plan to get this job done in the future
+          lower_quote: A local shop gave me a lower quote
+          other: Other

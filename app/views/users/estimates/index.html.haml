@@ -1,9 +1,18 @@
-- if @jobs.size > 0
-  = render partial: 'users/estimates/job', collection: @jobs
-- else
-  .panel.panel-default.panel-rounded
-    .panel-heading
-      %h4.panel-title
-        %span.text-info My Estimates
-    .panel-body
-      %h5 You have no estimates
+:coffee
+  jQuery ->
+    $('a.delete-estimate').click ->
+      $('input#job_id').val($(this).data('job-id'))
+      $('#delete-modal').modal()
+      false
+
+.estimates{ 'ng-controller' => 'DeleteEstimateController' }
+  - if @jobs.size > 0
+    = render partial: 'users/estimates/job', collection: @jobs
+    = render 'delete_modal'
+  - else
+    .panel.panel-default.panel-rounded
+      .panel-heading
+        %h4.panel-title
+          %span.text-info My Estimates
+      .panel-body
+        %h5 You have no estimates

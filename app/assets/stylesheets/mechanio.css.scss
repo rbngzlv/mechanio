@@ -68,6 +68,10 @@ h5.orange {
   font-size: 19px;
 }
 
+h4.nomargin {
+  margin-top: 0;
+}
+
 .cursor-default {
   cursor: default;
 }
@@ -428,6 +432,10 @@ h5.orange {
 
 form label {
   font-weight: normal;
+}
+
+.radio_buttons label {
+  cursor: pointer;
 }
 
 form input.form-control {

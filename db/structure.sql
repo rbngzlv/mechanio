@@ -401,7 +401,10 @@ CREATE TABLE jobs (
     discount_id integer,
     discount_amount numeric(8,2),
     final_cost numeric(8,2),
-    search_terms character varying(255)
+    search_terms character varying(255),
+    delete_reason character varying(255),
+    delete_reason_other character varying(255),
+    estimate_deleted_at timestamp without time zone
 );
 
 
@@ -2066,3 +2069,5 @@ INSERT INTO schema_migrations (version) VALUES ('20140616122349');
 INSERT INTO schema_migrations (version) VALUES ('20140616200244');
 
 INSERT INTO schema_migrations (version) VALUES ('20140618164911');
+
+INSERT INTO schema_migrations (version) VALUES ('20140620093639');

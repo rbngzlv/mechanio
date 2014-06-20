@@ -18,10 +18,6 @@ module JobHelper
     number_to_currency(amount)
   end
 
-  def last_service(car)
-    car.last_service_kms ? "#{car.last_service_kms} Km" : car.last_service_date.to_s(:month_year)
-  end
-
   def requested_by(job)
     job.client_name + ' on ' + job.created_at.to_s(:date_time_short)
   end
@@ -47,6 +43,7 @@ module JobHelper
       when 'completed'  then 'completed'
       when 'cancelled'  then 'default'
       when 'rated'      then 'success'
+      when 'estimate_deleted'  then 'danger'
     end
 
     content_tag :span, status.humanize, class: "label label-#{css}"

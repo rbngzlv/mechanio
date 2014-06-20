@@ -1,0 +1,13 @@
+#delete-modal.modal.fade
+  .modal-dialog
+    .modal-content
+      .panel-body.modal-body
+        = link_to '#', class: 'pull-right', 'title' => 'Close', 'data-dismiss' => 'modal' do
+          %i.glyphicon.glyphicon-remove
+        %h4.nomargin Please tell us why your are cancelling
+
+        = simple_form_for [:users, Job.new], url: users_estimates_path, method: :delete, html: { name: 'delete_form' } do |f|
+          = hidden_field_tag :id, '', id: 'job_id'
+          = f.input :delete_reason, as: :radio_buttons, collection: Job::DELETE_REASONS.map(&:to_sym), label: false, input_html: { 'ng-model' => 'reason', 'ng-required' => true }
+          = f.input :delete_reason_other, as: :text, label: false, input_html: { 'ng-model' => 'reason_other', 'ng-required' => 'validateOther()' }
+          = f.submit 'Confirm delete', class: 'btn btn-danger', 'ng-disabled' => 'delete_form.$invalid'

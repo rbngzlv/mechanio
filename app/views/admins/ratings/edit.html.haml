@@ -34,7 +34,7 @@
         %p
           #{@job.car.display_title}
           %br
-          Last service: #{last_service(@job.car)}
+          Last service: #{@job.car.last_service}
         %hr
 
         %h5 Contact

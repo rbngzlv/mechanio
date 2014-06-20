@@ -1,6 +1,7 @@
 class Job < ActiveRecord::Base
 
   STATUSES = %w(pending estimated assigned completed rated cancelled)
+  DELETE_REASONS = %w(already_done plan_in_future lower_quote other)
 
   belongs_to :user
   belongs_to :car
@@ -42,7 +43,12 @@ class Job < ActiveRecord::Base
       transition to: :estimated, on: :estimate
     end
     state :estimated do
-      transition to: :assigned,  on: :assign
+      transition to: :assigned,         on: :assign
+      transition to: :estimate_deleted, on: :delete_estimate
+    end
+    state :estimate_deleted do
+      validates :delete_reason, :estimate_deleted_at, presence: true
+      validates :delete_reason_other, presence: true, if: :delete_reason_other?
     end
     state :assigned do
       transition to: :completed, on: :complete
@@ -145,6 +151,10 @@ class Job < ActiveRecord::Base
 
   def can_be_completed?
     !cancelled? && completed_at.nil? && scheduled_at.present? && scheduled_at < Time.now
+  end
+
+  def delete_reason_other?
+    delete_reason == 'other'
   end
 
   def as_json(options = {})

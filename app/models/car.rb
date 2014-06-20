@@ -32,6 +32,13 @@ class Car < ActiveRecord::Base
     end
   end
 
+  def last_service
+    return "#{last_service_kms} Km" if last_service_kms
+    return last_service_date.to_s(:month_year) if last_service_date
+    'unknown'
+  end
+
+
   private
 
   def check_jobs

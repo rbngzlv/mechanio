@@ -1,8 +1,10 @@
 .panel.panel-default.panel-rounded
   .panel-heading
+    = link_to '#', class: 'pull-right delete-estimate', title: 'Delete', 'data-job-id' => job.id do
+      %i.glyphicon.glyphicon-remove
     %h4.panel-title
       %span.text-info.hidden-phone Estimate Requested:
-      %small
+      %span.orange
         = job.created_at.to_s(:date)
   #js-collapse-one.panel-collapse.collapse.in
     .panel-body

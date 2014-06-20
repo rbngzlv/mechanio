@@ -1,5 +1,5 @@
 !!!
-%html
+%html{ 'ng-app' => 'mechanio' }
   = render 'layouts/head'
   %body{ class: ('navbar-padding' if impersonated?) }
     = render 'shared/facebook_api'

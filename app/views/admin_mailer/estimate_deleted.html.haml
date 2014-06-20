@@ -1,0 +1,14 @@
+%p A customer has deleted an estimate: 
+%br
+%p Name: {@job.user.full_name}
+%p Address: {@job.location.full_address}
+%p Contact Number: {@job.contact_phone}
+%p Email: {@job.contact_email}
+%br
+%p Car: {@job.car.display_title}
+%p When was the car last serviced?: {@job.car.last_service}
+%p Job: {@job.title}
+%p Notes: { link_to edit_admins_job_url(@job), edit_admins_job_url(@job) }
+%br
+%p Reason for Deleting: { t @job.delete_reason, scope: 'simple_form.options.job.delete_reason' }
+%p {@job.delete_reason_other}

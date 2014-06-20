@@ -18,7 +18,7 @@
 
         %h5 Vehicle
         %p= @job.car.display_title
-        %p Last service: #{last_service(@job.car)}
+        %p Last service: #{@job.car.last_service}
 
       .col-md-4
         %h5 Location

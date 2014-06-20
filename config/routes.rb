@@ -22,11 +22,13 @@ Mechanio::Application.routes.draw do
 
   namespace :users do
     get 'dashboard', to: 'dashboard#index'
-    get 'estimates', to: 'estimates#index'
 
     resources :jobs, only: [:show, :create] do
       resource :credit_card, only: [:new, :create]
       resource :discount, only: [:create]
+    end
+    resources :estimates, only: [:index] do
+      delete :destroy, on: :collection
     end
     resources :appointments, only: [:index, :edit, :update, :show] do
       get :receipt, on: :member

@@ -1,5 +1,14 @@
 .clearfix
+
+- if @job.estimate_deleted?
+  %span.text-danger
+    ESTIMATE DELETED BY USER. Reason:
+    = t @job.delete_reason, scope: 'simple_form.options.job.delete_reason'
+    %br
+    = @job.delete_reason_other
+
 %hr
+
 = f.submit 'Save Changes', class: 'btn btn-success pull-right'
 
 - unless @job.cancelled?
