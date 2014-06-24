@@ -10,12 +10,16 @@ FactoryGirl.define do
       time_end   nil
     end
 
+    trait :daily do
+      recurrence  'daily'
+    end
+
     trait :weekly do
-      recurrence  :weekly
+      recurrence  'weekly'
     end
 
     trait :monthly do
-      recurrence  :monthly
+      recurrence  'monthly'
     end
 
     trait :with_job do

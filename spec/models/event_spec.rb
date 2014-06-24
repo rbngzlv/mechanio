@@ -1,22 +1,32 @@
 require 'spec_helper'
 
 describe Event do
+  subject { build :event }
+
+  let(:mechanic) { create :mechanic }
+
   it { should belong_to :mechanic }
   it { should belong_to :job }
 
+  it { should validate_presence_of :date_start }
+  it { should validate_presence_of :mechanic }
+  it { should ensure_inclusion_of(:recurrence).in_array(['daily', 'weekly', 'monthly']) }
+  it { should allow_value(nil, (Date.tomorrow + 1.day)).for(:date_end) }
+  it { should_not allow_value(Date.today).for(:date_end) }
+
   it 'does validate by uniqueness for single mechanic' do
-    event = build(:event, mechanic: create(:mechanic), recurrence: :weekly)
-    unique_event = event.dup
-    unique_event.save
-    event.should_not be_valid
-    event.mechanic = build(:mechanic)
-    event.should be_valid
+    event1 = create(:event, :weekly, mechanic: mechanic)
+    event2 = build(:event, :weekly, mechanic: mechanic)
+
+    errors = { date_start: ['there is another event on this date'] }
+    event2.should_not be_valid
+    event2.errors.messages.should eq errors
   end
 
   specify '.repeated' do
     single = create :event
-    weekly = create :event, recurrence: :weekly
-    daily  = create :event, recurrence: :daily
+    weekly = create :event, :weekly
+    daily  = create :event, :daily
 
     Event.repeated(:weekly).should eq [weekly]
     Event.repeated(:daily).should eq [daily]

@@ -1,27 +1,29 @@
 class EventsManager < Struct.new(:mechanic)
   include IceCube
 
-  def add_events(params)
-    params[:recurrence] = (rec = params[:recurrence]) == 'Does not recur' ? nil : rec.downcase
-    params[:date_start] = Date.parse(params[:date_start])
-    params[:mechanic_id] = mechanic.id
+  def create_event(params)
+    time_start = Time.now.change(hour: params[:time_start], minute: 0) if params[:time_start]
+    time_end   = Time.now.change(hour: params[:time_end], minute: 0) if params[:time_end]
 
-    unless time_slots = distribute_time_slots(params.delete(:time_slots), params[:date_start])
-      errors[:time_slots] << 'no time slots'
-      return false
+    attrs = {
+      date_start:  Date.parse(params[:date_start]),
+      mechanic_id: mechanic.id,
+      time_start:  time_start,
+      time_end:    time_end
+    }
+
+    if params[:repeat] == 'true'
+      attrs[:recurrence] = params[:recurrence].downcase
+
+      case params[:ends]
+      when 'count'
+        attrs[:count] = params[:ends_after_count]
+      when 'date'
+        attrs[:date_end] = Date.parse(params[:ends_on])
+      end
     end
 
-    time_slots.each do |time_slot|
-      if time_slot
-        params[:time_start] = time_slot[0]
-        params[:time_end] = params[:time_start] + time_slot[1].hour
-      end
-      e = Event.new(params.permit(:date_start, :title, :recurrence, :mechanic_id, :time_start, :time_end))
-      unless e.save
-        errors[:uniqueness] << e.title
-      end
-    end
-    errors[:uniqueness].length == 0 ? true : false
+    Event.create(attrs)
   end
 
   def delete_event(event_id)
@@ -29,37 +31,8 @@ class EventsManager < Struct.new(:mechanic)
     event.is_appointment? ? false : event.destroy
   end
 
-  def errors
-    @errors ||= { uniqueness: [], time_slots: []}
-  end
-
-  def errors_full_message
-    return 'Choose time slot(s) please.' if errors[:time_slots].present?
-    tmp_errors = errors[:uniqueness]
-    is_single = tmp_errors.length == 1
-    "#{tmp_errors.map(&:capitalize).join(', ')} #{ is_single ? 'is' : 'are' } not unique event#{ 's' unless is_single}"
-  end
-
-  def distribute_time_slots(time_slots, date_start)
-    time_slots.reject!(&:empty?)
-    return false if time_slots.empty?
-    return [nil] if time_slots.include?('All') || time_slots.length == 5
-    previous_delta = 0
-    time_ranges = []
-    time_slots.each do |time_slot|
-      delta = time_slot.to_i
-      if delta == previous_delta + 2
-        time_ranges.last[1] += 2
-      else
-        time_ranges << [date_start + delta.hour, 2]
-      end
-      previous_delta = delta
-    end
-    time_ranges
-  end
-
   def events_list
-    events = mechanic.events.map do |event|
+    events = mechanic.events.includes(:job).map do |event|
       if event.recurrence
         schedule = get_schedule(event, event.date_start)
 
@@ -122,7 +95,12 @@ class EventsManager < Struct.new(:mechanic)
 
   def get_schedule(event, start, options = {})
     schedule = Schedule.new(start, options)
-    schedule.add_recurrence_rule(Rule.send(event.recurrence)) if event.recurrence
+    if event.recurrence
+      rule = Rule.send(event.recurrence)
+      rule = rule.count(event.count) if event.count
+      rule = rule.until(event.date_end) if event.date_end
+      schedule.add_recurrence_rule(rule)
+    end
     schedule
   end
 end

@@ -1,0 +1,61 @@
+:coffee
+  jQuery ->
+    from = -> parseInt $('#event_time_start').val()
+    to   = -> parseInt $('#event_time_end').val()
+
+    $('#event_time_start').change ->
+      $('#event_time_end').val(from() + 2) if from() >= to()
+
+    $('#event_time_end').change ->
+      $('#event_time_start').val(to() - 2) if from() >= to()
+
+    $('#event_ends_on').datepicker({
+      startDate: '+1d',
+      format: 'd M yyyy',
+      autoclose: true
+    }).focus ->
+      $('#event_ends_date').prop('checked', true)
+
+    $('#event_ends_after_count').focus ->
+      $('#event_ends_count').prop('checked', true)
+
+    $('.event_repeat input').change ->
+      if $(this).val() == 'true'
+        $('.recurrence').show()
+      else
+        $('.recurrence').hide()
+
+#block-timeslot-modal.modal.fade
+  .modal-dialog
+    .modal-content
+      .modal-body
+        %h4.nomargin Block Timeslot
+        = simple_form_for :event do |f|
+          = f.hidden_field :date_start, value: Date.today
+          .form-group.timeslots
+            %label Make me unavailable from
+            = f.input :time_start, collection: @from, label: false, wrapper: false, include_blank: false, input_html: { class: 'input-sm' }
+            %label to
+            = f.input :time_end, collection: @to, label: false, wrapper: false, include_blank: false, input_html: { class: 'input-sm' }
+          %label.repeat Does this repeat?
+          = f.input :repeat, collection: [['No', false], ['Yes', true]], as: :radio_buttons, checked: false, label: false
+          .recurrence{ style: 'display: none' }
+            %h4 Repeat
+            .form-group
+              = f.input :recurrence, collection: ['Daily', 'Weekly', 'Monthly'], selected: 'Daily', label: 'Repeats', wrapper: false, input_html: { class: 'input-sm' }
+            %label.ends Ends
+            .form-group.ends-on.radio_buttons
+              %label.radio
+                = f.radio_button :ends, :never, checked: true
+                Never
+              %label.radio
+                = f.radio_button :ends, :count
+                After
+                = f.input :ends_after_count, label: false, wrapper: false, input_html: { class: 'input-sm' }
+                occurencies
+              %label.radio
+                = f.radio_button :ends, :date
+                On
+                = f.input :ends_on, label: false, wrapper: false, input_html: { class: 'input-sm' }
+          = f.submit 'Set', class: 'btn btn-success'
+          %a.btn.btn-default{ 'data-dismiss' => 'modal' } Cancel

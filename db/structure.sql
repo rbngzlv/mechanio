@@ -317,7 +317,8 @@ CREATE TABLE events (
     mechanic_id integer,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    job_id integer
+    job_id integer,
+    count integer
 );
 
 
@@ -2071,3 +2072,5 @@ INSERT INTO schema_migrations (version) VALUES ('20140616200244');
 INSERT INTO schema_migrations (version) VALUES ('20140618164911');
 
 INSERT INTO schema_migrations (version) VALUES ('20140620093639');
+
+INSERT INTO schema_migrations (version) VALUES ('20140624095434');

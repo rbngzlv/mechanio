@@ -11,35 +11,77 @@ describe EventsManager do
     })
   end
 
-  describe '#add_events' do
-    it 'return true if unique and has time_slots' do
-      events_manager.add_events(params).should be_true
-    end
+      specify 'timed event' do
+        event = events_manager.create_event({
+          date_start: today.to_s,
+          time_start: '9',
+          time_end: '17'
+        })
 
-    context 'return false' do
-      specify 'if repeated' do
-        events_manager.add_events(params.dup).should be_true
-        events_manager.add_events(params).should be_false
-      end
+        event.should be_a Event
+        event.persisted?.should be_true
 
-      specify 'if time slots do not given' do
-        params[:time_slots] = []
-        events_manager.add_events(params).should be_false
+        events_list.count.should eq 1
+        events_list.first[:title].should eq '9:00AM - 5:00PM'
       end
     end
 
-    it 'should generate error if time slots do not given' do
-      params[:time_slots] = []
-      events_manager.add_events(params)
-      events_manager.errors[:time_slots].length.should be 1
-      events_manager.errors_full_message.should include "Choose time slot(s) please."
+    context 'daily event' do
+      specify 'timed event' do
+        event = events_manager.create_event({
+          date_start: today.to_s,
+          time_start: '9',
+          time_end: '17',
+          repeat: true,
+          recurrence: 'daily'
+        })
+
+        event.should be_a Event
+        event.persisted?.should be_true
+
+        date = today.strftime('%-d %b')
+        events_list.count.should >= 365
+        events_list.first[:title].should eq "daily from #{date}, 9:00AM - 5:00PM"
+      end
     end
 
-    context 'it should generate errors if repeated' do
-      before do
-        events_manager.add_events(params.dup)
-        events_manager.add_events(params)
+    context 'weekly event' do
+      specify 'timed event' do
+        event = events_manager.create_event({
+          date_start: today.to_s,
+          time_start: '9',
+          time_end: '17',
+          repeat: true,
+          recurrence: 'weekly'
+        })
+
+        event.should be_a Event
+        event.persisted?.should be_true
+
+        date = today.strftime('%-d %b')
+        events_list.count.should >= 52
+        events_list.first[:title].should eq "weekly from #{date}, 9:00AM - 5:00PM"
       end
+    end
+
+    context 'monthly event' do
+      specify 'timed event' do
+        event = events_manager.create_event({
+          date_start: today.to_s,
+          time_start: '9',
+          time_end: '17',
+          repeat: true,
+          recurrence: 'monthly'
+        })
+
+        event.should be_a Event
+        event.persisted?.should be_true
+
+        date = today.strftime('%-d %b')
+        events_list.count.should >= 12
+        events_list.first[:title].should eq "monthly from #{date}, 9:00AM - 5:00PM"
+      end
+    end
 
       specify '#errors' do
         events_manager.errors[:uniqueness].length.should be 1
@@ -64,38 +106,6 @@ describe EventsManager do
       expect {
         events_manager.delete_event(event.id)
       }.to_not change { Event.count }
-    end
-  end
-
-  describe '#distribute_time_slots' do
-    let(:date_start) { Date.today}
-
-    specify 'time slots do not given' do
-      events_manager.distribute_time_slots([], date_start).should be_false
-    end
-
-    specify '"All"' do
-      events_manager.distribute_time_slots(['All'], date_start).should be_eql [nil]
-    end
-
-    specify '"All" and something else' do
-      events_manager.distribute_time_slots(['All', '7'], date_start).should be_eql [nil]
-    end
-
-    specify 'separate time slot' do
-      events_manager.distribute_time_slots(['7'], date_start).should be_eql [[date_start + 7.hour, 2]]
-    end
-
-    specify 'dual time slot' do
-      events_manager.distribute_time_slots(['7', '9'], date_start).should be_eql [[date_start + 7.hour, 4]]
-    end
-
-    specify 'two time slots' do
-      events_manager.distribute_time_slots(['7', '9', '13'], date_start).should be_eql [[date_start + 7.hour, 4], [date_start + 13.hour, 2]]
-    end
-
-    specify 'all time slots' do
-      events_manager.distribute_time_slots(['7','9','11','13','15'], date_start).should be_eql [nil]
     end
   end
 

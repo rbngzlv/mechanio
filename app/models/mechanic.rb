@@ -104,6 +104,6 @@ class Mechanic < ActiveRecord::Base
   end
 
   def event_feed
-    EventsManager.new(self).events_list.to_json(only: [:start, :end])
+    EventsManager.new(self).events_list.to_json
   end
 end
