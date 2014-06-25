@@ -162,20 +162,20 @@ describe Job do
     }.to change { Job.count }.by(-1)
   end
 
-  describe '#can_be_completed?' do
+  describe '#can_complete?' do
     it 'is true when appointment is in the past' do
       job = build :job, :assigned, assigned_at: DateTime.yesterday
-      job.can_be_completed?.should be_false
+      job.can_complete?.should be_false
     end
 
     it 'is false when appointment is in future' do
       job = build :job, :assigned, assigned_at: DateTime.tomorrow
-      job.can_be_completed?.should be_false
+      job.can_complete?.should be_false
     end
 
     it 'is false when a job is already completed' do
       job = build :job, :assigned, assigned_at: DateTime.yesterday, completed_at: DateTime.yesterday
-      job.can_be_completed?.should be_false
+      job.can_complete?.should be_false
     end
   end
 

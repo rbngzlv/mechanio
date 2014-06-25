@@ -11,8 +11,8 @@
 
 = f.submit 'Save Changes', class: 'btn btn-success pull-right'
 
-- unless @job.cancelled?
+- if @job.can_cancel?
   = link_to 'Cancel Job', cancel_admins_job_path(@job), class: 'btn btn-danger', data: {confirm: 'Are you sure?'}
 
-- if @job.can_be_completed?
+- if @job.can_complete?
   = link_to 'Complete Job', complete_admins_job_path(@job), class: 'btn btn-success', data: {confirm: 'Are you sure?'}

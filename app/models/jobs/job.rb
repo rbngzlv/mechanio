@@ -51,7 +51,7 @@ class Job < ActiveRecord::Base
       validates :delete_reason_other, presence: true, if: :delete_reason_other?
     end
     state :assigned do
-      transition to: :completed, on: :complete
+      transition to: :completed, on: :complete, if: :appointment_passed?
       validates :mechanic, :scheduled_at, :assigned_at, :credit_card, :appointment, :event, presence: true
     end
     state :completed do
@@ -60,6 +60,8 @@ class Job < ActiveRecord::Base
     state :rated do
       validates :rating, presence: true
     end
+    state :cancelled
+
     event :cancel do
       transition [:temporary, :pending, :estimated, :assigned] => :cancelled
     end
@@ -149,8 +151,8 @@ class Job < ActiveRecord::Base
     rating.present? && rating.published
   end
 
-  def can_be_completed?
-    !cancelled? && completed_at.nil? && scheduled_at.present? && scheduled_at < Time.now
+  def appointment_passed?
+    scheduled_at < Time.now
   end
 
   def delete_reason_other?

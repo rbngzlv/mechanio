@@ -6,7 +6,7 @@ module Jobs
     end
 
     def call
-      return false unless @job.can_be_completed?
+      return false unless @job.can_complete?
 
       @job.completed_at = Time.now
       @job.complete!

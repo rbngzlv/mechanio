@@ -319,13 +319,28 @@ feature 'Jobs section' do
         end
       end
 
-      scenario 'delete job' do
-        job = create :job, :with_service
+      scenario 'complete job' do
+        job = create :job, :with_service, :assigned, scheduled_at: DateTime.yesterday
+        reset_mail_deliveries
 
         visit edit_admins_job_path(job)
 
-        expect { click_link 'Delete Job' }.to change { Job.count }.by -1
-        page.should have_css '.alert.alert-info', text: 'Job successfully deleted.'
+        click_on 'Complete Job'
+
+        page.should have_css '.alert.alert-info', text: 'Job successfully completed'
+        page.should have_css '.label', text: 'Completed'
+      end
+
+      scenario 'cancel job' do
+        job = create :job, :with_service, :estimated
+        reset_mail_deliveries
+
+        visit edit_admins_job_path(job)
+
+        click_on 'Cancel Job'
+
+        page.should have_css '.alert.alert-info', text: 'Job successfully cancelled'
+        page.should have_css '.label', text: 'Cancelled'
       end
     end
   end
