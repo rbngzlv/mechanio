@@ -9,12 +9,14 @@ describe Event do
   it { should belong_to :job }
 
   it { should validate_presence_of :date_start }
+  it { should validate_presence_of :time_start }
+  it { should validate_presence_of :time_end }
   it { should validate_presence_of :mechanic }
   it { should ensure_inclusion_of(:recurrence).in_array(['daily', 'weekly', 'monthly']) }
   it { should allow_value(nil, (Date.tomorrow + 1.day)).for(:date_end) }
   it { should_not allow_value(Date.today).for(:date_end) }
 
-  it 'does validate by uniqueness for single mechanic' do
+  it 'does validate by uniqueness for single mechanic', pending: 'this validation is turned off for now' do
     event1 = create(:event, :weekly, mechanic: mechanic)
     event2 = build(:event, :weekly, mechanic: mechanic)
 
@@ -52,27 +54,27 @@ describe Event do
     let(:date) { Date.new(2010, 11, 5) }
 
     specify do
-      event = build_stubbed(:event, :whole_day, date_start: date, recurrence: :weekly)
+      event = build(:event, :whole_day, date_start: date, recurrence: :weekly)
       event.set_title
-      event.title.should eq "weekly from 5 Nov, all day"
+      event.title.should eq "weekly from 5 Nov, 9 AM - 7 PM"
     end
 
     specify do
-      event = build_stubbed(:event, date_start: date, time_start: date + 10.hours, time_end: date + 12.hours, recurrence: :weekly)
+      event = build(:event, date_start: date, time_start: date + 10.hours, time_end: date + 12.hours, recurrence: :weekly)
       event.set_title
-      event.title.should eq "weekly from 5 Nov, 10:00AM - 12:00PM"
+      event.title.should eq "weekly from 5 Nov, 10 AM - 12 PM"
     end
 
     specify do
-      event = build_stubbed(:event, date_start: date, time_start: nil, time_end: nil)
+      event = build(:event, date_start: date)
       event.set_title
-      event.title.should eq "all day"
+      event.title.should eq "9 AM - 11 AM"
     end
 
     specify do
-      event = build_stubbed(:event, date_start: date, time_start: date + 10.hours, time_end: date + 12.hours)
+      event = build(:event, date_start: date, time_start: date + 10.hours, time_end: date + 12.hours)
       event.set_title
-      event.title.should eq "10:00AM - 12:00PM"
+      event.title.should eq "10 AM - 12 PM"
     end
   end
 end

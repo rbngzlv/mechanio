@@ -1,13 +1,12 @@
 FactoryGirl.define do
   factory :event do
     date_start    Date.tomorrow
-    time_start    Date.tomorrow + 8.hours
-    time_end      Date.tomorrow + 10.hours
     mechanic
+    time_start { date_start.in_time_zone.change(hour: 9) }
+    time_end   { date_start.in_time_zone.change(hour: 11) }
 
     trait :whole_day do
-      time_start nil
-      time_end   nil
+      time_end  { date_start.in_time_zone.change(hour: 19) }
     end
 
     trait :daily do

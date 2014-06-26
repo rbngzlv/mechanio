@@ -12,7 +12,7 @@ class EventsManager < Struct.new(:mechanic)
       time_end:    time_end
     }
 
-    if params[:repeat] == 'true'
+    if to_boolean(params[:repeat]) == true
       attrs[:recurrence] = params[:recurrence].downcase
 
       case params[:ends]
@@ -102,5 +102,11 @@ class EventsManager < Struct.new(:mechanic)
       schedule.add_recurrence_rule(rule)
     end
     schedule
+  end
+
+  private
+
+  def to_boolean(string)
+    ActiveRecord::ConnectionAdapters::Column.value_to_boolean(string)
   end
 end

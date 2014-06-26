@@ -1,11 +1,12 @@
 require 'spec_helper'
 
 feature 'Mechanic schedule' do
-  let(:mechanic) { create :mechanic }
+  let(:mechanic)     { create :mechanic }
+  let(:month_start)  { Time.now.change(day: 1).to_s(:day_month) }
 
-  before { login_mechanic mechanic }
-
-  subject { page }
+  before do
+    login_mechanic mechanic
+  end
 
   scenario 'check navigation' do
     visit mechanics_dashboard_path
@@ -13,92 +14,89 @@ feature 'Mechanic schedule' do
 
     page.should have_css '.nav-stacked .active a', text: 'My Calendar'
     page.should have_css '#calendar'
-    should have_no_selector '.fc-event'
+    page.should have_no_css '.fc-event'
   end
 
-  context 'administrate events' do
-    before { visit mechanics_events_path }
-
-    specify 'show alert if user forgot to check time slot(s)' do
-      click_button 'Set'
-      within('.alert.alert-danger') { should have_content 'Choose time slot(s) please.' }
+  context 'administrate events', :js do
+    before do
+      visit mechanics_events_path
+      first('.fc-day').click
     end
 
-    context 'add events for today', :js do
+    scenario 'non-recurring event' do
+      within '.event_repeat' do
+        page.should have_checked_field 'event_repeat_false'
+      end
+      page.should have_no_css 'h4', text: 'Repeat'
 
-      scenario 'add whole day' do
-        expect { set_for_today 'All' }.to change { Event.count }.by 1
-        should have_content Event.last.title
+      select_time '9 AM', '1 PM'
+      click_on 'Set'
 
-        expect { set_for_today 'All' }.not_to change { Event.count }
-        should have_content "is not unique event"
+      page.should have_css '.fc-event', text: '9 AM - 1 PM', count: 1
+    end
+
+    scenario 'daily event' do
+      within '.event_repeat' do
+        choose 'Yes'
       end
 
-      scenario 'add parts of day' do
-        expect { set_for_today '9 AM', '11 AM' }.to change { Event.count }.by 1
-        expect { set_for_today '9 AM', '11 AM' }.not_to change { Event.count }
-        expect { set_for_today '9 AM' }.to change { Event.count }.by 1
-        expect { set_for_today '11 AM', '3 PM' }.to change { Event.count }.by 2
-        expect { set_for_today '9 AM' }.not_to change { Event.count }
-        should have_content "is not unique event"
-        Event.all.each { |event| should have_content event.title}
+      page.should have_css 'h4', text: 'Repeat'
+      page.should have_select 'event_recurrence', selected: 'Daily'
+      within '.ends-on' do
+        page.should have_checked_field 'event_ends_never'
       end
 
-      scenario 'add weekly events' do
-        expect { set_recurrence_and_range_for_today 'Weekly', 'All' }.to change { Event.count }.by 1
-        within('.fc-event-container') { should have_selector '.fc-event', text: Event.last.title }
+      click_on 'Set'
 
-        expect { set_recurrence_and_range_for_today 'Weekly', 'All' }.not_to change { Event.count }
-        should have_content "is not unique event"
+      page.should have_css '.fc-event', text: "daily from #{month_start}, 9 AM - 11 AM", count: 42
+    end
 
-        expect { set_recurrence_and_range_for_today 'Weekly', '9 AM', '11 AM', '3 PM' }.to change { Event.count }.by 2
-        expect { set_recurrence_and_range_for_today 'Weekly', '9 AM' }.to change { Event.count }.by 1
-        Event.all.each { |event| should have_content event.title}
+    scenario 'daily event with count limit' do
+      within '.event_repeat' do
+        page.choose 'Yes'
       end
+
+      page.should have_css 'h4', text: 'Repeat'
+      page.should have_select 'event_recurrence', selected: 'Daily'
+      within '.ends-on' do
+        fill_in 'event_ends_after_count', with: 3
+        page.should have_checked_field 'event_ends_count'
+      end
+
+      click_on 'Set'
+
+      page.should have_css '.fc-event', text: "daily from #{month_start}, 9 AM - 11 AM", count: 3
     end
 
-    scenario 'add repeated event which start from non today day', :js do
-      checked_date = Date.parse(find('tbody tr:nth-child(2) td:nth-child(2)')['data-date'])
-      expect { set_recurrence_and_range_for_box 2, 'Daily', 'All' }.to change { Event.count }.by 1
-      Event.last.date_start.should == checked_date
+    scenario 'daily event with date limit' do
+      within '.event_repeat' do
+        page.choose 'Yes'
+      end
 
-      checked_date = Date.parse(find('tbody tr:nth-child(2) td:nth-child(2)')['data-date'])
-      expect { set_recurrence_and_range_for_box 2, 'Daily', '1 PM', '5 PM' }.to change { Event.count }.by 2
-      Event.last.date_start.should == checked_date
+      page.should have_css 'h4', text: 'Repeat'
+      page.should have_select 'event_recurrence', selected: 'Daily'
 
-      expect { checked_date = set_recurrence_and_range_for_any_day 'Weekly', '9 AM', '1 PM', '3 PM' }.to change { Event.count }.by 2
-      Event.last.date_start.should == checked_date
+      find('#event_ends_on').click
+      within '.datepicker-days' do
+        all('.day').last.click
+      end
+      page.should have_checked_field 'event_ends_date'
 
-      expect { checked_date = set_recurrence_and_range_for_any_day 'Month', '9 AM' }.to change { Event.count }.by 1
-      Event.last.date_start.should == checked_date
+      click_on 'Set'
 
-      expect { set_recurrence_and_range_for_any_day 'Daily', 'All' }.not_to change { Event.count }
+      page.should have_css '.fc-event', text: "daily from #{month_start}, 9 AM - 11 AM", count: 35
     end
 
-    scenario 'add unrepeated event when exists weekly dup' do
-      event = create(:event, :weekly, mechanic: mechanic)
-      expect { set_for_today 'All' }.to change { Event.count }.by 1
-    end
-
-    scenario 'add monthly repeated event when we have another monthly repeated event for single week day' do
-      event = create(:event, mechanic: mechanic, recurrence: 'monthly', date_start: Date.today - 7.day - 8.month)
-      expect { set_recurrence_and_range_for_today 'Monthly', 'All' }.to change { Event.count }.by 1
-    end
-
-    scenario 'delete "day off"', :js do
-      event = create(:event, :weekly, mechanic: mechanic)
-
+    scenario 'delete blocked timeslot' do
+      event = create(:event, :daily, mechanic: mechanic)
       visit mechanics_events_path
 
-      should have_css('.fc-event', text: event.title)
+      page.should have_css '.fc-event', text: event.title
 
-      expect do
-        first('.fc-event-title').click
-        # It's needed to click success on confirm alert
-        sleep 0.1
-      end.to change { Event.count }.by -1
-      should have_content 'Event successfully deleted'
-      should have_no_content event.title
+      first('.fc-event').click
+
+      page.should have_no_css '.fc-event', text: event.title
+      page.should have_content 'Event successfully deleted'
     end
 
     specify 'job event', :js do
@@ -112,27 +110,17 @@ feature 'Mechanic schedule' do
       end.not_to change { has_content?(event.title) }
     end
 
-    def set_for_today(*time_slots)
-      time_slots.each { |time_slot| check time_slot}
-      click_button 'Set'
-      sleep 1
+    def within_modal(&block)
+      within '#block-timeslot-modal' do
+        yield
+      end
     end
 
-    def set_recurrence_and_range_for_today(recurrence, *time_slots)
-      select recurrence, from: 'event_recurrence'
-      set_for_today *time_slots
-    end
-
-    def set_recurrence_and_range_for_box(box_number, recurrence, *time_slots)
-        within("tbody tr:nth-child(#{box_number})") { find("td:nth-child(#{box_number})").trigger 'click' }
-        select recurrence, from: 'event_recurrence'
-        set_for_today *time_slots
-    end
-
-    def set_recurrence_and_range_for_any_day(recurrence, *time_slots)
-      box_number = (2..4).to_a.sample
-      set_recurrence_and_range_for_box(box_number, recurrence, *time_slots)
-      Date.parse(find("tbody tr:nth-child(#{box_number}) td:nth-child(#{box_number})")['data-date'])
+    def select_time(from, to)
+      within_modal do
+        select from, from: 'event_time_start'
+        select to,   from: 'event_time_end'
+      end
     end
   end
 end

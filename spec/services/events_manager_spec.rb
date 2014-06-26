@@ -2,16 +2,76 @@ require 'spec_helper'
 
 describe EventsManager do
   let(:mechanic)        { create :mechanic }
-  let!(:events_manager)  { EventsManager.new(mechanic) }
-  let(:params) do
-    ActionController::Parameters.new({
-      time_slots:   ['All', ''],
-      date_start:   Date.today.to_s,
-      recurrence:   "Weekly"
-    })
-  end
+  let(:events_manager)  { EventsManager.new(mechanic) }
+  let(:events_list)     { events_manager.events_list }
+  let(:today)           { Time.now }
+  let(:event_params) {{
+    date_start: today.to_s,
+    time_start: '9',
+    time_end: '17'
+  }}
 
+  describe '#create_event' do
+    specify 'non-recurring event' do
+      event = events_manager.create_event(event_params)
+
+      event.should be_a Event
+      event.persisted?.should be_true
+
+      events_list.count.should eq 1
+      events_list.first[:title].should eq '9 AM - 5 PM'
+    end
+
+    specify 'daily event' do
+      event = events_manager.create_event(event_params.merge({
+        repeat: true,
+        recurrence: 'daily'
+      }))
+
+      event.should be_a Event
+      event.persisted?.should be_true
+
+      date = today.strftime('%-d %b')
+      events_list.count.should >= 365
+      events_list.first[:title].should eq "daily from #{date}, 9 AM - 5 PM"
+    end
+
+    specify 'weekly event' do
+      event = events_manager.create_event(event_params.merge({
+        repeat: true,
+        recurrence: 'weekly'
+      }))
+
+      event.should be_a Event
+      event.persisted?.should be_true
+
+      date = today.strftime('%-d %b')
+      events_list.count.should >= 52
+      events_list.first[:title].should eq "weekly from #{date}, 9 AM - 5 PM"
+    end
+
+    context 'monthly event' do
       specify 'timed event' do
+        event = events_manager.create_event(event_params.merge({
+          repeat: true,
+          recurrence: 'monthly'
+        }))
+
+        event.should be_a Event
+        event.persisted?.should be_true
+
+        date = today.strftime('%-d %b')
+        events_list.count.should >= 12
+        events_list.first[:title].should eq "monthly from #{date}, 9 AM - 5 PM"
+      end
+    end
+
+    context 'overlapping event', pending: 'this validation is turned off for now' do
+      before do
+        create :event, :whole_day, date_start: today, mechanic: mechanic
+      end
+
+      specify 'does not create overlapping event' do
         event = events_manager.create_event({
           date_start: today.to_s,
           time_start: '9',
@@ -19,76 +79,10 @@ describe EventsManager do
         })
 
         event.should be_a Event
-        event.persisted?.should be_true
+        event.persisted?.should be_false
+        event.errors.full_messages.should eq {}
 
-        events_list.count.should eq 1
-        events_list.first[:title].should eq '9:00AM - 5:00PM'
-      end
-    end
-
-    context 'daily event' do
-      specify 'timed event' do
-        event = events_manager.create_event({
-          date_start: today.to_s,
-          time_start: '9',
-          time_end: '17',
-          repeat: true,
-          recurrence: 'daily'
-        })
-
-        event.should be_a Event
-        event.persisted?.should be_true
-
-        date = today.strftime('%-d %b')
-        events_list.count.should >= 365
-        events_list.first[:title].should eq "daily from #{date}, 9:00AM - 5:00PM"
-      end
-    end
-
-    context 'weekly event' do
-      specify 'timed event' do
-        event = events_manager.create_event({
-          date_start: today.to_s,
-          time_start: '9',
-          time_end: '17',
-          repeat: true,
-          recurrence: 'weekly'
-        })
-
-        event.should be_a Event
-        event.persisted?.should be_true
-
-        date = today.strftime('%-d %b')
-        events_list.count.should >= 52
-        events_list.first[:title].should eq "weekly from #{date}, 9:00AM - 5:00PM"
-      end
-    end
-
-    context 'monthly event' do
-      specify 'timed event' do
-        event = events_manager.create_event({
-          date_start: today.to_s,
-          time_start: '9',
-          time_end: '17',
-          repeat: true,
-          recurrence: 'monthly'
-        })
-
-        event.should be_a Event
-        event.persisted?.should be_true
-
-        date = today.strftime('%-d %b')
-        events_list.count.should >= 12
-        events_list.first[:title].should eq "monthly from #{date}, 9:00AM - 5:00PM"
-      end
-    end
-
-      specify '#errors' do
-        events_manager.errors[:uniqueness].length.should be 1
-      end
-
-      specify '#errors_full_message' do
-        events_manager.errors_full_message.should include "is not unique event"
+        events_list.count.should eq 0
       end
     end
   end
@@ -154,22 +148,14 @@ describe EventsManager do
       end
     end
 
-    context 'check time start/end' do
-      specify 'whole day' do
-        event = create(:event, :whole_day, mechanic: mechanic, date_start: Date.parse('2012-07-04'))
-        events_manager.events_list.last[:start].to_s(:db).should eq '2012-07-04 00:00:00'
-        events_manager.events_list.last[:end].to_s(:db).should eq '2012-07-04 23:59:00'
-      end
-
-      specify 'part of day' do
-        create(:event, mechanic: mechanic, date_start: Date.parse('2012-06-08'), time_start: Time.parse('11:00 GMT'), time_end: Time.parse('15:00 GMT'))
-        events_manager.events_list.last[:start].to_s(:db).should eq '2012-06-08 11:00:00'
-        events_manager.events_list.last[:end].to_s(:db).should eq '2012-06-08 15:00:00'
-      end
+    specify 'start/end time' do
+      create(:event, mechanic: mechanic, date_start: Date.parse('2012-06-08'), time_start: Time.parse('11:00 GMT'), time_end: Time.parse('15:00 GMT'))
+      events_manager.events_list.last[:start].to_s(:db).should eq '2012-06-08 11:00:00'
+      events_manager.events_list.last[:end].to_s(:db).should eq '2012-06-08 15:00:00'
     end
   end
 
-  describe '#check_uniqueness' do
+  describe '#check_uniqueness', pending: 'this validation is turned off for now as recurring events can intersect in various ways' do
     let(:today)  { Date.today }
     let(:events) { [
       build(:event, :weekly, mechanic: mechanic),
@@ -211,10 +197,6 @@ describe EventsManager do
     let(:today) { Date.today }
     let(:today_time) { today.in_time_zone }
     let(:event) { build :event, :whole_day, date_start: today }
-
-    it 'should create start and end time if their are not exists in event' do
-      events_manager.get_time_start_and_end(event).should be_eql [today_time, today_time.advance(hours: 23, minutes: 59)]
-    end
 
     it 'should return real start and end time if their are exists and occurrence not given' do
       event.time_start = today + 11.hour

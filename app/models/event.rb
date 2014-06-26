@@ -2,11 +2,11 @@ class Event < ActiveRecord::Base
   belongs_to :mechanic
   belongs_to :job, inverse_of: :event
 
-  validates :date_start, :mechanic, presence: true
+  validates :date_start, :time_start, :time_end, :mechanic, presence: true
   validates :count, numericality: { greater_than: 0 }, allow_blank: true
   validates :recurrence, inclusion: { in: ['daily', 'weekly', 'monthly'] }, allow_blank: true
   validate :verify_end_date, if: :date_end
-  validate :verify_event_overlap, if: :mechanic
+  # validate :verify_event_overlap, if: :mechanic
 
   scope :repeated, ->(rec) { where(recurrence: rec) }
   scope :time_slot, ->(start) { where(time_start: start) }
@@ -25,7 +25,9 @@ class Event < ActiveRecord::Base
   end
 
   def time_range
-    time_start ? "#{time_start.to_s(:time).strip} - #{time_end.to_s(:time).strip}" : "all day"
+    start_hour = time_start.to_s(:hour).strip if time_start
+    end_hour   = time_end.to_s(:hour).strip if time_end
+    "#{start_hour} - #{end_hour}"
   end
 
   def date_start_short
