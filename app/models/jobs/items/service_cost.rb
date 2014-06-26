@@ -6,17 +6,23 @@ class ServiceCost < ActiveRecord::Base
   validates :description, :cost, :service_plan, presence: true
   validates :cost, numericality: { greater_than: 0 }
 
+  after_initialize :set_description
+
+
   def service_plan=(service_plan)
     super
-    self.description = service_plan.display_title
     set_cost
   end
 
+  def set_description
+    self.description = 'Service cost'
+  end
+
   def set_cost
-    self.cost ||= service_plan.cost
+    self.cost = service_plan.cost if service_plan_id_changed?
   end
 
   def data
-    ['Service cost', '', cost]
+    [description, '', cost]
   end
 end

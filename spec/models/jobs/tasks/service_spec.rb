@@ -24,9 +24,10 @@ describe Service do
 
   it 'updates ServiceCost task item when service plan changes' do
     service.service_plan_id = service_plan_2.id
+
     expect {
       service.save
-    }.to_not change { service.id }
+    }.to_not change { task_item.reload.itemable_id }
 
     verify_service(service_plan_2)
     verify_item(service_plan_2)

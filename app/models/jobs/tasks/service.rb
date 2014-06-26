@@ -12,7 +12,7 @@ class Service < Task
 
   def itemize
     if item = find_service_item
-      item.itemable.update_attributes(service_plan: service_plan)
+      item.itemable.update(service_plan: service_plan)
     else
       task_items.build itemable: ServiceCost.new(service_plan: service_plan)
     end

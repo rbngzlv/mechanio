@@ -222,7 +222,7 @@ feature 'Jobs section' do
       scenario 'edit items' do
         job = create :job, :with_service, :with_repair, :with_inspection
         service_plan = job.tasks.first.service_plan
-        another_service_plan = create(:service_plan, model_variation: job.car.model_variation)
+        another_service_plan = create(:service_plan, model_variation: job.car.model_variation, cost: 250)
 
         visit_job_items(job)
 
@@ -263,7 +263,7 @@ feature 'Jobs section' do
             verify_inspection 'included', 'Edited title', 'Edited notes'
           end
 
-          grand_total.should eq '$681.00'
+          grand_total.should eq '$581.00'
         end
       end
 
