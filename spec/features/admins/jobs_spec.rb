@@ -287,6 +287,34 @@ feature 'Jobs section' do
         end
       end
 
+      scenario 'add negative amount' do
+        job = create :job, :with_service
+
+        visit_job_items(job)
+
+        within_task(1) { verify_service_cost('350.0') }
+
+        grand_total.should eq '$350.00'
+
+        within_task(1) do
+          click_on 'Add amount'
+        end
+
+        within_row(1) do
+          fill_in 'Charge description', with: 'Some fixed amount'
+          fill_in 'Cost', with: '-20.0'
+        end
+
+        before_and_after_save job do
+          within_task(1) { verify_service_cost('350.0') }
+          screen
+          within_row(1) do
+            verify_fixed('Some fixed amount', '-20.0')
+          end
+          grand_total.should eq '$330.00'
+        end
+      end
+
       scenario 'delete tasks/items' do
         job = create :job, :with_service, :with_repair, :with_inspection
         service_plan = job.tasks.first.service_plan
