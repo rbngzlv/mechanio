@@ -97,6 +97,8 @@ Mechanio::Application.routes.draw do
       member do
         get :cancel
         get :complete
+        get :select_mechanic
+        patch :reassign
       end
     end
     resources :appointments, only: [:edit, :update]

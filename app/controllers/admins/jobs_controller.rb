@@ -1,7 +1,7 @@
 class Admins::JobsController < Admins::ApplicationController
   include AdminHelper
 
-  before_filter :find_job, only: [:edit, :update, :cancel, :complete, :destroy]
+  before_filter :find_job, only: [:edit, :update, :cancel, :select_mechanic, :reassign, :complete, :destroy]
 
   def index
     @status = params[:status]
@@ -25,6 +25,21 @@ class Admins::JobsController < Admins::ApplicationController
     else
       flash[:error] = 'Error updating job'
     end
+    redirect_to action: :edit
+  end
+
+  def select_mechanic
+    @mechanics = Mechanic.active.by_region(@job.location_postcode)
+  end
+
+  def reassign
+    mechanic = Mechanic.find(reassign_params[:mechanic_id])
+    if Appointments::Reassign.new(@job, mechanic, reassign_params[:scheduled_at]).call
+      flash[:notice] = 'Job successfully reassigned'
+    else
+      flash[:error] = 'Error reassigning job'
+    end
+
     redirect_to action: :edit
   end
 
@@ -56,5 +71,9 @@ class Admins::JobsController < Admins::ApplicationController
 
   def find_job
     @job = Job.find(params[:id])
+  end
+
+  def reassign_params
+    params.require(:job).permit(:mechanic_id, :scheduled_at)
   end
 end

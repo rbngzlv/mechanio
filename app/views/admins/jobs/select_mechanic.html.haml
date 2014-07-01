@@ -1,0 +1,12 @@
+= render 'admins/jobs/header'
+
+%h4.black Select a Mechanic
+
+.row
+  .col-md-12.mechanics
+    - if @mechanics.length > 0
+      = render partial: 'admins/jobs/book', collection: @mechanics, as: :mechanic
+    - else
+      .panel.panel-default.panel-rounded
+        .panel-body
+          %h5 Sorry, we could not find any mechanics nearby

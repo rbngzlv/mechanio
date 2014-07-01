@@ -1,0 +1,36 @@
+- tomorrow = Date.tomorrow
+
+:coffee
+  jQuery ->
+    $('.calendar-container#mechanic_#{mechanic.id}').book_calendar({
+      firstDay: #{ tomorrow.wday },
+      year: #{ tomorrow.year },
+      month: #{ tomorrow.month - 1 },
+      date: #{ tomorrow.day },
+      events: #{ mechanic.event_feed }
+    })
+
+.panel.panel-default.panel-rounded
+  .panel-body
+    .row
+      .profile-border.clickable{ data: { toggle: 'modal', target: "#js-mechanic-#{mechanic.id}" }, role: 'button' }
+        = render "shared/mechanic/avatar", mechanic: mechanic
+        %h5.text-center
+          = mechanic.full_name
+          - if mechanic.years_as_a_mechanic
+            %br
+            #{ mechanic.years_as_a_mechanic } years of experience
+
+      .row.calendar-container[mechanic]
+        %legend Select Arrival Time
+        .calendar-arrow.left-arrow ‹
+        .calendar-arrow.right-arrow ›
+        .calendar.week-view
+
+        %p
+          = simple_form_for @job, url: reassign_admins_job_path(@job), html: { class: 'choose_mechanic_form' }, wrapper: :nolabel do |f|
+            = f.hidden_field :scheduled_at, value: nil
+            = f.hidden_field :mechanic_id, value: mechanic.id
+            = f.submit 'Reassign', class: 'btn btn-info pull-right', disabled: true, style: "margin-right: 30px"
+
+    = render "shared/mechanic/modal", mechanic: mechanic
