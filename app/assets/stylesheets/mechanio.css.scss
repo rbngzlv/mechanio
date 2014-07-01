@@ -1076,6 +1076,20 @@ section {
 
 .contact-us {
   font-size: 15px;
+
+  dl {
+    margin-left: 130px;
+  }
+
+  .social-buttons {
+    height: 60px;
+  }
+
+  .social-button {
+    display: inline-block !important;
+    float: none;
+    line-height: 13px;
+  }
 }
 
 .bottom-margin {

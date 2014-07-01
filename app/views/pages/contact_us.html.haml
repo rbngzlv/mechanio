@@ -1,48 +1,70 @@
-.col-md-8.contact-us
-  .panel.panel-default.panel-rounded
-    .panel-body.text-center
-      %h5 Join the Mechanio Movement
-      .row
-        .col-md-6.col-sm-6.col-xs-6.social-btn-wrap
-          = link_to '', '#', class: 'social-btn facebook-btn pull-right'
-        .col-md-6.col-sm-6.col-xs-6.social-btn-wrap
-          = link_to '', '#', class: 'social-btn gmail-btn pull-left'
-      %br
-      %h3.to-upper.black Contact Us
-      %p
-        Got Questions, Comments or enquiries about Mechanio?
-        %br
-        We'd love to hear from you!
-        %br
-        =link_to 'info@mechanio.com ', '#'
-      %br
-      %p
-        %b Press Enquiries
-        %br
-        = link_to 'media@mechanio.com ', '#'
-      %br
-      %p
-        %b Mobile Mechanics Interested in joining our fleet?
-        %br
-        = link_to 'jobs@mechanio.com', '#'
-.col-md-4
-  .panel.panel-default.panel-rounded
-    .panel-body
-      %h4.hx-default
-        Follow us
-        .pull-right.header-social
-          = link_to '#' do
-            %i.icon-facebook-sign
-          = link_to '#' do
-            %i.icon-twitter-sign
-          = link_to '#' do
-            %i.icon-google-plus-sign
-      .panel.nested-panel
-        Facebook Lite Box will come here
-      %form
-        .finder
-          %input.form-control.email-input{placeholder: 'Email Address'}
-          %button.btn.btn-default.pull-left.subscribe-btn Subscribe
-  .panel.panel-default.panel-rounded
-    .panel-body
-      %iframe{width: '100%', scrolling: 'no', height: '200', frameborder: '0', src: 'https://maps.google.co.in/maps?f=q&source=s_q&hl=en&geocode=&q=sydney,+australia&aq=&sll=20.98352,82.752628&sspn=43.463205,86.572266&ie=UTF8&hq=&hnear=Sydney+New+South+Wales,+Australia&ll=-33.867487,151.20699&spn=0.154277,0.338173&t=m&z=12&iwloc=A&output=embed', marginwidth: '0', marginheight: '0'}
+.contact-us
+  .col-md-8
+    .panel.panel-default.panel-rounded
+      .panel-body.text-center
+        %h3.to-upper Contact Us
+
+        %h4 Mechanio
+        %p
+          North Sydney, NSW Australia
+          %dl.dl-horizontal.text-left
+            %dt Phone:
+            %dd
+              (+612) 9460 3536
+              %br
+              (we are open 10am - 5pm)
+            %dt ABN:
+            %dd 43154895977
+
+        %h4 Are you posting a job?
+        %p
+          If you have any questions regarding booking a mechanic or
+          %br
+          how Mechanio works, please read our #{ link_to 'Frequently Asked Questions', page_path(:faq) } first.
+          %dl.dl-horizontal.text-left
+            %dt Email contact:
+            %dd= link_to 'info@mechanio.com', 'mailto:info@mechanio.com'
+
+
+        %h4 Are you a mobile mechanic?
+        %p
+          Join online: Please #{ link_to 'register your interest', '#' } and we'll call you
+          %br
+          back and discuss how Mechanio can work for you
+          %dl.dl-horizontal.text-left
+            %dt Email contact:
+            %dd= link_to 'recruit@mechanio.com', 'mailto:recruit@mechanio.com'
+
+        %h4 Media contact
+        %p
+          %dl.dl-horizontal.text-left
+            %dt Email contact:
+            %dd= link_to 'media@mechanio.com', 'mailto:media@mechanio.com'
+
+  .col-md-4
+    .panel.panel-default.panel-rounded
+      .panel-body
+        %h4.hx-default Follow us
+        .social-buttons
+          .fb-like.social-button{ 'data-href' => 'http://mechanio.com', 'data-layout' => 'button', 'data-action' => 'like', 'data-show-faces' => 'false', 'data-share' => 'false' }
+          %a.twitter-follow-button.social-button{ 'href' => 'https://twitter.com/mechanio', 'data-show-count' => 'false', 'data-lang' => 'en', 'data-show-screen-name' => 'false' }
+            Follow
+          %div.g-follow{ 'data-annotation' => 'none', 'data-height' => '20', 'data-href' => '//plus.google.com/u/0/106799843712414308451', 'data-rel' => 'author' }
+
+        %h4.hx-default Subscribe to our newsletter
+        %form
+          .finder
+            %input.form-control.email-input{placeholder: 'Email Address'}
+            %button.btn.btn-default.pull-left.subscribe-btn Subscribe
+
+    .panel.panel-default.panel-rounded
+      .panel-body
+        %iframe{width: '100%', scrolling: 'no', height: '200', frameborder: '0', src: 'https://maps.google.co.in/maps?f=q&source=s_q&hl=en&geocode=&q=sydney,+australia&aq=&sll=20.98352,82.752628&sspn=43.463205,86.572266&ie=UTF8&hq=&hnear=Sydney+New+South+Wales,+Australia&ll=-33.867487,151.20699&spn=0.154277,0.338173&t=m&z=12&iwloc=A&output=embed', marginwidth: '0', marginheight: '0'}
+
+
+:javascript
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/platform.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();

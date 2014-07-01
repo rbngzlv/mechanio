@@ -2,7 +2,7 @@
 %html
   = render 'layouts/head'
   %body{ class: ('navbar-padding' if impersonated?) }
-    = render 'shared/facebook_api'
+    = render 'shared/social_apis'
     = render 'shared/header'
     = yield
     = render 'shared/footer'
