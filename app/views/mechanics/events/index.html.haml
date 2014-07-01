@@ -8,16 +8,12 @@
     $calendar.fullCalendar
       header: { left: 'title', center: '', right: 'prev,next,today' }
       events: #{ @events },
-      eventClick: (event) ->
+      eventClick: (event, e, view) ->
         return false if event.className[0] == 'work'
 
-        if confirm("Are you sure you want to delete this record?")
-          $.post(event.url, { _method: 'DELETE' }, () ->
-            show_flash_notice('success', 'Event successfully deleted')
-            $calendar.fullCalendar('removeEvents', event.id)
-          ).fail () ->
-            show_flash_notice('danger', 'Cannot delete event with job')
-
+        $('#delete-timeslot-form #event_id').val(event.id)
+        $('#delete-timeslot-form #event_date').val(event.start)
+        $('#delete-timeslot-modal').modal()
         false
 
       dayClick: (date, allDay, jsEvent, view) ->
@@ -47,3 +43,4 @@
               (Click on a blocked timeslot to unblock)
 
 = render 'timeslot_modal'
+= render 'delete_timeslot_modal'

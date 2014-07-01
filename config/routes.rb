@@ -50,7 +50,9 @@ Mechanio::Application.routes.draw do
       get :complete
       resource :car, only: [:update]
     end
-    resources :events, only: [:index, :create, :destroy]
+    resources :events, only: [:index, :create] do
+      delete :destroy, on: :collection
+    end
     resources :payouts, only: [] do
       get :receipt, on: :member
     end

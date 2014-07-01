@@ -316,7 +316,8 @@ CREATE TABLE events (
     title character varying(255),
     mechanic_id integer,
     job_id integer,
-    count integer
+    count integer,
+    schedule text
 );
 
 
@@ -2074,3 +2075,5 @@ INSERT INTO schema_migrations (version) VALUES ('20140620093639');
 INSERT INTO schema_migrations (version) VALUES ('20140624095434');
 
 INSERT INTO schema_migrations (version) VALUES ('20140625185317');
+
+INSERT INTO schema_migrations (version) VALUES ('20140627105158');

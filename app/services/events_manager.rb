@@ -26,6 +26,17 @@ class EventsManager < Struct.new(:mechanic)
     Event.create(attrs)
   end
 
+  def delete_occurence(event_id, date)
+    event = mechanic.events.find(event_id)
+    start_hour = event.time_start.hour if event.time_start
+
+    schedule = event.schedule
+    schedule.add_exception_time(Time.zone.parse(date).change(hour: start_hour))
+
+    event.schedule = schedule.to_hash
+    event.save
+  end
+
   def delete_event(event_id)
     event = mechanic.events.find(event_id)
     event.is_appointment? ? false : event.destroy
@@ -34,9 +45,7 @@ class EventsManager < Struct.new(:mechanic)
   def events_list
     events = mechanic.events.includes(:job).map do |event|
       if event.recurrence
-        schedule = get_schedule(event, event.date_start)
-
-        schedule.occurrences_between(Date.today - 1.year,Date.today + 1.year).map do |occurrence|
+        event.schedule.occurrences_between(Date.today - 1.year, Date.today + 1.year).map do |occurrence|
           hash_for_fullcalendar event, occurrence
         end
       else
@@ -48,10 +57,12 @@ class EventsManager < Struct.new(:mechanic)
   def hash_for_fullcalendar(event, occurrence = nil)
     occurrence ||= event.date_start
     time_start, time_end = get_time_start_and_end(event, occurrence)
+    url = routes.mechanics_events_path(event.id)
+
     { start: time_start,
       end: time_end,
       title: event.title,
-      url: Rails.application.routes.url_helpers.mechanics_event_path(event.id),
+      url: url,
       id: event.id,
       className: event.job ? 'work' : 'day-off' }
   end
@@ -108,5 +119,9 @@ class EventsManager < Struct.new(:mechanic)
 
   def to_boolean(string)
     ActiveRecord::ConnectionAdapters::Column.value_to_boolean(string)
+  end
+
+  def routes
+    Rails.application.routes.url_helpers
   end
 end

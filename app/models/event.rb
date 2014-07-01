@@ -2,6 +2,8 @@ class Event < ActiveRecord::Base
   belongs_to :mechanic
   belongs_to :job, inverse_of: :event
 
+  serialize :schedule
+
   validates :date_start, :time_start, :time_end, :mechanic, presence: true
   validates :count, numericality: { greater_than: 0 }, allow_blank: true
   validates :recurrence, inclusion: { in: ['daily', 'weekly', 'monthly'] }, allow_blank: true
@@ -34,6 +36,9 @@ class Event < ActiveRecord::Base
     date_start.strftime('%-d %b')
   end
 
+  def schedule
+    IceCube::Schedule.from_hash(read_attribute(:schedule))
+  end
 
   private
 

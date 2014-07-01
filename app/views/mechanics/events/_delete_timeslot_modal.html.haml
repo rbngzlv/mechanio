@@ -1,0 +1,11 @@
+#delete-timeslot-modal.modal.fade
+  .modal-dialog
+    .modal-content
+      .modal-body
+        %h4.nomargin Delete Event
+        = simple_form_for :event, method: :delete, html: { id: 'delete-timeslot-form' } do |f|
+          = f.hidden_field :id
+          = f.hidden_field :date
+          = f.input :occurence, collection: [['Delete this entry', 'this'], ['Delete all recurring entries', 'all']], as: :radio_buttons, checked: 'this', label: false
+          = f.submit 'Delete', class: 'btn btn-danger'
+          %a.btn.btn-default{ 'data-dismiss' => 'modal' } Cancel
