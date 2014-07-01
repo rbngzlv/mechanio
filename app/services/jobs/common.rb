@@ -20,7 +20,7 @@ module Jobs
     def notify_new_job(job)
       if job.quote_available?
         job.estimate
-        notify_estimated(job)
+        # notify_estimated(job)
         schedule_followup_email(job)
       else
         notify_pending(job)
