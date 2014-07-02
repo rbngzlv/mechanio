@@ -52,10 +52,26 @@
           %div.g-follow{ 'data-annotation' => 'none', 'data-height' => '20', 'data-href' => '//plus.google.com/u/0/106799843712414308451', 'data-rel' => 'author' }
 
         %h4.hx-default Subscribe to our newsletter
-        %form
-          .finder
-            %input.form-control.email-input{placeholder: 'Email Address'}
-            %button.btn.btn-default.pull-left.subscribe-btn Subscribe
+
+        / Begin MailChimp Signup Form
+        #mc_embed_signup
+          %form#mc-embedded-subscribe-form.validate{ action: "//mechanio.us8.list-manage.com/subscribe/post?u=93d64faaea5a3330db1ae1b6c&id=bba08fd04b", method: "post", name: "mc-embedded-subscribe-form", novalidate: "", target: "_blank" }
+            .finder
+              %input#mce-EMAIL.email-input.form-control{ name: "EMAIL", type: "email", value: "", placeholder: 'Email Address' }
+              #mce-responses.clear
+                #mce-error-response.response.clear{style: "display:none"}
+                #mce-success-response.response.clear{style: "display:none"}
+              / real people should not fill this in and expect good things - do not remove this or risk form bot signups
+              %div{style: "position: absolute; left: -5000px;"}
+                %input{name: "b_93d64faaea5a3330db1ae1b6c_bba08fd04b", tabindex: "-1", type: "text", value: ""}
+              %input#mc-embedded-subscribe.btn.btn-default.pull-left.subscribe-btn{ name: "subscribe", type: "submit", value: "Subscribe" }
+        %script{ src: "//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js", type: "text/javascript" }
+        :javascript
+          (function($) {
+          window.fnames = new Array(); window.ftypes = new Array();fnames[0]='EMAIL';ftypes[0]='email';fnames[1]='FNAME';ftypes[1]='text';fnames[2]='LNAME';ftypes[2]='text';
+          }(jQuery));
+          var $mcj = jQuery.noConflict(true);
+        / End mc_embed_signup
 
     .panel.panel-default.panel-rounded
       .panel-body
