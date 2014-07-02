@@ -1,7 +1,5 @@
 source 'http://rubygems.org'
 
-ruby '2.0.0'
-
 gem 'rails', '4.0.0'
 gem 'pg'
 gem 'devise'
@@ -48,6 +46,11 @@ group :test do
   gem 'vcr'
   gem 'webmock'
   gem 'simplecov', require: false
+end
+
+group :development do
+  gem 'spring'
+  gem 'spring-commands-rspec'
 end
 
 group :development, :test do
