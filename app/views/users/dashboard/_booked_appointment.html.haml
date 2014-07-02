@@ -9,7 +9,7 @@
           .col-md-7.col-sm-7.col-xs-6
             .reviews-row.clearfix
               .rating.pull-left
-                = rating_stars(@appointment.mechanic.rating)
+                = average_rating(@appointment.mechanic.rating)
               %span.review-text.pull-left= pluralize(@appointment.mechanic.ratings.size, 'Review')
       .row
         %p.clearfix

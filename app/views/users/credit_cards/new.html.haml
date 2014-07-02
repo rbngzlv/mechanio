@@ -19,7 +19,7 @@
                       %span #{pluralize @mechanic.years_as_a_mechanic, 'year'} of experience
                     .reviews-row
                       .rating.text-left
-                        = rating_stars(@mechanic.rating)
+                        = average_rating(@mechanic.rating)
                 %tr
                   %th Date:
                   %td

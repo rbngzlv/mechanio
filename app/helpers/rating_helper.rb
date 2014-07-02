@@ -7,6 +7,15 @@ module RatingHelper
     html.html_safe
   end
 
+  def average_rating(rating)
+    width = (rating.to_f / Rating::MAX * 100).to_i
+
+    html = ""
+    html << "<div class=\"meter\" style=\"width: #{width}%\"></div>"
+    Rating::MAX.times { html << '<span class="empty-star">&nbsp;</span>' }
+    content_tag :div, html.html_safe, class: 'average-rating'
+  end
+
   def editable_rating(attribute, value)
     html = hidden_field_tag("rating[#{attribute}]", value)
     (1..Rating::MAX).each do |i|

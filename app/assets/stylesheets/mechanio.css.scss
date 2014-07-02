@@ -879,6 +879,24 @@ section {
     }
   }
 
+  .average-rating {
+    position: relative;
+    background: #cfc8bc;
+
+    .meter {
+      background: #f65a00;
+      position: absolute;
+      height: 18px;
+      left: 0;
+    }
+    .empty-star {
+      background-position: -4px -42px;
+      margin: 0;
+      width: 17px;
+      height: 18px;
+    }
+  }
+
   .rating.editable {
     span.active, span.active ~ span,
     span:hover, span:hover ~ span {

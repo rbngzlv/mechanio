@@ -1,5 +1,5 @@
 = image_tag mechanic.avatar_url(:thumb), class: 'avatar'
 .reviews-row.clearfix
   .rating.pull-left
-    = rating_stars(mechanic.rating)
+    = average_rating(mechanic.rating)
   %span.review-text.pull-right= pluralize mechanic.ratings.size, 'Review'
