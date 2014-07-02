@@ -77,4 +77,40 @@ describe Event do
       event.title.should eq "10 AM - 12 PM"
     end
   end
+
+  specify 'call .build_schedule on save' do
+    expect(subject).to receive(:build_schedule)
+    subject.save!
+  end
+
+  specify '.build_schedule' do
+    event = build :event, :weekly, date_start: Date.new(2014, 12, 1), count: 5
+    event.build_schedule.should eq schedule_hash
+  end
+
+  specify 'deserilize schedule from saved hash' do
+    event = create :event, :weekly, date_start: Date.new(2014, 12, 1), count: 5
+    event.reload.schedule.should be_a IceCube::Schedule
+    event.reload.schedule.to_hash.should eq schedule_hash
+  end
+
+  specify '.start_date_time' do
+    event1 = build :event, date_start: Date.new(2014, 12, 1)
+    event2 = build :event, date_start: Date.new(2014, 12, 1), time_start: nil
+
+    event1.start_date_time.should eq 'Mon, 01 Dec 2014 09:00:00 UTC +00:00'
+    event2.start_date_time.should eq 'Mon, 01 Dec 2014 00:00:00 UTC +00:00'
+  end
+
+  def schedule_hash
+    {
+      start_date: { time: '2014-12-01 09:00:00 UTC', zone: 'UTC' },
+      rrules: [
+        { validations: {}, rule_type: 'IceCube::WeeklyRule', interval: 1, week_start: 0, count: 5 }
+      ],
+      exrules: [],
+      rtimes: [],
+      extimes: []
+    }
+  end
 end

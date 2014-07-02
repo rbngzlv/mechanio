@@ -107,7 +107,12 @@ describe EventsManager do
     def check_event_hash(element, original_event)
       element.delete(:start).nil?.should be_false
       element.delete(:end).nil?.should be_false
-      element.should == { title: original_event.title, url: "/mechanics/events/#{original_event.id}", id: original_event.id, className: original_event.job ? 'work' : 'day-off' }
+      element.should == {
+        title: original_event.title,
+        url: "/mechanics/events.#{original_event.id}",
+        id: original_event.id,
+        className: original_event.job ? 'work' : 'day-off'
+      }
     end
 
     context 'single unrepeated event' do

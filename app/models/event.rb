@@ -10,10 +10,11 @@ class Event < ActiveRecord::Base
   validate :verify_end_date, if: :date_end
   # validate :verify_event_overlap, if: :mechanic
 
-  scope :repeated, ->(rec) { where(recurrence: rec) }
+  scope :repeated,  ->(rec)   { where(recurrence: rec) }
   scope :time_slot, ->(start) { where(time_start: start) }
 
   before_validation :set_title
+  before_save :build_schedule
 
   def set_title
     self.title = case
@@ -32,13 +33,34 @@ class Event < ActiveRecord::Base
     "#{start_hour} - #{end_hour}"
   end
 
+  def start_date_time
+    start = date_start.in_time_zone
+    start = start.change(hour: time_start.hour, min: 0) if time_start
+    start
+  end
+
   def date_start_short
     date_start.strftime('%-d %b')
   end
 
   def schedule
-    IceCube::Schedule.from_hash(read_attribute(:schedule))
+    hash = read_attribute(:schedule)
+    IceCube::Schedule.from_hash(hash) if hash
   end
+
+  def build_schedule
+    schedule = IceCube::Schedule.new(start_date_time)
+
+    if recurrence
+      rule = IceCube::Rule.send(recurrence)
+      rule = rule.count(count)    if count
+      rule = rule.until(date_end) if date_end
+      schedule.add_recurrence_rule(rule)
+    end
+
+    self.schedule = schedule.to_hash
+  end
+
 
   private
 

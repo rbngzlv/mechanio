@@ -5,6 +5,10 @@ FactoryGirl.define do
     time_start { date_start.in_time_zone.change(hour: 9) }
     time_end   { date_start.in_time_zone.change(hour: 11) }
 
+    after :build do |e|
+      e.build_schedule
+    end
+
     trait :whole_day do
       time_end  { date_start.in_time_zone.change(hour: 19) }
     end
