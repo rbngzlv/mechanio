@@ -44,7 +44,7 @@ class User < ActiveRecord::Base
   end
 
   def unrated_jobs
-    jobs.completed
+    jobs.unrated
   end
 
   # When a new user signs up while ordering a repair/service, the location he entered in the wizard is saved to his profile.

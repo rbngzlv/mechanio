@@ -20,9 +20,7 @@ class Admins::PayoutsController < Admins::ApplicationController
   private
 
   def find_job
-    @job = Job.find(permitted_params[:job_id])
-
-    redirect_to edit_admins_job_path(@job) unless @job.completed?
+    @job = Job.charged.find(permitted_params[:job_id])
   end
 
   def record_payout

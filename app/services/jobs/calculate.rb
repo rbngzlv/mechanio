@@ -49,7 +49,7 @@ module Jobs
 
     def sum_costs(costs)
       cost = costs.include?(nil) ? nil : costs.sum
-      cost = 0 if cost < 0
+      cost = 0 if cost && cost < 0
       cost = nil if cost == 0
       cost
     end

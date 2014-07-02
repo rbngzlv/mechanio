@@ -32,34 +32,58 @@ describe Job do
   it { should_not allow_value('04123456').for(:contact_phone) }
 
   context 'scopes' do
-    let!(:estimated_job)  { create :job, :with_service, :estimated }
-    let!(:assigned_job)   { create :job, :with_service, :assigned  }
-    let!(:completed_job)  { create :job, :with_service, :completed, scheduled_at: Time.now }
-    let!(:rated_job)      { create :job, :with_service, :rated, scheduled_at: Time.now.advance(days: 1) }
-    let!(:paid_job)       { create :job, :with_service, :completed, :with_payout, scheduled_at: Time.now.advance(days: 2) }
+    let!(:estimated_job)      { create :job, :with_service, :estimated }
+    let!(:assigned_job)       { create :job, :with_service, :assigned  }
+    let!(:completed_job)      { create :job, :with_service, :completed, scheduled_at: Time.now }
+    let!(:charged_job)        { create :job, :with_service, :charged, scheduled_at: Time.now.advance(days: 1) }
+    let!(:charge_failed_job)  { create :job, :with_service, :charge_failed, scheduled_at: Time.now.advance(days: 2) }
+    let!(:paid_out_job)       { create :job, :with_service, :paid_out, scheduled_at: Time.now.advance(days: 3) }
+    let!(:rated_job)          { create :job, :with_service, :rated, scheduled_at: Time.now.advance(days: 4) }
 
     specify '#estimated' do
       Job.estimated.should eq [estimated_job]
     end
 
     specify '#assigned' do
-      Job.assigned.should  eq [assigned_job]
+      Job.assigned.should eq [assigned_job]
     end
 
     specify '#completed' do
-      Job.completed.should eq [paid_job, completed_job]
+      Job.completed.should eq [rated_job, completed_job]
+    end
+
+    specify '#past' do
+      Job.past.should eq [rated_job, paid_out_job, charge_failed_job, charged_job, completed_job]
+    end
+
+    specify '#charged' do
+      Job.charged.should eq [charged_job]
+    end
+
+    specify '#charge_failed' do
+      Job.charge_failed.should eq [charge_failed_job]
+    end
+
+    specify '#paid_out' do
+      Job.paid_out.should eq [paid_out_job]
     end
 
     specify '#rated' do
       Job.rated.should eq [rated_job]
     end
 
-    specify '#past' do
-      Job.past.should eq [paid_job, rated_job, completed_job]
+    specify '#unrated' do
+      Job.unrated.should eq [paid_out_job, charge_failed_job, charged_job, completed_job]
     end
 
-    specify '#paid' do
-      Job.paid.should      eq [paid_job]
+    specify '#past?' do
+      estimated_job.past?.should      be_false
+      assigned_job.past?.should       be_false
+      completed_job.past?.should      be_true
+      charged_job.past?.should        be_true
+      charge_failed_job.past?.should  be_true
+      paid_out_job.past?.should       be_true
+      rated_job.past?.should          be_true
     end
   end
 

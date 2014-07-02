@@ -4,7 +4,7 @@
   %li.active= link_to 'General info', '#general_info', 'data-toggle' => 'tab'
   %li= link_to 'Job and labour', '#job_and_labour', 'data-toggle' => 'tab'
   %li= link_to 'Feedback', '#feedback', 'data-toggle' => 'tab'
-  - if @job.completed?
+  - if @job.charged?
     %li= link_to 'Payout', '#payout', 'data-toggle' => 'tab'
 
 - ng_init = { job: @job, hourly_rate: Labour::HOURLY_RATE, service_plans: @service_plans_json }
@@ -20,7 +20,7 @@
       = render 'admins/jobs/bottom_bar', f: f
   #feedback.tab-pane
     = render 'admins/jobs/tabs/feedback'
-  - if @job.completed?
+  - if @job.charged?
     #payout.tab-pane
       = render 'admins/jobs/tabs/payout'
 

@@ -51,18 +51,6 @@ FactoryGirl.define do
       end
     end
 
-    trait :estimated do
-      status  'estimated'
-      cost    123
-    end
-
-    trait :pending do
-      status 'pending'
-      after :build do |j|
-        j.tasks << build(:repair)
-      end
-    end
-
     trait :with_appointment do
       scheduled_at { DateTime.tomorrow }
       assigned_at  { DateTime.now }
@@ -79,6 +67,18 @@ FactoryGirl.define do
       end
     end
 
+    trait :pending do
+      status 'pending'
+      after :build do |j|
+        j.tasks << build(:repair)
+      end
+    end
+
+    trait :estimated do
+      status  'estimated'
+      cost    123
+    end
+
     trait :assigned do
       mechanic
       with_credit_card
@@ -87,18 +87,33 @@ FactoryGirl.define do
     end
 
     trait :completed do
-      mechanic
-      with_credit_card
-      with_appointment
+      assigned
       status 'completed'
       completed_at { DateTime.yesterday }
     end
 
+    trait :charged do
+      completed
+      transaction_id     '1234'
+      transaction_status 'success'
+      status             'charged'
+    end
+
+    trait :charge_failed do
+      completed
+      transaction_id     '1234'
+      transaction_status 'error'
+      status             'charge_failed'
+    end
+
+    trait :paid_out do
+      charged
+      with_payout
+      status             'paid_out'
+    end
+
     trait :rated do
-      mechanic
-      with_credit_card
-      with_appointment
-      status 'rated'
+      completed
 
       after :build do |j|
         j.rating = build :rating, job: j, user: j.user, mechanic: j.mechanic

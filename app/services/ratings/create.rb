@@ -8,13 +8,12 @@ module Ratings
     end
 
     def call(attrs)
-      return false unless @job.completed?
+      return false if @job.rating.present?
 
       rating_attrs = attrs.merge(user_id: @user.id, mechanic_id: @mechanic.id, published: true)
       rating = @job.create_rating(rating_attrs)
 
       if rating.persisted?
-        @job.rate!
         @mechanic.update_rating
         rating
       else

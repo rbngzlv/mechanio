@@ -19,10 +19,6 @@ describe Ratings::Create do
     rating.mechanic_id.should eq mechanic.id
   end
 
-  it 'changes job status to "rated"' do
-    expect { service.call(attrs) }.to change { job.reload.status }.from('completed').to('rated')
-  end
-
   it 'updates mechanics average rating' do
     service.call(attrs)
 

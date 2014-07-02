@@ -55,11 +55,14 @@ class Job < ActiveRecord::Base
       validates :mechanic, :scheduled_at, :assigned_at, :credit_card, :appointment, :event, presence: true
     end
     state :completed do
-      transition to: :rated, on: :rate
+      transition to: :charged, on: :charge
+      transition to: :charge_failed, on: :charge_failed
     end
-    state :rated do
-      validates :rating, presence: true
+    state :charged do
+      transition to: :paid_out, on: :paid_out
     end
+    state :charge_failed
+    state :paid_out
     state :cancelled
 
     event :cancel do
@@ -67,16 +70,23 @@ class Job < ActiveRecord::Base
     end
   end
 
-  default_scope { order(created_at: :desc).without_status(:temporary) }
+  default_scope { order(scheduled_at: :desc).without_status(:temporary) }
 
-  scope :estimated, -> { with_status(:estimated).reorder(created_at: :desc) }
-  scope :assigned,  -> { with_status(:assigned).reorder(scheduled_at: :desc) }
-  scope :completed, -> { with_status(:completed).reorder(scheduled_at: :desc) }
-  scope :rated,     -> { with_status(:rated).reorder(scheduled_at: :desc) }
-  scope :paid,      -> { includes(:payout).where.not(payouts: { id: nil }).references(:payouts) }
-  scope :past,      -> { with_status(:completed, :rated).reorder(scheduled_at: :desc) }
-  scope :search,    -> (query) { where("jobs.search_terms LIKE ?", "%#{query}%") }
+  scope :estimated,     -> { with_status(:estimated).reorder(created_at: :desc) }
+  scope :assigned,      -> { with_status(:assigned) }
+  scope :completed,     -> { with_status(:completed) }
+  scope :charged,       -> { with_status(:charged) }
+  scope :charge_failed, -> { with_status(:charge_failed) }
+  scope :paid_out,      -> { with_status(:paid_out) }
+  scope :past,          -> { with_status(:completed, :charged, :charge_failed, :paid_out) }
+  scope :rated,         -> { past.includes(:rating).where.not(ratings: { id: nil }).references(:rating) }
+  scope :unrated,       -> { past.includes(:rating).where(ratings: { id: nil }).references(:rating) }
+  scope :search,        -> (query) { where("jobs.search_terms LIKE ?", "%#{query}%") }
 
+
+  def past?
+    ['completed', 'charged', 'charge_failed', 'paid_out'].include?(status)
+  end
 
   def self.find_temporary(id)
     unscoped.with_status(:temporary).find(id)

@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'Payout information' do
 
   let(:mechanic) { create :mechanic }
-  let(:job)      { create :job, :with_service, :completed, :with_payout, mechanic: mechanic }
+  let(:job)      { create :job, :paid_out, :with_service, mechanic: mechanic }
 
   before do
     login_mechanic mechanic

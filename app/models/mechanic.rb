@@ -56,7 +56,7 @@ class Mechanic < ActiveRecord::Base
   end
 
   def paid_jobs
-    jobs.paid
+    jobs.paid_out
   end
 
   def self.by_location(location)
