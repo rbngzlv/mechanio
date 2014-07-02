@@ -24,7 +24,10 @@ class PaymentService
     end
   end
 
-  def charge_user_for_job(user, job)
+  def charge_user_for_job(user_id, job_id)
+    user = User.find(user_id)
+    job = Job.find(job_id)
+
     unless job.credit_card.braintree_customer_id == user.braintree_customer_id
       raise PaymentServiceError, 'Attempt to use a card that belongs to different customer'
     end
@@ -45,9 +48,10 @@ class PaymentService
     end
 
     if result.success?
-      # job.paid
+      job.changed!
       AdminMailer.async.payment_error(job.id)
     else
+      job.change_failed!
       AdminMailer.async.payment_success(job.id)
     end
 
