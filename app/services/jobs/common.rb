@@ -44,6 +44,7 @@ module Jobs
     def notify_quote_changed(job)
       AdminMailer.async.job_quote_changed(job.id)
       UserMailer.async.job_quote_changed(job.id)
+      MechanicMailer.async.job_quote_changed(job.id) if job.mechanic.present?
     end
   end
 end

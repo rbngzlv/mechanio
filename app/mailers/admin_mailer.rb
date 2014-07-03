@@ -26,6 +26,11 @@ class AdminMailer < ActionMailer::Base
     mail subject: "Job #{@job.uid} has been completed", to: all_admins
   end
 
+  def job_rated(job_id)
+    @job = Job.find(job_id)
+    mail subject: "Job #{@job.uid} has been rated", to: all_admins
+  end
+
   def estimate_deleted(job_id)
     @job = Job.find(job_id)
     mail subject: 'A customer has deleted an estimate', to: all_admins

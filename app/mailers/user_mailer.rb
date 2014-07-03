@@ -51,6 +51,6 @@ class UserMailer < ActionMailer::Base
   end
 
   def mechanic_name
-    @job.mechanic.full_name
+    @job.mechanic.first_name
   end
 end

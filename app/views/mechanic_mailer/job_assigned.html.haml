@@ -1,23 +1,40 @@
-%p Hello #{@job.mechanic.first_name},
+%p Hi #{@job.mechanic.first_name},
 
-%p A customer has requested you to repair or service their car. Please #{link_to 'click here', mechanics_job_url(@job)} to view the allocated job in detail.
+%p Congratulations! You've been requested for a job. Please click here #{link_to 'click here', mechanics_job_url(@job)} to view the job in detail.
 
 %p
   CUSTOMER NAME: #{ @job.client_name }
   %br
+  CUSTOMER MOBILE NUMBER: #{ @job.contact_phone }
+  %br
   TIME AND DATE OF APPOINTMENT: #{ @job.scheduled_at.to_s(:date_time) }
   %br
-  SERVICE LOCATION: #{ @job.location.full_address }
+  LOCATION: #{ @job.location.full_address }
   %br
   CAR: #{ @job.car.display_title }
   %br
-  JOBS: #{ @job.title }
+  JOB: #{ @job.title }
   %br
 
-%p Need to make a change? Your mobile app is designed for busy mechanics to use on the fly – we suggest any changes in appointment time, or any job related changes can be made there. 
+%p
+  After the customer signs off on the work on your mobile app, they will have an opportunity to leave a review. Highly rated mechanics, on average <strong>get more jobs</strong> on Mechanio. 
 
-%p Otherwise, you can visit your #{ link_to 'Online Account', mechanics_jobs_url } to make changes.
+%p
+  Here are some steps to get a five-star rating.
 
-%p If there are any issues please do not hesitate to contact support@mechanio.com or call #{$CONTACT_PHONE}
+  %ul
+    %li Always call the customer before you arrive – customers prefer a heads up, no surprises
+    %li Communicate with your customer – 80% of our customers trust a mechanic more when they are informed of what’s being done on their car.
+    %li Leave the site like what it was before – cleanliness is the top priority of our customers
+
+%p
+  %strong Help & Support
+
+%p
+  Don’t forget, we’re here to help and support you. You can:
+
+  %ul
+    %li Call us between 10am and 8PM, five days a week on 1300 766 781 
+    %li Email support@mechanio.com
 
 = render '/shared/mail_footer'

@@ -147,10 +147,6 @@ GEM
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
     kgio (2.8.0)
-    launchy (2.3.0)
-      addressable (~> 2.3)
-    letter_opener (1.1.2)
-      launchy (~> 2.2)
     listen (2.0.0)
       celluloid (>= 0.15.1)
       rb-fsevent (>= 0.9.3)
@@ -159,6 +155,8 @@ GEM
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    mail_view (2.0.4)
+      tilt
     method_source (0.8.2)
     mime-types (1.24)
     mini_magick (3.6.0)
@@ -370,7 +368,7 @@ DEPENDENCIES
   ice_cube
   jquery-rails
   kaminari
-  letter_opener
+  mail_view (~> 2.0.4)
   mini_magick
   omniauth
   omniauth-facebook

@@ -1,35 +1,35 @@
-%p Hello #{ @mechanic.full_name },
+%p Hi #{ @mechanic.first_name },
 
 %p
-  Thank you for joining the Mechanio family. We've designed Mechanio to help you make more money, get more jobs and make transactions easier. Please take a moment to read about how you can get the most out of Mechanio. 
+  Thank you for being a part of the Mechanio family. It will be our absolute pleasure helping you grow your mobile mechanic business. As a member, you'll have access to:
+
+  %ul
+    %li Thousands of paying customers
+    %li A team that takes care of the marketing, administration and transactions
+    %li easy-to-use scheduling tools to organise your jobs
+    %li Feedback from Mechanio customers – build your business' reputation!
 
 %p
-  %strong Set your availabilities
-  %br
-  Going to take some time off in the future? Your Online Account lets you choose when you want to receive jobs from us. You're in complete control of the times and days you want to work. 
+  Here are some quick pointers to ensure you get your 1st five-star review:
+
+  %ul
+    %li
+      %strong Call before you arrive:
+      Before you arrive, call the customer to inform your arrival time.
+    %li
+      %strong Always communicate:
+      Taking the time out to explain what work you're performing. This will help you to gain their trust. 
+    %li
+      %strong Go above and beyond with the little things:
+      Always go the extra mile for your customers – this will definitely help you get that five-star rating. 
+
+%p Below are your details for your Online Account. Head to #{ link_to new_mechanic_session_url, new_mechanic_session_url } and use:
 
 %p
-  %strong Accept Jobs from customers 
-  %br
-  You'll be earning reviews from the customer every time you finish a job. Great reviews are an excellent way to help promote your business, and get more customers choosing you for jobs.  
-
-%p
-  %strong Call the customer 
-  %br
-  It's good customer service to call the customer and let them know how far away you are from the service location. We've given them a time, but we know the busy life of a mobile mechanic so it's always great to provide that extra assurance. 
-
-%p
-  Below are your details for your Online Account. Head to #{ link_to new_mechanic_session_url, new_mechanic_session_url } and use:
-  %br
-  %br
   Username: #{ @mechanic.email }
   %br
   Password: #{ @password }
 
-%p
-  You can change the password at any time after logging in. 
-
-%p
-  Your Online Account stores your service or repair requests from customers as well as your availabilities. 
+%p Your password can be changed any time after you log in.
 
 = render '/shared/mail_footer'

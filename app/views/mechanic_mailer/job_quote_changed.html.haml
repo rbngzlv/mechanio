@@ -1,8 +1,8 @@
-%p Hi #{@job.user.first_name},
+%p Hi #{@job.mechanic.first_name},
 
 %p One or more of the details of your appointment for #{@job.car.display_title} has been changed.
 
-%p Click #{ link_to 'here', users_estimates_url } to view the changes
+%p Click #{ link_to 'here', mechanics_job_url(@job) } to view the changes
 
 %p Please do not hesitate to contact us if you have any questions or special requests.
 

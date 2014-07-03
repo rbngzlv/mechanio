@@ -1,6 +1,9 @@
 %p Hi #{ @job.user.first_name },
 
-%p You're all set for an appointment with #{ @job.mechanic.full_name }. Please make sure that the following information is correct:
+%p
+  You're all set for an appointment with #{ @job.mechanic.full_name }.
+  %br
+  Please make sure that the following information is correct:
 
 %p
   Time: Between #{ @job.event.time_start.strftime('%l %p') } and #{ @job.event.time_end.strftime('%l %p') }
@@ -13,13 +16,12 @@
   %br
   Job description: #{ @job.title }
 
-%p If you have any questions please contact at support@mechanio.com.
-
 %p
   What's Next?
   %br
-  Once #{ @job.mechanic.first_name } has arrived, he'll tell you what exactly needs to be done, and get to work on your car. 
-  After #{ @job.mechanic.first_name } has finished, the cost will be deducted securely from your credit card. 
-  You'll receive a receipt email, which can also be found in your #{ link_to 'Online Account', users_appointments_url }.
+  %ul
+    %li Once #{ @job.mechanic.first_name } has arrived, he'll tell you what exactly needs to be done, and get to work on your car. 
+    %li After #{ @job.mechanic.first_name } has finished, the cost will be deducted securely from your credit card. 
+    %li You'll receive a receipt email, which can also be found in your #{ link_to 'Online Account', users_appointments_url }.
 
 = render '/shared/mail_footer'

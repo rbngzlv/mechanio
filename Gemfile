@@ -51,12 +51,12 @@ end
 group :development do
   gem 'spring'
   gem 'spring-commands-rspec'
+  gem 'mail_view', '~> 2.0.4'
 end
 
 group :development, :test do
   gem 'quiet_assets'
   gem 'awesome_print'
-  gem 'letter_opener'
   gem 'pry'
 end
 

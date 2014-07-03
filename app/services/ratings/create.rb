@@ -15,10 +15,18 @@ module Ratings
 
       if rating.persisted?
         @mechanic.update_rating
+        send_notifications
         rating
       else
         false
       end
+    end
+
+
+    private
+
+    def send_notifications
+      AdminMailer.async.job_rated(@job.id)
     end
   end
 end
