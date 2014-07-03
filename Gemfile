@@ -20,7 +20,6 @@ gem 'ancestry'
 gem 'tlsmail', git: 'https://github.com/benjohnstonsf/tlsmail.git'
 gem 'resque'
 gem 'resque-scheduler'
-# gem 'resque_mailer'
 gem 'geocoder'
 gem 'font-awesome-rails'
 gem 'state_machine'
@@ -34,6 +33,7 @@ gem 'omniauth-google-oauth2'
 gem 'dotenv-rails'
 gem 'prawn'
 gem 'textacular', '~> 3.0'
+gem 'mail_view', '~> 2.0.4'
 
 group :test do
   gem 'rspec-rails'
@@ -51,7 +51,6 @@ end
 group :development do
   gem 'spring'
   gem 'spring-commands-rspec'
-  gem 'mail_view', '~> 2.0.4'
 end
 
 group :development, :test do
