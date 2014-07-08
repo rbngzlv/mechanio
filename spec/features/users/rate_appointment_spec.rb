@@ -35,7 +35,7 @@ describe 'Rate completed appointment' do
     within('.modal') { click_on 'Close' }
     page.should have_no_css '.modal'
 
-    within('.profile-border .rating') { page.should have_css '.full-star', count: 3 }
+    within('.profile-border .rating') { first('.meter')[:style].should eq 'width: 60%' }
 
     page.should have_content 'YOUR FEEDBACK'
 

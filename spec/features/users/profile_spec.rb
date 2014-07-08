@@ -36,7 +36,7 @@ feature 'user profile' do
         page.should have_content job.car.display_title
 
         within '.rating' do
-          page.should have_css '.full-star', count: 3
+          first('.meter')[:style].should eq 'width: 68%'
         end
       end
     end

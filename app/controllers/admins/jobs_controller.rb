@@ -7,7 +7,7 @@ class Admins::JobsController < Admins::ApplicationController
     @status = params[:status]
     @query = params[:query]
 
-    @jobs = Job.all
+    @jobs = Job.order(created_at: :desc)
     @jobs = @jobs.with_status(@status) if @status.present?
     @jobs = @jobs.search(@query.downcase) if @query.present?
 
