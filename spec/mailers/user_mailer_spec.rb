@@ -40,6 +40,15 @@ describe UserMailer do
     mail.body.encoded.should match users_appointments_url
   end
 
+  specify '#job_reassigned' do
+    mail = UserMailer.job_reassigned(job.id)
+    mail.to.should        eq [job.user.email]
+    mail.from.should      eq from
+    mail.subject.should   eq 'Your Job has been re-assigned'
+    mail.body.encoded.should match "we have made arrangements so that #{ job.mechanic.full_name } will be attending your jobs"
+    mail.body.encoded.should match users_appointments_url
+  end
+
   specify '#job_quote_changed' do
     mail = UserMailer.job_quote_changed(job.id)
     mail.to.should        eq to
@@ -60,8 +69,8 @@ describe UserMailer do
     mail = UserMailer.leave_feedback(job.id)
     mail.to.should        eq to
     mail.from.should      eq from
-    mail.subject.should   eq "How did Joe Mechanic go?"
-    mail.body.encoded.should have_content "Please click here to answer"
+    mail.subject.should   eq "How did Joe go?"
+    mail.body.encoded.should have_content "Please click the link below to answer"
     mail.body.encoded.should match users_appointment_url(job)
   end
 end

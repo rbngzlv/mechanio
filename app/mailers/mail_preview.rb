@@ -20,9 +20,19 @@ class MailPreview < MailView
     UserMailer.job_assigned(job.id)
   end
 
+  def user_job_reassigned
+    job = Job.assigned.first
+    UserMailer.job_reassigned(job.id)
+  end
+
   def user_job_completed
     job = Job.completed.first
     UserMailer.job_completed(job.id)
+  end
+
+  def user_first_job_completed
+    job = Job.completed.first
+    UserMailer.first_job_completed(job.id)
   end
 
   def user_leave_feedback

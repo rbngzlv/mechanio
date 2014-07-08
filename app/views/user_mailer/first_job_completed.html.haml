@@ -1,0 +1,12 @@
+%p Hi #{@job.user.first_name},
+
+%p We want to thank you for having your first appointment with us. You're smart to choose a professional mobile mechanic. It'll extend the life of your car – and we hope we've given you back time to do valuable things that would normally be lost. 
+
+%p #{@job.user.first_name}, we absolutely want to stay in contact with you, so why not join our Facebook community? 
+
+%p As an exclusive friend, you'll be one of the first to get access to our competitions – fancy having Mechanio shout your next service? How about member's only secret promotions and discounts?
+Follow the link and ‘like' us now:
+
+%p= link_to 'www.facebook.com/mechanio', 'http://www.facebook.com/mechanio'
+
+= render '/shared/mail_footer'

@@ -16,15 +16,23 @@ module Jobs
 
       enqueue_payment(@job)
 
-      UserMailer.async.job_completed(@job.id)
-      UserMailer.async.leave_feedback(@job.id)
-      AdminMailer.async.job_completed(@job.id)
+      send_notifications
     end
 
     private
 
     def enqueue_payment(job)
       ChargeUserWorker.enqueue(job.user.id, job.id)
+    end
+
+    def send_notifications
+      UserMailer.async.job_completed(@job.id)
+      UserMailer.async.leave_feedback(@job.id)
+      AdminMailer.async.job_completed(@job.id)
+
+      if @job.user.past_jobs.count == 1
+        UserMailer.async.first_job_completed(@job.id)
+      end
     end
   end
 end

@@ -23,12 +23,17 @@ class UserMailer < ActionMailer::Base
 
   def job_reassigned(job_id)
     @job = Job.find(job_id)
-    mail subject: 'Your job assigned to a different mechanic', to: @job.user.email
+    mail subject: 'Your Job has been re-assigned', to: @job.user.email
   end
 
   def job_quote_changed(job_id)
     @job = Job.find(job_id)
     mail subject: "Your appointment for your #{car_title} has been updated", to: @job.user.email
+  end
+
+  def first_job_completed(job_id)
+    @job = Job.find(job_id)
+    mail subject: 'Thanks for your first appointment with us. We hope it was memorable!', to: @job.user.email
   end
 
   def job_completed(job_id)

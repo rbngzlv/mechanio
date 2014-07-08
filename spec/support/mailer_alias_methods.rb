@@ -10,6 +10,15 @@ module MailerAliasMethods
   def last_delivery
     mail_deliveries.last
   end
+
+  def verify_emails_sent(emails)
+    mail_deliveries.count.should eq emails.length
+
+    emails.each do |subject, to|
+      delivery = mail_deliveries.find { |m| m.subject == subject }
+      delivery.to.should eq Array(to)
+    end
+  end
 end
 
 RSpec.configure do |config|

@@ -1,5 +1,23 @@
 %p Hi #{ @job.user.first_name },
 
-%p Your job has beed assigned to a different mechanic
+%p
+  As discussed, we have made arrangements so that #{@job.mechanic.full_name} will be attending your jobs:
+
+  %ul
+    %li= @job.title
+
+%p
+  The time #{@job.mechanic.first_name} will arrive at:
+  %br
+  %br
+  Time: #{@job.scheduled_at.to_s(:time)}
+  %br
+  Date: #{@job.scheduled_at.to_s(:date)}
+
+%p Mechanic #{@job.mechanic.first_name} has a proven track record of offering an exceptional service to all our customers.  We trust that he'll be a great experience for you. 
+
+%p Check #{ link_to 'your account', users_appointments_url } to see the changes.
+
+%p If you have any concerns, please don't hesitate to contact us.
 
 = render '/shared/mail_footer'
