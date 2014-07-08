@@ -30,9 +30,8 @@ module Appointments
         event = Event.create!(
           job:        @job,
           mechanic:   @mechanic,
-          date_start: @scheduled_at,
-          time_start: @scheduled_at,
-          time_end:   @scheduled_at + 2.hour
+          start_time: @scheduled_at,
+          end_time:   @scheduled_at + 2.hour
         )
 
         @job.update_attributes!(

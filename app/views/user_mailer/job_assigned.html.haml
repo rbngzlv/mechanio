@@ -6,9 +6,9 @@
   Please make sure that the following information is correct:
 
 %p
-  Time: Between #{ @job.event.time_start.strftime('%l %p') } and #{ @job.event.time_end.strftime('%l %p') }
+  Time: Between #{ @job.event.start_time.to_s(:hour) } and #{ @job.event.end_time.to_s(:hour) }
   %br
-  Date: #{ @job.event.date_start.to_s(:date) }
+  Date: #{ @job.event.start_time.to_s(:date) }
   %br
   Service location: #{ @job.location.full_address }
   %br

@@ -32,7 +32,7 @@ class Mechanics::EventsController < Mechanics::ApplicationController
   end
 
   def permitted_params
-    params.require(:event).permit(:date_start, :time_start, :time_end, :repeat, :recurrence, :ends, :ends_after_count, :ends_on)
+    params.require(:event).permit(:start_date, :start_time, :end_time, :repeat, :recurrence, :ends, :ends_after_count, :ends_on)
   end
 
   def events_manager

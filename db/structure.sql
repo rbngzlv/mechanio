@@ -307,17 +307,15 @@ ALTER SEQUENCE discounts_id_seq OWNED BY discounts.id;
 
 CREATE TABLE events (
     id integer NOT NULL,
-    date_start date,
-    date_end date,
-    recurrence_end date,
-    time_start time without time zone,
-    time_end time without time zone,
+    occurs_until date,
     recurrence character varying(255),
     title character varying(255),
     mechanic_id integer,
     job_id integer,
     count integer,
-    schedule text
+    schedule text,
+    start_time timestamp without time zone,
+    end_time timestamp without time zone
 );
 
 
@@ -2077,3 +2075,5 @@ INSERT INTO schema_migrations (version) VALUES ('20140624095434');
 INSERT INTO schema_migrations (version) VALUES ('20140625185317');
 
 INSERT INTO schema_migrations (version) VALUES ('20140627105158');
+
+INSERT INTO schema_migrations (version) VALUES ('20140704123108');

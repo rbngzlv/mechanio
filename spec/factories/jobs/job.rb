@@ -59,10 +59,9 @@ FactoryGirl.define do
         j.appointment = build(:appointment, user: j.user, mechanic: j.mechanic, scheduled_at: j.scheduled_at)
 
         j.event = build(:event,
-          mechanic: j.mechanic,
-          date_start: j.scheduled_at,
-          time_start: j.scheduled_at,
-          time_end:   j.scheduled_at + 2.hour
+          mechanic:   j.mechanic,
+          start_time: j.scheduled_at,
+          end_time:   j.scheduled_at + 2.hour
         )
       end
     end

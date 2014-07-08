@@ -1,13 +1,13 @@
 :coffee
   jQuery ->
-    from = -> parseInt $('#event_time_start').val()
-    to   = -> parseInt $('#event_time_end').val()
+    from = -> parseInt $('#event_start_time').val()
+    to   = -> parseInt $('#event_end_time').val()
 
-    $('#event_time_start').change ->
-      $('#event_time_end').val(from() + 2) if from() >= to()
+    $('#event_start_time').change ->
+      $('#event_end_time').val(from() + 2) if from() >= to()
 
-    $('#event_time_end').change ->
-      $('#event_time_start').val(to() - 2) if from() >= to()
+    $('#event_end_time').change ->
+      $('#event_start_time').val(to() - 2) if from() >= to()
 
     $('#event_ends_on').datepicker({
       startDate: '+1d',
@@ -31,12 +31,12 @@
       .modal-body
         %h4.nomargin Block Timeslot
         = simple_form_for :event do |f|
-          = f.hidden_field :date_start, value: Date.today
+          = f.hidden_field :start_date, value: Date.today
           .form-group.timeslots
             %label Make me unavailable from
-            = f.input :time_start, collection: @from, label: false, wrapper: false, include_blank: false, input_html: { class: 'input-sm' }
+            = f.input :start_time, collection: @from, label: false, wrapper: false, include_blank: false, input_html: { class: 'input-sm' }
             %label to
-            = f.input :time_end, collection: @to, label: false, wrapper: false, include_blank: false, input_html: { class: 'input-sm' }
+            = f.input :end_time, collection: @to, label: false, wrapper: false, include_blank: false, input_html: { class: 'input-sm' }
           %label.repeat Does this repeat?
           = f.input :repeat, collection: [['No', false], ['Yes', true]], as: :radio_buttons, checked: false, label: false
           .recurrence{ style: 'display: none' }

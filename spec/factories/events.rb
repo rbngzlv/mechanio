@@ -1,28 +1,11 @@
 FactoryGirl.define do
   factory :event do
-    date_start    Date.tomorrow
+    start_time Date.tomorrow.in_time_zone.change(hour: 9, minute: 0)
+    end_time   Date.tomorrow.in_time_zone.change(hour: 11, minute: 0)
     mechanic
-    time_start { date_start.in_time_zone.change(hour: 9) }
-    time_end   { date_start.in_time_zone.change(hour: 11) }
 
     after :build do |e|
       e.build_schedule
-    end
-
-    trait :whole_day do
-      time_end  { date_start.in_time_zone.change(hour: 19) }
-    end
-
-    trait :daily do
-      recurrence  'daily'
-    end
-
-    trait :weekly do
-      recurrence  'weekly'
-    end
-
-    trait :monthly do
-      recurrence  'monthly'
     end
 
     trait :with_job do

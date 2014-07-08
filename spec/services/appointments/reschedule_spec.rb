@@ -32,7 +32,7 @@ describe Appointments::Reschedule do
 
       job.status.should           eq 'assigned'
       job.scheduled_at.should     eq scheduled_at
-      job.event.time_start.should eq scheduled_at
+      job.event.start_time.should eq scheduled_at
 
       # mail_deliveries.count.should eq 3
     end

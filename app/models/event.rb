@@ -2,23 +2,20 @@ class Event < ActiveRecord::Base
   belongs_to :mechanic
   belongs_to :job, inverse_of: :event
 
-  serialize :schedule
+  serialize :schedule, IceCube::Schedule
 
-  validates :date_start, :time_start, :time_end, :mechanic, presence: true
+  validates :start_time, :end_time, :mechanic, presence: true 
   validates :count, numericality: { greater_than: 0 }, allow_blank: true
   validates :recurrence, inclusion: { in: ['daily', 'weekly', 'monthly'] }, allow_blank: true
-  validate :verify_end_date, if: :date_end
-  # validate :verify_event_overlap, if: :mechanic
+  validate :verify_end_time
 
-  scope :repeated,  ->(rec)   { where(recurrence: rec) }
-  scope :time_slot, ->(start) { where(time_start: start) }
+  before_create :build_schedule
+  before_save :set_title
 
-  before_validation :set_title
-  before_save :build_schedule
 
   def set_title
     self.title = case
-      when recurrence then "#{recurrence} from #{date_start_short}, #{time_range}"
+      when recurrence then "#{recurrence} from #{start_date_short}, #{time_range}"
       else time_range
     end
   end
@@ -28,47 +25,37 @@ class Event < ActiveRecord::Base
   end
 
   def time_range
-    start_hour = time_start.to_s(:hour).strip if time_start
-    end_hour   = time_end.to_s(:hour).strip if time_end
+    start_hour = start_time.to_s(:hour).strip
+    end_hour   = end_time.to_s(:hour).strip
     "#{start_hour} - #{end_hour}"
   end
 
-  def start_date_time
-    start = date_start.in_time_zone
-    start = start.change(hour: time_start.hour, min: 0) if time_start
-    start
+  def start_date_short
+    start_time.strftime('%-d %b')
   end
 
-  def date_start_short
-    date_start.strftime('%-d %b')
-  end
-
-  def schedule
-    hash = read_attribute(:schedule)
-    IceCube::Schedule.from_hash(hash) if hash
+  def add_exception_time(time)
+    schedule.add_exception_time(time)
   end
 
   def build_schedule
-    schedule = IceCube::Schedule.new(start_date_time)
+    schedule = IceCube::Schedule.new(start_time, end_time: end_time)
 
     if recurrence
       rule = IceCube::Rule.send(recurrence)
-      rule = rule.count(count)    if count
-      rule = rule.until(date_end) if date_end
+      rule = rule.count(count)        if count
+      rule = rule.until(occurs_until) if occurs_until
       schedule.add_recurrence_rule(rule)
     end
 
-    self.schedule = schedule.to_hash
+    self.schedule = schedule
   end
 
 
   private
 
-  def verify_event_overlap
-    self.errors.add(:date_start, 'there is another event on this date') unless EventsManager.new(self.mechanic).check_uniqueness(self)
-  end
-
-  def verify_end_date
-    errors.add(:date_end, 'should be after start date') if date_end <= date_start
+  def verify_end_time
+    valid = start_time.present? && end_time.present? && start_time < end_time
+    errors.add(:end_time, 'should be after start date') unless valid
   end
 end

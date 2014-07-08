@@ -18,7 +18,7 @@
 
       dayClick: (date, allDay, jsEvent, view) ->
         $('.fc-state-highlight').removeClass('fc-state-highlight')
-        $('#event_date_start').val(date)
+        $('#event_start_date').val(date)
         $(this).addClass('fc-state-highlight')
         $('#block-timeslot-modal').modal()
 

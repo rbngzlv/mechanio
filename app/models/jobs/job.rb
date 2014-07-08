@@ -55,7 +55,7 @@ class Job < ActiveRecord::Base
       validates :mechanic, :scheduled_at, :assigned_at, :credit_card, :appointment, :event, presence: true
     end
     state :completed do
-      transition to: :charged, on: :charge
+      transition to: :charged, on: :charged
       transition to: :charge_failed, on: :charge_failed
     end
     state :charged do

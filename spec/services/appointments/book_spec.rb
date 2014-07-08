@@ -18,10 +18,9 @@ describe Appointments::Book do
 
     context 'mechanic is unavailable' do
       before do
-        event = build_stubbed :event,
-            date_start: scheduled_at.to_date,
-            time_start: scheduled_at,
-            time_end: scheduled_at + 2.hours,
+        event = build :event,
+            start_time: scheduled_at,
+            end_time: scheduled_at + 2.hours,
             job: job
 
         mechanic.stub(:events).and_return([event])
@@ -51,7 +50,7 @@ describe Appointments::Book do
       job.assigned_at.should_not  be_nil
       job.status.should           eq 'assigned'
       job.scheduled_at.should     eq scheduled_at
-      job.event.time_start.should eq scheduled_at
+      job.event.start_time.should eq scheduled_at
       job.event.should            eq mechanic.reload.events.last
       mechanic.current_jobs_count.should eq 1
 

@@ -21,9 +21,8 @@ module Appointments
         @job.update(scheduled_at: @scheduled_at)
 
         @job.event.update(
-          date_start: @scheduled_at,
-          time_start: @scheduled_at,
-          time_end:   @scheduled_at + 2.hour
+          start_time: @scheduled_at,
+          end_time:   @scheduled_at + 2.hour
         )
       end
 

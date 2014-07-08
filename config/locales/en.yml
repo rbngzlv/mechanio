@@ -26,9 +26,10 @@ en:
         status:
           pending: Pending
           estimated: Estimated
+          estimate_deleted: Deleted by user
           assigned: Assigned
-          payment_error: Payment error
-          awaiting_feedback: Awaiting feedback
           completed: Completed
-          rated: Rated
+          charged: Charged
+          charge_failed: Charge failed
+          paid_out: Paid out
           cancelled: Cancelled
