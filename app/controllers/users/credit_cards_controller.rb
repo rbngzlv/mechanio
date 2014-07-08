@@ -8,7 +8,7 @@ class Users::CreditCardsController < Users::ApplicationController
   end
 
   def create
-    payment_verified = PaymentService.new.verify_card(current_user, @job, credit_card_params)
+    payment_verified = Payments::VerifyCard.new.call(current_user, @job, credit_card_params)
 
     if payment_verified && appointment_service.call
       session.delete(:appointment_params)

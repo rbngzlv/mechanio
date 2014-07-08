@@ -1,7 +1,6 @@
 require 'spec_helper'
 
-describe PaymentService do
-  let(:payment_service)   { PaymentService.new }
+describe Payments::VerifyCard do
   let(:braintree_client)  { BraintreeClient.new }
   let(:user)              { create(:user) }
   let(:job)               { create(:job, :with_service, user: user) }
@@ -10,10 +9,10 @@ describe PaymentService do
 
   describe '#verify_card', :vcr do
     it 'creates braintree customer with a card' do
-      payment_service.verify_card(user, job, successful_card)
+      subject.call(user, job, successful_card)
 
       user.credit_cards.count.should eq 1
-      user.braintree_customer_id.should eq '36611421'
+      user.braintree_customer_id.should eq '59105913'
       job.credit_card_id.should eq user.credit_cards.last.id
     end
 
@@ -21,37 +20,18 @@ describe PaymentService do
       response = braintree_client.create_customer(user.as_json(only: [:first_name, :last_name, :email]))
       user.braintree_customer_id = response.customer.id
 
-      payment_service.verify_card(user, job, successful_card)
+      subject.call(user, job, successful_card)
 
       user.credit_cards.count.should eq 1
-      user.braintree_customer_id.should eq '50123119'
+      user.braintree_customer_id.should eq '80680629'
       job.credit_card_id.should eq user.credit_cards.last.id
     end
 
     it 'returns false on failure' do
-      payment_service.verify_card(user, job, unsuccessful_card)
+      subject.call(user, job, unsuccessful_card)
 
       user.credit_cards.count.should eq 0
       job.credit_card.should be_nil
-    end
-  end
-
-  describe '#charge_user_for_job', :vcr do
-    before do
-      payment_service.verify_card(user, job, successful_card)
-    end
-
-    specify 'success' do
-      job.transaction_id.should be_nil
-      job.transaction_status.should be_nil
-      job.transaction_errors.should be_nil
-
-      result = payment_service.charge_user_for_job(user, job)
-
-      result.should be_true
-      job.transaction_id.should_not be_nil
-      job.transaction_status.should_not be_nil
-      job.transaction_status.should eq 'submitted_for_settlement'
     end
   end
 end

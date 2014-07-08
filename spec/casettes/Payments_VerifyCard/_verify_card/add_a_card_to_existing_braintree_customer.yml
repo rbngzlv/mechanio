@@ -10,7 +10,7 @@ http_interactions:
         <customer>
           <first-name>John</first-name>
           <last-name>User</last-name>
-          <email>email5@host.com</email>
+          <email>email12@host.com</email>
         </customer>
     headers:
       Accept-Encoding:
@@ -29,7 +29,7 @@ http_interactions:
       message: Created
     headers:
       Date:
-      - Tue, 10 Dec 2013 19:14:00 GMT
+      - Tue, 08 Jul 2014 18:31:23 GMT
       X-Frame-Options:
       - SAMEORIGIN
       X-Authentication:
@@ -39,11 +39,11 @@ http_interactions:
       Strict-Transport-Security:
       - max-age=31536000
       X-Request-Id:
-      - 265f9f681b8e414d92018b6832f01fc9
+      - 70dec094c50808b3e994fd25ccc19944
       X-Runtime:
-      - '0.073929'
+      - '0.130238'
       X-Broxyid:
-      - 8257cef6-9baf-4ad1-8992-933ef1f48207
+      - 1522ab25-5b53-4f3d-8215-1905a78694f8
       X-Ua-Compatible:
       - IE=Edge,chrome=1
       Cache-Control:
@@ -51,27 +51,27 @@ http_interactions:
       Content-Type:
       - application/xml; charset=utf-8
       Etag:
-      - '"6cf9272e34781345f757c06b1e42ab98"'
+      - '"129a60e0d99bd358855e89b6f7208d63"'
       Vary:
       - Accept-Encoding
       Content-Encoding:
       - gzip
       Content-Length:
-      - '290'
+      - '291'
       Connection:
       - close
     body:
       encoding: ASCII-8BIT
       string: !binary |-
-        H4sIAAAAAAAAA5WRMW/DIBCF9/wKi50Adl0lESadOnROlm7UnGMUGyzAqZ1f
-        X+wkSiRPXZDe997jdDq+H9omuYDz2poCsTVFCZjSKm1OBToePvEG7cWKl70P
-        tgUnVknCtRI5ZWnG2JaTKCYWvbKWJuCo3y/1MJy7LL2mm+upyzl5dad0pZ0P
-        2MgWxJetDScvYPIb+VBHD46Tp57c0radNGNidFOg4HpAZObQSt2I+c0/auvD
-        OiY5ueEp0NXWwKJWyWHBfuHH67DMlg5kAIVlSMLYQYFUlEG3gERKWYZZihk9
-        sO2Ove0o/ebkWZj7faf+138WbvPnO+BKQ6P8TMgSxZlKB1xKp/x9jHROjvcd
-        pFIOvIeF9/hrOvMfdfw2nRkCAAA=
+        H4sIAAAAAAAAA5WRMW/DIBSE9/wKi51g4zZ1Ikw6deicLN2oeY5RDViAUzu/
+        vthJlEieKiGk++6OJ/TYftBtcgbnlTUlytYpSsBUVipzKtHx8IELtOcrVvU+
+        WA2Or5KEKcmLdBMP3TISxcSiVzXCBBz15twMw0+X0wstLqfulZFnd0rXyvmA
+        jdDAP21jGHkCk9+Kuzp6cIw89ORWVnfCjIlRbYmC6wGRmYMWquXzndH3xvqw
+        jlFGrnxKdI01sOjVYliwX/j2KiyzlQMRQGIRkjB2UCIZZVAaEKdp9oLTN5wW
+        h6zY5dmO5l+MPApzv+/k//qPwnX+vAhcK2ilnwlZojhTqoAr4aS/jRHOifH2
+        ByGlA+9h4d3fmvb8Byvn0+QaAgAA
     http_version: 
-  recorded_at: Tue, 10 Dec 2013 19:14:00 GMT
+  recorded_at: Tue, 08 Jul 2014 18:31:24 GMT
 - request:
     method: post
     uri: https://xsnkb8dmqmfrfb4r:160beebf023a1ca963715e93c7081789@api.sandbox.braintreegateway.com/merchants/6vhxxkp32z28zgp5/payment_methods
@@ -82,8 +82,9 @@ http_interactions:
         <credit-card>
           <number>4111 1111 1111 1111</number>
           <cvv>123</cvv>
-          <expiration-date>11/08</expiration-date>
-          <customer-id>50123119</customer-id>
+          <expiration-month>11</expiration-month>
+          <expiration-year>2008</expiration-year>
+          <customer-id>80680629</customer-id>
           <options>
             <verify-card type="boolean">true</verify-card>
           </options>
@@ -105,7 +106,7 @@ http_interactions:
       message: Created
     headers:
       Date:
-      - Tue, 10 Dec 2013 19:14:01 GMT
+      - Tue, 08 Jul 2014 18:31:24 GMT
       X-Frame-Options:
       - SAMEORIGIN
       X-Authentication:
@@ -115,11 +116,11 @@ http_interactions:
       Strict-Transport-Security:
       - max-age=31536000
       X-Request-Id:
-      - c651ee666f94f2c298a8ecacfc2a993e
+      - 8062aeba5a0314b5f0e5547c5485411b
       X-Runtime:
-      - '0.877272'
+      - '0.529631'
       X-Broxyid:
-      - 3779d1e0-1273-4b11-b8fe-626bfe3deae8
+      - 8b1f9d0a-105c-4129-aeec-903074dbdb94
       X-Ua-Compatible:
       - IE=Edge,chrome=1
       Cache-Control:
@@ -127,39 +128,39 @@ http_interactions:
       Content-Type:
       - application/xml; charset=utf-8
       Etag:
-      - '"d6a0ba6e77326d13a54f520c71f848a3"'
+      - '"cd4ba397789beecb2c6990faa9bcd0e5"'
       Vary:
       - Accept-Encoding
       Content-Encoding:
       - gzip
       Content-Length:
-      - '941'
+      - '933'
       Connection:
       - close
     body:
       encoding: ASCII-8BIT
       string: !binary |-
-        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
+        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
     http_version: 
-  recorded_at: Tue, 10 Dec 2013 19:14:02 GMT
+  recorded_at: Tue, 08 Jul 2014 18:31:25 GMT
 recorded_with: VCR 2.6.0

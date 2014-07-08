@@ -24,7 +24,7 @@ module Jobs
     private
 
     def enqueue_payment(job)
-      Resque.enqueue(PaymentService, job.user.id, job.id) unless Rails.env.test?
+      ChargeUserWorker.enqueue(job.user.id, job.id)
     end
   end
 end
