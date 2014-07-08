@@ -21,12 +21,21 @@ describe Event do
     it { should_not allow_value(start_time).for(:end_time) }
   end
 
-  specify '.is_appointment?' do
-    event1 = build :event, :with_job
-    event2 = build :event
+  describe 'appointment events' do
+    specify '.is_appointment?' do
+      event1 = build :event, :with_job
+      event2 = build :event
 
-    event1.is_appointment?.should eq true
-    event2.is_appointment?.should eq false
+      event1.is_appointment?.should eq true
+      event2.is_appointment?.should eq false
+    end
+
+    specify '.appointment_events' do
+      event1 = create :event, :with_job
+      event2 = create :event
+
+      Event.appointment_events.should eq [event1]
+    end
   end
 
   context '.set_title' do

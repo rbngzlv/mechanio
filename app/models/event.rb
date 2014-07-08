@@ -8,10 +8,12 @@ class Event < ActiveRecord::Base
   validates :count, numericality: { greater_than: 0 }, allow_blank: true
   validates :recurrence, inclusion: { in: ['daily', 'weekly', 'monthly'] }, allow_blank: true
   validate :verify_end_time
+  validate :verify_event_conflicts
 
-  before_create :build_schedule
+  before_validation :build_schedule
   before_save :set_title
 
+  scope :appointment_events, -> { where.not(job_id: nil) }
 
   def set_title
     self.title = case
@@ -34,11 +36,14 @@ class Event < ActiveRecord::Base
     start_time.strftime('%-d %b')
   end
 
-  def add_exception_time(time)
+  def add_exception_time(date)
+    time = Time.zone.parse(date).change(hour: start_time.hour)
     schedule.add_exception_time(time)
   end
 
   def build_schedule
+    return false if schedule.present?
+
     schedule = IceCube::Schedule.new(start_time, end_time: end_time)
 
     if recurrence
@@ -57,5 +62,10 @@ class Event < ActiveRecord::Base
   def verify_end_time
     valid = start_time.present? && end_time.present? && start_time < end_time
     errors.add(:end_time, 'should be after start date') unless valid
+  end
+
+  def verify_event_conflicts
+    manager = EventsManager.new(mechanic)
+    errors.add(:base, 'event conflicts with appointment') if manager.conflicts_with?(self)
   end
 end

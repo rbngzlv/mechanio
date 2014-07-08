@@ -6,12 +6,13 @@ class Mechanics::EventsController < Mechanics::ApplicationController
   end
 
   def create
-    if event = events_manager.create_event(permitted_params)
-      redirect_to mechanics_events_path
-    else
-      flash.now[:error] = event.errors.full_messages
-      render :index
+    event = events_manager.create_event(permitted_params)
+
+    unless event.persisted?
+      flash[:error] = event.errors.full_messages.join("\n")
     end
+
+    redirect_to mechanics_events_path
   end
 
   def destroy

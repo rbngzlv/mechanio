@@ -7,7 +7,7 @@
       year: #{ tomorrow.year },
       month: #{ tomorrow.month - 1 },
       date: #{ tomorrow.day },
-      events: #{ mechanic.event_feed }
+      events: #{ mechanic.event_feed(no_title: true) }
     })
 
 .panel.panel-default.panel-rounded

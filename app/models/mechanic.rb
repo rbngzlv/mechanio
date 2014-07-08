@@ -103,7 +103,7 @@ class Mechanic < ActiveRecord::Base
     update_attribute(:rating, rating)
   end
 
-  def event_feed
-    EventsManager.new(self).events_list.to_json
+  def event_feed(options = {})
+    EventsManager.new(self).events_list(options).to_json
   end
 end

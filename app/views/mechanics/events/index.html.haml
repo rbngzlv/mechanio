@@ -1,13 +1,11 @@
 :coffee
   jQuery ->
-    show_flash_notice = (class_name, message) ->
-      $('.js-flash-notice').before('<div class="alert alert-' + class_name + '">' + message + '</div>');
-
     $calendar = $('#calendar')
 
     $calendar.fullCalendar
-      header: { left: 'title', center: '', right: 'prev,next,today' }
+      header: { left: 'title', center: '', right: 'prev,next,today' },
       events: #{ @events },
+
       eventClick: (event, e, view) ->
         return false if event.className[0] == 'work'
 
@@ -17,6 +15,9 @@
         false
 
       dayClick: (date, allDay, jsEvent, view) ->
+        if moment().isAfter(date, 'day')
+          return false
+
         $('.fc-state-highlight').removeClass('fc-state-highlight')
         $('#event_start_date').val(date)
         $(this).addClass('fc-state-highlight')

@@ -26,10 +26,7 @@ class EventsManager < Struct.new(:mechanic)
 
   def delete_occurence(event_id, date)
     event = mechanic.events.find(event_id)
-    start_hour = event.start_time.hour
-    time = Time.zone.parse(date).change(hour: start_hour)
-
-    event.add_exception_time(time)
+    event.add_exception_time(date)
     event.save
   end
 
@@ -38,27 +35,12 @@ class EventsManager < Struct.new(:mechanic)
     event.is_appointment? ? false : event.destroy
   end
 
-  def events_list
+  def events_list(options = {})
     mechanic.events.includes(:job).map do |event|
       event.schedule.occurrences_between(Date.today - 1.year, Date.today + 1.year).map do |occurrence|
-        hash_for_fullcalendar(event, occurrence)
+        hash_for_fullcalendar(event, occurrence, options)
       end
     end.flatten
-  end
-
-  def hash_for_fullcalendar(event, occurrence)
-    start_time = occurrence.change(hour: event.start_time.hour)
-    end_time   = occurrence.change(hour: event.end_time.hour)
-    url = routes.mechanics_events_path(event.id)
-
-    {
-      start:  start_time,
-      end:    end_time,
-      title:  event.title,
-      url:    url,
-      id:     event.id,
-      className: event.job ? 'work' : 'day-off'
-    }
   end
 
   def available_at?(scheduled_at)
@@ -67,8 +49,29 @@ class EventsManager < Struct.new(:mechanic)
     end
   end
 
+  def conflicts_with?(event)
+    mechanic.events.appointment_events.any? do |e|
+      e.schedule.conflicts_with?(event.schedule)
+    end
+  end
+
 
   private
+
+  def hash_for_fullcalendar(event, occurrence, options)
+    start_time = occurrence.change(hour: event.start_time.hour)
+    end_time   = occurrence.change(hour: event.end_time.hour)
+    url = routes.mechanics_events_path(event.id)
+    title = options[:no_title] ? '' : event.title
+    {
+      start:  start_time,
+      end:    end_time,
+      title:  title,
+      url:    url,
+      id:     event.id,
+      className: event.job ? 'work' : 'day-off'
+    }
+  end
 
   def to_boolean(string)
     ActiveRecord::ConnectionAdapters::Column.value_to_boolean(string)
