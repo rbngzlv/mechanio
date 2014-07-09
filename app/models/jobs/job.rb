@@ -1,6 +1,6 @@
 class Job < ActiveRecord::Base
 
-  STATUSES = %w(pending estimated assigned completed rated cancelled)
+  STATUSES = %w(pending estimated assigned completed charged charge_failed paid_out rated cancelled)
   DELETE_REASONS = %w(already_done plan_in_future lower_quote other)
 
   belongs_to :user
@@ -72,12 +72,14 @@ class Job < ActiveRecord::Base
 
   default_scope { order(scheduled_at: :desc).without_status(:temporary) }
 
+  scope :pending,       -> { with_status(:pending) }
   scope :estimated,     -> { with_status(:estimated).reorder(created_at: :desc) }
   scope :assigned,      -> { with_status(:assigned) }
   scope :completed,     -> { with_status(:completed) }
   scope :charged,       -> { with_status(:charged) }
   scope :charge_failed, -> { with_status(:charge_failed) }
   scope :paid_out,      -> { with_status(:paid_out) }
+  scope :cancelled,     -> { with_status(:cancelled) }
   scope :past,          -> { with_status(:completed, :charged, :charge_failed, :paid_out) }
   scope :rated,         -> { past.includes(:rating).where.not(ratings: { id: nil }).references(:rating) }
   scope :unrated,       -> { past.includes(:rating).where(ratings: { id: nil }).references(:rating) }

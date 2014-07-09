@@ -7,9 +7,10 @@ class Admins::JobsController < Admins::ApplicationController
     @status = params[:status]
     @query = params[:query]
 
-    @jobs = Job.order(created_at: :desc)
-    @jobs = @jobs.with_status(@status) if @status.present?
+    @jobs = Job.all
+    @jobs = @jobs.send(@status) if @status.present? && Job::STATUSES.include?(@status)
     @jobs = @jobs.search(@query.downcase) if @query.present?
+    @jobs = @jobs.reorder(created_at: :desc)
 
     @jobs = @jobs.includes(:user, :mechanic, location: [:suburb]).page(params[:page])
   end

@@ -42,7 +42,10 @@ module JobHelper
       when 'assigned'   then 'primary'
       when 'completed'  then 'completed'
       when 'cancelled'  then 'default'
-      when 'rated'      then 'success'
+      when 'rated'      then 'default'
+      when 'charged'    then 'default'
+      when 'paid_out'   then 'success'
+      when 'charge_failed'     then 'danger'
       when 'estimate_deleted'  then 'danger'
     end
 

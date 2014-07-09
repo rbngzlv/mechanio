@@ -118,5 +118,10 @@ FactoryGirl.define do
         j.rating = build :rating, job: j, user: j.user, mechanic: j.mechanic
       end
     end
+
+    trait :cancelled do
+      assigned
+      status 'cancelled'
+    end
   end
 end
