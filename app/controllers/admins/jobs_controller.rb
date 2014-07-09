@@ -30,7 +30,7 @@ class Admins::JobsController < Admins::ApplicationController
   end
 
   def select_mechanic
-    @mechanics = Mechanic.active.by_region(@job.location_postcode)
+    @mechanics = Mechanic.active.by_region(@job.location_postcode).where.not(id: @job.mechanic.id)
   end
 
   def reassign
