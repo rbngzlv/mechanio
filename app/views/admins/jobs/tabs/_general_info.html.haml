@@ -23,6 +23,8 @@
         %h5 Vehicle
         %p= @job.car.display_title
         %p Last service: #{@job.car.last_service}
+        %p VIN: #{@job.car.vin}
+        %p Reg. number: #{@job.car.reg_number}
 
       .col-md-4
         %h5 Location
