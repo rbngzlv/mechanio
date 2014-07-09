@@ -9,7 +9,11 @@
 
 %hr
 
-= f.submit 'Save Changes', class: 'btn btn-success pull-right'
+= f.submit 'Save Changes', class: 'btn btn-success pull-right', 'ng-disabled' => 'saveDisabled()'
+
+%span.save-warning.text-danger.pull-right{ 'ng-show' => 'saveDisabled()' }
+  %i.icon.icon-warning-sign
+  The amount is negative
 
 - if @job.can_cancel?
   = link_to 'Cancel Job', cancel_admins_job_path(@job), class: 'btn btn-danger', data: {confirm: 'Are you sure?'}

@@ -244,9 +244,19 @@ feature 'Edit job', :js do
 
       grand_total.should eq '$350.00'
 
+      page.should_not have_css '.save-warning'
+
       within_task(1) do
         click_on 'Add amount'
       end
+
+      within_row(1) do
+        fill_in 'Charge description', with: 'Some fixed amount'
+        fill_in 'Cost', with: '-2000.0'
+      end
+
+      page.should have_css '.save-warning'
+      page.should have_button('Save Changes', disabled: true)
 
       within_row(1) do
         fill_in 'Charge description', with: 'Some fixed amount'
