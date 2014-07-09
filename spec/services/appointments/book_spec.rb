@@ -18,10 +18,8 @@ describe Appointments::Book do
 
     context 'mechanic is unavailable' do
       before do
-        event = build :event,
-            start_time: scheduled_at,
-            end_time: scheduled_at + 2.hours,
-            job: job
+        event = build :event, start_time: scheduled_at, end_time: scheduled_at + 2.hours, job: job
+        event.build_schedule
 
         mechanic.stub(:events).and_return([event])
       end

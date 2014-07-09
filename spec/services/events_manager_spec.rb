@@ -136,6 +136,8 @@ describe EventsManager do
     it 'conflicts' do
       event1 = build :event, mechanic: mechanic, start_time: start_time, end_time: end_time, recurrence: 'daily', count: 3
       event2 = build :event, mechanic: mechanic, start_time: start_time, end_time: end_time
+      event1.build_schedule
+      event2.build_schedule
 
       events_manager.conflicts_with?(event1).should be_true
       events_manager.conflicts_with?(event2).should be_false

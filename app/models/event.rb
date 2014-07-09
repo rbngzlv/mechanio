@@ -8,7 +8,7 @@ class Event < ActiveRecord::Base
   validates :count, numericality: { greater_than: 0 }, allow_blank: true
   validates :recurrence, inclusion: { in: ['daily', 'weekly', 'monthly'] }, allow_blank: true
   validate :verify_end_time
-  validate :verify_event_conflicts
+  validate :verify_event_conflicts, if: :mechanic
 
   before_validation :build_schedule
   before_save :set_title
@@ -42,7 +42,7 @@ class Event < ActiveRecord::Base
   end
 
   def build_schedule
-    return false if schedule.present?
+    return true if schedule.present?
 
     schedule = IceCube::Schedule.new(start_time, end_time: end_time)
 

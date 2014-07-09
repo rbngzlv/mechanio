@@ -6,7 +6,7 @@ describe Ratings::Create do
   let(:user)      { create :user }
   let(:mechanic)  { create :mechanic }
   let(:job)       { create :job, :with_service, :completed, mechanic: mechanic }
-  let(:rated_job) { create :job, :with_service, :rated, rating: rating, mechanic: mechanic }
+  let(:rated_job) { create :job, :with_service, :completed, rating: rating, mechanic: mechanic }
   let(:rating)    { create :rating, job: job, mechanic: mechanic, user: user }
   let(:attrs)     { { professional: 2, service_quality: 3, communication: 2, cleanness: 5, convenience: 5 } }
 
@@ -30,7 +30,7 @@ describe Ratings::Create do
 
     service.call(attrs).should be_false
 
-    job.reload.rating.should eq rating
+    rated_job.reload.rating.should eq rating
   end
 
   it 'returns false on failure' do

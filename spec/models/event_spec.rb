@@ -76,7 +76,8 @@ describe Event do
     event = create :event, recurrence: 'daily', count: 3, start_time: start_time, end_time: end_time
     event.schedule.occurrences(start_time + 4.days).count.should eq 3
 
-    event.add_exception_time(start_time + 1.day)
+    date = (start_time + 1.day).to_date.to_s
+    event.add_exception_time(date)
     event.save
 
     event.reload.schedule.occurrences(start_time + 4.days).count.should eq 2
