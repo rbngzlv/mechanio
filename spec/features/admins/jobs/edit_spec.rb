@@ -255,7 +255,6 @@ feature 'Edit job', :js do
 
       before_and_after_save job do
         within_task(1) { verify_service_cost('350.0') }
-        screen
         within_row(1) do
           verify_fixed('Some fixed amount', '-20.0')
         end

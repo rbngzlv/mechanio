@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature 'Mechanic schedule' do
+feature 'Mechanic schedule', :js do
   let(:mechanic)     { create :mechanic }
 
   before do
@@ -16,13 +16,11 @@ feature 'Mechanic schedule' do
     page.should have_no_css '.fc-event'
   end
 
-  context 'administrate events', :js do
+  context 'add events' do
     before do
       visit mechanics_events_path
 
-      day = first('.fc-week.fc-last .fc-day')
-      @selected_date = Date.parse(day['data-date']).in_time_zone.to_s(:day_month)
-      day.click
+      click_day('.fc-week.fc-last .fc-day')
     end
 
     scenario 'non-recurring event' do
@@ -93,13 +91,17 @@ feature 'Mechanic schedule' do
 
       page.should have_css '.fc-event', text: "daily from #{@selected_date}, 9 AM - 11 AM", count: 6
     end
+  end
 
-    scenario 'delete all occurences' do
-      event = create(:event, count: 3, recurrence: 'daily', mechanic: mechanic)
+  context 'delete events' do
+    let!(:event) { create(:event, count: 3, recurrence: 'daily', mechanic: mechanic) }
+
+    before do
       visit mechanics_events_path
-
       page.should have_css '.fc-event', text: event.title, count: 3
-
+    end
+      
+    scenario 'delete all occurences' do
       first('.fc-event').click
       within '#delete-timeslot-modal' do
         choose 'Delete all recurring entries'
@@ -110,9 +112,6 @@ feature 'Mechanic schedule' do
     end
 
     scenario 'delete single occurence' do
-      event = create(:event, count: 3, recurrence: 'daily', mechanic: mechanic)
-      visit mechanics_events_path
-
       page.should have_css '.fc-event', text: event.title, count: 3
 
       first('.fc-event').click
@@ -123,16 +122,34 @@ feature 'Mechanic schedule' do
 
       page.should have_css '.fc-event', text: event.title, count: 2
     end
+  end
 
-    specify 'job event', :js do
-      event = create :event, job: create(:job, :with_service), mechanic: mechanic
+  scenario 'event conflicts with appointment' do
+    start_time = (Time.now.utc + 1.day).change(hour: 9, minute: 0)
 
-      visit mechanics_events_path
+    create :event, start_time: start_time, end_time: start_time + 2.hours, mechanic: mechanic, job: create(:job, :with_service, mechanic: mechanic)
 
-      expect do
-        find('.fc-event', text: event.title).click
-        sleep 0.1
-      end.not_to change { has_content?(event.title) }
+    visit mechanics_events_path
+
+    click_day('.fc-week .fc-today')
+
+    within '.event_repeat' do
+      page.choose 'Yes'
     end
+
+    within '.ends-on' do
+      fill_in 'event_ends_after_count', with: 3
+    end
+
+    click_on 'Set'
+
+    page.should have_content 'Event conflicts with appointment'
+  end
+
+
+  def click_day(selector)
+    day = first(selector)
+    @selected_date = Date.parse(day['data-date']).in_time_zone.to_s(:day_month)
+    day.click
   end
 end

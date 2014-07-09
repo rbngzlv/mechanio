@@ -66,6 +66,6 @@ class Event < ActiveRecord::Base
 
   def verify_event_conflicts
     manager = EventsManager.new(mechanic)
-    errors.add(:base, 'event conflicts with appointment') if manager.conflicts_with?(self)
+    errors.add(:base, 'Event conflicts with appointment') if manager.conflicts_with?(self)
   end
 end
