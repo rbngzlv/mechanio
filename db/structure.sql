@@ -165,35 +165,6 @@ ALTER SEQUENCE authentications_id_seq OWNED BY authentications.id;
 
 
 --
--- Name: body_types; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE body_types (
-    id integer NOT NULL,
-    name character varying(255)
-);
-
-
---
--- Name: body_types_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE body_types_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: body_types_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE body_types_id_seq OWNED BY body_types.id;
-
-
---
 -- Name: cars; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -368,6 +339,48 @@ CREATE SEQUENCE fixed_amounts_id_seq
 --
 
 ALTER SEQUENCE fixed_amounts_id_seq OWNED BY fixed_amounts.id;
+
+
+--
+-- Name: imported_cars; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE imported_cars (
+    id integer NOT NULL,
+    make character varying(255),
+    model character varying(255),
+    year character varying(255),
+    version text,
+    transmission character varying(255),
+    shape character varying(255),
+    service text,
+    price character varying(255),
+    service_instructions text,
+    parts text,
+    service_inclusions text,
+    notes text,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: imported_cars_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE imported_cars_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: imported_cars_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE imported_cars_id_seq OWNED BY imported_cars.id;
 
 
 --
@@ -644,7 +657,6 @@ CREATE TABLE model_variations (
     title character varying(255),
     identifier character varying(255),
     model_id integer,
-    body_type_id integer,
     from_year integer,
     to_year integer,
     transmission character varying(255),
@@ -652,7 +664,8 @@ CREATE TABLE model_variations (
     make_id integer,
     display_title character varying(255),
     comment text,
-    detailed_title character varying(255)
+    detailed_title character varying(255),
+    shape character varying(255)
 );
 
 
@@ -1148,13 +1161,6 @@ ALTER TABLE ONLY authentications ALTER COLUMN id SET DEFAULT nextval('authentica
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY body_types ALTER COLUMN id SET DEFAULT nextval('body_types_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
 ALTER TABLE ONLY cars ALTER COLUMN id SET DEFAULT nextval('cars_id_seq'::regclass);
 
 
@@ -1184,6 +1190,13 @@ ALTER TABLE ONLY events ALTER COLUMN id SET DEFAULT nextval('events_id_seq'::reg
 --
 
 ALTER TABLE ONLY fixed_amounts ALTER COLUMN id SET DEFAULT nextval('fixed_amounts_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY imported_cars ALTER COLUMN id SET DEFAULT nextval('imported_cars_id_seq'::regclass);
 
 
 --
@@ -1352,14 +1365,6 @@ ALTER TABLE ONLY authentications
 
 
 --
--- Name: body_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY body_types
-    ADD CONSTRAINT body_types_pkey PRIMARY KEY (id);
-
-
---
 -- Name: brands_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1405,6 +1410,14 @@ ALTER TABLE ONLY events
 
 ALTER TABLE ONLY fixed_amounts
     ADD CONSTRAINT fixed_amounts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: imported_cars_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY imported_cars
+    ADD CONSTRAINT imported_cars_pkey PRIMARY KEY (id);
 
 
 --
@@ -2077,3 +2090,7 @@ INSERT INTO schema_migrations (version) VALUES ('20140625185317');
 INSERT INTO schema_migrations (version) VALUES ('20140627105158');
 
 INSERT INTO schema_migrations (version) VALUES ('20140704123108');
+
+INSERT INTO schema_migrations (version) VALUES ('20140709192945');
+
+INSERT INTO schema_migrations (version) VALUES ('20140710193843');
