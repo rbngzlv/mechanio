@@ -27,7 +27,7 @@ class EventsManager < Struct.new(:mechanic)
   def delete_occurence(event_id, date)
     event = mechanic.events.find(event_id)
     event.add_exception_time(date)
-    event.save
+    event.save(validate: false)
   end
 
   def delete_event(event_id)
@@ -44,13 +44,13 @@ class EventsManager < Struct.new(:mechanic)
   end
 
   def available_at?(scheduled_at)
-    !mechanic.events.any? do |event|
+    !mechanic.events.to_a.any? do |event|
       event.schedule.occurring_at?(scheduled_at.in_time_zone)
     end
   end
 
   def conflicts_with?(event)
-    mechanic.events.appointment_events.any? do |e|
+    mechanic.events.to_a.any? do |e|
       e.schedule.conflicts_with?(event.schedule)
     end
   end

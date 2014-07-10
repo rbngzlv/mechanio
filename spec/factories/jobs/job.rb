@@ -51,21 +51,6 @@ FactoryGirl.define do
       end
     end
 
-    trait :with_appointment do
-      scheduled_at { DateTime.tomorrow }
-      assigned_at  { DateTime.now }
-
-      after :build do |j|
-        j.appointment = build(:appointment, user: j.user, mechanic: j.mechanic, scheduled_at: j.scheduled_at)
-
-        j.event = build(:event,
-          mechanic:   j.mechanic,
-          start_time: j.scheduled_at,
-          end_time:   j.scheduled_at + 2.hour
-        )
-      end
-    end
-
     trait :pending do
       status 'pending'
       after :build do |j|
@@ -81,8 +66,19 @@ FactoryGirl.define do
     trait :assigned do
       mechanic
       with_credit_card
-      with_appointment
       status 'assigned'
+      assigned_at  { DateTime.now }
+      scheduled_at { DateTime.tomorrow }
+
+      after :build do |j|
+        j.appointment = build(:appointment, user: j.user, mechanic: j.mechanic, scheduled_at: j.scheduled_at)
+
+        j.event = build(:event,
+          mechanic:   j.mechanic,
+          start_time: j.scheduled_at,
+          end_time:   j.scheduled_at + 2.hour
+        )
+      end
     end
 
     trait :completed do

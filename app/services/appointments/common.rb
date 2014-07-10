@@ -20,7 +20,7 @@ module Appointments
     end
 
     def mechanic_available?
-      unless EventsManager.new(@mechanic).available_at?(@scheduled_at)
+      unless @mechanic.available_at?(@scheduled_at)
         errors[:base] << 'This mechanic is unavailable on selected date'
       end
     end

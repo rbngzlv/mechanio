@@ -103,6 +103,10 @@ class Mechanic < ActiveRecord::Base
     update_attribute(:rating, rating)
   end
 
+  def available_at?(time)
+    EventsManager.new(self).available_at?(time)
+  end
+
   def event_feed(options = {})
     EventsManager.new(self).events_list(options).to_json
   end

@@ -114,6 +114,7 @@ describe EventsManager do
   describe '#available_at?' do
     before do
       create :event, mechanic: mechanic, start_time: start_time, end_time: end_time
+      mechanic.events.reload
     end
     
     it 'is available' do
@@ -130,17 +131,21 @@ describe EventsManager do
   describe '#conflicts_with?' do
     before do
       create :event, mechanic: mechanic, start_time: start_time, end_time: end_time
-      create :event, :with_job, mechanic: mechanic, start_time: start_time + 1.day, end_time: end_time + 1.day
+      create :event, :with_job, mechanic: mechanic, start_time: start_time + 4.days, end_time: end_time + 4.days
+      mechanic.events.reload
     end
 
     it 'conflicts' do
-      event1 = build :event, mechanic: mechanic, start_time: start_time, end_time: end_time, recurrence: 'daily', count: 3
+      event1 = build :event, mechanic: mechanic, start_time: start_time + 2.days, end_time: end_time, recurrence: 'daily', count: 4
       event2 = build :event, mechanic: mechanic, start_time: start_time, end_time: end_time
+      event3 = build :event, mechanic: mechanic, start_time: start_time + 5.days, end_time: end_time + 5.days
       event1.build_schedule
       event2.build_schedule
+      event3.build_schedule
 
       events_manager.conflicts_with?(event1).should be_true
-      events_manager.conflicts_with?(event2).should be_false
+      events_manager.conflicts_with?(event2).should be_true
+      events_manager.conflicts_with?(event3).should be_false
     end
   end
 

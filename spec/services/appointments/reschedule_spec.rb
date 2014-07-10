@@ -2,9 +2,9 @@ require 'spec_helper'
 
 describe Appointments::Reschedule do
 
-  let(:job)           { create :job, :with_service, :with_credit_card, :assigned, mechanic: mechanic, scheduled_at: previous_date }
+  let!(:job)          { create :job, :with_service, :with_credit_card, :assigned, mechanic: mechanic, scheduled_at: previous_date }
   let(:mechanic)      { create :mechanic }
-  let(:previous_date) { Date.tomorrow }
+  let(:previous_date) { Date.tomorrow.in_time_zone }
   let(:scheduled_at)  { Date.tomorrow + 10.hours }
   let(:service)       { Appointments::Reschedule.new(job, scheduled_at) }
 
@@ -18,9 +18,9 @@ describe Appointments::Reschedule do
     end
 
     context 'mechanic is unavailable' do
-      let(:scheduled_at) { Date.tomorrow }
+      let(:scheduled_at) { Date.tomorrow.in_time_zone }
 
-      it { service.should_not be_valid }
+      it { mechanic.events.reload; service.should_not be_valid }
     end
   end
 
