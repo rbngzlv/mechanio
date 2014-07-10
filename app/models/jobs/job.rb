@@ -164,7 +164,7 @@ class Job < ActiveRecord::Base
   end
 
   def appointment_passed?
-    scheduled_at < Time.now
+    scheduled_at < Time.now.utc
   end
 
   def delete_reason_other?
