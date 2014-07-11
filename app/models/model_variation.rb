@@ -1,11 +1,11 @@
 class ModelVariation < ActiveRecord::Base
 
-  TRANSMISSION = ['Manual', 'Automatic', 'Semi-automatic']
-  FUEL = ['Petrol', 'Diesel']
+  TRANSMISSION = %w(Manual Automatic Semi-automatic)
+  FUEL         = %w(Petrol Diesel)
+  SHAPE        = %w(Convertible Coupe Crewman Hatchback Roadster SUV Sedan Ute Utility Van Wagon)
 
   belongs_to :make
   belongs_to :model
-  belongs_to :body_type
   has_many :service_plans
 
   validates :title, :identifier, :make, :model, :from_year, :to_year, :transmission, :fuel, presence: true
@@ -18,12 +18,10 @@ class ModelVariation < ActiveRecord::Base
 
   default_scope { order(:from_year) }
 
-  delegate :name, to: :body_type, allow_nil: true, prefix: true
-
   def self.search(params = {})
     from_year = params.delete(:from_year)
     to_year = params.delete(:to_year)
-    scope = where(params).includes(:make, :model, :body_type).order('makes.name, models.name, model_variations.title')
+    scope = where(params).includes(:make, :model).order('makes.name, models.name, model_variations.title')
     scope = scope.where('from_year >= ?', from_year) unless from_year.blank?
     scope = scope.where('to_year <= ?', to_year) unless to_year.blank?
     scope
@@ -31,7 +29,7 @@ class ModelVariation < ActiveRecord::Base
 
   def set_titles
     self.display_title = [make.name, model.name, title].reject(&:blank?).join(' ')
-    self.detailed_title = [title, body_type_name, transmission, fuel].reject(&:blank?).join(' ')
+    self.detailed_title = [title, shape, transmission, fuel].reject(&:blank?).join(' ')
   end
 
   def title_with_year

@@ -47,7 +47,7 @@ feature 'Edit payout', :js do
     visit_payout
 
     click_on 'Edit'
-    click_on 'Save payout'
+    find_button('Save payout').trigger('click')
 
     page.should have_content 'Payout successfully saved'
   end

@@ -10,7 +10,7 @@ class Admins::ModelVariationsController < Admins::ApplicationController
 
   def search_params
     params.fetch(:model_variation, {})
-      .permit(:make_id, :model_id, :body_type_id, :from_year, :to_year, :transmission, :fuel)
+      .permit(:make_id, :model_id, :shape, :from_year, :to_year, :transmission, :fuel)
       .reject { |k, v| v.blank? }
   end
 end

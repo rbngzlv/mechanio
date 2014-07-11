@@ -3,8 +3,8 @@
 = simple_form_for [:admins, @model_variation], url: admins_model_variations_path, method: :get, wrapper: :nolabel_sm, html: { class: 'form-inline' } do |f|
   = f.association :make, include_blank: '-- Make --', wrapper_html: { style: 'width: 15%' }
   = f.association :model, include_blank: '-- Model --', collection: @models, wrapper_html: { style: 'width: 15%' }
-  = f.association :body_type, include_blank: '-- Body --', wrapper_html: { style: 'width: 10%' }
   .vertical-divider-sm
+  = f.input :shape, as: :select, collection: ModelVariation::SHAPE, include_blank: '-- Shape --', wrapper_html: { style: 'width: 10%' }
   = f.input :fuel, as: :select, collection: ModelVariation::FUEL, include_blank: '-- Fuel --', wrapper_html: { style: 'width: 10%' }
   = f.input :transmission, as: :select, collection: ModelVariation::TRANSMISSION, include_blank: '-- Transmittion --', wrapper_html: { style: 'width: 10%' }
   .vertical-divider-sm
@@ -27,7 +27,7 @@
           %th Model
           %th Version
           %th.col-md-1 Years
-          %th.col-md-1 Body
+          %th.col-md-1 Shape
           %th.col-md-1 Transmission
           %th.col-md-1 Fuel
           %th.col-md-1 Identifier
@@ -38,7 +38,7 @@
             %td= m.model.name
             %td= m.title
             %td= "#{m.from_year} - #{m.to_year}"
-            %td= m.body_type_name
+            %td= m.shape
             %td= m.transmission
             %td= m.fuel
             %td= m.identifier

@@ -7,7 +7,6 @@ describe ModelVariation do
 
   it { should belong_to :make }
   it { should belong_to :model }
-  it { should belong_to :body_type }
 
   it { should validate_presence_of :title }
   it { should validate_presence_of :identifier }
@@ -45,11 +44,11 @@ describe ModelVariation do
     it 'sets titles on save' do
       model_variation.save
       model_variation.display_title.should  eq 'Volkswagen Golf 2.0 Litre 9C SOHC'
-      model_variation.detailed_title.should eq '2.0 Litre 9C SOHC 5dr Hatchback Manual Petrol'
+      model_variation.detailed_title.should eq '2.0 Litre 9C SOHC Sedan Manual Petrol'
     end
 
     it 'sets titles without body name' do
-      model_variation.body_type = nil
+      model_variation.shape = nil
       model_variation.save
       model_variation.display_title.should  eq 'Volkswagen Golf 2.0 Litre 9C SOHC'
       model_variation.detailed_title.should eq '2.0 Litre 9C SOHC Manual Petrol'
@@ -59,8 +58,9 @@ describe ModelVariation do
   it '#search' do
     vw   = create :make, name: 'Volkswagen'
     audi = create :make, name: 'Audi'
-    variation1 = create :model_variation, from_year: 2005, to_year: 2007, fuel: 'Petrol', transmission: 'Manual', make: vw
-    variation2 = create :model_variation, from_year: 2007, to_year: 2010, fuel: 'Diesel', transmission: 'Automatic', make: audi
+    variation1 = create :model_variation, from_year: 2005, to_year: 2007, fuel: 'Petrol', transmission: 'Manual', make: vw, shape: 'Sedan'
+    variation2 = create :model_variation, from_year: 2007, to_year: 2010, fuel: 'Diesel', transmission: 'Automatic', make: audi, shape: 'Utility'
+
     ModelVariation.search(make_id: variation1.make_id).should eq [variation1]
     ModelVariation.search(model_id: variation2.model_id).should eq [variation2]
     ModelVariation.search(from_year: 2006).should eq [variation2]
@@ -68,5 +68,6 @@ describe ModelVariation do
     ModelVariation.search(to_year: 2009).should eq [variation1]
     ModelVariation.search(transmission: 'Manual').should eq [variation1]
     ModelVariation.search(fuel: 'Diesel').should eq [variation2]
+    ModelVariation.search(shape: 'Sedan').should eq [variation1]
   end
 end
