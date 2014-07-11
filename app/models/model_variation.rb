@@ -1,7 +1,7 @@
 class ModelVariation < ActiveRecord::Base
 
   TRANSMISSION = %w(Manual Automatic Semi-automatic)
-  FUEL         = %w(Petrol Diesel)
+  FUEL         = %w(Petrol Diesel Hybrid)
   SHAPE        = %w(Convertible Coupe Crewman Hatchback Roadster SUV Sedan Ute Utility Van Wagon)
 
   belongs_to :make

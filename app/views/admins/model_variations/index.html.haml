@@ -26,10 +26,10 @@
           %th.col-md-2 Make
           %th Model
           %th Version
-          %th.col-md-1 Years
           %th.col-md-1 Shape
           %th.col-md-1 Transmission
           %th.col-md-1 Fuel
+          %th.col-md-1 Years
           %th.col-md-1 Identifier
       %tbody
         - @model_variations.each do |m|
@@ -37,10 +37,10 @@
             %td= m.make.name
             %td= m.model.name
             %td= m.title
-            %td= "#{m.from_year} - #{m.to_year}"
             %td= m.shape
             %td= m.transmission
             %td= m.fuel
+            %td= "#{m.from_year} - #{m.to_year}"
             %td= m.identifier
 
   = paginate @model_variations
