@@ -26,3 +26,5 @@ config/database.yml
 coverage
 
 TODO
+
+.DS_Store
