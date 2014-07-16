@@ -3,6 +3,7 @@
 --
 
 SET statement_timeout = 0;
+SET lock_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SET check_function_bodies = false;
@@ -212,7 +213,8 @@ CREATE TABLE credit_cards (
     user_id integer,
     last_4 character varying(4),
     token character varying(255),
-    braintree_customer_id character varying(255)
+    braintree_customer_id character varying(255),
+    card_type character varying(255)
 );
 
 
@@ -339,48 +341,6 @@ CREATE SEQUENCE fixed_amounts_id_seq
 --
 
 ALTER SEQUENCE fixed_amounts_id_seq OWNED BY fixed_amounts.id;
-
-
---
--- Name: imported_cars; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE imported_cars (
-    id integer NOT NULL,
-    make character varying(255),
-    model character varying(255),
-    year character varying(255),
-    version text,
-    transmission character varying(255),
-    shape character varying(255),
-    service text,
-    price character varying(255),
-    service_instructions text,
-    parts text,
-    service_inclusions text,
-    notes text,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
-);
-
-
---
--- Name: imported_cars_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE imported_cars_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: imported_cars_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE imported_cars_id_seq OWNED BY imported_cars.id;
 
 
 --
@@ -617,14 +577,14 @@ CREATE TABLE mechanics (
     qualification_verified boolean DEFAULT false,
     location_id integer,
     business_location_id integer,
+    business_name character varying(255),
+    business_mobile_number character varying(255),
     total_earnings numeric(8,2) DEFAULT 0,
     current_jobs_count integer DEFAULT 0,
     completed_jobs_count integer DEFAULT 0,
-    business_name character varying(255),
-    business_mobile_number character varying(255),
+    suspended_at timestamp without time zone,
     repair_work_classes text,
     tradesperson_certificates text,
-    suspended_at timestamp without time zone,
     rating numeric(8,2) DEFAULT 0
 );
 
@@ -662,8 +622,8 @@ CREATE TABLE model_variations (
     transmission character varying(255),
     fuel character varying(255),
     make_id integer,
-    display_title character varying(255),
     comment text,
+    display_title character varying(255),
     detailed_title character varying(255),
     shape character varying(255)
 );
@@ -1196,13 +1156,6 @@ ALTER TABLE ONLY fixed_amounts ALTER COLUMN id SET DEFAULT nextval('fixed_amount
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY imported_cars ALTER COLUMN id SET DEFAULT nextval('imported_cars_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
 ALTER TABLE ONLY jobs ALTER COLUMN id SET DEFAULT nextval('jobs_id_seq'::regclass);
 
 
@@ -1333,14 +1286,6 @@ ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regcl
 
 
 --
--- Data for Name: spatial_ref_sys; Type: TABLE DATA; Schema: public; Owner: -
---
-
-COPY spatial_ref_sys (srid, auth_name, auth_srid, srtext, proj4text) FROM stdin;
-\.
-
-
---
 -- Name: admins_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1410,14 +1355,6 @@ ALTER TABLE ONLY events
 
 ALTER TABLE ONLY fixed_amounts
     ADD CONSTRAINT fixed_amounts_pkey PRIMARY KEY (id);
-
-
---
--- Name: imported_cars_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY imported_cars
-    ADD CONSTRAINT imported_cars_pkey PRIMARY KEY (id);
 
 
 --
@@ -1831,27 +1768,6 @@ CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (v
 
 
 --
--- Name: geometry_columns_delete; Type: RULE; Schema: public; Owner: -
---
-
-CREATE RULE geometry_columns_delete AS ON DELETE TO geometry_columns DO INSTEAD NOTHING;
-
-
---
--- Name: geometry_columns_insert; Type: RULE; Schema: public; Owner: -
---
-
-CREATE RULE geometry_columns_insert AS ON INSERT TO geometry_columns DO INSTEAD NOTHING;
-
-
---
--- Name: geometry_columns_update; Type: RULE; Schema: public; Owner: -
---
-
-CREATE RULE geometry_columns_update AS ON UPDATE TO geometry_columns DO INSTEAD NOTHING;
-
-
---
 -- PostgreSQL database dump complete
 --
 
@@ -2091,6 +2007,6 @@ INSERT INTO schema_migrations (version) VALUES ('20140627105158');
 
 INSERT INTO schema_migrations (version) VALUES ('20140704123108');
 
-INSERT INTO schema_migrations (version) VALUES ('20140709192945');
-
 INSERT INTO schema_migrations (version) VALUES ('20140710193843');
+
+INSERT INTO schema_migrations (version) VALUES ('20140711170953');

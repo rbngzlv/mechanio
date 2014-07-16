@@ -13,6 +13,7 @@ module Payments
         card_data = result.respond_to?(:customer) ? result.customer.credit_cards.last : result.credit_card
         user.update_attribute(:braintree_customer_id, card_data.customer_id)
         credit_card = user.credit_cards.create(
+          card_type: card_data.card_type,
           last_4: card_data.last_4,
           token: card_data.token,
           braintree_customer_id: card_data.customer_id

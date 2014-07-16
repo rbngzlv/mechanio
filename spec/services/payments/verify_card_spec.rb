@@ -14,6 +14,10 @@ describe Payments::VerifyCard do
       user.credit_cards.count.should eq 1
       user.braintree_customer_id.should eq '59105913'
       job.credit_card_id.should eq user.credit_cards.last.id
+
+      card = user.credit_cards.first
+      card.last_4.should eq '1111'
+      card.card_type.should eq 'Visa'
     end
 
     it 'add a card to existing braintree customer' do
