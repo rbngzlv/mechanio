@@ -4,90 +4,123 @@ class UsersJobReceipt
 
   def initialize(job)
     @job = job
+    @doc = Prawn::Document.new
   end
 
   def to_pdf
-    doc = Prawn::Document.new
+    @doc.image Rails.root.join('app/assets/images/mechanio_logo.png'), at: [0, @doc.cursor], width: 185
 
-    doc.image Rails.root.join('app/assets/images/mechanio_logo.png'), at: [0, 720], width: 185
-    doc.move_down 60
+    top = @doc.bounds.top - 60
 
-    doc.text "Receipt <b>Detail for #{@job.car.display_title} in #{@job.scheduled_at.year}</b>", inline_format: true
-    doc.move_down 40
+    @doc.bounding_box [0, top], width: 210 do
+      summary
+    end
 
-    heading doc, 'Mechanic details'
-    doc.text "#{@job.mechanic.full_name}         #{@job.mechanic.mobile_number}         #{@job.mechanic.location.full_address}"
-    doc.move_down 30
+    @doc.bounding_box [220, top], width: 340 do
+      @doc.text "JOB ID: #{@job.uid}"
+      @doc.move_down 2
 
-    heading doc, 'Appointment date'
-    date = @job.scheduled_at.to_s(:date)
-    time = @job.event.time_range
-    doc.text "#{date}                            #{time}"
-    doc.move_down 30
+      @doc.text "RECEIPT ISSUED ON: #{Time.zone.now.to_s(:date)}"
+      @doc.move_down 43
 
-    heading doc, 'Location of service'
-    doc.text @job.location.full_address
-    doc.move_down 50
+      breakdown
+    end
 
-    breakdown doc
-
-    # doc.draw_text "Serviced Signed by:", style: :bold, at: [370, 100]
-    # doc.rectangle [370, 90], 160, 80
-    # doc.stroke
-
-    doc.render
+    @doc.render
   end
 
 
   private
 
-  def heading(doc, text)
-    doc.text text.upcase
-    doc.stroke_horizontal_rule
-    doc.move_down 10
+  def summary
+    @doc.text "ABN: 43 154 895 977"
+    @doc.move_down 2
+    @doc.formatted_text [text: "www.mechanio.com", link: "http://www.mechanio.com", color: '2222ff']
+    @doc.move_down 2
+    @doc.text "Phone: 1300 766 781"
+    @doc.move_down 2
+    @doc.text 'Email: <a href="mailto:support@mechanio.com">support@mechanio.com</a>', inline_format: true
+    @doc.move_down 20
+
+    @doc.text "BILLED TO"
+    @doc.move_down 2
+    @doc.text @job.user.full_name
+    @doc.move_down 20
+
+    @doc.text "APPOINTMENT TIME & DATE"
+    @doc.move_down 2
+    @doc.text "#{@job.event.time_range} #{@job.scheduled_at.to_s(:date_short)}"
+    @doc.move_down 20
+
+    @doc.text "LOCATION"
+    @doc.move_down 2
+    @doc.text @job.location.full_address
+    @doc.move_down 20
+
+    @doc.text "CAR"
+    @doc.move_down 2
+    @doc.text @job.car.display_title
+    @doc.move_down 20
+
+    @doc.text "SERVICED BY"
+    @doc.move_down 2
+    @doc.text @job.mechanic.full_name
+    @doc.move_down 30
+
+    @doc.text "PAYMENT"
+    @doc.move_down 2
+    @doc.text "#{@job.credit_card.card_type} #{@job.credit_card.last_4}"
+    @doc.move_down 30
+
+    @doc.text "AMOUNT CHARGED"
+    @doc.move_down 2
+    @doc.formatted_text [text: formatted_cost(@job.final_cost), size: 20]
+    @doc.move_down 30
+
+    @doc.text "<i>Thank you for business!</i>", inline_format: true
   end
 
-  def breakdown(doc)
+  def breakdown
     jobs_data = []
 
-    column_widths = [350, 80, 110]
-
-    doc.table [['Jobs', 'Qty/Hours', 'Cost']], width: 540, column_widths: column_widths do
-      column(2).borders = [:left]
-      column(2).align = :right
-      row(0).borders = [:bottom]
-      row(0).column(2).borders = [:left, :bottom]
-    end
+    column_widths = [240, 80]
 
     @job.tasks.each do |t|
 
-      doc.table [[t.title, '', formatted_cost(t.cost)]], width: 540, column_widths: column_widths do
-        cells.font_style = :bold
-        cells.borders = []
-        column(2).borders = [:left]
-        column(2).align = :right
-      end
+      breakdown_table [t.title, formatted_cost(t.cost)], bold: true
 
       t.task_items.each do |i|
         row = i.itemable.data
         row[2] = formatted_cost(row[2])
+        row.slice!(1)
 
-        doc.table [row], width: 540, column_widths: column_widths do
-          cells.size = 10
-          cells.borders = []
-          column(0).padding_left = 15
-          column(2).borders = [:left]
-          column(2).align = :right
-        end
+        breakdown_table row
       end
+
+      @doc.move_down 10
     end
 
-    cost = formatted_cost(@job.cost)
-    doc.table [['', 'Total', "#{cost} + GST"]], width: 540, column_widths: column_widths do
-      cells.font_style = :bold
-      row(0).borders = [:top]
-      row(0).column(2).borders = [:left, :top]
-      column(2).align = :right
+    breakdown_table ["Charge subtotal", formatted_cost(@job.cost)], bold: true
+    @doc.move_down 10
+
+    if @job.discount
+      breakdown_table ["Discount #{@job.discount.code}", formatted_cost(-@job.discount_amount)], bold: true
+      @doc.move_down 10
+    end
+
+    breakdown_table ["Total including GST (10%)", formatted_cost(@job.final_cost)], bold: true
+    @doc.move_down 10
+
+    breakdown_table ["Total charged", formatted_cost(-@job.final_cost)], bold: true
+    breakdown_table ["Outstanding balance", number_to_currency(0)], bold: true
+  end
+
+  def breakdown_table(data, options = {})
+    @doc.table [data], width: 320, column_widths: [240, 80] do
+      cells.borders = []
+      cells.padding = 2
+      column(1).align = :right
+      cells.font_style = :bold if options[:bold]
     end
   end
 end
