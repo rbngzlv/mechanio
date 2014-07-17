@@ -29,7 +29,7 @@ $.fn.extend
 
       dayClick: (date, allDay, jsEvent, view) ->
         form.find('#job_scheduled_at').val(moment(date).format('YYYY-MM-DDTHH:mm'))
-        $(':submit').prop('disabled', true)
+        $('.choose_mechanic_form :submit').prop('disabled', true)
         form.find(':submit').prop('disabled', false)
 
       viewRender: (view, element) ->
