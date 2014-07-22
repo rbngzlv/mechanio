@@ -25,10 +25,10 @@ describe 'User register', :js do
   context 'registering' do
     before do
       reset_mail_deliveries
-      visit root_path
     end
 
     it 'shows validation errors' do
+      visit root_path
       open_signup_popup
       within '#register-modal' do
         click_button 'Sign up'
@@ -38,6 +38,7 @@ describe 'User register', :js do
     end
 
     it 'redirects to homepage' do
+      visit root_path
       open_signup_popup
       register
       current_path.should == root_path

@@ -12,6 +12,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
     respond_with self.resource
   end
 
+  def sign_up(resource_name, resource)
+    Users::PostSignup.new(resource, session).call
+    sign_in(resource_name, resource)
+  end
+
 
   private
 
