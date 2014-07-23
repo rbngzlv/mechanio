@@ -21,7 +21,7 @@ module Users
     end
 
     def get_referrer
-      @user[:referred_by] = @session[:referred_by]
+      @user[:referred_by] = @session.delete(:referred_by)
     end
   end
 end
