@@ -9,6 +9,8 @@ class Discount < ActiveRecord::Base
   validates :discount_value, numericality: true
   validates :uses_left, numericality: true, allow_nil: true
 
+  before_validation :generate_code
+
   def self.search_fields
     [:title, :code]
   end
@@ -27,5 +29,9 @@ class Discount < ActiveRecord::Base
     else
       number_to_currency(discount_value)
     end
+  end
+
+  def generate_code
+    self.code ||= SecureRandom.hex(4)
   end
 end

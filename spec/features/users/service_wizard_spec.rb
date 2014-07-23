@@ -277,6 +277,23 @@ describe 'Service wizard', js: true do
       page.should have_css 'h5', text: 'What is happening to your car?'
       find('button', text: 'Add')[:disabled].should be_true
     end
+
+    it 'applies referral discount' do
+      referrer = create :user
+      user.update_attribute(:referred_by, referrer.id)
+
+      visit service_path
+
+      select_a_car
+      add_a_service_plan
+      click_on 'Continue'
+      click_on 'Continue'
+
+      verify_quote "#{service_plan.display_title} service $350.00", '$20 discount $20.00', 'Total Fees $330.00'
+      # verify_email_notification
+      verify_job_estimated(user, 330)
+      verify_last_service_date(user)
+    end
   end
 
   def add_new_car
@@ -400,7 +417,7 @@ describe 'Service wizard', js: true do
     user.reload.jobs.count.should eq 1
     user.jobs.last.tap do |j|
       j.status.should eq 'estimated'
-      j.cost.should eq total
+      j.final_cost.should eq total
     end
   end
 

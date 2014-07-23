@@ -12,6 +12,8 @@ module Jobs
     def create(user, params)
       job = Job.create(whitelist(params).merge(user: user))
 
+      Jobs::ApplyGive20Discount.new(job).call
+
       job.set_cost
       notify_new_job(job)
       job

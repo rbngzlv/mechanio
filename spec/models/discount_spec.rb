@@ -6,13 +6,23 @@ describe Discount do
   let(:amount_discount)  { build_stubbed :discount, discount_type: 'amount', discount_value: 20 }
 
   it { should validate_presence_of :title }
-  it { should validate_presence_of :code }
   it { should validate_presence_of :discount_type }
   it { should validate_presence_of :discount_value }
   it { should ensure_inclusion_of(:discount_type).in_array(Discount::DISCOUNT_TYPES) }
   it { should validate_numericality_of :discount_value }
   it { should validate_numericality_of :uses_left }
   it { should allow_value(nil).for(:uses_left) }
+
+  specify 'generates random code when no code present' do
+    discount = Discount.create attributes_for(:discount, code: nil)
+    discount.code.should_not be_nil
+    discount.code.should_not eq '20OFF'
+  end
+
+  specify 'does not generates random code when a code is present' do
+    discount = Discount.create attributes_for(:discount)
+    discount.code.should eq '20OFF'
+  end
 
   specify '#apply_discount' do
     percent_discount.apply_discount(200).should eq 160
