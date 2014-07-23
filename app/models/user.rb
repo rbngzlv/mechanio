@@ -14,7 +14,10 @@ class User < ActiveRecord::Base
   has_many :credit_cards
   has_many :authentications, dependent: :destroy
   has_many :ratings
+  has_many :sent_invitations, class_name: 'Invitation', foreign_key: :sender_id
+  has_one :invitation
   belongs_to :location, dependent: :destroy
+  belongs_to :referrer, class_name: 'User', foreign_key: :referred_by
 
   accepts_nested_attributes_for :location, reject_if: :all_blank
 

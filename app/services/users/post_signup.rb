@@ -8,6 +8,7 @@ module Users
     def call
       get_location_from_job
       get_referrer
+      associate_invitation
 
       @user.save
     end
@@ -22,6 +23,15 @@ module Users
 
     def get_referrer
       @user[:referred_by] = @session.delete(:referred_by)
+    end
+
+    def associate_invitation
+      return false if @user.referred_by.nil?
+
+      invitation = @user.referrer.sent_invitations.where(email: @user.email).first_or_create
+      invitation.user        = @user
+      invitation.accepted_at = Time.zone.now
+      invitation.save
     end
   end
 end

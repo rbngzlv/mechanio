@@ -65,7 +65,7 @@ describe 'User register', :js do
 
     it 'registeres via referrer' do
       referrer = create :user, first_name: 'John', last_name: 'Snow'
-      visit referrer_users_invitations_path(referrer.referral_code)
+      visit referrer_users_invitations_path(referrer.referrer_code)
 
       click_sign_in
       within '#social-login-modal' do
@@ -75,7 +75,9 @@ describe 'User register', :js do
       open_regular_signup
       register
 
-      User.last.referred_by.should eq referrer.id
+      user = User.last
+      user.referred_by.should eq referrer.id
+      referrer.reload.sent_invitations.should eq [user.reload.invitation]
     end
 
     def register

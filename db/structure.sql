@@ -251,7 +251,8 @@ CREATE TABLE discounts (
     starts_at date,
     ends_at date,
     created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    updated_at timestamp without time zone,
+    channel character varying(255)
 );
 
 
@@ -392,6 +393,7 @@ ALTER SEQUENCE imported_cars_id_seq OWNED BY imported_cars.id;
 CREATE TABLE invitations (
     id integer NOT NULL,
     user_id integer,
+    sender_id integer,
     email character varying(255),
     created_at timestamp without time zone,
     accepted_at timestamp without time zone
@@ -1664,10 +1666,31 @@ CREATE INDEX index_credit_cards_on_user_id ON credit_cards USING btree (user_id)
 
 
 --
+-- Name: index_discounts_on_channel; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_discounts_on_channel ON discounts USING btree (channel);
+
+
+--
 -- Name: index_discounts_on_code; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_discounts_on_code ON discounts USING btree (code);
+
+
+--
+-- Name: index_invitations_on_sender_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_invitations_on_sender_id ON invitations USING btree (sender_id);
+
+
+--
+-- Name: index_invitations_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_invitations_on_user_id ON invitations USING btree (user_id);
 
 
 --
@@ -2127,3 +2150,5 @@ INSERT INTO schema_migrations (version) VALUES ('20140711170953');
 INSERT INTO schema_migrations (version) VALUES ('20140720101413');
 
 INSERT INTO schema_migrations (version) VALUES ('20140720102750');
+
+INSERT INTO schema_migrations (version) VALUES ('20140723123007');

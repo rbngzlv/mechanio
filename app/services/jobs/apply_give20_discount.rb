@@ -8,8 +8,7 @@ module Jobs
     def call
       return false unless referred_user? && first_job?
 
-      discount = Discount.create(title: '$20', discount_type: 'amount', discount_value: 20)
-      # get  = Discount.create(title: 'Get $20 discount', discount_type: 'amount', discount_value: 20)
+      discount = Discount.create(title: '$20', discount_type: 'amount', discount_value: 20, channel: 'give20')
 
       Jobs::ApplyDiscount.new(@job, discount.code).call
     end

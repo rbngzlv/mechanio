@@ -9,7 +9,10 @@ describe User do
   it { should have_many :credit_cards }
   it { should have_many :authentications }
   it { should have_many :ratings }
+  it { should have_many :sent_invitations }
+  it { should have_one :invitation }
   it { should belong_to :location }
+  it { should belong_to :referrer }
 
   it { should validate_presence_of :first_name }
   it { should validate_presence_of :last_name }

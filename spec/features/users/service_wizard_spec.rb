@@ -278,7 +278,7 @@ describe 'Service wizard', js: true do
       find('button', text: 'Add')[:disabled].should be_true
     end
 
-    it 'applies referral discount' do
+    it 'applies referrer discount' do
       referrer = create :user
       user.update_attribute(:referred_by, referrer.id)
 
