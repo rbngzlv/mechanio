@@ -1,5 +1,5 @@
 module Jobs
-  class ApplyGive20Discount
+  class ApplyGet20Discount
 
     def initialize(job)
       @job = job
@@ -11,20 +11,18 @@ module Jobs
 
       discount = Discount.create(title: '$20', discount_type: 'amount', discount_value: 20, channel: 'give20_get20')
 
-      @invitation.update(give_discount: discount)
-
-      Jobs::ApplyDiscount.new(@job, discount.code).call
+      @invitation.update(get_discount: discount)
     end
 
 
     private
 
-    def has_no_discount_yet?
-      !@invitation.give_discount.present?
-    end
-
     def referred_user?
       @job.user.referred_by.present?
+    end
+
+    def has_no_discount_yet?
+      !@invitation.get_discount.present?
     end
   end
 end

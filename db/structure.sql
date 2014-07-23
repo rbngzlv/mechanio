@@ -394,6 +394,8 @@ CREATE TABLE invitations (
     id integer NOT NULL,
     user_id integer,
     sender_id integer,
+    give_discount_id integer,
+    get_discount_id integer,
     email character varying(255),
     created_at timestamp without time zone,
     accepted_at timestamp without time zone

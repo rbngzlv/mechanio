@@ -14,7 +14,7 @@ describe Payments::ChargeUser do
     job.transaction_status.should be_nil
     job.transaction_errors.should be_nil
 
-    result = subject.call(user.id, job.id)
+    result = Payments::ChargeUser.new(job).call
 
     result.should be_true
     job.reload.transaction_id.should_not be_nil
@@ -30,7 +30,7 @@ describe Payments::ChargeUser do
     job.transaction_status.should be_nil
     job.transaction_errors.should be_nil
 
-    result = subject.call(user.id, job.id)
+    result = Payments::ChargeUser.new(job).call
 
     result.should be_false
     job.reload.transaction_id.should_not be_nil

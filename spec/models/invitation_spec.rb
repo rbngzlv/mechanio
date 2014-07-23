@@ -6,6 +6,8 @@ describe Invitation do
 
   it { should belong_to :user }
   it { should belong_to :sender }
+  it { should belong_to :give_discount }
+  it { should belong_to :get_discount }
 
   it { should validate_presence_of :email }
 

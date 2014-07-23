@@ -281,6 +281,7 @@ describe 'Service wizard', js: true do
     it 'applies referrer discount' do
       referrer = create :user
       user.update_attribute(:referred_by, referrer.id)
+      create :invitation, sender: referrer, user: user
 
       visit service_path
 

@@ -22,7 +22,7 @@ module Jobs
     private
 
     def enqueue_payment(job)
-      ChargeUserWorker.enqueue(job.user.id, job.id)
+      ChargeUserWorker.enqueue(job.id)
     end
 
     def send_notifications
