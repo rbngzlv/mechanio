@@ -1,4 +1,4 @@
-module ReferralHelper
+module ReferrerHelper
 
   def is_referred?
     !signed_in? && session[:referred_by]

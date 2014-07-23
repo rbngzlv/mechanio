@@ -1148,7 +1148,7 @@ CREATE TABLE users (
     braintree_customer_id character varying(255),
     location_id integer,
     suspended_at timestamp without time zone,
-    referral_code character varying(255),
+    referrer_code character varying(255),
     referred_by integer
 );
 
@@ -1853,17 +1853,17 @@ CREATE INDEX index_users_on_location_id ON users USING btree (location_id);
 
 
 --
--- Name: index_users_on_referral_code; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_users_on_referral_code ON users USING btree (referral_code);
-
-
---
 -- Name: index_users_on_referred_by; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_users_on_referred_by ON users USING btree (referred_by);
+
+
+--
+-- Name: index_users_on_referrer_code; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_users_on_referrer_code ON users USING btree (referrer_code);
 
 
 --

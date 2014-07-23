@@ -57,9 +57,9 @@ describe User do
     end
   end
 
-  it 'generates referral code on create' do
-    user.referral_code.should be_nil
+  it 'generates referrer code on create' do
+    user.referrer_code.should be_nil
     user.save
-    user.reload.referral_code.length.should eq 8
+    user.reload.referrer_code.length.should eq 8
   end
 end

@@ -40,7 +40,7 @@ Mechanio::Application.routes.draw do
     resource :settings, only: [:edit, :update]
     resources :authentications, only: [:destroy]
     resources :invitations, only: [] do
-      get 'detect/:referral_code', to: 'invitations#detect', on: :collection, as: :referrer
+      get 'detect/:referrer_code', to: 'invitations#detect', on: :collection, as: :referrer
     end
   end
   get '/service', to: 'users/jobs#service'

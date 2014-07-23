@@ -23,7 +23,7 @@ class User < ActiveRecord::Base
   validates :first_name, :last_name, :email, presence: true
   validates :password, confirmation: true
 
-  before_create :generate_referral_code
+  before_create :generate_referrer_code
 
   def self.search_fields
     [:first_name, :last_name, :mobile_number]
@@ -62,8 +62,8 @@ class User < ActiveRecord::Base
     avatar_url(:thumb)
   end
 
-  def generate_referral_code
-    code = SecureRandom.hex(4) while !code || User.where(referral_code: code).exists?
-    self.referral_code = code
+  def generate_referrer_code
+    code = SecureRandom.hex(4) while !code || User.where(referrer_code: code).exists?
+    self.referrer_code = code
   end
 end
