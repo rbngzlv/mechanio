@@ -7,6 +7,8 @@ module Users
 
     def call
       get_location_from_job
+      get_referrer
+
       @user.save
     end
 
@@ -16,6 +18,10 @@ module Users
         attrs = ActionController::Parameters.new(attrs).permit(:address, :suburb_id)
         @user.build_location(attrs)
       end
+    end
+
+    def get_referrer
+      @user[:referred_by] = @session[:referred_by]
     end
   end
 end

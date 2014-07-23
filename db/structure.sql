@@ -386,6 +386,38 @@ ALTER SEQUENCE imported_cars_id_seq OWNED BY imported_cars.id;
 
 
 --
+-- Name: invitations; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE invitations (
+    id integer NOT NULL,
+    user_id integer,
+    email character varying(255),
+    created_at timestamp without time zone,
+    accepted_at timestamp without time zone
+);
+
+
+--
+-- Name: invitations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE invitations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: invitations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE invitations_id_seq OWNED BY invitations.id;
+
+
+--
 -- Name: jobs; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1115,7 +1147,9 @@ CREATE TABLE users (
     avatar character varying(255),
     braintree_customer_id character varying(255),
     location_id integer,
-    suspended_at timestamp without time zone
+    suspended_at timestamp without time zone,
+    referral_code character varying(255),
+    referred_by integer
 );
 
 
@@ -1199,6 +1233,13 @@ ALTER TABLE ONLY fixed_amounts ALTER COLUMN id SET DEFAULT nextval('fixed_amount
 --
 
 ALTER TABLE ONLY imported_cars ALTER COLUMN id SET DEFAULT nextval('imported_cars_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY invitations ALTER COLUMN id SET DEFAULT nextval('invitations_id_seq'::regclass);
 
 
 --
@@ -1412,6 +1453,14 @@ ALTER TABLE ONLY fixed_amounts
 
 ALTER TABLE ONLY imported_cars
     ADD CONSTRAINT imported_cars_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: invitations_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY invitations
+    ADD CONSTRAINT invitations_pkey PRIMARY KEY (id);
 
 
 --
@@ -1804,6 +1853,20 @@ CREATE INDEX index_users_on_location_id ON users USING btree (location_id);
 
 
 --
+-- Name: index_users_on_referral_code; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_users_on_referral_code ON users USING btree (referral_code);
+
+
+--
+-- Name: index_users_on_referred_by; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_users_on_referred_by ON users USING btree (referred_by);
+
+
+--
 -- Name: index_users_on_reset_password_token; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -2060,3 +2123,7 @@ INSERT INTO schema_migrations (version) VALUES ('20140704123108');
 INSERT INTO schema_migrations (version) VALUES ('20140710193843');
 
 INSERT INTO schema_migrations (version) VALUES ('20140711170953');
+
+INSERT INTO schema_migrations (version) VALUES ('20140720101413');
+
+INSERT INTO schema_migrations (version) VALUES ('20140720102750');

@@ -31,6 +31,10 @@
         %button{ type: 'button', class: 'close', 'data-dismiss' => 'modal', 'aria-hidden' => true } &times;
         %h4.modal-title Sign Up
       .modal-body
+        - if is_referred?
+          .alert.alert-info
+            You've been invited by #{ referred_by.full_name } to use Mechanio. Sign up now and receive $20 off your service or repair
+
         - Authentication::PROVIDERS.each_key do |provider|
           %p.text-center= social_connect_button provider
         %p.text-center
@@ -95,6 +99,12 @@
           %p.pull-right
             Already have an account?
             = link_to 'Log in', '', class: 'js-modal', 'data-toggle' => '#login-modal'
+
+- if is_referred?
+  :coffee
+    jQuery ->
+      $('#social-login-modal').modal()
+
 :coffee
   $('.js-modal').click (e) ->
     e.preventDefault()

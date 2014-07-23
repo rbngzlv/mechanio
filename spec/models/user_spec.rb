@@ -56,4 +56,10 @@ describe User do
       expect { user.destroy }.to change { job.reload.user_id }.from(user.id).to(nil)
     end
   end
+
+  it 'generates referral code on create' do
+    user.referral_code.should be_nil
+    user.save
+    user.reload.referral_code.length.should eq 8
+  end
 end

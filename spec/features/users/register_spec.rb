@@ -63,6 +63,21 @@ describe 'User register', :js do
       User.last.location.suburb.name.should eq 'Sydney'
     end
 
+    it 'registeres via referrer' do
+      referrer = create :user, first_name: 'John', last_name: 'Snow'
+      visit referrer_users_invitations_path(referrer.referral_code)
+
+      click_sign_in
+      within '#social-login-modal' do
+        page.should have_content "You've been invited by John Snow to use Mechanio."
+      end
+
+      open_regular_signup
+      register
+
+      User.last.referred_by.should eq referrer.id
+    end
+
     def register
       within '#register-modal' do
         fill_in 'First name', with: 'John'
@@ -75,10 +90,18 @@ describe 'User register', :js do
       end
     end
 
-    def open_signup_popup
+    def click_sign_in
       within '.header' do
-        click_link 'Sign up'
+        find_link('Sign up').trigger('click')
       end
+    end
+
+    def open_signup_popup
+      click_sign_in
+      open_regular_signup
+    end
+
+    def open_regular_signup
       within '#social-login-modal' do
         click_link 'Use regular email sign up'
       end
