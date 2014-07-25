@@ -1,5 +1,6 @@
 module Jobs
   class ApplyGet20Discount
+    include ActionView::Helpers::NumberHelper
 
     def initialize(job)
       @job = job
@@ -9,7 +10,8 @@ module Jobs
     def call
       return false unless referred_user? && has_no_discount_yet?
 
-      discount = Discount.create(title: '$20', discount_type: 'amount', discount_value: 20, channel: 'give20_get20')
+      title = number_to_currency(GIVE_GET_DISCOUNT_AMOUNT, precision: 0)
+      discount = Discount.create(title: title, discount_type: 'amount', discount_value: GIVE_GET_DISCOUNT_AMOUNT, channel: 'give_get')
 
       @invitation.update(get_discount: discount)
     end

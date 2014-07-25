@@ -21,7 +21,7 @@ $container-desktop: 1140px;
   background-clip: padding-box; /* stops bg color from leaking outside the border: */
 }
 
-@import "admin", "calendar", "home", "payment", "popup", "review", "wizard";
+@import "admin", "calendar", "home", "payment", "popup", "review", "wizard", "invitations";
 
 @font-face {
   font-family: 'CandaraRegular';

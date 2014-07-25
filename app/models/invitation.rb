@@ -12,4 +12,8 @@ class Invitation < ActiveRecord::Base
   def completed?
     accepted_at.present?
   end
+
+  def awarded?
+    get_discount.present?
+  end
 end

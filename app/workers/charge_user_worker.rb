@@ -5,7 +5,7 @@ class ChargeUserWorker
     Resque.enqueue(ChargeUserWorker, job_id)
   end
 
-  def self.perform
+  def self.perform(job_id)
     job = Job.find(job_id)
 
     Jobs::ChargeUser.new(job).call

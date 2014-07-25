@@ -1,0 +1,90 @@
+.invitations {
+  .invite-form {
+    h1, h2, h4 {
+      color: #fff;
+    }
+
+    h1 {
+      padding-bottom: 30px;
+    }
+
+    h2 {
+      padding: 15px 0;
+    }
+
+    h4 {
+      padding: 30px 0 90px 0;
+    }
+
+    .input-group {
+      input.form-control, .btn {
+        height: 42px;
+        font-size: 18px;
+        padding: 8px 10px 6px 10px !important;
+      }
+
+      &.after {
+        input.form-control {
+          border-bottom-left-radius: 8px;
+          border-top-left-radius: 8px;
+        }
+
+        .btn, .btn:hover {
+          border-bottom-left-radius: 0;
+          border-top-left-radius: 0;
+        }
+      }
+
+      &.before {
+        input.form-control {
+          border-bottom-right-radius: 8px;
+          border-top-right-radius: 8px;
+        }
+
+        .btn, .btn:hover {
+          border-bottom-right-radius: 0;
+          border-top-right-radius: 0;
+          border-bottom-left-radius: 8px;
+          border-top-left-radius: 8px !important;
+        }
+      }
+    }
+
+    #copy-message {
+      color: #fff;
+      font-size: 16px;
+      padding-top: 10px;
+      display: none;
+    }
+  }
+
+  .responsive-view .container {
+    // min-height: 300px;
+
+    h3 {
+      padding-top: 20px;
+
+      span {
+        color: #22b14c;
+      }
+    }
+
+    .btn {
+      font-size: 16px;
+    }
+
+    .btn-twitter {
+      margin-left: 60px;
+    }
+
+    table {
+      margin-top: 20px;
+      font-size: 16px;
+      border: none;
+    }
+  }
+
+  .wrapper {
+    padding-bottom: 70px;
+  }
+}

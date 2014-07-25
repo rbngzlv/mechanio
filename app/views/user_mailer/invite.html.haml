@@ -1,0 +1,7 @@
+%p Hello,
+
+%p #{@referrer.full_name} has invited you to use Mechanio
+
+%p #{link_to 'Click here', referrer_users_invitations_url(@referrer.referrer_code)} to sign up and receive a discount!
+
+= render '/shared/mail_footer'

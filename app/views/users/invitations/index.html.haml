@@ -1,0 +1,85 @@
+:coffee
+  jQuery ->
+    ZeroClipboard.config(
+      swfPath: "#{asset_url('ZeroClipboard.swf')}"
+    )
+    button = new ZeroClipboard($('.copy'))
+    button.on 'aftercopy', ->
+      $('#copy-message').show()
+
+    $('.btn-facebook').click ->
+      FB.ui({
+        method: 'share'
+        href: '#{@share_link}'
+      }, (response) -> console.log(response))
+
+      return false
+
+= render 'shared/flash_messages'
+
+.invitations
+  .banner-image
+    = image_tag asset_url("1.jpg"), class: 'fix-first-slide', id: 'js-fix-first-slide'
+  .banner
+    .container.invite-form
+      .col-md-12.col-xs-12.col-sm-12.text-center
+        .row
+          %h1
+            Service and repair your car for less!
+            %br
+            Earn #{@discount_amount} credit for everyone you invite
+
+        .row
+          .col-md-6.col-md-offset-3
+            = simple_form_for :invitation do |f|
+              .input-group.after
+                = f.input :email, wrapper: false, label: false, placeholder: "Add firends' email addresses"
+                %span.input-group-btn
+                  = f.submit 'Send', class: 'btn btn-primary'
+
+            %h2 or
+
+            .col-md-10.col-md-offset-1
+              .input-group.before
+                %span.input-group-btn
+                  %button.btn.btn-default.copy{ 'data-clipboard-target' => 'share-url' }
+                    %i.icon.icon-link
+                    Copy
+                %input.form-control#share-url{ type: 'text', value: @share_link, readonly: true }
+              #copy-message Copied to clipboard
+
+        .row
+          %h4 Send a friend #{@discount_amount} Mechanio credit. For every friend who signs up and books a repair or service, you get #{@discount_amount}.
+  .wrapper
+    .responsive-view.bg-white
+      .container.text-center
+        %h4 More ways to invite your friends
+
+        %button.btn.btn-default.btn-facebook
+          %i.icon.icon-facebook
+          Share on Facebook
+
+        %a.btn.btn-default.btn-twitter{ href: twitter_invite_url(@share_link) }
+          %i.icon.icon-twitter
+          Tweet this
+
+        %h3
+          You have
+          %span= @credit_earned
+          of Mechanio credit to use.
+
+        %h4
+          You've earned a total of
+          %strong= @credit_earned
+          with
+          %strong= @credit_pending
+          pending. Invite more friends, get more credit!
+
+        .col-md-10.col-md-offset-1
+          %table.table
+            - @invitations.each do |i|
+              %tr
+                %td= i.awarded? ? 'Awarded' : 'Pending'
+                %td.text-left Referral reward from #{i.email}
+                %td= i.awarded? ? "Discount code #{i.get_discount.code}" : ''
+                %td= @discount_amount

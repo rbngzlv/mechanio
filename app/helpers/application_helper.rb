@@ -77,4 +77,15 @@ module ApplicationHelper
   def social_connect_button(provider)
     link_to image_tag("#{provider}-btn.jpg"), user_omniauth_authorize_path(provider), class: "#{provider}-link"
   end
+
+  def twitter_share_link(url, text)
+    params = { url: url, text: text }.to_query
+    url = "https://twitter.com/intent/tweet?#{params}"
+  end
+
+  def twitter_invite_url(invite_url)
+    amount = number_to_currency(GIVE_GET_DISCOUNT_AMOUNT, precision: 0)
+    text = "Get #{amount} off your next car service or repair. Find, book & have a mechanic come to you @mechanio"
+    twitter_share_link(invite_url, text)
+  end
 end
