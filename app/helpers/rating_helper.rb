@@ -8,7 +8,7 @@ module RatingHelper
   end
 
   def average_rating(rating)
-    width = (rating.to_f / Rating::MAX * 100).to_i
+    width = (rating.to_f / Rating::MAX * 10).round * 10
 
     html = ""
     html << "<div class=\"meter\" style=\"width: #{width}%\"></div>"
