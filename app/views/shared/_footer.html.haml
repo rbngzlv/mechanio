@@ -23,5 +23,5 @@
           = link_to '#' do
             %i.icon-google-plus-sign
 
-= render 'shared/login_form' unless signed_in?
+= render 'shared/login_form' unless user_signed_in?
 = render 'shared/zendesk'
