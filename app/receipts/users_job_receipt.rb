@@ -92,6 +92,11 @@ class UsersJobReceipt
 
       breakdown_table [t.title, formatted_cost(t.cost)]
 
+      if t.type == 'Service'
+        parts = t.service_plan.parts
+        breakdown_table ["Parts included: #{parts}", ""], { font_size: 9 }
+      end
+
       t.task_items.each do |i|
         row = i.itemable.data
         row[2] = formatted_cost(row[2])
@@ -124,6 +129,7 @@ class UsersJobReceipt
       cells.padding = 2
       column(1).align = :right
       cells.font_style = :bold if options[:bold]
+      cells.size = options[:font_size] if options[:font_size]
     end
   end
 end

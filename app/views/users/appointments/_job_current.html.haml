@@ -41,13 +41,16 @@
                 Car:
               %td
                 = job.car.display_title
-            %tr.tr-divider
               %td
-                Services:
-              %td
-                = job.tasks.map(&:title).join(', ')
-              %td.text-right
-                = formatted_cost job.cost
+            - job_breakdown(job).each_with_index do |row, i|
+              %tr.tr-divider
+                %td
+                  - if i == 0
+                    Service:
+                %td
+                  = row[:title]
+                %td.text-right
+                  = row[:value]
             - job_totals(job).each do |row|
               %tr
                 %td
