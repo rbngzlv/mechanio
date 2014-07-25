@@ -1,9 +1,15 @@
 module JobHelper
 
   def job_breakdown(job)
-    job.tasks.map do |t|
-      { title: t.title, value: formatted_cost(t.cost) }
+    tasks = job.tasks.map do |t|
+      task = { title: t.title, value: formatted_cost(t.cost) }
+      if t.type == 'Service'
+        [task, { title: "Parts included: #{t.service_plan.parts}", value: '' }]
+      else
+        task
+      end
     end
+    tasks.flatten
   end
 
   def job_totals(job)
