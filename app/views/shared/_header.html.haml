@@ -14,7 +14,11 @@
         .visible-lg.visible-md
           = link_to image_tag('mechanio_logo.png'), root_path, class: 'brand'
           .pull-right
-            = link_to 'How It Works', root_path(anchor: "how-it-works"), class: 'btn btn-link pull-left'
+            - amount = number_to_currency(GIVE_GET_DISCOUNT_AMOUNT, precision: 0)
+            = link_to users_invitations_path, class: 'btn btn-link pull-left' do
+              %i.icon.icon-gift
+              GIVE #{amount}, GET #{amount}
+
             %ul.nav.pull-right
               %li.dropdown
                 %button.btn.btn-dark.btn-sm.dropdown-toggle{ data: { toggle: 'dropdown' } }
