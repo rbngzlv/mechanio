@@ -34,7 +34,7 @@ feature 'My appointments' do
         page.should have_content 'John Dow'
         page.should have_content rated_job.car.display_title
         page.should have_content rated_job.title
-        first('.meter')[:style].should eq 'width: 68%'
+        first('.meter')[:style].should eq 'width: 70%'
       end
     end
   end

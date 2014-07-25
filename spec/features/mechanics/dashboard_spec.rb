@@ -40,7 +40,7 @@ feature 'dashboard page' do
         page.should have_content job.car.display_title
 
         within '.rating' do
-          first('.meter')[:style].should eq 'width: 68%'
+          first('.meter')[:style].should eq 'width: 70%'
         end
       end
     end

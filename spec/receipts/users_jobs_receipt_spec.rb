@@ -7,6 +7,7 @@ describe UsersJobReceipt do
   subject { UsersJobReceipt.new(job) }
 
   it 'generates a PDF' do
+    job.set_cost
     subject.to_pdf.should start_with '%PDF'
   end
 end

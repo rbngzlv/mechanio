@@ -58,6 +58,8 @@ describe UserMailer do
   end
 
   specify '#job_completed' do
+    job = create :job, :completed, :with_service, mechanic: mechanic, user: user
+
     mail = UserMailer.job_completed(job.id)
     mail.to.should        eq to
     mail.from.should      eq from
