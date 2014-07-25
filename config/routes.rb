@@ -39,10 +39,9 @@ Mechanio::Application.routes.draw do
     resource :profile, only: [:show, :edit, :update]
     resource :settings, only: [:edit, :update]
     resources :authentications, only: [:destroy]
-    resources :invitations, only: [:index, :create] do
-      get 'detect/:referrer_code', to: 'invitations#detect', on: :collection, as: :referrer
-    end
+    resources :invitations, only: [:index, :create]
   end
+  get '/i/:referrer_code', to: 'users/invitations#detect', as: :referrer_users_invitations
   get '/service', to: 'users/jobs#service'
   get '/repair',  to: 'users/jobs#repair'
 
