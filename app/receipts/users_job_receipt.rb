@@ -16,11 +16,14 @@ class UsersJobReceipt
       summary
     end
 
-    @doc.bounding_box [220, top], width: 340 do
+    @doc.bounding_box [220, top + 50], width: 340 do
+      @doc.formatted_text [text: "RECEIPT", size: 20]
+      @doc.move_down 27
+
       @doc.text "JOB ID: #{@job.uid}"
       @doc.move_down 2
 
-      @doc.text "RECEIPT ISSUED ON: #{Time.zone.now.to_s(:date)}"
+      @doc.text "RECEIPT ISSUED ON: #{@job.completed_at.to_s(:date)}"
       @doc.move_down 43
 
       breakdown
@@ -69,7 +72,7 @@ class UsersJobReceipt
 
     @doc.text "PAYMENT"
     @doc.move_down 2
-    @doc.text "#{@job.credit_card.card_type} #{@job.credit_card.last_4}"
+    @doc.text "#{@job.credit_card.card_type} - #{@job.credit_card.last_4}"
     @doc.move_down 30
 
     @doc.text "AMOUNT CHARGED"
@@ -87,7 +90,7 @@ class UsersJobReceipt
 
     @job.tasks.each do |t|
 
-      breakdown_table [t.title, formatted_cost(t.cost)], bold: true
+      breakdown_table [t.title, formatted_cost(t.cost)]
 
       t.task_items.each do |i|
         row = i.itemable.data
@@ -100,19 +103,19 @@ class UsersJobReceipt
       @doc.move_down 10
     end
 
-    breakdown_table ["Charge subtotal", formatted_cost(@job.cost)], bold: true
+    breakdown_table ["Charge subtotal", formatted_cost(@job.cost)]
     @doc.move_down 10
 
     if @job.discount
-      breakdown_table ["Discount #{@job.discount.code}", formatted_cost(-@job.discount_amount)], bold: true
+      breakdown_table ["Discount #{@job.discount.code}", formatted_cost(-@job.discount_amount)]
       @doc.move_down 10
     end
 
-    breakdown_table ["Total including GST (10%)", formatted_cost(@job.final_cost)], bold: true
+    breakdown_table ["Total including GST (10%)", formatted_cost(@job.final_cost)]
     @doc.move_down 10
 
     breakdown_table ["Total charged", formatted_cost(-@job.final_cost)], bold: true
-    breakdown_table ["Outstanding balance", number_to_currency(0)], bold: true
+    breakdown_table ["Outstanding balance", number_to_currency(0)]
   end
 
   def breakdown_table(data, options = {})
