@@ -75,4 +75,12 @@ describe UserMailer do
     mail.body.encoded.should have_content "Please click the link below to answer"
     mail.body.encoded.should match users_appointment_url(job)
   end
+
+  specify '#invite' do
+    mail = UserMailer.invite(user.id, 'email@host.com')
+    mail.to.should        eq ['email@host.com']
+    mail.from.should      eq from
+    mail.subject.should   eq "You have been invited by #{user.full_name} to use Mechanio"
+    mail.body.encoded.should have_content "receive a discount"
+  end
 end
