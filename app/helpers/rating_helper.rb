@@ -8,12 +8,21 @@ module RatingHelper
   end
 
   def average_rating(rating)
-    width = (rating.to_f / Rating::MAX * 10).round * 10
-
+    width = rating_to_percent(rating)
     html = ""
     html << "<div class=\"meter\" style=\"width: #{width}%\"></div>"
     Rating::MAX.times { html << '<span class="empty-star">&nbsp;</span>' }
     content_tag :div, html.html_safe, class: 'average-rating'
+  end
+
+  def rating_to_percent(rating)
+    integer = rating.to_i
+    fraction = rating - integer
+
+    width = integer * 100 / Rating::MAX
+    width += 10 if fraction.between?(0.01, 0.50)
+    width += 20 if fraction.between?(0.51, 0.99)
+    width
   end
 
   def editable_rating(attribute, value)
