@@ -1,7 +1,17 @@
-%p Hello,
+%p
+  I've used Mechanio's mobile mechanics recently and loving it. It's a convenient service that sendsa professional mechanic of your choice to service or repair at your home or office.
 
-%p #{@referrer.full_name} has invited you to use Mechanio
+%p
+  Right now, for a limited time Mechanio is giving all my friends a $20 gift certificate.
 
-%p #{link_to 'Click here', referrer_users_invitations_url(@referrer.referrer_code)} to sign up and receive a discount!
+%p
+  Quickly click the link below to get that $20 gift certificate!
+  %br
+  #{link_to 'Click here', referrer_users_invitations_url(@referrer.referrer_code)}
+
+%p
+  Regards,
+  %br
+  #{@referrer.first_name.titleize}
 
 = render '/shared/mail_footer'

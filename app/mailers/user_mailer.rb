@@ -50,7 +50,7 @@ class UserMailer < ActionMailer::Base
 
   def invite(referrer_id, email)
     @referrer = User.find(referrer_id)
-    mail subject: "You have been invited by #{@referrer.full_name} to use Mechanio", to: email
+    mail subject: "#{@referrer.first_name.titleize} has given you a $20 gift certificate to service or repair your car!", to: email
   end
 
   private
