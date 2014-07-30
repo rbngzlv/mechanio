@@ -24,18 +24,25 @@ class Users::InvitationsController < Users::ApplicationController
     emails.select! { |e| e.match(/\A(\S+)@(.+)\.(\S+)\z/) }
     
     if emails.size
-      @invitations_emails = current_user.sent_invitations.map{|m| m.email}
-      emails = emails - @invitations_emails
+      @existing_users_emails = User.find(:all, :select => "email").map{|e| e.email}
+      emails = emails - @existing_users_emails
 
       if emails.size > 0
-        emails.each do |email|
-          Invitation.create(sender: current_user, email: email)
-          UserMailer.async.invite(current_user.id, email)
-        end
+        @invitations_emails = current_user.sent_invitations.map{|m| m.email}
+        emails = emails - @invitations_emails
 
-        flash[:notice] = 'Invitations sent'
+        if emails.size > 0
+          emails.each do |email|
+            Invitation.create(sender: current_user, email: email)
+            UserMailer.async.invite(current_user.id, email)
+          end
+
+          flash[:notice] = 'Invitations sent'
+        else
+          flash[:error] = 'Invitations already sent on this email'
+        end
       else
-        flash[:error] = 'Invitations already sent on this email'
+        flash[:error] = 'Email already registered'
       end
     else
       flash[:error] = 'Error sending invitations'
