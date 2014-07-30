@@ -33,7 +33,7 @@
           .col-md-6.col-md-offset-3
             = simple_form_for :invitation do |f|
               .input-group.after
-                = f.input :email, wrapper: false, label: false, placeholder: "Add firends' email addresses"
+                = f.input :email, wrapper: false, label: false, placeholder: "Add friend's email addresses"
                 %span.input-group-btn
                   = f.submit 'Send', class: 'btn btn-primary'
 
@@ -45,7 +45,7 @@
                   %button.btn.btn-default.copy{ 'data-clipboard-target' => 'share-url' }
                     %i.icon.icon-link
                     Copy
-                %input.form-control#share-url{ type: 'text', value: @share_link, readonly: true }
+                %input.form-control#share-url{ type: 'text', value: @share_link }
               #copy-message Copied to clipboard
 
         .row
