@@ -77,7 +77,7 @@ class UsersJobReceipt
 
     @doc.text "AMOUNT CHARGED"
     @doc.move_down 2
-    @doc.formatted_text [text: formatted_cost(@job.final_cost), size: 20]
+    @doc.formatted_text [text: formatted_cost(@job.final_cost), size: 20, styles: [:bold]]
     @doc.move_down 30
 
     @doc.text "<i>Thank you for business!</i>", inline_format: true
