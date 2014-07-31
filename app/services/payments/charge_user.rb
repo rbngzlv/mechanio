@@ -25,10 +25,10 @@ module Payments
 
       if result.success?
         @job.charged!
-        AdminMailer.async.payment_error(@job.id)
+        AdminMailer.async.payment_success(@job.id)
       else
         @job.charge_failed!
-        AdminMailer.async.payment_success(@job.id)
+        AdminMailer.async.payment_error(@job.id)
       end
 
       result.success?
