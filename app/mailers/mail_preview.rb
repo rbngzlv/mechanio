@@ -35,11 +35,6 @@ class MailPreview < MailView
     UserMailer.first_job_completed(job.id)
   end
 
-  def user_leave_feedback
-    job = Job.completed.first
-    UserMailer.leave_feedback(job.id)
-  end
-
 
   # Mechanic
 

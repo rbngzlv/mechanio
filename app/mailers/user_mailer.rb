@@ -40,12 +40,7 @@ class UserMailer < ActionMailer::Base
     @job = Job.find(job_id)
     receipt = UsersJobReceipt.new(@job)
     attachments["Mechanio_#{@job.uid}"] = { mime_type: 'application/pdf', content: receipt.to_pdf, parts_order: ['text/html', 'application/pdf'] }
-    mail subject: "Your Mechanio Receipt is now ready to view", to: @job.user.email
-  end
-
-  def leave_feedback(job_id)
-    @job = Job.find(job_id)
-    mail subject: "How did #{mechanic_name} go?", to: @job.user.email
+    mail subject: "Hi #{@job.user.first_name}, how did #{@job.mechanic.first_name} go?", to: @job.user.email
   end
 
   def invite(referrer_id, email)

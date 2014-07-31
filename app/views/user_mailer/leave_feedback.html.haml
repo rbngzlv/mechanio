@@ -1,9 +1,0 @@
-%p Hi #{@job.user.first_name},
-
-%p We hope you enjoyed your Mechanio experience. Now that your car's up and running again, why don't you tell us how it went? 
-
-%p Please click the link below to answer a short, two minute review. We'd love it to hear about your experience with #{@job.mechanic.first_name}.
-
-%p= link_to 'Leave feedback', users_appointment_url(@job)
-
-= render '/shared/mail_footer'

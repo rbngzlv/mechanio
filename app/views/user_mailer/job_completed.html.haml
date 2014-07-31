@@ -1,9 +1,11 @@
 %p Hi #{@job.user.first_name},
 
-%p Thank you for Choosing Mechanio! 
+%p Thank you for choosing Mechanio, we hope you've had a wonderful experience with us. 
 
-%p Please see the receipt attached. We hope your experience with us was pleasant and to your satisfaction.
+%p Your receipt for #{@job.title} is attached. 
 
-%p You can also see a copy of your receipt in your #{ link_to 'Online Account', users_appointments_url }
+%p Now that your car's up and running again, why don't you tell us how it went? Please help #{@job.mechanic.first_name} and the Mechanio community by leaving a rating and review on how he went. Leaving a feedback helps future car owners make an educated choice on mechanics. Click the link below to fill a quick 1 minute review:
+
+%p= link_to 'Leave feedback', users_appointment_url(@job)
 
 = render '/shared/mail_footer'

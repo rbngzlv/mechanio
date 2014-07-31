@@ -22,9 +22,8 @@ describe Jobs::Complete do
         job.mechanic.completed_jobs_count.should eq 1
 
         verify_emails_sent({
-          "How did #{job.mechanic.first_name} go?" => job.user.email,
           "Thanks for your first appointment with us. We hope it was memorable!" => job.user.email,
-          "Your Mechanio Receipt is now ready to view" => job.user.email,
+          "Hi #{job.user.first_name}, how did #{job.mechanic.first_name} go?" => job.user.email,
           "Job #{job.uid} has been completed" => ["admin@example.com"]
         })
       end
@@ -45,8 +44,7 @@ describe Jobs::Complete do
         job.mechanic.completed_jobs_count.should eq 1
 
         verify_emails_sent({
-          "How did #{job.mechanic.first_name} go?" => job.user.email,
-          "Your Mechanio Receipt is now ready to view" => job.user.email,
+          "Hi #{job.user.first_name}, how did #{job.mechanic.first_name} go?" => job.user.email,
           "Job #{job.uid} has been completed" => ["admin@example.com"]
         })
       end

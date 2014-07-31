@@ -63,8 +63,8 @@ describe UserMailer do
     mail = UserMailer.job_completed(job.id)
     mail.to.should        eq to
     mail.from.should      eq from
-    mail.subject.should   eq "Your Mechanio Receipt is now ready to view"
-    mail.body.encoded.should have_content "Please see the receipt attached"
+    mail.subject.should   eq "Hi Buddy, how did Joe go?"
+    mail.body.encoded.should have_content "Your receipt for"
   end
 
   specify '#leave_feedback' do

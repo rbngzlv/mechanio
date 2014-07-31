@@ -26,13 +26,12 @@ module Jobs
     end
 
     def send_notifications
-      UserMailer.async.job_completed(@job.id)
-      UserMailer.async.leave_feedback(@job.id)
-      AdminMailer.async.job_completed(@job.id)
-
       if @job.user.past_jobs.count == 1
         UserMailer.async.first_job_completed(@job.id)
       end
+
+      UserMailer.async.job_completed(@job.id)
+      AdminMailer.async.job_completed(@job.id)
     end
   end
 end
